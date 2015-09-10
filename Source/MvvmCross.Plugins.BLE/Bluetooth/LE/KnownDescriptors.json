@@ -1,0 +1,11 @@
+﻿{
+	"00002900-0000-1000-8000-00805f9b34fb":"Characteristic Extended Properties",
+	"00002901-0000-1000-8000-00805f9b34fb":"Characteristic User Description",
+	"00002902-0000-1000-8000-00805f9b34fb":"Client Characteristic Configuration",
+	"00002903-0000-1000-8000-00805f9b34fb":"Server Characteristic Configuration",
+	"00002904-0000-1000-8000-00805f9b34fb":"Characteristic Presentation Format",
+	"00002905-0000-1000-8000-00805f9b34fb":"Characteristic Aggregate Format",
+	"00002906-0000-1000-8000-00805f9b34fb":"Valid Range",
+	"00002907-0000-1000-8000-00805f9b34fb":"External Report Reference",
+	"00002908-0000-1000-8000-00805f9b34fb":"Export Reference"
+}

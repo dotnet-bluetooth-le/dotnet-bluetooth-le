@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.Plugins.BLE", "MvvmCross.Plugins.BLE.csproj", "{83F1DFFB-A653-45DD-BE81-C02374C6DB07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.Plugins.BLE.Droid", "..\MvvmCross.Plugins.BLE.Droid\MvvmCross.Plugins.BLE.Droid.csproj", "{6CF7D1D9-FDD9-4158-9E0F-F102027291F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.Plugins.BLE.Touch", "MvvmCross.Plugins.BLE.Touch\MvvmCross.Plugins.BLE.Touch.csproj", "{33158876-16C6-4FDA-B252-600F5171BE66}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{83F1DFFB-A653-45DD-BE81-C02374C6DB07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83F1DFFB-A653-45DD-BE81-C02374C6DB07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83F1DFFB-A653-45DD-BE81-C02374C6DB07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83F1DFFB-A653-45DD-BE81-C02374C6DB07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CF7D1D9-FDD9-4158-9E0F-F102027291F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CF7D1D9-FDD9-4158-9E0F-F102027291F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CF7D1D9-FDD9-4158-9E0F-F102027291F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CF7D1D9-FDD9-4158-9E0F-F102027291F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33158876-16C6-4FDA-B252-600F5171BE66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33158876-16C6-4FDA-B252-600F5171BE66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33158876-16C6-4FDA-B252-600F5171BE66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33158876-16C6-4FDA-B252-600F5171BE66}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
