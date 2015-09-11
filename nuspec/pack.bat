@@ -1,0 +1,1 @@
+NuGet.exe pack MvvmCross.Plugin.BLE.nuspec -Symbols
