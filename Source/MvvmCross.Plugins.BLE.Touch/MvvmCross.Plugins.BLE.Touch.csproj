@@ -34,10 +34,19 @@
     <CodesignKey>iPhone Developer</CodesignKey>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="BluetoothLEManager.cs" />
+    <Compile Include="Bluetooth\LE\Adapter.cs" />
+    <Compile Include="Bluetooth\LE\Characteristic.cs" />
+    <Compile Include="Bluetooth\LE\Descriptor.cs" />
+    <Compile Include="Bluetooth\LE\Device.cs" />
+    <Compile Include="Bluetooth\LE\Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MvvmCross.Plugins.BLE\MvvmCross.Plugins.BLE.csproj">
+      <Project>{83F1DFFB-A653-45DD-BE81-C02374C6DB07}</Project>
+      <Name>MvvmCross.Plugins.BLE</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
