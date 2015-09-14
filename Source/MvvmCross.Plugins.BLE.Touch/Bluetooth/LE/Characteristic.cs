@@ -142,7 +142,6 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
                  var status = a.Error == null;
                  tcs.SetResult(status);
-                 this.ValueWritten(this, new CharacteristicWriteEventArgs(this, status));
              };
 
             if (CharacteristicWriteType == CBCharacteristicWriteType.WithResponse)
@@ -174,6 +173,10 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
             var nsdata = NSData.FromArray(data);
             var descriptor = (CBCharacteristic)_nativeCharacteristic;
 
+            if (CharacteristicWriteType == CBCharacteristicWriteType.WithResponse)
+            {
+                _parentDevice.WroteCharacteristicValue += OnCharacteristicWrite;
+            }
 
             _parentDevice.WriteValue(nsdata, descriptor, CharacteristicWriteType);
             //			Console.WriteLine ("** Characteristic.Write, Type = " + t + ", Data = " + BitConverter.ToString (data));
@@ -183,6 +186,10 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
         private void OnCharacteristicWrite(object sender, CBCharacteristicEventArgs e)
         {
+            if (!CharacteristicUuidToGuid(e.Characteristic.UUID).Equals(ID)) return;
+
+            _parentDevice.WroteCharacteristicValue -= OnCharacteristicWrite;
+            this.ValueWritten(this, new CharacteristicWriteEventArgs(this, e.Error == null));
 
         }
 

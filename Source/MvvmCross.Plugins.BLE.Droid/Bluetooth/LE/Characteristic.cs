@@ -122,7 +122,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                      }
 
                      tcs.SetResult(a.IsSuccessfull);
-                     this.ValueWritten(s, a);
+                     //this.ValueWritten(s, a);
                  }
              };
 
@@ -145,12 +145,25 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 throw new InvalidOperationException("Characteristic does not support WRITE");
             }
 
+            if (_gattCallback != null)
+            {
+                _gattCallback.CharacteristicValueWritten += OnCharacteristicValueWritten;
+            }
+
             var c = _nativeCharacteristic;
             c.SetValue(data);
             this._gatt.WriteCharacteristic(c);
             Console.WriteLine(".....Write");
         }
 
+        private void OnCharacteristicValueWritten(object sender, CharacteristicWriteEventArgs e)
+        {
+            if (e.Characteristic.ID == this.ID)
+            {
+                _gattCallback.CharacteristicValueWritten -= OnCharacteristicValueWritten;
+                this.ValueWritten(this, e);
+            }
+        }
 
 
         // HACK: UNTESTED - this API has only been tested on iOS
