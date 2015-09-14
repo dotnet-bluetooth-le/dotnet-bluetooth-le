@@ -35,9 +35,9 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <None Include="Bluetooth\LE\KnownCharacteristics.json" />
-    <None Include="Bluetooth\LE\KnownDescriptors.json" />
-    <None Include="Bluetooth\LE\KnownServices.json" />
+    <EmbeddedResource Include="Bluetooth\LE\KnownCharacteristics.json" />
+    <EmbeddedResource Include="Bluetooth\LE\KnownDescriptors.json" />
+    <EmbeddedResource Include="Bluetooth\LE\KnownServices.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

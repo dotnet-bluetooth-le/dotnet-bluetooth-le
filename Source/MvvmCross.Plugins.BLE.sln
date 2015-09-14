@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.Plugins.BLE.Droid
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.Plugins.BLE.Touch", "MvvmCross.Plugins.BLE.Touch\MvvmCross.Plugins.BLE.Touch.csproj", "{CB52CFF4-F804-41A0-8408-A31365F4BA91}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6508B9C0-60B2-4BD5-ACAB-7C057587CDE3}"
+	ProjectSection(SolutionItems) = preProject
+		..\nuspec\MvvmCross.Plugin.BLE.nuspec = ..\nuspec\MvvmCross.Plugin.BLE.nuspec
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

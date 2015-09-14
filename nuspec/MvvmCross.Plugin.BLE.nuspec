@@ -1,12 +1,12 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>MvvmCross.Plugin.BLE</id>
-    <version>0.8.1</version>
+    <version>0.8.2</version>
     <title>MvvmCross - BLE Plugin</title>
     <authors>xabre</authors>
-    <owners>xabre</owners>
+    <!--<owners>xabre</owners>-->
     <licenseUrl>http://opensource.org/licenses/ms-pl.html</licenseUrl>
-    <!--<projectUrl>https://github.com/MvvmCross/MvvmCross-Plugins</projectUrl>-->
+    <projectUrl>https://github.com/xabre/MvvmCross-BluetoothLE/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>This package contains the 'BLE' plugin for MvvmCross. The plugin is based on the Xamarin - Monkey.Robotics project with some improvements. It only targets iOS and Android.</description>
     <tags>mvvm mvvmcross xamarin monodroid Xamarin.iOS10</tags>
@@ -14,7 +14,7 @@
     <dependencies>
       <group targetFramework ="net">
         <dependency id="MvvmCross.HotTuna.CrossCore" version="3.5.1" />
-	<dependency id="Newtonsoft.Json" version="7.0.1" />
+        <dependency id="Newtonsoft.Json" version="7.0.1" />
       </group>
       <!--<group targetFramework ="win">
 				<dependency id="MvvmCross.HotTuna.CrossCore" version="4.0.0-beta3" />
@@ -27,25 +27,25 @@
 			</group>-->
       <group targetFramework ="MonoAndroid">
         <dependency id="MvvmCross.HotTuna.CrossCore" version="3.5.1" />
-	<dependency id="Newtonsoft.Json" version="7.0.1" />
+        <dependency id="Newtonsoft.Json" version="7.0.1" />
       </group>
       <!--<group targetFramework ="MonoTouch">
 				<dependency id="MvvmCross.HotTuna.CrossCore" version="3.5.1" />
 			</group>-->
       <group targetFramework ="Xamarin.iOS">
         <dependency id="MvvmCross.HotTuna.CrossCore" version="3.5.1" />
-	<dependency id="Newtonsoft.Json" version="7.0.1" />
+        <dependency id="Newtonsoft.Json" version="7.0.1" />
       </group>
       <group targetFramework ="portable-net45+win8+wpa81+wp8">
         <dependency id="MvvmCross.HotTuna.CrossCore" version="3.5.1" />
-	<dependency id="Newtonsoft.Json" version="7.0.1" />
+        <dependency id="Newtonsoft.Json" version="7.0.1" />
       </group>
       <!--<group targetFramework ="uap">
 				<dependency id="MvvmCross.HotTuna.CrossCore" version="3.5.1" />
 			</group>-->
       <group targetFramework ="dotnet">
         <dependency id="MvvmCross.HotTuna.CrossCore" version="3.5.1" />
-	<dependency id="Newtonsoft.Json" version="7.0.1" />
+        <dependency id="Newtonsoft.Json" version="7.0.1" />
       </group>
     </dependencies>
   </metadata>
@@ -62,7 +62,7 @@
     <file src="..\bin\Release\Portable\MvvmCross.Plugins.BLE.*" target="lib\portable-win+net45+wp8+win8+wpa81" />
 
     <!-- dotnet -->
-    <file src="..\bin\Release\Portable\MvvmCross.Plugins.BLE.*" target="lib\dotnet" />
+    <!--<file src="..\bin\Release\Portable\MvvmCross.Plugins.BLE.*" target="lib\dotnet" />-->
 
     <!-- wpf  -->
     <!--
