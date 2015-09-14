@@ -65,11 +65,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
             this._gattCallback.DeviceDisconnected += (object sender, DeviceConnectionEventArgs e) =>
             {
-
-
                 this.DisconnectDevice(e.Device);
-
-
                 this.DeviceDisconnected(this, e);
             };
 

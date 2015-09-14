@@ -73,9 +73,10 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
             Console.WriteLine("OnCharacteristicRead: {0}, {1}", characteristic.GetStringValue(0), status);
 
-            this.CharacteristicValueUpdated(this, new CharacteristicReadEventArgs()
+            this.CharacteristicValueUpdated(this, new CharacteristicReadEventArgs
             {
                 // memory leak ... used null params
+                // dummy device with null gatt/gattcalback
                 Characteristic = new Characteristic(characteristic, null, null)
             }
             );

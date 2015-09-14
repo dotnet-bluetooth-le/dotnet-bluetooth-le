@@ -9,6 +9,11 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
         public CharacteristicReadEventArgs()
         {
         }
+
+        public CharacteristicReadEventArgs(ICharacteristic characteristic)
+        {
+            Characteristic = characteristic;
+        }
     }
 
     public class CharacteristicWriteEventArgs : EventArgs
@@ -18,6 +23,12 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
 
         public CharacteristicWriteEventArgs()
         {
+        }
+
+        public CharacteristicWriteEventArgs(ICharacteristic characteristic, bool isSuccessfull)
+        {
+            Characteristic = characteristic;
+            IsSuccessfull = isSuccessfull;
         }
     }
 }

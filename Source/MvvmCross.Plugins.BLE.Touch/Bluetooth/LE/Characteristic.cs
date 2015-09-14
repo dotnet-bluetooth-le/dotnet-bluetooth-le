@@ -124,6 +124,47 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
             return tcs.Task;
         }
 
+        public Task<bool> WriteAsync(byte[] data)
+        {
+            if (!CanWrite)
+            {
+                throw new InvalidOperationException("Characteristic does not support WRITE");
+            }
+
+            var tcs = new TaskCompletionSource<bool>();
+
+            EventHandler<CBCharacteristicEventArgs> writeCallback = null;
+            writeCallback = (s, a) =>
+             {
+                 if (!CharacteristicUuidToGuid(a.Characteristic.UUID).Equals(ID)) return;
+
+                 _parentDevice.WroteCharacteristicValue -= writeCallback;
+
+                 var status = a.Error == null;
+                 tcs.SetResult(status);
+                 this.ValueWritten(this, new CharacteristicWriteEventArgs(this, status));
+             };
+
+            if (CharacteristicWriteType == CBCharacteristicWriteType.WithResponse)
+            {
+                _parentDevice.WroteCharacteristicValue += writeCallback;
+            }
+
+            Write(data);
+
+            return tcs.Task;
+        }
+
+        private CBCharacteristicWriteType CharacteristicWriteType
+        {
+            get
+            {
+                return (Properties & CharacteristicPropertyType.AppleWriteWithoutResponse) != 0 ?
+                    CBCharacteristicWriteType.WithoutResponse :
+                    CBCharacteristicWriteType.WithResponse;
+            }
+        }
+
         public void Write(byte[] data)
         {
             if (!CanWrite)
@@ -133,16 +174,8 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
             var nsdata = NSData.FromArray(data);
             var descriptor = (CBCharacteristic)_nativeCharacteristic;
 
-            var t = (Properties & CharacteristicPropertyType.AppleWriteWithoutResponse) != 0 ?
-                CBCharacteristicWriteType.WithoutResponse :
-                CBCharacteristicWriteType.WithResponse;
 
-            if (t == CBCharacteristicWriteType.WithResponse)
-            {
-                _parentDevice.WroteCharacteristicValue += OnCharacteristicWrite;
-            }
-
-            _parentDevice.WriteValue(nsdata, descriptor, t);
+            _parentDevice.WriteValue(nsdata, descriptor, CharacteristicWriteType);
             //			Console.WriteLine ("** Characteristic.Write, Type = " + t + ", Data = " + BitConverter.ToString (data));
 
             return;
@@ -150,12 +183,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
         private void OnCharacteristicWrite(object sender, CBCharacteristicEventArgs e)
         {
-            if (CharacteristicUuidToGuid(e.Characteristic.UUID).Equals(ID))
-            {
-                _parentDevice.WroteCharacteristicValue -= OnCharacteristicWrite;
 
-                this.ValueWritten(this, new CharacteristicWriteEventArgs() { Characteristic = this, IsSuccessfull = e.Error == null });
-            }
         }
 
         public void StartUpdates()
