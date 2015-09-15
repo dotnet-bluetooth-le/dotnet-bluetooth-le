@@ -1,9 +1,10 @@
 # MvvmCross---Bluetooth-LE   
 MvvmCross plugin for BLE - iOS and Android   
-Based on Xamarin - MonkeyRobotics
+Based on Xamarin - MonkeyRobotics  
 
-This is not an official version. It adds some additional features to the Monkey.Robotics APi and also fixes some issues.
+This is not an official version. It adds some additional features to the Monkey.Robotics API and also fixes some issues.  
 
+Targeted for iOS and Android.
     
 ## Installation
    
@@ -15,7 +16,7 @@ ToDo
 
 ## Usefull Links
 
-[Monkey Robotics](http://i.imgur.com/ymzMpLX.png)
+[Monkey Robotics](https://github.com/xamarin/Monkey.Robotics)
 
 
 
