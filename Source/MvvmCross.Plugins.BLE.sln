@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6508B9C0-60B2-4BD5-ACAB-7C057587CDE3}"
 	ProjectSection(SolutionItems) = preProject
 		..\nuspec\MvvmCross.Plugin.BLE.nuspec = ..\nuspec\MvvmCross.Plugin.BLE.nuspec
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Global
