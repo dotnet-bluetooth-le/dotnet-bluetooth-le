@@ -86,7 +86,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             base.OnCharacteristicChanged(gatt, characteristic);
 
-            Console.WriteLine("OnCharacteristicChanged: " + characteristic.GetStringValue(0));
+            //Console.WriteLine("OnCharacteristicChanged: " + characteristic.GetStringValue(0));
 
             this.CharacteristicValueUpdated(this, new CharacteristicReadEventArgs()
             {
