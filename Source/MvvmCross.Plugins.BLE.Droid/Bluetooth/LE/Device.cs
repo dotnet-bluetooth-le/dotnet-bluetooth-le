@@ -95,6 +95,14 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             }
         }
 
+        public override byte[] AdvertisementData
+        {
+            get
+            {
+                return this._advertisementData;
+            }
+        } protected byte[] _advertisementData;
+
         // TODO: investigate the validity of this. Android API seems to indicate that the
         // bond state is available, rather than the connected state, which are two different 
         // things. you can be bonded but not connected.

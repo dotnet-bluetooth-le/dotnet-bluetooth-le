@@ -15,6 +15,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
     public class Adapter : Java.Lang.Object, BluetoothAdapter.ILeScanCallback, IAdapter
     {
         // events
+        public event EventHandler<DeviceDiscoveredEventArgs> DeviceAdvertised = delegate { };
         public event EventHandler<DeviceDiscoveredEventArgs> DeviceDiscovered = delegate { };
         public event EventHandler<DeviceConnectionEventArgs> DeviceConnected = delegate { };
         public event EventHandler<DeviceBondStateChangedEventArgs> DeviceBondStateChanged = delegate { };
@@ -125,11 +126,14 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             //			}
             Device device = new Device(bleDevice, null, null, rssi);
 
+            this.DeviceAdvertised(this, new DeviceDiscoveredEventArgs { Device = device });
+
             if (!DeviceExistsInDiscoveredList(bleDevice))
+            {
                 this._discoveredDevices.Add(device);
-            // TODO: in the cross platform API, cache the RSSI
-            // TODO: shouldn't i only raise this if it's not already in the list?
-            this.DeviceDiscovered(this, new DeviceDiscoveredEventArgs { Device = device });
+                // TODO: in the cross platform API, cache the RSSI
+                this.DeviceDiscovered(this, new DeviceDiscoveredEventArgs { Device = device });
+            }
         }
 
         protected bool DeviceExistsInDiscoveredList(BluetoothDevice device)

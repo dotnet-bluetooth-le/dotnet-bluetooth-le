@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MvvmCross.Plugins.BLE.Bluetooth.LE
 {
-    public abstract class DeviceBase : IDevice
+    public abstract class DeviceBase : IDevice, IEquatable<IDevice>
     {
         public virtual event EventHandler ServicesDiscovered = delegate { };
 
@@ -47,6 +47,14 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
             }
         }
 
+        public virtual byte[] AdvertisementData
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public virtual IList<IService> Services
         {
             get { throw new NotImplementedException(); }
@@ -62,6 +70,12 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
             throw new NotImplementedException();
         }
 
+        #region IEquatable implementation
+        public bool Equals(IDevice other)
+        {
+            return this.ID == other.ID;
+        }
+        #endregion
     }
 }
 

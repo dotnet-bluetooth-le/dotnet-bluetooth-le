@@ -6,6 +6,7 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
     public interface IAdapter
     {
         // events
+        event EventHandler<DeviceDiscoveredEventArgs> DeviceAdvertised;
         event EventHandler<DeviceDiscoveredEventArgs> DeviceDiscovered;
         event EventHandler<DeviceConnectionEventArgs> DeviceConnected;
         event EventHandler<DeviceBondStateChangedEventArgs> DeviceBondStateChanged;

@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using CoreBluetooth;
 using CoreFoundation;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
+using Foundation;
 
 namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 {
     public class Adapter : IAdapter
     {
         // events
+        public event EventHandler<DeviceDiscoveredEventArgs> DeviceAdvertised = delegate { };
         public event EventHandler<DeviceDiscoveredEventArgs> DeviceDiscovered = delegate { };
         public event EventHandler<DeviceConnectionEventArgs> DeviceConnected = delegate { };
         public event EventHandler<DeviceBondStateChangedEventArgs> DeviceBondStateChanged = delegate { };
@@ -66,7 +68,10 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
             _central.DiscoveredPeripheral += (object sender, CBDiscoveredPeripheralEventArgs e) =>
             {
                 Console.WriteLine("DiscoveredPeripheral: " + e.Peripheral.Name);
-                Device d = new Device(e.Peripheral);
+                Device d = new Device(e.Peripheral, e.RSSI.Int32Value, e.AdvertisementData.ValueForKey(CBAdvertisement.DataManufacturerDataKey));
+
+                this.DeviceAdvertised(this, new DeviceDiscoveredEventArgs(){ Device = d});
+                
                 if (!ContainsDevice(this._discoveredDevices, e.Peripheral))
                 {
                     this._discoveredDevices.Add(d);
@@ -89,8 +94,8 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                 // when a peripheral gets connected, add that peripheral to our running list of connected peripherals
                 if (!ContainsDevice(this._connectedDevices, e.Peripheral))
                 {
-                    Device d = new Device(e.Peripheral);
-                    this._connectedDevices.Add(new Device(e.Peripheral));
+                        Device d = new Device(e.Peripheral);
+                        this._connectedDevices.Add(new Device(e.Peripheral));
                     // raise our connected event
                     this.DeviceConnected(sender, new DeviceConnectionEventArgs() { Device = d });
                 }
