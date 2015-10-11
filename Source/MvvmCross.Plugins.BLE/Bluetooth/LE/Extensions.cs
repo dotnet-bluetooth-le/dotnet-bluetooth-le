@@ -40,6 +40,59 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
             return "0x" + id;
         }
 
+        public static Task<IDevice> DiscoverSpecificDeviceAsync(this IAdapter adapter, Guid deviceID)
+        {
+            return DiscoverSpecificDeviceAsync(adapter, deviceID, Guid.Empty);
+        }
+
+        public static Task<IDevice> DiscoverSpecificDeviceAsync(this IAdapter adapter, Guid deviceID, Guid serviceID)
+        {
+            if (adapter.DiscoveredDevices.Count(d => d.ID == deviceID) > 0)
+            {
+                return Task.FromResult(adapter.DiscoveredDevices.First(d => d.ID == deviceID));
+            }
+
+            var tcs = new TaskCompletionSource<IDevice>();
+            EventHandler<DeviceDiscoveredEventArgs> hd = null;
+            EventHandler he = null;
+
+            hd = (object sender, DeviceDiscoveredEventArgs e) =>
+                {
+                    if(e.Device.ID == deviceID)
+                    {
+                        adapter.StopScanningForDevices();
+                        adapter.DeviceDiscovered -= hd;
+                        adapter.ScanTimeoutElapsed -= he;
+                        tcs.SetResult(e.Device);
+                    }
+                };
+                    
+            he = (sender, e) =>
+                {
+                    adapter.DeviceDiscovered -= hd;
+                    adapter.ScanTimeoutElapsed -= he;
+                    tcs.SetException(new Exception("Unable to discover " + deviceID.ToString()));
+                };
+            
+            adapter.DeviceDiscovered += hd;
+            adapter.ScanTimeoutElapsed += he;
+
+            if(adapter.IsScanning)
+            {
+                adapter.StopScanningForDevices();
+            }
+            if (serviceID != Guid.Empty)
+            {
+                adapter.StartScanningForDevices(serviceID);
+            }
+            else
+            {
+                adapter.StartScanningForDevices();
+            }
+
+            return tcs.Task;
+        }
+
         /// <summary>
         /// Asynchronously gets the requested service
         /// </summary>
