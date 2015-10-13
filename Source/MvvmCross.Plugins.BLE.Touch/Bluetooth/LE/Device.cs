@@ -12,8 +12,8 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
         protected CBPeripheral _nativeDevice;
 
-        public Device(CBPeripheral nativeDevice) : this(nativeDevice, nativeDevice.RSSI.Int32Value, null){}
-        public Device(CBPeripheral nativeDevice, int rssi, NSObject advertisementData)
+        public Device(CBPeripheral nativeDevice) : this(nativeDevice, nativeDevice.RSSI.Int32Value, new byte[0]){}
+        public Device(CBPeripheral nativeDevice, int rssi, byte[] advertisementData)
         {
             this._nativeDevice = nativeDevice;
             this._rssi = rssi;
@@ -120,10 +120,12 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         {
             get
             {
-                Console.WriteLine("AData: {0}", this._advertisementData);
-                return new byte[3]{1,2,3};
+                //return _advertisementData.ToArray();
+                //Console.WriteLine("AData: {0}", this._advertisementData);
+                //return new byte[3]{1,2,3};
+                return _advertisementData;
             }
-        } protected NSObject _advertisementData;
+        } protected byte[] _advertisementData;
 
         // TODO: investigate the validity of this. Android API seems to indicate that the
         // bond state is available, rather than the connected state, which are two different 
