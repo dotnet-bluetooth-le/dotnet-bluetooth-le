@@ -67,7 +67,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
             _central.DiscoveredPeripheral += (object sender, CBDiscoveredPeripheralEventArgs e) =>
             {
-                Console.WriteLine("DiscoveredPeripheral: " + e.Peripheral.Name);
+                Console.WriteLine("DiscoveredPeripheral: {0}, ID: {1}", e.Peripheral.Name, e.Peripheral.Identifier);
                 //Device d = new Device(e.Peripheral, e.RSSI.Int32Value, e.AdvertisementData.ValueForKey(CBAdvertisement.DataManufacturerDataKey));
                 Device d;
                 if(e.AdvertisementData.ContainsKey(CBAdvertisement.DataManufacturerDataKey))

@@ -26,12 +26,16 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
         public Device(BluetoothDevice nativeDevice, BluetoothGatt gatt,
             GattCallback gattCallback, int rssi)
+            : this(nativeDevice, gatt, gattCallback, rssi, new byte[0]){}
+        public Device(BluetoothDevice nativeDevice, BluetoothGatt gatt,
+            GattCallback gattCallback, int rssi, byte[] advertisementData)
             : base()
         {
             this._nativeDevice = nativeDevice;
             this._gatt = gatt;
             this._gattCallback = gattCallback;
             this._rssi = rssi;
+            this._advertisementData = advertisementData;
 
             // when the services are discovered on the gatt callback, cache them here
             if (this._gattCallback != null)

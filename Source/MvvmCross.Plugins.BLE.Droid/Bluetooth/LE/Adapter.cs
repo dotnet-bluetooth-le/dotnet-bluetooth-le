@@ -124,7 +124,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             //			if(!this._discoveredDevices.Contains(device) ) {
             //				this._discoveredDevices.Add (device );
             //			}
-            Device device = new Device(bleDevice, null, null, rssi);
+            Device device = new Device(bleDevice, null, null, rssi, scanRecord);
 
             this.DeviceAdvertised(this, new DeviceDiscoveredEventArgs { Device = device });
 
