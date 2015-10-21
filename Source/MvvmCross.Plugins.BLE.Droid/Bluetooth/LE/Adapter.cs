@@ -65,7 +65,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
             this._gattCallback.DeviceDisconnected += (object sender, DeviceConnectionEventArgs e) =>
             {
-                this.DisconnectDevice(e.Device);
+                RemoveDeviceFromList(e.Device);
                 this.DeviceDisconnected(this, e);
             };
 
@@ -159,18 +159,22 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
         public void DisconnectDevice(IDevice deviceToDisconnect)
         {
+            //make sure everything is disconnected
+            ((Device)deviceToDisconnect).Disconnect();
+        }
+
+        /// <summary>
+        /// Removes a device with the given id from the list
+        /// </summary>
+        /// <param name="deviceToDisconnect"></param>
+        private void RemoveDeviceFromList(IDevice deviceToDisconnect)
+        {
             var device = this._connectedDevices.FirstOrDefault(d => d.ID.Equals(deviceToDisconnect.ID));
             if (device != null)
             {
                 this._connectedDevices.Remove(device);
-
-                //make sure everything is disconnected
-                ((Device)device).Disconnect();
             }
-
-            ((Device)deviceToDisconnect).Disconnect();
         }
-
 
     }
 
