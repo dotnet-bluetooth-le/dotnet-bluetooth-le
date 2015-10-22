@@ -70,8 +70,9 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
             _central.DiscoveredPeripheral += (object sender, CBDiscoveredPeripheralEventArgs e) =>
             {
-                Console.WriteLine("DiscoveredPeripheral: " + e.Peripheral.Name);
-                var d = new Device(e.Peripheral, e.RSSI.Int32Value);
+                var rssi = e.RSSI != null ? e.RSSI.Int32Value : 0;
+                Console.WriteLine("DiscoveredPeripheral: {0} RSSI={1}", e.Peripheral.Name, rssi);
+                var d = new Device(e.Peripheral, rssi);
                 if (!ContainsDevice(this._discoveredDevices, e.Peripheral))
                 {
                     this._discoveredDevices.Add(d);
@@ -94,7 +95,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                 // when a peripheral gets connected, add that peripheral to our running list of connected peripherals
                 if (!ContainsDevice(this._connectedDevices, e.Peripheral))
                 {
-                    var d = new Device(e.Peripheral, e.Peripheral.RSSI.Int32Value);
+                    var d = new Device(e.Peripheral, e.Peripheral.RSSI != null ? e.Peripheral.RSSI.Int32Value : 0);
                     this._connectedDevices.Add(d);
                     // raise our connected event
                     this.DeviceConnected(sender, new DeviceConnectionEventArgs() { Device = d });
@@ -116,7 +117,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                     this._connectedDevices.Remove(foundDevice);
 
                 // raise our disconnected event
-                this.DeviceDisconnected(sender, new DeviceConnectionEventArgs() { Device = new Device(e.Peripheral, e.Peripheral.RSSI.Int32Value) });
+                this.DeviceDisconnected(sender, new DeviceConnectionEventArgs() { Device = new Device(e.Peripheral, 0) });
             };
 
             _central.FailedToConnectPeripheral += (object sender, CBPeripheralErrorEventArgs e) =>
@@ -124,7 +125,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                 // raise the failed to connect event
                 this.DeviceFailedToConnect(this, new DeviceConnectionEventArgs()
                 {
-                    Device = new Device(e.Peripheral, e.Peripheral.RSSI.Int32Value),
+                    Device = new Device(e.Peripheral, 0),
                     ErrorMessage = e.Error.Description
                 });
             };
