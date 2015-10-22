@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CoreBluetooth;
@@ -27,7 +28,10 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         public bool IsScanning
         {
             get { return this._isScanning; }
-        } protected bool _isScanning;
+        }
+
+        public int ScanTimeout { get; set; }
+        protected bool _isScanning;
 
         public bool IsConnecting
         {
@@ -61,12 +65,13 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
         protected Adapter()
         {
+            ScanTimeout = 10000;
             this._central = new CBCentralManager(DispatchQueue.CurrentQueue);
 
             _central.DiscoveredPeripheral += (object sender, CBDiscoveredPeripheralEventArgs e) =>
             {
                 Console.WriteLine("DiscoveredPeripheral: " + e.Peripheral.Name);
-                Device d = new Device(e.Peripheral);
+                var d = new Device(e.Peripheral, e.RSSI.Int32Value);
                 if (!ContainsDevice(this._discoveredDevices, e.Peripheral))
                 {
                     this._discoveredDevices.Add(d);
@@ -89,8 +94,8 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                 // when a peripheral gets connected, add that peripheral to our running list of connected peripherals
                 if (!ContainsDevice(this._connectedDevices, e.Peripheral))
                 {
-                    Device d = new Device(e.Peripheral);
-                    this._connectedDevices.Add(new Device(e.Peripheral));
+                    var d = new Device(e.Peripheral, e.Peripheral.RSSI.Int32Value);
+                    this._connectedDevices.Add(d);
                     // raise our connected event
                     this.DeviceConnected(sender, new DeviceConnectionEventArgs() { Device = d });
                 }
@@ -111,7 +116,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                     this._connectedDevices.Remove(foundDevice);
 
                 // raise our disconnected event
-                this.DeviceDisconnected(sender, new DeviceConnectionEventArgs() { Device = new Device(e.Peripheral) });
+                this.DeviceDisconnected(sender, new DeviceConnectionEventArgs() { Device = new Device(e.Peripheral, e.Peripheral.RSSI.Int32Value) });
             };
 
             _central.FailedToConnectPeripheral += (object sender, CBPeripheralErrorEventArgs e) =>
@@ -119,7 +124,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                 // raise the failed to connect event
                 this.DeviceFailedToConnect(this, new DeviceConnectionEventArgs()
                 {
-                    Device = new Device(e.Peripheral),
+                    Device = new Device(e.Peripheral, e.Peripheral.RSSI.Int32Value),
                     ErrorMessage = e.Error.Description
                 });
             };
@@ -168,7 +173,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
             this._central.ScanForPeripherals(serviceUuids);
 
             // in 10 seconds, stop the scan
-            await Task.Delay(10000);
+            await Task.Delay(ScanTimeout);
 
             // if we're still scanning
             if (this._isScanning)
@@ -219,12 +224,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         // util
         protected bool ContainsDevice(IEnumerable<IDevice> list, CBPeripheral device)
         {
-            foreach (var d in list)
-            {
-                if (Guid.ParseExact(device.Identifier.AsString(), "d") == d.ID)
-                    return true;
-            }
-            return false;
+            return list.Any(d => Guid.ParseExact(device.Identifier.AsString(), "d") == d.ID);
         }
     }
 }

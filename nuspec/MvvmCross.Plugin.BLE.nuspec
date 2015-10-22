@@ -1,14 +1,14 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>MvvmCross.Plugin.BLE</id>
-    <version>0.8.2</version>
+    <version>0.8.4</version>
     <title>MvvmCross - BLE Plugin</title>
-    <authors>xabre</authors>
-    <!--<owners>xabre</owners>-->
+    <authors>xabre, Xamarin</authors>
+    <owners>xabre, Xamarin</owners>
     <licenseUrl>http://opensource.org/licenses/ms-pl.html</licenseUrl>
     <projectUrl>https://github.com/xabre/MvvmCross-BluetoothLE/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>This package contains the 'BLE' plugin for MvvmCross. The plugin is based on the Xamarin - Monkey.Robotics project with some improvements. It only targets iOS and Android.</description>
+    <description>This package contains the 'BLE' plugin for MvvmCross. The plugin is based on the Xamarin - Monkey.Robotics project with some improvements and fixes. It only targets iOS and Android.</description>
     <tags>mvvm mvvmcross xamarin monodroid Xamarin.iOS10</tags>
     <!--<iconUrl>http://i.imgur.com/ymzMpLX.png</iconUrl>-->
     <dependencies>

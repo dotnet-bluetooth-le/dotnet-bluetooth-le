@@ -25,14 +25,26 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             Console.WriteLine("OnConnectionStateChange: ");
             base.OnConnectionStateChange(gatt, status, newState);
 
-            //TODO: need to pull the cached RSSI in here, or read it (requires the callback)
-
+            IDevice device = null;
             switch (newState)
             {
                 // disconnected
                 case ProfileState.Disconnected:
                     Console.WriteLine("disconnected");
-                    this.DeviceDisconnected(this, new DeviceConnectionEventArgs() { Device = new Device(gatt.Device, null, null, 0) });
+
+
+                    if (_adapter.DeviceRegistry.TryGetValue(gatt.Device.Address, out device))
+                    {
+                        //Found so we can remove it
+                        _adapter.DeviceRegistry.Remove(gatt.Device.Address);
+                        ((Device)device).CloseGatt();
+                    }
+                    else
+                    {
+                        device = new Device(gatt.Device, null, null, 0);
+                    }
+
+                    this.DeviceDisconnected(this, new DeviceConnectionEventArgs { Device = device });
                     break;
                 // connecting
                 case ProfileState.Connecting:
@@ -41,7 +53,21 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 // connected
                 case ProfileState.Connected:
                     Console.WriteLine("Connected");
-                    this.DeviceConnected(this, new DeviceConnectionEventArgs() { Device = new Device(gatt.Device, gatt, this, 0) });
+
+                    //Try to find the device in the registry so that the same instanece is updated
+                    if (_adapter.DeviceRegistry.TryGetValue(gatt.Device.Address, out device))
+                    {
+                        ((Device)device).Update(gatt.Device, gatt, this);
+                        //Found so we can remove it
+                        _adapter.DeviceRegistry.Remove(gatt.Device.Address);
+                    }
+                    else
+                    {
+                        device = new Device(gatt.Device, gatt, this, 0);
+                    }
+
+                    this.DeviceConnected(this, new DeviceConnectionEventArgs() { Device = device });
+
                     break;
                 // disconnecting
                 case ProfileState.Disconnecting:

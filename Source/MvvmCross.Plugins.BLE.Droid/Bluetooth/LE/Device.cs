@@ -28,16 +28,17 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             GattCallback gattCallback, int rssi)
             : base()
         {
+            Update(nativeDevice, gatt, gattCallback);
+            this._rssi = rssi;
+        }
+
+        public void Update(BluetoothDevice nativeDevice, BluetoothGatt gatt,
+            GattCallback gattCallback)
+        {
             this._nativeDevice = nativeDevice;
             this._gatt = gatt;
             this._gattCallback = gattCallback;
-            this._rssi = rssi;
 
-            // when the services are discovered on the gatt callback, cache them here
-            if (this._gattCallback != null)
-            {
-                this._gattCallback.ServicesDiscovered += OnServicesDiscovered;
-            }
         }
 
         public void OnServicesDiscovered(object sender, ServicesDiscoveredEventArgs args)
@@ -51,6 +52,11 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             }
 
             this.ServicesDiscovered(this, args);
+
+            if (this._gattCallback != null)
+            {
+                this._gattCallback.ServicesDiscovered -= this.OnServicesDiscovered;
+            }
         }
 
         public override Guid ID
@@ -116,7 +122,15 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
         public override void DiscoverServices()
         {
+            if (this._gattCallback == null || this._gatt == null)
+            {
+                return;
+            }
+
+            this._gattCallback.ServicesDiscovered += OnServicesDiscovered;
             this._gatt.DiscoverServices();
+
+
         }
 
         public void Disconnect()
@@ -124,14 +138,23 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             if (this._gatt != null)
             {
                 this._gatt.Disconnect();
+            }
+            else
+            {
+                Console.WriteLine("Can't disconnect {0}. Gatt is null.", this.Name);
+            }
+        }
+
+        public void CloseGatt()
+        {
+            if (this._gatt != null)
+            {
                 this._gatt.Close();
                 this._gatt = null;
             }
-
-            //this._gatt.Dispose();
-            if (this._gattCallback != null)
+            else
             {
-                this._gattCallback.ServicesDiscovered -= this.OnServicesDiscovered;
+                Console.WriteLine("Can't close gatt {0}. Gatt is null.", this.Name);
             }
 
         }

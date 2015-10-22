@@ -29,7 +29,10 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         public bool IsScanning
         {
             get { return this._isScanning; }
-        } protected bool _isScanning;
+        }
+
+        public int ScanTimeout { get; set; }
+        protected bool _isScanning;
 
         public IList<IDevice> DiscoveredDevices
         {
@@ -47,6 +50,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             }
         } protected IList<IDevice> _connectedDevices = new List<IDevice>();
 
+        public Dictionary<string, IDevice> DeviceRegistry { get; private set; }
 
         public Adapter()
         {
@@ -77,6 +81,9 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             {
                 this.DeviceBondStateChanged(this, args);
             };
+
+            ScanTimeout = 10000;
+            DeviceRegistry = new Dictionary<string, IDevice>();
         }
 
         //TODO: scan for specific service type eg. HeartRateMonitor
@@ -87,6 +94,12 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         }
         public async void StartScanningForDevices()
         {
+            if (_isScanning)
+            {
+                Console.WriteLine("Adapter: Already scanning.");
+                return;
+            }
+
             Console.WriteLine("Adapter: Starting a scan for devices.");
 
             // clear out the list
@@ -97,22 +110,29 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             this._adapter.StartLeScan(this);
 
             // in 10 seconds, stop the scan
-            await Task.Delay(10000);
+            await Task.Delay(ScanTimeout);
 
             // if we're still scanning
             if (this._isScanning)
             {
-                Console.WriteLine("BluetoothLEManager: Scan timeout has elapsed.");
-                this._adapter.StopLeScan(this);
+                Console.WriteLine("Adapter: Scan timeout has elapsed.");
+                StopScanningForDevices();
                 this.ScanTimeoutElapsed(this, new EventArgs());
             }
         }
 
         public void StopScanningForDevices()
         {
-            Console.WriteLine("Adapter: Stopping the scan for devices.");
-            this._isScanning = false;
-            this._adapter.StopLeScan(this);
+            if (this._isScanning)
+            {
+                Console.WriteLine("Adapter: Stopping the scan for devices.");
+                this._isScanning = false;
+                this._adapter.StopLeScan(this);
+            }
+            else
+            {
+                Console.WriteLine("Adapter: Allready stopped scan.");
+            }
         }
 
         public void OnLeScan(BluetoothDevice bleDevice, int rssi, byte[] scanRecord)
@@ -134,13 +154,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
         protected bool DeviceExistsInDiscoveredList(BluetoothDevice device)
         {
-            foreach (var d in this._discoveredDevices)
-            {
-                // TODO: verify that address is unique
-                if (device.Address == ((BluetoothDevice)d.NativeDevice).Address)
-                    return true;
-            }
-            return false;
+            return this._discoveredDevices.Any(d => device.Address == ((BluetoothDevice)d.NativeDevice).Address);
         }
 
 
@@ -148,8 +162,18 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             // returns the BluetoothGatt, which is the API for BLE stuff
             // TERRIBLE API design on the part of google here.
-            ((BluetoothDevice)device.NativeDevice).ConnectGatt(Android.App.Application.Context, true, this._gattCallback);
+            AddToDeviceRegistry(device);
 
+            ((BluetoothDevice)device.NativeDevice).ConnectGatt(Android.App.Application.Context, true, this._gattCallback);
+        }
+
+        private void AddToDeviceRegistry(IDevice device)
+        {
+            var nativeDevice = ((BluetoothDevice)device.NativeDevice);
+            if (!DeviceRegistry.ContainsKey(nativeDevice.Address))
+            {
+                DeviceRegistry.Add(nativeDevice.Address, device);
+            }
         }
 
         public void CreateBondToDevice(IDevice device)
@@ -160,6 +184,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         public void DisconnectDevice(IDevice deviceToDisconnect)
         {
             //make sure everything is disconnected
+            AddToDeviceRegistry(deviceToDisconnect);
             ((Device)deviceToDisconnect).Disconnect();
         }
 
@@ -175,7 +200,6 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 this._connectedDevices.Remove(device);
             }
         }
-
     }
 
 

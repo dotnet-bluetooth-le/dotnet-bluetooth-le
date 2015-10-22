@@ -12,9 +12,10 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
         protected CBPeripheral _nativeDevice;
 
-        public Device(CBPeripheral nativeDevice)
+        public Device(CBPeripheral nativeDevice, int rssi)
         {
             this._nativeDevice = nativeDevice;
+            this._rssi = rssi;
 
             this._nativeDevice.DiscoveredService += (object sender, NSErrorEventArgs e) =>
             {

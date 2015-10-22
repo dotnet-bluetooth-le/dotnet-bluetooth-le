@@ -18,6 +18,11 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
 
         // properties
         bool IsScanning { get; }
+
+        /// <summary>
+        /// Timeout for Ble scanning. Default is 10000
+        /// </summary>
+        int ScanTimeout { get; set; }
         IList<IDevice> DiscoveredDevices { get; }
         IList<IDevice> ConnectedDevices { get; }
 
