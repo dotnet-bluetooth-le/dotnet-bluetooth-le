@@ -148,6 +148,10 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
             {
                 _parentDevice.WroteCharacteristicValue += writeCallback;
             }
+            else
+            {
+                tcs.SetResult(true);
+            }
 
             Write(data);
 

@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Cirrious.CrossCore;
 
 namespace MvvmCross.Plugins.BLE.Bluetooth.LE
 {
-    public abstract class DeviceBase : IDevice, IEquatable<IDevice>
+    public abstract class DeviceBase : IDevice
     {
         public virtual event EventHandler ServicesDiscovered = delegate { };
 
@@ -71,9 +72,13 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
         }
 
         #region IEquatable implementation
-        public bool Equals(IDevice other)
+        public override bool Equals(object other)
         {
-            return this.ID == other.ID;
+            //Mvx.Trace("IDevice equator");
+            if (other.GetType() != this.GetType())
+                return false;
+            
+            return this.ID.Equals((other as IDevice).ID);
         }
         #endregion
     }

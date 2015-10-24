@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CoreBluetooth;
 using Foundation;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
+using Cirrious.CrossCore;
 
 namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 {
@@ -12,7 +13,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
         protected CBPeripheral _nativeDevice;
 
-        public Device(CBPeripheral nativeDevice) : this(nativeDevice, nativeDevice.RSSI.Int32Value, new byte[0]){}
+        public Device(CBPeripheral nativeDevice) : this(nativeDevice, nativeDevice.RSSI != null ? nativeDevice.RSSI.Int32Value : 0, new byte[0]){}
         public Device(CBPeripheral nativeDevice, int rssi, byte[] advertisementData)
         {
             this._nativeDevice = nativeDevice;
@@ -183,6 +184,14 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         }
         #endregion
 
+        /*#region IEquatable implementation
+        //public bool Equals(Device other)
+        public override bool Equals(object other)
+        {
+            Mvx.Trace("iOS Device equator");
+            return this.ID.ToString().Equals((other as Device).ID.ToString());
+        }
+        #endregion*/
     }
 }
 
