@@ -134,7 +134,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
         public void StartScanningForDevices()
         {
-            StartScanningForDevices(serviceUuid: Guid.Empty);
+            StartScanningForDevices(new Guid[] { });
         }
 
         readonly AutoResetEvent stateChanged = new AutoResetEvent(false);
@@ -149,21 +149,20 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
             }
         }
 
-        public async void StartScanningForDevices(Guid serviceUuid)
+        public async void StartScanningForDevices(Guid[] serviceUuids)
         {
             //
             // Wait for the PoweredOn state
             //
             await WaitForState(CBCentralManagerState.PoweredOn);
 
-            Debug.WriteLine("Adapter: Starting a scan for devices.");
+            Console.WriteLine("Adapter: Starting a scan for devices.");
 
-            CBUUID[] serviceUuids = null; // TODO: convert to list so multiple Uuids can be detected
-            if (serviceUuid != Guid.Empty)
+            CBUUID[] serviceCbuuids = null;
+            if (serviceUuids != null && serviceUuids.Any())
             {
-                var suuid = CBUUID.FromString(serviceUuid.ToString());
-                serviceUuids = new CBUUID[] { suuid };
-                Debug.WriteLine("Adapter: Scanning for " + suuid);
+                serviceCbuuids = serviceUuids.Select(u => CBUUID.FromString(u.ToString())).ToArray();
+                Console.WriteLine("Adapter: Scanning for " + serviceCbuuids.First());
             }
 
             // clear out the list
@@ -171,7 +170,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
             // start scanning
             this._isScanning = true;
-            this._central.ScanForPeripherals(serviceUuids);
+            this._central.ScanForPeripherals(serviceCbuuids);
 
             // in 10 seconds, stop the scan
             await Task.Delay(ScanTimeout);

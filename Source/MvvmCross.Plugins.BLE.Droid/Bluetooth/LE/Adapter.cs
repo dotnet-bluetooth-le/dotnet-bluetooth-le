@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Android.App;
 using Android.Bluetooth;
 using Android.Content;
+using Java.Util;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
 
 namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
@@ -86,13 +87,17 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             DeviceRegistry = new Dictionary<string, IDevice>();
         }
 
-        //TODO: scan for specific service type eg. HeartRateMonitor
-        public async void StartScanningForDevices(Guid serviceUuid)
+        public void StartScanningForDevices()
         {
-            StartScanningForDevices();
-            //			throw new NotImplementedException ("Not implemented on Android yet, look at _adapter.StartLeScan() overload");
+            StartScanningForDevices(new Guid[] { });
         }
-        public async void StartScanningForDevices()
+
+        public void StartScanningForDevices(Guid[] serviceUuids)
+        {
+            StartLeScan(serviceUuids);
+        }
+
+        private async void StartLeScan(Guid[] serviceUuids)
         {
             if (_isScanning)
             {
@@ -107,7 +112,17 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
             // start scanning
             this._isScanning = true;
-            this._adapter.StartLeScan(this);
+
+            if (serviceUuids == null || !serviceUuids.Any())
+            {
+                //without filter
+                _adapter.StartLeScan(this);
+            }
+            else
+            {
+                var uuids = serviceUuids.Select(u => UUID.FromString(u.ToString())).ToArray();
+                _adapter.StartLeScan(uuids, this);
+            }
 
             // in 10 seconds, stop the scan
             await Task.Delay(ScanTimeout);

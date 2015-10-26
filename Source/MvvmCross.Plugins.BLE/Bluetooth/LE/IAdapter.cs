@@ -28,7 +28,7 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
 
         // methods
         void StartScanningForDevices();
-        void StartScanningForDevices(Guid serviceUuid);
+        void StartScanningForDevices(Guid[] serviceUuids);
 
         void StopScanningForDevices();
         void ConnectToDevice(IDevice device);
