@@ -7,6 +7,8 @@ using CoreBluetooth;
 using CoreFoundation;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
 using Foundation;
+using Cirrious.CrossCore;
+using Cirrious.CrossCore.Platform;
 
 namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 {
@@ -131,6 +133,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
             _central.FailedToConnectPeripheral += (object sender, CBPeripheralErrorEventArgs e) =>
             {
+                    Mvx.Trace(MvxTraceLevel.Warning, "Failed to connect peripheral {0}: {1}", e.Peripheral.Identifier.ToString(), e.Error.Description);
                 // raise the failed to connect event
                 this.DeviceFailedToConnect(this, new DeviceConnectionEventArgs()
                 {
@@ -138,7 +141,6 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                     ErrorMessage = e.Error.Description
                 });
             };
-
         }
 
         public void StartScanningForDevices()

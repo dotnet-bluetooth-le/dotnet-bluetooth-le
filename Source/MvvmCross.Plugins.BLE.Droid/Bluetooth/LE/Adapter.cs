@@ -138,7 +138,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 sfb.SetServiceUuid(ParcelUuid.FromString(serviceUuid.ToString()));
 
                 var ssb = new ScanSettings.Builder();
-                ssb.SetCallbackType(ScanCallbackType.AllMatches);
+                //ssb.SetCallbackType(ScanCallbackType.AllMatches);
 
                 this._adapter.BluetoothLeScanner.StartScan(new List<ScanFilter>(){ sfb.Build() }, ssb.Build(), this);
             }
