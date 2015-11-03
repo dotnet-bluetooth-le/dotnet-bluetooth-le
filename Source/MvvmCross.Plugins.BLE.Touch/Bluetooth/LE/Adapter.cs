@@ -72,18 +72,24 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                 Console.WriteLine("DiscoveredPeripheral: {0}, ID: {1}", e.Peripheral.Name, e.Peripheral.Identifier);
                 //Device d = new Device(e.Peripheral, e.RSSI.Int32Value, e.AdvertisementData.ValueForKey(CBAdvertisement.DataManufacturerDataKey));
                 Device d;
+                string name = e.Peripheral.Name;
+                if(e.AdvertisementData.ContainsKey(CBAdvertisement.DataLocalNameKey))
+                {
+                    // iOS caches the peripheral name, so it can become stale (if changing) unless we keep track of the local name key manually
+                    name = (e.AdvertisementData.ValueForKey(CBAdvertisement.DataLocalNameKey) as NSString).ToString();
+                }
                 if(e.AdvertisementData.ContainsKey(CBAdvertisement.DataManufacturerDataKey))
                 {
                     d = new Device(e.Peripheral,
+                        name,
                         e.RSSI.Int32Value,
                         (e.AdvertisementData.ValueForKey(CBAdvertisement.DataManufacturerDataKey) as NSData).ToArray());
                 }
                 else
                 {
-                    d = new Device(e.Peripheral, e.RSSI.Int32Value, new byte[0]);
+                    d = new Device(e.Peripheral, name, e.RSSI.Int32Value, new byte[0]);
                 }
                 this.DeviceAdvertised(this, new DeviceDiscoveredEventArgs(){ Device = d});
-                
                 if (!ContainsDevice(this._discoveredDevices, e.Peripheral))
                 {
                     this._discoveredDevices.Add(d);

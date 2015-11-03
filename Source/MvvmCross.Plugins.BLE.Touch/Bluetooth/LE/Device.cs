@@ -13,10 +13,11 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
         protected CBPeripheral _nativeDevice;
 
-        public Device(CBPeripheral nativeDevice) : this(nativeDevice, nativeDevice.RSSI != null ? nativeDevice.RSSI.Int32Value : 0, new byte[0]){}
-        public Device(CBPeripheral nativeDevice, int rssi, byte[] advertisementData)
+        public Device(CBPeripheral nativeDevice) : this(nativeDevice, nativeDevice.Name, nativeDevice.RSSI != null ? nativeDevice.RSSI.Int32Value : 0, new byte[0]){}
+        public Device(CBPeripheral nativeDevice, string name, int rssi, byte[] advertisementData)
         {
             this._nativeDevice = nativeDevice;
+            this._name = name;
             this._rssi = rssi;
             this._advertisementData = advertisementData;
 
@@ -97,9 +98,10 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         {
             get
             {
-                return this._nativeDevice.Name;
+                //return this._nativeDevice.Name;
+                return this._name;
             }
-        }
+        } protected string _name;
 
         public override int Rssi
         {
