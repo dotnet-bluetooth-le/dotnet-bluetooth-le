@@ -111,10 +111,13 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
             EventHandler<CBCharacteristicEventArgs> updated = null;
             updated = (object sender, CBCharacteristicEventArgs e) =>
             {
-                Console.WriteLine(".....UpdatedCharacterteristicValue");
-                var c = new Characteristic(e.Characteristic, _parentDevice);
-                tcs.SetResult(c);
-                _parentDevice.UpdatedCharacterteristicValue -= updated;
+                    if (e.Characteristic.UUID == _nativeCharacteristic.UUID)
+                    {
+                        Console.WriteLine(".....UpdatedCharacterteristicValue");
+                        var c = new Characteristic(e.Characteristic, _parentDevice);
+                        tcs.SetResult(c);
+                        _parentDevice.UpdatedCharacterteristicValue -= updated;
+                    }
             };
 
             _parentDevice.UpdatedCharacterteristicValue += updated;
@@ -236,20 +239,26 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         // removes listener after first response received
         void UpdatedRead(object sender, CBCharacteristicEventArgs e)
         {
-            this.ValueUpdated(this, new CharacteristicReadEventArgs()
+            if (e.Characteristic.UUID == _nativeCharacteristic.UUID)
             {
-                Characteristic = new Characteristic(e.Characteristic, _parentDevice)
-            });
-            _parentDevice.UpdatedCharacterteristicValue -= UpdatedRead;
+                this.ValueUpdated(this, new CharacteristicReadEventArgs()
+                    {
+                        Characteristic = new Characteristic(e.Characteristic, _parentDevice)
+                    });
+                _parentDevice.UpdatedCharacterteristicValue -= UpdatedRead;
+            }
         }
 
         // continues to listen indefinitely
         void UpdatedNotify(object sender, CBCharacteristicEventArgs e)
         {
-            this.ValueUpdated(this, new CharacteristicReadEventArgs()
+            if (e.Characteristic.UUID == _nativeCharacteristic.UUID)
             {
-                Characteristic = new Characteristic(e.Characteristic, _parentDevice)
-            });
+                this.ValueUpdated(this, new CharacteristicReadEventArgs()
+                    {
+                        Characteristic = new Characteristic(e.Characteristic, _parentDevice)
+                    });
+            }
         }
 
         //TODO: this is the exact same as ServiceUuid i think
