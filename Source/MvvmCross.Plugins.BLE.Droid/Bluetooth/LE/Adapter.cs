@@ -6,15 +6,20 @@ using Android.App;
 using Android.Bluetooth;
 using Android.Content;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
+using Android.Bluetooth.LE;
+using Android.OS;
+using Cirrious.CrossCore;
 
 namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 {
     /// <summary>
     /// TODO: this really should be a singleton.
     /// </summary>
-    public class Adapter : Java.Lang.Object, BluetoothAdapter.ILeScanCallback, IAdapter
+    //public class Adapter : Java.Lang.Object, BluetoothAdapter.ILeScanCallback, IAdapter
+    public class Adapter : ScanCallback, IAdapter
     {
         // events
+        public event EventHandler<DeviceDiscoveredEventArgs> DeviceAdvertised = delegate { };
         public event EventHandler<DeviceDiscoveredEventArgs> DeviceDiscovered = delegate { };
         public event EventHandler<DeviceConnectionEventArgs> DeviceConnected = delegate { };
         public event EventHandler<DeviceBondStateChangedEventArgs> DeviceBondStateChanged = delegate { };
@@ -48,7 +53,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         } protected IList<IDevice> _connectedDevices = new List<IDevice>();
 
 
-        public Adapter()
+        public Adapter() : base()
         {
             var appContext = Android.App.Application.Context;
             // get a reference to the bluetooth system service
@@ -79,8 +84,92 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             };
         }
 
-        //TODO: scan for specific service type eg. HeartRateMonitor
+        public override void OnBatchScanResults(IList<ScanResult> results)
+        {
+            base.OnBatchScanResults(results);
+        }
+
+        public override void OnScanFailed(ScanFailure errorCode)
+        {
+            base.OnScanFailed(errorCode);
+        }
+
+        public override void OnScanResult(ScanCallbackType callbackType, ScanResult result)
+        {
+            base.OnScanResult(callbackType, result);
+
+            //Device device = new Device(result.Device, null, null, result.Rssi, result.ScanRecord.GetBytes());
+            Device device;
+            if (result.ScanRecord.ManufacturerSpecificData.Size() > 0)
+            {
+                int key = result.ScanRecord.ManufacturerSpecificData.KeyAt(0);
+                byte[] mdata = result.ScanRecord.GetManufacturerSpecificData(key);
+                byte[] mdataWithKey = new byte[mdata.Length + 2];
+                BitConverter.GetBytes((ushort)key).CopyTo(mdataWithKey,0);
+                mdata.CopyTo(mdataWithKey, 2);
+                device = new Device(result.Device, null, null, result.Rssi, mdataWithKey);
+            }
+            else
+            {
+                device = new Device(result.Device, null, null, result.Rssi, new byte[0]);
+            }
+
+            this.DeviceAdvertised(this, new DeviceDiscoveredEventArgs { Device = device });
+
+            if(!this._discoveredDevices.Contains(device))
+            {
+                this._discoveredDevices.Add(device);
+                this.DeviceDiscovered(this, new DeviceDiscoveredEventArgs { Device = device });
+            }
+        }
+
         public async void StartScanningForDevices(Guid serviceUuid)
+        {
+            // clear out the list
+            this._discoveredDevices.Clear();
+
+            // start scanning
+            this._isScanning = true;
+
+            if (serviceUuid != Guid.Empty)
+            {
+                Mvx.Trace("Adapter: Starting a scan for devices with service ID {0}.", serviceUuid);
+                var sfb = new ScanFilter.Builder();
+                sfb.SetServiceUuid(ParcelUuid.FromString(serviceUuid.ToString()));
+
+                var ssb = new ScanSettings.Builder();
+                //ssb.SetCallbackType(ScanCallbackType.AllMatches);
+
+                this._adapter.BluetoothLeScanner.StartScan(new List<ScanFilter>(){ sfb.Build() }, ssb.Build(), this);
+            }
+            else
+            {
+                Mvx.Trace("Adapter: Starting a scan for devices.");
+                this._adapter.BluetoothLeScanner.StartScan(this);
+            }
+
+            // in 10 seconds, stop the scan
+            await Task.Delay(10000);
+
+            // if we're still scanning
+            if (this._isScanning)
+            {
+                Console.WriteLine("BluetoothLEManager: Scan timeout has elapsed.");
+                this._adapter.BluetoothLeScanner.StopScan(this);
+                this.ScanTimeoutElapsed(this, new EventArgs());
+            }
+        }
+        public async void StartScanningForDevices() { StartScanningForDevices(Guid.Empty); }
+
+        public void StopScanningForDevices()
+        {
+            Console.WriteLine("Adapter: Stopping the scan for devices.");
+            this._isScanning = false;
+            this._adapter.BluetoothLeScanner.StopScan(this);
+        }
+
+        //TODO: scan for specific service type eg. HeartRateMonitor
+        /*public async void StartScanningForDevices(Guid serviceUuid)
         {
             StartScanningForDevices();
             //			throw new NotImplementedException ("Not implemented on Android yet, look at _adapter.StartLeScan() overload");
@@ -94,6 +183,9 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
             // start scanning
             this._isScanning = true;
+
+            //this._adapter.BluetoothLeScanner.StartScan();
+
             this._adapter.StartLeScan(this);
 
             // in 10 seconds, stop the scan
@@ -123,13 +215,16 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             //			if(!this._discoveredDevices.Contains(device) ) {
             //				this._discoveredDevices.Add (device );
             //			}
-            Device device = new Device(bleDevice, null, null, rssi);
+            Device device = new Device(bleDevice, null, null, rssi, scanRecord);
+
+            this.DeviceAdvertised(this, new DeviceDiscoveredEventArgs { Device = device });
 
             if (!DeviceExistsInDiscoveredList(bleDevice))
+            {
                 this._discoveredDevices.Add(device);
-            // TODO: in the cross platform API, cache the RSSI
-            // TODO: shouldn't i only raise this if it's not already in the list?
-            this.DeviceDiscovered(this, new DeviceDiscoveredEventArgs { Device = device });
+                // TODO: in the cross platform API, cache the RSSI
+                this.DeviceDiscovered(this, new DeviceDiscoveredEventArgs { Device = device });
+            }
         }
 
         protected bool DeviceExistsInDiscoveredList(BluetoothDevice device)
@@ -141,7 +236,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                     return true;
             }
             return false;
-        }
+        }*/
 
 
         public void ConnectToDevice(IDevice device)

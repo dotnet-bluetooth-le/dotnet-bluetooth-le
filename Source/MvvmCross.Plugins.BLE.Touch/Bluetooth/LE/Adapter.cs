@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 using CoreBluetooth;
 using CoreFoundation;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
+using Foundation;
+using Cirrious.CrossCore;
+using Cirrious.CrossCore.Platform;
 
 namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 {
     public class Adapter : IAdapter
     {
         // events
+        public event EventHandler<DeviceDiscoveredEventArgs> DeviceAdvertised = delegate { };
         public event EventHandler<DeviceDiscoveredEventArgs> DeviceDiscovered = delegate { };
         public event EventHandler<DeviceConnectionEventArgs> DeviceConnected = delegate { };
         public event EventHandler<DeviceBondStateChangedEventArgs> DeviceBondStateChanged = delegate { };
@@ -65,8 +69,27 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
             _central.DiscoveredPeripheral += (object sender, CBDiscoveredPeripheralEventArgs e) =>
             {
-                Console.WriteLine("DiscoveredPeripheral: " + e.Peripheral.Name);
-                Device d = new Device(e.Peripheral);
+                Console.WriteLine("DiscoveredPeripheral: {0}, ID: {1}", e.Peripheral.Name, e.Peripheral.Identifier);
+                //Device d = new Device(e.Peripheral, e.RSSI.Int32Value, e.AdvertisementData.ValueForKey(CBAdvertisement.DataManufacturerDataKey));
+                Device d;
+                string name = e.Peripheral.Name;
+                if(e.AdvertisementData.ContainsKey(CBAdvertisement.DataLocalNameKey))
+                {
+                    // iOS caches the peripheral name, so it can become stale (if changing) unless we keep track of the local name key manually
+                    name = (e.AdvertisementData.ValueForKey(CBAdvertisement.DataLocalNameKey) as NSString).ToString();
+                }
+                if(e.AdvertisementData.ContainsKey(CBAdvertisement.DataManufacturerDataKey))
+                {
+                    d = new Device(e.Peripheral,
+                        name,
+                        e.RSSI.Int32Value,
+                        (e.AdvertisementData.ValueForKey(CBAdvertisement.DataManufacturerDataKey) as NSData).ToArray());
+                }
+                else
+                {
+                    d = new Device(e.Peripheral, name, e.RSSI.Int32Value, new byte[0]);
+                }
+                this.DeviceAdvertised(this, new DeviceDiscoveredEventArgs(){ Device = d});
                 if (!ContainsDevice(this._discoveredDevices, e.Peripheral))
                 {
                     this._discoveredDevices.Add(d);
@@ -89,8 +112,8 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                 // when a peripheral gets connected, add that peripheral to our running list of connected peripherals
                 if (!ContainsDevice(this._connectedDevices, e.Peripheral))
                 {
-                    Device d = new Device(e.Peripheral);
-                    this._connectedDevices.Add(new Device(e.Peripheral));
+                        Device d = new Device(e.Peripheral);
+                        this._connectedDevices.Add(new Device(e.Peripheral));
                     // raise our connected event
                     this.DeviceConnected(sender, new DeviceConnectionEventArgs() { Device = d });
                 }
@@ -116,6 +139,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
             _central.FailedToConnectPeripheral += (object sender, CBPeripheralErrorEventArgs e) =>
             {
+                    Mvx.Trace(MvxTraceLevel.Warning, "Failed to connect peripheral {0}: {1}", e.Peripheral.Identifier.ToString(), e.Error.Description);
                 // raise the failed to connect event
                 this.DeviceFailedToConnect(this, new DeviceConnectionEventArgs()
                 {
@@ -123,7 +147,6 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                     ErrorMessage = e.Error.Description
                 });
             };
-
         }
 
         public void StartScanningForDevices()
