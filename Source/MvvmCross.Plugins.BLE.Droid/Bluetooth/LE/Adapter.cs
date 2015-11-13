@@ -7,15 +7,16 @@ using Android.Bluetooth;
 using Android.Content;
 using Java.Util;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
+using Android.Bluetooth.LE;
+using Android.OS;
+using Cirrious.CrossCore;
 
 namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 {
-    /// <summary>
-    /// TODO: this really should be a singleton.
-    /// </summary>
     public class Adapter : Java.Lang.Object, BluetoothAdapter.ILeScanCallback, IAdapter
     {
         // events
+        public event EventHandler<DeviceDiscoveredEventArgs> DeviceAdvertised = delegate { };
         public event EventHandler<DeviceDiscoveredEventArgs> DeviceDiscovered = delegate { };
         public event EventHandler<DeviceConnectionEventArgs> DeviceConnected = delegate { };
         public event EventHandler<DeviceBondStateChangedEventArgs> DeviceBondStateChanged = delegate { };
@@ -26,6 +27,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         protected BluetoothManager _manager;
         protected BluetoothAdapter _adapter;
         protected GattCallback _gattCallback;
+        private readonly Api21BleScanCallback _api21ScanCallback;
 
         public bool IsScanning
         {
@@ -51,13 +53,17 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             }
         } protected IList<IDevice> _connectedDevices = new List<IDevice>();
 
+
+
         public Dictionary<string, IDevice> DeviceRegistry { get; private set; }
 
         public Adapter()
         {
+            ScanTimeout = 10000;
+
             var appContext = Android.App.Application.Context;
             // get a reference to the bluetooth system service
-            this._manager = (BluetoothManager)appContext.GetSystemService("bluetooth");
+            this._manager = (BluetoothManager)appContext.GetSystemService(Context.BluetoothService);
             this._adapter = this._manager.Adapter;
 
             this._gattCallback = new GattCallback(this);
@@ -83,11 +89,18 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 this.DeviceBondStateChanged(this, args);
             };
 
-            ScanTimeout = 10000;
+
             DeviceRegistry = new Dictionary<string, IDevice>();
+
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
+            {
+                _api21ScanCallback = new Api21BleScanCallback(this);
+            }
         }
 
-        public void StartScanningForDevices()
+
+
+        public async void StartScanningForDevices()
         {
             StartScanningForDevices(new Guid[] { });
         }
@@ -101,11 +114,11 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             if (_isScanning)
             {
-                Console.WriteLine("Adapter: Already scanning.");
+                Mvx.Trace("Adapter: Already scanning.");
                 return;
             }
 
-            Console.WriteLine("Adapter: Starting a scan for devices.");
+
 
             // clear out the list
             this._discoveredDevices = new List<IDevice>();
@@ -113,15 +126,49 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             // start scanning
             this._isScanning = true;
 
+
             if (serviceUuids == null || !serviceUuids.Any())
             {
-                //without filter
-                _adapter.StartLeScan(this);
+                if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
+                {
+                    Mvx.Trace("Adapter < 21: Starting a scan for devices.");
+                    //without filter
+                    _adapter.StartLeScan(this);
+                }
+                else
+                {
+                    Mvx.Trace("Adapter >= 21: Starting a scan for devices.");
+                    _adapter.BluetoothLeScanner.StartScan(_api21ScanCallback);
+                }
+
             }
             else
             {
-                var uuids = serviceUuids.Select(u => UUID.FromString(u.ToString())).ToArray();
-                _adapter.StartLeScan(uuids, this);
+                if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
+                {
+                    var uuids = serviceUuids.Select(u => UUID.FromString(u.ToString())).ToArray();
+                    Mvx.Trace("Adapter < 21: Starting a scan for devices.");
+                    _adapter.StartLeScan(uuids, this);
+                }
+                else
+                {
+
+                    Mvx.Trace("Adapter >=21: Starting a scan for devices with service ID {0}.", serviceUuids.First());
+
+                    var scanFilters = new List<ScanFilter>();
+                    foreach (var serviceUuid in serviceUuids)
+                    {
+                        var sfb = new ScanFilter.Builder();
+                        sfb.SetServiceUuid(ParcelUuid.FromString(serviceUuid.ToString()));
+                        scanFilters.Add(sfb.Build());
+                    }
+
+                    var ssb = new ScanSettings.Builder();
+                    //ssb.SetCallbackType(ScanCallbackType.AllMatches);
+
+                    this._adapter.BluetoothLeScanner.StartScan(scanFilters, ssb.Build(), _api21ScanCallback);
+                }
+
             }
 
             // in 10 seconds, stop the scan
@@ -130,7 +177,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             // if we're still scanning
             if (this._isScanning)
             {
-                Console.WriteLine("Adapter: Scan timeout has elapsed.");
+                Mvx.Trace("Adapter: Scan timeout has elapsed.");
                 StopScanningForDevices();
                 this.ScanTimeoutElapsed(this, new EventArgs());
             }
@@ -138,38 +185,40 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
         public void StopScanningForDevices()
         {
-            if (this._isScanning)
+            if (_isScanning)
             {
-                Console.WriteLine("Adapter: Stopping the scan for devices.");
-                this._isScanning = false;
-                this._adapter.StopLeScan(this);
+                _isScanning = false;
+
+                if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
+                {
+                    Mvx.Trace("Adapter < 21: Stopping the scan for devices.");
+                    _adapter.StopLeScan(this);
+                }
+                else
+                {
+                    Mvx.Trace("Adapter >= 21: Stopping the scan for devices.");
+                    _adapter.BluetoothLeScanner.StopScan(_api21ScanCallback);
+                }
             }
             else
             {
-                Console.WriteLine("Adapter: Allready stopped scan.");
+                Mvx.Trace("Adapter: Allready stopped scan.");
             }
         }
 
         public void OnLeScan(BluetoothDevice bleDevice, int rssi, byte[] scanRecord)
         {
-            Console.WriteLine("Adapter.LeScanCallback: " + bleDevice.Name);
-            // TODO: for some reason, this doesn't work, even though they have the same pointer,
-            // it thinks that the item doesn't exist. so i had to write my own implementation
-            //			if(!this._discoveredDevices.Contains(device) ) {
-            //				this._discoveredDevices.Add (device );
-            //			}
-            Device device = new Device(bleDevice, null, null, rssi);
+            Mvx.Trace("Adapter.LeScanCallback: " + bleDevice.Name);
 
-            if (!DeviceExistsInDiscoveredList(bleDevice))
-                this._discoveredDevices.Add(device);
-            // TODO: in the cross platform API, cache the RSSI
-            // TODO: shouldn't i only raise this if it's not already in the list?
-            this.DeviceDiscovered(this, new DeviceDiscoveredEventArgs { Device = device });
-        }
+            var device = new Device(bleDevice, null, null, rssi, scanRecord);
 
-        protected bool DeviceExistsInDiscoveredList(BluetoothDevice device)
-        {
-            return this._discoveredDevices.Any(d => device.Address == ((BluetoothDevice)d.NativeDevice).Address);
+            this.DeviceAdvertised(this, new DeviceDiscoveredEventArgs { Device = device });
+
+            if (!_discoveredDevices.Contains(device))
+            {
+                _discoveredDevices.Add(device);
+                DeviceDiscovered(this, new DeviceDiscoveredEventArgs { Device = device });
+            }
         }
 
 
@@ -212,10 +261,60 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             var device = this._connectedDevices.FirstOrDefault(d => d.ID.Equals(deviceToDisconnect.ID));
             if (device != null)
             {
-                this._connectedDevices.Remove(device);
+                _connectedDevices.Remove(device);
+            }
+        }
+
+        public class Api21BleScanCallback : ScanCallback
+        {
+            private readonly Adapter _adapter;
+            public Api21BleScanCallback(Adapter adapter)
+            {
+                _adapter = adapter;
+            }
+
+            public override void OnBatchScanResults(IList<ScanResult> results)
+            {
+                base.OnBatchScanResults(results);
+            }
+
+            public override void OnScanFailed(ScanFailure errorCode)
+            {
+                base.OnScanFailed(errorCode);
+            }
+
+            public override void OnScanResult(ScanCallbackType callbackType, ScanResult result)
+            {
+                base.OnScanResult(callbackType, result);
+
+                //Device device = new Device(result.Device, null, null, result.Rssi, result.ScanRecord.GetBytes());
+                Device device;
+                if (result.ScanRecord.ManufacturerSpecificData.Size() > 0)
+                {
+                    int key = result.ScanRecord.ManufacturerSpecificData.KeyAt(0);
+                    byte[] mdata = result.ScanRecord.GetManufacturerSpecificData(key);
+                    byte[] mdataWithKey = new byte[mdata.Length + 2];
+                    BitConverter.GetBytes((ushort)key).CopyTo(mdataWithKey, 0);
+                    mdata.CopyTo(mdataWithKey, 2);
+                    device = new Device(result.Device, null, null, result.Rssi, mdataWithKey);
+                }
+                else
+                {
+                    device = new Device(result.Device, null, null, result.Rssi, new byte[0]);
+                }
+
+                _adapter.DeviceAdvertised(this, new DeviceDiscoveredEventArgs { Device = device });
+
+                if (!_adapter._discoveredDevices.Contains(device))
+                {
+                    _adapter._discoveredDevices.Add(device);
+                    _adapter.DeviceDiscovered(this, new DeviceDiscoveredEventArgs { Device = device });
+                }
             }
         }
     }
+
+
 
 
     [BroadcastReceiver()]

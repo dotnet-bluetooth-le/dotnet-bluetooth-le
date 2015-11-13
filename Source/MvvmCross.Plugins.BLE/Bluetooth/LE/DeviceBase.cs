@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Cirrious.CrossCore;
 
 namespace MvvmCross.Plugins.BLE.Bluetooth.LE
 {
@@ -47,6 +48,14 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
             }
         }
 
+        public virtual byte[] AdvertisementData
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public virtual IList<IService> Services
         {
             get { throw new NotImplementedException(); }
@@ -62,6 +71,16 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
             throw new NotImplementedException();
         }
 
+        #region IEquatable implementation
+        public override bool Equals(object other)
+        {
+            //Mvx.Trace("IDevice equator");
+            if (other.GetType() != this.GetType())
+                return false;
+            
+            return this.ID.Equals((other as IDevice).ID);
+        }
+        #endregion
     }
 }
 

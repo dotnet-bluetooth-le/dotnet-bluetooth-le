@@ -130,6 +130,10 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             {
                 _gattCallback.CharacteristicValueWritten += writeCallback;
             }
+            else
+            {
+                tcs.SetResult(true);
+            }
 
             Write(data);
 

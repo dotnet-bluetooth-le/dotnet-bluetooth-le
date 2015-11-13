@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CoreBluetooth;
 using Foundation;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
+using Cirrious.CrossCore;
 
 namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 {
@@ -12,10 +13,13 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
         protected CBPeripheral _nativeDevice;
 
-        public Device(CBPeripheral nativeDevice, int rssi)
+        public Device(CBPeripheral nativeDevice) : this(nativeDevice, nativeDevice.Name, nativeDevice.RSSI != null ? nativeDevice.RSSI.Int32Value : 0, new byte[0]) { }
+        public Device(CBPeripheral nativeDevice, string name, int rssi, byte[] advertisementData)
         {
             this._nativeDevice = nativeDevice;
+            this._name = name;
             this._rssi = rssi;
+            this._advertisementData = advertisementData;
 
             this._nativeDevice.DiscoveredService += (object sender, NSErrorEventArgs e) =>
             {
@@ -94,9 +98,10 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         {
             get
             {
-                return this._nativeDevice.Name;
+                //return this._nativeDevice.Name;
+                return this._name;
             }
-        }
+        } protected string _name;
 
         public override int Rssi
         {
@@ -113,6 +118,17 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                 return this._nativeDevice;
             }
         }
+
+        public override byte[] AdvertisementData
+        {
+            get
+            {
+                //return _advertisementData.ToArray();
+                //Console.WriteLine("AData: {0}", this._advertisementData);
+                //return new byte[3]{1,2,3};
+                return _advertisementData;
+            }
+        } protected byte[] _advertisementData;
 
         // TODO: investigate the validity of this. Android API seems to indicate that the
         // bond state is available, rather than the connected state, which are two different 
@@ -170,6 +186,14 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         }
         #endregion
 
+        /*#region IEquatable implementation
+        //public bool Equals(Device other)
+        public override bool Equals(object other)
+        {
+            Mvx.Trace("iOS Device equator");
+            return this.ID.ToString().Equals((other as Device).ID.ToString());
+        }
+        #endregion*/
     }
 }
 

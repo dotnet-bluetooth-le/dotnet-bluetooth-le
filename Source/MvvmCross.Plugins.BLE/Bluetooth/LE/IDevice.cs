@@ -27,6 +27,13 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
 		object NativeDevice { get; }
 		DeviceState State { get; }
 
+        byte[] AdvertisementData { get; }
+        /// <summary>
+        /// Gets the advertisement scan data.
+        /// This is the Manufacturer Specific Data sent out in a BTLE advertisement
+        /// </summary>
+        /// <value>The advertisement scan data.</value>
+
 		// fuck. i hate c# sometimes. interfaces can't have constructors
 		// or static contracts
 		//static IDevice FromNativeDevice (object nativeDevice);
