@@ -24,12 +24,15 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         /// </summary>
         protected GattCallback _gattCallback;
 
-        public Device(BluetoothDevice nativeDevice, BluetoothGatt gatt,
-            GattCallback gattCallback, int rssi)
+        public Device(BluetoothDevice nativeDevice, BluetoothGatt gatt, GattCallback gattCallback, int rssi)
+            : this(nativeDevice, gatt, gattCallback, rssi, new byte[0]) { }
+
+        public Device(BluetoothDevice nativeDevice, BluetoothGatt gatt, GattCallback gattCallback, int rssi, byte[] advertisementData)
             : base()
         {
             Update(nativeDevice, gatt, gattCallback);
             this._rssi = rssi;
+            this._advertisementData = advertisementData;
         }
 
         public void Update(BluetoothDevice nativeDevice, BluetoothGatt gatt,
@@ -38,7 +41,6 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             this._nativeDevice = nativeDevice;
             this._gatt = gatt;
             this._gattCallback = gattCallback;
-
         }
 
         public void OnServicesDiscovered(object sender, ServicesDiscoveredEventArgs args)
@@ -100,6 +102,14 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 return this._nativeDevice;
             }
         }
+
+        public override byte[] AdvertisementData
+        {
+            get
+            {
+                return this._advertisementData;
+            }
+        } protected byte[] _advertisementData;
 
         // TODO: investigate the validity of this. Android API seems to indicate that the
         // bond state is available, rather than the connected state, which are two different 
