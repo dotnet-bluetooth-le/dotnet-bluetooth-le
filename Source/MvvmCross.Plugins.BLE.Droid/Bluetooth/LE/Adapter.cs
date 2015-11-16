@@ -206,11 +206,35 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             }
         }
 
+        private byte[] GetManufacturerSpecificData(byte[] rawScanRecord) 
+        {
+            for (int i = 0; i < rawScanRecord.Length; ++i)
+            {
+                if (rawScanRecord[i + 1] == 0xFF)
+                {
+                    // Found manufacturer specific data
+                    int length = rawScanRecord[i] - 1;
+
+                    byte[] retVal = new byte[length];
+                    for (int j = 0; j < length; ++j)
+                        retVal[j] = rawScanRecord[i + 2 + j];
+
+                    return retVal;
+                }
+                else
+                {
+                    i += rawScanRecord[i];
+                }
+            }
+
+            return new byte[0];
+        }
+
         public void OnLeScan(BluetoothDevice bleDevice, int rssi, byte[] scanRecord)
         {
             Mvx.Trace("Adapter.LeScanCallback: " + bleDevice.Name);
 
-            var device = new Device(bleDevice, null, null, rssi, scanRecord);
+            var device = new Device(bleDevice, null, null, rssi, GetManufacturerSpecificData(scanRecord));
 
             this.DeviceAdvertised(this, new DeviceDiscoveredEventArgs { Device = device });
 
