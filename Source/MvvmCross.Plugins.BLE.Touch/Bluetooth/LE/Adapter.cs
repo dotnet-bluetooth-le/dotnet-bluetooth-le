@@ -58,7 +58,8 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
             }
         }
         /// <summary>
-        /// Registry used to store device instances for pending operations : connect 
+        /// Registry used to store device instances for pending operations : disconnect 
+        /// Helps to detect connection lost events
         /// </summary>
         public Dictionary<string, IDevice> DeviceOperationRegistry { get; private set; }
         public Dictionary<string, IDevice> DeviceConnectionRegistry { get; private set; }
@@ -70,7 +71,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
             DeviceConnectionRegistry = new Dictionary<string, IDevice>();
 
             this._central = new CBCentralManager(DispatchQueue.CurrentQueue);
-            
+
             _central.DiscoveredPeripheral += (sender, e) =>
             {
                 Mvx.Trace("DiscoveredPeripheral: {0}, ID: {1}", e.Peripheral.Name, e.Peripheral.Identifier);
@@ -115,13 +116,12 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
                 // when a peripheral gets connected, add that peripheral to our running list of connected peripherals
                 var guid = ParseDeviceGuid(e.Peripheral).ToString();
-                if (DeviceConnectionRegistry.ContainsKey(guid))
-                {
-                    var d = new Device(e.Peripheral);
-                    DeviceConnectionRegistry.Add(guid, d);
-                    // raise our connected event
-                    this.DeviceConnected(sender, new DeviceConnectionEventArgs() { Device = d });
-                }
+                var d = new Device(e.Peripheral);
+                DeviceConnectionRegistry[guid] = d;
+
+                // raise our connected event
+                this.DeviceConnected(sender, new DeviceConnectionEventArgs() { Device = d });
+
             };
 
             _central.DisconnectedPeripheral += (sender, e) =>
