@@ -49,6 +49,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                         ((Device)device).CloseGatt();
 
                         DeviceConnectionLost(this, new DeviceConnectionEventArgs() { Device = device });
+                        break;
                     }
 
 

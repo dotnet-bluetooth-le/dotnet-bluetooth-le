@@ -276,7 +276,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         /// <param name="deviceToDisconnect"></param>
         private void RemoveDeviceFromList(IDevice deviceToDisconnect)
         {
-            var key = deviceToDisconnect.ID.ToString();
+            var key = ((BluetoothDevice)deviceToDisconnect.NativeDevice).Address;
             if (ConnectedDeviceRegistry.ContainsKey(key))
             {
                 ConnectedDeviceRegistry.Remove(key);
