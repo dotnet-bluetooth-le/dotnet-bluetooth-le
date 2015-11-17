@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,7 +20,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         public event EventHandler<DeviceConnectionEventArgs> DeviceConnected = delegate { };
         public event EventHandler<DeviceBondStateChangedEventArgs> DeviceBondStateChanged = delegate { };
         public event EventHandler<DeviceConnectionEventArgs> DeviceDisconnected = delegate { };
-        public event EventHandler<DeviceConnectionEventArgs> DeviceConnectionLost= delegate { };
+        public event EventHandler<DeviceConnectionEventArgs> DeviceConnectionLost = delegate { };
         public event EventHandler<DeviceConnectionEventArgs> DeviceFailedToConnect = delegate { };
         public event EventHandler ScanTimeoutElapsed = delegate { };
         public event EventHandler ConnectTimeoutElapsed = delegate { };
@@ -55,36 +54,32 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         {
             get
             {
-                return this._connectedDevices;
+                return this.DeviceConnectionRegistry.Values.ToList();
             }
-        } protected IList<IDevice> _connectedDevices = new List<IDevice>();
-
-        public static Adapter Current
-        { get { return _current; } }
-        private static Adapter _current;
-
-        static Adapter()
-        {
-            _current = new Adapter();
         }
+        /// <summary>
+        /// Registry used to store device instances for pending operations : connect 
+        /// </summary>
+        public Dictionary<string, IDevice> DeviceOperationRegistry { get; private set; }
+        public Dictionary<string, IDevice> DeviceConnectionRegistry { get; private set; }
 
-        protected Adapter()
+        public Adapter()
         {
             ScanTimeout = 10000;
             this._central = new CBCentralManager(DispatchQueue.CurrentQueue);
 
-            _central.DiscoveredPeripheral += (object sender, CBDiscoveredPeripheralEventArgs e) =>
+            _central.DiscoveredPeripheral += (sender, e) =>
             {
-                Console.WriteLine("DiscoveredPeripheral: {0}, ID: {1}", e.Peripheral.Name, e.Peripheral.Identifier);
+                Mvx.Trace("DiscoveredPeripheral: {0}, ID: {1}", e.Peripheral.Name, e.Peripheral.Identifier);
                 //Device d = new Device(e.Peripheral, e.RSSI.Int32Value, e.AdvertisementData.ValueForKey(CBAdvertisement.DataManufacturerDataKey));
                 Device d;
                 string name = e.Peripheral.Name;
-                if(e.AdvertisementData.ContainsKey(CBAdvertisement.DataLocalNameKey))
+                if (e.AdvertisementData.ContainsKey(CBAdvertisement.DataLocalNameKey))
                 {
                     // iOS caches the peripheral name, so it can become stale (if changing) unless we keep track of the local name key manually
                     name = (e.AdvertisementData.ValueForKey(CBAdvertisement.DataLocalNameKey) as NSString).ToString();
                 }
-                if(e.AdvertisementData.ContainsKey(CBAdvertisement.DataManufacturerDataKey))
+                if (e.AdvertisementData.ContainsKey(CBAdvertisement.DataManufacturerDataKey))
                 {
                     d = new Device(e.Peripheral,
                         name,
@@ -95,7 +90,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                 {
                     d = new Device(e.Peripheral, name, e.RSSI.Int32Value, new byte[0]);
                 }
-                this.DeviceAdvertised(this, new DeviceDiscoveredEventArgs(){ Device = d});
+                this.DeviceAdvertised(this, new DeviceDiscoveredEventArgs() { Device = d });
                 if (!ContainsDevice(this._discoveredDevices, e.Peripheral))
                 {
                     this._discoveredDevices.Add(d);
@@ -105,47 +100,62 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
             _central.UpdatedState += (sender, e) =>
             {
-                Console.WriteLine("UpdatedState: " + _central.State);
+                Mvx.Trace("UpdatedState: " + _central.State);
                 stateChanged.Set();
                 //this.DeviceBondStateChanged(this, new DeviceBondStateChangedEventArgs(){State = });
             };
 
 
-            _central.ConnectedPeripheral += (object sender, CBPeripheralEventArgs e) =>
+            _central.ConnectedPeripheral += (sender, e) =>
             {
-                Console.WriteLine("ConnectedPeripheral: " + e.Peripheral.Name);
+                Mvx.Trace("ConnectedPeripheral: " + e.Peripheral.Name);
 
                 // when a peripheral gets connected, add that peripheral to our running list of connected peripherals
-                if (!ContainsDevice(this._connectedDevices, e.Peripheral))
+                var guid = ParseDeviceGuid(e.Peripheral).ToString();
+                if (DeviceConnectionRegistry.ContainsKey(guid))
                 {
                     var d = new Device(e.Peripheral);
-                    this._connectedDevices.Add(d);         
+                    DeviceConnectionRegistry.Add(guid, d);
                     // raise our connected event
                     this.DeviceConnected(sender, new DeviceConnectionEventArgs() { Device = d });
                 }
             };
 
-            _central.DisconnectedPeripheral += (object sender, CBPeripheralErrorEventArgs e) =>
+            _central.DisconnectedPeripheral += (sender, e) =>
             {
-                Console.WriteLine("DisconnectedPeripheral: " + e.Peripheral.Name);
+                Mvx.Trace("DisconnectedPeripheral: " + e.Peripheral.Name);
 
                 // when a peripheral disconnects, remove it from our running list.
+                var id = ParseDeviceGuid(e.Peripheral);
+                var stringId = id.ToString();
                 IDevice foundDevice = null;
-                foreach (var d in this._connectedDevices)
-                {
-                    if (d.ID == Guid.ParseExact(e.Peripheral.Identifier.AsString(), "d"))
-                        foundDevice = d;
-                }
-                if (foundDevice != null)
-                    this._connectedDevices.Remove(foundDevice);
 
-                // raise our disconnected event
-                this.DeviceDisconnected(sender, new DeviceConnectionEventArgs() { Device = new Device(e.Peripheral) });
+                //normal disconnect (requested by user)
+                var isNormalDisconnect = DeviceOperationRegistry.TryGetValue(stringId, out foundDevice);
+                if (isNormalDisconnect)
+                {
+                    DeviceOperationRegistry.Remove(stringId);
+                }
+
+                //remove from connected devices
+                if (DeviceConnectionRegistry.TryGetValue(stringId, out foundDevice))
+                {
+                    DeviceConnectionRegistry.Remove(stringId);
+                }
+
+                if (isNormalDisconnect)
+                {
+                    DeviceDisconnected(sender, new DeviceConnectionEventArgs { Device = foundDevice });
+                }
+                else
+                {
+                    DeviceConnectionLost(sender, new DeviceConnectionEventArgs() { Device = foundDevice ?? new Device(e.Peripheral) });
+                }
             };
 
-            _central.FailedToConnectPeripheral += (object sender, CBPeripheralErrorEventArgs e) =>
+            _central.FailedToConnectPeripheral += (sender, e) =>
             {
-                    Mvx.Trace(MvxTraceLevel.Warning, "Failed to connect peripheral {0}: {1}", e.Peripheral.Identifier.ToString(), e.Error.Description);
+                Mvx.Trace(MvxTraceLevel.Warning, "Failed to connect peripheral {0}: {1}", e.Peripheral.Identifier.ToString(), e.Error.Description);
                 // raise the failed to connect event
                 this.DeviceFailedToConnect(this, new DeviceConnectionEventArgs()
                 {
@@ -153,6 +163,11 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                     ErrorMessage = e.Error.Description
                 });
             };
+        }
+
+        private static Guid ParseDeviceGuid(CBPeripheral peripherial)
+        {
+            return Guid.ParseExact(peripherial.Identifier.AsString(), "d");
         }
 
         public void StartScanningForDevices()
@@ -164,7 +179,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
         async Task WaitForState(CBCentralManagerState state)
         {
-            Debug.WriteLine("Adapter: Waiting for state: " + state);
+            Mvx.Trace("Adapter: Waiting for state: " + state);
 
             while (_central.State != state)
             {
@@ -215,11 +230,12 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
             this._central.StopScan();
         }
 
-        public void ConnectToDevice(IDevice device)
+        public void ConnectToDevice(IDevice device, bool autoconnect)
         {
             //TODO: if it doesn't connect after 10 seconds, cancel the operation
             // (follow the same model we do for scanning).
-            this._central.ConnectPeripheral(device.NativeDevice as CBPeripheral, new PeripheralConnectionOptions());
+            //ToDo Autoconnect
+            _central.ConnectPeripheral(device.NativeDevice as CBPeripheral, new PeripheralConnectionOptions());
 
             //			// in 10 seconds, stop the connection
             //			await Task.Delay (10000);
@@ -241,6 +257,8 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
         public void DisconnectDevice(IDevice device)
         {
+            //update registry
+            DeviceOperationRegistry[device.ID.ToString()] = device;
             this._central.CancelPeripheralConnection(device.NativeDevice as CBPeripheral);
         }
 

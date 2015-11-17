@@ -149,12 +149,12 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         {
             this._nativeDevice.DiscoverServices();
         }
-
-        public void Disconnect()
-        {
-            Adapter.Current.DisconnectDevice(this);
-            this._nativeDevice.Dispose();
-        }
+        
+        //public void Disconnect()
+        //{
+        //    Adapter.Current.DisconnectDevice(this);
+        //    this._nativeDevice.Dispose();
+        //}
 
         #endregion
 

@@ -63,7 +63,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 case ProfileState.Connected:
                     Mvx.Trace("Connected");
 
-                    //Try to find the device in the registry so that the same instanece is updated
+                    //Try to find the device in the registry so that the same instance is updated
                     if (DeviceOperationRegistry.TryGetValue(gatt.Device.Address, out device))
                     {
                         ((Device)device).Update(gatt.Device, gatt, this);
@@ -73,12 +73,12 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                     }
                     else
                     {
-                        //should not be the case
+                        //only for on auto-reconnect (device is not in operation registry)
                         device = new Device(gatt.Device, gatt, this, 0);
                     }
 
-                    this.ConnectedDeviceRegistry.Add(device.ID.ToString(), device);
-                    this.DeviceConnected(this, new DeviceConnectionEventArgs() { Device = device });
+                    ConnectedDeviceRegistry.Add(gatt.Device.Address, device);
+                    DeviceConnected(this, new DeviceConnectionEventArgs() { Device = device });
 
                     break;
                 // disconnecting
