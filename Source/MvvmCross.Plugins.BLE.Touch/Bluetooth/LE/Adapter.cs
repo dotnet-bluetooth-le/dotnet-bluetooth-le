@@ -66,8 +66,11 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         public Adapter()
         {
             ScanTimeout = 10000;
-            this._central = new CBCentralManager(DispatchQueue.CurrentQueue);
+            DeviceOperationRegistry = new Dictionary<string, IDevice>();
+            DeviceConnectionRegistry = new Dictionary<string, IDevice>();
 
+            this._central = new CBCentralManager(DispatchQueue.CurrentQueue);
+            
             _central.DiscoveredPeripheral += (sender, e) =>
             {
                 Mvx.Trace("DiscoveredPeripheral: {0}, ID: {1}", e.Peripheral.Name, e.Peripheral.Identifier);
