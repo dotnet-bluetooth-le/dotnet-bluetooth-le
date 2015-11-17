@@ -22,10 +22,10 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         /// we also track this because of gogole's weird API. the gatt callback is where
         /// we'll get notified when services are enumerated
         /// </summary>
-        protected GattCallback _gattCallback;
+        protected IGattCallback _gattCallback;
 
 
-        public Characteristic(BluetoothGattCharacteristic nativeCharacteristic, BluetoothGatt gatt, GattCallback gattCallback)
+        public Characteristic(BluetoothGattCharacteristic nativeCharacteristic, BluetoothGatt gatt, IGattCallback gattCallback)
         {
             this._nativeCharacteristic = nativeCharacteristic;
             this._gatt = gatt;

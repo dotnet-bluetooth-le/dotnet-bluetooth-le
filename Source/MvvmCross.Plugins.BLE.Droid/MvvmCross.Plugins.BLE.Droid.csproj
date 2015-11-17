@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bluetooth\LE\Adapter.cs" />
+    <Compile Include="Bluetooth\LE\BondStatusBroadcastReceiver.cs" />
     <Compile Include="Bluetooth\LE\Characteristic.cs" />
     <Compile Include="Bluetooth\LE\Descriptor.cs" />
     <Compile Include="Bluetooth\LE\Device.cs" />

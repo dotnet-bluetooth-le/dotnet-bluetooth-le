@@ -13,7 +13,7 @@ using Cirrious.CrossCore;
 
 namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 {
-    public class Adapter : Java.Lang.Object, BluetoothAdapter.ILeScanCallback, IAdapter
+    public partial class Adapter : BluetoothAdapter.ILeScanCallback, IAdapter
     {
         // events
         public event EventHandler<DeviceDiscoveredEventArgs> DeviceAdvertised = delegate { };
@@ -21,12 +21,12 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         public event EventHandler<DeviceConnectionEventArgs> DeviceConnected = delegate { };
         public event EventHandler<DeviceBondStateChangedEventArgs> DeviceBondStateChanged = delegate { };
         public event EventHandler<DeviceConnectionEventArgs> DeviceDisconnected = delegate { };
+        public event EventHandler<DeviceConnectionEventArgs> DeviceConnectionLost = delegate { };
         public event EventHandler ScanTimeoutElapsed = delegate { };
 
         // class members
         protected BluetoothManager _manager;
         protected BluetoothAdapter _adapter;
-        protected GattCallback _gattCallback;
         private readonly Api21BleScanCallback _api21ScanCallback;
 
         public bool IsScanning
@@ -49,48 +49,43 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             get
             {
-                return this._connectedDevices;
+                return this.ConnectedDeviceRegistry.Values.ToList();
             }
-        } protected IList<IDevice> _connectedDevices = new List<IDevice>();
+        }
+
+        /// <summary>
+        /// Used to store all connected devices
+        /// </summary>
+        public Dictionary<string, IDevice> ConnectedDeviceRegistry { get; private set; }
 
 
-
-        public Dictionary<string, IDevice> DeviceRegistry { get; private set; }
+        /// <summary>
+        /// Registry used to store device instances for pending operations : connect 
+        /// </summary>
+        public Dictionary<string, IDevice> DeviceOperationRegistry { get; private set; }
 
         public Adapter()
         {
             ScanTimeout = 10000;
+
+            DeviceOperationRegistry = new Dictionary<string, IDevice>();
+            ConnectedDeviceRegistry = new Dictionary<string, IDevice>();
 
             var appContext = Android.App.Application.Context;
             // get a reference to the bluetooth system service
             this._manager = (BluetoothManager)appContext.GetSystemService(Context.BluetoothService);
             this._adapter = this._manager.Adapter;
 
-            this._gattCallback = new GattCallback(this);
-
-            this._gattCallback.DeviceConnected += (object sender, DeviceConnectionEventArgs e) =>
-            {
-                this._connectedDevices.Add(e.Device);
-                this.DeviceConnected(this, e);
-            };
-
-            this._gattCallback.DeviceDisconnected += (object sender, DeviceConnectionEventArgs e) =>
-            {
-                RemoveDeviceFromList(e.Device);
-                this.DeviceDisconnected(this, e);
-            };
 
             var bondStatusBroadcastReceiver = new BondStatusBroadcastReceiver();
             Application.Context.RegisterReceiver(bondStatusBroadcastReceiver,
                 new IntentFilter(BluetoothDevice.ActionBondStateChanged));
 
+            //forward events from broadcast receiver
             bondStatusBroadcastReceiver.BondStateChanged += (s, args) =>
             {
                 this.DeviceBondStateChanged(this, args);
             };
-
-
-            DeviceRegistry = new Dictionary<string, IDevice>();
 
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
             {
@@ -206,7 +201,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             }
         }
 
-        private byte[] GetManufacturerSpecificData(byte[] rawScanRecord) 
+        private byte[] GetManufacturerSpecificData(byte[] rawScanRecord)
         {
             for (int i = 0; i < rawScanRecord.Length; ++i)
             {
@@ -245,22 +240,21 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             }
         }
 
-
         public void ConnectToDevice(IDevice device)
         {
             // returns the BluetoothGatt, which is the API for BLE stuff
             // TERRIBLE API design on the part of google here.
-            AddToDeviceRegistry(device);
+            AddToDeviceOperationRegistry(device);
 
-            ((BluetoothDevice)device.NativeDevice).ConnectGatt(Android.App.Application.Context, true, this._gattCallback);
+            ((BluetoothDevice)device.NativeDevice).ConnectGatt(Application.Context, true, this);
         }
 
-        private void AddToDeviceRegistry(IDevice device)
+        private void AddToDeviceOperationRegistry(IDevice device)
         {
             var nativeDevice = ((BluetoothDevice)device.NativeDevice);
-            if (!DeviceRegistry.ContainsKey(nativeDevice.Address))
+            if (!DeviceOperationRegistry.ContainsKey(nativeDevice.Address))
             {
-                DeviceRegistry.Add(nativeDevice.Address, device);
+                DeviceOperationRegistry.Add(nativeDevice.Address, device);
             }
         }
 
@@ -272,7 +266,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         public void DisconnectDevice(IDevice deviceToDisconnect)
         {
             //make sure everything is disconnected
-            AddToDeviceRegistry(deviceToDisconnect);
+            AddToDeviceOperationRegistry(deviceToDisconnect);
             ((Device)deviceToDisconnect).Disconnect();
         }
 
@@ -282,10 +276,10 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         /// <param name="deviceToDisconnect"></param>
         private void RemoveDeviceFromList(IDevice deviceToDisconnect)
         {
-            var device = this._connectedDevices.FirstOrDefault(d => d.ID.Equals(deviceToDisconnect.ID));
-            if (device != null)
+            var key = deviceToDisconnect.ID.ToString();
+            if (ConnectedDeviceRegistry.ContainsKey(key))
             {
-                _connectedDevices.Remove(device);
+                ConnectedDeviceRegistry.Remove(key);
             }
         }
 
@@ -334,40 +328,6 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                     _adapter._discoveredDevices.Add(device);
                     _adapter.DeviceDiscovered(this, new DeviceDiscoveredEventArgs { Device = device });
                 }
-            }
-        }
-    }
-
-
-
-
-    [BroadcastReceiver()]
-    public class BondStatusBroadcastReceiver : BroadcastReceiver
-    {
-        public event EventHandler<DeviceBondStateChangedEventArgs> BondStateChanged;
-
-        public override void OnReceive(Context context, Intent intent)
-        {
-            var bondState = (Bond)intent.GetIntExtra(BluetoothDevice.ExtraBondState, (int)Bond.None);
-            var device = new Device((BluetoothDevice)intent.GetParcelableExtra(BluetoothDevice.ExtraDevice), null, null, 0);
-            Console.WriteLine(bondState.ToString());
-
-            if (BondStateChanged == null) return;
-
-            switch (bondState)
-            {
-                case Bond.None:
-                    BondStateChanged(this, new DeviceBondStateChangedEventArgs() { Device = device, State = DeviceBondState.NotBonded });
-                    break;
-
-                case Bond.Bonding:
-                    BondStateChanged(this, new DeviceBondStateChangedEventArgs() { Device = device, State = DeviceBondState.Bonding });
-                    break;
-
-                case Bond.Bonded:
-                    BondStateChanged(this, new DeviceBondStateChangedEventArgs() { Device = device, State = DeviceBondState.Bonded });
-                    break;
-
             }
         }
     }

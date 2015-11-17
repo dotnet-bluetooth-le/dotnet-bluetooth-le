@@ -21,6 +21,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         public event EventHandler<DeviceConnectionEventArgs> DeviceConnected = delegate { };
         public event EventHandler<DeviceBondStateChangedEventArgs> DeviceBondStateChanged = delegate { };
         public event EventHandler<DeviceConnectionEventArgs> DeviceDisconnected = delegate { };
+        public event EventHandler<DeviceConnectionEventArgs> DeviceConnectionLost= delegate { };
         public event EventHandler<DeviceConnectionEventArgs> DeviceFailedToConnect = delegate { };
         public event EventHandler ScanTimeoutElapsed = delegate { };
         public event EventHandler ConnectTimeoutElapsed = delegate { };

@@ -22,12 +22,12 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         /// we also track this because of gogole's weird API. the gatt callback is where
         /// we'll get notified when services are enumerated
         /// </summary>
-        protected GattCallback _gattCallback;
+        protected IGattCallback _gattCallback;
 
-        public Device(BluetoothDevice nativeDevice, BluetoothGatt gatt, GattCallback gattCallback, int rssi)
+        public Device(BluetoothDevice nativeDevice, BluetoothGatt gatt, IGattCallback gattCallback, int rssi)
             : this(nativeDevice, gatt, gattCallback, rssi, new byte[0]) { }
 
-        public Device(BluetoothDevice nativeDevice, BluetoothGatt gatt, GattCallback gattCallback, int rssi, byte[] advertisementData)
+        public Device(BluetoothDevice nativeDevice, BluetoothGatt gatt, IGattCallback gattCallback, int rssi, byte[] advertisementData)
             : base()
         {
             Update(nativeDevice, gatt, gattCallback);
@@ -36,7 +36,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         }
 
         public void Update(BluetoothDevice nativeDevice, BluetoothGatt gatt,
-            GattCallback gattCallback)
+            IGattCallback gattCallback)
         {
             this._nativeDevice = nativeDevice;
             this._gatt = gatt;

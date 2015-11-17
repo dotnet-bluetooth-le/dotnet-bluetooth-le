@@ -1,28 +1,26 @@
 using System;
 using Android.Bluetooth;
+using Cirrious.CrossCore;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
 
 namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 {
-    public class GattCallback : BluetoothGattCallback
+    public interface IGattCallback
     {
+        event EventHandler<ServicesDiscoveredEventArgs> ServicesDiscovered;
+        event EventHandler<CharacteristicReadEventArgs> CharacteristicValueUpdated;
+        event EventHandler<CharacteristicWriteEventArgs> CharacteristicValueWritten;
+    }
 
-        public event EventHandler<DeviceConnectionEventArgs> DeviceConnected = delegate { };
-        public event EventHandler<DeviceConnectionEventArgs> DeviceDisconnected = delegate { };
+    public partial class Adapter : BluetoothGattCallback, IGattCallback
+    {
         public event EventHandler<ServicesDiscoveredEventArgs> ServicesDiscovered = delegate { };
         public event EventHandler<CharacteristicReadEventArgs> CharacteristicValueUpdated = delegate { };
         public event EventHandler<CharacteristicWriteEventArgs> CharacteristicValueWritten = delegate { };
 
-        protected Adapter _adapter;
-
-        public GattCallback(Adapter adapter)
-        {
-            this._adapter = adapter;
-        }
-
         public override void OnConnectionStateChange(BluetoothGatt gatt, GattStatus status, ProfileState newState)
         {
-            Console.WriteLine("OnConnectionStateChange: ");
+            Mvx.Trace("OnConnectionStateChange: ");
             base.OnConnectionStateChange(gatt, status, newState);
 
             IDevice device = null;
@@ -30,48 +28,62 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             {
                 // disconnected
                 case ProfileState.Disconnected:
-                    Console.WriteLine("disconnected");
+                    Mvx.Trace("Disconnected");
 
-
-                    if (_adapter.DeviceRegistry.TryGetValue(gatt.Device.Address, out device))
+                    if (DeviceOperationRegistry.TryGetValue(gatt.Device.Address, out device))
                     {
                         //Found so we can remove it
-                        _adapter.DeviceRegistry.Remove(gatt.Device.Address);
+                        DeviceOperationRegistry.Remove(gatt.Device.Address);
+
+                        RemoveDeviceFromList(device);
                         ((Device)device).CloseGatt();
-                    }
-                    else
-                    {
-                        device = new Device(gatt.Device, null, null, 0);
+
+                        DeviceDisconnected(this, new DeviceConnectionEventArgs { Device = device });
+                        break;
                     }
 
-                    this.DeviceDisconnected(this, new DeviceConnectionEventArgs { Device = device });
+                    //connection must have been lost, bacause our device was not found in the registry but was still connected
+                    if (ConnectedDeviceRegistry.TryGetValue(gatt.Device.Address, out device))
+                    {
+                        RemoveDeviceFromList(device);
+                        ((Device)device).CloseGatt();
+
+                        DeviceConnectionLost(this, new DeviceConnectionEventArgs() { Device = device });
+                    }
+
+
+                    Mvx.Trace("Device not found in registry. Not raising diconnect/lost event.");
+
                     break;
                 // connecting
                 case ProfileState.Connecting:
-                    Console.WriteLine("Connecting");
+                    Mvx.Trace("Connecting");
                     break;
                 // connected
                 case ProfileState.Connected:
-                    Console.WriteLine("Connected");
+                    Mvx.Trace("Connected");
 
                     //Try to find the device in the registry so that the same instanece is updated
-                    if (_adapter.DeviceRegistry.TryGetValue(gatt.Device.Address, out device))
+                    if (DeviceOperationRegistry.TryGetValue(gatt.Device.Address, out device))
                     {
                         ((Device)device).Update(gatt.Device, gatt, this);
+
                         //Found so we can remove it
-                        _adapter.DeviceRegistry.Remove(gatt.Device.Address);
+                        DeviceOperationRegistry.Remove(gatt.Device.Address);
                     }
                     else
                     {
+                        //should not be the case
                         device = new Device(gatt.Device, gatt, this, 0);
                     }
 
+                    this.ConnectedDeviceRegistry.Add(device.ID.ToString(), device);
                     this.DeviceConnected(this, new DeviceConnectionEventArgs() { Device = device });
 
                     break;
                 // disconnecting
                 case ProfileState.Disconnecting:
-                    Console.WriteLine("Disconnecting");
+                    Mvx.Trace("Disconnecting");
                     break;
             }
         }
@@ -80,7 +92,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             base.OnServicesDiscovered(gatt, status);
 
-            Console.WriteLine("OnServicesDiscovered: " + status.ToString());
+            Mvx.Trace("OnServicesDiscovered: " + status.ToString());
 
             this.ServicesDiscovered(this, new ServicesDiscoveredEventArgs());
         }
@@ -89,7 +101,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             base.OnDescriptorRead(gatt, descriptor, status);
 
-            Console.WriteLine("OnDescriptorRead: " + descriptor.ToString());
+            Mvx.Trace("OnDescriptorRead: " + descriptor.ToString());
 
         }
 
@@ -97,7 +109,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             base.OnCharacteristicRead(gatt, characteristic, status);
 
-            Console.WriteLine("OnCharacteristicRead: {0}, {1}", characteristic.GetStringValue(0), status);
+            Mvx.Trace("OnCharacteristicRead: {0}, {1}", characteristic.GetStringValue(0), status);
 
             this.CharacteristicValueUpdated(this, new CharacteristicReadEventArgs
             {
@@ -126,7 +138,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             base.OnCharacteristicWrite(gatt, characteristic, status);
 
-            Console.WriteLine("OnCharacteristicWrite: {0}", status);
+            Mvx.Trace("OnCharacteristicWrite: {0}", status);
 
             var args = new CharacteristicWriteEventArgs() { Characteristic = new Characteristic(characteristic, null, null) };
             switch (status)
@@ -152,9 +164,10 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             base.OnReliableWriteCompleted(gatt, status);
 
-            Console.WriteLine("OnReliableWriteCompleted: {0}", status);
-
+            Mvx.Trace("OnReliableWriteCompleted: {0}", status);
         }
     }
+
+
 }
 
