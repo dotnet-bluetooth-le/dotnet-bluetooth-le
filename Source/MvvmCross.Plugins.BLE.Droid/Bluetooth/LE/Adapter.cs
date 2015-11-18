@@ -93,9 +93,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             }
         }
 
-
-
-        public async void StartScanningForDevices()
+        public void StartScanningForDevices()
         {
             StartScanningForDevices(new Guid[] { });
         }
@@ -203,26 +201,45 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
         private byte[] GetManufacturerSpecificData(byte[] rawScanRecord)
         {
-            for (int i = 0; i < rawScanRecord.Length; ++i)
+            try
             {
-                if (rawScanRecord[i + 1] == 0xFF)
+                for (int i = 0; i < rawScanRecord.Length; ++i)
                 {
-                    // Found manufacturer specific data
-                    int length = rawScanRecord[i] - 1;
+                    if (rawScanRecord[i + 1] == 0xFF)
+                    {
+                        // Found manufacturer specific data
+                        int length = rawScanRecord[i] - 1;
 
-                    byte[] retVal = new byte[length];
-                    for (int j = 0; j < length; ++j)
-                        retVal[j] = rawScanRecord[i + 2 + j];
+                        byte[] retVal = new byte[length];
+                        for (int j = 0; j < length; ++j)
+                            retVal[j] = rawScanRecord[i + 2 + j];
 
-                    return retVal;
+                        return retVal;
+                    }
+                    else
+                    {
+                        i += rawScanRecord[i];
+                    }
                 }
-                else
-                {
-                    i += rawScanRecord[i];
-                }
+
+                return new byte[0];
             }
+            catch (Exception ex)
+            {
+                if (rawScanRecord != null)
+                {
+                    foreach (byte b in rawScanRecord)
+                    {
+                        Console.Write("{0} ", (int)b);
+                    }
+                    Console.WriteLine();
+                }
 
-            return new byte[0];
+                Mvx.Trace(ex.Message);
+                Mvx.Trace(ex.StackTrace);
+                //ToDo
+                return new byte[0];
+            }
         }
 
         public void OnLeScan(BluetoothDevice bleDevice, int rssi, byte[] scanRecord)

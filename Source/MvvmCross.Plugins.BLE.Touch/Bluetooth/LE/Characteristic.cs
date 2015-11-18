@@ -245,6 +245,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                     {
                         Characteristic = new Characteristic(e.Characteristic, _parentDevice)
                     });
+
                 _parentDevice.UpdatedCharacterteristicValue -= UpdatedRead;
             }
         }
