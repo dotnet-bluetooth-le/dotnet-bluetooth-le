@@ -21,6 +21,12 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
             this._rssi = rssi;
             this._advertisementData = advertisementData;
 
+            this._nativeDevice.UpdatedName += (sender, e) => 
+                {
+                    this._name = (sender as CBPeripheral).Name;
+                    Mvx.Trace("Device changed name: {0}", this._name);
+                };
+
             this._nativeDevice.DiscoveredService += (object sender, NSErrorEventArgs e) =>
             {
                 // why we have to do this check is beyond me. if a service has been discovered, the collection
