@@ -152,10 +152,10 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 case GattStatus.ReadNotPermitted:
                 case GattStatus.RequestNotSupported:
                 case GattStatus.WriteNotPermitted:
-                    args.IsSuccessfull = false;
+                    args.IsSuccessful = false;
                     break;
                 case GattStatus.Success:
-                    args.IsSuccessfull = true;
+                    args.IsSuccessful = true;
                     break;
             }
             this.CharacteristicValueWritten(this, args);
