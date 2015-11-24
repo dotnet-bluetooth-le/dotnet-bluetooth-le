@@ -19,16 +19,16 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
     public class CharacteristicWriteEventArgs : EventArgs
     {
         public ICharacteristic Characteristic { get; set; }
-        public bool IsSuccessfull { get; set; }
+        public bool IsSuccessful { get; set; }
 
         public CharacteristicWriteEventArgs()
         {
         }
 
-        public CharacteristicWriteEventArgs(ICharacteristic characteristic, bool isSuccessfull)
+        public CharacteristicWriteEventArgs(ICharacteristic characteristic, bool isSuccessful)
         {
             Characteristic = characteristic;
-            IsSuccessfull = isSuccessfull;
+            IsSuccessful = isSuccessful;
         }
     }
 }
