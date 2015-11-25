@@ -212,7 +212,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 // 1 byte for type and length-1 bytes for data
                 if (length == 0) break;
 
-                byte type = scanRecord[index];
+                int type = scanRecord[index];
                 //Done if our record isn't a valid type
                 if (type == 0) break;
 
@@ -231,7 +231,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 Mvx.Trace(record.ToString());
 
                 records.Add(record);
-
+                
                 //Advance
                 index += length;
             }
