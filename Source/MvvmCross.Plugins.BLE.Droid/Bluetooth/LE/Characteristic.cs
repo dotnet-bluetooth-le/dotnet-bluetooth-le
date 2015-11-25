@@ -123,7 +123,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                          _gattCallback.CharacteristicValueWritten -= writeCallback;
                      }
 
-                     tcs.SetResult(a.IsSuccessfull);
+                     tcs.SetResult(a.IsSuccessful);
                      //this.ValueWritten(s, a);
                  }
              };
