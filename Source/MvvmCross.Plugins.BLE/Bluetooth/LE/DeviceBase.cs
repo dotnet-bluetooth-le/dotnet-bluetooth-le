@@ -56,6 +56,14 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
             }
         }
 
+        public virtual List<AdvertisementRecord> AdvertisementRecords
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public virtual IList<IService> Services
         {
             get { throw new NotImplementedException(); }
@@ -77,10 +85,11 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
             //Mvx.Trace("IDevice equator");
             if (other.GetType() != this.GetType())
                 return false;
-            
+
             return this.ID.Equals((other as IDevice).ID);
         }
         #endregion
+
     }
 }
 

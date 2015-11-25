@@ -111,8 +111,6 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 return;
             }
 
-
-
             // clear out the list
             this._discoveredDevices = new List<IDevice>();
 
@@ -199,54 +197,11 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             }
         }
 
-        private byte[] GetManufacturerSpecificData(byte[] rawScanRecord)
-        {
-            try
-            {
-                for (int i = 0; i < rawScanRecord.Length; ++i)
-                {
-                    if (rawScanRecord[i + 1] == 0xFF)
-                    {
-                        // Found manufacturer specific data
-                        int length = rawScanRecord[i] - 1;
-
-                        byte[] retVal = new byte[length];
-                        for (int j = 0; j < length; ++j)
-                            retVal[j] = rawScanRecord[i + 2 + j];
-
-                        return retVal;
-                    }
-                    else
-                    {
-                        i += rawScanRecord[i];
-                    }
-                }
-
-                return new byte[0];
-            }
-            catch (Exception ex)
-            {
-                if (rawScanRecord != null)
-                {
-                    foreach (byte b in rawScanRecord)
-                    {
-                        Console.Write("{0} ", (int)b);
-                    }
-                    Console.WriteLine();
-                }
-
-                Mvx.Trace(ex.Message);
-                Mvx.Trace(ex.StackTrace);
-                //ToDo
-                return new byte[0];
-            }
-        }
-
         public void OnLeScan(BluetoothDevice bleDevice, int rssi, byte[] scanRecord)
         {
             Mvx.Trace("Adapter.LeScanCallback: " + bleDevice.Name);
 
-            var device = new Device(bleDevice, null, null, rssi, GetManufacturerSpecificData(scanRecord));
+            var device = new Device(bleDevice, null, null, rssi, scanRecord);
 
             this.DeviceAdvertised(this, new DeviceDiscoveredEventArgs { Device = device });
 
@@ -322,21 +277,22 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             {
                 base.OnScanResult(callbackType, result);
 
-                //Device device = new Device(result.Device, null, null, result.Rssi, result.ScanRecord.GetBytes());
-                Device device;
-                if (result.ScanRecord.ManufacturerSpecificData.Size() > 0)
-                {
-                    int key = result.ScanRecord.ManufacturerSpecificData.KeyAt(0);
-                    byte[] mdata = result.ScanRecord.GetManufacturerSpecificData(key);
-                    byte[] mdataWithKey = new byte[mdata.Length + 2];
-                    BitConverter.GetBytes((ushort)key).CopyTo(mdataWithKey, 0);
-                    mdata.CopyTo(mdataWithKey, 2);
-                    device = new Device(result.Device, null, null, result.Rssi, mdataWithKey);
-                }
-                else
-                {
-                    device = new Device(result.Device, null, null, result.Rssi, new byte[0]);
-                }
+                var device = new Device(result.Device, null, null, result.Rssi, result.ScanRecord.GetBytes());
+
+                //Device device;
+                //if (result.ScanRecord.ManufacturerSpecificData.Size() > 0)
+                //{
+                //    int key = result.ScanRecord.ManufacturerSpecificData.KeyAt(0);
+                //    byte[] mdata = result.ScanRecord.GetManufacturerSpecificData(key);
+                //    byte[] mdataWithKey = new byte[mdata.Length + 2];
+                //    BitConverter.GetBytes((ushort)key).CopyTo(mdataWithKey, 0);
+                //    mdata.CopyTo(mdataWithKey, 2);
+                //    device = new Device(result.Device, null, null, result.Rssi, mdataWithKey);
+                //}
+                //else
+                //{
+                //    device = new Device(result.Device, null, null, result.Rssi, new byte[0]);
+                //}
 
                 _adapter.DeviceAdvertised(this, new DeviceDiscoveredEventArgs { Device = device });
 

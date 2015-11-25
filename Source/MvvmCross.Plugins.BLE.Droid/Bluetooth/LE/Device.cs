@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Android.Bluetooth;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
+using Cirrious.CrossCore;
 
 namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 {
@@ -109,7 +110,13 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             {
                 return this._advertisementData;
             }
-        } protected byte[] _advertisementData;
+        }
+        protected byte[] _advertisementData;
+
+        public override List<AdvertisementRecord> AdvertisementRecords
+        {
+            get { return ParseScanRecord(AdvertisementData); }
+        }
 
         // TODO: investigate the validity of this. Android API seems to indicate that the
         // bond state is available, rather than the connected state, which are two different 
@@ -189,6 +196,48 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
 
         #endregion
+
+        public static List<AdvertisementRecord> ParseScanRecord(byte[] scanRecord)
+        {
+            var records = new List<AdvertisementRecord>();
+
+            if (scanRecord == null)
+                return records;
+
+            int index = 0;
+            while (index < scanRecord.Length)
+            {
+                byte length = scanRecord[index++];
+                //Done once we run out of records 
+                // 1 byte for type and length-1 bytes for data
+                if (length == 0) break;
+
+                byte type = scanRecord[index];
+                //Done if our record isn't a valid type
+                if (type == 0) break;
+
+                if (!Enum.IsDefined(typeof(AdvertisementRecordType), type))
+                {
+                    Mvx.Trace("Advertisment record type not defined: {0}", type);
+                    break;
+                }
+
+                //data length is length -1 because type takes the first byte
+                byte[] data = new byte[length - 1];
+                Array.Copy(scanRecord, index + 1, data, 0, length - 1);
+
+                var record = new AdvertisementRecord((AdvertisementRecordType)type, data);
+
+                Mvx.Trace(record.ToString());
+
+                records.Add(record);
+
+                //Advance
+                index += length;
+            }
+
+            return records;
+        }
     }
 }
 

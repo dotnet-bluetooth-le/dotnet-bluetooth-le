@@ -13,15 +13,15 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
         protected CBPeripheral _nativeDevice;
 
-        public Device(CBPeripheral nativeDevice) : this(nativeDevice, nativeDevice.Name, nativeDevice.RSSI != null ? nativeDevice.RSSI.Int32Value : 0, new byte[0]) { }
-        public Device(CBPeripheral nativeDevice, string name, int rssi, byte[] advertisementData)
+        public Device(CBPeripheral nativeDevice) : this(nativeDevice, nativeDevice.Name, nativeDevice.RSSI != null ? nativeDevice.RSSI.Int32Value : 0, new List<AdvertisementRecord>()) { }
+        public Device(CBPeripheral nativeDevice, string name, int rssi, List<AdvertisementRecord> advertisementRecords)
         {
             this._nativeDevice = nativeDevice;
             this._name = name;
             this._rssi = rssi;
-            this._advertisementData = advertisementData;
+            this._advertisementRecords = advertisementRecords;
 
-            this._nativeDevice.UpdatedName += (sender, e) => 
+            this._nativeDevice.UpdatedName += (sender, e) =>
                 {
                     this._name = (sender as CBPeripheral).Name;
                     Mvx.Trace("Device changed name: {0}", this._name);
@@ -129,12 +129,18 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         {
             get
             {
-                //return _advertisementData.ToArray();
-                //Console.WriteLine("AData: {0}", this._advertisementData);
-                //return new byte[3]{1,2,3};
-                return _advertisementData;
+                throw new Exception("iOS does not allow raw scan data. Please use AdvertisementRecords");
             }
-        } protected byte[] _advertisementData;
+        }
+
+        public override List<AdvertisementRecord> AdvertisementRecords
+        {
+            get
+            {
+                return _advertisementRecords;
+            }
+        }
+        protected List<AdvertisementRecord> _advertisementRecords;
 
         // TODO: investigate the validity of this. Android API seems to indicate that the
         // bond state is available, rather than the connected state, which are two different 
@@ -155,7 +161,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         {
             this._nativeDevice.DiscoverServices();
         }
-        
+
         //public void Disconnect()
         //{
         //    Adapter.Current.DisconnectDevice(this);

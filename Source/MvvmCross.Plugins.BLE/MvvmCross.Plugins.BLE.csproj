@@ -43,6 +43,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bluetooth\LE\AdevertismentRecord.cs" />
     <Compile Include="Bluetooth\LE\BluetoothKnownItemManager.cs" />
     <Compile Include="Bluetooth\LE\CharacteristicPropertyType.cs" />
     <Compile Include="Bluetooth\LE\CharacteristicReadEventArgs.cs" />

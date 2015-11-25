@@ -201,6 +201,13 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
 
             return tcs.Task;
         }
+
+        public static string ToHexString(this byte[] bytes)
+        {
+            return BitConverter.ToString(bytes);
+        }
+
+
     }
 }
 

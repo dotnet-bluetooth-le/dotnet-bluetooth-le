@@ -83,17 +83,10 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                     // iOS caches the peripheral name, so it can become stale (if changing) unless we keep track of the local name key manually
                     name = (e.AdvertisementData.ValueForKey(CBAdvertisement.DataLocalNameKey) as NSString).ToString();
                 }
-                if (e.AdvertisementData.ContainsKey(CBAdvertisement.DataManufacturerDataKey))
-                {
-                    d = new Device(e.Peripheral,
-                        name,
-                        e.RSSI.Int32Value,
-                        (e.AdvertisementData.ValueForKey(CBAdvertisement.DataManufacturerDataKey) as NSData).ToArray());
-                }
-                else
-                {
-                    d = new Device(e.Peripheral, name, e.RSSI.Int32Value, new byte[0]);
-                }
+
+
+                d = new Device(e.Peripheral, name, e.RSSI.Int32Value, ParseAdvertismentData(e.AdvertisementData));
+
                 this.DeviceAdvertised(this, new DeviceDiscoveredEventArgs() { Device = d });
                 if (!ContainsDevice(this._discoveredDevices, e.Peripheral))
                 {
@@ -270,6 +263,44 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         protected bool ContainsDevice(IEnumerable<IDevice> list, CBPeripheral device)
         {
             return list.Any(d => Guid.ParseExact(device.Identifier.AsString(), "d") == d.ID);
+        }
+
+        public static List<AdvertisementRecord> ParseAdvertismentData(NSDictionary AdvertisementData)
+        {
+            var records = new List<AdvertisementRecord>();
+
+            var keys = new Dictionary<NSString, AdvertisementRecordType>
+            {
+                {CBAdvertisement.DataLocalNameKey, AdvertisementRecordType.CompleteLocalName},
+                {CBAdvertisement.DataManufacturerDataKey, AdvertisementRecordType.ManufacturerSpecificData},
+                //{CBAdvertisement.DataOverflowServiceUUIDsKey, AdvertisementRecordType. } //ToDo ??which one is this according to ble spec
+                {CBAdvertisement.DataServiceDataKey, AdvertisementRecordType.ServiceData128Bit},
+                {CBAdvertisement.DataServiceUUIDsKey, AdvertisementRecordType.UuidsComplete128Bit},
+                {CBAdvertisement.DataSolicitedServiceUUIDsKey, AdvertisementRecordType.SsUuids128Bit} //ToDo
+            };
+
+            foreach (var keyPairs in keys)
+            {
+                var record = CreateAdvertisementRecordForKey(AdvertisementData, keyPairs.Key, keyPairs.Value);
+                if (record != null)
+                {
+                    records.Add(record);
+                    Mvx.Trace("{0} : {1}", keyPairs.Key, record.ToString());
+                }
+            }
+
+            return records;
+        }
+
+        public static AdvertisementRecord CreateAdvertisementRecordForKey(NSDictionary AdvertisementData, NSString key, AdvertisementRecordType type)
+        {
+            if (AdvertisementData.ContainsKey(key))
+            {
+
+                return new AdvertisementRecord(type, ((NSData)AdvertisementData.ValueForKey(CBAdvertisement.DataManufacturerDataKey)).ToArray());
+            }
+
+            return null;
         }
     }
 }
