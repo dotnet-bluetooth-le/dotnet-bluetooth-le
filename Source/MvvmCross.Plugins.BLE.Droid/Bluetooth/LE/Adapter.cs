@@ -159,7 +159,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                     var ssb = new ScanSettings.Builder();
                     //ssb.SetCallbackType(ScanCallbackType.AllMatches);
 
-                    this._adapter.BluetoothLeScanner.StartScan(scanFilters, ssb.Build(), _api21ScanCallback);
+                    _adapter.BluetoothLeScanner.StartScan(scanFilters, ssb.Build(), _api21ScanCallback);
                 }
 
             }

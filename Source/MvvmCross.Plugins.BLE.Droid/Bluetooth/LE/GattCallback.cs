@@ -28,10 +28,11 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             {
                 // disconnected
                 case ProfileState.Disconnected:
-                    Mvx.Trace("Disconnected");
 
                     if (DeviceOperationRegistry.TryGetValue(gatt.Device.Address, out device))
                     {
+                        Mvx.Trace("Disconnected by user");
+
                         //Found so we can remove it
                         DeviceOperationRegistry.Remove(gatt.Device.Address);
 
@@ -45,6 +46,8 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                     //connection must have been lost, bacause our device was not found in the registry but was still connected
                     if (ConnectedDeviceRegistry.TryGetValue(gatt.Device.Address, out device))
                     {
+                        Mvx.Trace("Disconnected by lost connection");
+
                         RemoveDeviceFromList(device);
                         ((Device)device).CloseGatt();
 
@@ -53,7 +56,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                     }
 
 
-                    Mvx.Trace("Device not found in registry. Not raising diconnect/lost event.");
+                    Mvx.Trace("Disconnect. Device not found in registry. Not raising disconnect/lost event.");
 
                     break;
                 // connecting

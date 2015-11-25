@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Android.App;
 using Android.Bluetooth;
+using Cirrious.CrossCore;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
 
 namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
@@ -135,7 +137,9 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 tcs.SetResult(true);
             }
 
-            Write(data);
+            //Make sure this is on the main thread or bad things happen
+            Application.SynchronizationContext.Post(_ => Write(data), null);
+
 
             return tcs.Task;
         }
@@ -156,8 +160,9 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
             var c = _nativeCharacteristic;
             c.SetValue(data);
-            this._gatt.WriteCharacteristic(c);
-            Console.WriteLine(".....Write");
+            Mvx.Trace(".....Write");
+            _gatt.WriteCharacteristic(c);
+
         }
 
         private void OnCharacteristicValueWritten(object sender, CharacteristicWriteEventArgs e)

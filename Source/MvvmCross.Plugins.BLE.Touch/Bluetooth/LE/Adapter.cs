@@ -126,8 +126,6 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
             _central.DisconnectedPeripheral += (sender, e) =>
             {
-                Mvx.Trace("DisconnectedPeripheral: " + e.Peripheral.Name);
-
                 // when a peripheral disconnects, remove it from our running list.
                 var id = ParseDeviceGuid(e.Peripheral);
                 var stringId = id.ToString();
@@ -148,10 +146,13 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
                 if (isNormalDisconnect)
                 {
+                    Mvx.Trace("DisconnectedPeripheral by user: {0}", e.Peripheral.Name);
+
                     DeviceDisconnected(sender, new DeviceConnectionEventArgs { Device = foundDevice });
                 }
                 else
                 {
+                    Mvx.Trace("DisconnectedPeripheral by lost signal: {0}", e.Peripheral.Name);
                     DeviceConnectionLost(sender, new DeviceConnectionEventArgs() { Device = foundDevice ?? new Device(e.Peripheral) });
                 }
             };
