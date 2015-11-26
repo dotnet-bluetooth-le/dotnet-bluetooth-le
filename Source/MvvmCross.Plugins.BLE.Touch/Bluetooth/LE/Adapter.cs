@@ -84,7 +84,6 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                     name = (e.AdvertisementData.ValueForKey(CBAdvertisement.DataLocalNameKey) as NSString).ToString();
                 }
 
-
                 d = new Device(e.Peripheral, name, e.RSSI.Int32Value, ParseAdvertismentData(e.AdvertisementData));
 
                 this.DeviceAdvertised(this, new DeviceDiscoveredEventArgs() { Device = d });
@@ -105,7 +104,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
             _central.ConnectedPeripheral += (sender, e) =>
             {
-                Mvx.Trace("ConnectedPeripheral: " + e.Peripheral.Name);
+                Mvx.Trace("ConnectedPeripherial: " + e.Peripheral.Name);
 
                 // when a peripheral gets connected, add that peripheral to our running list of connected peripherals
                 var guid = ParseDeviceGuid(e.Peripheral).ToString();
@@ -269,36 +268,60 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         {
             var records = new List<AdvertisementRecord>();
 
-            var keys = new Dictionary<NSString, AdvertisementRecordType>
+            var keys = new List<NSString>
             {
-                {CBAdvertisement.DataLocalNameKey, AdvertisementRecordType.CompleteLocalName},
-                {CBAdvertisement.DataManufacturerDataKey, AdvertisementRecordType.ManufacturerSpecificData},
-                //{CBAdvertisement.DataOverflowServiceUUIDsKey, AdvertisementRecordType. } //ToDo ??which one is this according to ble spec
-                {CBAdvertisement.DataServiceDataKey, AdvertisementRecordType.ServiceData128Bit},
-                {CBAdvertisement.DataServiceUUIDsKey, AdvertisementRecordType.UuidsComplete128Bit},
-                {CBAdvertisement.DataSolicitedServiceUUIDsKey, AdvertisementRecordType.SsUuids128Bit} //ToDo
+                CBAdvertisement.DataLocalNameKey,
+                CBAdvertisement.DataManufacturerDataKey, 
+                CBAdvertisement.DataOverflowServiceUUIDsKey, //ToDo ??which one is this according to ble spec
+                CBAdvertisement.DataServiceDataKey, 
+                CBAdvertisement.DataServiceUUIDsKey,
+                CBAdvertisement.DataSolicitedServiceUUIDsKey
             };
 
-            foreach (var keyPairs in keys)
+            foreach (var key in keys)
             {
-                var record = CreateAdvertisementRecordForKey(AdvertisementData, keyPairs.Key, keyPairs.Value);
+                var record = CreateAdvertisementRecordForKey(AdvertisementData, key);
                 if (record != null)
                 {
                     records.Add(record);
-                    Mvx.Trace("{0} : {1}", keyPairs.Key, record.ToString());
+                    Mvx.Trace("{0} : {1}", key, record.ToString());
                 }
             }
 
             return records;
         }
 
-        public static AdvertisementRecord CreateAdvertisementRecordForKey(NSDictionary AdvertisementData, NSString key, AdvertisementRecordType type)
+        public static AdvertisementRecord CreateAdvertisementRecordForKey(NSDictionary AdvertisementData, NSString key)
         {
-            if (AdvertisementData.ContainsKey(key))
+            if (!AdvertisementData.ContainsKey(key))
             {
-
-                return new AdvertisementRecord(type, ((NSData)AdvertisementData.ValueForKey(CBAdvertisement.DataManufacturerDataKey)).ToArray());
+                return null;
             }
+
+            var data = AdvertisementData.ValueForKey(key);
+
+            if (key == CBAdvertisement.DataLocalNameKey)
+                return new AdvertisementRecord(AdvertisementRecordType.CompleteLocalName, NSData.FromString((NSString)data).ToArray());
+
+            if (key == CBAdvertisement.DataServiceUUIDsKey)
+            {
+                var array = (NSArray)data;
+
+                var dataList = new List<NSData>();
+                for (nuint i = 0; i < array.Count; i++)
+                {
+                    var cbuuid = array.GetItem<CBUUID>(i);
+                    dataList.Add(cbuuid.Data);
+                }
+                return new AdvertisementRecord(AdvertisementRecordType.UuidsComplete128Bit, dataList.SelectMany(d => d.ToArray()).ToArray());
+            }
+
+            if (key == CBAdvertisement.DataManufacturerDataKey)
+                return new AdvertisementRecord(AdvertisementRecordType.ManufacturerSpecificData, ((NSData)data).ToArray());
+
+
+            Mvx.Trace("Advertisment record: don't know how to convert data for type {0} and key {1}", data.GetType().Name, key);
+
 
             return null;
         }

@@ -226,12 +226,14 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 byte[] data = new byte[length - 1];
                 Array.Copy(scanRecord, index + 1, data, 0, length - 1);
 
-                var record = new AdvertisementRecord((AdvertisementRecordType)type, data);
+                // don't forget that data is little endian so reverse
+                // Supplement to Bluetooth Core Specification 1
+                var record = new AdvertisementRecord((AdvertisementRecordType)type, data.Reverse().ToArray());
 
                 Mvx.Trace(record.ToString());
 
                 records.Add(record);
-                
+
                 //Advance
                 index += length;
             }
