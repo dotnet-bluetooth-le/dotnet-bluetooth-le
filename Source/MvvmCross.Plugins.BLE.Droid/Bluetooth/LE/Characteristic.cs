@@ -213,11 +213,11 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             // TODO: should be bool RequestValue? compare iOS API for commonality
             bool successful = false;
-            if (CanRead)
-            {
-                Console.WriteLine("Characteristic.RequestValue, PropertyType = Read, requesting updates");
-                successful = this._gatt.ReadCharacteristic(this._nativeCharacteristic);
-            }
+            //if (CanRead)
+            //{
+            //    Console.WriteLine("Characteristic.RequestValue, PropertyType = Read, requesting updates");
+            //    successful = this._gatt.ReadCharacteristic(this._nativeCharacteristic);
+            //}
 
             if (CanUpdate)
             {

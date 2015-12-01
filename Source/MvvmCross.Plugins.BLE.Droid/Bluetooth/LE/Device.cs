@@ -240,6 +240,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
             return records;
         }
+
     }
 }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cirrious.CrossCore;
 using CoreBluetooth;
 using Foundation;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
@@ -204,18 +205,18 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         {
             // TODO: should be bool RequestValue? compare iOS API for commonality
             bool successful = false;
-            if (CanRead)
-            {
-                Console.WriteLine("** Characteristic.RequestValue, PropertyType = Read, requesting read");
-                _parentDevice.UpdatedCharacterteristicValue += UpdatedRead;
+            //if (CanRead)
+            //{
+            //    Console.WriteLine("** Characteristic.RequestValue, PropertyType = Read, requesting read");
+            //    _parentDevice.UpdatedCharacterteristicValue += UpdatedRead;
 
-                _parentDevice.ReadValue(_nativeCharacteristic);
+            //    _parentDevice.ReadValue(_nativeCharacteristic);
 
-                successful = true;
-            }
+            //    successful = true;
+            //}
             if (CanUpdate)
             {
-                Console.WriteLine("** Characteristic.RequestValue, PropertyType = Notify, requesting updates");
+                Mvx.Trace("** Characteristic.StartNotifications");
                 _parentDevice.UpdatedCharacterteristicValue += UpdatedNotify;
 
                 _parentDevice.SetNotifyValue(true, _nativeCharacteristic);
@@ -223,7 +224,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                 successful = true;
             }
 
-            Console.WriteLine("** RequestValue, Succesful: " + successful.ToString());
+            Mvx.Trace("** Characteristic.StartNotifications, Succesful: " + successful.ToString());
         }
 
         public void StopUpdates()
