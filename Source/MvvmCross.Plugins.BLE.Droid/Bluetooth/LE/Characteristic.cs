@@ -279,7 +279,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             }
 
             //TODO: determine whether 
-            Console.WriteLine("Characteristic.RequestValue, PropertyType = Notify, STOP updates");
+            Mvx.Trace("Characteristic.RequestValue, PropertyType = Notify, STOP update, succesful: {0}", successful);
         }
     }
 }

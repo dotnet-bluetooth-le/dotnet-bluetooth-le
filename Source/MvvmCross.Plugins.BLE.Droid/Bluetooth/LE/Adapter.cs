@@ -224,10 +224,8 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         private void AddToDeviceOperationRegistry(IDevice device)
         {
             var nativeDevice = ((BluetoothDevice)device.NativeDevice);
-            if (!DeviceOperationRegistry.ContainsKey(nativeDevice.Address))
-            {
-                DeviceOperationRegistry.Add(nativeDevice.Address, device);
-            }
+
+            DeviceOperationRegistry[nativeDevice.Address] = device;
         }
 
         public void CreateBondToDevice(IDevice device)
@@ -240,19 +238,6 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             //make sure everything is disconnected
             AddToDeviceOperationRegistry(deviceToDisconnect);
             ((Device)deviceToDisconnect).Disconnect();
-        }
-
-        /// <summary>
-        /// Removes a device with the given id from the list
-        /// </summary>
-        /// <param name="deviceToDisconnect"></param>
-        private void RemoveDeviceFromList(IDevice deviceToDisconnect)
-        {
-            var key = ((BluetoothDevice)deviceToDisconnect.NativeDevice).Address;
-            if (ConnectedDeviceRegistry.ContainsKey(key))
-            {
-                ConnectedDeviceRegistry.Remove(key);
-            }
         }
 
         public class Api21BleScanCallback : ScanCallback

@@ -106,7 +106,7 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
             EventHandler<DeviceConnectionEventArgs> h = null;
             h = (sender, e) =>
             {
-                Debug.WriteLine("CCC: " + e.Device.ID + " " + e.Device.State);
+                Mvx.Trace("Connect async: {0} {1}", e.Device.ID, e.Device.Name);
                 if (e.Device.ID == device.ID)
                 {
                     adapter.DeviceConnected -= h;

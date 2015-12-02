@@ -20,8 +20,9 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
         public override void OnConnectionStateChange(BluetoothGatt gatt, GattStatus status, ProfileState newState)
         {
-            Mvx.Trace("OnConnectionStateChange: ");
             base.OnConnectionStateChange(gatt, status, newState);
+
+            Mvx.Trace("OnConnectionStateChange: {0}, GattStatus: {1}", newState.ToString(), status.ToString());
 
             IDevice device = null;
             switch (newState)
@@ -35,8 +36,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
                         //Found so we can remove it
                         DeviceOperationRegistry.Remove(gatt.Device.Address);
-
-                        RemoveDeviceFromList(device);
+                        ConnectedDeviceRegistry.Remove(gatt.Device.Address);
                         ((Device)device).CloseGatt();
 
                         DeviceDisconnected(this, new DeviceConnectionEventArgs { Device = device });
@@ -48,7 +48,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                     {
                         Mvx.Trace("Disconnected by lost connection");
 
-                        RemoveDeviceFromList(device);
+                        ConnectedDeviceRegistry.Remove(gatt.Device.Address);
                         ((Device)device).CloseGatt();
 
                         DeviceConnectionLost(this, new DeviceConnectionEventArgs() { Device = device });
@@ -81,7 +81,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                         device = new Device(gatt.Device, gatt, this, 0);
                     }
 
-                    ConnectedDeviceRegistry.Add(gatt.Device.Address, device);
+                    ConnectedDeviceRegistry[gatt.Device.Address] = device;
                     DeviceConnected(this, new DeviceConnectionEventArgs() { Device = device });
 
                     break;
