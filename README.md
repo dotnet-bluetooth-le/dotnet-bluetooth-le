@@ -1,3 +1,4 @@
+![alt tag](https://raw.github.com/xabre/MvvmCross-BluetoothLE/master/icon_small.png)
 # MvvmCross---Bluetooth-LE   
 MvvmCross plugin for BLE - iOS and Android   
 Based on Xamarin - [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics)
