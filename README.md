@@ -14,11 +14,11 @@ Install-Package MvvmCross.Plugin.BLE
    
 Let MvvmCross inject the IAdapter service in your shared code and start using BLE :)
 
-```
+```csharp
 _adapter = Mvx.Resolve<IAdapter>();
 ```
 or
-```
+```csharp
 MyViewModel(IAdapter adapter)
 {
 	_adapter = adapter;
@@ -26,61 +26,62 @@ MyViewModel(IAdapter adapter)
 ```
 
 Scan for devices:
-```
- _adapter.DeviceDiscovered += (s,a) => _deviceList.Add(a.Device);
- _adapter.StartScanningForDevices();
+```csharp
+_adapter.DeviceDiscovered += (s,a) => _deviceList.Add(a.Device);
+_adapter.StartScanningForDevices();
 ```
 
 Connect to device:
-```
- _adapter.ConnectToDevice(device);
+```csharp
+_adapter.ConnectToDevice(device);
 ```
 or
-```
-  _connectedDevice = await _adapter.ConnectAsync(_deviceList[selectedDeviceIndex]);
+```csharp
+_connectedDevice = await _adapter.ConnectAsync(_deviceList[selectedDeviceIndex]);
 ```
 
 Get services:
-```
-	_connectedDevice.DiscoverServices();
-	_connectedDevice.ServicesDiscovered += (o, args) => { };
+```csharp
+_connectedDevice.DiscoverServices();
+_connectedDevice.ServicesDiscovered += (o, args) => { };
 ```
 or
-```
- 	var service = await _connectedDevice.GetServiceAsync(Guid.Parse("ffe0ecd2-3d16-4f8d-90de-e89e7fc396a5"));
+```csharp
+var service = await _connectedDevice.GetServiceAsync(Guid.Parse("ffe0ecd2-3d16-4f8d-90de-e89e7fc396a5"));
 ```
 
 Get characteristics:
-```
-	service.DiscoverCharacteristics();
-	service.CharacteristicsDiscovered += (o, args) => { };
+```csharp
+service.DiscoverCharacteristics();
+service.CharacteristicsDiscovered += (o, args) => { };
 ```
 or
-```
-	var characteristic = await service.GetCharacteristicAsync(Guid.Parse("d8de624e-140f-4a22-8594-e2216b84a5f2"));
+```csharp
+var characteristic = await service.GetCharacteristicAsync(Guid.Parse("d8de624e-140f-4a22-8594-e2216b84a5f2"));
 ```
 
 Read charactersitic:
-```
-	var bytes = await characteristic.ReadAsync();
+```csharp
+var bytes = await characteristic.ReadAsync();
 ```
 
 Write characteristic:
-```
-	characteristic.Write(bytes);
+```csharp
+characteristic.Write(bytes);
 ```
 or with acknowledgment:
-```
-	await characteristic.WriteAsync(bytes);
+```csharp
+await characteristic.WriteAsync(bytes);
 ```
 
 Characteristic notifications:
-```
- characteristic.ValueUpdated += (o, args) =>
-    {
-        var bytes = args.Characteristic.Value;
-    };
- characteristic.StartUpdates();
+```csharp
+characteristic.ValueUpdated += (o, args) =>
+{
+ 	var bytes = args.Characteristic.Value;
+};
+
+characteristic.StartUpdates();
 ```
 
 ## Usefull Links
