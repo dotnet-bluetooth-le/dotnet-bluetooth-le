@@ -37,7 +37,7 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
         /// - ...
         /// ToDo create extension methods to find specific records
         /// </summary>
-        List<AdvertisementRecord> AdvertisementRecords { get; }
+        IList<AdvertisementRecord> AdvertisementRecords { get; }
 
 
         //static IDevice FromNativeDevice (object nativeDevice);

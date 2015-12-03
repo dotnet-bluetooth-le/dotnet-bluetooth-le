@@ -56,7 +56,7 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
             }
         }
 
-        public virtual List<AdvertisementRecord> AdvertisementRecords
+        public virtual IList<AdvertisementRecord> AdvertisementRecords
         {
             get
             {

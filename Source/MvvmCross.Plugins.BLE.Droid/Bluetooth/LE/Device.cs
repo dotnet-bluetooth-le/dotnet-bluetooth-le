@@ -25,15 +25,19 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         /// </summary>
         protected IGattCallback _gattCallback;
 
-        public Device(BluetoothDevice nativeDevice, BluetoothGatt gatt, IGattCallback gattCallback, int rssi)
-            : this(nativeDevice, gatt, gattCallback, rssi, new byte[0]) { }
-
-        public Device(BluetoothDevice nativeDevice, BluetoothGatt gatt, IGattCallback gattCallback, int rssi, byte[] advertisementData)
+        public Device(BluetoothDevice nativeDevice, BluetoothGatt gatt, IGattCallback gattCallback, int rssi, byte[] advertisementData = null)
             : base()
         {
             Update(nativeDevice, gatt, gattCallback);
             this._rssi = rssi;
-            this._advertisementData = advertisementData;
+            if (advertisementData == null)
+            {
+                _advertisementData = new byte[0];
+            }
+            else
+            {
+                this._advertisementData = advertisementData;
+            }
         }
 
         public void Update(BluetoothDevice nativeDevice, BluetoothGatt gatt,
@@ -113,7 +117,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         }
         protected byte[] _advertisementData;
 
-        public override List<AdvertisementRecord> AdvertisementRecords
+        public override IList<AdvertisementRecord> AdvertisementRecords
         {
             get { return ParseScanRecord(AdvertisementData); }
         }
@@ -228,7 +232,24 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
                 // don't forget that data is little endian so reverse
                 // Supplement to Bluetooth Core Specification 1
-                var record = new AdvertisementRecord((AdvertisementRecordType)type, data.Reverse().ToArray());
+                // NOTE: all relevant devices are already little endian, so this is not necessary for any type except UUIDs
+                //var record = new AdvertisementRecord((AdvertisementRecordType)type, data.Reverse().ToArray());
+
+                switch((AdvertisementRecordType)type)
+                {
+                    case AdvertisementRecordType.ServiceDataUuid32Bit:
+                    case AdvertisementRecordType.SsUuids128Bit:
+                    case AdvertisementRecordType.SsUuids16Bit:
+                    case AdvertisementRecordType.SsUuids32Bit:
+                    case AdvertisementRecordType.UuidCom32Bit:
+                    case AdvertisementRecordType.UuidsComplete128Bit:
+                    case AdvertisementRecordType.UuidsComplete16Bit:
+                    case AdvertisementRecordType.UuidsIncomple16Bit:
+                    case AdvertisementRecordType.UuidsIncomplete128Bit:
+                        Array.Reverse(data);
+                        break;
+                }
+                var record = new AdvertisementRecord((AdvertisementRecordType)type, data);
 
                 Mvx.Trace(record.ToString());
 

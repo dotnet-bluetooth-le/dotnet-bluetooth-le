@@ -262,6 +262,33 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             {
                 base.OnScanResult(callbackType, result);
 
+                /* Might want to transition to parsing the API21+ ScanResult, but sort of a pain for now 
+                List<AdvertisementRecord> records = new List<AdvertisementRecord>();
+                records.Add(new AdvertisementRecord(AdvertisementRecordType.Flags, BitConverter.GetBytes(result.ScanRecord.AdvertiseFlags)));
+                if (!string.IsNullOrEmpty(result.ScanRecord.DeviceName))
+                {
+                    records.Add(new AdvertisementRecord(AdvertisementRecordType.CompleteLocalName, Encoding.UTF8.GetBytes(result.ScanRecord.DeviceName)));
+                }
+                for (int i = 0; i < result.ScanRecord.ManufacturerSpecificData.Size(); i++)
+                {
+                    int key = result.ScanRecord.ManufacturerSpecificData.KeyAt(i);
+                    var arr = result.ScanRecord.GetManufacturerSpecificData(key);
+                    byte[] data = new byte[arr.Length + 2];
+                    BitConverter.GetBytes((ushort)key).CopyTo(data,0);
+                    arr.CopyTo(data, 2);
+                    records.Add(new AdvertisementRecord(AdvertisementRecordType.ManufacturerSpecificData, data));
+                }
+
+                foreach(var uuid in result.ScanRecord.ServiceUuids)
+                {
+                    records.Add(new AdvertisementRecord(AdvertisementRecordType.UuidsIncomplete128Bit, uuid.Uuid.));
+                }
+
+                foreach(var key in result.ScanRecord.ServiceData.Keys)
+                {
+                    records.Add(new AdvertisementRecord(AdvertisementRecordType.ServiceData, result.ScanRecord.ServiceData));
+                }*/
+
                 var device = new Device(result.Device, null, null, result.Rssi, result.ScanRecord.GetBytes());
 
                 //Device device;

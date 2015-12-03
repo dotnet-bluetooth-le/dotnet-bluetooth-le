@@ -133,7 +133,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
             }
         }
 
-        public override List<AdvertisementRecord> AdvertisementRecords
+        public override IList<AdvertisementRecord> AdvertisementRecords
         {
             get
             {

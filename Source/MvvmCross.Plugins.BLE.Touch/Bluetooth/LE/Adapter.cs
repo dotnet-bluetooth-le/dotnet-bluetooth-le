@@ -9,6 +9,7 @@ using MvvmCross.Plugins.BLE.Bluetooth.LE;
 using Foundation;
 using Cirrious.CrossCore;
 using Cirrious.CrossCore.Platform;
+using System.Net;
 
 namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 {
@@ -268,17 +269,55 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         {
             var records = new List<AdvertisementRecord>();
 
-            var keys = new List<NSString>
+            /*var keys = new List<NSString>
             {
                 CBAdvertisement.DataLocalNameKey,
                 CBAdvertisement.DataManufacturerDataKey, 
                 CBAdvertisement.DataOverflowServiceUUIDsKey, //ToDo ??which one is this according to ble spec
                 CBAdvertisement.DataServiceDataKey, 
                 CBAdvertisement.DataServiceUUIDsKey,
-                CBAdvertisement.DataSolicitedServiceUUIDsKey
-            };
+                CBAdvertisement.DataSolicitedServiceUUIDsKey,
+                CBAdvertisement.DataTxPowerLevelKey
+            };*/
 
-            foreach (var key in keys)
+            foreach(NSString key in AdvertisementData.Keys)
+            {
+                if (key == CBAdvertisement.DataLocalNameKey)
+                {
+                    records.Add(new AdvertisementRecord(AdvertisementRecordType.CompleteLocalName,
+                            NSData.FromString(AdvertisementData.ObjectForKey(key) as NSString).ToArray()));
+                }
+                else if (key == CBAdvertisement.DataManufacturerDataKey)
+                {
+                    var arr = (AdvertisementData.ObjectForKey(key) as NSData).ToArray();
+                    //BitConverter.GetBytes(IPAddress.NetworkToHostOrder(BitConverter.ToInt32(arr, 0))).CopyTo(arr, 0);// Convert Company Specific identifier to host byte order
+                    records.Add(new AdvertisementRecord(AdvertisementRecordType.ManufacturerSpecificData, arr));
+                }
+                else if (key == CBAdvertisement.DataServiceUUIDsKey)
+                {
+                    var array = AdvertisementData.ObjectForKey(key) as NSArray;
+
+                    var dataList = new List<NSData>();
+                    for (nuint i = 0; i < array.Count; i++)
+                    {
+                        var cbuuid = array.GetItem<CBUUID>(i);
+                        dataList.Add(cbuuid.Data);
+                    }
+                    records.Add(new AdvertisementRecord(AdvertisementRecordType.UuidsComplete128Bit,
+                            dataList.SelectMany(d => d.ToArray()).ToArray()));
+                }
+                else
+                {
+                    //CBAdvertisement.DataOverflowServiceUUIDsKey
+                    //CBAdvertisement.DataServiceDataKey
+                    //CBAdvertisement.DataSolicitedServiceUUIDsKey
+                    //CBAdvertisement.DataTxPowerLevelKey
+
+                    Mvx.TaggedWarning("Parsing Advertisement", "Ignoring Advertisement entry for key {0}, since we don't know how to parse it yet", key.ToString());
+                }
+            }
+
+            /*foreach (var key in keys)
             {
                 var record = CreateAdvertisementRecordForKey(AdvertisementData, key);
                 if (record != null)
@@ -286,12 +325,12 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                     records.Add(record);
                     Mvx.Trace("{0} : {1}", key, record.ToString());
                 }
-            }
+            }*/
 
             return records;
         }
 
-        public static AdvertisementRecord CreateAdvertisementRecordForKey(NSDictionary AdvertisementData, NSString key)
+        /*public static AdvertisementRecord CreateAdvertisementRecordForKey(NSDictionary AdvertisementData, NSString key)
         {
             if (!AdvertisementData.ContainsKey(key))
             {
@@ -324,7 +363,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
 
             return null;
-        }
+        }*/
     }
 }
 
