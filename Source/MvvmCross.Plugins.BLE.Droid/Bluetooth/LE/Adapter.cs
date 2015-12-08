@@ -173,6 +173,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
                 Mvx.Trace("Adapter: Scan timeout has elapsed.");
                 StopScan();
+                _isScanning = false;
                 ScanTimeoutElapsed(this, new EventArgs());
             }
             catch (TaskCanceledException)

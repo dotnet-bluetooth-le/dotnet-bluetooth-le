@@ -225,6 +225,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
                 Mvx.Trace("Adapter: Scan timeout has elapsed.");
                 StopScan();
+                _isScanning = false;
                 ScanTimeoutElapsed(this, new EventArgs());
             }
             catch (TaskCanceledException)
