@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Bluetooth;
@@ -31,11 +32,10 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
         public bool IsScanning
         {
-            get { return this._isScanning; }
+            get { return _isScanning; }
         }
 
         public int ScanTimeout { get; set; }
-        protected bool _isScanning;
 
         public IList<IDevice> DiscoveredDevices
         {
@@ -44,6 +44,8 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 return this._discoveredDevices;
             }
         } protected IList<IDevice> _discoveredDevices = new List<IDevice>();
+        private CancellationTokenSource _cancellationTokenSource;
+        private bool _isScanning;
 
         public IList<IDevice> ConnectedDevices
         {
@@ -111,12 +113,10 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 return;
             }
 
+            _isScanning = true;
+
             // clear out the list
-            this._discoveredDevices = new List<IDevice>();
-
-            // start scanning
-            this._isScanning = true;
-
+            _discoveredDevices = new List<IDevice>();
 
             if (serviceUuids == null || !serviceUuids.Any())
             {
@@ -162,38 +162,54 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
             }
 
-            // in 10 seconds, stop the scan
-            await Task.Delay(ScanTimeout);
+            // in ScanTimeout seconds, stop the scan
+            _cancellationTokenSource = new CancellationTokenSource();
 
-            // if we're still scanning
-            if (this._isScanning)
+            var tokenSource = _cancellationTokenSource;
+
+            try
             {
+                await Task.Delay(ScanTimeout, tokenSource.Token);
+
                 Mvx.Trace("Adapter: Scan timeout has elapsed.");
-                StopScanningForDevices();
-                this.ScanTimeoutElapsed(this, new EventArgs());
+                StopScan();
+                ScanTimeoutElapsed(this, new EventArgs());
+            }
+            catch (TaskCanceledException)
+            {
+                Mvx.Trace("Adapter: Scan was cancelled.");
+            }
+            finally
+            {
+                _isScanning = false;
+                tokenSource.Dispose();
             }
         }
 
         public void StopScanningForDevices()
         {
-            if (_isScanning)
+            if (_cancellationTokenSource != null)
             {
-                _isScanning = false;
-
-                if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
-                {
-                    Mvx.Trace("Adapter < 21: Stopping the scan for devices.");
-                    _adapter.StopLeScan(this);
-                }
-                else
-                {
-                    Mvx.Trace("Adapter >= 21: Stopping the scan for devices.");
-                    _adapter.BluetoothLeScanner.StopScan(_api21ScanCallback);
-                }
+                _cancellationTokenSource.Cancel();
+                _cancellationTokenSource = null;
             }
             else
             {
-                Mvx.Trace("Adapter: Allready stopped scan.");
+                Mvx.Trace("Adapter: Already cancelled scan.");
+            }
+        }
+
+        private void StopScan()
+        {
+            if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
+            {
+                Mvx.Trace("Adapter < 21: Stopping the scan for devices.");
+                _adapter.StopLeScan(this);
+            }
+            else
+            {
+                Mvx.Trace("Adapter >= 21: Stopping the scan for devices.");
+                _adapter.BluetoothLeScanner.StopScan(_api21ScanCallback);
             }
         }
 
@@ -255,6 +271,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
             public override void OnScanFailed(ScanFailure errorCode)
             {
+                Mvx.Trace("Adapter: Scan failed with code {0}", errorCode);
                 base.OnScanFailed(errorCode);
             }
 

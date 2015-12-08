@@ -32,11 +32,10 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
         public bool IsScanning
         {
-            get { return this._isScanning; }
+            get { return _isScanning; }
         }
 
         public int ScanTimeout { get; set; }
-        protected bool _isScanning;
 
         public bool IsConnecting
         {
@@ -173,6 +172,8 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         }
 
         readonly AutoResetEvent stateChanged = new AutoResetEvent(false);
+        private CancellationTokenSource _cancellationTokenSource;
+        private bool _isScanning;
 
         async Task WaitForState(CBCentralManagerState state)
         {
@@ -186,12 +187,19 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
         public async void StartScanningForDevices(Guid[] serviceUuids)
         {
+            if (_isScanning)
+            {
+                Mvx.Trace("Adapter: Already scanning!");
+                return;
+            }
+            _isScanning = true;
+
             //
             // Wait for the PoweredOn state
             //
             await WaitForState(CBCentralManagerState.PoweredOn);
 
-            Console.WriteLine("Adapter: Starting a scan for devices.");
+            Mvx.Trace("Adapter: Starting a scan for devices.");
 
             CBUUID[] serviceCbuuids = null;
             if (serviceUuids != null && serviceUuids.Any())
@@ -201,48 +209,57 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
             }
 
             // clear out the list
-            this._discoveredDevices = new List<IDevice>();
+            _discoveredDevices = new List<IDevice>();
 
             // start scanning
-            this._isScanning = true;
-            this._central.ScanForPeripherals(serviceCbuuids);
+            _central.ScanForPeripherals(serviceCbuuids);
 
-            // in 10 seconds, stop the scan
-            await Task.Delay(ScanTimeout);
+            // in ScanTimeout seconds, stop the scan
+            _cancellationTokenSource = new CancellationTokenSource();
 
-            // if we're still scanning
-            if (this._isScanning)
+            var tokenSource = _cancellationTokenSource;
+
+            try
             {
-                Console.WriteLine("BluetoothLEManager: Scan timeout has elapsed.");
-                this._isScanning = false;
-                this._central.StopScan();
-                this.ScanTimeoutElapsed(this, new EventArgs());
+                await Task.Delay(ScanTimeout, tokenSource.Token);
+
+                Mvx.Trace("Adapter: Scan timeout has elapsed.");
+                StopScan();
+                ScanTimeoutElapsed(this, new EventArgs());
+            }
+            catch (TaskCanceledException)
+            {
+                Mvx.Trace("Adapter: Scan was cancelled.");
+            }
+            finally
+            {
+                _isScanning = false;
+                tokenSource.Dispose();
             }
         }
 
         public void StopScanningForDevices()
         {
-            Console.WriteLine("Adapter: Stopping the scan for devices.");
-            this._isScanning = false;
-            this._central.StopScan();
+            if (_cancellationTokenSource != null)
+            {
+                _cancellationTokenSource.Cancel();
+                _cancellationTokenSource = null;
+            }
+            else
+            {
+                Mvx.Trace("Adapter: Already cancelled scan.");
+            }
+        }
+
+        private void StopScan()
+        {
+            _central.StopScan();
+            Mvx.Trace("Adapter: Stopping the scan for devices.");
         }
 
         public void ConnectToDevice(IDevice device, bool autoconnect)
         {
-            //TODO: if it doesn't connect after 10 seconds, cancel the operation
-            // (follow the same model we do for scanning).
-            //ToDo Autoconnect
             _central.ConnectPeripheral(device.NativeDevice as CBPeripheral, new PeripheralConnectionOptions());
-
-            //			// in 10 seconds, stop the connection
-            //			await Task.Delay (10000);
-            //
-            //			// if we're still trying to connect
-            //			if (this._isConnecting) {
-            //				Console.WriteLine ("BluetoothLEManager: Connect timeout has elapsed.");
-            //				this._central.
-            //				this.ConnectTimeoutElapsed (this, new EventArgs ());
-            //			}
         }
 
         public void CreateBondToDevice(IDevice device)
@@ -280,7 +297,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                 CBAdvertisement.DataTxPowerLevelKey
             };*/
 
-            foreach(NSString key in AdvertisementData.Keys)
+            foreach (NSString key in AdvertisementData.Keys)
             {
                 if (key == CBAdvertisement.DataLocalNameKey)
                 {
