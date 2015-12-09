@@ -7,81 +7,62 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 {
     public class Service : IService
     {
-        public event EventHandler CharacteristicsDiscovered = delegate { };
+        private IList<ICharacteristic> _characteristics;
+        private string _name;
 
         protected CBService NativeService;
         protected CBPeripheral ParentDevice;
 
         public Service(CBService nativeService, CBPeripheral parentDevice)
         {
-            this.NativeService = nativeService;
-            this.ParentDevice = parentDevice;
+            NativeService = nativeService;
+            ParentDevice = parentDevice;
         }
 
-        public Guid ID
-        {
-            get
-            {
-                return ServiceUuidToGuid(this.NativeService.UUID);
-            }
-        }
+        public event EventHandler CharacteristicsDiscovered = delegate { };
 
-        public string Name
-        {
-            get
-            {
-                if (this._name == null)
-                    this._name = KnownServices.Lookup(this.ID).Name;
-                return this._name;
-            }
-        } protected string _name = null;
+        public Guid ID => NativeService.UUID.GuidFromUuid();
 
-        public bool IsPrimary
-        {
-            get
-            {
-                return this.NativeService.Primary;
-            }
-        }
+        public string Name => _name ?? (_name = KnownServices.Lookup(ID).Name);
 
-        //TODO: decide how to Interface this, right now it's only in the iOS implementation
+        public bool IsPrimary => NativeService.Primary;
+
+        // TODO: decide how to Interface this, right now it's only in the iOS implementation
         public void DiscoverCharacteristics()
         {
             // TODO: need to raise the event and listen for it.
-            this.ParentDevice.DiscoverCharacteristics(this.NativeService);
+            ParentDevice.DiscoverCharacteristics(NativeService);
         }
 
         public IList<ICharacteristic> Characteristics
         {
             get
             {
-                // if it hasn't been populated yet, populate it
-                if (this._characteristics == null)
+                if (_characteristics != null)
                 {
-                    this._characteristics = new List<ICharacteristic>();
-                    if (this.NativeService.Characteristics != null)
-                    {
-                        foreach (var item in this.NativeService.Characteristics)
-                        {
-                            this._characteristics.Add(new Characteristic(item, ParentDevice));
-                        }
-                    }
+                    return _characteristics;
                 }
-                return this._characteristics;
-            }
-        } protected IList<ICharacteristic> _characteristics;
 
-        public void OnCharacteristicsDiscovered()
-        {
-            this.CharacteristicsDiscovered(this, new EventArgs());
+                // if it hasn't been populated yet, populate it
+                _characteristics = new List<ICharacteristic>();
+                if (NativeService.Characteristics == null)
+                {
+                    return _characteristics;
+                }
+
+                foreach (var item in NativeService.Characteristics)
+                {
+                    _characteristics.Add(new Characteristic(item, ParentDevice));
+                }
+                return _characteristics;
+            }
         }
 
         public ICharacteristic FindCharacteristic(KnownCharacteristic characteristic)
         {
-            //TODO: why don't we look in the internal list _chacateristics?
-            foreach (var item in this.NativeService.Characteristics)
+            foreach (var item in NativeService.Characteristics)
             {
-                if (string.Equals(item.UUID.ToString(), characteristic.ID.ToString()))
+                if (item.UUID.GuidFromUuid() == characteristic.ID)
                 {
                     return new Characteristic(item, ParentDevice);
                 }
@@ -89,17 +70,9 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
             return null;
         }
 
-        public static Guid ServiceUuidToGuid(CBUUID uuid)
+        public void OnCharacteristicsDiscovered()
         {
-            //this sometimes returns only the significant bits, e.g.
-            //180d or whatever. so we need to add the full string
-            string id = uuid.ToString();
-            if (id.Length == 4)
-            {
-                id = "0000" + id + "-0000-1000-8000-00805f9b34fb";
-            }
-            return Guid.ParseExact(id, "d");
+            CharacteristicsDiscovered(this, new EventArgs());
         }
     }
 }
-

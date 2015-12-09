@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Cirrious.CrossCore;
 
 namespace MvvmCross.Plugins.BLE.Bluetooth.LE
 {
@@ -10,58 +9,37 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
 
         public virtual Guid ID
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { throw new NotImplementedException(); }
         }
 
         public virtual string Name
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { throw new NotImplementedException(); }
         }
 
         public virtual int Rssi
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { throw new NotImplementedException(); }
         }
 
         public virtual DeviceState State
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { throw new NotImplementedException(); }
         }
 
         public virtual object NativeDevice
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { throw new NotImplementedException(); }
         }
 
         public virtual byte[] AdvertisementData
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { throw new NotImplementedException(); }
         }
 
         public virtual IList<AdvertisementRecord> AdvertisementRecords
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { throw new NotImplementedException(); }
         }
 
         public virtual IList<IService> Services
@@ -69,27 +47,34 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
             get { throw new NotImplementedException(); }
         }
 
-        public override string ToString()
-        {
-            return this.Name;
-        }
-
         public virtual void DiscoverServices()
         {
             throw new NotImplementedException();
         }
 
+        public override string ToString()
+        {
+            return Name;
+        }
+
         #region IEquatable implementation
+
         public override bool Equals(object other)
         {
-            //Mvx.Trace("IDevice equator");
-            if (other.GetType() != this.GetType())
+            if (other == null)
+            {
                 return false;
+            }
 
-            return this.ID.Equals((other as IDevice).ID);
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            var otherDeviceBase = (DeviceBase) other;
+            return ID == otherDeviceBase.ID;
         }
-        #endregion
 
+        #endregion
     }
 }
-

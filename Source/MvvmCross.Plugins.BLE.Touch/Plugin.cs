@@ -11,9 +11,7 @@ namespace MvvmCross.Plugins.BLE.Touch
     {
         public void Load()
         {
-            Debug.WriteLine("Loading BT plugin");
-            //Mvx.LazyConstructAndRegisterSingleton<IAdapter>(() => Adapter.Current);
-            //Mvx.ConstructAndRegisterSingleton<IAdapter, Adapter>();
+            Mvx.Trace("Loading BT plugin");
             Mvx.RegisterSingleton<IAdapter>(new Adapter());
         }
     }
