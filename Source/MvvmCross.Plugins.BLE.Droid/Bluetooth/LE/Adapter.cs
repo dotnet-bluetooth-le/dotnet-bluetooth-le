@@ -45,7 +45,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             }
         } protected IList<IDevice> _discoveredDevices = new List<IDevice>();
         private CancellationTokenSource _cancellationTokenSource;
-        private bool _isScanning;
+        private volatile bool _isScanning; //ToDo maybe lock
 
         public IList<IDevice> ConnectedDevices
         {
