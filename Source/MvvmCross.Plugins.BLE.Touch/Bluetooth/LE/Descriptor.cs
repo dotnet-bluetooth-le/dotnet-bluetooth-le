@@ -6,18 +6,28 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 {
     public class Descriptor : IDescriptor
     {
-        public /*CBDescriptor*/ object NativeDescriptor => _nativeDescriptor as object;
-        protected CBDescriptor _nativeDescriptor;
+        private readonly CBDescriptor _nativeDescriptor;
 
-        public Guid ID => _nativeDescriptor.UUID.GuidFromUuid();
-
-        public string Name => _name ?? (_name = KnownDescriptors.Lookup(ID).Name);
-        protected string _name;
+        private string _name;
 
         public Descriptor(CBDescriptor nativeDescriptor)
         {
             _nativeDescriptor = nativeDescriptor;
         }
+
+        public /*CBDescriptor*/ object NativeDescriptor
+        {
+            get { return _nativeDescriptor; }
+        }
+
+        public Guid ID
+        {
+            get { return _nativeDescriptor.UUID.GuidFromUuid(); }
+        }
+
+        public string Name
+        {
+            get { return _name ?? (_name = KnownDescriptors.Lookup(ID).Name); }
+        }
     }
 }
-

@@ -14,11 +14,10 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 {
     public class Adapter : IAdapter
     {
+        private readonly CBCentralManager _central;
         private readonly AutoResetEvent _stateChanged = new AutoResetEvent(false);
         private CancellationTokenSource _cancellationTokenSource;
-        protected CBCentralManager _central;
-        protected IList<IDevice> _discoveredDevices = new List<IDevice>();
-        protected bool _isConnecting;
+        private IList<IDevice> _discoveredDevices = new List<IDevice>();
         private volatile bool _isScanning; //ToDo maybe lock
 
         public Adapter()
@@ -31,13 +30,13 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
             _central.DiscoveredPeripheral += (sender, e) =>
             {
-                Mvx.Trace($"DiscoveredPeripheral: {e.Peripheral.Name}, ID: {e.Peripheral.Identifier}");
+                Mvx.Trace("DiscoveredPeripheral: {0}, ID: {1}", e.Peripheral.Name, e.Peripheral.Identifier);
                 var name = e.Peripheral.Name;
                 if (e.AdvertisementData.ContainsKey(CBAdvertisement.DataLocalNameKey))
                 {
                     // iOS caches the peripheral name, so it can become stale (if changing)
                     // keep track of the local name key manually
-                    name = ((NSString)e.AdvertisementData.ValueForKey(CBAdvertisement.DataLocalNameKey)).ToString();
+                    name = ((NSString) e.AdvertisementData.ValueForKey(CBAdvertisement.DataLocalNameKey)).ToString();
                 }
 
                 var d = new Device(e.Peripheral, name, e.RSSI.Int32Value, ParseAdvertismentData(e.AdvertisementData));
@@ -53,13 +52,13 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
             _central.UpdatedState += (sender, e) =>
             {
-                Mvx.Trace($"UpdatedState: {_central.State}");
+                Mvx.Trace("UpdatedState: {0}", _central.State);
                 _stateChanged.Set();
             };
 
             _central.ConnectedPeripheral += (sender, e) =>
             {
-                Mvx.Trace($"ConnectedPeripherial: {e.Peripheral.Name}");
+                Mvx.Trace("ConnectedPeripherial: {0}", e.Peripheral.Name);
 
                 // when a peripheral gets connected, add that peripheral to our running list of connected peripherals
                 var guid = ParseDeviceGuid(e.Peripheral).ToString();
@@ -92,12 +91,12 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
                 if (isNormalDisconnect)
                 {
-                    Mvx.Trace($"DisconnectedPeripheral by user: {e.Peripheral.Name}");
+                    Mvx.Trace("DisconnectedPeripheral by user: {0}", e.Peripheral.Name);
                     DeviceDisconnected(sender, new DeviceConnectionEventArgs {Device = foundDevice});
                 }
                 else
                 {
-                    Mvx.Trace($"DisconnectedPeripheral by lost signal: {e.Peripheral.Name}");
+                    Mvx.Trace("DisconnectedPeripheral by lost signal: {0}", e.Peripheral.Name);
                     DeviceConnectionLost(sender,
                         new DeviceConnectionEventArgs {Device = foundDevice ?? new Device(e.Peripheral)});
                 }
@@ -105,7 +104,8 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
             _central.FailedToConnectPeripheral += (sender, e) =>
             {
-                Mvx.Trace(MvxTraceLevel.Warning, $"Failed to connect peripheral {e.Peripheral.Identifier.ToString()}: {e.Peripheral.Identifier}");
+                Mvx.Trace(MvxTraceLevel.Warning, "Failed to connect peripheral {0}: {1}", e.Peripheral.Identifier,
+                    e.Peripheral.Name);
                 // raise the failed to connect event
                 DeviceFailedToConnect(this, new DeviceConnectionEventArgs
                 {
@@ -115,17 +115,20 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
             };
         }
 
-        public CBCentralManager Central => _central;
+        public CBCentralManager Central
+        {
+            get { return _central; }
+        }
 
-        public bool IsConnecting => _isConnecting;
+        public bool IsConnecting { get; private set; }
 
         /// <summary>
         ///     Registry used to store device instances for pending operations : disconnect
         ///     Helps to detect connection lost events
         /// </summary>
-        public Dictionary<string, IDevice> DeviceOperationRegistry { get; }
+        public Dictionary<string, IDevice> DeviceOperationRegistry { get; set; }
 
-        public Dictionary<string, IDevice> DeviceConnectionRegistry { get; }
+        public Dictionary<string, IDevice> DeviceConnectionRegistry { get; set; }
         // events
         public event EventHandler<DeviceDiscoveredEventArgs> DeviceAdvertised = delegate { };
         public event EventHandler<DeviceDiscoveredEventArgs> DeviceDiscovered = delegate { };
@@ -135,13 +138,22 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         public event EventHandler<DeviceConnectionEventArgs> DeviceConnectionLost = delegate { };
         public event EventHandler ScanTimeoutElapsed = delegate { };
 
-        public bool IsScanning => _isScanning;
+        public bool IsScanning
+        {
+            get { return _isScanning; }
+        }
 
         public int ScanTimeout { get; set; }
 
-        public IList<IDevice> DiscoveredDevices => _discoveredDevices;
+        public IList<IDevice> DiscoveredDevices
+        {
+            get { return _discoveredDevices; }
+        }
 
-        public IList<IDevice> ConnectedDevices => DeviceConnectionRegistry.Values.ToList();
+        public IList<IDevice> ConnectedDevices
+        {
+            get { return DeviceConnectionRegistry.Values.ToList(); }
+        }
 
         public void StartScanningForDevices()
         {
@@ -256,8 +268,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
             Mvx.Trace("Adapter: Stopping the scan for devices.");
         }
 
-        // util
-        protected bool ContainsDevice(IEnumerable<IDevice> list, CBPeripheral device)
+        private static bool ContainsDevice(IEnumerable<IDevice> list, CBPeripheral device)
         {
             return list.Any(d => Guid.ParseExact(device.Identifier.AsString(), "d") == d.ID);
         }
@@ -277,8 +288,9 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                 CBAdvertisement.DataTxPowerLevelKey
             };*/
 
-            foreach (NSString key in advertisementData.Keys)
+            foreach (var o in advertisementData.Keys)
             {
+                var key = (NSString) o;
                 if (key == CBAdvertisement.DataLocalNameKey)
                 {
                     records.Add(new AdvertisementRecord(AdvertisementRecordType.CompleteLocalName,
@@ -286,12 +298,12 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                 }
                 else if (key == CBAdvertisement.DataManufacturerDataKey)
                 {
-                    var arr = (advertisementData.ObjectForKey(key) as NSData).ToArray();
+                    var arr = ((NSData) advertisementData.ObjectForKey(key)).ToArray();
                     records.Add(new AdvertisementRecord(AdvertisementRecordType.ManufacturerSpecificData, arr));
                 }
                 else if (key == CBAdvertisement.DataServiceUUIDsKey)
                 {
-                    var array = advertisementData.ObjectForKey(key) as NSArray;
+                    var array = (NSArray) advertisementData.ObjectForKey(key);
 
                     var dataList = new List<NSData>();
                     for (nuint i = 0; i < array.Count; i++)
@@ -304,26 +316,11 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                 }
                 else
                 {
-                    //CBAdvertisement.DataOverflowServiceUUIDsKey
-                    //CBAdvertisement.DataServiceDataKey
-                    //CBAdvertisement.DataSolicitedServiceUUIDsKey
-                    //CBAdvertisement.DataTxPowerLevelKey
-
                     Mvx.TaggedWarning("Parsing Advertisement",
                         "Ignoring Advertisement entry for key {0}, since we don't know how to parse it yet",
                         key.ToString());
                 }
             }
-
-            /*foreach (var key in keys)
-            {
-                var record = CreateAdvertisementRecordForKey(AdvertisementData, key);
-                if (record != null)
-                {
-                    records.Add(record);
-                    Mvx.Trace("{0} : {1}", key, record.ToString());
-                }
-            }*/
 
             return records;
         }

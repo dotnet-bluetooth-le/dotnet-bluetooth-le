@@ -21,11 +21,20 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
         public event EventHandler CharacteristicsDiscovered = delegate { };
 
-        public Guid ID => NativeService.UUID.GuidFromUuid();
+        public Guid ID
+        {
+            get { return NativeService.UUID.GuidFromUuid(); }
+        }
 
-        public string Name => _name ?? (_name = KnownServices.Lookup(ID).Name);
+        public string Name
+        {
+            get { return _name ?? (_name = KnownServices.Lookup(ID).Name); }
+        }
 
-        public bool IsPrimary => NativeService.Primary;
+        public bool IsPrimary
+        {
+            get { return NativeService.Primary; }
+        }
 
         // TODO: decide how to Interface this, right now it's only in the iOS implementation
         public void DiscoverCharacteristics()

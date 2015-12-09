@@ -14,10 +14,6 @@ namespace MvvmCross.Plugins.BLE.Touch
     /// </summary>
     public class BluetoothLeManager
     {
-        protected const int ScanTimeout = 10000;
-
-        protected bool _isScanning;
-
         static BluetoothLeManager()
         {
             Current = new BluetoothLeManager();
@@ -26,17 +22,16 @@ namespace MvvmCross.Plugins.BLE.Touch
         protected BluetoothLeManager()
         {
             CentralBleManager = new CBCentralManager(DispatchQueue.CurrentQueue);
+            DiscoveredDevices = new List<CBPeripheral>();
             CentralBleManager.DiscoveredPeripheral += (sender, e) =>
             {
-                Mvx.Trace($"DiscoveredPeripheral: {e.Peripheral.Name}");
+                Mvx.Trace("DiscoveredPeripheral: {0}", e.Peripheral.Name);
                 DiscoveredDevices.Add(e.Peripheral);
                 DeviceDiscovered(this, e);
             };
 
-            CentralBleManager.UpdatedState += (sender, e) =>
-            {
-                Mvx.Trace($"UpdatedState: {CentralBleManager.State}");
-            };
+            CentralBleManager.UpdatedState +=
+                (sender, e) => { Mvx.Trace("UpdatedState: {0}", CentralBleManager.State); };
 
             CentralBleManager.ConnectedPeripheral += (sender, e) =>
             {
@@ -71,23 +66,23 @@ namespace MvvmCross.Plugins.BLE.Touch
         ///     Whether or not we're currently scanning for peripheral devices
         /// </summary>
         /// <value><c>true</c> if this instance is scanning; otherwise, <c>false</c>.</value>
-        public bool IsScanning => _isScanning;
+        public bool IsScanning { get; private set; }
 
         /// <summary>
         ///     Gets the discovered peripherals.
         /// </summary>
         /// <value>The discovered peripherals.</value>
-        public List<CBPeripheral> DiscoveredDevices { get; private set; } = new List<CBPeripheral>();
+        public List<CBPeripheral> DiscoveredDevices { get; private set; }
 
         /// <summary>
         ///     Gets the connected peripherals.
         /// </summary>
         /// <value>The discovered peripherals.</value>
-        public List<CBPeripheral> ConnectedDevices { get; } = new List<CBPeripheral>();
+        public List<CBPeripheral> ConnectedDevices { get; private set; }
 
-        public CBCentralManager CentralBleManager { get; }
+        public CBCentralManager CentralBleManager { get; set; }
 
-        public static BluetoothLeManager Current { get; }
+        public static BluetoothLeManager Current { get; set; }
         public event EventHandler<CBDiscoveredPeripheralEventArgs> DeviceDiscovered = delegate { };
         public event EventHandler<CBPeripheralEventArgs> DeviceConnected = delegate { };
         public event EventHandler<CBPeripheralErrorEventArgs> DeviceDisconnected = delegate { };
@@ -102,11 +97,11 @@ namespace MvvmCross.Plugins.BLE.Touch
         {
             Mvx.Trace("BluetoothLEManager: Starting a scan for devices.");
 
-            // clear out the list
+            ConnectedDevices = new List<CBPeripheral>();
             DiscoveredDevices = new List<CBPeripheral>();
 
             // start scanning
-            _isScanning = true;
+            IsScanning = true;
 #if __UNIFIED__
             CentralBleManager.ScanForPeripherals(peripheralUuids: null);
 #else
@@ -117,7 +112,7 @@ namespace MvvmCross.Plugins.BLE.Touch
             await Task.Delay(10000).ConfigureAwait(false);
 
             // if we're still scanning
-            if (_isScanning)
+            if (IsScanning)
             {
                 Mvx.Trace("BluetoothLEManager: Scan timeout has elapsed.");
                 CentralBleManager.StopScan();
@@ -132,7 +127,7 @@ namespace MvvmCross.Plugins.BLE.Touch
         public void StopScanningForDevices()
         {
             Mvx.Trace("BluetoothLEManager: Stopping the scan for devices.");
-            _isScanning = false;
+            IsScanning = false;
             CentralBleManager.StopScan();
         }
 

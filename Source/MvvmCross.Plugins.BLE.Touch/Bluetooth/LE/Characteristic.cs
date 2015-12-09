@@ -11,10 +11,9 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 {
     public class Characteristic : ICharacteristic
     {
+        private readonly CBCharacteristic _nativeCharacteristic;
         private readonly CBPeripheral _parentDevice;
         private IList<IDescriptor> _descriptors;
-
-        private readonly CBCharacteristic _nativeCharacteristic;
 
         public Characteristic(CBCharacteristic nativeCharacteristic, CBPeripheral parentDevice)
         {
@@ -23,25 +22,47 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         }
 
         private CBCharacteristicWriteType CharacteristicWriteType
-            => (Properties & CharacteristicPropertyType.AppleWriteWithoutResponse) != 0
-                ? CBCharacteristicWriteType.WithoutResponse
-                : CBCharacteristicWriteType.WithResponse;
+        {
+            get
+            {
+                return (Properties & CharacteristicPropertyType.AppleWriteWithoutResponse) != 0
+                    ? CBCharacteristicWriteType.WithoutResponse
+                    : CBCharacteristicWriteType.WithResponse;
+            }
+        }
 
         public event EventHandler<CharacteristicReadEventArgs> ValueUpdated = delegate { };
         public event EventHandler<CharacteristicWriteEventArgs> ValueWritten = delegate { };
 
-        public string Uuid => _nativeCharacteristic.UUID.ToString();
+        public string Uuid
+        {
+            get { return _nativeCharacteristic.UUID.ToString(); }
+        }
 
-        public Guid ID => _nativeCharacteristic.UUID.GuidFromUuid();
+        public Guid ID
+        {
+            get { return _nativeCharacteristic.UUID.GuidFromUuid(); }
+        }
 
-        public byte[] Value => _nativeCharacteristic.Value?.ToArray();
+        public byte[] Value
+        {
+            get { return _nativeCharacteristic.Value != null ? _nativeCharacteristic.Value.ToArray() : null; }
+        }
 
-        public string StringValue => Value == null ? string.Empty : Encoding.UTF8.GetString(Value);
+        public string StringValue
+        {
+            get { return Value == null ? string.Empty : Encoding.UTF8.GetString(Value); }
+        }
 
-        public string Name => KnownCharacteristics.Lookup(ID).Name;
+        public string Name
+        {
+            get { return KnownCharacteristics.Lookup(ID).Name; }
+        }
 
         public CharacteristicPropertyType Properties
-            => (CharacteristicPropertyType) (int) _nativeCharacteristic.Properties;
+        {
+            get { return (CharacteristicPropertyType) (int) _nativeCharacteristic.Properties; }
+        }
 
         public IList<IDescriptor> Descriptors
         {
@@ -62,15 +83,30 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
             }
         }
 
-        public object NativeCharacteristic => _nativeCharacteristic;
+        public object NativeCharacteristic
+        {
+            get { return _nativeCharacteristic; }
+        }
 
-        public bool CanRead => (Properties & CharacteristicPropertyType.Read) != 0;
+        public bool CanRead
+        {
+            get { return (Properties & CharacteristicPropertyType.Read) != 0; }
+        }
 
-        public bool CanUpdate => (Properties & CharacteristicPropertyType.Notify) != 0;
+        public bool CanUpdate
+        {
+            get { return (Properties & CharacteristicPropertyType.Notify) != 0; }
+        }
 
-        public bool CanWrite => (Properties &
-                                 (CharacteristicPropertyType.WriteWithoutResponse |
-                                  CharacteristicPropertyType.AppleWriteWithoutResponse)) != 0;
+        public bool CanWrite
+        {
+            get
+            {
+                return (Properties &
+                        (CharacteristicPropertyType.WriteWithoutResponse |
+                         CharacteristicPropertyType.AppleWriteWithoutResponse)) != 0;
+            }
+        }
 
         public Task<ICharacteristic> ReadAsync()
         {

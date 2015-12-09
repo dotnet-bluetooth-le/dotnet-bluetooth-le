@@ -9,10 +9,11 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 {
     public class Device : DeviceBase
     {
-        protected readonly List<AdvertisementRecord> _advertisementRecords;
+        private readonly List<AdvertisementRecord> _advertisementRecords;
 
-        protected readonly CBPeripheral _nativeDevice;
-        protected readonly IList<IService> _services = new List<IService>();
+        private readonly CBPeripheral _nativeDevice;
+        private readonly int _rssi;
+        private readonly IList<IService> _services = new List<IService>();
         private string _name;
 
         public Device(CBPeripheral nativeDevice)
@@ -25,7 +26,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         {
             _nativeDevice = nativeDevice;
             _name = name;
-            Rssi = rssi;
+            _rssi = rssi;
             _advertisementRecords = advertisementRecords;
 
             _nativeDevice.UpdatedName += (sender, e) =>
@@ -97,27 +98,48 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         // need to look at the BLE Spec
         // Actually.... deprecated in iOS7!
         // Actually again, Uuid is, but Identifier isn't.
-        public override Guid ID => Guid.ParseExact(_nativeDevice.Identifier.AsString(), "d");
+        public override Guid ID
+        {
+            get { return Guid.ParseExact(_nativeDevice.Identifier.AsString(), "d"); }
+        }
 
-        public override string Name => _name;
+        public override string Name
+        {
+            get { return _name; }
+        }
 
-        public override int Rssi { get; }
+        public override int Rssi
+        {
+            get { return _rssi; }
+        }
 
-        public override object NativeDevice => _nativeDevice;
+        public override object NativeDevice
+        {
+            get { return _nativeDevice; }
+        }
 
         public override byte[] AdvertisementData
         {
             get { throw new Exception("iOS does not allow raw scan data. Please use AdvertisementRecords"); }
         }
 
-        public override IList<AdvertisementRecord> AdvertisementRecords => _advertisementRecords;
+        public override IList<AdvertisementRecord> AdvertisementRecords
+        {
+            get { return _advertisementRecords; }
+        }
 
         // TODO: investigate the validity of this. Android API seems to indicate that the
         // bond state is available, rather than the connected state, which are two different 
         // things. you can be bonded but not connected.
-        public override DeviceState State => GetState();
+        public override DeviceState State
+        {
+            get { return GetState(); }
+        }
 
-        public override IList<IService> Services => _services;
+        public override IList<IService> Services
+        {
+            get { return _services; }
+        }
 
         public override event EventHandler ServicesDiscovered = delegate { };
 
@@ -128,22 +150,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
             _nativeDevice.DiscoverServices();
         }
 
-        //public void Disconnect()
-        //{
-        //    Adapter.Current.DisconnectDevice(this);
-        //    this._nativeDevice.Dispose();
-        //}
-
         #endregion
-
-        /*#region IEquatable implementation
-        //public bool Equals(Device other)
-        public override bool Equals(object other)
-        {
-            Mvx.Trace("iOS Device equator");
-            return this.ID.ToString().Equals((other as Device).ID.ToString());
-        }
-        #endregion*/
 
         #region internal methods
 
