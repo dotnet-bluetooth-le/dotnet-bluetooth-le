@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CoreBluetooth;
 using Foundation;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
@@ -14,6 +15,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         protected CBPeripheral _nativeDevice;
 
         public Device(CBPeripheral nativeDevice) : this(nativeDevice, nativeDevice.Name, nativeDevice.RSSI != null ? nativeDevice.RSSI.Int32Value : 0, new List<AdvertisementRecord>()) { }
+
         public Device(CBPeripheral nativeDevice, string name, int rssi, List<AdvertisementRecord> advertisementRecords)
         {
             this._nativeDevice = nativeDevice;
@@ -53,7 +55,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 			//BUGBUG/TODO: this event is misnamed in our SDK
 			this._nativeDevice.DiscoverCharacteristic += (object sender, CBServiceEventArgs e) => {
 #endif
-                Console.WriteLine("Device.Discovered Characteristics.");
+                Mvx.Trace("Device.Discovered Characteristics.");
                 //loop through each service, and update the characteristics
                 foreach (CBService srv in ((CBPeripheral)sender).Services)
                 {

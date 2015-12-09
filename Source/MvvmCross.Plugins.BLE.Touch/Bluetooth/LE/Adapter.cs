@@ -108,7 +108,16 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
                 // when a peripheral gets connected, add that peripheral to our running list of connected peripherals
                 var guid = ParseDeviceGuid(e.Peripheral).ToString();
-                var d = new Device(e.Peripheral);
+
+                IDevice device = null;
+                if (DeviceOperationRegistry.TryGetValue(guid, out device))
+                {
+                    DeviceOperationRegistry.Remove(guid);
+                }
+
+                //ToDo use the same instance of the device just update 
+                var d = new Device(e.Peripheral, e.Peripheral.Name, e.Peripheral.RSSI != null ? e.Peripheral.RSSI.Int32Value : 0, device != null ? device.AdvertisementRecords.ToList() : new List<AdvertisementRecord>());
+
                 DeviceConnectionRegistry[guid] = d;
 
                 // raise our connected event
@@ -260,6 +269,8 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
         public void ConnectToDevice(IDevice device, bool autoconnect)
         {
+            //ToDo autoconnect
+            DeviceOperationRegistry[device.ID.ToString()] = device;
             _central.ConnectPeripheral(device.NativeDevice as CBPeripheral, new PeripheralConnectionOptions());
         }
 
