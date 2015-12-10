@@ -25,7 +25,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         {
             get
             {
-                return (Properties & CharacteristicPropertyType.AppleWriteWithoutResponse) != 0
+                return Properties.HasFlag(CharacteristicPropertyType.AppleWriteWithoutResponse)
                     ? CBCharacteristicWriteType.WithoutResponse
                     : CBCharacteristicWriteType.WithResponse;
             }
@@ -90,21 +90,20 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
         public bool CanRead
         {
-            get { return (Properties & CharacteristicPropertyType.Read) != 0; }
+            get { return Properties.HasFlag(CharacteristicPropertyType.Read); }
         }
 
         public bool CanUpdate
         {
-            get { return (Properties & CharacteristicPropertyType.Notify) != 0; }
+            get { return Properties.HasFlag(CharacteristicPropertyType.Notify); }
         }
 
         public bool CanWrite
         {
             get
             {
-                return (Properties &
-                        (CharacteristicPropertyType.WriteWithoutResponse |
-                         CharacteristicPropertyType.AppleWriteWithoutResponse)) != 0;
+                return Properties.HasFlag(CharacteristicPropertyType.WriteWithoutResponse) |
+                         Properties.HasFlag(CharacteristicPropertyType.AppleWriteWithoutResponse);
             }
         }
 
