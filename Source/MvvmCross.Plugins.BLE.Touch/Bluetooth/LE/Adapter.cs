@@ -231,13 +231,18 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                 await Task.Delay(ScanTimeout, _cancellationTokenSource.Token);
 
                 Mvx.Trace("Adapter: Scan timeout has elapsed.");
+
                 StopScan();
+
                 _isScanning = false;
+
+                //important for this to be caled after _isScanning = false;
                 ScanTimeoutElapsed(this, new EventArgs());
             }
             catch (TaskCanceledException)
             {
                 Mvx.Trace("Adapter: Scan was cancelled.");
+                StopScan();
             }
             finally
             {
