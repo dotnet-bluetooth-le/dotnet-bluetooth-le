@@ -226,11 +226,9 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
             // in ScanTimeout seconds, stop the scan
             _cancellationTokenSource = new CancellationTokenSource();
 
-            var tokenSource = _cancellationTokenSource;
-
             try
             {
-                await Task.Delay(ScanTimeout, tokenSource.Token);
+                await Task.Delay(ScanTimeout, _cancellationTokenSource.Token);
 
                 Mvx.Trace("Adapter: Scan timeout has elapsed.");
                 StopScan();
@@ -243,17 +241,17 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
             }
             finally
             {
+                _cancellationTokenSource.Dispose();
+                _cancellationTokenSource = null;
                 _isScanning = false;
-                tokenSource.Dispose();
             }
         }
 
         public void StopScanningForDevices()
         {
-            if (_cancellationTokenSource != null)
+            if (_cancellationTokenSource != null && !_cancellationTokenSource.IsCancellationRequested)
             {
                 _cancellationTokenSource.Cancel();
-                _cancellationTokenSource = null;
             }
             else
             {
