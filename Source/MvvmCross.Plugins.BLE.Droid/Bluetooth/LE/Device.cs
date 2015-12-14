@@ -30,40 +30,25 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             Update(nativeDevice, gatt, gattCallback);
             this._rssi = rssi;
-            if (advertisementData == null)
-            {
-                _advertisementData = new byte[0];
-            }
-            else
-            {
-                this._advertisementData = advertisementData;
-            }
+
+            _advertisementData = advertisementData ?? new byte[0];
         }
 
         public void Update(BluetoothDevice nativeDevice, BluetoothGatt gatt,
             IGattCallback gattCallback)
         {
-            this._nativeDevice = nativeDevice;
-            this._gatt = gatt;
-            this._gattCallback = gattCallback;
+            _nativeDevice = nativeDevice;
+            _gatt = gatt;
+            _gattCallback = gattCallback;
         }
 
         public void OnServicesDiscovered(object sender, ServicesDiscoveredEventArgs args)
         {
+            _services = _gatt.Services.Select(service => new Service(service, _gatt, _gattCallback)).ToList<IService>();
 
-            var services = this._gatt.Services;
-            this._services = new List<IService>();
-            foreach (var item in services)
-            {
-                this._services.Add(new Service(item, this._gatt, this._gattCallback));
-            }
+            _gattCallback.ServicesDiscovered -= OnServicesDiscovered;
 
-            this.ServicesDiscovered(this, args);
-
-            if (this._gattCallback != null)
-            {
-                this._gattCallback.ServicesDiscovered -= this.OnServicesDiscovered;
-            }
+            ServicesDiscovered(this, args);
         }
 
         public override Guid ID
@@ -148,17 +133,20 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 return;
             }
 
+            Mvx.Trace("...Discover services");
+
             this._gattCallback.ServicesDiscovered += OnServicesDiscovered;
             this._gatt.DiscoverServices();
-
-
         }
 
         public void Disconnect()
         {
             if (this._gatt != null)
             {
-                this._gatt.Disconnect();
+                //clear cached services
+                _services.Clear();
+
+                _gatt.Disconnect();
             }
             else
             {
@@ -235,7 +223,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 // NOTE: all relevant devices are already little endian, so this is not necessary for any type except UUIDs
                 //var record = new AdvertisementRecord((AdvertisementRecordType)type, data.Reverse().ToArray());
 
-                switch((AdvertisementRecordType)type)
+                switch ((AdvertisementRecordType)type)
                 {
                     case AdvertisementRecordType.ServiceDataUuid32Bit:
                     case AdvertisementRecordType.SsUuids128Bit:

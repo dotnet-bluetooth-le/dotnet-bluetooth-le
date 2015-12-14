@@ -237,6 +237,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             // returns the BluetoothGatt, which is the API for BLE stuff
             // TERRIBLE API design on the part of google here.
+
             AddToDeviceOperationRegistry(device);
 
             ((BluetoothDevice)device.NativeDevice).ConnectGatt(Application.Context, autoconnect, this);

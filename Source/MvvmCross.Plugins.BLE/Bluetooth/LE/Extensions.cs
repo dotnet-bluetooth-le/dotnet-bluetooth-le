@@ -120,6 +120,33 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
             return tcs.Task;
         }
 
+        public static Task DisconnectAsync(this IAdapter adapter, IDevice device)
+        {
+            if (!adapter.ConnectedDevices.Contains(device))
+            {
+                Mvx.Trace("Disconnect async: device {0} not in the list of connected devices.", device.Name);
+                return Task.FromResult(false);
+            }
+
+            var tcs = new TaskCompletionSource<IDevice>();
+            EventHandler<DeviceConnectionEventArgs> h = null;
+            h = (sender, e) =>
+            {
+                Mvx.Trace("Disconnect async: {0} {1}", e.Device.ID, e.Device.Name);
+                if (e.Device.ID == device.ID)
+                {
+                    adapter.DeviceDisconnected -= h;
+                    tcs.SetResult(e.Device);
+                }
+            };
+
+            adapter.DeviceDisconnected += h;
+
+            adapter.DisconnectDevice(device);
+
+            return tcs.Task;
+        }
+
         public static Task<DeviceBondState> BondAsync(this IAdapter adapter, IDevice device)
         {
             var tcs = new TaskCompletionSource<DeviceBondState>();
