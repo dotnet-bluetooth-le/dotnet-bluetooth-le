@@ -36,18 +36,18 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                 {
                     // iOS caches the peripheral name, so it can become stale (if changing)
                     // keep track of the local name key manually
-                    name = ((NSString) e.AdvertisementData.ValueForKey(CBAdvertisement.DataLocalNameKey)).ToString();
+                    name = ((NSString)e.AdvertisementData.ValueForKey(CBAdvertisement.DataLocalNameKey)).ToString();
                 }
 
                 var d = new Device(e.Peripheral, name, e.RSSI.Int32Value, ParseAdvertismentData(e.AdvertisementData));
 
-                DeviceAdvertised(this, new DeviceDiscoveredEventArgs {Device = d});
+                DeviceAdvertised(this, new DeviceDiscoveredEventArgs { Device = d });
                 if (ContainsDevice(_discoveredDevices, e.Peripheral))
                 {
                     return;
                 }
                 _discoveredDevices.Add(d);
-                DeviceDiscovered(this, new DeviceDiscoveredEventArgs {Device = d});
+                DeviceDiscovered(this, new DeviceDiscoveredEventArgs { Device = d });
             };
 
             _central.UpdatedState += (sender, e) =>
@@ -75,11 +75,16 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                 DeviceConnectionRegistry[guid] = d;
 
                 // raise our connected event
-                DeviceConnected(sender, new DeviceConnectionEventArgs {Device = d});
+                DeviceConnected(sender, new DeviceConnectionEventArgs { Device = d });
             };
 
             _central.DisconnectedPeripheral += (sender, e) =>
             {
+                if (e.Error != null)
+                {
+                    Mvx.Trace(MvxTraceLevel.Error, "Disconnect error {0} {1} {2}", e.Error.Code, e.Error.Description, e.Error.Domain);
+                }
+
                 // when a peripheral disconnects, remove it from our running list.
                 var id = ParseDeviceGuid(e.Peripheral);
                 var stringId = id.ToString();
@@ -101,13 +106,13 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                 if (isNormalDisconnect)
                 {
                     Mvx.Trace("DisconnectedPeripheral by user: {0}", e.Peripheral.Name);
-                    DeviceDisconnected(sender, new DeviceConnectionEventArgs {Device = foundDevice});
+                    DeviceDisconnected(sender, new DeviceConnectionEventArgs { Device = foundDevice });
                 }
                 else
                 {
                     Mvx.Trace("DisconnectedPeripheral by lost signal: {0}", e.Peripheral.Name);
                     DeviceConnectionLost(sender,
-                        new DeviceConnectionEventArgs {Device = foundDevice ?? new Device(e.Peripheral)});
+                        new DeviceConnectionEventArgs { Device = foundDevice ?? new Device(e.Peripheral) });
                 }
             };
 
@@ -166,7 +171,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
         public void StartScanningForDevices()
         {
-            StartScanningForDevices(new Guid[] {});
+            StartScanningForDevices(new Guid[] { });
         }
 
         public async void StartScanningForDevices(Guid[] serviceUuids)
@@ -247,8 +252,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
         public void CreateBondToDevice(IDevice device)
         {
             // ToDo
-            DeviceBondStateChanged(this,
-                new DeviceBondStateChangedEventArgs {Device = device, State = DeviceBondState.Bonded});
+            DeviceBondStateChanged(this, new DeviceBondStateChangedEventArgs { Device = device, State = DeviceBondState.Bonded });
         }
 
         public void DisconnectDevice(IDevice device)
@@ -304,7 +308,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
             foreach (var o in advertisementData.Keys)
             {
-                var key = (NSString) o;
+                var key = (NSString)o;
                 if (key == CBAdvertisement.DataLocalNameKey)
                 {
                     records.Add(new AdvertisementRecord(AdvertisementRecordType.CompleteLocalName,
@@ -312,12 +316,12 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                 }
                 else if (key == CBAdvertisement.DataManufacturerDataKey)
                 {
-                    var arr = ((NSData) advertisementData.ObjectForKey(key)).ToArray();
+                    var arr = ((NSData)advertisementData.ObjectForKey(key)).ToArray();
                     records.Add(new AdvertisementRecord(AdvertisementRecordType.ManufacturerSpecificData, arr));
                 }
                 else if (key == CBAdvertisement.DataServiceUUIDsKey)
                 {
-                    var array = (NSArray) advertisementData.ObjectForKey(key);
+                    var array = (NSArray)advertisementData.ObjectForKey(key);
 
                     var dataList = new List<NSData>();
                     for (nuint i = 0; i < array.Count; i++)

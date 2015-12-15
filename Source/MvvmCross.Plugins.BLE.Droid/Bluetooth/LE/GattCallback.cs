@@ -1,6 +1,7 @@
 using System;
 using Android.Bluetooth;
 using Cirrious.CrossCore;
+using Cirrious.CrossCore.Platform;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
 
 namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
@@ -22,7 +23,14 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             base.OnConnectionStateChange(gatt, status, newState);
 
-            Mvx.Trace("OnConnectionStateChange: {0}, GattStatus: {1}", newState.ToString(), status.ToString());
+            if (status != GattStatus.Success)
+            {
+                Mvx.Trace(MvxTraceLevel.Error, "GattCallback error: {0}", status);
+            }
+            else
+            {
+                Mvx.Trace("GattCallback state: {0}", newState.ToString());
+            }
 
             IDevice device = null;
             switch (newState)
@@ -161,7 +169,8 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                     args.IsSuccessful = true;
                     break;
             }
-            this.CharacteristicValueWritten(this, args);
+
+            CharacteristicValueWritten(this, args);
         }
 
         public override void OnReliableWriteCompleted(BluetoothGatt gatt, GattStatus status)
