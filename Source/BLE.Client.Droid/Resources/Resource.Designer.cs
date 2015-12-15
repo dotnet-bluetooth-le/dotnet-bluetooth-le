@@ -47,29 +47,8 @@ namespace BLE.Client.Droid
 			global::Cirrious.MvvmCross.Binding.Droid.Resource.Styleable.MvxListView = global::BLE.Client.Droid.Resource.Styleable.MvxListView;
 			global::Cirrious.MvvmCross.Binding.Droid.Resource.Styleable.MvxListView_MvxDropDownItemTemplate = global::BLE.Client.Droid.Resource.Styleable.MvxListView_MvxDropDownItemTemplate;
 			global::Cirrious.MvvmCross.Binding.Droid.Resource.Styleable.MvxListView_MvxItemTemplate = global::BLE.Client.Droid.Resource.Styleable.MvxListView_MvxItemTemplate;
-			global::MvvmCross.Plugins.BLE.Droid.Resource.Attribute.MvxBind = global::BLE.Client.Droid.Resource.Attribute.MvxBind;
-			global::MvvmCross.Plugins.BLE.Droid.Resource.Attribute.MvxDropDownItemTemplate = global::BLE.Client.Droid.Resource.Attribute.MvxDropDownItemTemplate;
-			global::MvvmCross.Plugins.BLE.Droid.Resource.Attribute.MvxGroupItemTemplate = global::BLE.Client.Droid.Resource.Attribute.MvxGroupItemTemplate;
-			global::MvvmCross.Plugins.BLE.Droid.Resource.Attribute.MvxItemTemplate = global::BLE.Client.Droid.Resource.Attribute.MvxItemTemplate;
-			global::MvvmCross.Plugins.BLE.Droid.Resource.Attribute.MvxLang = global::BLE.Client.Droid.Resource.Attribute.MvxLang;
-			global::MvvmCross.Plugins.BLE.Droid.Resource.Attribute.MvxSource = global::BLE.Client.Droid.Resource.Attribute.MvxSource;
-			global::MvvmCross.Plugins.BLE.Droid.Resource.Attribute.MvxTemplate = global::BLE.Client.Droid.Resource.Attribute.MvxTemplate;
-			global::MvvmCross.Plugins.BLE.Droid.Resource.Id.MvvmCrossTagId = global::BLE.Client.Droid.Resource.Id.MvvmCrossTagId;
-			global::MvvmCross.Plugins.BLE.Droid.Resource.Id.MvxBindingTagUnique = global::BLE.Client.Droid.Resource.Id.MvxBindingTagUnique;
 			global::MvvmCross.Plugins.BLE.Droid.Resource.String.ApplicationName = global::BLE.Client.Droid.Resource.String.ApplicationName;
 			global::MvvmCross.Plugins.BLE.Droid.Resource.String.Hello = global::BLE.Client.Droid.Resource.String.Hello;
-			global::MvvmCross.Plugins.BLE.Droid.Resource.Styleable.MvxBinding = global::BLE.Client.Droid.Resource.Styleable.MvxBinding;
-			global::MvvmCross.Plugins.BLE.Droid.Resource.Styleable.MvxBinding_MvxBind = global::BLE.Client.Droid.Resource.Styleable.MvxBinding_MvxBind;
-			global::MvvmCross.Plugins.BLE.Droid.Resource.Styleable.MvxBinding_MvxLang = global::BLE.Client.Droid.Resource.Styleable.MvxBinding_MvxLang;
-			global::MvvmCross.Plugins.BLE.Droid.Resource.Styleable.MvxControl = global::BLE.Client.Droid.Resource.Styleable.MvxControl;
-			global::MvvmCross.Plugins.BLE.Droid.Resource.Styleable.MvxControl_MvxTemplate = global::BLE.Client.Droid.Resource.Styleable.MvxControl_MvxTemplate;
-			global::MvvmCross.Plugins.BLE.Droid.Resource.Styleable.MvxExpandableListView = global::BLE.Client.Droid.Resource.Styleable.MvxExpandableListView;
-			global::MvvmCross.Plugins.BLE.Droid.Resource.Styleable.MvxExpandableListView_MvxGroupItemTemplate = global::BLE.Client.Droid.Resource.Styleable.MvxExpandableListView_MvxGroupItemTemplate;
-			global::MvvmCross.Plugins.BLE.Droid.Resource.Styleable.MvxImageView = global::BLE.Client.Droid.Resource.Styleable.MvxImageView;
-			global::MvvmCross.Plugins.BLE.Droid.Resource.Styleable.MvxImageView_MvxSource = global::BLE.Client.Droid.Resource.Styleable.MvxImageView_MvxSource;
-			global::MvvmCross.Plugins.BLE.Droid.Resource.Styleable.MvxListView = global::BLE.Client.Droid.Resource.Styleable.MvxListView;
-			global::MvvmCross.Plugins.BLE.Droid.Resource.Styleable.MvxListView_MvxDropDownItemTemplate = global::BLE.Client.Droid.Resource.Styleable.MvxListView_MvxDropDownItemTemplate;
-			global::MvvmCross.Plugins.BLE.Droid.Resource.Styleable.MvxListView_MvxItemTemplate = global::BLE.Client.Droid.Resource.Styleable.MvxListView_MvxItemTemplate;
 		}
 		
 		public partial class Attribute
@@ -125,14 +104,14 @@ namespace BLE.Client.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050000
-			public const int MvvmCrossTagId = 2131034112;
+			// aapt resource value: 0x7f040000
+			public const int MvvmCrossTagId = 2130968576;
 			
-			// aapt resource value: 0x7f050001
-			public const int MvxBindingTagUnique = 2131034113;
+			// aapt resource value: 0x7f040001
+			public const int MvxBindingTagUnique = 2130968577;
 			
-			// aapt resource value: 0x7f050002
-			public const int MyButton = 2131034114;
+			// aapt resource value: 0x7f040002
+			public const int MyButton = 2130968578;
 			
 			static Id()
 			{
@@ -163,11 +142,11 @@ namespace BLE.Client.Droid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040001
-			public const int ApplicationName = 2130968577;
+			// aapt resource value: 0x7f050001
+			public const int ApplicationName = 2131034113;
 			
-			// aapt resource value: 0x7f040000
-			public const int Hello = 2130968576;
+			// aapt resource value: 0x7f050000
+			public const int Hello = 2131034112;
 			
 			static String()
 			{
