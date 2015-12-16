@@ -22,7 +22,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         public override void OnConnectionStateChange(BluetoothGatt gatt, GattStatus status, ProfileState newState)
         {
             base.OnConnectionStateChange(gatt, status, newState);
-
+         
             if (status != GattStatus.Success)
             {
                 Mvx.Trace(MvxTraceLevel.Error, "GattCallback error: {0}", status);

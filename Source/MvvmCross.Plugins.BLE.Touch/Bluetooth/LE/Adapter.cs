@@ -212,22 +212,29 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
                 StopScan();
 
+                TryDisposeToken();
                 _isScanning = false;
 
-                //important for this to be caled after _isScanning = false;
+                //important for this to be caled after _isScanning = false so don't move to finally block
                 ScanTimeoutElapsed(this, new EventArgs());
             }
             catch (TaskCanceledException)
             {
                 Mvx.Trace("Adapter: Scan was cancelled.");
                 StopScan();
-            }
-            finally
-            {
-                _cancellationTokenSource.Dispose();
-                _cancellationTokenSource = null;
+
+                TryDisposeToken();
                 _isScanning = false;
             }
+        }
+
+        private void TryDisposeToken()
+        {
+            if (_cancellationTokenSource == null)
+                return;
+
+            _cancellationTokenSource.Dispose();
+            _cancellationTokenSource = null;
         }
 
         public void StopScanningForDevices()
