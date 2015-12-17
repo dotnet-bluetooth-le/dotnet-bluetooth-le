@@ -177,7 +177,23 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
         protected DeviceState GetState()
         {
-            switch (this._nativeDevice.BondState)
+            var manager = (BluetoothManager)Android.App.Application.Context.GetSystemService(Android.Content.Context.BluetoothService);
+            var state = manager.GetConnectionState(_nativeDevice, ProfileType.Gatt);
+
+            switch(state)
+            {
+                case ProfileState.Connected:
+                    return DeviceState.Connected;
+
+                case ProfileState.Connecting:
+                    return DeviceState.Connecting;
+
+                case ProfileState.Disconnected:
+                case ProfileState.Disconnecting:
+                default:
+                    return DeviceState.Disconnected;
+            }
+            /*switch (this._nativeDevice.BondState)
             {
                 case Bond.Bonded:
                     return DeviceState.Connected;
@@ -186,7 +202,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 case Bond.None:
                 default:
                     return DeviceState.Disconnected;
-            }
+            }*/
         }
 
 
