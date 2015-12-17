@@ -44,7 +44,10 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
         public void OnServicesDiscovered(object sender, ServicesDiscoveredEventArgs args)
         {
-            _services = _gatt.Services.Select(service => new Service(service, _gatt, _gattCallback)).ToList<IService>();
+            if (_gatt != null)
+            {
+                _services = _gatt.Services.Select(service => new Service(service, _gatt, _gattCallback)).ToList<IService>();
+            }
 
             _gattCallback.ServicesDiscovered -= OnServicesDiscovered;
 

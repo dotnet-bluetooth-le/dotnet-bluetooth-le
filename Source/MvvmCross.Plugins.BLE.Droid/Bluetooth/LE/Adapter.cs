@@ -173,6 +173,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
                 StopScan();
 
+                TryDisposeToken();
                 _isScanning = false;
 
                 //important for this to be caled after _isScanning = false;
@@ -182,14 +183,19 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             {
                 Mvx.Trace("Adapter: Scan was cancelled.");
                 StopScan();
-            }
-            finally
-            {
-                _cancellationTokenSource.Dispose();
-                _cancellationTokenSource = null;
 
+                TryDisposeToken();
                 _isScanning = false;
             }
+        }
+
+        private void TryDisposeToken()
+        {
+            if (_cancellationTokenSource == null)
+                return;
+
+            _cancellationTokenSource.Dispose();
+            _cancellationTokenSource = null;
         }
 
         public void StopScanningForDevices()
@@ -224,11 +230,12 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
             var device = new Device(bleDevice, null, null, rssi, scanRecord);
 
-            this.DeviceAdvertised(this, new DeviceDiscoveredEventArgs { Device = device });
+            DeviceAdvertised(this, new DeviceDiscoveredEventArgs { Device = device });
 
             if (!_discoveredDevices.Contains(device))
             {
                 _discoveredDevices.Add(device);
+
                 DeviceDiscovered(this, new DeviceDiscoveredEventArgs { Device = device });
             }
         }
