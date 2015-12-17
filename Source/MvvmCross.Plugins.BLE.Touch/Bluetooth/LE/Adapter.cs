@@ -181,31 +181,32 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                 Mvx.Trace("Adapter: Already scanning!");
                 return;
             }
+
             _isScanning = true;
-
-            // Wait for the PoweredOn state
-            await WaitForState(CBCentralManagerState.PoweredOn).ConfigureAwait(false);
-
-            Mvx.Trace("Adapter: Starting a scan for devices.");
-
-            CBUUID[] serviceCbuuids = null;
-            if (serviceUuids != null && serviceUuids.Any())
-            {
-                serviceCbuuids = serviceUuids.Select(u => CBUUID.FromString(u.ToString())).ToArray();
-                Mvx.Trace("Adapter: Scanning for " + serviceCbuuids.First());
-            }
-
-            // clear out the list
-            _discoveredDevices = new List<IDevice>();
-
-            // start scanning
-            _central.ScanForPeripherals(serviceCbuuids);
 
             // in ScanTimeout seconds, stop the scan
             _cancellationTokenSource = new CancellationTokenSource();
 
             try
             {
+                // Wait for the PoweredOn state
+                await WaitForState(CBCentralManagerState.PoweredOn, _cancellationTokenSource.Token).ConfigureAwait(false);
+
+                Mvx.Trace("Adapter: Starting a scan for devices.");
+
+                CBUUID[] serviceCbuuids = null;
+                if (serviceUuids != null && serviceUuids.Any())
+                {
+                    serviceCbuuids = serviceUuids.Select(u => CBUUID.FromString(u.ToString())).ToArray();
+                    Mvx.Trace("Adapter: Scanning for " + serviceCbuuids.First());
+                }
+
+                // clear out the list
+                _discoveredDevices = new List<IDevice>();
+
+                // start scanning
+                _central.ScanForPeripherals(serviceCbuuids);
+
                 await Task.Delay(ScanTimeout, _cancellationTokenSource.Token);
 
                 Mvx.Trace("Adapter: Scan timeout has elapsed.");
@@ -277,13 +278,13 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
             return Guid.ParseExact(peripherial.Identifier.AsString(), "d");
         }
 
-        private async Task WaitForState(CBCentralManagerState state)
+        private async Task WaitForState(CBCentralManagerState state, CancellationToken cancellationToken)
         {
             Mvx.Trace("Adapter: Waiting for state: " + state);
 
-            while (_central.State != state)
+            while (_central.State != state && !cancellationToken.IsCancellationRequested)
             {
-                await Task.Run(() => _stateChanged.WaitOne()).ConfigureAwait(false);
+                await Task.Run(() => _stateChanged.WaitOne(2000), cancellationToken).ConfigureAwait(false);
             }
         }
 
