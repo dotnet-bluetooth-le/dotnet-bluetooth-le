@@ -131,6 +131,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             EventHandler<CharacteristicWriteEventArgs> writeCallback = null;
             writeCallback = (s, a) =>
             {
+                Mvx.Trace("WriteCallback {0} ({1})", a.Characteristic.ID, a.IsSuccessful);
                 if (a.Characteristic.ID == ID)
                 {
                     if (_gattCallback != null)
@@ -147,20 +148,35 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             {
                 _gattCallback.CharacteristicValueWritten += writeCallback;
             }
-            else
+            /*else
             {
                 tcs.SetResult(true);
-            }
+            }*/
 
             //Make sure this is on the main thread or bad things happen
-            Application.SynchronizationContext.Post(_ => Write(data), null);
-
+            Application.SynchronizationContext.Post(_ =>
+                {
+                    var ret = write(data);
+                    if(!ret)
+                    {
+                        if(_gattCallback != null)
+                        {
+                            _gattCallback.CharacteristicValueWritten -= writeCallback;
+                        }
+                        tcs.SetResult(ret);
+                    }
+                }, null);
 
             return tcs.Task;
         }
 
 
         public void Write(byte[] data)
+        {
+            write(data);
+        }
+
+        bool write(byte[] data)
         {
             if (!CanWrite)
             {
@@ -174,8 +190,14 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
             var c = _nativeCharacteristic;
             c.SetValue(data);
-            Mvx.Trace(".....Write");
-            _gatt.WriteCharacteristic(c);
+            Mvx.Trace(".....Write {0}", ID);
+            //_gatt.WriteCharacteristic(c);
+            var ret = _gatt.WriteCharacteristic(c);
+            if(!ret)
+            {
+                _gattCallback.CharacteristicValueWritten -= OnCharacteristicValueWritten;
+            }
+            return ret;
         }
 
 
@@ -202,15 +224,26 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 }
             };
 
-
             if (_gattCallback != null)
             {
                 // wire up the characteristic value updating on the gattcallback
                 _gattCallback.CharacteristicValueUpdated += updated;
             }
+            else
+            {
+                tcs.SetException(new MemberAccessException("Gatt callback is null"));
+                return tcs.Task;
+            }
 
-            Console.WriteLine(".....ReadAsync");
-            _gatt.ReadCharacteristic(_nativeCharacteristic);
+
+            Mvx.TaggedTrace("ReadAsync", "requesting characteristic read");
+            var ret = _gatt.ReadCharacteristic(_nativeCharacteristic);
+            if(!ret)
+            {
+                _gattCallback.CharacteristicValueUpdated -= updated;
+                Mvx.TaggedWarning("ReadAsync", "Gatt read characteristic call returned {0}", ret);
+                tcs.SetException(new InvalidOperationException("Gatt read characteristic call failed"));
+            }
 
             return tcs.Task;
         }
@@ -253,7 +286,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 {
                     var descriptor = _nativeCharacteristic.Descriptors[0];
                     descriptor.SetValue(BluetoothGattDescriptor.EnableNotificationValue.ToArray());
-                    _gatt.WriteDescriptor(descriptor);
+                    successful &= _gatt.WriteDescriptor(descriptor);
                 }
                 else
                 {
@@ -261,7 +294,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 }
             }
 
-            Console.WriteLine("RequestValue, Succesful: " + successful);
+            Mvx.TaggedTrace("StartUpdates", "RequestValue, Succesful: {0}", successful);
         }
 
         public void StopUpdates()
