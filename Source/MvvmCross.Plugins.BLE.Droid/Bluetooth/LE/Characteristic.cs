@@ -192,11 +192,13 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             updated = (object sender, CharacteristicReadEventArgs e) =>
             {
                 // it may be other characteristics, so we need to test
-                var c = e.Characteristic;
-                tcs.SetResult(c);
-                if (_gattCallback != null)
+                if (e.Characteristic.ID == ID)
                 {
-                    _gattCallback.CharacteristicValueUpdated -= updated;
+                    tcs.SetResult(e.Characteristic);
+                    if (_gattCallback != null)
+                    {
+                        _gattCallback.CharacteristicValueUpdated -= updated;
+                    }
                 }
             };
 
