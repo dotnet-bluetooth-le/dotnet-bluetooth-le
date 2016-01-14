@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 
 
-using Cirrious.CrossCore;
-using Cirrious.CrossCore.Plugins;
+using MvvmCross.Platform;
+using MvvmCross.Platform.Plugins;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
 using MvvmCross.Plugins.BLE.Droid.Bluetooth.LE;
 

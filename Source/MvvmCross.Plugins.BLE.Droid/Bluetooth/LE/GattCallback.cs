@@ -1,7 +1,7 @@
 using System;
 using Android.Bluetooth;
-using Cirrious.CrossCore;
-using Cirrious.CrossCore.Platform;
+using MvvmCross.Platform;
+using MvvmCross.Platform.Platform;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
 
 namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
