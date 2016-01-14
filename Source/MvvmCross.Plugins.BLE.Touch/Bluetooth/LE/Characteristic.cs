@@ -124,7 +124,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
                 }
                 Mvx.Trace(".....UpdatedCharacterteristicValue");
                 var c = new Characteristic(e.Characteristic, _parentDevice);
-                tcs.SetResult(c);
+                tcs.TrySetResult(c);
                 _parentDevice.UpdatedCharacterteristicValue -= updated;
             };
 
@@ -154,7 +154,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
 
                 _parentDevice.WroteCharacteristicValue -= writeCallback;
 
-                tcs.SetResult(e.Error == null);
+                tcs.TrySetResult(e.Error == null);
             };
 
             if (CharacteristicWriteType == CBCharacteristicWriteType.WithResponse)
@@ -163,7 +163,7 @@ namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
             }
             else
             {
-                tcs.SetResult(true);
+                tcs.TrySetResult(true);
             }
 
             Write(data);
