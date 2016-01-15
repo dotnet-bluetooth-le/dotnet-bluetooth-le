@@ -2,13 +2,8 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Android.App;
-using Android.Content;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
 using Android.OS;
-using Cirrious.CrossCore;
-using Cirrious.CrossCore.Core;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
 using IAdapter = MvvmCross.Plugins.BLE.Bluetooth.LE.IAdapter;
 

@@ -10,7 +10,7 @@ using Java.Util;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
 using Android.Bluetooth.LE;
 using Android.OS;
-using Cirrious.CrossCore;
+using MvvmCross.Platform;
 
 namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 {

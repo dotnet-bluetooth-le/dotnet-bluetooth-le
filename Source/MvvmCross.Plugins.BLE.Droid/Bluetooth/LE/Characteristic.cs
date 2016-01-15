@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Bluetooth;
-using Cirrious.CrossCore;
+using MvvmCross.Platform;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
 
 namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cirrious.CrossCore;
+using MvvmCross.Platform;
 using CoreBluetooth;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Android.Bluetooth;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
-using Cirrious.CrossCore;
+using MvvmCross.Platform;
 
 namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 {

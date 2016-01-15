@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Cirrious.CrossCore;
-
-namespace MvvmCross.Plugins.BLE.Bluetooth.LE
+﻿namespace MvvmCross.Plugins.BLE.Bluetooth.LE
 {
     public enum AdvertisementRecordType
     {
