@@ -237,7 +237,7 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
 
         public static string ToHexString(this byte[] bytes)
         {
-            return BitConverter.ToString(bytes);
+            return bytes != null ? BitConverter.ToString(bytes) : string.Empty;
         }
 
 
