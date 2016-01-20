@@ -129,7 +129,14 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 else
                 {
                     Mvx.Trace("Adapter >= 21: Starting a scan for devices.");
-                    _adapter.BluetoothLeScanner.StartScan(_api21ScanCallback);
+                    if (_adapter.BluetoothLeScanner != null)
+                    {
+                        _adapter.BluetoothLeScanner.StartScan(_api21ScanCallback);
+                    }
+                    else
+                    {
+                        Mvx.Trace("Adapter >= 21: Scan failed. Bluetooth is probably off");
+                    }
                 }
 
             }
@@ -157,7 +164,14 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                     var ssb = new ScanSettings.Builder();
                     //ssb.SetCallbackType(ScanCallbackType.AllMatches);
 
-                    _adapter.BluetoothLeScanner.StartScan(scanFilters, ssb.Build(), _api21ScanCallback);
+                    if (_adapter.BluetoothLeScanner != null)
+                    {
+                        _adapter.BluetoothLeScanner.StartScan(scanFilters, ssb.Build(), _api21ScanCallback);
+                    }
+                    else
+                    {
+                        Mvx.Trace("Adapter >= 21: Scan failed. Bluetooth is probably off");
+                    }
                 }
 
             }
@@ -220,7 +234,10 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             else
             {
                 Mvx.Trace("Adapter >= 21: Stopping the scan for devices.");
-                _adapter.BluetoothLeScanner.StopScan(_api21ScanCallback);
+                if (_adapter.BluetoothLeScanner != null)
+                {
+                    _adapter.BluetoothLeScanner.StopScan(_api21ScanCallback);
+                }
             }
         }
 
