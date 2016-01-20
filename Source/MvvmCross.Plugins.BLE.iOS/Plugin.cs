@@ -1,10 +1,9 @@
 using MvvmCross.Platform;
 using MvvmCross.Platform.Plugins;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
-using MvvmCross.Plugins.BLE.Touch.Bluetooth.LE;
-using System.Diagnostics;
+using MvvmCross.Plugins.BLE.iOS.Bluetooth.LE;
 
-namespace MvvmCross.Plugins.BLE.Touch
+namespace MvvmCross.Plugins.BLE.iOS
 {
     public class Plugin
      : IMvxPlugin

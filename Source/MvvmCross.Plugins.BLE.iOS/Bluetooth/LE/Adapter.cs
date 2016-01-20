@@ -10,7 +10,7 @@ using CoreFoundation;
 using Foundation;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
 
-namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
+namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
 {
     public class Adapter : IAdapter
     {

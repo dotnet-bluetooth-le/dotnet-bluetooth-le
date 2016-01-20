@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.Plugins.BLE", "Mv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.Plugins.BLE.Droid", "MvvmCross.Plugins.BLE.Droid\MvvmCross.Plugins.BLE.Droid.csproj", "{6CF7D1D9-FDD9-4158-9E0F-F102027291F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.Plugins.BLE.Touch", "MvvmCross.Plugins.BLE.Touch\MvvmCross.Plugins.BLE.Touch.csproj", "{CB52CFF4-F804-41A0-8408-A31365F4BA91}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.Plugins.BLE.iOS", "MvvmCross.Plugins.BLE.iOS\MvvmCross.Plugins.BLE.iOS.csproj", "{CB52CFF4-F804-41A0-8408-A31365F4BA91}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6508B9C0-60B2-4BD5-ACAB-7C057587CDE3}"
 	ProjectSection(SolutionItems) = preProject
