@@ -16,8 +16,8 @@ Install-Package MvvmCross.Plugin.BLE
 [![NuGet Pre Release](https://img.shields.io/badge/nuget-0.9--beta3-blue.svg?style=flat)](https://www.nuget.org/packages/MvvmCross.Plugin.BLE/0.9.0-beta3)
 
 ## Usage basics   
-   
-Let MvvmCross inject the IAdapter service in your shared code and start using BLE :)
+
+Let MvvmCross inject the `IAdapter` service in your shared code and start using BLE :)
 
 ```csharp
 _adapter = Mvx.Resolve<IAdapter>();
@@ -65,7 +65,7 @@ or
 var characteristic = await service.GetCharacteristicAsync(Guid.Parse("d8de624e-140f-4a22-8594-e2216b84a5f2"));
 ```
 
-#### Read charactersitic
+#### Read characteristic
 ```csharp
 var bytes = await characteristic.ReadAsync();
 ```
@@ -89,7 +89,7 @@ characteristic.ValueUpdated += (o, args) =>
 characteristic.StartUpdates();
 ```
 
-## Usefull Links
+## Useful Links
 
 [MvvmCross](https://github.com/MvvmCross)
 
