@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.Plugins.BLE", "Mv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.Plugins.BLE.Droid", "..\MvvmCross.Plugins.BLE.Droid\MvvmCross.Plugins.BLE.Droid.csproj", "{6CF7D1D9-FDD9-4158-9E0F-F102027291F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.Plugins.BLE.Touch", "MvvmCross.Plugins.BLE.Touch\MvvmCross.Plugins.BLE.Touch.csproj", "{33158876-16C6-4FDA-B252-600F5171BE66}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.Plugins.BLE.iOS", "MvvmCross.Plugins.BLE.iOS\MvvmCross.Plugins.BLE.iOS.csproj", "{33158876-16C6-4FDA-B252-600F5171BE66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

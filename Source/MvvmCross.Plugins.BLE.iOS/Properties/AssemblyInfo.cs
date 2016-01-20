@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MvvmCross.Plugins.BLE.Touch")]
+[assembly: AssemblyTitle("MvvmCross.Plugins.BLE.iOS")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Zuehlke Technology Group")]
-[assembly: AssemblyProduct("MvvmCross.Plugins.BLE.Touch")]
+[assembly: AssemblyProduct("MvvmCross.Plugins.BLE.iOS")]
 [assembly: AssemblyCopyright("Copyright © Zuehlke Technology Group 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

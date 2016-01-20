@@ -5,7 +5,7 @@ using MvvmCross.Platform;
 using CoreBluetooth;
 using CoreFoundation;
 
-namespace MvvmCross.Plugins.BLE.Touch
+namespace MvvmCross.Plugins.BLE.iOS
 {
     /// <summary>
     ///     Manager class for Bluetooth Low Energy connectivity. Adds functionality to the

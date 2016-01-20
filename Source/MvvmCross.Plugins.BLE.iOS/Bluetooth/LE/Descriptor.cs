@@ -2,7 +2,7 @@
 using CoreBluetooth;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
 
-namespace MvvmCross.Plugins.BLE.Touch.Bluetooth.LE
+namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
 {
     public class Descriptor : IDescriptor
     {

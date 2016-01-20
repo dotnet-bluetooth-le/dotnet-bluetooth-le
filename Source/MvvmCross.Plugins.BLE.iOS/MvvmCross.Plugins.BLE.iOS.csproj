@@ -6,9 +6,9 @@
     <ProjectGuid>{CB52CFF4-F804-41A0-8408-A31365F4BA91}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>MvvmCross.Plugins.BLE.Touch</RootNamespace>
+    <RootNamespace>MvvmCross.Plugins.BLE.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>MvvmCross.Plugins.BLE.Touch</AssemblyName>
+    <AssemblyName>MvvmCross.Plugins.BLE.iOS</AssemblyName>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
@@ -28,7 +28,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\Release\Touch\</OutputPath>
+    <OutputPath>..\..\bin\Release\iOS\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
