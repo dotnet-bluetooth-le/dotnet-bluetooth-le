@@ -22,7 +22,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         public override void OnConnectionStateChange(BluetoothGatt gatt, GattStatus status, ProfileState newState)
         {
             base.OnConnectionStateChange(gatt, status, newState);
-         
+
             if (status != GattStatus.Success)
             {
                 Mvx.Trace(MvxTraceLevel.Error, "GattCallback error: {0}", status);
@@ -121,7 +121,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             base.OnCharacteristicRead(gatt, characteristic, status);
 
-            Mvx.Trace("OnCharacteristicRead: {0}, {1}", characteristic.GetStringValue(0), status);
+            Mvx.Trace("OnCharacteristicRead: id {0}; status {1}", characteristic.Uuid, status);
 
             this.CharacteristicValueUpdated(this, new CharacteristicReadEventArgs
             {

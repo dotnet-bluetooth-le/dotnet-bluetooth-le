@@ -139,7 +139,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                         _gattCallback.CharacteristicValueWritten -= writeCallback;
                     }
 
-                    tcs.SetResult(a.IsSuccessful);
+                    tcs.TrySetResult(a.IsSuccessful);
                     //this.ValueWritten(s, a);
                 }
             };
@@ -163,7 +163,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                         {
                             _gattCallback.CharacteristicValueWritten -= writeCallback;
                         }
-                        tcs.SetResult(ret);
+                        tcs.TrySetResult(ret);
                     }
                 }, null);
 
@@ -216,7 +216,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 // it may be other characteristics, so we need to test
                 if (e.Characteristic.ID == ID)
                 {
-                    tcs.SetResult(e.Characteristic);
+                    tcs.TrySetResult(e.Characteristic);
                     if (_gattCallback != null)
                     {
                         _gattCallback.CharacteristicValueUpdated -= updated;
@@ -231,7 +231,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             }
             else
             {
-                tcs.SetException(new MemberAccessException("Gatt callback is null"));
+                tcs.TrySetException(new MemberAccessException("Gatt callback is null"));
                 return tcs.Task;
             }
 
@@ -242,7 +242,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             {
                 _gattCallback.CharacteristicValueUpdated -= updated;
                 Mvx.TaggedWarning("ReadAsync", "Gatt read characteristic call returned {0}", ret);
-                tcs.SetException(new InvalidOperationException("Gatt read characteristic call failed"));
+                tcs.TrySetException(new InvalidOperationException("Gatt read characteristic call failed"));
             }
 
             return tcs.Task;

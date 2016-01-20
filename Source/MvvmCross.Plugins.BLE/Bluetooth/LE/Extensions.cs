@@ -63,7 +63,7 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
                         adapter.StopScanningForDevices();
                         adapter.DeviceDiscovered -= hd;
                         adapter.ScanTimeoutElapsed -= he;
-                        tcs.SetResult(e.Device);
+                        tcs.TrySetResult(e.Device);
                     }
                 };
 
@@ -71,7 +71,7 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
                 {
                     adapter.DeviceDiscovered -= hd;
                     adapter.ScanTimeoutElapsed -= he;
-                    tcs.SetException(new Exception("Unable to discover " + deviceID.ToString()));
+                    tcs.TrySetException(new Exception("Unable to discover " + deviceID.ToString()));
                 };
 
             adapter.DeviceDiscovered += hd;
@@ -109,7 +109,7 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
                 if (e.Device.ID == device.ID)
                 {
                     adapter.DeviceConnected -= h;
-                    tcs.SetResult(e.Device);
+                    tcs.TrySetResult(e.Device);
                 }
             };
             adapter.DeviceConnected += h;
@@ -135,7 +135,7 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
                 if (e.Device.ID == device.ID)
                 {
                     adapter.DeviceDisconnected -= h;
-                    tcs.SetResult(e.Device);
+                    tcs.TrySetResult(e.Device);
                 }
             };
 
@@ -156,7 +156,7 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
                 if (e.Device.ID == device.ID && e.State == DeviceBondState.Bonded)
                 {
                     adapter.DeviceBondStateChanged -= h;
-                    tcs.SetResult(e.State);
+                    tcs.TrySetResult(e.State);
                 }
             };
             adapter.DeviceBondStateChanged += h;
@@ -184,15 +184,22 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
                 try
                 {
                     var s = device.Services.First(x => x.ID == id);
-                    tcs.SetResult(s);
+                    tcs.TrySetResult(s);
                 }
                 catch (Exception ex)
                 {
-                    tcs.SetException(ex);
+                    tcs.TrySetException(ex);
                 }
             };
             device.ServicesDiscovered += h;
-            device.DiscoverServices();
+            try
+            {
+                device.DiscoverServices();
+            }
+            catch(Exception e)
+            {
+                tcs.TrySetException(e);
+            }
 
             return tcs.Task;
         }
@@ -215,11 +222,11 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
                 try
                 {
                     var s = service.Characteristics.First(x => x.ID == id);
-                    tcs.SetResult(s);
+                    tcs.TrySetResult(s);
                 }
                 catch (Exception ex)
                 {
-                    tcs.SetException(ex);
+                    tcs.TrySetException(ex);
                 }
             };
             service.CharacteristicsDiscovered += h;
@@ -230,7 +237,7 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
 
         public static string ToHexString(this byte[] bytes)
         {
-            return BitConverter.ToString(bytes);
+            return bytes != null ? BitConverter.ToString(bytes) : string.Empty;
         }
 
 
