@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/xabre/MvvmCross-BluetoothLE/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>This package contains a 'BLE' plugin for MvvmCross. It offers cross platform functionality for handling BLE. The core of this plugin is based on the idea from Xamarin - Monkey.Robotics and adds several features, improvements and fixes. It only targets iOS and Android.</description>
-    <tags>mvvm mvvmcross xamarin monodroid Xamarin.iOS</tags>
+    <tags>mvvm mvvmcross xamarin monodroid Xamarin.iOS Bluetooth BLE LE</tags>
     <iconUrl>https://camo.githubusercontent.com/0115ee0a728ae7d84747c8d72c82d32630aa217e/68747470733a2f2f7261772e6769746875622e636f6d2f78616272652f4d76766d43726f73732d426c7565746f6f74684c452f6d61737465722f69636f6e5f736d616c6c2e706e67</iconUrl>
     <dependencies>     
     
