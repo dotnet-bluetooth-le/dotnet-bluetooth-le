@@ -131,20 +131,21 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
         public override void DiscoverServices()
         {
-            if (this._gattCallback == null || this._gatt == null)
+            if (_gattCallback == null || _gatt == null)
             {
                 return;
             }
 
             Mvx.Trace("...Discover services");
 
-            this._gattCallback.ServicesDiscovered += OnServicesDiscovered;
-            this._gatt.DiscoverServices();
+            _gattCallback.ServicesDiscovered += OnServicesDiscovered;
+            _gatt.DiscoverServices();
         }
 
+        // First step
         public void Disconnect()
         {
-            if (this._gatt != null)
+            if (_gatt != null)
             {
                 //clear cached services
                 _services.Clear();
@@ -153,20 +154,21 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             }
             else
             {
-                Console.WriteLine("Can't disconnect {0}. Gatt is null.", this.Name);
+                Console.WriteLine("Can't disconnect {0}. Gatt is null.", Name);
             }
         }
 
+        //Second step
         public void CloseGatt()
         {
-            if (this._gatt != null)
+            if (_gatt != null)
             {
-                this._gatt.Close();
-                this._gatt = null;
+                _gatt.Close();
+                _gatt = null;
             }
             else
             {
-                Console.WriteLine("Can't close gatt {0}. Gatt is null.", this.Name);
+                Console.WriteLine("Can't close gatt {0}. Gatt is null.", Name);
             }
 
         }
@@ -180,7 +182,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             var manager = (BluetoothManager)Android.App.Application.Context.GetSystemService(Android.Content.Context.BluetoothService);
             var state = manager.GetConnectionState(_nativeDevice, ProfileType.Gatt);
 
-            switch(state)
+            switch (state)
             {
                 case ProfileState.Connected:
                     return DeviceState.Connected;
@@ -193,19 +195,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 default:
                     return DeviceState.Disconnected;
             }
-            /*switch (this._nativeDevice.BondState)
-            {
-                case Bond.Bonded:
-                    return DeviceState.Connected;
-                case Bond.Bonding:
-                    return DeviceState.Connecting;
-                case Bond.None:
-                default:
-                    return DeviceState.Disconnected;
-            }*/
         }
-
-
         #endregion
 
         public static List<AdvertisementRecord> ParseScanRecord(byte[] scanRecord)

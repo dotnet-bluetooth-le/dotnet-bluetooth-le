@@ -104,16 +104,16 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             base.OnServicesDiscovered(gatt, status);
 
-            Mvx.Trace("OnServicesDiscovered: " + status.ToString());
+            Mvx.Trace("OnServicesDiscovered: {0}", status.ToString());
 
-            this.ServicesDiscovered(this, new ServicesDiscoveredEventArgs());
+            ServicesDiscovered(this, new ServicesDiscoveredEventArgs());
         }
 
         public override void OnDescriptorRead(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, GattStatus status)
         {
             base.OnDescriptorRead(gatt, descriptor, status);
 
-            Mvx.Trace("OnDescriptorRead: " + descriptor.ToString());
+            Mvx.Trace("OnDescriptorRead: {0}", descriptor.ToString());
 
         }
 
@@ -121,14 +121,12 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             base.OnCharacteristicRead(gatt, characteristic, status);
 
-            Mvx.Trace("OnCharacteristicRead: id {0}; status {1}", characteristic.Uuid, status);
+            Mvx.Trace("OnCharacteristicRead: value {0}; status {1}", characteristic.GetValue().ToHexString(), status);
 
-            this.CharacteristicValueUpdated(this, new CharacteristicReadEventArgs
-            {
-                // memory leak ... used null params
-                // dummy device with null gatt/gattcalback
-                Characteristic = new Characteristic(characteristic, null, null)
-            }
+            CharacteristicValueUpdated(this, new CharacteristicReadEventArgs
+                {
+                    Characteristic = new Characteristic(characteristic, gatt, this)
+                }
             );
         }
 
@@ -136,13 +134,10 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             base.OnCharacteristicChanged(gatt, characteristic);
 
-            //Console.WriteLine("OnCharacteristicChanged: " + characteristic.GetStringValue(0));
-
-            this.CharacteristicValueUpdated(this, new CharacteristicReadEventArgs()
-            {
-                // use null to avoid huge memory leaks due to characterisitc events
-                Characteristic = new Characteristic(characteristic, null, null)
-            }
+            CharacteristicValueUpdated(this, new CharacteristicReadEventArgs
+                {
+                    Characteristic = new Characteristic(characteristic, gatt, this)
+                }
             );
         }
 
@@ -150,9 +145,9 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             base.OnCharacteristicWrite(gatt, characteristic, status);
 
-            Mvx.Trace("OnCharacteristicWrite: {0}", status);
+            Mvx.Trace("OnCharacteristicWrite: value {0} status {1}", characteristic.GetValue().ToHexString(), status);
 
-            var args = new CharacteristicWriteEventArgs() { Characteristic = new Characteristic(characteristic, null, null) };
+            var args = new CharacteristicWriteEventArgs { Characteristic = new Characteristic(characteristic, gatt, this) };
             switch (status)
             {
                 case GattStatus.Failure:

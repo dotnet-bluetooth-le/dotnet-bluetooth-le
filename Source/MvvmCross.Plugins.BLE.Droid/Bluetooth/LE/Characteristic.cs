@@ -38,8 +38,8 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             _gattCallback = gattCallback;
         }
 
-        public event EventHandler<CharacteristicReadEventArgs> ValueUpdated = delegate { };
-        public event EventHandler<CharacteristicWriteEventArgs> ValueWritten = delegate { };
+        public event EventHandler<CharacteristicReadEventArgs> ValueUpdated;
+        public event EventHandler<CharacteristicWriteEventArgs> ValueWritten;
 
         public string Uuid
         {
@@ -73,7 +73,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
         public CharacteristicPropertyType Properties
         {
-            get { return (CharacteristicPropertyType) (int) _nativeCharacteristic.Properties; }
+            get { return (CharacteristicPropertyType)(int)_nativeCharacteristic.Properties; }
         }
 
         public IList<IDescriptor> Descriptors
@@ -140,29 +140,18 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                     }
 
                     tcs.TrySetResult(a.IsSuccessful);
-                    //this.ValueWritten(s, a);
                 }
             };
 
-            if (_gattCallback != null)
-            {
-                _gattCallback.CharacteristicValueWritten += writeCallback;
-            }
-            /*else
-            {
-                tcs.SetResult(true);
-            }*/
+            _gattCallback.CharacteristicValueWritten += writeCallback;
 
             //Make sure this is on the main thread or bad things happen
             Application.SynchronizationContext.Post(_ =>
                 {
-                    var ret = write(data);
-                    if(!ret)
+                    var ret = InternalWrite(data);
+                    if (!ret)
                     {
-                        if(_gattCallback != null)
-                        {
-                            _gattCallback.CharacteristicValueWritten -= writeCallback;
-                        }
+                        _gattCallback.CharacteristicValueWritten -= writeCallback;
                         tcs.TrySetResult(ret);
                     }
                 }, null);
@@ -170,38 +159,31 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             return tcs.Task;
         }
 
-
         public void Write(byte[] data)
         {
-            write(data);
+            InternalWrite(data);
         }
 
-        bool write(byte[] data)
+        bool InternalWrite(byte[] data)
         {
             if (!CanWrite)
             {
                 throw new InvalidOperationException("Characteristic does not support WRITE");
             }
 
-            if (_gattCallback != null)
-            {
-                _gattCallback.CharacteristicValueWritten += OnCharacteristicValueWritten;
-            }
+            _gattCallback.CharacteristicValueWritten += OnCharacteristicValueWritten;
 
-            var c = _nativeCharacteristic;
-            c.SetValue(data);
+            _nativeCharacteristic.SetValue(data);
             Mvx.Trace(".....Write {0}", ID);
-            //_gatt.WriteCharacteristic(c);
-            var ret = _gatt.WriteCharacteristic(c);
-            if(!ret)
+
+            var ret = _gatt.WriteCharacteristic(_nativeCharacteristic);
+            if (!ret)
             {
                 _gattCallback.CharacteristicValueWritten -= OnCharacteristicValueWritten;
             }
             return ret;
         }
 
-
-        // HACK: UNTESTED - this API has only been tested on iOS
         public Task<ICharacteristic> ReadAsync()
         {
             var tcs = new TaskCompletionSource<ICharacteristic>();
@@ -210,8 +192,9 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             {
                 throw new InvalidOperationException("Characteristic does not support READ");
             }
+
             EventHandler<CharacteristicReadEventArgs> updated = null;
-            updated = (object sender, CharacteristicReadEventArgs e) =>
+            updated = (sender, e) =>
             {
                 // it may be other characteristics, so we need to test
                 if (e.Characteristic.ID == ID)
@@ -224,21 +207,12 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 }
             };
 
-            if (_gattCallback != null)
-            {
-                // wire up the characteristic value updating on the gattcallback
-                _gattCallback.CharacteristicValueUpdated += updated;
-            }
-            else
-            {
-                tcs.TrySetException(new MemberAccessException("Gatt callback is null"));
-                return tcs.Task;
-            }
-
+            // wire up the characteristic value updating on the gattcallback
+            _gattCallback.CharacteristicValueUpdated += updated;
 
             Mvx.TaggedTrace("ReadAsync", "requesting characteristic read");
             var ret = _gatt.ReadCharacteristic(_nativeCharacteristic);
-            if(!ret)
+            if (!ret)
             {
                 _gattCallback.CharacteristicValueUpdated -= updated;
                 Mvx.TaggedWarning("ReadAsync", "Gatt read characteristic call returned {0}", ret);
@@ -250,23 +224,14 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
         public void StartUpdates()
         {
-            // TODO: should be bool RequestValue? compare iOS API for commonality
             var successful = false;
-            //if (CanRead)
-            //{
-            //    Console.WriteLine("Characteristic.RequestValue, PropertyType = Read, requesting updates");
-            //    successful = this._gatt.ReadCharacteristic(this._nativeCharacteristic);
-            //}
 
             if (CanUpdate)
             {
                 Console.WriteLine("Characteristic.RequestValue, PropertyType = Notify, requesting updates");
 
-                if (_gattCallback != null)
-                {
-                    // wire up the characteristic value updating on the gattcallback for event forwarding
-                    _gattCallback.CharacteristicValueUpdated += OnCharacteristicValueChanged;
-                }
+                // wire up the characteristic value updating on the gattcallback for event forwarding
+                _gattCallback.CharacteristicValueUpdated += OnCharacteristicValueChanged;
 
                 successful = _gatt.SetCharacteristicNotification(_nativeCharacteristic, true);
 
@@ -280,7 +245,8 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 // HACK: further detail, in the Forms client this only seems to work with a breakpoint on it
                 // (ie. it probably needs to wait until the above 'SetCharacteristicNofication' is done before doing this...?????? [CD]
                 Thread.Sleep(100);
-                    // HACK: did i mention this was a hack?????????? [CD] 50ms was too short, 100ms seems to work
+                //ToDo is this still needed
+                // HACK: did i mention this was a hack?????????? [CD] 50ms was too short, 100ms seems to work
 
                 if (_nativeCharacteristic.Descriptors.Count > 0)
                 {
@@ -290,7 +256,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 }
                 else
                 {
-                    Console.WriteLine("RequestValue, FAILED: _nativeCharacteristic.Descriptors was empty, not sure why");
+                    Mvx.Trace("RequestValue, FAILED: _nativeCharacteristic.Descriptors was empty, not sure why");
                 }
             }
 
@@ -301,13 +267,9 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             if (!CanUpdate) return;
 
-
             var successful = _gatt.SetCharacteristicNotification(_nativeCharacteristic, false);
+            _gattCallback.CharacteristicValueUpdated -= OnCharacteristicValueChanged;
 
-            if (_gattCallback != null)
-            {
-                _gattCallback.CharacteristicValueUpdated -= OnCharacteristicValueChanged;
-            }
 
             //TODO: determine whether 
             Mvx.Trace("Characteristic.RequestValue, PropertyType = Notify, STOP update, succesful: {0}", successful);
@@ -318,7 +280,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             if (e.Characteristic.ID == ID)
             {
                 _gattCallback.CharacteristicValueWritten -= OnCharacteristicValueWritten;
-                ValueWritten(this, e);
+                RaiseValueWritten(e);
             }
         }
 
@@ -327,8 +289,26 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             // it may be other characteristics, so we need to test
             if (e.Characteristic.ID == ID)
             {
-                ValueUpdated(this, e);
+                RaiseValueUpdated(e);
             }
         }
+
+        #region Helpers
+
+        private void RaiseValueWritten(CharacteristicWriteEventArgs e)
+        {
+            if (ValueWritten != null)
+            {
+                ValueWritten(this, e);
+            }
+        }
+
+        private void RaiseValueUpdated(CharacteristicReadEventArgs e)
+        {
+            if (ValueUpdated != null)
+                ValueUpdated(this, e);
+        }
+
+        #endregion
     }
 }

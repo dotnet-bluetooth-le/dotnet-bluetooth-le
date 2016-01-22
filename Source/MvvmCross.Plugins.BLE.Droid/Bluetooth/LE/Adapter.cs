@@ -17,17 +17,16 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
     public partial class Adapter : BluetoothAdapter.ILeScanCallback, IAdapter
     {
         // events
-        public event EventHandler<DeviceDiscoveredEventArgs> DeviceAdvertised = delegate { };
-        public event EventHandler<DeviceDiscoveredEventArgs> DeviceDiscovered = delegate { };
-        public event EventHandler<DeviceConnectionEventArgs> DeviceConnected = delegate { };
-        public event EventHandler<DeviceBondStateChangedEventArgs> DeviceBondStateChanged = delegate { };
-        public event EventHandler<DeviceConnectionEventArgs> DeviceDisconnected = delegate { };
-        public event EventHandler<DeviceConnectionEventArgs> DeviceConnectionLost = delegate { };
-        public event EventHandler ScanTimeoutElapsed = delegate { };
+        public event EventHandler<DeviceDiscoveredEventArgs> DeviceAdvertised;
+        public event EventHandler<DeviceDiscoveredEventArgs> DeviceDiscovered;
+        public event EventHandler<DeviceConnectionEventArgs> DeviceConnected;
+        public event EventHandler<DeviceBondStateChangedEventArgs> DeviceBondStateChanged;
+        public event EventHandler<DeviceConnectionEventArgs> DeviceDisconnected;
+        public event EventHandler<DeviceConnectionEventArgs> DeviceConnectionLost;
+        public event EventHandler ScanTimeoutElapsed;
 
         // class members
-        protected BluetoothManager _manager;
-        protected BluetoothAdapter _adapter;
+        private readonly BluetoothAdapter _adapter;
         private readonly Api21BleScanCallback _api21ScanCallback;
 
         public bool IsScanning
@@ -41,9 +40,10 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             get
             {
-                return this._discoveredDevices;
+                return _discoveredDevices;
             }
-        } protected IList<IDevice> _discoveredDevices = new List<IDevice>();
+        }
+        private IList<IDevice> _discoveredDevices = new List<IDevice>();
         private CancellationTokenSource _cancellationTokenSource;
         private volatile bool _isScanning; //ToDo maybe lock
 
@@ -51,7 +51,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             get
             {
-                return this.ConnectedDeviceRegistry.Values.ToList();
+                return ConnectedDeviceRegistry.Values.ToList();
             }
         }
 
@@ -73,10 +73,10 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             DeviceOperationRegistry = new Dictionary<string, IDevice>();
             ConnectedDeviceRegistry = new Dictionary<string, IDevice>();
 
-            var appContext = Android.App.Application.Context;
+            var appContext = Application.Context;
             // get a reference to the bluetooth system service
-            this._manager = (BluetoothManager)appContext.GetSystemService(Context.BluetoothService);
-            this._adapter = this._manager.Adapter;
+            var manager = (BluetoothManager)appContext.GetSystemService(Context.BluetoothService);
+            _adapter = manager.Adapter;
 
 
             var bondStatusBroadcastReceiver = new BondStatusBroadcastReceiver();
@@ -86,7 +86,10 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             //forward events from broadcast receiver
             bondStatusBroadcastReceiver.BondStateChanged += (s, args) =>
             {
-                this.DeviceBondStateChanged(this, args);
+                if (DeviceBondStateChanged != null)
+                {
+                    DeviceBondStateChanged(this, args);
+                }
             };
 
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
@@ -124,7 +127,9 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 {
                     Mvx.Trace("Adapter < 21: Starting a scan for devices.");
                     //without filter
+#pragma warning disable 618
                     _adapter.StartLeScan(this);
+#pragma warning restore 618
                 }
                 else
                 {
@@ -146,7 +151,9 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 {
                     var uuids = serviceUuids.Select(u => UUID.FromString(u.ToString())).ToArray();
                     Mvx.Trace("Adapter < 21: Starting a scan for devices.");
+#pragma warning disable 618
                     _adapter.StartLeScan(uuids, this);
+#pragma warning restore 618
                 }
                 else
                 {
@@ -191,7 +198,10 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 _isScanning = false;
 
                 //important for this to be caled after _isScanning = false;
-                ScanTimeoutElapsed(this, new EventArgs());
+                if (ScanTimeoutElapsed != null)
+                {
+                    ScanTimeoutElapsed(this, EventArgs.Empty);
+                }
             }
             catch (TaskCanceledException)
             {
@@ -229,7 +239,9 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
             {
                 Mvx.Trace("Adapter < 21: Stopping the scan for devices.");
+#pragma warning disable 618
                 _adapter.StopLeScan(this);
+#pragma warning restore 618
             }
             else
             {
@@ -244,35 +256,32 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         public void OnLeScan(BluetoothDevice bleDevice, int rssi, byte[] scanRecord)
         {
             Mvx.Trace("Adapter.LeScanCallback: " + bleDevice.Name);
-
+            
             var device = new Device(bleDevice, null, null, rssi, scanRecord);
 
-            DeviceAdvertised(this, new DeviceDiscoveredEventArgs { Device = device });
+            if (DeviceAdvertised != null)
+            {
+                DeviceAdvertised(this, new DeviceDiscoveredEventArgs {Device = device});
+            }
 
             if (!_discoveredDevices.Contains(device))
             {
                 _discoveredDevices.Add(device);
 
-                DeviceDiscovered(this, new DeviceDiscoveredEventArgs { Device = device });
+                if (DeviceDiscovered != null)
+                {
+                    DeviceDiscovered(this, new DeviceDiscoveredEventArgs {Device = device});
+                }
             }
         }
 
         public void ConnectToDevice(IDevice device, bool autoconnect)
         {
-            // returns the BluetoothGatt, which is the API for BLE stuff
-            // TERRIBLE API design on the part of google here.
-
             AddToDeviceOperationRegistry(device);
 
             ((BluetoothDevice)device.NativeDevice).ConnectGatt(Application.Context, autoconnect, this);
         }
 
-        private void AddToDeviceOperationRegistry(IDevice device)
-        {
-            var nativeDevice = ((BluetoothDevice)device.NativeDevice);
-
-            DeviceOperationRegistry[nativeDevice.Address] = device;
-        }
 
         public void CreateBondToDevice(IDevice device)
         {
@@ -285,6 +294,14 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             AddToDeviceOperationRegistry(deviceToDisconnect);
             ((Device)deviceToDisconnect).Disconnect();
         }
+
+        private void AddToDeviceOperationRegistry(IDevice device)
+        {
+            var nativeDevice = ((BluetoothDevice)device.NativeDevice);
+
+            DeviceOperationRegistry[nativeDevice.Address] = device;
+        }
+
 
         public class Api21BleScanCallback : ScanCallback
         {
@@ -353,12 +370,19 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 //    device = new Device(result.Device, null, null, result.Rssi, new byte[0]);
                 //}
 
-                _adapter.DeviceAdvertised(this, new DeviceDiscoveredEventArgs { Device = device });
-
-                if (!_adapter._discoveredDevices.Contains(device))
+                if (_adapter.DeviceAdvertised != null)
                 {
-                    _adapter._discoveredDevices.Add(device);
-                    _adapter.DeviceDiscovered(this, new DeviceDiscoveredEventArgs { Device = device });
+                    _adapter.DeviceAdvertised(this, new DeviceDiscoveredEventArgs {Device = device});
+                }
+
+                if (_adapter._discoveredDevices.Contains(device))
+                    return;
+
+                _adapter._discoveredDevices.Add(device);
+
+                if (_adapter.DeviceDiscovered != null)
+                {
+                    _adapter.DeviceDiscovered(this, new DeviceDiscoveredEventArgs {Device = device});
                 }
             }
         }
