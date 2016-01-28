@@ -23,6 +23,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         public event EventHandler<DeviceBondStateChangedEventArgs> DeviceBondStateChanged = delegate { };
         public event EventHandler<DeviceConnectionEventArgs> DeviceDisconnected = delegate { };
         public event EventHandler<DeviceConnectionEventArgs> DeviceConnectionLost = delegate { };
+        public event EventHandler<DeviceConnectionEventArgs> DeviceConnectionError = delegate { };
         public event EventHandler ScanTimeoutElapsed = delegate { };
 
         // class members

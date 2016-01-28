@@ -22,17 +22,29 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         public override void OnConnectionStateChange(BluetoothGatt gatt, GattStatus status, ProfileState newState)
         {
             base.OnConnectionStateChange(gatt, status, newState);
+            IDevice device = null;
 
             if (status != GattStatus.Success)
             {
-                Mvx.Trace(MvxTraceLevel.Error, "GattCallback error: {0}", status);
+                Mvx.TaggedError("OnConnectionStateChange", "GattCallback error: {0}", status);
+
+                if (DeviceOperationRegistry.TryGetValue(gatt.Device.Address, out device))
+                {
+                    DeviceOperationRegistry.Remove(gatt.Device.Address);
+                }
+                else
+                {
+                    device = new Device(gatt.Device, gatt, this, 0);
+                }
+                DeviceConnectionError(this, new DeviceConnectionEventArgs(){ Device = device });
+                gatt.Close(); // Not sure about the correctness of this, but a GattStatus error state seems to make it easy to accumulate zombie gatts, which refuse to close.
+                return;
             }
             else
             {
                 Mvx.Trace("GattCallback state: {0}", newState.ToString());
             }
-
-            IDevice device = null;
+            
             switch (newState)
             {
                 // disconnected
@@ -45,7 +57,8 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                         //Found so we can remove it
                         DeviceOperationRegistry.Remove(gatt.Device.Address);
                         ConnectedDeviceRegistry.Remove(gatt.Device.Address);
-                        ((Device)device).CloseGatt();
+                        gatt.Close();
+                        //((Device)device).CloseGatt();
 
                         DeviceDisconnected(this, new DeviceConnectionEventArgs { Device = device });
                         break;
