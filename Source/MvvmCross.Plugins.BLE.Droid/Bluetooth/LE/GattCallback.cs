@@ -27,18 +27,9 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             if (status != GattStatus.Success)
             {
                 Mvx.TaggedError("OnConnectionStateChange", "GattCallback error: {0}", status);
-
-                if (DeviceOperationRegistry.TryGetValue(gatt.Device.Address, out device))
-                {
-                    DeviceOperationRegistry.Remove(gatt.Device.Address);
-                }
-                else
-                {
-                    device = new Device(gatt.Device, gatt, this, 0);
-                }
                 DeviceConnectionError(this, new DeviceConnectionEventArgs(){ Device = device });
-                gatt.Close(); // Not sure about the correctness of this, but a GattStatus error state seems to make it easy to accumulate zombie gatts, which refuse to close.
-                return;
+                // We don't return. Allowing to fall-through to the SWITCH, which will assume a disconnect, close GATT and clean up.
+                // The above error event handles the case where the error happened during a Connect call, which will close out any waiting asyncs.
             }
             else
             {
@@ -58,7 +49,6 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                         DeviceOperationRegistry.Remove(gatt.Device.Address);
                         ConnectedDeviceRegistry.Remove(gatt.Device.Address);
                         gatt.Close();
-                        //((Device)device).CloseGatt();
 
                         DeviceDisconnected(this, new DeviceConnectionEventArgs { Device = device });
                         break;
@@ -70,13 +60,13 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                         Mvx.Trace("Disconnected by lost connection");
 
                         ConnectedDeviceRegistry.Remove(gatt.Device.Address);
-                        ((Device)device).CloseGatt();
+                        gatt.Close();
 
                         DeviceConnectionLost(this, new DeviceConnectionEventArgs() { Device = device });
                         break;
                     }
 
-
+                    gatt.Close(); // Close GATT regardless, else we can accumulate zombie gatts.
                     Mvx.Trace("Disconnect. Device not found in registry. Not raising disconnect/lost event.");
 
                     break;
