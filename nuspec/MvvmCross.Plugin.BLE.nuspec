@@ -14,15 +14,15 @@
     <dependencies>     
     
       <group targetFramework ="MonoAndroid">
-        <dependency id="MvvmCross.Platform" version="4.0.0-beta8" />
+        <dependency id="MvvmCross.Platform" version="4.0.0" />
         <dependency id="Newtonsoft.Json" version="8.0.2" />
       </group>
       <group targetFramework ="Xamarin.iOS">
-          <dependency id="MvvmCross.Platform" version="4.0.0-beta8" />
+          <dependency id="MvvmCross.Platform" version="4.0.0" />
           <dependency id="Newtonsoft.Json" version="8.0.2" />
       </group>
       <group targetFramework ="portable-net45+win8+wpa81+wp8">
-          <dependency id="MvvmCross.Platform" version="4.0.0-beta8" />
+          <dependency id="MvvmCross.Platform" version="4.0.0" />
           <dependency id="Newtonsoft.Json" version="8.0.2" />
       </group>     
     </dependencies>
