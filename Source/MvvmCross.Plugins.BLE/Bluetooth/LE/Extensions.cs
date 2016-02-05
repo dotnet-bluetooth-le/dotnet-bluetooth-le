@@ -118,7 +118,10 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
             
             he = (sender, e) =>
             {
-                Mvx.TaggedWarning("ConnectAsync", "Connection Error: {0} {1}", e.Device.ID, e.Device.Name);
+                    // Would be nice to use C#6.0 null-conditional operators like e.Device?.ID
+                    Mvx.TaggedWarning("ConnectAsync", "Connection Error: {0} {1}",
+                        (e.Device != null ? e.Device.ID.ToString() : ""),
+                        (e.Device != null ? e.Device.Name : ""));
                     if(e.Device.ID == device.ID)
                     {
                         adapter.DeviceConnectionError -= he;
@@ -160,7 +163,10 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
 
             he = (sender, e) =>
                 {
-                    Mvx.TaggedWarning("DisconnectAsync", "Disconnect Error: {0} {1}", e.Device.ID, e.Device.Name);
+                    // Would be nice to use C#6.0 null-conditional operators like e.Device?.ID
+                    Mvx.TaggedWarning("DisconnectAsync", "Disconnect Error: {0} {1}",
+                        (e.Device != null ? e.Device.ID.ToString() : ""),
+                        (e.Device != null ? e.Device.Name : ""));
                     if(e.Device.ID == device.ID)
                     {
                         adapter.DeviceConnectionError -= he;
