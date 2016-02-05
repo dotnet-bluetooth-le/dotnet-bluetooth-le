@@ -9,6 +9,7 @@ using IAdapter = MvvmCross.Plugins.BLE.Bluetooth.LE.IAdapter;
 
 namespace BLE.Client.Droid
 {
+    //ToDo create real example
     [Activity(Label = "BLE.Client.Droid", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
@@ -59,7 +60,7 @@ namespace BLE.Client.Droid
             _device = e.Device;
         }
 
-        async void _adapter_DeviceDiscovered(object sender, MvvmCross.Plugins.BLE.Bluetooth.LE.DeviceDiscoveredEventArgs e)
+        async void _adapter_DeviceDiscovered(object sender, DeviceDiscoveredEventArgs e)
         {
             if (e.Device.Name.Contains("Nexus"))
             {
