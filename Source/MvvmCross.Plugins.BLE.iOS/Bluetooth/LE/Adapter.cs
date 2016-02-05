@@ -121,7 +121,7 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
                 Mvx.Trace(MvxTraceLevel.Warning, "Failed to connect peripheral {0}: {1}", e.Peripheral.Identifier,
                     e.Peripheral.Name);
                 // raise the failed to connect event
-                DeviceFailedToConnect(this, new DeviceConnectionEventArgs
+                DeviceConnectionError(this, new DeviceConnectionEventArgs
                 {
                     Device = new Device(e.Peripheral),
                     ErrorMessage = e.Error.Description
@@ -150,6 +150,7 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
         public event EventHandler<DeviceBondStateChangedEventArgs> DeviceBondStateChanged = delegate { };
         public event EventHandler<DeviceConnectionEventArgs> DeviceDisconnected = delegate { };
         public event EventHandler<DeviceConnectionEventArgs> DeviceConnectionLost = delegate { };
+        public event EventHandler<DeviceConnectionEventArgs> DeviceConnectionError = delegate { };
         public event EventHandler ScanTimeoutElapsed = delegate { };
 
         public bool IsScanning
@@ -270,7 +271,7 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
             _central.CancelPeripheralConnection(device.NativeDevice as CBPeripheral);
         }
 
-        public event EventHandler<DeviceConnectionEventArgs> DeviceFailedToConnect = delegate { };
+        //public event EventHandler<DeviceConnectionEventArgs> DeviceFailedToConnect = delegate { };
         public event EventHandler ConnectTimeoutElapsed = delegate { };
 
         private static Guid ParseDeviceGuid(CBPeripheral peripherial)

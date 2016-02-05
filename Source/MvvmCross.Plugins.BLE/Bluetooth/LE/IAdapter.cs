@@ -12,9 +12,8 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
         event EventHandler<DeviceBondStateChangedEventArgs> DeviceBondStateChanged;
         event EventHandler<DeviceConnectionEventArgs> DeviceDisconnected;
         event EventHandler<DeviceConnectionEventArgs> DeviceConnectionLost;
+        event EventHandler<DeviceConnectionEventArgs> DeviceConnectionError;
 
-        //TODO: add this
-        //event EventHandler<DeviceConnectionEventArgs> DeviceFailedToConnect;
         event EventHandler ScanTimeoutElapsed;
         //TODO: add this
         //event EventHandler ConnectTimeoutElapsed;

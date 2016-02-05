@@ -17,13 +17,14 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
     public partial class Adapter : BluetoothAdapter.ILeScanCallback, IAdapter
     {
         // events
-        public event EventHandler<DeviceDiscoveredEventArgs> DeviceAdvertised;
-        public event EventHandler<DeviceDiscoveredEventArgs> DeviceDiscovered;
-        public event EventHandler<DeviceConnectionEventArgs> DeviceConnected;
-        public event EventHandler<DeviceBondStateChangedEventArgs> DeviceBondStateChanged;
-        public event EventHandler<DeviceConnectionEventArgs> DeviceDisconnected;
-        public event EventHandler<DeviceConnectionEventArgs> DeviceConnectionLost;
-        public event EventHandler ScanTimeoutElapsed;
+        public event EventHandler<DeviceDiscoveredEventArgs> DeviceAdvertised = delegate { };
+        public event EventHandler<DeviceDiscoveredEventArgs> DeviceDiscovered = delegate { };
+        public event EventHandler<DeviceConnectionEventArgs> DeviceConnected = delegate { };
+        public event EventHandler<DeviceBondStateChangedEventArgs> DeviceBondStateChanged = delegate { };
+        public event EventHandler<DeviceConnectionEventArgs> DeviceDisconnected = delegate { };
+        public event EventHandler<DeviceConnectionEventArgs> DeviceConnectionLost = delegate { };
+        public event EventHandler<DeviceConnectionEventArgs> DeviceConnectionError = delegate { };
+        public event EventHandler ScanTimeoutElapsed = delegate { };
 
         // class members
         private readonly BluetoothAdapter _adapter;
@@ -86,10 +87,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             //forward events from broadcast receiver
             bondStatusBroadcastReceiver.BondStateChanged += (s, args) =>
             {
-                if (DeviceBondStateChanged != null)
-                {
-                    DeviceBondStateChanged(this, args);
-                }
+                DeviceBondStateChanged(this, args);
             };
 
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
@@ -198,10 +196,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 _isScanning = false;
 
                 //important for this to be caled after _isScanning = false;
-                if (ScanTimeoutElapsed != null)
-                {
-                    ScanTimeoutElapsed(this, EventArgs.Empty);
-                }
+                ScanTimeoutElapsed(this, EventArgs.Empty);
             }
             catch (TaskCanceledException)
             {
@@ -256,22 +251,16 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         public void OnLeScan(BluetoothDevice bleDevice, int rssi, byte[] scanRecord)
         {
             Mvx.Trace("Adapter.LeScanCallback: " + bleDevice.Name);
-            
+
             var device = new Device(bleDevice, null, null, rssi, scanRecord);
 
-            if (DeviceAdvertised != null)
-            {
-                DeviceAdvertised(this, new DeviceDiscoveredEventArgs {Device = device});
-            }
+            DeviceAdvertised(this, new DeviceDiscoveredEventArgs { Device = device });
 
             if (!_discoveredDevices.Contains(device))
             {
                 _discoveredDevices.Add(device);
 
-                if (DeviceDiscovered != null)
-                {
-                    DeviceDiscovered(this, new DeviceDiscoveredEventArgs {Device = device});
-                }
+                DeviceDiscovered(this, new DeviceDiscoveredEventArgs { Device = device });
             }
         }
 
@@ -370,20 +359,15 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 //    device = new Device(result.Device, null, null, result.Rssi, new byte[0]);
                 //}
 
-                if (_adapter.DeviceAdvertised != null)
-                {
-                    _adapter.DeviceAdvertised(this, new DeviceDiscoveredEventArgs {Device = device});
-                }
+                _adapter.DeviceAdvertised(this, new DeviceDiscoveredEventArgs { Device = device });
 
                 if (_adapter._discoveredDevices.Contains(device))
                     return;
 
                 _adapter._discoveredDevices.Add(device);
 
-                if (_adapter.DeviceDiscovered != null)
-                {
-                    _adapter.DeviceDiscovered(this, new DeviceDiscoveredEventArgs {Device = device});
-                }
+                _adapter.DeviceDiscovered(this, new DeviceDiscoveredEventArgs { Device = device });
+
             }
         }
     }

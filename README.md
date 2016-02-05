@@ -16,8 +16,8 @@ Install-Package MvvmCross.Plugin.BLE
 [![NuGet Pre Release](https://img.shields.io/badge/nuget-0.9--beta3-blue.svg?style=flat)](https://www.nuget.org/packages/MvvmCross.Plugin.BLE/0.9.0-beta3)
 
 ## Usage basics   
-   
-Let MvvmCross inject the IAdapter service in your shared code and start using BLE :)
+
+Let MvvmCross inject the `IAdapter` service in your shared code and start using BLE :)
 
 ```csharp
 _adapter = Mvx.Resolve<IAdapter>();
@@ -30,13 +30,13 @@ MyViewModel(IAdapter adapter)
 }
 ```
 
-Scan for devices:
+#### Scan for devices
 ```csharp
 _adapter.DeviceDiscovered += (s,a) => _deviceList.Add(a.Device);
 _adapter.StartScanningForDevices();
 ```
 
-Connect to device:
+#### Connect to device
 ```csharp
 _adapter.ConnectToDevice(device);
 ```
@@ -45,7 +45,7 @@ or
 _connectedDevice = await _adapter.ConnectAsync(_deviceList[selectedDeviceIndex]);
 ```
 
-Get services:
+#### Get services
 ```csharp
 _connectedDevice.DiscoverServices();
 _connectedDevice.ServicesDiscovered += (o, args) => { };
@@ -55,7 +55,7 @@ or
 var service = await _connectedDevice.GetServiceAsync(Guid.Parse("ffe0ecd2-3d16-4f8d-90de-e89e7fc396a5"));
 ```
 
-Get characteristics:
+#### Get characteristics
 ```csharp
 service.DiscoverCharacteristics();
 service.CharacteristicsDiscovered += (o, args) => { };
@@ -65,12 +65,12 @@ or
 var characteristic = await service.GetCharacteristicAsync(Guid.Parse("d8de624e-140f-4a22-8594-e2216b84a5f2"));
 ```
 
-Read charactersitic:
+#### Read characteristic
 ```csharp
 var bytes = await characteristic.ReadAsync();
 ```
 
-Write characteristic:
+#### Write characteristic
 ```csharp
 characteristic.Write(bytes);
 ```
@@ -79,7 +79,7 @@ or with acknowledgment:
 await characteristic.WriteAsync(bytes);
 ```
 
-Characteristic notifications:
+#### Characteristic notifications
 ```csharp
 characteristic.ValueUpdated += (o, args) =>
 {
@@ -89,7 +89,9 @@ characteristic.ValueUpdated += (o, args) =>
 characteristic.StartUpdates();
 ```
 
-## Usefull Links
+## Useful Links
+
+[MvvmCross](https://github.com/MvvmCross)
 
 [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics)
 

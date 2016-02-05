@@ -103,16 +103,35 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
 
             var tcs = new TaskCompletionSource<IDevice>();
             EventHandler<DeviceConnectionEventArgs> h = null;
+            EventHandler<DeviceConnectionEventArgs> he = null;
+
             h = (sender, e) =>
             {
-                Mvx.Trace("Connect async: {0} {1}", e.Device.ID, e.Device.Name);
+                Mvx.TaggedTrace("ConnectAsync", "Connected: {0} {1}", e.Device.ID, e.Device.Name);
                 if (e.Device.ID == device.ID)
                 {
                     adapter.DeviceConnected -= h;
+                    adapter.DeviceConnectionError -= he;
                     tcs.TrySetResult(e.Device);
                 }
             };
+            
+            he = (sender, e) =>
+            {
+                    // Would be nice to use C#6.0 null-conditional operators like e.Device?.ID
+                    Mvx.TaggedWarning("ConnectAsync", "Connection Error: {0} {1}",
+                        (e.Device != null ? e.Device.ID.ToString() : ""),
+                        (e.Device != null ? e.Device.Name : ""));
+                    if(e.Device.ID == device.ID)
+                    {
+                        adapter.DeviceConnectionError -= he;
+                        adapter.DeviceConnected -= h;
+                        tcs.TrySetException(new Exception("Connect operation exception"));
+                    }
+            };
+            
             adapter.DeviceConnected += h;
+            adapter.DeviceConnectionError += he;
 
             adapter.ConnectToDevice(device);
 
@@ -129,17 +148,36 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
 
             var tcs = new TaskCompletionSource<IDevice>();
             EventHandler<DeviceConnectionEventArgs> h = null;
+            EventHandler<DeviceConnectionEventArgs> he = null;
+
             h = (sender, e) =>
             {
-                Mvx.Trace("Disconnect async: {0} {1}", e.Device.ID, e.Device.Name);
+                Mvx.TaggedTrace("DisconnectAsync", "Disconnected: {0} {1}", e.Device.ID, e.Device.Name);
                 if (e.Device.ID == device.ID)
                 {
                     adapter.DeviceDisconnected -= h;
+                    adapter.DeviceConnectionError -= he;
                     tcs.TrySetResult(e.Device);
                 }
             };
 
+            he = (sender, e) =>
+                {
+                    // Would be nice to use C#6.0 null-conditional operators like e.Device?.ID
+                    Mvx.TaggedWarning("DisconnectAsync", "Disconnect Error: {0} {1}",
+                        (e.Device != null ? e.Device.ID.ToString() : ""),
+                        (e.Device != null ? e.Device.Name : ""));
+                    if(e.Device.ID == device.ID)
+                    {
+                        adapter.DeviceConnectionError -= he;
+                        adapter.DeviceDisconnected -= h;
+                        tcs.TrySetException(new Exception("Disconnect operation exception"));
+                    }
+                };
+            
+
             adapter.DeviceDisconnected += h;
+            adapter.DeviceConnectionError += he;
 
             adapter.DisconnectDevice(device);
 
