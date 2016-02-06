@@ -27,6 +27,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             if (status != GattStatus.Success)
             {
                 Mvx.TaggedError("OnConnectionStateChange", "GattCallback error: {0}", status);
+                device = new Device(gatt.Device, gatt, this, 0);
                 DeviceConnectionError(this, new DeviceConnectionEventArgs(){ Device = device });
                 // We don't return. Allowing to fall-through to the SWITCH, which will assume a disconnect, close GATT and clean up.
                 // The above error event handles the case where the error happened during a Connect call, which will close out any waiting asyncs.
