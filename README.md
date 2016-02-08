@@ -1,5 +1,5 @@
 ![alt tag](https://raw.github.com/xabre/MvvmCross-BluetoothLE/master/icon_small.png)
-# MvvmCross---Bluetooth-LE   
+# MvvmCross Bluetooth-LE [![Build Status](https://www.bitrise.io/app/3fe54d0a5f43c2bf.svg?token=i9LUY4rIecZWd_3j7hwXgw)](https://www.bitrise.io/app/3fe54d0a5f43c2bf)
 MvvmCross plugin for BLE - iOS and Android   
 Based on Xamarin - [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics)
 
@@ -7,9 +7,6 @@ This plugin/library adds some additional features to the Monkey.Robotics API and
 
 Targeted for iOS and Android.
 
-CI Build status:
-[![Build Status](https://www.bitrise.io/app/3fe54d0a5f43c2bf.svg?token=i9LUY4rIecZWd_3j7hwXgw)](https://www.bitrise.io/app/3fe54d0a5f43c2bf)
-    
 ## Installation
 
 ```
