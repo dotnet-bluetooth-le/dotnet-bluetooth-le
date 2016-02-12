@@ -13,7 +13,7 @@ Targeted for iOS and Android.
 Install-Package MvvmCross.Plugin.BLE
 ```
 
-[![NuGet Pre Release](https://img.shields.io/badge/nuget-0.9--beta3-blue.svg?style=flat)](https://www.nuget.org/packages/MvvmCross.Plugin.BLE/0.9.0-beta3)
+[![NuGet Pre Release](https://img.shields.io/badge/nuget-0.9-blue.svg?style=flat)](https://www.nuget.org/packages/MvvmCross.Plugin.BLE/0.9.0)
 
 ## Usage basics   
 
