@@ -1,7 +1,6 @@
 using System;
 using Android.Bluetooth;
 using MvvmCross.Platform;
-using MvvmCross.Platform.Platform;
 using MvvmCross.Plugins.BLE.Bluetooth.LE;
 
 namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
@@ -11,6 +10,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         event EventHandler<ServicesDiscoveredEventArgs> ServicesDiscovered;
         event EventHandler<CharacteristicReadEventArgs> CharacteristicValueUpdated;
         event EventHandler<CharacteristicWriteEventArgs> CharacteristicValueWritten;
+        event EventHandler<RssiReadEventArgs> RemoteRssiRead;
     }
 
     public partial class Adapter : BluetoothGattCallback, IGattCallback
@@ -18,6 +18,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         public event EventHandler<ServicesDiscoveredEventArgs> ServicesDiscovered = delegate { };
         public event EventHandler<CharacteristicReadEventArgs> CharacteristicValueUpdated = delegate { };
         public event EventHandler<CharacteristicWriteEventArgs> CharacteristicValueWritten = delegate { };
+        public event EventHandler<RssiReadEventArgs> RemoteRssiRead = delegate { };
 
         public override void OnConnectionStateChange(BluetoothGatt gatt, GattStatus status, ProfileState newState)
         {
@@ -28,7 +29,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             {
                 Mvx.TaggedError("OnConnectionStateChange", "GattCallback error: {0}", status);
                 device = new Device(gatt.Device, gatt, this, 0);
-                DeviceConnectionError(this, new DeviceConnectionEventArgs(){ Device = device });
+                DeviceConnectionError(this, new DeviceConnectionEventArgs() { Device = device });
                 // We don't return. Allowing to fall-through to the SWITCH, which will assume a disconnect, close GATT and clean up.
                 // The above error event handles the case where the error happened during a Connect call, which will close out any waiting asyncs.
             }
@@ -36,7 +37,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             {
                 Mvx.Trace("GattCallback state: {0}", newState.ToString());
             }
-            
+
             switch (newState)
             {
                 // disconnected
@@ -177,6 +178,33 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             base.OnReliableWriteCompleted(gatt, status);
 
             Mvx.Trace("OnReliableWriteCompleted: {0}", status);
+        }
+
+        public override void OnReadRemoteRssi(BluetoothGatt gatt, int rssi, GattStatus status)
+        {
+            base.OnReadRemoteRssi(gatt, rssi, status);
+
+            Mvx.Trace("OnReadRemoteRssi: device {0} status {1} value {2}", gatt.Device.Name, status, rssi);
+
+            //ToDo add device id, or some link between this callback and the corresponding device
+            var args = new RssiReadEventArgs() { Rssi = rssi };
+            switch (status)
+            {
+                case GattStatus.Failure:
+                case GattStatus.InsufficientAuthentication:
+                case GattStatus.InsufficientEncryption:
+                case GattStatus.InvalidAttributeLength:
+                case GattStatus.InvalidOffset:
+                case GattStatus.ReadNotPermitted:
+                case GattStatus.RequestNotSupported:
+                case GattStatus.WriteNotPermitted:
+                    args.Error = new Exception(status.ToString());
+                    break;
+                case GattStatus.Success:
+                    break;
+            }
+
+            RemoteRssiRead(this, args);
         }
     }
 

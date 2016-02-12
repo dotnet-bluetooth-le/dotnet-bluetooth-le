@@ -5,7 +5,8 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
 {
     public abstract class DeviceBase : IDevice
     {
-        public virtual event EventHandler ServicesDiscovered = delegate { };
+        public event EventHandler<ServicesDiscoveredEventArgs> ServicesDiscovered;
+        public event EventHandler<RssiReadEventArgs> RssiRead;
 
         public virtual Guid ID
         {
@@ -52,6 +53,11 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
             throw new NotImplementedException();
         }
 
+        public virtual void ReadRssi()
+        {
+            throw new NotImplementedException();
+        }
+
         public override string ToString()
         {
             return Name;
@@ -71,10 +77,22 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
                 return false;
             }
 
-            var otherDeviceBase = (DeviceBase) other;
+            var otherDeviceBase = (DeviceBase)other;
             return ID == otherDeviceBase.ID;
         }
 
         #endregion
+
+        protected virtual void RaiseServicesDiscovered(ServicesDiscoveredEventArgs args)
+        {
+            if (ServicesDiscovered != null)
+                ServicesDiscovered(this, args);
+        }
+
+        protected virtual void RaiseRssiRead(RssiReadEventArgs args)
+        {
+            if (RssiRead != null)
+                RssiRead(this, args);
+        }
     }
 }

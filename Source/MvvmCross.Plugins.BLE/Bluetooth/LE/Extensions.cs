@@ -115,21 +115,21 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
                     tcs.TrySetResult(e.Device);
                 }
             };
-            
+
             he = (sender, e) =>
             {
-                    // Would be nice to use C#6.0 null-conditional operators like e.Device?.ID
-                    Mvx.TaggedWarning("ConnectAsync", "Connection Error: {0} {1}",
-                        (e.Device != null ? e.Device.ID.ToString() : ""),
-                        (e.Device != null ? e.Device.Name : ""));
-                    if(e.Device.ID == device.ID)
-                    {
-                        adapter.DeviceConnectionError -= he;
-                        adapter.DeviceConnected -= h;
-                        tcs.TrySetException(new Exception("Connect operation exception"));
-                    }
+                // Would be nice to use C#6.0 null-conditional operators like e.Device?.ID
+                Mvx.TaggedWarning("ConnectAsync", "Connection Error: {0} {1}",
+                    (e.Device != null ? e.Device.ID.ToString() : ""),
+                    (e.Device != null ? e.Device.Name : ""));
+                if (e.Device.ID == device.ID)
+                {
+                    adapter.DeviceConnectionError -= he;
+                    adapter.DeviceConnected -= h;
+                    tcs.TrySetException(new Exception("Connect operation exception"));
+                }
             };
-            
+
             adapter.DeviceConnected += h;
             adapter.DeviceConnectionError += he;
 
@@ -167,14 +167,14 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
                     Mvx.TaggedWarning("DisconnectAsync", "Disconnect Error: {0} {1}",
                         (e.Device != null ? e.Device.ID.ToString() : ""),
                         (e.Device != null ? e.Device.Name : ""));
-                    if(e.Device.ID == device.ID)
+                    if (e.Device.ID == device.ID)
                     {
                         adapter.DeviceConnectionError -= he;
                         adapter.DeviceDisconnected -= h;
                         tcs.TrySetException(new Exception("Disconnect operation exception"));
                     }
                 };
-            
+
 
             adapter.DeviceDisconnected += h;
             adapter.DeviceConnectionError += he;
@@ -215,7 +215,7 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
             }
 
             var tcs = new TaskCompletionSource<IService>();
-            EventHandler h = null;
+            EventHandler<ServicesDiscoveredEventArgs> h = null;
             h = (sender, e) =>
             {
                 device.ServicesDiscovered -= h;
@@ -234,7 +234,7 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
             {
                 device.DiscoverServices();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 tcs.TrySetException(e);
             }
@@ -278,7 +278,31 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
             return bytes != null ? BitConverter.ToString(bytes) : string.Empty;
         }
 
+        /// <summary>
+        /// Asynchronously reads the rssi.  
+        /// </summary>
+        /// <param name="device"></param>
+        /// <returns>True if no error occured while reading</returns>
+        public static Task<bool> ReadRssiAsync(this IDevice device)
+        {
+            var tcs = new TaskCompletionSource<bool>();
+            EventHandler<RssiReadEventArgs> h = null;
 
+            h = (sender, args) =>
+            {
+                Mvx.Trace("Read RSSI async for {0} {1}: {2}",
+                    device.ID.ToString(), device.Name, device.Rssi);
+
+                device.RssiRead -= h;
+                tcs.TrySetResult(args.Error == null);
+            };
+
+            device.RssiRead += h;
+
+            device.ReadRssi();
+
+            return tcs.Task;
+        }
     }
 }
 

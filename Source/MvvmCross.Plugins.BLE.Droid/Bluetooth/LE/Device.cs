@@ -9,8 +9,6 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 {
     public class Device : DeviceBase
     {
-        public override event EventHandler ServicesDiscovered = delegate { };
-
         protected BluetoothDevice _nativeDevice;
         /// <summary>
         /// we have to keep a reference to this because Android's api is weird and requires
@@ -51,7 +49,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
             _gattCallback.ServicesDiscovered -= OnServicesDiscovered;
 
-            ServicesDiscovered(this, args);
+            RaiseServicesDiscovered(args);
         }
 
         public override Guid ID
@@ -259,6 +257,25 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             return records;
         }
 
+        #region RSSI
+
+        public override void ReadRssi()
+        {
+            _gattCallback.RemoteRssiRead += OnRemoteRssiRead;
+            _gatt.ReadRemoteRssi();
+        }
+
+        private void OnRemoteRssiRead(object sender, RssiReadEventArgs e)
+        {
+            _gattCallback.RemoteRssiRead -= OnRemoteRssiRead;
+            if (e.Error == null)
+            {
+                _rssi = e.Rssi;
+            }
+
+            RaiseRssiRead(e);
+        }
+        #endregion
     }
 }
 

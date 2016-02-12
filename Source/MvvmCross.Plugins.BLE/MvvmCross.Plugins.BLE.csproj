@@ -66,6 +66,7 @@
     <Compile Include="Bluetooth\LE\KnownDescriptors.cs" />
     <Compile Include="Bluetooth\LE\KnownServices.cs" />
     <Compile Include="Bluetooth\LE\LEStream.cs" />
+    <Compile Include="Bluetooth\LE\RssiReadEventArgs.cs" />
     <Compile Include="Bluetooth\LE\ServicesDiscoveredEventArgs.cs" />
     <Compile Include="PluginLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
