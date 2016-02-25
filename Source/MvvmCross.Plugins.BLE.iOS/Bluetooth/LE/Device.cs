@@ -183,6 +183,11 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
             _nativeDevice.DiscoverServices();
         }
 
+        public override void ReadRssi()
+        {
+            _nativeDevice.ReadRSSI();
+        }
+
         #endregion
 
         #region internal methods
