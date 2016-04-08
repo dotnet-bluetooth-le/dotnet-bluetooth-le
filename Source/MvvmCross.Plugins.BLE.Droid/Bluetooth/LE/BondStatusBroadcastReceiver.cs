@@ -1,7 +1,7 @@
 using System;
 using Android.Bluetooth;
 using Android.Content;
-using MvvmCross.Plugins.BLE.Bluetooth.LE;
+using Plugin.BLE.Abstractions.Bluetooth.LE;
 
 namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 {

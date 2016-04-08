@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace MvvmCross.Plugins.BLE.Utils
+namespace Plugin.BLE.Abstractions.Utils
 {
 	/// <summary>
 	/// Utility class that can be used to find and load embedded resources into memory.

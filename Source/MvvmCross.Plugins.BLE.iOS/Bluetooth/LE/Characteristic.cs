@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using MvvmCross.Platform;
 using CoreBluetooth;
 using Foundation;
-using MvvmCross.Plugins.BLE.Bluetooth.LE;
+using Plugin.BLE.Abstractions.Bluetooth.LE;
 
 namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
 {

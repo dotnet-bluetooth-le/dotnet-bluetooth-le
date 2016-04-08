@@ -7,10 +7,10 @@ using Android.App;
 using Android.Bluetooth;
 using Android.Content;
 using Java.Util;
-using MvvmCross.Plugins.BLE.Bluetooth.LE;
 using Android.Bluetooth.LE;
 using Android.OS;
 using MvvmCross.Platform;
+using Plugin.BLE.Abstractions.Bluetooth.LE;
 
 namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 {

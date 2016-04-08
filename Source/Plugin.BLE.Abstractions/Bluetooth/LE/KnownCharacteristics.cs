@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using MvvmCross.Plugins.BLE.Utils;
 using Newtonsoft.Json.Linq;
+using Plugin.BLE.Abstractions.Utils;
 
-namespace MvvmCross.Plugins.BLE.Bluetooth.LE
+namespace Plugin.BLE.Abstractions.Bluetooth.LE
 {
 	// Source: https://developer.bluetooth.org/gatt/characteristics/Pages/CharacteristicsHome.aspx
 	public static class KnownCharacteristics
@@ -34,7 +34,7 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
 			_items = new Dictionary<Guid, KnownCharacteristic> ();
 			//TODO: switch over to CharacteristicStack.Text when it gets bound.
 			KnownCharacteristic characteristic;
-			string itemsJson = ResourceLoader.GetEmbeddedResourceString (typeof(KnownCharacteristics).GetTypeInfo ().Assembly, "KnownCharacteristics.json");
+			string itemsJson = ResourceLoader.GetEmbeddedResourceString (typeof(KnownCharacteristics).GetTypeInfo().Assembly, "KnownCharacteristics.json");
 			var json = JValue.Parse (itemsJson);
 			foreach (var item in json.Children() ) {
 				JProperty prop = item as JProperty;

@@ -8,7 +8,7 @@ using MvvmCross.Platform.Platform;
 using CoreBluetooth;
 using CoreFoundation;
 using Foundation;
-using MvvmCross.Plugins.BLE.Bluetooth.LE;
+using Plugin.BLE.Abstractions.Bluetooth.LE;
 
 namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
 {

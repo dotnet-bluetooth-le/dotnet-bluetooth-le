@@ -5,7 +5,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MvvmCross.Plugins.BLE.Bluetooth.LE
+namespace Plugin.BLE.Abstractions.Bluetooth.LE
 {
 	public class LEStream : Stream
 	{

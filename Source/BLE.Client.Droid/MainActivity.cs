@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using Android.App;
 using Android.Widget;
 using Android.OS;
-using MvvmCross.Plugins.BLE.Bluetooth.LE;
-using IAdapter = MvvmCross.Plugins.BLE.Bluetooth.LE.IAdapter;
+using Plugin.BLE.Abstractions.Bluetooth.LE;
+using IAdapter = Plugin.BLE.Abstractions.Bluetooth.LE.IAdapter;
 
 namespace BLE.Client.Droid
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 using CoreBluetooth;
-using MvvmCross.Plugins.BLE.Bluetooth.LE;
+using Plugin.BLE.Abstractions.Bluetooth.LE;
 
 namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
 {

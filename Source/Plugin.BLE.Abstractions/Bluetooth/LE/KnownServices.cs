@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using MvvmCross.Plugins.BLE.Utils;
 using Newtonsoft.Json.Linq;
+using Plugin.BLE.Abstractions.Utils;
 
-namespace MvvmCross.Plugins.BLE.Bluetooth.LE
+namespace Plugin.BLE.Abstractions.Bluetooth.LE
 {
     // Source: https://developer.bluetooth.org/gatt/services/Pages/ServicesHome.aspx
     public static class KnownServices

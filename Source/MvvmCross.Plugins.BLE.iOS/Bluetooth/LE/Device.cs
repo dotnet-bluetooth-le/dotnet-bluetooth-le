@@ -4,7 +4,7 @@ using System.Linq;
 using MvvmCross.Platform;
 using CoreBluetooth;
 using MvvmCross.Platform.Platform;
-using MvvmCross.Plugins.BLE.Bluetooth.LE;
+using Plugin.BLE.Abstractions.Bluetooth.LE;
 
 namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
 {

@@ -1,6 +1,6 @@
 using System;
 
-namespace MvvmCross.Plugins.BLE.Bluetooth.LE
+namespace Plugin.BLE.Abstractions.Bluetooth.LE
 {
     public class DeviceConnectionEventArgs : EventArgs
     {

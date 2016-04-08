@@ -50,6 +50,10 @@
       <Project>{83F1DFFB-A653-45DD-BE81-C02374C6DB07}</Project>
       <Name>MvvmCross.Plugins.BLE</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Plugin.BLE.Abstractions\Plugin.BLE.Abstractions.csproj">
+      <Project>{f479f7db-cfa6-49e5-aa41-4fe6a4da39b0}</Project>
+      <Name>Plugin.BLE.Abstractions</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MvvmCross.Platform, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">

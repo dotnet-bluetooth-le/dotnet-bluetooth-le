@@ -6,8 +6,8 @@ using System.Text;
 
 using MvvmCross.Platform;
 using MvvmCross.Platform.Plugins;
-using MvvmCross.Plugins.BLE.Bluetooth.LE;
 using MvvmCross.Plugins.BLE.Droid.Bluetooth.LE;
+using Plugin.BLE.Abstractions.Bluetooth.LE;
 
 namespace MvvmCross.Plugins.BLE.Droid
 {

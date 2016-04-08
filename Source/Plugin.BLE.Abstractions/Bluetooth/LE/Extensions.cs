@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using MvvmCross.Platform;
 
-namespace MvvmCross.Plugins.BLE.Bluetooth.LE
+namespace Plugin.BLE.Abstractions.Bluetooth.LE
 {
     public static class Extensions
     {
@@ -107,7 +106,7 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
 
             h = (sender, e) =>
             {
-                Mvx.TaggedTrace("ConnectAsync", "Connected: {0} {1}", e.Device.ID, e.Device.Name);
+                //Mvx.TaggedTrace("ConnectAsync", "Connected: {0} {1}", e.Device.ID, e.Device.Name);
                 if (e.Device.ID == device.ID)
                 {
                     adapter.DeviceConnected -= h;
@@ -119,9 +118,9 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
             he = (sender, e) =>
             {
                 // Would be nice to use C#6.0 null-conditional operators like e.Device?.ID
-                Mvx.TaggedWarning("ConnectAsync", "Connection Error: {0} {1}",
-                    (e.Device != null ? e.Device.ID.ToString() : ""),
-                    (e.Device != null ? e.Device.Name : ""));
+                //Mvx.TaggedWarning("ConnectAsync", "Connection Error: {0} {1}",
+                //    (e.Device != null ? e.Device.ID.ToString() : ""),
+                //    (e.Device != null ? e.Device.Name : ""));
                 if (e.Device.ID == device.ID)
                 {
                     adapter.DeviceConnectionError -= he;
@@ -142,7 +141,7 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
         {
             if (!adapter.ConnectedDevices.Contains(device))
             {
-                Mvx.Trace("Disconnect async: device {0} not in the list of connected devices.", device.Name);
+                //Mvx.Trace("Disconnect async: device {0} not in the list of connected devices.", device.Name);
                 return Task.FromResult(false);
             }
 
@@ -152,7 +151,7 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
 
             h = (sender, e) =>
             {
-                Mvx.TaggedTrace("DisconnectAsync", "Disconnected: {0} {1}", e.Device.ID, e.Device.Name);
+                //Mvx.TaggedTrace("DisconnectAsync", "Disconnected: {0} {1}", e.Device.ID, e.Device.Name);
                 if (e.Device.ID == device.ID)
                 {
                     adapter.DeviceDisconnected -= h;
@@ -164,9 +163,9 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
             he = (sender, e) =>
                 {
                     // Would be nice to use C#6.0 null-conditional operators like e.Device?.ID
-                    Mvx.TaggedWarning("DisconnectAsync", "Disconnect Error: {0} {1}",
-                        (e.Device != null ? e.Device.ID.ToString() : ""),
-                        (e.Device != null ? e.Device.Name : ""));
+                    //Mvx.TaggedWarning("DisconnectAsync", "Disconnect Error: {0} {1}",
+                    //    (e.Device != null ? e.Device.ID.ToString() : ""),
+                    //    (e.Device != null ? e.Device.Name : ""));
                     if (e.Device.ID == device.ID)
                     {
                         adapter.DeviceConnectionError -= he;
@@ -290,8 +289,8 @@ namespace MvvmCross.Plugins.BLE.Bluetooth.LE
 
             h = (sender, args) =>
             {
-                Mvx.Trace("Read RSSI async for {0} {1}: {2}",
-                    device.ID.ToString(), device.Name, device.Rssi);
+                //Mvx.Trace("Read RSSI async for {0} {1}: {2}",
+                //    device.ID.ToString(), device.Name, device.Rssi);
 
                 device.RssiRead -= h;
                 tcs.TrySetResult(args.Error == null);

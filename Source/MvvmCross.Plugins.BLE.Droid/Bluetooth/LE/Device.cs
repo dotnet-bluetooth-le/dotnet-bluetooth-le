@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Android.Bluetooth;
-using MvvmCross.Plugins.BLE.Bluetooth.LE;
 using MvvmCross.Platform;
+using Plugin.BLE.Abstractions.Bluetooth.LE;
 
 namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 {
