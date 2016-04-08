@@ -9,6 +9,7 @@ using CoreBluetooth;
 using CoreFoundation;
 using Foundation;
 using Plugin.BLE.Abstractions.Bluetooth.LE;
+using Plugin.BLE.Abstractions.Contracts;
 
 namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
 {

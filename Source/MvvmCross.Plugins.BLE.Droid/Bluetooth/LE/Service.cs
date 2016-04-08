@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Android.Bluetooth;
 using Plugin.BLE.Abstractions.Bluetooth.LE;
+using Plugin.BLE.Abstractions.Contracts;
 
 namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 {

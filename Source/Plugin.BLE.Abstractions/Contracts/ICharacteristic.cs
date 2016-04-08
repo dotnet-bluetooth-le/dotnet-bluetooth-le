@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Plugin.BLE.Abstractions.Bluetooth.LE;
 
-namespace Plugin.BLE.Abstractions.Bluetooth.LE
+namespace Plugin.BLE.Abstractions.Contracts
 {
     public interface ICharacteristic
     {

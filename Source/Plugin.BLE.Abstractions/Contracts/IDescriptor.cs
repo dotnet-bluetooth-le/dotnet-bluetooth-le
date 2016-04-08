@@ -1,6 +1,6 @@
 using System;
 
-namespace Plugin.BLE.Abstractions.Bluetooth.LE
+namespace Plugin.BLE.Abstractions.Contracts
 {
 	public interface IDescriptor
 	{
