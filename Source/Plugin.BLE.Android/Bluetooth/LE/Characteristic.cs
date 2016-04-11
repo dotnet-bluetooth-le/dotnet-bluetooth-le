@@ -6,11 +6,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Bluetooth;
-using MvvmCross.Platform;
+using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Bluetooth.LE;
 using Plugin.BLE.Abstractions.Contracts;
 
-namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
+namespace Plugin.BLE.Android.Bluetooth.LE
 {
     public class Characteristic : ICharacteristic
     {
@@ -132,7 +132,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             EventHandler<CharacteristicWriteEventArgs> writeCallback = null;
             writeCallback = (s, a) =>
             {
-                Mvx.Trace("WriteCallback {0} ({1})", a.Characteristic.ID, a.IsSuccessful);
+                Trace.Message("WriteCallback {0} ({1})", a.Characteristic.ID, a.IsSuccessful);
                 if (a.Characteristic.ID == ID)
                 {
                     if (_gattCallback != null)
@@ -175,7 +175,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             _gattCallback.CharacteristicValueWritten += OnCharacteristicValueWritten;
 
             _nativeCharacteristic.SetValue(data);
-            Mvx.Trace(".....Write {0}", ID);
+            Trace.Message(".....Write {0}", ID);
 
             var ret = _gatt.WriteCharacteristic(_nativeCharacteristic);
             if (!ret)
@@ -211,12 +211,13 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             // wire up the characteristic value updating on the gattcallback
             _gattCallback.CharacteristicValueUpdated += updated;
 
-            Mvx.TaggedTrace("ReadAsync", "requesting characteristic read");
+            Trace.Message("ReadAsync: {0}", "requesting characteristic read");
             var ret = _gatt.ReadCharacteristic(_nativeCharacteristic);
+
             if (!ret)
             {
                 _gattCallback.CharacteristicValueUpdated -= updated;
-                Mvx.TaggedWarning("ReadAsync", "Gatt read characteristic call returned {0}", ret);
+                Trace.Message("ReadAsync: Gatt read characteristic call returned FALSE");
                 tcs.TrySetException(new InvalidOperationException("Gatt read characteristic call failed"));
             }
 
@@ -257,11 +258,11 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 }
                 else
                 {
-                    Mvx.Trace("RequestValue, FAILED: _nativeCharacteristic.Descriptors was empty, not sure why");
+                    Trace.Message("RequestValue, FAILED: _nativeCharacteristic.Descriptors was empty, not sure why");
                 }
             }
 
-            Mvx.TaggedTrace("StartUpdates", "RequestValue, Succesful: {0}", successful);
+            Trace.Message("StartUpdates: RequestValue, Succesful: {0}", successful);
         }
 
         public void StopUpdates()
@@ -273,7 +274,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
 
             //TODO: determine whether 
-            Mvx.Trace("Characteristic.RequestValue, PropertyType = Notify, STOP update, succesful: {0}", successful);
+            Trace.Message("Characteristic.RequestValue, PropertyType = Notify, STOP update, succesful: {0}", successful);
         }
 
         private void OnCharacteristicValueWritten(object sender, CharacteristicWriteEventArgs e)

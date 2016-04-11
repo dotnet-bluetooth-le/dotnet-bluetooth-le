@@ -53,13 +53,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bluetooth\LE\Adapter.cs" />
-    <Compile Include="Bluetooth\LE\BondStatusBroadcastReceiver.cs" />
-    <Compile Include="Bluetooth\LE\Characteristic.cs" />
-    <Compile Include="Bluetooth\LE\Descriptor.cs" />
-    <Compile Include="Bluetooth\LE\Device.cs" />
-    <Compile Include="Bluetooth\LE\GattCallback.cs" />
-    <Compile Include="Bluetooth\LE\Service.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

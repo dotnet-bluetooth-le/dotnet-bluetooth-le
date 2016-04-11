@@ -47,6 +47,13 @@
       <Link>CrossBle.cs</Link>
     </Compile>
     <Compile Include="BleImplementation.cs" />
+    <Compile Include="Bluetooth\LE\Adapter.cs" />
+    <Compile Include="Bluetooth\LE\BondStatusBroadcastReceiver.cs" />
+    <Compile Include="Bluetooth\LE\Characteristic.cs" />
+    <Compile Include="Bluetooth\LE\Descriptor.cs" />
+    <Compile Include="Bluetooth\LE\Device.cs" />
+    <Compile Include="Bluetooth\LE\GattCallback.cs" />
+    <Compile Include="Bluetooth\LE\Service.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -64,6 +64,7 @@
     <Compile Include="Contracts\IDevice.cs" />
     <Compile Include="Contracts\IService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Trace.cs" />
     <Compile Include="Utils\ResourceLoader.cs" />
   </ItemGroup>
   <ItemGroup>

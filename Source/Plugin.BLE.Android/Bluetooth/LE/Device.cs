@@ -1,36 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Android.App;
 using Android.Bluetooth;
-using MvvmCross.Platform;
+using Android.Content;
+using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Bluetooth.LE;
 using Plugin.BLE.Abstractions.Contracts;
 
-namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
+namespace Plugin.BLE.Android.Bluetooth.LE
 {
     public class Device : DeviceBase
     {
-        protected BluetoothDevice _nativeDevice;
+        private BluetoothDevice _nativeDevice;
         /// <summary>
         /// we have to keep a reference to this because Android's api is weird and requires
         /// the GattServer in order to do nearly anything, including enumerating services
         /// 
         /// TODO: consider wrapping the Gatt and Callback into a single object and passing that around instead.
         /// </summary>
-        protected BluetoothGatt _gatt;
+        private BluetoothGatt _gatt;
         /// <summary>
         /// we also track this because of gogole's weird API. the gatt callback is where
         /// we'll get notified when services are enumerated
         /// </summary>
-        protected IGattCallback _gattCallback;
+        private IGattCallback _gattCallback;
 
         public Device(BluetoothDevice nativeDevice, BluetoothGatt gatt, IGattCallback gattCallback, int rssi, byte[] advertisementData = null)
-            : base()
         {
             Update(nativeDevice, gatt, gattCallback);
-            this._rssi = rssi;
+            _rssi = rssi;
 
-            _advertisementData = advertisementData ?? new byte[0];
+            AdvertisementData = advertisementData ?? new byte[0];
         }
 
         public void Update(BluetoothDevice nativeDevice, BluetoothGatt gatt,
@@ -58,73 +59,36 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             get
             {
                 //TODO: verify - fix from Evolve player
-                Byte[] deviceGuid = new Byte[16];
-                String macWithoutColons = _nativeDevice.Address.Replace(":", "");
-                Byte[] macBytes = Enumerable.Range(0, macWithoutColons.Length)
+                var deviceGuid = new byte[16];
+                var macWithoutColons = _nativeDevice.Address.Replace(":", "");
+                var macBytes = Enumerable.Range(0, macWithoutColons.Length)
                     .Where(x => x % 2 == 0)
                     .Select(x => Convert.ToByte(macWithoutColons.Substring(x, 2), 16))
                     .ToArray();
                 macBytes.CopyTo(deviceGuid, 10);
                 return new Guid(deviceGuid);
-                //return _nativeDevice.Address;
-                //return Guid.Empty;
             }
         }
 
-        public override string Name
-        {
-            get
-            {
-                return this._nativeDevice.Name;
-            }
-        }
+        public override string Name => _nativeDevice.Name;
 
-        public override int Rssi
-        {
-            get
-            {
-                return this._rssi;
-            }
-        } protected int _rssi;
+        public override int Rssi => _rssi;
+        private int _rssi;
 
-        public override object NativeDevice
-        {
-            get
-            {
-                return this._nativeDevice;
-            }
-        }
+        public override object NativeDevice => _nativeDevice;
 
-        public override byte[] AdvertisementData
-        {
-            get
-            {
-                return this._advertisementData;
-            }
-        }
-        protected byte[] _advertisementData;
+        public override byte[] AdvertisementData { get; }
 
-        public override IList<AdvertisementRecord> AdvertisementRecords
-        {
-            get { return ParseScanRecord(AdvertisementData); }
-        }
+        public override IList<AdvertisementRecord> AdvertisementRecords => ParseScanRecord(AdvertisementData);
 
         // TODO: investigate the validity of this. Android API seems to indicate that the
         // bond state is available, rather than the connected state, which are two different 
         // things. you can be bonded but not connected.
-        public override DeviceState State
-        {
-            get
-            {
-                return this.GetState();
-            }
-        }
+        public override DeviceState State => GetState();
 
         //TODO: strongly type IService here
-        public override IList<IService> Services
-        {
-            get { return this._services; }
-        } protected IList<IService> _services = new List<IService>();
+        public override IList<IService> Services => _services;
+        private IList<IService> _services = new List<IService>();
 
         #region public methods
 
@@ -135,7 +99,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 return;
             }
 
-            Mvx.Trace("...Discover services");
+            Trace.Message("...Discover services");
 
             _gattCallback.ServicesDiscovered += OnServicesDiscovered;
             _gatt.DiscoverServices();
@@ -178,7 +142,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
         protected DeviceState GetState()
         {
-            var manager = (BluetoothManager)Android.App.Application.Context.GetSystemService(Android.Content.Context.BluetoothService);
+            var manager = (BluetoothManager)Application.Context.GetSystemService(Context.BluetoothService);
             var state = manager.GetConnectionState(_nativeDevice, ProfileType.Gatt);
 
             switch (state)
@@ -218,7 +182,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
                 if (!Enum.IsDefined(typeof(AdvertisementRecordType), type))
                 {
-                    Mvx.Trace("Advertisment record type not defined: {0}", type);
+                    Trace.Message("Advertisment record type not defined: {0}", type);
                     break;
                 }
 
@@ -247,7 +211,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 }
                 var record = new AdvertisementRecord((AdvertisementRecordType)type, data);
 
-                Mvx.Trace(record.ToString());
+                Trace.Message(record.ToString());
 
                 records.Add(record);
 

@@ -5,15 +5,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Bluetooth;
-using Android.Content;
-using Java.Util;
 using Android.Bluetooth.LE;
+using Android.Content;
 using Android.OS;
-using MvvmCross.Platform;
+using Java.Util;
 using Plugin.BLE.Abstractions.Bluetooth.LE;
 using Plugin.BLE.Abstractions.Contracts;
+using Trace = Plugin.BLE.Abstractions.Trace;
 
-namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
+namespace Plugin.BLE.Android.Bluetooth.LE
 {
     public partial class Adapter : BluetoothAdapter.ILeScanCallback, IAdapter
     {
@@ -111,7 +111,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             if (_isScanning)
             {
-                Mvx.Trace("Adapter: Already scanning.");
+                Trace.Message("Adapter: Already scanning.");
                 return;
             }
 
@@ -124,7 +124,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             {
                 if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
                 {
-                    Mvx.Trace("Adapter < 21: Starting a scan for devices.");
+                    Trace.Message("Adapter < 21: Starting a scan for devices.");
                     //without filter
 #pragma warning disable 618
                     _adapter.StartLeScan(this);
@@ -132,14 +132,14 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 }
                 else
                 {
-                    Mvx.Trace("Adapter >= 21: Starting a scan for devices.");
+                    Trace.Message("Adapter >= 21: Starting a scan for devices.");
                     if (_adapter.BluetoothLeScanner != null)
                     {
                         _adapter.BluetoothLeScanner.StartScan(_api21ScanCallback);
                     }
                     else
                     {
-                        Mvx.Trace("Adapter >= 21: Scan failed. Bluetooth is probably off");
+                        Trace.Message("Adapter >= 21: Scan failed. Bluetooth is probably off");
                     }
                 }
 
@@ -149,7 +149,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
                 {
                     var uuids = serviceUuids.Select(u => UUID.FromString(u.ToString())).ToArray();
-                    Mvx.Trace("Adapter < 21: Starting a scan for devices.");
+                    Trace.Message("Adapter < 21: Starting a scan for devices.");
 #pragma warning disable 618
                     _adapter.StartLeScan(uuids, this);
 #pragma warning restore 618
@@ -157,7 +157,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                 else
                 {
 
-                    Mvx.Trace("Adapter >=21: Starting a scan for devices with service ID {0}.", serviceUuids.First());
+                    Trace.Message("Adapter >=21: Starting a scan for devices with service ID {0}.", serviceUuids.First());
 
                     var scanFilters = new List<ScanFilter>();
                     foreach (var serviceUuid in serviceUuids)
@@ -176,7 +176,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                     }
                     else
                     {
-                        Mvx.Trace("Adapter >= 21: Scan failed. Bluetooth is probably off");
+                        Trace.Message("Adapter >= 21: Scan failed. Bluetooth is probably off");
                     }
                 }
 
@@ -189,7 +189,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             {
                 await Task.Delay(ScanTimeout, _cancellationTokenSource.Token);
 
-                Mvx.Trace("Adapter: Scan timeout has elapsed.");
+                Trace.Message("Adapter: Scan timeout has elapsed.");
 
                 StopScan();
 
@@ -201,7 +201,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             }
             catch (TaskCanceledException)
             {
-                Mvx.Trace("Adapter: Scan was cancelled.");
+                Trace.Message("Adapter: Scan was cancelled.");
                 StopScan();
 
                 TryDisposeToken();
@@ -226,7 +226,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             }
             else
             {
-                Mvx.Trace("Adapter: Already cancelled scan.");
+                Trace.Message("Adapter: Already cancelled scan.");
             }
         }
 
@@ -234,14 +234,14 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
             {
-                Mvx.Trace("Adapter < 21: Stopping the scan for devices.");
+                Trace.Message("Adapter < 21: Stopping the scan for devices.");
 #pragma warning disable 618
                 _adapter.StopLeScan(this);
 #pragma warning restore 618
             }
             else
             {
-                Mvx.Trace("Adapter >= 21: Stopping the scan for devices.");
+                Trace.Message("Adapter >= 21: Stopping the scan for devices.");
                 if (_adapter.BluetoothLeScanner != null)
                 {
                     _adapter.BluetoothLeScanner.StopScan(_api21ScanCallback);
@@ -251,7 +251,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
         public void OnLeScan(BluetoothDevice bleDevice, int rssi, byte[] scanRecord)
         {
-            Mvx.Trace("Adapter.LeScanCallback: " + bleDevice.Name);
+            Trace.Message("Adapter.LeScanCallback: " + bleDevice.Name);
 
             var device = new Device(bleDevice, null, null, rssi, scanRecord);
 
@@ -308,7 +308,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
             public override void OnScanFailed(ScanFailure errorCode)
             {
-                Mvx.Trace("Adapter: Scan failed with code {0}", errorCode);
+                Trace.Message("Adapter: Scan failed with code {0}", errorCode);
                 base.OnScanFailed(errorCode);
             }
 

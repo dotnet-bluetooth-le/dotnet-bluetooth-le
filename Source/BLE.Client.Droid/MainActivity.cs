@@ -2,10 +2,12 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Android.App;
-using Android.Widget;
+
 using Android.OS;
+using Android.Widget;
 using Plugin.BLE.Abstractions.Bluetooth.LE;
 using Plugin.BLE.Abstractions.Contracts;
+using Adapter = Plugin.BLE.Android.Bluetooth.LE.Adapter;
 using IAdapter = Plugin.BLE.Abstractions.Contracts.IAdapter;
 
 namespace BLE.Client.Droid
@@ -27,7 +29,7 @@ namespace BLE.Client.Droid
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
-            _adapter = new MvvmCross.Plugins.BLE.Droid.Bluetooth.LE.Adapter();
+            _adapter = new Adapter();
             _adapter.StartScanningForDevices();
             _adapter.ScanTimeoutElapsed += adapter_ScanTimeoutElapsed;
             _adapter.DeviceConnected += _adapter_DeviceConnected;

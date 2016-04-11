@@ -1,10 +1,10 @@
 using System;
 using Android.Bluetooth;
-using MvvmCross.Platform;
+using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Bluetooth.LE;
 using Plugin.BLE.Abstractions.Contracts;
 
-namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
+namespace Plugin.BLE.Android.Bluetooth.LE
 {
     public interface IGattCallback
     {
@@ -24,11 +24,11 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         public override void OnConnectionStateChange(BluetoothGatt gatt, GattStatus status, ProfileState newState)
         {
             base.OnConnectionStateChange(gatt, status, newState);
-            IDevice device = null;
+            IDevice device;
 
             if (status != GattStatus.Success)
             {
-                Mvx.TaggedError("OnConnectionStateChange", "GattCallback error: {0}", status);
+                Trace.Message("OnConnectionStateChange: GattCallback error: {0}", status);
                 device = new Device(gatt.Device, gatt, this, 0);
                 DeviceConnectionError(this, new DeviceConnectionEventArgs() { Device = device });
                 // We don't return. Allowing to fall-through to the SWITCH, which will assume a disconnect, close GATT and clean up.
@@ -36,7 +36,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             }
             else
             {
-                Mvx.Trace("GattCallback state: {0}", newState.ToString());
+                Trace.Message("GattCallback state: {0}", newState.ToString());
             }
 
             switch (newState)
@@ -46,7 +46,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
 
                     if (DeviceOperationRegistry.TryGetValue(gatt.Device.Address, out device))
                     {
-                        Mvx.Trace("Disconnected by user");
+                        Trace.Message("Disconnected by user");
 
                         //Found so we can remove it
                         DeviceOperationRegistry.Remove(gatt.Device.Address);
@@ -60,7 +60,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                     //connection must have been lost, bacause our device was not found in the registry but was still connected
                     if (ConnectedDeviceRegistry.TryGetValue(gatt.Device.Address, out device))
                     {
-                        Mvx.Trace("Disconnected by lost connection");
+                        Trace.Message("Disconnected by lost connection");
 
                         ConnectedDeviceRegistry.Remove(gatt.Device.Address);
                         gatt.Close();
@@ -70,16 +70,16 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                     }
 
                     gatt.Close(); // Close GATT regardless, else we can accumulate zombie gatts.
-                    Mvx.Trace("Disconnect. Device not found in registry. Not raising disconnect/lost event.");
+                    Trace.Message("Disconnect. Device not found in registry. Not raising disconnect/lost event.");
 
                     break;
                 // connecting
                 case ProfileState.Connecting:
-                    Mvx.Trace("Connecting");
+                    Trace.Message("Connecting");
                     break;
                 // connected
                 case ProfileState.Connected:
-                    Mvx.Trace("Connected");
+                    Trace.Message("Connected");
 
                     //Try to find the device in the registry so that the same instance is updated
                     if (DeviceOperationRegistry.TryGetValue(gatt.Device.Address, out device))
@@ -101,7 +101,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
                     break;
                 // disconnecting
                 case ProfileState.Disconnecting:
-                    Mvx.Trace("Disconnecting");
+                    Trace.Message("Disconnecting");
                     break;
             }
         }
@@ -110,7 +110,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             base.OnServicesDiscovered(gatt, status);
 
-            Mvx.Trace("OnServicesDiscovered: {0}", status.ToString());
+            Trace.Message("OnServicesDiscovered: {0}", status.ToString());
 
             ServicesDiscovered(this, new ServicesDiscoveredEventArgs());
         }
@@ -119,7 +119,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             base.OnDescriptorRead(gatt, descriptor, status);
 
-            Mvx.Trace("OnDescriptorRead: {0}", descriptor.ToString());
+            Trace.Message("OnDescriptorRead: {0}", descriptor.ToString());
 
         }
 
@@ -127,12 +127,12 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             base.OnCharacteristicRead(gatt, characteristic, status);
 
-            Mvx.Trace("OnCharacteristicRead: value {0}; status {1}", characteristic.GetValue().ToHexString(), status);
+            Trace.Message("OnCharacteristicRead: value {0}; status {1}", characteristic.GetValue().ToHexString(), status);
 
             CharacteristicValueUpdated(this, new CharacteristicReadEventArgs
-                {
-                    Characteristic = new Characteristic(characteristic, gatt, this)
-                }
+            {
+                Characteristic = new Characteristic(characteristic, gatt, this)
+            }
             );
         }
 
@@ -141,9 +141,9 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
             base.OnCharacteristicChanged(gatt, characteristic);
 
             CharacteristicValueUpdated(this, new CharacteristicReadEventArgs
-                {
-                    Characteristic = new Characteristic(characteristic, gatt, this)
-                }
+            {
+                Characteristic = new Characteristic(characteristic, gatt, this)
+            }
             );
         }
 
@@ -151,7 +151,7 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             base.OnCharacteristicWrite(gatt, characteristic, status);
 
-            Mvx.Trace("OnCharacteristicWrite: value {0} status {1}", characteristic.GetValue().ToHexString(), status);
+            Trace.Message("OnCharacteristicWrite: value {0} status {1}", characteristic.GetValue().ToHexString(), status);
 
             var args = new CharacteristicWriteEventArgs { Characteristic = new Characteristic(characteristic, gatt, this) };
             switch (status)
@@ -178,14 +178,14 @@ namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
         {
             base.OnReliableWriteCompleted(gatt, status);
 
-            Mvx.Trace("OnReliableWriteCompleted: {0}", status);
+            Trace.Message("OnReliableWriteCompleted: {0}", status);
         }
 
         public override void OnReadRemoteRssi(BluetoothGatt gatt, int rssi, GattStatus status)
         {
             base.OnReadRemoteRssi(gatt, rssi, status);
 
-            Mvx.Trace("OnReadRemoteRssi: device {0} status {1} value {2}", gatt.Device.Name, status, rssi);
+            Trace.Message("OnReadRemoteRssi: device {0} status {1} value {2}", gatt.Device.Name, status, rssi);
 
             //ToDo add device id, or some link between this callback and the corresponding device
             var args = new RssiReadEventArgs() { Rssi = rssi };

@@ -3,7 +3,7 @@ using Android.Bluetooth;
 using Android.Content;
 using Plugin.BLE.Abstractions.Bluetooth.LE;
 
-namespace MvvmCross.Plugins.BLE.Droid.Bluetooth.LE
+namespace Plugin.BLE.Android.Bluetooth.LE
 {
     [BroadcastReceiver]
     public class BondStatusBroadcastReceiver : BroadcastReceiver
