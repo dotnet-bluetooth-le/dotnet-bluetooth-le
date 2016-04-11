@@ -2,7 +2,7 @@ using MvvmCross.Platform;
 using MvvmCross.Platform.Plugins;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
-using Plugin.BLE.Android.Bluetooth.LE;
+using Plugin.BLE.Android;
 
 namespace MvvmCross.Plugins.BLE.Droid
 {

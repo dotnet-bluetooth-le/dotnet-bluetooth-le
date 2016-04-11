@@ -5,9 +5,9 @@ using Android.App;
 
 using Android.OS;
 using Android.Widget;
-using Plugin.BLE.Abstractions.Bluetooth.LE;
+using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
-using Adapter = Plugin.BLE.Android.Bluetooth.LE.Adapter;
+using Adapter = Plugin.BLE.Android.Adapter;
 using IAdapter = Plugin.BLE.Abstractions.Contracts.IAdapter;
 
 namespace BLE.Client.Droid

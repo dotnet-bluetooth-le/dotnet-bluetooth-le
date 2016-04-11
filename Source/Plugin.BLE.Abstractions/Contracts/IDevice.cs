@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Plugin.BLE.Abstractions.Bluetooth.LE;
 
 namespace Plugin.BLE.Abstractions.Contracts
 {

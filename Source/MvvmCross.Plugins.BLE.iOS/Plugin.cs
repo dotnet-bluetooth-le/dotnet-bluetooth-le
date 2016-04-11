@@ -2,7 +2,7 @@ using MvvmCross.Platform;
 using MvvmCross.Platform.Plugins;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
-using Plugin.BLE.iOS.Bluetooth.LE;
+using Plugin.BLE.iOS;
 
 namespace MvvmCross.Plugins.BLE.iOS
 {

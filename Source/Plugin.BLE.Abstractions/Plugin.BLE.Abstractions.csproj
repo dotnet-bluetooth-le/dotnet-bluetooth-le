@@ -34,40 +34,37 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .NET Framework is automatically included -->
-    <EmbeddedResource Include="Bluetooth\LE\KnownCharacteristics.json" />
-    <EmbeddedResource Include="Bluetooth\LE\KnownDescriptors.json" />
-    <EmbeddedResource Include="Bluetooth\LE\KnownServices.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Bluetooth\LE\AdvertisementRecord.cs" />
-    <Compile Include="Bluetooth\LE\BluetoothKnownItemManager.cs" />
-    <Compile Include="Bluetooth\LE\CharacteristicPropertyType.cs" />
-    <Compile Include="Bluetooth\LE\CharacteristicReadEventArgs.cs" />
-    <Compile Include="Bluetooth\LE\DeviceBase.cs" />
-    <Compile Include="Bluetooth\LE\DeviceBondedEventArgs.cs" />
-    <Compile Include="Bluetooth\LE\DeviceBondState.cs" />
-    <Compile Include="Bluetooth\LE\DeviceConnectionEventArgs.cs" />
-    <Compile Include="Bluetooth\LE\DeviceDiscoveredEventArgs.cs" />
-    <Compile Include="Bluetooth\LE\DeviceState.cs" />
-    <Compile Include="Bluetooth\LE\Extensions.cs" />
-    <Compile Include="Bluetooth\LE\KnownCharacteristics.cs" />
-    <Compile Include="Bluetooth\LE\KnownDescriptors.cs" />
-    <Compile Include="Bluetooth\LE\KnownServices.cs" />
-    <Compile Include="Bluetooth\LE\LEStream.cs" />
-    <Compile Include="Bluetooth\LE\RssiReadEventArgs.cs" />
-    <Compile Include="Bluetooth\LE\ServicesDiscoveredEventArgs.cs" />
+    <Compile Include="AdvertisementRecord.cs" />
+    <Compile Include="BluetoothKnownItemManager.cs" />
+    <Compile Include="CharacteristicPropertyType.cs" />
+    <Compile Include="CharacteristicReadEventArgs.cs" />
     <Compile Include="Contracts\IAdapter.cs" />
     <Compile Include="Contracts\IBluetoothLE.cs" />
     <Compile Include="Contracts\ICharacteristic.cs" />
     <Compile Include="Contracts\IDescriptor.cs" />
     <Compile Include="Contracts\IDevice.cs" />
     <Compile Include="Contracts\IService.cs" />
+    <Compile Include="DeviceBase.cs" />
+    <Compile Include="DeviceBondedEventArgs.cs" />
+    <Compile Include="DeviceBondState.cs" />
+    <Compile Include="DeviceConnectionEventArgs.cs" />
+    <Compile Include="DeviceDiscoveredEventArgs.cs" />
+    <Compile Include="DeviceState.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="KnownCharacteristics.cs" />
+    <Compile Include="KnownDescriptors.cs" />
+    <Compile Include="KnownServices.cs" />
+    <Compile Include="LEStream.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RssiReadEventArgs.cs" />
+    <Compile Include="ServicesDiscoveredEventArgs.cs" />
     <Compile Include="Trace.cs" />
     <Compile Include="Utils\ResourceLoader.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="KnownCharacteristics.json" />
+    <EmbeddedResource Include="KnownDescriptors.json" />
+    <EmbeddedResource Include="KnownServices.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
