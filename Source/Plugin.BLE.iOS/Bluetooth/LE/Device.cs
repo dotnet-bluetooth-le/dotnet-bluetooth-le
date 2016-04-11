@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using MvvmCross.Platform;
 using CoreBluetooth;
-using MvvmCross.Platform.Platform;
+using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Bluetooth.LE;
 using Plugin.BLE.Abstractions.Contracts;
 
-namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
+namespace Plugin.BLE.iOS.Bluetooth.LE
 {
     public class Device : DeviceBase
     {
@@ -19,7 +18,7 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
         private string _name;
 
         public Device(CBPeripheral nativeDevice)
-            : this(nativeDevice, nativeDevice.Name, nativeDevice.RSSI != null ? nativeDevice.RSSI.Int32Value : 0,
+            : this(nativeDevice, nativeDevice.Name, nativeDevice.RSSI?.Int32Value ?? 0,
                 new List<AdvertisementRecord>())
         {
         }
@@ -35,14 +34,14 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
             _nativeDevice.UpdatedName += (sender, e) =>
             {
                 _name = ((CBPeripheral)sender).Name;
-                Mvx.Trace("Device changed name: {0}", _name);
+                Trace.Message("Device changed name: {0}", _name);
             };
 
             _nativeDevice.DiscoveredService += (sender, e) =>
             {
                 if (e.Error != null)
                 {
-                    Mvx.Trace(MvxTraceLevel.Warning, "Error while discovering services {0}", e.Error.LocalizedDescription);
+                    Trace.Message("Error while discovering services {0}", e.Error.LocalizedDescription);
                     //ToDo maybe do more
                 }
 
@@ -55,7 +54,7 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
 
                 foreach (var s in _nativeDevice.Services)
                 {
-                    Mvx.Trace("Device.Discovered Service: " + s.Description);
+                    Trace.Message("Device.Discovered Service: " + s.Description);
                     if (!ServiceExists(s))
                     {
                         _services.Add(new Service(s, _nativeDevice));
@@ -69,12 +68,12 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
             {
                 if (args.Error == null)
                 {
-                    _rssi = args.Rssi != null ? args.Rssi.Int32Value : 0;
+                    _rssi = args.Rssi?.Int32Value ?? 0;
                     RaiseRssiRead(new RssiReadEventArgs() { Rssi = _rssi });
                 }
                 else
                 {
-                    Mvx.Trace(MvxTraceLevel.Warning, "Error while reading RSSI {0}", args.Error.LocalizedDescription);
+                    Trace.Message("Error while reading RSSI {0}", args.Error.LocalizedDescription);
                     RaiseRssiRead(new RssiReadEventArgs() { Error = new Exception(args.Error.LocalizedDescription) });
                 }
             };
@@ -84,7 +83,7 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
             {
                 if (args.Error != null)
                 {
-                    Mvx.Trace(MvxTraceLevel.Warning, "Error while reading RSSI {0}", args.Error.LocalizedDescription);
+                    Trace.Message("Error while reading RSSI {0}", args.Error.LocalizedDescription);
                     RaiseRssiRead(new RssiReadEventArgs() { Error = new Exception(args.Error.LocalizedDescription) });
                 }
                 else
@@ -101,7 +100,7 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
     //BUGBUG/TODO: this event is misnamed in our SDK
 			this._nativeDevice.DiscoverCharacteristic += (object sender, CBServiceEventArgs e) => {
 #endif
-                Mvx.Trace("Device.Discovered Characteristics.");
+                Trace.Message("Device.Discovered Characteristics.");
                 //loop through each service, and update the characteristics
                 foreach (var srv in ((CBPeripheral)sender).Services)
                 {
@@ -118,7 +117,7 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
                         // add the discovered characteristics to the particular service
                         foreach (var characteristic in srv.Characteristics)
                         {
-                            Mvx.Trace("Characteristic: " + characteristic.Description);
+                            Trace.Message("Characteristic: " + characteristic.Description);
                             var newChar = new Characteristic(characteristic, _nativeDevice);
                             item.Characteristics.Add(newChar);
                         }
@@ -134,48 +133,28 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
         // TODO: not sure if this is right. hell, not even sure if a 
         // device should have a UDDI. iOS BLE peripherals do, though.
         // need to look at the BLE Spec
-        public override Guid ID
-        {
-            get { return Guid.ParseExact(_nativeDevice.Identifier.AsString(), "d"); }
-        }
+        public override Guid ID => Guid.ParseExact(_nativeDevice.Identifier.AsString(), "d");
 
-        public override string Name
-        {
-            get { return _name; }
-        }
+        public override string Name => _name;
 
-        public override int Rssi
-        {
-            get { return _rssi; }
-        }
+        public override int Rssi => _rssi;
 
-        public override object NativeDevice
-        {
-            get { return _nativeDevice; }
-        }
+        public override object NativeDevice => _nativeDevice;
 
+        //ToDo maybe make this more elegant
         public override byte[] AdvertisementData
         {
             get { throw new NotImplementedException("iOS does not allow raw scan data. Please use AdvertisementRecords"); }
         }
 
-        public override IList<AdvertisementRecord> AdvertisementRecords
-        {
-            get { return _advertisementRecords; }
-        }
+        public override IList<AdvertisementRecord> AdvertisementRecords => _advertisementRecords;
 
         // TODO: investigate the validity of this. Android API seems to indicate that the
         // bond state is available, rather than the connected state, which are two different 
         // things. you can be bonded but not connected.
-        public override DeviceState State
-        {
-            get { return GetState(); }
-        }
+        public override DeviceState State => GetState();
 
-        public override IList<IService> Services
-        {
-            get { return _services; }
-        }
+        public override IList<IService> Services => _services;
 
         #region public methods
 

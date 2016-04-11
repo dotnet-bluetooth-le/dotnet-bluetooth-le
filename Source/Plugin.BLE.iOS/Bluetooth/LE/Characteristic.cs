@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using MvvmCross.Platform;
 using CoreBluetooth;
 using Foundation;
+using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Bluetooth.LE;
 using Plugin.BLE.Abstractions.Contracts;
 
-namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
+namespace Plugin.BLE.iOS.Bluetooth.LE
 {
     public class Characteristic : ICharacteristic
     {
@@ -22,48 +22,24 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
             _parentDevice = parentDevice;
         }
 
-        private CBCharacteristicWriteType CharacteristicWriteType
-        {
-            get
-            {
-                return Properties.HasFlag(CharacteristicPropertyType.AppleWriteWithoutResponse)
-                    ? CBCharacteristicWriteType.WithoutResponse
-                    : CBCharacteristicWriteType.WithResponse;
-            }
-        }
+        private CBCharacteristicWriteType CharacteristicWriteType => Properties.HasFlag(CharacteristicPropertyType.AppleWriteWithoutResponse)
+            ? CBCharacteristicWriteType.WithoutResponse
+            : CBCharacteristicWriteType.WithResponse;
 
         public event EventHandler<CharacteristicReadEventArgs> ValueUpdated = delegate { };
         public event EventHandler<CharacteristicWriteEventArgs> ValueWritten = delegate { };
 
-        public string Uuid
-        {
-            get { return _nativeCharacteristic.UUID.ToString(); }
-        }
+        public string Uuid => _nativeCharacteristic.UUID.ToString();
 
-        public Guid ID
-        {
-            get { return _nativeCharacteristic.UUID.GuidFromUuid(); }
-        }
+        public Guid ID => _nativeCharacteristic.UUID.GuidFromUuid();
 
-        public byte[] Value
-        {
-            get { return _nativeCharacteristic.Value != null ? _nativeCharacteristic.Value.ToArray() : null; }
-        }
+        public byte[] Value => _nativeCharacteristic.Value?.ToArray();
 
-        public string StringValue
-        {
-            get { return Value == null ? string.Empty : Encoding.UTF8.GetString(Value); }
-        }
+        public string StringValue => Value == null ? string.Empty : Encoding.UTF8.GetString(Value);
 
-        public string Name
-        {
-            get { return KnownCharacteristics.Lookup(ID).Name; }
-        }
+        public string Name => KnownCharacteristics.Lookup(ID).Name;
 
-        public CharacteristicPropertyType Properties
-        {
-            get { return (CharacteristicPropertyType) (int) _nativeCharacteristic.Properties; }
-        }
+        public CharacteristicPropertyType Properties => (CharacteristicPropertyType) (int) _nativeCharacteristic.Properties;
 
         public IList<IDescriptor> Descriptors
         {
@@ -84,29 +60,14 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
             }
         }
 
-        public object NativeCharacteristic
-        {
-            get { return _nativeCharacteristic; }
-        }
+        public object NativeCharacteristic => _nativeCharacteristic;
 
-        public bool CanRead
-        {
-            get { return Properties.HasFlag(CharacteristicPropertyType.Read); }
-        }
+        public bool CanRead => Properties.HasFlag(CharacteristicPropertyType.Read);
 
-        public bool CanUpdate
-        {
-            get { return Properties.HasFlag(CharacteristicPropertyType.Notify); }
-        }
+        public bool CanUpdate => Properties.HasFlag(CharacteristicPropertyType.Notify);
 
-        public bool CanWrite
-        {
-            get
-            {
-                return Properties.HasFlag(CharacteristicPropertyType.WriteWithoutResponse) |
-                         Properties.HasFlag(CharacteristicPropertyType.AppleWriteWithoutResponse);
-            }
-        }
+        public bool CanWrite => Properties.HasFlag(CharacteristicPropertyType.WriteWithoutResponse) |
+                                Properties.HasFlag(CharacteristicPropertyType.AppleWriteWithoutResponse);
 
         public Task<ICharacteristic> ReadAsync()
         {
@@ -123,14 +84,14 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
                 {
                     return;
                 }
-                Mvx.Trace(".....UpdatedCharacterteristicValue");
+                Trace.Message(".....UpdatedCharacterteristicValue");
                 var c = new Characteristic(e.Characteristic, _parentDevice);
                 tcs.TrySetResult(c);
                 _parentDevice.UpdatedCharacterteristicValue -= updated;
             };
 
             _parentDevice.UpdatedCharacterteristicValue += updated;
-            Mvx.Trace(".....ReadAsync");
+            Trace.Message(".....ReadAsync");
             _parentDevice.ReadValue(_nativeCharacteristic);
 
             return tcs.Task;
@@ -192,25 +153,25 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
         {
             if (!CanUpdate)
             {
-                Mvx.Trace("** Characteristic.StartNotifications Warning: CanUpdate == false");
+                Trace.Message("** Characteristic.StartNotifications Warning: CanUpdate == false");
                 return;
             }
 
             _parentDevice.UpdatedCharacterteristicValue += UpdatedNotify;
             _parentDevice.SetNotifyValue(true, _nativeCharacteristic);
-            Mvx.Trace("** Characteristic.StartNotifications, Successful");
+            Trace.Message("** Characteristic.StartNotifications, Successful");
         }
 
         public void StopUpdates()
         {
             if (!CanUpdate)
             {
-                Mvx.Trace("** Characteristic.StopNotifications Warning: CanUpdate == false");
+                Trace.Message("** Characteristic.StopNotifications Warning: CanUpdate == false");
                 return;
             }
             _parentDevice.SetNotifyValue(false, _nativeCharacteristic);
             _parentDevice.UpdatedCharacterteristicValue -= UpdatedNotify;
-            Mvx.Trace("** Characteristic.StopNotifications, Successful");
+            Trace.Message("** Characteristic.StopNotifications, Successful");
         }
 
         private void OnCharacteristicWrite(object sender, CBCharacteristicEventArgs e)

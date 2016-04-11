@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using MvvmCross.Platform;
-using MvvmCross.Platform.Platform;
 using CoreBluetooth;
 using CoreFoundation;
 using Foundation;
+using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Bluetooth.LE;
 using Plugin.BLE.Abstractions.Contracts;
 
-namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
+namespace Plugin.BLE.iOS.Bluetooth.LE
 {
     public class Adapter : IAdapter
     {
-        private readonly CBCentralManager _central;
+        //public event EventHandler<DeviceConnectionEventArgs> DeviceFailedToConnect = delegate { };
+        //public event EventHandler ConnectTimeoutElapsed = delegate { };
+
         private readonly AutoResetEvent _stateChanged = new AutoResetEvent(false);
         private CancellationTokenSource _cancellationTokenSource;
-        private IList<IDevice> _discoveredDevices = new List<IDevice>();
         private volatile bool _isScanning; //ToDo maybe lock
 
         public Adapter()
@@ -27,11 +27,11 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
             DeviceOperationRegistry = new Dictionary<string, IDevice>();
             DeviceConnectionRegistry = new Dictionary<string, IDevice>();
 
-            _central = new CBCentralManager(DispatchQueue.CurrentQueue);
+            Central = new CBCentralManager(DispatchQueue.CurrentQueue);
 
-            _central.DiscoveredPeripheral += (sender, e) =>
+            Central.DiscoveredPeripheral += (sender, e) =>
             {
-                Mvx.Trace("DiscoveredPeripheral: {0}, ID: {1}", e.Peripheral.Name, e.Peripheral.Identifier);
+                Trace.Message("DiscoveredPeripheral: {0}, ID: {1}", e.Peripheral.Name, e.Peripheral.Identifier);
                 var name = e.Peripheral.Name;
                 if (e.AdvertisementData.ContainsKey(CBAdvertisement.DataLocalNameKey))
                 {
@@ -43,35 +43,35 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
                 var d = new Device(e.Peripheral, name, e.RSSI.Int32Value, ParseAdvertismentData(e.AdvertisementData));
 
                 DeviceAdvertised(this, new DeviceDiscoveredEventArgs { Device = d });
-                if (ContainsDevice(_discoveredDevices, e.Peripheral))
+                if (ContainsDevice(DiscoveredDevices, e.Peripheral))
                 {
                     return;
                 }
-                _discoveredDevices.Add(d);
+                DiscoveredDevices.Add(d);
                 DeviceDiscovered(this, new DeviceDiscoveredEventArgs { Device = d });
             };
 
-            _central.UpdatedState += (sender, e) =>
+            Central.UpdatedState += (sender, e) =>
             {
-                Mvx.Trace("UpdatedState: {0}", _central.State);
+                Trace.Message("UpdatedState: {0}", Central.State);
                 _stateChanged.Set();
             };
 
-            _central.ConnectedPeripheral += (sender, e) =>
+            Central.ConnectedPeripheral += (sender, e) =>
             {
-                Mvx.Trace("ConnectedPeripherial: {0}", e.Peripheral.Name);
+                Trace.Message("ConnectedPeripherial: {0}", e.Peripheral.Name);
 
                 // when a peripheral gets connected, add that peripheral to our running list of connected peripherals
                 var guid = ParseDeviceGuid(e.Peripheral).ToString();
 
-                IDevice device = null;
+                IDevice device;
                 if (DeviceOperationRegistry.TryGetValue(guid, out device))
                 {
                     DeviceOperationRegistry.Remove(guid);
                 }
 
                 //ToDo use the same instance of the device just update 
-                var d = new Device(e.Peripheral, e.Peripheral.Name, e.Peripheral.RSSI != null ? e.Peripheral.RSSI.Int32Value : 0, device != null ? device.AdvertisementRecords.ToList() : new List<AdvertisementRecord>());
+                var d = new Device(e.Peripheral, e.Peripheral.Name, e.Peripheral.RSSI?.Int32Value ?? 0, device?.AdvertisementRecords.ToList() ?? new List<AdvertisementRecord>());
 
                 DeviceConnectionRegistry[guid] = d;
 
@@ -79,11 +79,11 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
                 DeviceConnected(sender, new DeviceConnectionEventArgs { Device = d });
             };
 
-            _central.DisconnectedPeripheral += (sender, e) =>
+            Central.DisconnectedPeripheral += (sender, e) =>
             {
                 if (e.Error != null)
                 {
-                    Mvx.Trace(MvxTraceLevel.Error, "Disconnect error {0} {1} {2}", e.Error.Code, e.Error.Description, e.Error.Domain);
+                    Trace.Message("Disconnect error {0} {1} {2}", e.Error.Code, e.Error.Description, e.Error.Domain);
                 }
 
                 // when a peripheral disconnects, remove it from our running list.
@@ -106,20 +106,20 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
 
                 if (isNormalDisconnect)
                 {
-                    Mvx.Trace("DisconnectedPeripheral by user: {0}", e.Peripheral.Name);
+                    Trace.Message("DisconnectedPeripheral by user: {0}", e.Peripheral.Name);
                     DeviceDisconnected(sender, new DeviceConnectionEventArgs { Device = foundDevice });
                 }
                 else
                 {
-                    Mvx.Trace("DisconnectedPeripheral by lost signal: {0}", e.Peripheral.Name);
+                    Trace.Message("DisconnectedPeripheral by lost signal: {0}", e.Peripheral.Name);
                     DeviceConnectionLost(sender,
                         new DeviceConnectionEventArgs { Device = foundDevice ?? new Device(e.Peripheral) });
                 }
             };
 
-            _central.FailedToConnectPeripheral += (sender, e) =>
+            Central.FailedToConnectPeripheral += (sender, e) =>
             {
-                Mvx.Trace(MvxTraceLevel.Warning, "Failed to connect peripheral {0}: {1}", e.Peripheral.Identifier,
+                Trace.Message("Failed to connect peripheral {0}: {1}", e.Peripheral.Identifier,
                     e.Peripheral.Name);
                 // raise the failed to connect event
                 DeviceConnectionError(this, new DeviceConnectionEventArgs
@@ -130,13 +130,8 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
             };
         }
 
-        public CBCentralManager Central
-        {
-            get { return _central; }
-        }
-
-        public bool IsConnecting { get; private set; }
-
+        public CBCentralManager Central { get; }
+        
         /// <summary>
         ///     Registry used to store device instances for pending operations : disconnect
         ///     Helps to detect connection lost events
@@ -154,22 +149,13 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
         public event EventHandler<DeviceConnectionEventArgs> DeviceConnectionError = delegate { };
         public event EventHandler ScanTimeoutElapsed = delegate { };
 
-        public bool IsScanning
-        {
-            get { return _isScanning; }
-        }
+        public bool IsScanning => _isScanning;
 
         public int ScanTimeout { get; set; }
 
-        public IList<IDevice> DiscoveredDevices
-        {
-            get { return _discoveredDevices; }
-        }
+        public IList<IDevice> DiscoveredDevices { get; private set; } = new List<IDevice>();
 
-        public IList<IDevice> ConnectedDevices
-        {
-            get { return DeviceConnectionRegistry.Values.ToList(); }
-        }
+        public IList<IDevice> ConnectedDevices => DeviceConnectionRegistry.Values.ToList();
 
         public void StartScanningForDevices()
         {
@@ -180,7 +166,7 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
         {
             if (_isScanning)
             {
-                Mvx.Trace("Adapter: Already scanning!");
+                Trace.Message("Adapter: Already scanning!");
                 return;
             }
 
@@ -194,24 +180,24 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
                 // Wait for the PoweredOn state
                 await WaitForState(CBCentralManagerState.PoweredOn, _cancellationTokenSource.Token).ConfigureAwait(false);
 
-                Mvx.Trace("Adapter: Starting a scan for devices.");
+                Trace.Message("Adapter: Starting a scan for devices.");
 
                 CBUUID[] serviceCbuuids = null;
                 if (serviceUuids != null && serviceUuids.Any())
                 {
                     serviceCbuuids = serviceUuids.Select(u => CBUUID.FromString(u.ToString())).ToArray();
-                    Mvx.Trace("Adapter: Scanning for " + serviceCbuuids.First());
+                    Trace.Message("Adapter: Scanning for " + serviceCbuuids.First());
                 }
 
                 // clear out the list
-                _discoveredDevices = new List<IDevice>();
+                DiscoveredDevices = new List<IDevice>();
 
                 // start scanning
-                _central.ScanForPeripherals(serviceCbuuids);
+                Central.ScanForPeripherals(serviceCbuuids);
 
                 await Task.Delay(ScanTimeout, _cancellationTokenSource.Token);
 
-                Mvx.Trace("Adapter: Scan timeout has elapsed.");
+                Trace.Message("Adapter: Scan timeout has elapsed.");
 
                 StopScan();
 
@@ -223,7 +209,7 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
             }
             catch (TaskCanceledException)
             {
-                Mvx.Trace("Adapter: Scan was cancelled.");
+                Trace.Message("Adapter: Scan was cancelled.");
                 StopScan();
 
                 TryDisposeToken();
@@ -248,7 +234,7 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
             }
             else
             {
-                Mvx.Trace("Adapter: Already cancelled scan.");
+                Trace.Message("Adapter: Already cancelled scan.");
             }
         }
 
@@ -256,7 +242,7 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
         {
             //ToDo autoconnect
             DeviceOperationRegistry[device.ID.ToString()] = device;
-            _central.ConnectPeripheral(device.NativeDevice as CBPeripheral, new PeripheralConnectionOptions());
+            Central.ConnectPeripheral(device.NativeDevice as CBPeripheral, new PeripheralConnectionOptions());
         }
 
         public void CreateBondToDevice(IDevice device)
@@ -269,11 +255,10 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
         {
             // update registry
             DeviceOperationRegistry[device.ID.ToString()] = device;
-            _central.CancelPeripheralConnection(device.NativeDevice as CBPeripheral);
+            Central.CancelPeripheralConnection(device.NativeDevice as CBPeripheral);
         }
 
-        //public event EventHandler<DeviceConnectionEventArgs> DeviceFailedToConnect = delegate { };
-        public event EventHandler ConnectTimeoutElapsed = delegate { };
+
 
         private static Guid ParseDeviceGuid(CBPeripheral peripherial)
         {
@@ -282,9 +267,9 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
 
         private async Task WaitForState(CBCentralManagerState state, CancellationToken cancellationToken)
         {
-            Mvx.Trace("Adapter: Waiting for state: " + state);
+            Trace.Message("Adapter: Waiting for state: " + state);
 
-            while (_central.State != state && !cancellationToken.IsCancellationRequested)
+            while (Central.State != state && !cancellationToken.IsCancellationRequested)
             {
                 await Task.Run(() => _stateChanged.WaitOne(2000), cancellationToken).ConfigureAwait(false);
             }
@@ -292,8 +277,8 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
 
         private void StopScan()
         {
-            _central.StopScan();
-            Mvx.Trace("Adapter: Stopping the scan for devices.");
+            Central.StopScan();
+            Trace.Message("Adapter: Stopping the scan for devices.");
         }
 
         private static bool ContainsDevice(IEnumerable<IDevice> list, CBPeripheral device)
@@ -344,8 +329,7 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
                 }
                 else
                 {
-                    Mvx.TaggedWarning("Parsing Advertisement",
-                        "Ignoring Advertisement entry for key {0}, since we don't know how to parse it yet",
+                    Trace.Message("Parsing Advertisement: Ignoring Advertisement entry for key {0}, since we don't know how to parse it yet",
                         key.ToString());
                 }
             }

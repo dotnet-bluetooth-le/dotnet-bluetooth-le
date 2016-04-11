@@ -1,7 +1,7 @@
 ﻿using System;
 using CoreBluetooth;
 
-namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
+namespace Plugin.BLE.iOS.Bluetooth.LE
 {
     public static class Extensions
     {

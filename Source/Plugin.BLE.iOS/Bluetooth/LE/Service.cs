@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CoreBluetooth;
 using Plugin.BLE.Abstractions.Bluetooth.LE;
 using Plugin.BLE.Abstractions.Contracts;
 
-namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
+namespace Plugin.BLE.iOS.Bluetooth.LE
 {
     public class Service : IService
     {
@@ -22,20 +23,11 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
 
         public event EventHandler CharacteristicsDiscovered = delegate { };
 
-        public Guid ID
-        {
-            get { return NativeService.UUID.GuidFromUuid(); }
-        }
+        public Guid ID => NativeService.UUID.GuidFromUuid();
 
-        public string Name
-        {
-            get { return _name ?? (_name = KnownServices.Lookup(ID).Name); }
-        }
+        public string Name => _name ?? (_name = KnownServices.Lookup(ID).Name);
 
-        public bool IsPrimary
-        {
-            get { return NativeService.Primary; }
-        }
+        public bool IsPrimary => NativeService.Primary;
 
         // TODO: decide how to Interface this, right now it's only in the iOS implementation
         public void DiscoverCharacteristics()
@@ -70,14 +62,7 @@ namespace MvvmCross.Plugins.BLE.iOS.Bluetooth.LE
 
         public ICharacteristic FindCharacteristic(KnownCharacteristic characteristic)
         {
-            foreach (var item in NativeService.Characteristics)
-            {
-                if (item.UUID.GuidFromUuid() == characteristic.ID)
-                {
-                    return new Characteristic(item, ParentDevice);
-                }
-            }
-            return null;
+            return (from item in NativeService.Characteristics where item.UUID.GuidFromUuid() == characteristic.ID select new Characteristic(item, ParentDevice)).FirstOrDefault();
         }
 
         public void OnCharacteristicsDiscovered()
