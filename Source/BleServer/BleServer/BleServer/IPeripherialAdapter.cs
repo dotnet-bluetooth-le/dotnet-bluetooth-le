@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BleServer
 {
     public interface IPeripherialAdapter
     {
         //ToDo configure
-        void StartAdvertising(PeripherialAdvertismentConfig advertismentConfig);
+        Task<bool> StartAdvertisingAsync(PeripherialAdvertismentConfig advertismentConfig);
+
         void StopAdvertising();
 
-        IPeripherialService AddService(PeripherialServiceConfig serviceGuid);
+        void AddService(IPeripherialService serviceGuid);
+
         void RemoveSerivce(IPeripherialService service);
 
         event EventHandler<EventArgs> ClientConnected;
@@ -22,9 +25,10 @@ namespace BleServer
 
     public interface IPeripherialService
     {
-        PeripherialServiceConfig Config { get; }
+        Guid Id { get; }
 
-        IPeripherialCharacteristic AddCharacteristic(PeripherialCharacteristicConfig characteristicGuid);
+        void AddCharacteristic(IPeripherialCharacteristic characteristic);
+
         void RemoveCharacteristic(IPeripherialCharacteristic characteristic);
 
 
@@ -37,13 +41,16 @@ namespace BleServer
 
         byte[] Value { get; }
         void SendNotifyCharacteristicChanged();
-        void SendResponse(PeripherialRequest request, PeripherialResponse response); // status
 
         IPeripherialDescriptor AddDescriptor(Guid descriptorGuid);
 
         event EventHandler<CharacteristicEventArgs> NotificationSent;
         event EventHandler<CharacteristicRequestEventArgs> CharacteristicReadRequest;
         event EventHandler<CharacteristicRequestEventArgs> CharacteristicWriteRequest;
+
+
+        PeripherialResponse OnReadRequest(PeripherialRequest request);
+        PeripherialResponse OnWriteRequest(PeripherialRequest request);
     }
 
     public class PeripherialResponse
