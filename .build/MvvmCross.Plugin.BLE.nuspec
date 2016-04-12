@@ -1,0 +1,48 @@
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>MvvmCross.Plugin.BLE</id>
+    <version>0.9.4</version>
+    <title>MvvmCross - BLE Plugin</title>
+    <authors>xabre, smstube</authors>
+    <owners>xabre, smstube</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>https://github.com/xabre/MvvmCross-BluetoothLE/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This package contains a 'BLE' plugin for MvvmCross. It offers cross platform functionality for handling BLE. The core of this plugin is based on the concept from Xamarin - Monkey.Robotics and adds several features, improvements and fixes. It only targets iOS and Android.</description>
+    <tags>mvvm mvvmcross xamarin monodroid Xamarin.iOS Bluetooth BLE LE Smart</tags>
+    <iconUrl>https://camo.githubusercontent.com/0115ee0a728ae7d84747c8d72c82d32630aa217e/68747470733a2f2f7261772e6769746875622e636f6d2f78616272652f4d76766d43726f73732d426c7565746f6f74684c452f6d61737465722f69636f6e5f736d616c6c2e706e67</iconUrl>
+    <dependencies>
+      <group targetFramework="MonoAndroid">
+        <dependency id="MvvmCross.Platform" version="4.1.0" />
+        <dependency id="Newtonsoft.Json" version="8.0.2" />
+      </group>
+      <group targetFramework="Xamarin.iOS">
+        <dependency id="MvvmCross.Platform" version="4.1.0" />
+        <dependency id="Newtonsoft.Json" version="8.0.2" />
+      </group>
+      <group targetFramework="portable-net45+win8+wpa81+wp8">
+        <dependency id="MvvmCross.Platform" version="4.1.0" />
+        <dependency id="Newtonsoft.Json" version="8.0.2" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <!-- src -->
+    <!--
+    <file src="..\Source\MvvmCross.Plugins.BLE\**\*.cs" target="src\MvvmCross.Plugins.BLE" />
+    <file src="..\Source\MvvmCross.Plugins.BLE.Droid\**\*.cs" target="src\MvvmCross.Plugins.BLE.Droid" />
+    <file src="..\Source\MvvmCross.Plugins.BLE.iOS\**\*.cs" target="src\MvvmCross.Plugins.BLE.iOS" />-->
+   
+    <!-- PCL -->
+    <file src="mvx\pcl\MvvmCross.Plugins.BLE.*" target="lib\portable-win+net45+wp8+win8+wpa81" />
+
+    <!-- droid -->
+    <file src="mvx\android\MvvmCross.Plugins.BLE.*" target="lib\MonoAndroid" />
+    <file src="mvx\android\MvvmCross.Plugins.BLE.Droid.*" target="lib\MonoAndroid" />
+    <file src="mvx\android\BlePluginBootstrap.cs.pp" target="content\MonoAndroid\Bootstrap\BlePluginBootstrap.cs.pp" />
+    <!-- iOS -->
+    <file src="mvx\ios\MvvmCross.Plugins.BLE.*" target="lib\Xamarin.iOS10" />
+    <file src="mvx\ios\MvvmCross.Plugins.BLE.iOS.*" target="lib\Xamarin.iOS10" />
+    <file src="mvx\ios\BlePluginBootstrap.cs.pp" target="content\Xamarin.iOS10\Bootstrap\BlePluginBootstrap.cs.pp" />
+  </files>
+</package>

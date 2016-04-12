@@ -22,6 +22,9 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
+.build/out/
+FAKE*
+.fake/
 
 # Visual Studo 2015 cache/options directory
 .vs/
