@@ -1,0 +1,40 @@
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Xam.Plugin.BLE</id>
+    <version>0.9.4</version>
+    <title>BLE Plugin for Xamarin</title>
+    <authors>xabre, smstube</authors>
+    <owners>xabre, smstube</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>https://github.com/xabre/MvvmCross-BluetoothLE/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+      Xamarin plugin to access Bluetooth Low Energy functionality on Android and iOS.
+      Read the full documentation on the projects page.
+    </description>
+    <tags>xamarin monodroid Xamarin.iOS Bluetooth BLE LE Smart xamarin.forms</tags>
+    <iconUrl>https://camo.githubusercontent.com/0115ee0a728ae7d84747c8d72c82d32630aa217e/68747470733a2f2f7261772e6769746875622e636f6d2f78616272652f4d76766d43726f73732d426c7565746f6f74684c452f6d61737465722f69636f6e5f736d616c6c2e706e67</iconUrl>
+    <dependencies>
+      <group targetFramework="MonoAndroid">
+        <dependency id="Newtonsoft.Json" version="8.0.3" />
+      </group>
+      <group targetFramework="Xamarin.iOS">
+        <dependency id="Newtonsoft.Json" version="8.0.3" />
+      </group>
+      <group targetFramework="portable-net45+win8+wpa81+wp8">
+        <dependency id="Newtonsoft.Json" version="8.0.3" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>   
+    <!-- PCL -->    
+    <file src="pcl\Plugin.BLE.*" target="lib\portable-net45+win8+wpa81+wp8" />
+
+    <!-- droid -->
+    <file src="android\Plugin.BLE.*" target="lib\MonoAndroid" />
+    
+    <!-- iOS -->
+    <file src="ios\Plugin.BLE.*" target="lib\Xamarin.iOS10" />
+        
+  </files>
+</package>

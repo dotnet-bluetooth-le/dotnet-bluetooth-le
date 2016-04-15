@@ -18,7 +18,7 @@ let BuildTargetDir = Path.Combine("out" ,"lib");
 let BootstrapFile = "BlePluginBootstrap.cs.pp"
 let NugetPath =  Path.Combine("..", "Source", ".nuget", "NuGet.exe");
 let ProjectSources = Path.Combine("..", "Source");
-let NuspecFiles = ["MvvmCross.Plugin.BLE.nuspec"] 
+let NuspecFiles = ["Plugin.BLE.nuspec"; "MvvmCross.Plugin.BLE.nuspec"];
 
 let Build (projectName:string, targetSubDir:string) =
     [Path.Combine(ProjectSources, projectName, projectName + ".csproj")]

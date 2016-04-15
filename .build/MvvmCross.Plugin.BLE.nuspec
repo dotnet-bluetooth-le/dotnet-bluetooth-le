@@ -15,14 +15,17 @@
       <group targetFramework="MonoAndroid">
         <dependency id="MvvmCross.Platform" version="4.1.0" />
         <dependency id="Newtonsoft.Json" version="8.0.2" />
+        <dependency id="Xam.Plugin.BLE" version="0.9.4" />
       </group>
       <group targetFramework="Xamarin.iOS">
         <dependency id="MvvmCross.Platform" version="4.1.0" />
         <dependency id="Newtonsoft.Json" version="8.0.2" />
+        <dependency id="Xam.Plugin.BLE" version="0.9.4" />
       </group>
       <group targetFramework="portable-net45+win8+wpa81+wp8">
         <dependency id="MvvmCross.Platform" version="4.1.0" />
         <dependency id="Newtonsoft.Json" version="8.0.2" />
+        <dependency id="Xam.Plugin.BLE" version="0.9.4" />
       </group>
     </dependencies>
   </metadata>
@@ -34,7 +37,7 @@
     <file src="..\Source\MvvmCross.Plugins.BLE.iOS\**\*.cs" target="src\MvvmCross.Plugins.BLE.iOS" />-->
    
     <!-- PCL -->
-    <file src="mvx\pcl\MvvmCross.Plugins.BLE.*" target="lib\portable-win+net45+wp8+win8+wpa81" />
+    <file src="mvx\pcl\MvvmCross.Plugins.BLE.*" target="lib\portable-net45+win8+wpa81+wp8" />
 
     <!-- droid -->
     <file src="mvx\android\MvvmCross.Plugins.BLE.*" target="lib\MonoAndroid" />
