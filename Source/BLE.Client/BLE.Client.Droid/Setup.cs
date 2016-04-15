@@ -17,7 +17,7 @@ namespace BLE.Client.Droid
 
         protected override IMvxApplication CreateApp()
         {
-            return new App();
+            return new BleMvxApplication();
         }
 
         protected override IMvxTrace CreateDebugTrace()

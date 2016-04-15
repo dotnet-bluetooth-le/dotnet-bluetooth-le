@@ -35,7 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="App.cs" />
+    <Compile Include="BleMvxFormsApp.cs" />
+    <Compile Include="BleMvxApplication.cs" />
     <Compile Include="Pages\CharacteristicDetailPage.xaml.cs">
       <DependentUpon>CharacteristicDetailPage.xaml</DependentUpon>
     </Compile>

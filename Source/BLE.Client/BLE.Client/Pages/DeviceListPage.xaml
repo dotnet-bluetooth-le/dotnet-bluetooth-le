@@ -2,7 +2,30 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BLE.Client.Pages.DeviceListPage">
-  <ListView ItemsSource="{Binding Devices}">
-
+  <ListView ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
+            IsPullToRefreshEnabled="True"
+            RefreshCommand="{Binding RefreshCommand}"
+            IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+            RowHeight="80">
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <ViewCell>
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition></ColumnDefinition>
+              <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackLayout Orientation="Vertical" VerticalOptions="Center">
+              <Label Text="{Binding Name}" TextColor="White" FontSize="Large" />
+              <Label Text="{Binding ID, StringFormat='{0}'}" TextColor="Gray" FontSize="Small"/>
+            </StackLayout>
+            <Label Grid.Column="1"
+                   Margin="10"
+                   Text="{Binding Rssi}"
+                   VerticalTextAlignment="Center"></Label>
+          </Grid>
+        </ViewCell>
+      </DataTemplate>
+    </ListView.ItemTemplate>
   </ListView>
 </ContentPage>

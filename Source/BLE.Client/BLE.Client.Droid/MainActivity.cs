@@ -20,11 +20,11 @@ namespace BLE.Client.Droid
             base.OnCreate(bundle);
 
             Forms.Init(this, bundle);
-            var mvxFormsApp = new MvxFormsApp();
-            LoadApplication(mvxFormsApp);
+            var formsApp = new BleMvxFormsApp();
+            LoadApplication(formsApp);
 
             var presenter = (MvxFormsDroidPagePresenter) Mvx.Resolve<IMvxViewPresenter>();
-            presenter.MvxFormsApp = mvxFormsApp;
+            presenter.MvxFormsApp = formsApp;
 
             Mvx.Resolve<IMvxAppStart>().Start();
         }
