@@ -38,10 +38,11 @@ namespace Plugin.BLE.iOS
                 {
                     // iOS caches the peripheral name, so it can become stale (if changing)
                     // keep track of the local name key manually
-                    name = ((NSString)e.AdvertisementData.ValueForKey(CBAdvertisement.DataLocalNameKey)).ToString();
+                    name = ((NSString) e.AdvertisementData.ValueForKey(CBAdvertisement.DataLocalNameKey)).ToString();
                 }
 
-                var device = new Device(e.Peripheral, name, e.RSSI.Int32Value, ParseAdvertismentData(e.AdvertisementData));
+                var device = new Device(e.Peripheral, name, e.RSSI.Int32Value,
+                    ParseAdvertismentData(e.AdvertisementData));
                 HandleDiscoveredDevice(device);
             };
 
@@ -65,7 +66,8 @@ namespace Plugin.BLE.iOS
                 }
 
                 //ToDo use the same instance of the device just update 
-                var d = new Device(e.Peripheral, e.Peripheral.Name, e.Peripheral.RSSI?.Int32Value ?? 0, device?.AdvertisementRecords.ToList() ?? new List<AdvertisementRecord>());
+                var d = new Device(e.Peripheral, e.Peripheral.Name, e.Peripheral.RSSI?.Int32Value ?? 0,
+                    device?.AdvertisementRecords.ToList() ?? new List<AdvertisementRecord>());
 
                 _deviceConnectionRegistry[guid] = d;
 
@@ -97,30 +99,12 @@ namespace Plugin.BLE.iOS
                     _deviceConnectionRegistry.Remove(stringId);
                 }
 
-                if (isNormalDisconnect)
-                {
-                    Trace.Message("DisconnectedPeripheral by user: {0}", e.Peripheral.Name);
-                    DeviceDisconnected(sender, new DeviceConnectionEventArgs { Device = foundDevice });
-                }
-                else
-                {
-                    Trace.Message("DisconnectedPeripheral by lost signal: {0}", e.Peripheral.Name);
-                    DeviceConnectionLost(sender,
-                        new DeviceConnectionEventArgs { Device = foundDevice ?? new Device(e.Peripheral) });
-                }
+                foundDevice = foundDevice ?? new Device(e.Peripheral);
+                HandleDisconnectedDevice(isNormalDisconnect, foundDevice);
             };
 
-            Central.FailedToConnectPeripheral += (sender, e) =>
-            {
-                Trace.Message("Failed to connect peripheral {0}: {1}", e.Peripheral.Identifier,
-                    e.Peripheral.Name);
-                // raise the failed to connect event
-                DeviceConnectionError(this, new DeviceConnectionEventArgs
-                {
-                    Device = new Device(e.Peripheral),
-                    ErrorMessage = e.Error.Description
-                });
-            };
+            Central.FailedToConnectPeripheral +=
+                (sender, e) => HandleConnectionFail(new Device(e.Peripheral), e.Error.Description);
         }
 
         protected override async Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, CancellationToken scanCancellationToken)

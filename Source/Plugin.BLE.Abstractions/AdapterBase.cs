@@ -120,6 +120,30 @@ namespace Plugin.BLE.Abstractions
             DeviceConnected(this, new DeviceConnectionEventArgs { Device = device });
         }
 
+        protected void HandleDisconnectedDevice(bool disconnectRequested, IDevice device)
+        {
+            if (disconnectRequested)
+            {
+                Trace.Message("DisconnectedPeripheral by user: {0}", device.Name);
+                DeviceDisconnected(this, new DeviceConnectionEventArgs { Device = device });
+            }
+            else
+            {
+                Trace.Message("DisconnectedPeripheral by lost signal: {0}", device.Name);
+                DeviceConnectionLost(this, new DeviceConnectionEventArgs { Device = device });
+            }
+        }
+
+        protected void HandleConnectionFail(IDevice device, string errorMessage)
+        {
+            Trace.Message("Failed to connect peripheral {0}: {1}", device.ID, device.Name);
+            DeviceConnectionError(this, new DeviceConnectionEventArgs
+            {
+                Device = device,
+                ErrorMessage = errorMessage
+            });
+        }
+
         protected abstract Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, CancellationToken scanCancellationToken);
         protected abstract void StopScanNative();
         public abstract void ConnectToDevice(IDevice device, bool autoconnect = false);
