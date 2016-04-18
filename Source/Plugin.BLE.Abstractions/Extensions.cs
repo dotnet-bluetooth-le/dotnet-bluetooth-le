@@ -211,7 +211,7 @@ namespace Plugin.BLE.Abstractions
         {
             if (service.Characteristics.Count > 0)
             {
-                return Task.FromResult(service.Characteristics.First(x => x.ID == id));
+                return Task.FromResult(service.Characteristics.First(x => x.Id == id));
             }
 
             var tcs = new TaskCompletionSource<ICharacteristic>();
@@ -221,7 +221,7 @@ namespace Plugin.BLE.Abstractions
                 service.CharacteristicsDiscovered -= h;
                 try
                 {
-                    var s = service.Characteristics.First(x => x.ID == id);
+                    var s = service.Characteristics.First(x => x.Id == id);
                     tcs.TrySetResult(s);
                 }
                 catch (Exception ex)
