@@ -69,7 +69,7 @@ namespace Plugin.BLE.iOS
                         }
 
                         // inform the service that the characteristics have been discovered
-                        // TODO: really, we shoul just be using a notifying collection.
+                        // TODO: really, we should just be using a notifying collection.
                         ((Service)item).OnCharacteristicsDiscovered();
                     }
                 }
@@ -94,7 +94,7 @@ namespace Plugin.BLE.iOS
                 // shouldn't be null, but sometimes it is. le sigh, apple.
                 if (_nativeDevice.Services == null)
                 {
-                    // TODO: return? really? Will the Task end?
+                    // TODO: review: return? really? Will the Task end?
                     return;
                 }
 
