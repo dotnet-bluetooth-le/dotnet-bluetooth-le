@@ -69,7 +69,7 @@
         SimplePairingRandomizer = 0x0F,
 
         /// <summary>
-        /// «Device ID»	Device ID Profile v1.3 or later,«Security Manager TK Value»
+        /// «Device Id»	Device Id Profile v1.3 or later,«Security Manager TK Value»
         /// Bluetooth Core Specification:
         /// </summary>
         DeviceId = 0x10,

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using CoreBluetooth;
+using Foundation;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 
@@ -9,12 +11,9 @@ namespace Plugin.BLE.iOS
 {
     public class Device : DeviceBase
     {
-        private readonly List<AdvertisementRecord> _advertisementRecords;
-
         private readonly CBPeripheral _nativeDevice;
-        private int _rssi;
-        private readonly IList<IService> _services = new List<IService>();
-        private string _name;
+
+        public override object NativeDevice => _nativeDevice;
 
         public Device(CBPeripheral nativeDevice)
             : this(nativeDevice, nativeDevice.Name, nativeDevice.RSSI?.Int32Value ?? 0,
@@ -22,73 +21,19 @@ namespace Plugin.BLE.iOS
         {
         }
 
-
         public Device(CBPeripheral nativeDevice, string name, int rssi, List<AdvertisementRecord> advertisementRecords)
         {
             _nativeDevice = nativeDevice;
-            _name = name;
-            _rssi = rssi;
-            _advertisementRecords = advertisementRecords;
+            Id = Guid.ParseExact(_nativeDevice.Identifier.AsString(), "d");
+            Name = name;
+
+            Rssi = rssi;
+            AdvertisementRecords = advertisementRecords;
 
             _nativeDevice.UpdatedName += (sender, e) =>
             {
-                _name = ((CBPeripheral)sender).Name;
-                Trace.Message("Device changed name: {0}", _name);
-            };
-
-            _nativeDevice.DiscoveredService += (sender, e) =>
-            {
-                if (e.Error != null)
-                {
-                    Trace.Message("Error while discovering services {0}", e.Error.LocalizedDescription);
-                    //ToDo maybe do more
-                }
-
-                // why we have to do this check is beyond me. if a service has been discovered, the collection
-                // shouldn't be null, but sometimes it is. le sigh, apple.
-                if (_nativeDevice.Services == null)
-                {
-                    return;
-                }
-
-                foreach (var s in _nativeDevice.Services)
-                {
-                    Trace.Message("Device.Discovered Service: " + s.Description);
-                    if (!ServiceExists(s))
-                    {
-                        _services.Add(new Service(s, _nativeDevice));
-                    }
-                }
-
-                RaiseServicesDiscovered(new ServicesDiscoveredEventArgs());
-            };
-
-            _nativeDevice.RssiRead += (sender, args) =>
-            {
-                if (args.Error == null)
-                {
-                    _rssi = args.Rssi?.Int32Value ?? 0;
-                    RaiseRssiRead(new RssiReadEventArgs() { Rssi = _rssi });
-                }
-                else
-                {
-                    Trace.Message("Error while reading RSSI {0}", args.Error.LocalizedDescription);
-                    RaiseRssiRead(new RssiReadEventArgs() { Error = new Exception(args.Error.LocalizedDescription) });
-                }
-            };
-
-            //ToDo not sure what this does
-            _nativeDevice.RssiUpdated += (sender, args) =>
-            {
-                if (args.Error != null)
-                {
-                    Trace.Message("Error while reading RSSI {0}", args.Error.LocalizedDescription);
-                    RaiseRssiRead(new RssiReadEventArgs() { Error = new Exception(args.Error.LocalizedDescription) });
-                }
-                else
-                {
-                    RaiseRssiRead(new RssiReadEventArgs() { Rssi = _rssi });
-                }
+                Name = ((CBPeripheral)sender).Name;
+                Trace.Message("Device changed name: {0}", Name);
             };
 
 #if __UNIFIED__
@@ -108,8 +53,10 @@ namespace Plugin.BLE.iOS
                     {
                         continue;
                     }
+
+                    var services = GetServicesAsync().Result; // TODO: .Result just for this refactoring step
                     // locate the our new service
-                    foreach (var item in Services.Where(item => item.ID == srv.UUID.GuidFromUuid()))
+                    foreach (var item in services.Where(item => item.ID == srv.UUID.GuidFromUuid()))
                     {
                         item.Characteristics.Clear();
 
@@ -129,49 +76,74 @@ namespace Plugin.BLE.iOS
             };
         }
 
-        // TODO: not sure if this is right. hell, not even sure if a 
-        // device should have a UDDI. iOS BLE peripherals do, though.
-        // need to look at the BLE Spec
-        public override Guid ID => Guid.ParseExact(_nativeDevice.Identifier.AsString(), "d");
-
-        public override string Name => _name;
-
-        public override int Rssi => _rssi;
-
-        public override object NativeDevice => _nativeDevice;
-
-        //ToDo maybe make this more elegant
-        public override byte[] AdvertisementData
+        protected override async Task<IEnumerable<IService>> GetServicesNativeAsync()
         {
-            get { throw new NotImplementedException("iOS does not allow raw scan data. Please use AdvertisementRecords"); }
+            var tcs = new TaskCompletionSource<IEnumerable<IService>>();
+            EventHandler<NSErrorEventArgs> handler = null;
+
+            handler = (sender, args) =>
+            {
+                _nativeDevice.DiscoveredService -= handler;
+
+                if (args.Error != null)
+                {
+                    Trace.Message("Error while discovering services {0}", args.Error.LocalizedDescription);
+                }
+
+                // why we have to do this check is beyond me. if a service has been discovered, the collection
+                // shouldn't be null, but sometimes it is. le sigh, apple.
+                if (_nativeDevice.Services == null)
+                {
+                    // TODO: return? really? Will the Task end?
+                    return;
+                }
+
+                var services = new Dictionary<CBUUID, IService>();
+                foreach (var s in _nativeDevice.Services)
+                {
+                    Trace.Message("Device.Discovered Service: " + s.Description);
+                    services[s.UUID] = new Service(s, _nativeDevice);
+                }
+
+                tcs.TrySetResult(services.Values);
+            };
+
+            _nativeDevice.DiscoveredService += handler;
+            _nativeDevice.DiscoverServices();
+
+            return await tcs.Task;
         }
 
-        public override IList<AdvertisementRecord> AdvertisementRecords => _advertisementRecords;
+        public override async Task<bool> UpdateRssiAsync()
+        {
+            var tcs = new TaskCompletionSource<bool>();
+            EventHandler<CBRssiEventArgs> handler = null;
+
+            handler = (sender, args) =>
+            {
+                Trace.Message("Read RSSI async for {0} {1}: {2}", Id, Name, args.Rssi);
+
+                _nativeDevice.RssiRead -= handler;
+                var success = args.Error == null;
+
+                if (success)
+                {
+                    Rssi = args.Rssi?.Int32Value ?? 0;
+                }
+
+                tcs.TrySetResult(success);
+            };
+
+            _nativeDevice.RssiRead += handler;
+            _nativeDevice.ReadRSSI();
+
+            return await tcs.Task;
+        }
 
         // TODO: investigate the validity of this. Android API seems to indicate that the
         // bond state is available, rather than the connected state, which are two different 
         // things. you can be bonded but not connected.
-        public override DeviceState State => GetState();
-
-        public override IList<IService> Services => _services;
-
-        #region public methods
-
-        public override void DiscoverServices()
-        {
-            _nativeDevice.DiscoverServices();
-        }
-
-        public override void ReadRssi()
-        {
-            _nativeDevice.ReadRSSI();
-        }
-
-        #endregion
-
-        #region internal methods
-
-        protected DeviceState GetState()
+        protected override DeviceState GetState()
         {
             switch (_nativeDevice.State)
             {
@@ -187,12 +159,5 @@ namespace Plugin.BLE.iOS
                     return DeviceState.Disconnected;
             }
         }
-
-        protected bool ServiceExists(CBService service)
-        {
-            return _services.Any(s => s.ID == service.UUID.GuidFromUuid());
-        }
-
-        #endregion
     }
 }

@@ -30,7 +30,7 @@ namespace Plugin.BLE.iOS
 
             Central.DiscoveredPeripheral += (sender, e) =>
             {
-                Trace.Message("DiscoveredPeripheral: {0}, ID: {1}", e.Peripheral.Name, e.Peripheral.Identifier);
+                Trace.Message("DiscoveredPeripheral: {0}, Id: {1}", e.Peripheral.Name, e.Peripheral.Identifier);
                 var name = e.Peripheral.Name;
                 if (e.AdvertisementData.ContainsKey(CBAdvertisement.DataLocalNameKey))
                 {
@@ -240,7 +240,7 @@ namespace Plugin.BLE.iOS
         public void ConnectToDevice(IDevice device, bool autoconnect)
         {
             //ToDo autoconnect
-            DeviceOperationRegistry[device.ID.ToString()] = device;
+            DeviceOperationRegistry[device.Id.ToString()] = device;
             Central.ConnectPeripheral(device.NativeDevice as CBPeripheral, new PeripheralConnectionOptions());
         }
 
@@ -253,7 +253,7 @@ namespace Plugin.BLE.iOS
         public void DisconnectDevice(IDevice device)
         {
             // update registry
-            DeviceOperationRegistry[device.ID.ToString()] = device;
+            DeviceOperationRegistry[device.Id.ToString()] = device;
             Central.CancelPeripheralConnection(device.NativeDevice as CBPeripheral);
         }
 
@@ -282,7 +282,7 @@ namespace Plugin.BLE.iOS
 
         private static bool ContainsDevice(IEnumerable<IDevice> list, CBPeripheral device)
         {
-            return list.Any(d => Guid.ParseExact(device.Identifier.AsString(), "d") == d.ID);
+            return list.Any(d => Guid.ParseExact(device.Identifier.AsString(), "d") == d.Id);
         }
 
         public static List<AdvertisementRecord> ParseAdvertismentData(NSDictionary advertisementData)

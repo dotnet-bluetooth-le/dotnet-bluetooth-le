@@ -157,7 +157,7 @@ namespace Plugin.BLE.Android
                 else
                 {
 
-                    Trace.Message("Adapter >=21: Starting a scan for devices with service ID {0}.", serviceUuids.First());
+                    Trace.Message("Adapter >=21: Starting a scan for devices with service Id {0}.", serviceUuids.First());
 
                     var scanFilters = new List<ScanFilter>();
                     foreach (var serviceUuid in serviceUuids)

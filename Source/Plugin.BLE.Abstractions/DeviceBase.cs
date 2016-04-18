@@ -1,63 +1,44 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Plugin.BLE.Abstractions.Contracts;
 
 namespace Plugin.BLE.Abstractions
 {
     public abstract class DeviceBase : IDevice
     {
-        public event EventHandler<ServicesDiscoveredEventArgs> ServicesDiscovered;
-        public event EventHandler<RssiReadEventArgs> RssiRead;
+        private readonly List<IService> _knownServices = new List<IService>();
 
-        public virtual Guid ID
+        public Guid Id { get; protected set; }
+        public string Name { get; protected set; }
+        public int Rssi { get; protected set; }
+        public DeviceState State => GetState();
+        public IList<AdvertisementRecord> AdvertisementRecords { get; protected set; }
+
+        public abstract object NativeDevice { get; }
+
+        public async Task<IList<IService>> GetServicesAsync()
         {
-            get { throw new NotImplementedException(); }
+            if (!_knownServices.Any())
+            {
+                _knownServices.AddRange(await GetServicesNativeAsync());
+            }
+
+            return _knownServices;
         }
 
-        public virtual string Name
+        public async Task<IService> GetServiceAsync(Guid id)
         {
-            get { throw new NotImplementedException(); }
+            // TODO: clarify First or FirstOrDefault? 
+            var services = await GetServicesAsync();
+            return services.FirstOrDefault(x => x.ID == id);
         }
 
-        public virtual int Rssi
-        {
-            get { throw new NotImplementedException(); }
-        }
+        public abstract Task<bool> UpdateRssiAsync();
 
-        public virtual DeviceState State
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public virtual object NativeDevice
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public virtual byte[] AdvertisementData
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public virtual IList<AdvertisementRecord> AdvertisementRecords
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public virtual IList<IService> Services
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public virtual void DiscoverServices()
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual void ReadRssi()
-        {
-            throw new NotImplementedException();
-        }
+        protected abstract DeviceState GetState();
+        protected abstract Task<IEnumerable<IService>> GetServicesNativeAsync();
 
         public override string ToString()
         {
@@ -79,21 +60,14 @@ namespace Plugin.BLE.Abstractions
             }
 
             var otherDeviceBase = (DeviceBase)other;
-            return ID == otherDeviceBase.ID;
+            return Id == otherDeviceBase.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
         }
 
         #endregion
-
-        protected virtual void RaiseServicesDiscovered(ServicesDiscoveredEventArgs args)
-        {
-            if (ServicesDiscovered != null)
-                ServicesDiscovered(this, args);
-        }
-
-        protected virtual void RaiseRssiRead(RssiReadEventArgs args)
-        {
-            if (RssiRead != null)
-                RssiRead(this, args);
-        }
     }
 }

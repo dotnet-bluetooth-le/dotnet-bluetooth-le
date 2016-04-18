@@ -1,22 +1,25 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Plugin.BLE.Abstractions.Contracts
 {
     public interface IDevice
     {
-        event EventHandler<ServicesDiscoveredEventArgs> ServicesDiscovered;
-        event EventHandler<RssiReadEventArgs> RssiRead;
+        /// <summary>
+        /// Id of the device.
+        /// </summary>
+        Guid Id { get; }
 
-        //TODO: should this be string or GUID? i think for our purposes, UUID on both plats
-        // is fine as a GUID
-        Guid ID { get; }
+        /// <summary>
+        /// Advertised Name of the Device.
+        /// </summary>
         string Name { get; }
 
         /// <summary>
-        /// Gets the Received Signal Strenth Indicator (RSSI).
+        /// Last known rssi value in decibals.
+        /// Can be updated via <see cref="UpdateRssiAsync"/>.
         /// </summary>
-        /// <value>The RSSI in decibals.</value>
         int Rssi { get; }
 
         /// <summary>
@@ -29,11 +32,6 @@ namespace Plugin.BLE.Abstractions.Contracts
         DeviceState State { get; }
 
         /// <summary>
-        /// Advertisment record raw data (Android only)
-        /// </summary>
-        byte[] AdvertisementData { get; }
-
-        /// <summary>
         /// All the advertisment records
         /// For example:
         /// - Advertised Service UUIDS
@@ -43,12 +41,24 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// </summary>
         IList<AdvertisementRecord> AdvertisementRecords { get; }
 
+        /// <summary>
+        /// Gets all services of the device.
+        /// </summary>
+        /// <returns></returns>
+        Task<IList<IService>> GetServicesAsync();
 
-        //static IDevice FromNativeDevice (object nativeDevice);
+        /// <summary>
+        /// Gets a 
+        /// </summary>
+        /// <param name="id">The id of the searched service.</param>
+        /// <returns>TODO: decide if we return null or throw exception.</returns>
+        Task<IService> GetServiceAsync(Guid id);
 
-        IList<IService> Services { get; }
-        void DiscoverServices();
-        void ReadRssi();
+        /// <summary>
+        /// Updates the rssi value.
+        /// </summary>
+        /// <returns></returns>
+        Task<bool> UpdateRssiAsync();
     }
 }
 

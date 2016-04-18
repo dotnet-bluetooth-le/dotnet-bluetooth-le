@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Android.App;
 using Android.Bluetooth;
 using Android.Content;
@@ -19,6 +20,7 @@ namespace Plugin.BLE.Android
         /// TODO: consider wrapping the Gatt and Callback into a single object and passing that around instead.
         /// </summary>
         private BluetoothGatt _gatt;
+
         /// <summary>
         /// we also track this because of gogole's weird API. the gatt callback is where
         /// we'll get notified when services are enumerated
@@ -28,80 +30,42 @@ namespace Plugin.BLE.Android
         public Device(BluetoothDevice nativeDevice, BluetoothGatt gatt, IGattCallback gattCallback, int rssi, byte[] advertisementData = null)
         {
             Update(nativeDevice, gatt, gattCallback);
-            _rssi = rssi;
-
-            AdvertisementData = advertisementData ?? new byte[0];
+            Rssi = rssi;
+            AdvertisementRecords = ParseScanRecord(advertisementData);
         }
 
-        public void Update(BluetoothDevice nativeDevice, BluetoothGatt gatt,
-            IGattCallback gattCallback)
+        public void Update(BluetoothDevice nativeDevice, BluetoothGatt gatt, IGattCallback gattCallback)
         {
             _nativeDevice = nativeDevice;
             _gatt = gatt;
             _gattCallback = gattCallback;
+
+            Id = ParseDeviceId();
+            Name = _nativeDevice.Name;
         }
-
-        public void OnServicesDiscovered(object sender, ServicesDiscoveredEventArgs args)
-        {
-            if (_gatt != null)
-            {
-                _services = _gatt.Services.Select(service => new Service(service, _gatt, _gattCallback)).ToList<IService>();
-            }
-
-            _gattCallback.ServicesDiscovered -= OnServicesDiscovered;
-
-            RaiseServicesDiscovered(args);
-        }
-
-        public override Guid ID
-        {
-            get
-            {
-                //TODO: verify - fix from Evolve player
-                var deviceGuid = new byte[16];
-                var macWithoutColons = _nativeDevice.Address.Replace(":", "");
-                var macBytes = Enumerable.Range(0, macWithoutColons.Length)
-                    .Where(x => x % 2 == 0)
-                    .Select(x => Convert.ToByte(macWithoutColons.Substring(x, 2), 16))
-                    .ToArray();
-                macBytes.CopyTo(deviceGuid, 10);
-                return new Guid(deviceGuid);
-            }
-        }
-
-        public override string Name => _nativeDevice.Name;
-
-        public override int Rssi => _rssi;
-        private int _rssi;
 
         public override object NativeDevice => _nativeDevice;
 
-        public override byte[] AdvertisementData { get; }
-
-        public override IList<AdvertisementRecord> AdvertisementRecords => ParseScanRecord(AdvertisementData);
-
-        // TODO: investigate the validity of this. Android API seems to indicate that the
-        // bond state is available, rather than the connected state, which are two different 
-        // things. you can be bonded but not connected.
-        public override DeviceState State => GetState();
-
-        //TODO: strongly type IService here
-        public override IList<IService> Services => _services;
-        private IList<IService> _services = new List<IService>();
-
-        #region public methods
-
-        public override void DiscoverServices()
+        protected override async Task<IEnumerable<IService>> GetServicesNativeAsync()
         {
             if (_gattCallback == null || _gatt == null)
             {
-                return;
+                return Enumerable.Empty<IService>();
             }
 
-            Trace.Message("...Discover services");
+            var tcs = new TaskCompletionSource<IEnumerable<IService>>();
+            EventHandler<ServicesDiscoveredEventArgs> handler = null;
 
-            _gattCallback.ServicesDiscovered += OnServicesDiscovered;
+            handler = (sender, args) =>
+            {
+                _gattCallback.ServicesDiscovered -= handler;
+                tcs.TrySetResult(_gatt.Services.Select(service => new Service(service, _gatt, _gattCallback)));
+            };
+
+            _gattCallback.ServicesDiscovered += handler;
             _gatt.DiscoverServices();
+
+            return await tcs.Task;
         }
 
         // First step
@@ -109,8 +73,8 @@ namespace Plugin.BLE.Android
         {
             if (_gatt != null)
             {
-                //clear cached services
-                _services.Clear();
+                //TODO: clear cached services
+                //_services.Clear();
 
                 _gatt.Disconnect();
             }
@@ -135,11 +99,10 @@ namespace Plugin.BLE.Android
 
         }
 
-        #endregion
-
-        #region internal methods
-
-        protected DeviceState GetState()
+        // TODO: investigate the validity of this. Android API seems to indicate that the
+        // bond state is available, rather than the connected state, which are two different 
+        // things. you can be bonded but not connected.
+        protected override DeviceState GetState()
         {
             var manager = (BluetoothManager)Application.Context.GetSystemService(Context.BluetoothService);
             var state = manager.GetConnectionState(_nativeDevice, ProfileType.Gatt);
@@ -158,7 +121,18 @@ namespace Plugin.BLE.Android
                     return DeviceState.Disconnected;
             }
         }
-        #endregion
+
+        private Guid ParseDeviceId()
+        {
+            var deviceGuid = new byte[16];
+            var macWithoutColons = _nativeDevice.Address.Replace(":", "");
+            var macBytes = Enumerable.Range(0, macWithoutColons.Length)
+                .Where(x => x % 2 == 0)
+                .Select(x => Convert.ToByte(macWithoutColons.Substring(x, 2), 16))
+                .ToArray();
+            macBytes.CopyTo(deviceGuid, 10);
+            return new Guid(deviceGuid);
+        }
 
         public static List<AdvertisementRecord> ParseScanRecord(byte[] scanRecord)
         {
@@ -221,25 +195,30 @@ namespace Plugin.BLE.Android
             return records;
         }
 
-        #region RSSI
-
-        public override void ReadRssi()
+        public override async Task<bool> UpdateRssiAsync()
         {
-            _gattCallback.RemoteRssiRead += OnRemoteRssiRead;
-            _gatt.ReadRemoteRssi();
-        }
+            var tcs = new TaskCompletionSource<bool>();
+            EventHandler<RssiReadEventArgs> handler = null;
 
-        private void OnRemoteRssiRead(object sender, RssiReadEventArgs e)
-        {
-            _gattCallback.RemoteRssiRead -= OnRemoteRssiRead;
-            if (e.Error == null)
+            handler = (sender, args) =>
             {
-                _rssi = e.Rssi;
-            }
+                Trace.Message("Read RSSI async for {0} {1}: {2}", Id, Name, args.Rssi);
+                _gattCallback.RemoteRssiRead -= handler;
 
-            RaiseRssiRead(e);
+                var success = args.Error == null;
+                if (success)
+                {
+                    Rssi = args.Rssi;
+                }
+
+                tcs.TrySetResult(success);
+            };
+
+            _gattCallback.RemoteRssiRead += handler;
+            _gatt.ReadRemoteRssi();
+
+            return await tcs.Task;
         }
-        #endregion
     }
 }
 

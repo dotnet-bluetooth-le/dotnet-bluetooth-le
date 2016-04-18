@@ -47,9 +47,9 @@ namespace Plugin.BLE.Abstractions
 
         public static Task<IDevice> DiscoverSpecificDeviceAsync(this IAdapter adapter, Guid deviceID, Guid serviceID)
         {
-            if (adapter.DiscoveredDevices.Count(d => d.ID == deviceID) > 0)
+            if (adapter.DiscoveredDevices.Count(d => d.Id == deviceID) > 0)
             {
-                return Task.FromResult(adapter.DiscoveredDevices.First(d => d.ID == deviceID));
+                return Task.FromResult(adapter.DiscoveredDevices.First(d => d.Id == deviceID));
             }
 
             var tcs = new TaskCompletionSource<IDevice>();
@@ -58,7 +58,7 @@ namespace Plugin.BLE.Abstractions
 
             hd = (object sender, DeviceDiscoveredEventArgs e) =>
                 {
-                    if (e.Device.ID == deviceID)
+                    if (e.Device.Id == deviceID)
                     {
                         adapter.StopScanningForDevices();
                         adapter.DeviceDiscovered -= hd;
@@ -107,8 +107,8 @@ namespace Plugin.BLE.Abstractions
 
             h = (sender, e) =>
             {
-                //Mvx.TaggedTrace("ConnectAsync", "Connected: {0} {1}", e.Device.ID, e.Device.Name);
-                if (e.Device.ID == device.ID)
+                //Mvx.TaggedTrace("ConnectAsync", "Connected: {0} {1}", e.Device.Id, e.Device.Name);
+                if (e.Device.Id == device.Id)
                 {
                     adapter.DeviceConnected -= h;
                     adapter.DeviceConnectionError -= he;
@@ -118,11 +118,11 @@ namespace Plugin.BLE.Abstractions
 
             he = (sender, e) =>
             {
-                // Would be nice to use C#6.0 null-conditional operators like e.Device?.ID
+                // Would be nice to use C#6.0 null-conditional operators like e.Device?.Id
                 //Mvx.TaggedWarning("ConnectAsync", "Connection Error: {0} {1}",
-                //    (e.Device != null ? e.Device.ID.ToString() : ""),
+                //    (e.Device != null ? e.Device.Id.ToString() : ""),
                 //    (e.Device != null ? e.Device.Name : ""));
-                if (e.Device.ID == device.ID)
+                if (e.Device.Id == device.Id)
                 {
                     adapter.DeviceConnectionError -= he;
                     adapter.DeviceConnected -= h;
@@ -152,8 +152,8 @@ namespace Plugin.BLE.Abstractions
 
             h = (sender, e) =>
             {
-                //Mvx.TaggedTrace("DisconnectAsync", "Disconnected: {0} {1}", e.Device.ID, e.Device.Name);
-                if (e.Device.ID == device.ID)
+                //Mvx.TaggedTrace("DisconnectAsync", "Disconnected: {0} {1}", e.Device.Id, e.Device.Name);
+                if (e.Device.Id == device.Id)
                 {
                     adapter.DeviceDisconnected -= h;
                     adapter.DeviceConnectionError -= he;
@@ -163,11 +163,11 @@ namespace Plugin.BLE.Abstractions
 
             he = (sender, e) =>
                 {
-                    // Would be nice to use C#6.0 null-conditional operators like e.Device?.ID
+                    // Would be nice to use C#6.0 null-conditional operators like e.Device?.Id
                     //Mvx.TaggedWarning("DisconnectAsync", "Disconnect Error: {0} {1}",
-                    //    (e.Device != null ? e.Device.ID.ToString() : ""),
+                    //    (e.Device != null ? e.Device.Id.ToString() : ""),
                     //    (e.Device != null ? e.Device.Name : ""));
-                    if (e.Device.ID == device.ID)
+                    if (e.Device.Id == device.Id)
                     {
                         adapter.DeviceConnectionError -= he;
                         adapter.DeviceDisconnected -= h;
@@ -190,8 +190,8 @@ namespace Plugin.BLE.Abstractions
             EventHandler<DeviceBondStateChangedEventArgs> h = null;
             h = (sender, e) =>
             {
-                //Debug.WriteLine("Bonded: " + e.Device.ID + " " + e.Device.State);
-                if (e.Device.ID == device.ID && e.State == DeviceBondState.Bonded)
+                //Debug.WriteLine("Bonded: " + e.Device.Id + " " + e.Device.State);
+                if (e.Device.Id == device.Id && e.State == DeviceBondState.Bonded)
                 {
                     adapter.DeviceBondStateChanged -= h;
                     tcs.TrySetResult(e.State);
@@ -200,44 +200,6 @@ namespace Plugin.BLE.Abstractions
             adapter.DeviceBondStateChanged += h;
 
             adapter.CreateBondToDevice(device);
-
-            return tcs.Task;
-        }
-
-        /// <summary>
-        /// Asynchronously gets the requested service
-        /// </summary>
-        public static Task<IService> GetServiceAsync(this IDevice device, Guid id)
-        {
-            if (device.Services.Count > 0)
-            {
-                return Task.FromResult(device.Services.First(x => x.ID == id));
-            }
-
-            var tcs = new TaskCompletionSource<IService>();
-            EventHandler<ServicesDiscoveredEventArgs> h = null;
-            h = (sender, e) =>
-            {
-                device.ServicesDiscovered -= h;
-                try
-                {
-                    var s = device.Services.First(x => x.ID == id);
-                    tcs.TrySetResult(s);
-                }
-                catch (Exception ex)
-                {
-                    tcs.TrySetException(ex);
-                }
-            };
-            device.ServicesDiscovered += h;
-            try
-            {
-                device.DiscoverServices();
-            }
-            catch (Exception e)
-            {
-                tcs.TrySetException(e);
-            }
 
             return tcs.Task;
         }
@@ -276,32 +238,6 @@ namespace Plugin.BLE.Abstractions
         public static string ToHexString(this byte[] bytes)
         {
             return bytes != null ? BitConverter.ToString(bytes) : string.Empty;
-        }
-
-        /// <summary>
-        /// Asynchronously reads the rssi.  
-        /// </summary>
-        /// <param name="device"></param>
-        /// <returns>True if no error occured while reading</returns>
-        public static Task<bool> ReadRssiAsync(this IDevice device)
-        {
-            var tcs = new TaskCompletionSource<bool>();
-            EventHandler<RssiReadEventArgs> h = null;
-
-            h = (sender, args) =>
-            {
-                //Mvx.Trace("Read RSSI async for {0} {1}: {2}",
-                //    device.ID.ToString(), device.Name, device.Rssi);
-
-                device.RssiRead -= h;
-                tcs.TrySetResult(args.Error == null);
-            };
-
-            device.RssiRead += h;
-
-            device.ReadRssi();
-
-            return tcs.Task;
         }
     }
 }
