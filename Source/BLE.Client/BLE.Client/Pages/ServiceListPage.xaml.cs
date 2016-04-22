@@ -2,7 +2,7 @@
 
 namespace BLE.Client.Pages
 {
-    public partial class ServiceListPage : ContentPage
+    public partial class ServiceListPage
     {
         public ServiceListPage()
         {

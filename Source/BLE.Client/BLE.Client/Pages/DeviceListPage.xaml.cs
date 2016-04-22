@@ -2,7 +2,7 @@
 
 namespace BLE.Client.Pages
 {
-    public partial class DeviceListPage : ContentPage
+    public partial class DeviceListPage
     {
         public DeviceListPage()
         {

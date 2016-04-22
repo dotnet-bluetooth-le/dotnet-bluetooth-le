@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BLE.Client.Pages.DeviceListPage">
+             xmlns:pages="clr-namespace:BLE.Client.Pages;assembly=BLE.Client"
+             xmlns:abstractions="clr-namespace:Plugin.BLE.Abstractions;assembly=Plugin.BLE.Abstractions"
+             x:Class="BLE.Client.Pages.DeviceListPage"
+             Title="Discover devices">
   <ListView ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
             IsPullToRefreshEnabled="True"
             RefreshCommand="{Binding RefreshCommand}"
@@ -15,9 +18,16 @@
               <ColumnDefinition></ColumnDefinition>
               <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
+            <Grid.Triggers>
+              <DataTrigger TargetType="Grid"
+                           Binding="{Binding State}"
+                           Value="{x:Static abstractions:DeviceState.Connected}">
+                <Setter Property="BackgroundColor" Value="#1A00FF00"></Setter>
+              </DataTrigger>
+            </Grid.Triggers>
             <StackLayout Orientation="Vertical" VerticalOptions="Center">
               <Label Text="{Binding Name}" TextColor="White" FontSize="Large" />
-              <Label Text="{Binding ID, StringFormat='{0}'}" TextColor="Gray" FontSize="Small"/>
+              <Label Text="{Binding Id, StringFormat='{0}'}" TextColor="Gray" FontSize="Small"/>
             </StackLayout>
             <Label Grid.Column="1"
                    Margin="10"
@@ -28,4 +38,4 @@
       </DataTemplate>
     </ListView.ItemTemplate>
   </ListView>
-</ContentPage>
+</pages:BasePage>
