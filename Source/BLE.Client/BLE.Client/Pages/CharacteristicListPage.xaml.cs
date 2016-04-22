@@ -2,7 +2,7 @@
 
 namespace BLE.Client.Pages
 {
-    public partial class CharacteristicListPage : ContentPage
+    public partial class CharacteristicListPage
     {
         public CharacteristicListPage()
         {

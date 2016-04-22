@@ -1,3 +1,4 @@
+using Acr.UserDialogs;
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
@@ -19,6 +20,7 @@ namespace BLE.Client.Droid
         {
             base.OnCreate(bundle);
 
+            UserDialogs.Init(this);
             Forms.Init(this, bundle);
             var formsApp = new BleMvxFormsApp();
             LoadApplication(formsApp);
