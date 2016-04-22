@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
+using System.Text;
 using Newtonsoft.Json.Linq;
 using Plugin.BLE.Abstractions.Utils;
 
@@ -28,7 +30,7 @@ namespace Plugin.BLE.Abstractions
             if (_items.ContainsKey(id))
                 return _items[id];
             else
-                return new KnownService { Name = "Unknown", ID = Guid.Empty };
+                return new KnownService("Unknown Service", Guid.Empty);
 
         }
 
@@ -40,20 +42,31 @@ namespace Plugin.BLE.Abstractions
             string itemsJson = ResourceLoader.GetEmbeddedResourceString(typeof(KnownServices).GetTypeInfo().Assembly, "KnownServices.json");
             var json = JToken.Parse(itemsJson);
 
+            var builder = new StringBuilder();
             foreach (var item in json.Children())
             {
                 JProperty prop = item as JProperty;
-                service = new KnownService() { Name = prop.Value.ToString(), ID = Guid.ParseExact(prop.Name, "d") };
-                _items.Add(service.ID, service);
+                service = new KnownService(prop.Value.ToString(), Guid.ParseExact(prop.Name, "d"));
+                _items.Add(service.Id, service);
+
+                builder.AppendLine($"new KnownService(\"{service.Name}\", Guid.ParseExact(\"{service.Id}\", \"d\")),");
             }
+
+            Debug.WriteLine(builder.ToString());
         }
 
     }
 
     public struct KnownService
     {
-        public string Name;
-        public Guid ID;
+        public string Name { get; private set; }
+        public Guid Id { get; private set; }
+
+        public KnownService(string name, Guid id)
+        {
+            Name = name;
+            Id = id;
+        }
     }
 
 }
