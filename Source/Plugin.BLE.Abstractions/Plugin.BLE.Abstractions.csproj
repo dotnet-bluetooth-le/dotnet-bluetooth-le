@@ -56,7 +56,6 @@
     <Compile Include="KnownCharacteristics.cs" />
     <Compile Include="KnownDescriptors.cs" />
     <Compile Include="KnownServices.cs" />
-    <Compile Include="LEStream.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RssiReadEventArgs.cs" />
     <Compile Include="ServicesDiscoveredEventArgs.cs" />
