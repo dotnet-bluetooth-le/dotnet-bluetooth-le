@@ -181,7 +181,6 @@
   <ItemGroup>
     <None Include="packages.config" />
     <AndroidResource Include="Resources\layout\SplashScreen.axml" />
-    <AndroidResource Include="Resources\layout\FirstView.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />

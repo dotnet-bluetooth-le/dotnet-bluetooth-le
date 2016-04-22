@@ -54,24 +54,15 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="KnownCharacteristic.cs" />
     <Compile Include="KnownCharacteristics.cs" />
+    <Compile Include="KnownDescriptor.cs" />
     <Compile Include="KnownDescriptors.cs" />
+    <Compile Include="KnownService.cs" />
     <Compile Include="KnownServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RssiReadEventArgs.cs" />
     <Compile Include="ServicesDiscoveredEventArgs.cs" />
     <Compile Include="Trace.cs" />
     <Compile Include="Utils\ResourceLoader.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="KnownDescriptors.json" />
-    <EmbeddedResource Include="KnownServices.json" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\portable-net45+wp80+win8+wpa81+dnxcore50\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

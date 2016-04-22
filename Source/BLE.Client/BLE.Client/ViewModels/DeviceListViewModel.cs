@@ -27,7 +27,6 @@ namespace BLE.Client.ViewModels
             // quick and dirty :>
             Adapter.DeviceDiscovered += OnDeviceDiscovered;
             Adapter.ScanTimeoutElapsed += Adapter_ScanTimeoutElapsed;
-
         }
 
 

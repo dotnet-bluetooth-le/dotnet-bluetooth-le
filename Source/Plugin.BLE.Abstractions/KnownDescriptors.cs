@@ -1,53 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
-using Newtonsoft.Json.Linq;
-using Plugin.BLE.Abstractions.Utils;
+using System.Linq;
 
 namespace Plugin.BLE.Abstractions
 {
-	// Source: https://developer.bluetooth.org/gatt/descriptors/Pages/DescriptorsHomePage.aspx
-	public static class KnownDescriptors
-	{
-		private static Dictionary<Guid, KnownDescriptor> _items;
-		private static object _lock = new object();
+    // Source: https://developer.bluetooth.org/gatt/descriptors/Pages/DescriptorsHomePage.aspx
+    public static class KnownDescriptors
+    {
+        private static readonly Dictionary<Guid, KnownDescriptor> LookupTable;
 
-		static KnownDescriptors ()
-		{
-		}
+        static KnownDescriptors()
+        {
+            LookupTable = Descriptors.ToDictionary(d => d.Id, d => d);
+        }
 
-		public static KnownDescriptor Lookup(Guid id)
-		{
-			lock (_lock) {
-				if (_items == null)
-					LoadItemsFromJson ();
-			}
+        public static KnownDescriptor Lookup(Guid id)
+        {
+            return LookupTable.ContainsKey(id) ? LookupTable[id] : new KnownDescriptor("Unknown descriptor", Guid.Empty);
+        }
 
-			if (_items.ContainsKey (id))
-				return _items [id];
-			else
-				return new KnownDescriptor { Name = "Unknown", ID = Guid.Empty };
-		}
-
-		public static void LoadItemsFromJson()
-		{
-			_items = new Dictionary<Guid, KnownDescriptor> ();
-			//TODO: switch over to DescriptorStack.Text when it gets bound.
-			KnownDescriptor descriptor;
-			string itemsJson = ResourceLoader.GetEmbeddedResourceString (typeof(KnownDescriptors).GetTypeInfo ().Assembly, "KnownDescriptors.json");
-			var json = JToken.Parse (itemsJson);
-			foreach (var item in json.Children() ) {
-				JProperty prop = item as JProperty;
-				descriptor = new KnownDescriptor () { Name = prop.Value.ToString(), ID = Guid.ParseExact (prop.Name, "d") };
-				_items.Add (descriptor.ID, descriptor);
-			}
-		}
-	}
-
-	public struct KnownDescriptor
-	{
-		public string Name;
-		public Guid ID;
-	}
+        private static readonly IList<KnownDescriptor> Descriptors = new List<KnownDescriptor>()
+        {
+            new KnownDescriptor("Characteristic Extended Properties", Guid.ParseExact("00002900-0000-1000-8000-00805f9b34fb", "d")),
+            new KnownDescriptor("Characteristic User Description", Guid.ParseExact("00002901-0000-1000-8000-00805f9b34fb", "d")),
+            new KnownDescriptor("Client Characteristic Configuration", Guid.ParseExact("00002902-0000-1000-8000-00805f9b34fb", "d")),
+            new KnownDescriptor("Server Characteristic Configuration", Guid.ParseExact("00002903-0000-1000-8000-00805f9b34fb", "d")),
+            new KnownDescriptor("Characteristic Presentation Format", Guid.ParseExact("00002904-0000-1000-8000-00805f9b34fb", "d")),
+            new KnownDescriptor("Characteristic Aggregate Format", Guid.ParseExact("00002905-0000-1000-8000-00805f9b34fb", "d")),
+            new KnownDescriptor("Valid Range", Guid.ParseExact("00002906-0000-1000-8000-00805f9b34fb", "d")),
+            new KnownDescriptor("External Report Reference", Guid.ParseExact("00002907-0000-1000-8000-00805f9b34fb", "d")),
+            new KnownDescriptor("Export Reference", Guid.ParseExact("00002908-0000-1000-8000-00805f9b34fb", "d")),
+        };
+    }
 }
 
