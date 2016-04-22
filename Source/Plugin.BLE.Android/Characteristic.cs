@@ -155,8 +155,7 @@ namespace Plugin.BLE.Android
             var successful = _gatt.SetCharacteristicNotification(_nativeCharacteristic, false);
             _gattCallback.CharacteristicValueUpdated -= OnCharacteristicValueChanged;
 
-            //TODO: determine whether 
-            //TODO: review    ^^^^^^^ wheter what? 
+            //TODO: determine whether we need to use the result (successful)
             Trace.Message("Characteristic.StopUpdatesNative, successful: {0}", successful);
         }
 

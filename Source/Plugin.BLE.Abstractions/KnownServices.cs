@@ -39,6 +39,7 @@ namespace Plugin.BLE.Abstractions
             KnownService service;
             string itemsJson = ResourceLoader.GetEmbeddedResourceString(typeof(KnownServices).GetTypeInfo().Assembly, "KnownServices.json");
             var json = JToken.Parse(itemsJson);
+
             foreach (var item in json.Children())
             {
                 JProperty prop = item as JProperty;

@@ -58,7 +58,7 @@ namespace Plugin.BLE.Android
             //TODO: why don't we look in the internal list _chacateristics?
             foreach (var item in _nativeService.Characteristics)
             {
-                if (string.Equals(item.Uuid.ToString(), characteristic.ID.ToString()))
+                if (string.Equals(item.Uuid.ToString(), characteristic.Id.ToString()))
                 {
                     return new Characteristic(item, _gatt, _gattCallback);
                 }

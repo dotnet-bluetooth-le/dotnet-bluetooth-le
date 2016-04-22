@@ -62,7 +62,7 @@ namespace Plugin.BLE.iOS
 
         public ICharacteristic FindCharacteristic(KnownCharacteristic characteristic)
         {
-            return (from item in NativeService.Characteristics where item.UUID.GuidFromUuid() == characteristic.ID select new Characteristic(item, ParentDevice)).FirstOrDefault();
+            return (from item in NativeService.Characteristics where item.UUID.GuidFromUuid() == characteristic.Id select new Characteristic(item, ParentDevice)).FirstOrDefault();
         }
 
         public void OnCharacteristicsDiscovered()

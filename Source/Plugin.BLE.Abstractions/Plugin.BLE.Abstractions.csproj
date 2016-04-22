@@ -52,6 +52,7 @@
     <Compile Include="DeviceDiscoveredEventArgs.cs" />
     <Compile Include="DeviceState.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="KnownCharacteristic.cs" />
     <Compile Include="KnownCharacteristics.cs" />
     <Compile Include="KnownDescriptors.cs" />
     <Compile Include="KnownServices.cs" />
@@ -63,7 +64,6 @@
     <Compile Include="Utils\ResourceLoader.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="KnownCharacteristics.json" />
     <EmbeddedResource Include="KnownDescriptors.json" />
     <EmbeddedResource Include="KnownServices.json" />
     <None Include="packages.config" />
