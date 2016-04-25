@@ -1,5 +1,4 @@
-![alt tag](icon_small.png)
-# MvvmCross Bluetooth-LE [![Build Status](https://www.bitrise.io/app/3fe54d0a5f43c2bf.svg?token=i9LUY4rIecZWd_3j7hwXgw)](https://www.bitrise.io/app/3fe54d0a5f43c2bf)
+# <img src="icon_small.png" width="71" height="71"/> Bluetooth LE plugin for Xamarin [![Build Status](https://www.bitrise.io/app/3fe54d0a5f43c2bf.svg?token=i9LUY4rIecZWd_3j7hwXgw)](https://www.bitrise.io/app/3fe54d0a5f43c2bf)
 MvvmCross plugin for BLE - iOS and Android   
 Based on Xamarin - [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics)
 
