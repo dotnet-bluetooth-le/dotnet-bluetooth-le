@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.Plugins.BLE.iOS",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6508B9C0-60B2-4BD5-ACAB-7C057587CDE3}"
 	ProjectSection(SolutionItems) = preProject
+		..\icon.png = ..\icon.png
+		..\icon_small.png = ..\icon_small.png
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject

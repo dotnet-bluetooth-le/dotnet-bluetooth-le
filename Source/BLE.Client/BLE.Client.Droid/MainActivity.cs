@@ -12,12 +12,15 @@ using Xamarin.Forms.Platform.Android;
 
 namespace BLE.Client.Droid
 {
-    [Activity(Label = "MainActivity", ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity
-        : FormsApplicationActivity
+        : FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)
         {
+            ToolbarResource = Resource.Layout.toolbar;
+            TabLayoutResource = Resource.Layout.tabs;
+
             base.OnCreate(bundle);
 
             UserDialogs.Init(this);

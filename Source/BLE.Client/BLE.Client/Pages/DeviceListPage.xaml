@@ -4,7 +4,8 @@
              xmlns:pages="clr-namespace:BLE.Client.Pages;assembly=BLE.Client"
              xmlns:abstractions="clr-namespace:Plugin.BLE.Abstractions;assembly=Plugin.BLE.Abstractions"
              x:Class="BLE.Client.Pages.DeviceListPage"
-             Title="Discover devices">
+             Title="Discover devices"
+             x:Name="DevicePage">
   <ListView ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
             IsPullToRefreshEnabled="True"
             RefreshCommand="{Binding RefreshCommand}"
@@ -13,6 +14,11 @@
     <ListView.ItemTemplate>
       <DataTemplate>
         <ViewCell>
+          <ViewCell.ContextActions>
+            <MenuItem Command="{Binding Path=BindingContext.DisconnectCommand, Source={x:Reference DevicePage}}"
+                      CommandParameter="{Binding .}"
+                      Text="Disconnect"/>
+          </ViewCell.ContextActions>
           <Grid>
             <Grid.ColumnDefinitions>
               <ColumnDefinition></ColumnDefinition>
@@ -26,7 +32,7 @@
               </DataTrigger>
             </Grid.Triggers>
             <StackLayout Orientation="Vertical" VerticalOptions="Center">
-              <Label Text="{Binding Name}" TextColor="White" FontSize="Large" />
+              <Label Text="{Binding Name}" FontSize="Large" />
               <Label Text="{Binding Id, StringFormat='{0}'}" TextColor="Gray" FontSize="Small"/>
             </StackLayout>
             <Label Grid.Column="1"

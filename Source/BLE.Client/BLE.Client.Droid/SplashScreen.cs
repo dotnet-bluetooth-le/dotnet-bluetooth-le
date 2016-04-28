@@ -5,10 +5,7 @@ using Xamarin.Forms;
 
 namespace BLE.Client.Droid
 {
-    [Activity(
-        Label = "BLE.Client.Droid"
-        , MainLauncher = true
-        , Icon = "@drawable/icon"
+    [Activity(MainLauncher = true
         , Theme = "@style/Theme.Splash"
         , NoHistory = true
         , ScreenOrientation = ScreenOrientation.Portrait)]
@@ -33,7 +30,8 @@ namespace BLE.Client.Droid
         protected override void OnCreate(Android.OS.Bundle bundle)
         {
             Forms.Init(this, bundle);
-            Forms.ViewInitialized += (object sender, ViewInitializedEventArgs e) => {
+            Forms.ViewInitialized += (object sender, ViewInitializedEventArgs e) =>
+            {
                 if (!string.IsNullOrWhiteSpace(e.View.StyleId))
                 {
                     e.NativeView.ContentDescription = e.View.StyleId;

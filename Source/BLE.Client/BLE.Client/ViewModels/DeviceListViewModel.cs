@@ -69,6 +69,27 @@ namespace BLE.Client.ViewModels
         }
 
         public MvxCommand RefreshCommand => new MvxCommand(ScanForDevices);
+        public MvxCommand<IDevice> DisconnectCommand => new MvxCommand<IDevice>(DisconnectDevice);
+
+        private async void DisconnectDevice(IDevice device)
+        {
+            try
+            {
+                _userDialogs.ShowLoading($"Disconnecting {device.Name}...");
+
+                await Adapter.DisconnectAsync(device);
+
+                Devices.Remove(device);
+            }
+            catch (Exception ex)
+            {
+                _userDialogs.Alert(ex.Message, "Disconnect error");
+            }
+            finally
+            {
+                _userDialogs.HideLoading();
+            }
+        }
 
         public IDevice SelectedDevice
         {
