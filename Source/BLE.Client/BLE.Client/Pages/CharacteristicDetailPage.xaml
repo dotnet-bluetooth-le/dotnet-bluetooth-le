@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BLE.Client.Pages.CharacteristicDetailPage">
-</ContentPage>
+             xmlns:pages="clr-namespace:BLE.Client.Pages;assembly=BLE.Client"
+             x:Class="BLE.Client.Pages.CharacteristicDetailPage" Title="Characteristic Details">
+</pages:BasePage>

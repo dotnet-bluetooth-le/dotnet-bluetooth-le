@@ -53,16 +53,23 @@ namespace BLE.Client.ViewModels
         {
             base.InitFromBundle(parameters);
 
-            var device = GetDeviceFromBundle(parameters);
+            _service = await GetServiceFromBundleAsync(parameters);
+        }
 
-            if (device == null || !parameters.Data.ContainsKey(ServiceIdKey))
+        public ICharacteristic SelectedCharacteristic
+        {
+            get { return null; }
+            set
             {
-                return;
+                if (value != null)
+                {
+                    var bundle = new MvxBundle(new Dictionary<string, string>(Bundle.Data) { { CharacteristicIdKey, value.Id.ToString() } });
+                    ShowViewModel<CharacteristicDetailViewModel>(bundle);
+                }
+
+                RaisePropertyChanged();
+
             }
-
-            var serviceId = parameters.Data[ServiceIdKey];
-            _service = await device.GetServiceAsync(Guid.Parse(serviceId));
-
         }
     }
 }
