@@ -32,7 +32,7 @@ namespace Plugin.BLE.Abstractions
         {
             // TODO: review: First or FirstOrDefault? 
             var services = await GetServicesAsync();
-            return services.FirstOrDefault(x => x.ID == id);
+            return services.FirstOrDefault(x => x.Id == id);
         }
 
         public abstract Task<bool> UpdateRssiAsync();

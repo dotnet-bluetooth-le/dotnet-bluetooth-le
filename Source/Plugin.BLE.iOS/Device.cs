@@ -36,44 +36,45 @@ namespace Plugin.BLE.iOS
                 Trace.Message("Device changed name: {0}", Name);
             };
 
-#if __UNIFIED__
-            // fixed for Unified https://bugzilla.xamarin.com/show_bug.cgi?id=14893
-            _nativeDevice.DiscoveredCharacteristic += (sender, e) =>
-            {
-#else
-    //BUGBUG/TODO: this event is misnamed in our SDK
-			this._nativeDevice.DiscoverCharacteristic += (object sender, CBServiceEventArgs e) => {
-#endif
-                Trace.Message("Device.Discovered Characteristics.");
-                //loop through each service, and update the characteristics
-                foreach (var srv in ((CBPeripheral)sender).Services)
-                {
-                    // if the service has characteristics yet
-                    if (srv.Characteristics == null)
-                    {
-                        continue;
-                    }
+            //TODO: review: I think we are handling this in Service.GetCharacteristicsNativeAsync()
+            //#if __UNIFIED__
+            //            // fixed for Unified https://bugzilla.xamarin.com/show_bug.cgi?id=14893
+            //            _nativeDevice.DiscoveredCharacteristic += (sender, e) =>
+            //            {
+            //#else
+            //    //BUGBUG/TODO: this event is misnamed in our SDK
+            //			this._nativeDevice.DiscoverCharacteristic += (object sender, CBServiceEventArgs e) => {
+            //#endif
+            //                Trace.Message("Device.Discovered Characteristics.");
+            //                //loop through each service, and update the characteristics
+            //                foreach (var srv in ((CBPeripheral)sender).Services)
+            //                {
+            //                    // if the service has characteristics yet
+            //                    if (srv.Characteristics == null)
+            //                    {
+            //                        continue;
+            //                    }
 
-                    var services = GetServicesAsync().Result; // TODO: .Result just for this refactoring step
-                    // locate the our new service
-                    foreach (var item in services.Where(item => item.ID == srv.UUID.GuidFromUuid()))
-                    {
-                        item.Characteristics.Clear();
+            //                    var services = GetServicesAsync().Result; // TODO: .Result just for this refactoring step
+            //                    // locate the our new service
+            //                    foreach (var item in services.Where(item => item.Id == srv.UUID.GuidFromUuid()))
+            //                    {
+            //                        item.Characteristics.Clear();
 
-                        // add the discovered characteristics to the particular service
-                        foreach (var characteristic in srv.Characteristics)
-                        {
-                            Trace.Message("Characteristic: " + characteristic.Description);
-                            var newChar = new Characteristic(characteristic, _nativeDevice);
-                            item.Characteristics.Add(newChar);
-                        }
+            //                        // add the discovered characteristics to the particular service
+            //                        foreach (var characteristic in srv.Characteristics)
+            //                        {
+            //                            Trace.Message("Characteristic: " + characteristic.Description);
+            //                            var newChar = new Characteristic(characteristic, _nativeDevice);
+            //                            item.Characteristics.Add(newChar);
+            //                        }
 
-                        // inform the service that the characteristics have been discovered
-                        // TODO: really, we should just be using a notifying collection.
-                        ((Service)item).OnCharacteristicsDiscovered();
-                    }
-                }
-            };
+            //                        // inform the service that the characteristics have been discovered
+            //                        // TODO: really, we should just be using a notifying collection.
+            //                        ((Service)item).OnCharacteristicsDiscovered();
+            //                    }
+            //                }
+            //            };
         }
 
         protected override async Task<IEnumerable<IService>> GetServicesNativeAsync()

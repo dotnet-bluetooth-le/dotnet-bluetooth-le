@@ -204,37 +204,6 @@ namespace Plugin.BLE.Abstractions
             return tcs.Task;
         }
 
-        /// <summary>
-        /// Asynchronously gets the requested characteristic
-        /// </summary>
-        public static Task<ICharacteristic> GetCharacteristicAsync(this IService service, Guid id)
-        {
-            if (service.Characteristics.Count > 0)
-            {
-                return Task.FromResult(service.Characteristics.First(x => x.Id == id));
-            }
-
-            var tcs = new TaskCompletionSource<ICharacteristic>();
-            EventHandler h = null;
-            h = (sender, e) =>
-            {
-                service.CharacteristicsDiscovered -= h;
-                try
-                {
-                    var s = service.Characteristics.First(x => x.Id == id);
-                    tcs.TrySetResult(s);
-                }
-                catch (Exception ex)
-                {
-                    tcs.TrySetException(ex);
-                }
-            };
-            service.CharacteristicsDiscovered += h;
-            service.DiscoverCharacteristics();
-
-            return tcs.Task;
-        }
-
         public static string ToHexString(this byte[] bytes)
         {
             return bytes != null ? BitConverter.ToString(bytes) : string.Empty;

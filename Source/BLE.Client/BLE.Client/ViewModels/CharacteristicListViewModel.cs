@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using Acr.UserDialogs;
 using MvvmCross.Core.ViewModels;
-using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 
 namespace BLE.Client.ViewModels
@@ -13,7 +10,14 @@ namespace BLE.Client.ViewModels
     {
         private readonly IUserDialogs _userDialogs;
         private IService _service;
-        public IList<ICharacteristic> Characteristics { get; private set; }
+        private IList<ICharacteristic> _characteristics;
+
+        public IList<ICharacteristic> Characteristics
+        {
+            get { return _characteristics; }
+            private set { SetProperty(ref _characteristics, value); }
+        }
+
         public CharacteristicListViewModel(IAdapter adapter, IUserDialogs userDialogs) : base(adapter)
         {
             _userDialogs = userDialogs;
@@ -32,21 +36,19 @@ namespace BLE.Client.ViewModels
             LoadCharacteristics();
         }
 
-        private void LoadCharacteristics()
+        private async void LoadCharacteristics()
         {
-            //ToDo use the new interface, remove event subscription
-            //Characteristics = await _service.GetCharacteristicsAsync();
-            _service.CharacteristicsDiscovered += (sender, args) =>
-            {
-                Characteristics = _service.Characteristics;
-                RaisePropertyChanged(() => Characteristics);
-
-                _userDialogs.HideLoading();
-            };
-
             _userDialogs.ShowLoading("Loading characteristics...");
-            _service.DiscoverCharacteristics();
+            try
+            {
+                Characteristics = new List<ICharacteristic>(await _service.GetCharacteristicsAsync());
+            }
+            catch (Exception)
+            {
+                
+            }
 
+            _userDialogs.HideLoading();
         }
 
         protected override async void InitFromBundle(IMvxBundle parameters)

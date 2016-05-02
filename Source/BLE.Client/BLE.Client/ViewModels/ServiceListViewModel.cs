@@ -65,7 +65,7 @@ namespace BLE.Client.ViewModels
             {
                 if (value != null)
                 {
-                    var bundle = new MvxBundle(new Dictionary<string, string>(Bundle.Data) { { ServiceIdKey, value.ID.ToString() } });
+                    var bundle = new MvxBundle(new Dictionary<string, string>(Bundle.Data) { { ServiceIdKey, value.Id.ToString() } });
                     ShowViewModel<CharacteristicListViewModel>(bundle);
                 }
 

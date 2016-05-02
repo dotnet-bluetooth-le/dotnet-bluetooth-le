@@ -1,73 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using CoreBluetooth;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 
 namespace Plugin.BLE.iOS
 {
-    public class Service : IService
+    public class Service : ServiceBase
     {
-        private IList<ICharacteristic> _characteristics;
-        private string _name;
+        private readonly CBService _service;
+        private readonly CBPeripheral _device;
 
-        protected CBService NativeService;
-        protected CBPeripheral ParentDevice;
+        public override Guid Id => _service.UUID.GuidFromUuid();
+        public override bool IsPrimary => _service.Primary;
 
-        public Service(CBService nativeService, CBPeripheral parentDevice)
+        public Service(CBService service, CBPeripheral device)
         {
-            NativeService = nativeService;
-            ParentDevice = parentDevice;
+            _service = service;
+            _device = device;
         }
 
-        public event EventHandler CharacteristicsDiscovered = delegate { };
-
-        public Guid ID => NativeService.UUID.GuidFromUuid();
-
-        public string Name => _name ?? (_name = KnownServices.Lookup(ID).Name);
-
-        public bool IsPrimary => NativeService.Primary;
-
-        // TODO: decide how to Interface this, right now it's only in the iOS implementation
-        public void DiscoverCharacteristics()
+        protected override Task<IEnumerable<ICharacteristic>> GetCharacteristicsNativeAsync()
         {
-            // TODO: need to raise the event and listen for it.
-            ParentDevice.DiscoverCharacteristics(NativeService);
-        }
+            //TODO: review: is this correct? Event was not used, yet
+            var tcs = new TaskCompletionSource<IEnumerable<ICharacteristic>>();
+            EventHandler<CBServiceEventArgs> handler = null;
 
-        public IList<ICharacteristic> Characteristics
-        {
-            get
+            handler = (sender, args) =>
             {
-                if (_characteristics != null)
+                _device.DiscoveredCharacteristic -= handler;
+                if (args.Error == null)
                 {
-                    return _characteristics;
+                    var characteristics = _service.Characteristics.Select(characteristic => new Characteristic(characteristic, _device));
+                    tcs.TrySetResult(characteristics);
                 }
-
-                // if it hasn't been populated yet, populate it
-                _characteristics = new List<ICharacteristic>();
-                if (NativeService.Characteristics == null)
+                else
                 {
-                    return _characteristics;
+                    Trace.Message("Could not discover characteristics: {0}", args.Error.Description);
+                    // TODO: use proper exception
+                    tcs.TrySetException(new Exception());
                 }
+            };
 
-                foreach (var item in NativeService.Characteristics)
-                {
-                    _characteristics.Add(new Characteristic(item, ParentDevice));
-                }
-                return _characteristics;
-            }
-        }
+            _device.DiscoveredCharacteristic += handler;
+            _device.DiscoverCharacteristics(_service);
 
-        public ICharacteristic FindCharacteristic(KnownCharacteristic characteristic)
-        {
-            return (from item in NativeService.Characteristics where item.UUID.GuidFromUuid() == characteristic.Id select new Characteristic(item, ParentDevice)).FirstOrDefault();
-        }
-
-        public void OnCharacteristicsDiscovered()
-        {
-            CharacteristicsDiscovered(this, new EventArgs());
+            return tcs.Task;
         }
     }
 }
