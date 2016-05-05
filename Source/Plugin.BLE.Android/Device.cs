@@ -197,6 +197,12 @@ namespace Plugin.BLE.Android
 
         public override async Task<bool> UpdateRssiAsync()
         {
+            if (_gatt == null || _gattCallback == null)
+            {
+                Trace.Message("You can't read the RSSI value for disconnected devices except on discovery on Android. Device is {0}", State);
+                return false;
+            }
+
             var tcs = new TaskCompletionSource<bool>();
             EventHandler<RssiReadEventArgs> handler = null;
 
