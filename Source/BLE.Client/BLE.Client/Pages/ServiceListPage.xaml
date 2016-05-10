@@ -14,7 +14,7 @@
       <DataTemplate>
         <ViewCell>
           <StackLayout Orientation="Vertical" VerticalOptions="Center">
-            <Label Text="{Binding ID, StringFormat='{0}'}" FontSize="Medium" />
+            <Label Text="{Binding Id, StringFormat='{0}'}" FontSize="Medium" />
             <Label Text="{Binding Name}" TextColor="Gray" FontSize="Small"/>
           </StackLayout>
         </ViewCell>
