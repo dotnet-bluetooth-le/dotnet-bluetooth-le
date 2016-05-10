@@ -110,7 +110,7 @@ namespace BLE.Client.ViewModels
 
         private static byte[] GetBytes(string text)
         {
-            return text.Split(' ').Select(token => Convert.ToByte(token)).ToArray();
+            return text.Split(' ').Where(token => !string.IsNullOrEmpty(token)).Select(token => Convert.ToByte(token, 16)).ToArray();
         }
     }
 }
