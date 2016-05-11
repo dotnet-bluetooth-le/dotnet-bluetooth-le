@@ -1,16 +1,8 @@
-using System;
-using Plugin.BLE.Abstractions.Contracts;
-
 namespace Plugin.BLE.Abstractions
 {
-    public class DeviceConnectionEventArgs : EventArgs
-    {
-        public IDevice Device;
+    public class DeviceErrorEventArgs : DeviceEventArgs
+    { 
         public string ErrorMessage;
-
-        public DeviceConnectionEventArgs()
-            : base()
-        { }
     }
 }
 

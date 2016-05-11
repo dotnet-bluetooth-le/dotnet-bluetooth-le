@@ -10,15 +10,14 @@ namespace Plugin.BLE.Abstractions
     {
         private CancellationTokenSource _scanCancellationTokenSource;
         private readonly IList<IDevice> _discoveredDevices;
-        private readonly IList<IDevice> _connectedDevices;
         private volatile bool _isScanning;
 
-        public event EventHandler<DeviceDiscoveredEventArgs> DeviceAdvertised = delegate { };
-        public event EventHandler<DeviceDiscoveredEventArgs> DeviceDiscovered = delegate { };
-        public event EventHandler<DeviceConnectionEventArgs> DeviceConnected = delegate { };
-        public event EventHandler<DeviceConnectionEventArgs> DeviceDisconnected = delegate { };
-        public event EventHandler<DeviceConnectionEventArgs> DeviceConnectionLost = delegate { };
-        public event EventHandler<DeviceConnectionEventArgs> DeviceConnectionError = delegate { };
+        public event EventHandler<DeviceEventArgs> DeviceAdvertised = delegate { };
+        public event EventHandler<DeviceEventArgs> DeviceDiscovered = delegate { };
+        public event EventHandler<DeviceEventArgs> DeviceConnected = delegate { };
+        public event EventHandler<DeviceEventArgs> DeviceDisconnected = delegate { };
+        public event EventHandler<DeviceErrorEventArgs> DeviceConnectionLost = delegate { };
+        public event EventHandler<DeviceErrorEventArgs> DeviceConnectionError = delegate { };
         public event EventHandler ScanTimeoutElapsed = delegate { };
 
         public bool IsScanning
@@ -31,7 +30,7 @@ namespace Plugin.BLE.Abstractions
 
         public virtual IList<IDevice> DiscoveredDevices => _discoveredDevices;
 
-        public virtual IList<IDevice> ConnectedDevices => _connectedDevices;
+        public abstract IList<IDevice> ConnectedDevices { get; }
 
         public Task StartScanningForDevicesAsync()
         {
@@ -104,22 +103,21 @@ namespace Plugin.BLE.Abstractions
 
         public Task DisconnectDeviceAsync(IDevice device)
         {
-   
             if (!ConnectedDevices.Contains(device))
             {
-                //Mvx.Trace("Disconnect async: device {0} not in the list of connected devices.", device.Name);
+                Trace.Message("Disconnect async: device {0} not in the list of connected devices.", device.Name);
                 return Task.FromResult(false);
             }
 
             var tcs = new TaskCompletionSource<IDevice>();
-            EventHandler<DeviceConnectionEventArgs> h = null;
-            EventHandler<DeviceConnectionEventArgs> he = null;
+            EventHandler<DeviceEventArgs> h = null;
+            EventHandler<DeviceErrorEventArgs> he = null;
 
             h = (sender, e) =>
             {
-                //Mvx.TaggedTrace("DisconnectAsync", "Disconnected: {0} {1}", e.Device.Id, e.Device.Name);
                 if (e.Device.Id == device.Id)
                 {
+                    Trace.Message("DisconnectAsync Disconnected: {0} {1}", e.Device.Id, e.Device.Name);
                     DeviceDisconnected -= h;
                     DeviceConnectionError -= he;
                     tcs.TrySetResult(e.Device);
@@ -128,18 +126,14 @@ namespace Plugin.BLE.Abstractions
 
             he = (sender, e) =>
             {
-                // Would be nice to use C#6.0 null-conditional operators like e.Device?.Id
-                //Mvx.TaggedWarning("DisconnectAsync", "Disconnect Error: {0} {1}",
-                //    (e.Device != null ? e.Device.Id.ToString() : ""),
-                //    (e.Device != null ? e.Device.Name : ""));
                 if (e.Device.Id == device.Id)
                 {
+                    Trace.Message("DisconnectAsync", "Disconnect Error: {0} {1}", e.Device?.Id, e.Device?.Name);
                     DeviceConnectionError -= he;
                     DeviceDisconnected -= h;
                     tcs.TrySetException(new Exception("Disconnect operation exception"));
                 }
             };
-
 
             DeviceDisconnected += h;
             DeviceConnectionError += he;
@@ -152,25 +146,6 @@ namespace Plugin.BLE.Abstractions
         protected AdapterBase()
         {
             _discoveredDevices = new List<IDevice>();
-            _connectedDevices = new List<IDevice>();
-        }
-
-        [Obsolete]
-        public void StartScanningForDevices()
-        {
-            StartScanningForDevices(new Guid[0]);
-        }
-
-        [Obsolete]
-        public void StartScanningForDevices(Guid[] serviceUuids)
-        {
-            StartScanningForDevicesAsync(serviceUuids);
-        }
-
-        [Obsolete]
-        public void StopScanningForDevices()
-        {
-            StopScanningForDevicesAsync();
         }
 
         private void CleanupScan()
@@ -189,19 +164,19 @@ namespace Plugin.BLE.Abstractions
 
         public void HandleDiscoveredDevice(IDevice device)
         {
-            DeviceAdvertised(this, new DeviceDiscoveredEventArgs { Device = device });
+            DeviceAdvertised(this, new DeviceEventArgs { Device = device });
 
             // TODO (sms): check equality implementation of device
             if (_discoveredDevices.Contains(device))
                 return;
 
             _discoveredDevices.Add(device);
-            DeviceDiscovered(this, new DeviceDiscoveredEventArgs { Device = device });
+            DeviceDiscovered(this, new DeviceEventArgs { Device = device });
         }
 
         public void HandleConnectedDevice(IDevice device)
         {
-            DeviceConnected(this, new DeviceConnectionEventArgs { Device = device });
+            DeviceConnected(this, new DeviceEventArgs { Device = device });
         }
 
         public void HandleDisconnectedDevice(bool disconnectRequested, IDevice device)
@@ -209,12 +184,12 @@ namespace Plugin.BLE.Abstractions
             if (disconnectRequested)
             {
                 Trace.Message("DisconnectedPeripheral by user: {0}", device.Name);
-                DeviceDisconnected(this, new DeviceConnectionEventArgs { Device = device });
+                DeviceDisconnected(this, new DeviceEventArgs { Device = device });
             }
             else
             {
                 Trace.Message("DisconnectedPeripheral by lost signal: {0}", device.Name);
-                DeviceConnectionLost(this, new DeviceConnectionEventArgs { Device = device });
+                DeviceConnectionLost(this, new DeviceErrorEventArgs { Device = device });
 
                 if (DiscoveredDevices.Contains(device))
                 {
@@ -226,7 +201,7 @@ namespace Plugin.BLE.Abstractions
         public void HandleConnectionFail(IDevice device, string errorMessage)
         {
             Trace.Message("Failed to connect peripheral {0}: {1}", device.Id, device.Name);
-            DeviceConnectionError(this, new DeviceConnectionEventArgs
+            DeviceConnectionError(this, new DeviceErrorEventArgs
             {
                 Device = device,
                 ErrorMessage = errorMessage

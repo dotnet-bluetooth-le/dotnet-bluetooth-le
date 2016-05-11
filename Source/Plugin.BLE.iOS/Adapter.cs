@@ -25,6 +25,8 @@ namespace Plugin.BLE.iOS
         private readonly IDictionary<string, IDevice> _deviceOperationRegistry = new ConcurrentDictionary<string, IDevice>();
         private readonly IDictionary<string, IDevice> _deviceConnectionRegistry = new ConcurrentDictionary<string, IDevice>();
 
+        public override IList<IDevice> ConnectedDevices => _deviceConnectionRegistry.Values.ToList();
+
         public Adapter()
         {
             _centralManager = new CBCentralManager(DispatchQueue.CurrentQueue);
@@ -103,7 +105,6 @@ namespace Plugin.BLE.iOS
                 HandleDisconnectedDevice(isNormalDisconnect, foundDevice);
             };
 
-            // TODO: obsolete
             _centralManager.FailedToConnectPeripheral +=
                 (sender, e) => HandleConnectionFail(new Device(e.Peripheral), e.Error.Description);
         }
@@ -122,9 +123,7 @@ namespace Plugin.BLE.iOS
                 Trace.Message("Adapter: Scanning for " + serviceCbuuids.First());
             }
 
-            // TODO (sms): clear out the list ?? AdapterBase??
-            // DiscoveredDevices = new List<IDevice>();
-
+            DiscoveredDevices.Clear();
             _centralManager.ScanForPeripherals(serviceCbuuids);
         }
 
@@ -142,7 +141,7 @@ namespace Plugin.BLE.iOS
         protected override Task ConnectToDeviceNativeAync(IDevice device, bool autoconnect, CancellationToken cancellationToken)
         {
             var tcs = new TaskCompletionSource<bool>();
-            EventHandler<DeviceConnectionEventArgs> h = null;
+            EventHandler<DeviceEventArgs> h = null;
             EventHandler<CBPeripheralErrorEventArgs> he = null;
 
             h = (sender, e) =>

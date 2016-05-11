@@ -33,7 +33,6 @@ namespace BLE.Client.ViewModels
 
         public DeviceListViewModel(IAdapter adapter, IUserDialogs userDialogs) : base(adapter)
         {
-
             _userDialogs = userDialogs;
             // quick and dirty :>
             Adapter.DeviceDiscovered += OnDeviceDiscovered;
@@ -47,7 +46,7 @@ namespace BLE.Client.ViewModels
         }
 
 
-        private void OnDeviceDiscovered(object sender, DeviceDiscoveredEventArgs args)
+        private void OnDeviceDiscovered(object sender, DeviceEventArgs args)
         {
             InvokeOnMainThread(() => Devices.Add(args.Device));
         }

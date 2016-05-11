@@ -19,7 +19,6 @@ namespace Plugin.BLE.Android
 {
     public class Adapter : AdapterBase
     {
-        // class members
         private readonly BluetoothAdapter _bluetoothAdapter;
         private readonly Api18BleScanCallback _api18ScanCallback;
         private readonly Api21BleScanCallback _api21ScanCallback;
@@ -48,16 +47,16 @@ namespace Plugin.BLE.Android
             var manager = (BluetoothManager)appContext.GetSystemService(Context.BluetoothService);
             _bluetoothAdapter = manager.Adapter;
 
+            // TODO: bonding
+            //var bondStatusBroadcastReceiver = new BondStatusBroadcastReceiver();
+            //Application.Context.RegisterReceiver(bondStatusBroadcastReceiver,
+            //    new IntentFilter(BluetoothDevice.ActionBondStateChanged));
 
-            var bondStatusBroadcastReceiver = new BondStatusBroadcastReceiver();
-            Application.Context.RegisterReceiver(bondStatusBroadcastReceiver,
-                new IntentFilter(BluetoothDevice.ActionBondStateChanged));
-
-            //forward events from broadcast receiver
-            bondStatusBroadcastReceiver.BondStateChanged += (s, args) =>
-            {
-                //DeviceBondStateChanged(this, args);
-            };
+            ////forward events from broadcast receiver
+            //bondStatusBroadcastReceiver.BondStateChanged += (s, args) =>
+            //{
+            //    //DeviceBondStateChanged(this, args);
+            //};
 
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
             {
@@ -70,6 +69,7 @@ namespace Plugin.BLE.Android
 
             _gattCallback = new GattCallback(this);
         }
+
         protected override Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, CancellationToken scanCancellationToken)
         {
 
@@ -162,8 +162,8 @@ namespace Plugin.BLE.Android
             AddToDeviceOperationRegistry(device);
 
             var tcs = new TaskCompletionSource<IDevice>();
-            EventHandler<DeviceConnectionEventArgs> h = null;
-            EventHandler<DeviceConnectionEventArgs> he = null;
+            EventHandler<DeviceEventArgs> h = null;
+            EventHandler<DeviceErrorEventArgs> he = null;
 
             h = (sender, e) =>
             {
@@ -178,7 +178,6 @@ namespace Plugin.BLE.Android
 
             he = (sender, e) =>
             {
-                // Would be nice to use C#6.0 null-conditional operators like e.Device?.Id
                 Trace.Message("ConnectAsync Error: {0} {1}", e.Device?.Id, e.Device?.Name);
                 if (e.Device?.Id == device.Id)
                 {

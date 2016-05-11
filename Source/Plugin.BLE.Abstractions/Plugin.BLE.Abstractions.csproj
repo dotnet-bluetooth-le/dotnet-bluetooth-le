@@ -50,7 +50,7 @@
     <Compile Include="DeviceBondedEventArgs.cs" />
     <Compile Include="DeviceBondState.cs" />
     <Compile Include="DeviceConnectionEventArgs.cs" />
-    <Compile Include="DeviceDiscoveredEventArgs.cs" />
+    <Compile Include="DeviceEventArgs.cs" />
     <Compile Include="DeviceState.cs" />
     <Compile Include="Exceptions\DeviceConnectionException.cs" />
     <Compile Include="Extensions.cs" />
