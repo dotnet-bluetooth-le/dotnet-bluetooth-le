@@ -9,6 +9,7 @@ using CoreFoundation;
 using Foundation;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Abstractions.Exceptions;
 
 namespace Plugin.BLE.iOS
 {
@@ -60,16 +61,17 @@ namespace Plugin.BLE.iOS
                 IDevice device;
                 if (_deviceOperationRegistry.TryGetValue(guid, out device))
                 {
-                    _deviceOperationRegistry.Remove(guid);
+                    ((Device) device).Update(e.Peripheral);
+                }
+                else
+                {
+                    Trace.Message("Device not found in operation registry. Creating a new one.");
+                    device = new Device(e.Peripheral);
+
+                    _deviceConnectionRegistry[guid] = device;
                 }
 
-                //ToDo use the same instance of the device just update 
-                var d = new Device(e.Peripheral, e.Peripheral.Name, e.Peripheral.RSSI?.Int32Value ?? 0,
-                    device?.AdvertisementRecords.ToList() ?? new List<AdvertisementRecord>());
-
-                _deviceConnectionRegistry[guid] = d;
-
-                HandleConnectedDevice(d);
+                HandleConnectedDevice(device);
             };
 
             _centralManager.DisconnectedPeripheral += (sender, e) =>
@@ -101,6 +103,7 @@ namespace Plugin.BLE.iOS
                 HandleDisconnectedDevice(isNormalDisconnect, foundDevice);
             };
 
+            // TODO: obsolete
             _centralManager.FailedToConnectPeripheral +=
                 (sender, e) => HandleConnectionFail(new Device(e.Peripheral), e.Error.Description);
         }
@@ -125,6 +128,12 @@ namespace Plugin.BLE.iOS
             _centralManager.ScanForPeripherals(serviceCbuuids);
         }
 
+        protected override Task DisconnectDeviceNativeAsync(IDevice device)
+        {
+            // TODO: make abstract after refactoring
+            throw new NotImplementedException("I'm abstract, override me.");
+        }
+
         protected override void StopScanNative()
         {
             _centralManager.StopScan();
@@ -132,15 +141,51 @@ namespace Plugin.BLE.iOS
 
         public override void ConnectToDevice(IDevice device, bool autoconnect = false)
         {
-            //ToDo autoconnect
+            if (autoconnect)
+            {
+                Trace.Message("Warning: Autoconnect is not supported in iOS");
+            }
+
             _deviceOperationRegistry[device.Id.ToString()] = device;
             _centralManager.ConnectPeripheral(device.NativeDevice as CBPeripheral, new PeripheralConnectionOptions());
         }
 
-        public override void CreateBondToDevice(IDevice device)
+
+        protected override Task ConnectToDeviceNativeAync(IDevice device, bool autoconnect, CancellationToken cancellationToken)
         {
-            // TODO: not implemented
-            // DeviceBondStateChanged(this, new DeviceBondStateChangedEventArgs { Device = device, State = DeviceBondState.Bonded });
+            var tcs = new TaskCompletionSource<bool>();
+            EventHandler<DeviceConnectionEventArgs> h = null;
+            EventHandler<CBPeripheralErrorEventArgs> he = null;
+
+            h = (sender, e) =>
+            {
+                Trace.Message("ConnectToDeviceAync Connected: {0} {1}", e.Device.Id, e.Device.Name);
+                if (e.Device.Id == device.Id)
+                {
+                    DeviceConnected -= h;
+                    _centralManager.FailedToConnectPeripheral -= he;
+                    tcs.TrySetResult(true);
+                }
+            };
+
+            he = (sender, e) =>
+            {
+                var id = e.Peripheral.UUID.GuidFromUuid();
+                if (id == device.Id)
+                {
+                    Trace.Message("ConnectToDeviceAync Connection Error: {0} {1}: {2}", e.Peripheral.UUID, e.Peripheral.Name, e.Error?.Description);
+
+                    DeviceConnected -= h;
+                    _centralManager.FailedToConnectPeripheral -= he;
+                    tcs.TrySetException(new DeviceConnectionException(id, e.Peripheral.Name, e.Error?.Description));
+                }
+            };
+
+            DeviceConnected += h;
+            _centralManager.FailedToConnectPeripheral += he;
+            ConnectToDevice(device);
+
+            return tcs.Task;
         }
 
         public override void DisconnectDevice(IDevice device)

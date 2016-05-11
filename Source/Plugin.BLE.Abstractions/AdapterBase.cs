@@ -6,7 +6,7 @@ using Plugin.BLE.Abstractions.Contracts;
 
 namespace Plugin.BLE.Abstractions
 {
-    public abstract class AdapterBase : IAdapter
+    public abstract class AdapterBase : IAdapter, IAdapterNew
     {
         private CancellationTokenSource _scanCancellationTokenSource;
         private readonly IList<IDevice> _discoveredDevices;
@@ -40,18 +40,22 @@ namespace Plugin.BLE.Abstractions
             get { return _connectedDevices; }
         }
 
-        protected AdapterBase()
+        public Task StartScanningForDevicesAsync()
         {
-            _discoveredDevices = new List<IDevice>();
-            _connectedDevices = new List<IDevice>();
+            return StartScanningForDevicesAsync(CancellationToken.None);
         }
 
-        public void StartScanningForDevices()
+        public Task StartScanningForDevicesAsync(CancellationToken cancellationToken)
         {
-            StartScanningForDevices(new Guid[0]);
+            return StartScanningForDevicesAsync(new Guid[0], cancellationToken);
         }
 
-        public async void StartScanningForDevices(Guid[] serviceUuids)
+        public Task StartScanningForDevicesAsync(Guid[] serviceUuids)
+        {
+            return StartScanningForDevicesAsync(new Guid[0], CancellationToken.None);
+        }
+
+        public async Task StartScanningForDevicesAsync(Guid[] serviceUuids, CancellationToken cancellationToken)
         {
             if (IsScanning)
             {
@@ -64,20 +68,77 @@ namespace Plugin.BLE.Abstractions
 
             try
             {
+                cancellationToken.Register(() => _scanCancellationTokenSource.Cancel());
                 await StartScanningForDevicesNativeAsync(serviceUuids, _scanCancellationTokenSource.Token);
                 await Task.Delay(ScanTimeout, _scanCancellationTokenSource.Token);
                 Trace.Message("Adapter: Scan timeout has elapsed.");
-                StopScan();
+                CleanupScan();
                 ScanTimeoutElapsed(this, new EventArgs());
             }
             catch (TaskCanceledException)
             {
+                CleanupScan();
                 Trace.Message("Adapter: Scan was cancelled.");
-                StopScan();
-            }
+            }   
         }
 
-        private void StopScan()
+        public Task StopScanningForDevicesAsync()
+        {
+            if (_scanCancellationTokenSource != null && !_scanCancellationTokenSource.IsCancellationRequested)
+            {
+                _scanCancellationTokenSource.Cancel();
+            }
+            else
+            {
+                Trace.Message("Adapter: Already cancelled scan.");
+            }
+
+            return Task.FromResult(0);
+        }
+
+        public Task ConnectToDeviceAync(IDevice device, bool autoconnect = false)
+        {
+            return ConnectToDeviceAync(device, autoconnect, CancellationToken.None);
+        }
+
+        public Task ConnectToDeviceAync(IDevice device, bool autoconnect, CancellationToken cancellationToken)
+        {
+            if (device.State == DeviceState.Connected)
+                return Task.FromResult(true);
+
+            return ConnectToDeviceNativeAync(device, autoconnect, cancellationToken);
+        }
+
+        public Task DisconnectDeviceAsync(IDevice device)
+        {
+            return DisconnectDeviceNativeAsync(device);
+        }
+
+        protected AdapterBase()
+        {
+            _discoveredDevices = new List<IDevice>();
+            _connectedDevices = new List<IDevice>();
+        }
+
+        [Obsolete]
+        public void StartScanningForDevices()
+        {
+            StartScanningForDevices(new Guid[0]);
+        }
+
+        [Obsolete]
+        public void StartScanningForDevices(Guid[] serviceUuids)
+        {
+            StartScanningForDevicesAsync(serviceUuids);
+        }
+
+        [Obsolete]
+        public void StopScanningForDevices()
+        {
+            StopScanningForDevicesAsync();
+        }
+
+        private void CleanupScan()
         {
             Trace.Message("Adapter: Stopping the scan for devices.");
             StopScanNative();
@@ -89,18 +150,6 @@ namespace Plugin.BLE.Abstractions
             }
 
             IsScanning = false;
-        }
-
-        public void StopScanningForDevices()
-        {
-            if (_scanCancellationTokenSource != null && !_scanCancellationTokenSource.IsCancellationRequested)
-            {
-                _scanCancellationTokenSource.Cancel();
-            }
-            else
-            {
-                Trace.Message("Adapter: Already cancelled scan.");
-            }
         }
 
         protected void HandleDiscoveredDevice(IDevice device)
@@ -146,8 +195,22 @@ namespace Plugin.BLE.Abstractions
 
         protected abstract Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, CancellationToken scanCancellationToken);
         protected abstract void StopScanNative();
+
+        // TODO remove these after refactoring
         public abstract void ConnectToDevice(IDevice device, bool autoconnect = false);
-        public abstract void CreateBondToDevice(IDevice device);
+        public virtual void CreateBondToDevice(IDevice device) { }
         public abstract void DisconnectDevice(IDevice device);
+
+        // TODO: make abstract after refactoring
+        protected virtual Task ConnectToDeviceNativeAync(IDevice device, bool autoconnect, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException("I'm abstract, override me.");
+        }
+
+        protected virtual Task DisconnectDeviceNativeAsync(IDevice device)
+        {
+            // TODO: make abstract after refactoring
+            throw new NotImplementedException("I'm abstract, override me.");
+        }
     }
 }

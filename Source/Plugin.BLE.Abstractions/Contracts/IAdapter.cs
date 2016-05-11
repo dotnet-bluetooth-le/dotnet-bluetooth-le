@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Plugin.BLE.Abstractions.Exceptions;
 
 namespace Plugin.BLE.Abstractions.Contracts
 {
@@ -72,8 +73,17 @@ namespace Plugin.BLE.Abstractions.Contracts
         Task StartScanningForDevicesAsync(Guid[] serviceUuids, CancellationToken cancellationToken);
         Task StopScanningForDevicesAsync();
 
-        Task<bool> ConnectToDeviceAync(IDevice device, bool autoconnect = false);
-        Task<bool> ConnectToDeviceAync(IDevice device, bool autoconnect, CancellationToken cancellationToken);
+        Task ConnectToDeviceAync(IDevice device, bool autoconnect = false);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="device"></param>
+        /// <param name="autoconnect"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="DeviceConnectionException">Thrown if the device cónnection fails.</exception>
+        Task ConnectToDeviceAync(IDevice device, bool autoconnect, CancellationToken cancellationToken);
         Task DisconnectDeviceAsync(IDevice device);
     }
 }

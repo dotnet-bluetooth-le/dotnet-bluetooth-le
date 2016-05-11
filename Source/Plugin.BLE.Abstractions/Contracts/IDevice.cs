@@ -51,7 +51,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Gets the first service with the Id <paramref name="id"/>. 
         /// </summary>
         /// <param name="id">The id of the searched service.</param>
-        /// <returns>TODO: decide if we return null or throw exception.</returns>
+        /// <returns></returns>
         Task<IService> GetServiceAsync(Guid id);
 
         /// <summary>

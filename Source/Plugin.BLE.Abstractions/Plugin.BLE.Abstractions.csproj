@@ -52,6 +52,7 @@
     <Compile Include="DeviceConnectionEventArgs.cs" />
     <Compile Include="DeviceDiscoveredEventArgs.cs" />
     <Compile Include="DeviceState.cs" />
+    <Compile Include="Exceptions\DeviceConnectionException.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="KnownCharacteristic.cs" />
     <Compile Include="KnownCharacteristics.cs" />
