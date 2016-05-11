@@ -15,7 +15,7 @@
       <Label Text="{Binding Characteristic.Name}" FontSize="Small" TextColor="Gray"
              HorizontalTextAlignment="Center"></Label>
       <Label Text="{Binding Characteristic.Properties, StringFormat='Properties: {0}'}"></Label>
-      <Label Text="{Binding Permissions, StringFormat='Permissinos: {0}'}"></Label>
+      <Label Text="{Binding Permissions, StringFormat='Permissions: {0}'}"></Label>
       <Label Text="{Binding CharacteristicValue, StringFormat='Value: {0}'}"></Label>
       <Grid>
         <Grid.ColumnDefinitions>
