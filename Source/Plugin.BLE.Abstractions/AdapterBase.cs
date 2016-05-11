@@ -125,6 +125,11 @@ namespace Plugin.BLE.Abstractions
             {
                 Trace.Message("DisconnectedPeripheral by lost signal: {0}", device.Name);
                 DeviceConnectionLost(this, new DeviceConnectionEventArgs { Device = device });
+
+                if (DiscoveredDevices.Contains(device))
+                {
+                    DiscoveredDevices.Remove(device);
+                }
             }
         }
 

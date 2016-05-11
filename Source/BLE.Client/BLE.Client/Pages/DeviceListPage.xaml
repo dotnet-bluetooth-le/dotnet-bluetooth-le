@@ -6,42 +6,50 @@
              x:Class="BLE.Client.Pages.DeviceListPage"
              Title="Discover devices"
              x:Name="DevicePage">
-  <ListView ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
-            IsPullToRefreshEnabled="True"
-            RefreshCommand="{Binding RefreshCommand}"
-            IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
-            RowHeight="80">
-    <ListView.ItemTemplate>
-      <DataTemplate>
-        <ViewCell>
-          <ViewCell.ContextActions>
-            <MenuItem Command="{Binding Path=BindingContext.DisconnectCommand, Source={x:Reference DevicePage}}"
-                      CommandParameter="{Binding .}"
-                      Text="Disconnect"/>
-          </ViewCell.ContextActions>
-          <Grid>
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition></ColumnDefinition>
-              <ColumnDefinition Width="Auto"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.Triggers>
-              <DataTrigger TargetType="Grid"
-                           Binding="{Binding State}"
-                           Value="{x:Static abstractions:DeviceState.Connected}">
-                <Setter Property="BackgroundColor" Value="#1A00FF00"></Setter>
-              </DataTrigger>
-            </Grid.Triggers>
-            <StackLayout Orientation="Vertical" VerticalOptions="Center">
-              <Label Text="{Binding Name}" FontSize="Large" />
-              <Label Text="{Binding Id, StringFormat='{0}'}" TextColor="Gray" FontSize="Small"/>
-            </StackLayout>
-            <Label Grid.Column="1"
-                   Margin="10"
-                   Text="{Binding Rssi}"
-                   VerticalTextAlignment="Center"></Label>
-          </Grid>
-        </ViewCell>
-      </DataTemplate>
-    </ListView.ItemTemplate>
-  </ListView>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition></RowDefinition>
+      <RowDefinition Height="Auto"></RowDefinition>
+    </Grid.RowDefinitions>
+    <ListView ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
+             IsPullToRefreshEnabled="True"
+             RefreshCommand="{Binding RefreshCommand}"
+             IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+             RowHeight="80">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <ViewCell.ContextActions>
+              <MenuItem Command="{Binding Path=BindingContext.DisconnectCommand, Source={x:Reference DevicePage}}"
+                        CommandParameter="{Binding .}"
+                        Text="Disconnect"/>
+            </ViewCell.ContextActions>
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+              </Grid.ColumnDefinitions>
+              <Grid.Triggers>
+                <DataTrigger TargetType="Grid"
+                             Binding="{Binding State}"
+                             Value="{x:Static abstractions:DeviceState.Connected}">
+                  <Setter Property="BackgroundColor" Value="#1A00FF00"></Setter>
+                </DataTrigger>
+              </Grid.Triggers>
+              <StackLayout Orientation="Vertical" VerticalOptions="Center">
+                <Label Text="{Binding Name}" FontSize="Large" />
+                <Label Text="{Binding Id, StringFormat='{0}'}" TextColor="Gray" FontSize="Small"/>
+              </StackLayout>
+              <Label Grid.Column="1"
+                     Margin="10"
+                     Text="{Binding Rssi}"
+                     VerticalTextAlignment="Center"></Label>
+            </Grid>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+    <Button Grid.Row="1" Text="Connect to previous" Command="{Binding ConnectToPreviousCommand}"></Button>
+  </Grid>
+
 </pages:BasePage>

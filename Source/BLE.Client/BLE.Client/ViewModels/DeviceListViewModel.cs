@@ -13,6 +13,17 @@ namespace BLE.Client.ViewModels
     public class DeviceListViewModel : BaseViewModel
     {
         private readonly IUserDialogs _userDialogs;
+        private Guid _previousGuid;
+
+        private Guid PreviousGuid
+        {
+            get { return _previousGuid; }
+            set
+            {
+                _previousGuid = value;
+                RaisePropertyChanged(() => ConnectToPreviousCommand);
+            }
+        }
 
         public ObservableCollection<IDevice> Devices { get; set; } = new ObservableCollection<IDevice>();
 
@@ -75,6 +86,9 @@ namespace BLE.Client.ViewModels
         {
             try
             {
+                if (device.State != DeviceState.Connected)
+                    return;
+
                 _userDialogs.ShowLoading($"Disconnecting {device.Name}...");
 
                 await Adapter.DisconnectAsync(device);
@@ -110,28 +124,34 @@ namespace BLE.Client.ViewModels
         {
             if (await ConnectDeviceAsync(device))
             {
-                ShowViewModel<ServiceListViewModel>(
-             new MvxBundle(new Dictionary<string, string> { { DeviceIdKey, device.Id.ToString() } }));
+                ShowViewModel<ServiceListViewModel>(new MvxBundle(new Dictionary<string, string> { { DeviceIdKey, device.Id.ToString() } }));
+
             }
         }
 
-        private async Task<bool> ConnectDeviceAsync(IDevice device)
+        private async Task<bool> ConnectDeviceAsync(IDevice device, bool showPrompt = true)
         {
             if (device.State == DeviceState.Connected)
             {
                 return true;
             }
 
-            if (!await _userDialogs.ConfirmAsync($"Connect to device '{device.Name}'?"))
+            if (showPrompt && !await _userDialogs.ConfirmAsync($"Connect to device '{device.Name}'?"))
             {
                 return false;
             }
-
             try
             {
                 _userDialogs.ShowLoading("Connecting ...");
 
+                if (device.State == DeviceState.Connected)
+                {
+                    return true;
+                }
+
                 await Adapter.ConnectAsync(device);
+
+                PreviousGuid = device.Id;
                 return true;
             }
             catch (Exception ex)
@@ -144,8 +164,45 @@ namespace BLE.Client.ViewModels
             {
                 _userDialogs.HideLoading();
             }
-
         }
 
+
+        public MvxCommand ConnectToPreviousCommand => new MvxCommand(ScanAndConnectToPreviousDeviceAsync, CanConnectToPrevious);
+
+        private async void ScanAndConnectToPreviousDeviceAsync()
+        {
+
+            IDevice device;
+
+            try
+            {
+                _userDialogs.ShowLoading($"Searching for '{PreviousGuid}'");
+                device = await Adapter.DiscoverSpecificDeviceAsync(PreviousGuid);
+
+            }
+            catch (Exception ex)
+            {
+                _userDialogs.ShowError(ex.Message);
+                return;
+            }
+            finally
+            {
+                _userDialogs.HideLoading();
+            }
+
+            if (device != null)
+            {
+                HandleSelectedDevice(device);
+            }
+            else
+            {
+                _userDialogs.ShowError($"Device with ID '{PreviousGuid}' not found.");
+            }
+        }
+
+        private bool CanConnectToPrevious()
+        {
+            return PreviousGuid != default(Guid);
+        }
     }
 }

@@ -39,8 +39,6 @@ namespace Plugin.BLE.Android
 
         public Adapter()
         {
-            ScanTimeout = 10000;
-
             DeviceOperationRegistry = new Dictionary<string, IDevice>();
             ConnectedDeviceRegistry = new Dictionary<string, IDevice>();
 
