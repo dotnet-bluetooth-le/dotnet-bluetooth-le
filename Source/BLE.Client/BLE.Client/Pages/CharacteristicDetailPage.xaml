@@ -17,18 +17,26 @@
       <Label Text="{Binding Characteristic.Properties, StringFormat='Properties: {0}'}"></Label>
       <Label Text="{Binding Permissions, StringFormat='Permissinos: {0}'}"></Label>
       <Label Text="{Binding CharacteristicValue, StringFormat='Value: {0}'}"></Label>
-      <Grid ColumnSpacing="10">
+      <Grid>
         <Grid.ColumnDefinitions>
-          <ColumnDefinition></ColumnDefinition>
-          <ColumnDefinition></ColumnDefinition>
-          <ColumnDefinition></ColumnDefinition>
+          <ColumnDefinition Width="Auto"></ColumnDefinition>
+          <ColumnDefinition Width="Auto"></ColumnDefinition>
+          <ColumnDefinition Width="Auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Button Text="Read" Command="{Binding ReadCommand}"></Button>
         <Button Grid.Column="1" Text="Write" Command="{Binding WriteCommand}"></Button>
         <Button Grid.Column="2" Text="{Binding UpdateButtonText}" Command="{Binding ToggleUpdatesCommand}"></Button>
       </Grid>
-      
+
     </StackLayout>
-    
+    <ListView Grid.Row="1" ItemsSource="{Binding Messages}" CachingStrategy="RecycleElement">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell Height="50">
+            <Label Text="{Binding .}" VerticalTextAlignment="Center" FontSize="Small"></Label>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
   </Grid>
 </pages:BasePage>
