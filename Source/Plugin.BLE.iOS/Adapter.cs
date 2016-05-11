@@ -61,16 +61,16 @@ namespace Plugin.BLE.iOS
                 IDevice device;
                 if (_deviceOperationRegistry.TryGetValue(guid, out device))
                 {
+                    _deviceOperationRegistry.Remove(guid);
                     ((Device) device).Update(e.Peripheral);
                 }
                 else
                 {
                     Trace.Message("Device not found in operation registry. Creating a new one.");
                     device = new Device(e.Peripheral);
-
-                    _deviceConnectionRegistry[guid] = device;
                 }
 
+                _deviceConnectionRegistry[guid] = device;
                 HandleConnectedDevice(device);
             };
 
