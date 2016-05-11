@@ -30,15 +30,9 @@ namespace Plugin.BLE.Abstractions
 
         public int ScanTimeout { get; set; } = 10000;
 
-        public virtual IList<IDevice> DiscoveredDevices
-        {
-            get { return _discoveredDevices; }
-        }
+        public virtual IList<IDevice> DiscoveredDevices => _discoveredDevices;
 
-        public virtual IList<IDevice> ConnectedDevices
-        {
-            get { return _connectedDevices; }
-        }
+        public virtual IList<IDevice> ConnectedDevices => _connectedDevices;
 
         public Task StartScanningForDevicesAsync()
         {
@@ -152,7 +146,7 @@ namespace Plugin.BLE.Abstractions
             IsScanning = false;
         }
 
-        protected void HandleDiscoveredDevice(IDevice device)
+        public void HandleDiscoveredDevice(IDevice device)
         {
             DeviceAdvertised(this, new DeviceDiscoveredEventArgs { Device = device });
 
@@ -164,12 +158,12 @@ namespace Plugin.BLE.Abstractions
             DeviceDiscovered(this, new DeviceDiscoveredEventArgs { Device = device });
         }
 
-        protected void HandleConnectedDevice(IDevice device)
+        public void HandleConnectedDevice(IDevice device)
         {
             DeviceConnected(this, new DeviceConnectionEventArgs { Device = device });
         }
 
-        protected void HandleDisconnectedDevice(bool disconnectRequested, IDevice device)
+        public void HandleDisconnectedDevice(bool disconnectRequested, IDevice device)
         {
             if (disconnectRequested)
             {
@@ -183,7 +177,7 @@ namespace Plugin.BLE.Abstractions
             }
         }
 
-        protected void HandleConnectionFail(IDevice device, string errorMessage)
+        public void HandleConnectionFail(IDevice device, string errorMessage)
         {
             Trace.Message("Failed to connect peripheral {0}: {1}", device.Id, device.Name);
             DeviceConnectionError(this, new DeviceConnectionEventArgs
