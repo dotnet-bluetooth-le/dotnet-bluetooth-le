@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Plugin.BLE.Abstractions.Contracts
 {
@@ -37,6 +39,46 @@ namespace Plugin.BLE.Abstractions.Contracts
         void CreateBondToDevice(IDevice device);
         void DisconnectDevice(IDevice device);
 
+    }
+
+
+
+    public interface IAdapterNew
+    {
+        // events
+        event EventHandler<DeviceDiscoveredEventArgs> DeviceAdvertised;
+        event EventHandler<DeviceDiscoveredEventArgs> DeviceDiscovered;
+        event EventHandler<DeviceConnectionEventArgs> DeviceConnected;
+        event EventHandler<DeviceBondStateChangedEventArgs> DeviceBondStateChanged;
+        event EventHandler<DeviceConnectionEventArgs> DeviceDisconnected;
+        event EventHandler<DeviceConnectionEventArgs> DeviceConnectionLost;
+        event EventHandler<DeviceConnectionEventArgs> DeviceConnectionError;
+
+        event EventHandler ScanTimeoutElapsed;
+        //TODO: add this
+        //event EventHandler ConnectTimeoutElapsed;
+
+        // properties
+        bool IsScanning { get; }
+
+        /// <summary>
+        /// Timeout for Ble scanning. Default is 10000
+        /// </summary>
+        int ScanTimeout { get; set; }
+        //IList<IDevice> DiscoveredDevices { get; }
+        //IList<IDevice> ConnectedDevices { get; }
+
+        // methods
+        Task StartScanningForDevicesAsync();
+        Task StartScanningForDevicesAsync(Guid[] serviceUuids);
+        Task StopScanningForDevicesAsync();
+
+        Task<IDevice> ConnectToDeviceAync(IDevice device, bool autoconnect = false);
+        Task<IDevice> ConnectToDeviceAync(IDevice device, bool autoconnect, CancellationToken cancellationToken);
+        Task DisconnectDeviceAsync(IDevice device);
+
+        Task<IDevice> CreateBondToDevice(IDevice device);
+        Task<IDevice> CreateBondToDevice(IDevice device, CancellationToken cancellationToken);
     }
 }
 
