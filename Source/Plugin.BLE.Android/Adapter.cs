@@ -11,62 +11,31 @@ using Android.OS;
 using Java.Util;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using Object = Java.Lang.Object;
 using Trace = Plugin.BLE.Abstractions.Trace;
 
 namespace Plugin.BLE.Android
 {
-    public partial class Adapter : BluetoothAdapter.ILeScanCallback, IAdapter
+    public class Adapter : AdapterBase
     {
-        // events
-        public event EventHandler<DeviceDiscoveredEventArgs> DeviceAdvertised = delegate { };
-        public event EventHandler<DeviceDiscoveredEventArgs> DeviceDiscovered = delegate { };
-        public event EventHandler<DeviceConnectionEventArgs> DeviceConnected = delegate { };
-        public event EventHandler<DeviceBondStateChangedEventArgs> DeviceBondStateChanged = delegate { };
-        public event EventHandler<DeviceConnectionEventArgs> DeviceDisconnected = delegate { };
-        public event EventHandler<DeviceConnectionEventArgs> DeviceConnectionLost = delegate { };
-        public event EventHandler<DeviceConnectionEventArgs> DeviceConnectionError = delegate { };
-        public event EventHandler ScanTimeoutElapsed = delegate { };
-
         // class members
-        private readonly BluetoothAdapter _adapter;
+        private readonly BluetoothAdapter _bluetoothAdapter;
+        private readonly Api18BleScanCallback _api18ScanCallback;
         private readonly Api21BleScanCallback _api21ScanCallback;
+        private readonly GattCallback _gattCallback;
 
-        public bool IsScanning
-        {
-            get { return _isScanning; }
-        }
-
-        public int ScanTimeout { get; set; }
-
-        public IList<IDevice> DiscoveredDevices
-        {
-            get
-            {
-                return _discoveredDevices;
-            }
-        }
-        private IList<IDevice> _discoveredDevices = new List<IDevice>();
-        private CancellationTokenSource _cancellationTokenSource;
-        private volatile bool _isScanning; //ToDo maybe lock
-
-        public IList<IDevice> ConnectedDevices
-        {
-            get
-            {
-                return ConnectedDeviceRegistry.Values.ToList();
-            }
-        }
+        public override IList<IDevice> ConnectedDevices => ConnectedDeviceRegistry.Values.ToList();
 
         /// <summary>
         /// Used to store all connected devices
         /// </summary>
-        public Dictionary<string, IDevice> ConnectedDeviceRegistry { get; private set; }
+        public Dictionary<string, IDevice> ConnectedDeviceRegistry { get; }
 
 
         /// <summary>
         /// Registry used to store device instances for pending operations : connect 
         /// </summary>
-        public Dictionary<string, IDevice> DeviceOperationRegistry { get; private set; }
+        public Dictionary<string, IDevice> DeviceOperationRegistry { get; }
 
         public Adapter()
         {
@@ -78,7 +47,7 @@ namespace Plugin.BLE.Android
             var appContext = Application.Context;
             // get a reference to the bluetooth system service
             var manager = (BluetoothManager)appContext.GetSystemService(Context.BluetoothService);
-            _adapter = manager.Adapter;
+            _bluetoothAdapter = manager.Adapter;
 
 
             var bondStatusBroadcastReceiver = new BondStatusBroadcastReceiver();
@@ -88,37 +57,25 @@ namespace Plugin.BLE.Android
             //forward events from broadcast receiver
             bondStatusBroadcastReceiver.BondStateChanged += (s, args) =>
             {
-                DeviceBondStateChanged(this, args);
+                //DeviceBondStateChanged(this, args);
             };
 
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
             {
                 _api21ScanCallback = new Api21BleScanCallback(this);
             }
-        }
-
-        public void StartScanningForDevices()
-        {
-            StartScanningForDevices(new Guid[] { });
-        }
-
-        public void StartScanningForDevices(Guid[] serviceUuids)
-        {
-            StartLeScan(serviceUuids);
-        }
-
-        private async void StartLeScan(Guid[] serviceUuids)
-        {
-            if (_isScanning)
+            else
             {
-                Trace.Message("Adapter: Already scanning.");
-                return;
+                _api18ScanCallback = new Api18BleScanCallback(this);
             }
 
-            _isScanning = true;
+            _gattCallback = new GattCallback(this);
+        }
+        protected override Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, CancellationToken scanCancellationToken)
+        {
 
             // clear out the list
-            _discoveredDevices = new List<IDevice>();
+            DiscoveredDevices.Clear();
 
             if (serviceUuids == null || !serviceUuids.Any())
             {
@@ -127,15 +84,15 @@ namespace Plugin.BLE.Android
                     Trace.Message("Adapter < 21: Starting a scan for devices.");
                     //without filter
 #pragma warning disable 618
-                    _adapter.StartLeScan(this);
+                    _bluetoothAdapter.StartLeScan(_api18ScanCallback);
 #pragma warning restore 618
                 }
                 else
                 {
                     Trace.Message("Adapter >= 21: Starting a scan for devices.");
-                    if (_adapter.BluetoothLeScanner != null)
+                    if (_bluetoothAdapter.BluetoothLeScanner != null)
                     {
-                        _adapter.BluetoothLeScanner.StartScan(_api21ScanCallback);
+                        _bluetoothAdapter.BluetoothLeScanner.StartScan(_api21ScanCallback);
                     }
                     else
                     {
@@ -151,7 +108,7 @@ namespace Plugin.BLE.Android
                     var uuids = serviceUuids.Select(u => UUID.FromString(u.ToString())).ToArray();
                     Trace.Message("Adapter < 21: Starting a scan for devices.");
 #pragma warning disable 618
-                    _adapter.StartLeScan(uuids, this);
+                    _bluetoothAdapter.StartLeScan(uuids, _api18ScanCallback);
 #pragma warning restore 618
                 }
                 else
@@ -170,9 +127,9 @@ namespace Plugin.BLE.Android
                     var ssb = new ScanSettings.Builder();
                     //ssb.SetCallbackType(ScanCallbackType.AllMatches);
 
-                    if (_adapter.BluetoothLeScanner != null)
+                    if (_bluetoothAdapter.BluetoothLeScanner != null)
                     {
-                        _adapter.BluetoothLeScanner.StartScan(scanFilters, ssb.Build(), _api21ScanCallback);
+                        _bluetoothAdapter.BluetoothLeScanner.StartScan(scanFilters, ssb.Build(), _api21ScanCallback);
                     }
                     else
                     {
@@ -182,103 +139,39 @@ namespace Plugin.BLE.Android
 
             }
 
-            // in ScanTimeout seconds, stop the scan
-            _cancellationTokenSource = new CancellationTokenSource();
-
-            try
-            {
-                await Task.Delay(ScanTimeout, _cancellationTokenSource.Token);
-
-                Trace.Message("Adapter: Scan timeout has elapsed.");
-
-                StopScan();
-
-                TryDisposeToken();
-                _isScanning = false;
-
-                //important for this to be caled after _isScanning = false;
-                ScanTimeoutElapsed(this, EventArgs.Empty);
-            }
-            catch (TaskCanceledException)
-            {
-                Trace.Message("Adapter: Scan was cancelled.");
-                StopScan();
-
-                TryDisposeToken();
-                _isScanning = false;
-            }
+            return Task.FromResult(true);
         }
 
-        private void TryDisposeToken()
-        {
-            if (_cancellationTokenSource == null)
-                return;
-
-            _cancellationTokenSource.Dispose();
-            _cancellationTokenSource = null;
-        }
-
-        public void StopScanningForDevices()
-        {
-            if (_cancellationTokenSource != null && !_cancellationTokenSource.IsCancellationRequested)
-            {
-                _cancellationTokenSource.Cancel();
-            }
-            else
-            {
-                Trace.Message("Adapter: Already cancelled scan.");
-            }
-        }
-
-        private void StopScan()
+        protected override void StopScanNative()
         {
             if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
             {
                 Trace.Message("Adapter < 21: Stopping the scan for devices.");
 #pragma warning disable 618
-                _adapter.StopLeScan(this);
+                _bluetoothAdapter.StopLeScan(_api18ScanCallback);
 #pragma warning restore 618
             }
             else
             {
                 Trace.Message("Adapter >= 21: Stopping the scan for devices.");
-                if (_adapter.BluetoothLeScanner != null)
-                {
-                    _adapter.BluetoothLeScanner.StopScan(_api21ScanCallback);
-                }
+                _bluetoothAdapter.BluetoothLeScanner?.StopScan(_api21ScanCallback);
             }
         }
 
-        public void OnLeScan(BluetoothDevice bleDevice, int rssi, byte[] scanRecord)
-        {
-            Trace.Message("Adapter.LeScanCallback: " + bleDevice.Name);
-
-            var device = new Device(bleDevice, null, null, rssi, scanRecord);
-
-            DeviceAdvertised(this, new DeviceDiscoveredEventArgs { Device = device });
-
-            if (!_discoveredDevices.Contains(device))
-            {
-                _discoveredDevices.Add(device);
-
-                DeviceDiscovered(this, new DeviceDiscoveredEventArgs { Device = device });
-            }
-        }
-
-        public void ConnectToDevice(IDevice device, bool autoconnect)
+        public override void ConnectToDevice(IDevice device, bool autoconnect = false)
         {
             AddToDeviceOperationRegistry(device);
 
-            ((BluetoothDevice)device.NativeDevice).ConnectGatt(Application.Context, autoconnect, this);
+            ((BluetoothDevice)device.NativeDevice).ConnectGatt(Application.Context, autoconnect, _gattCallback);
         }
 
 
-        public void CreateBondToDevice(IDevice device)
+        public override void CreateBondToDevice(IDevice device)
         {
             ((BluetoothDevice)device.NativeDevice).CreateBond();
         }
 
-        public void DisconnectDevice(IDevice deviceToDisconnect)
+        public override void DisconnectDevice(IDevice deviceToDisconnect)
         {
             //make sure everything is disconnected
             AddToDeviceOperationRegistry(deviceToDisconnect);
@@ -292,6 +185,23 @@ namespace Plugin.BLE.Android
             DeviceOperationRegistry[nativeDevice.Address] = device;
         }
 
+        public class Api18BleScanCallback : Object, BluetoothAdapter.ILeScanCallback
+        {
+            private readonly Adapter _adapter;
+
+            public Api18BleScanCallback(Adapter adapter)
+            {
+                _adapter = adapter;
+            }
+
+            public void OnLeScan(BluetoothDevice bleDevice, int rssi, byte[] scanRecord)
+            {
+                Trace.Message("Adapter.LeScanCallback: " + bleDevice.Name);
+
+                _adapter.HandleDiscoveredDevice(new Device(bleDevice, null, null, rssi, scanRecord));
+            }
+        }
+
 
         public class Api21BleScanCallback : ScanCallback
         {
@@ -299,11 +209,6 @@ namespace Plugin.BLE.Android
             public Api21BleScanCallback(Adapter adapter)
             {
                 _adapter = adapter;
-            }
-
-            public override void OnBatchScanResults(IList<ScanResult> results)
-            {
-                base.OnBatchScanResults(results);
             }
 
             public override void OnScanFailed(ScanFailure errorCode)
@@ -360,14 +265,7 @@ namespace Plugin.BLE.Android
                 //    device = new Device(result.Device, null, null, result.Rssi, new byte[0]);
                 //}
 
-                _adapter.DeviceAdvertised(this, new DeviceDiscoveredEventArgs { Device = device });
-
-                if (_adapter._discoveredDevices.Contains(device))
-                    return;
-
-                _adapter._discoveredDevices.Add(device);
-
-                _adapter.DeviceDiscovered(this, new DeviceDiscoveredEventArgs { Device = device });
+                _adapter.HandleDiscoveredDevice(device);
 
             }
         }

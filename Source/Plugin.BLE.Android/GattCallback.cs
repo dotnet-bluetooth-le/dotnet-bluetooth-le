@@ -13,12 +13,18 @@ namespace Plugin.BLE.Android
         event EventHandler<RssiReadEventArgs> RemoteRssiRead;
     }
 
-    public partial class Adapter : BluetoothGattCallback, IGattCallback
+    public class GattCallback : BluetoothGattCallback, IGattCallback
     {
+        private readonly Adapter _adapter;
         public event EventHandler<ServicesDiscoveredEventArgs> ServicesDiscovered = delegate { };
         public event EventHandler<CharacteristicReadEventArgs> CharacteristicValueUpdated = delegate { };
         public event EventHandler<CharacteristicWriteEventArgs> CharacteristicValueWritten = delegate { };
         public event EventHandler<RssiReadEventArgs> RemoteRssiRead = delegate { };
+
+        public GattCallback(Adapter adapter)
+        {
+            _adapter = adapter;
+        }
 
         public override void OnConnectionStateChange(BluetoothGatt gatt, GattStatus status, ProfileState newState)
         {
@@ -27,9 +33,9 @@ namespace Plugin.BLE.Android
 
             if (status != GattStatus.Success)
             {
-                Trace.Message("OnConnectionStateChange: GattCallback error: {0}", status);
+                Trace.Message($"OnConnectionStateChange: GattCallback error: {status}");
                 device = new Device(gatt.Device, gatt, this, 0);
-                DeviceConnectionError(this, new DeviceConnectionEventArgs() { Device = device });
+                _adapter.HandleConnectionFail(device, $"GattCallback error: {status}");
                 // We don't return. Allowing to fall-through to the SWITCH, which will assume a disconnect, close GATT and clean up.
                 // The above error event handles the case where the error happened during a Connect call, which will close out any waiting asyncs.
             }
@@ -43,28 +49,28 @@ namespace Plugin.BLE.Android
                 // disconnected
                 case ProfileState.Disconnected:
 
-                    if (DeviceOperationRegistry.TryGetValue(gatt.Device.Address, out device))
+                    if (_adapter.DeviceOperationRegistry.TryGetValue(gatt.Device.Address, out device))
                     {
                         Trace.Message("Disconnected by user");
 
                         //Found so we can remove it
-                        DeviceOperationRegistry.Remove(gatt.Device.Address);
-                        ConnectedDeviceRegistry.Remove(gatt.Device.Address);
+                        _adapter.DeviceOperationRegistry.Remove(gatt.Device.Address);
+                        _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
                         gatt.Close();
 
-                        DeviceDisconnected(this, new DeviceConnectionEventArgs { Device = device });
+                        _adapter.HandleDisconnectedDevice(true, device);
                         break;
                     }
 
                     //connection must have been lost, bacause our device was not found in the registry but was still connected
-                    if (ConnectedDeviceRegistry.TryGetValue(gatt.Device.Address, out device))
+                    if (_adapter.ConnectedDeviceRegistry.TryGetValue(gatt.Device.Address, out device))
                     {
                         Trace.Message("Disconnected by lost connection");
 
-                        ConnectedDeviceRegistry.Remove(gatt.Device.Address);
+                        _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
                         gatt.Close();
 
-                        DeviceConnectionLost(this, new DeviceConnectionEventArgs() { Device = device });
+                        _adapter.HandleDisconnectedDevice(false, device);
                         break;
                     }
 
@@ -81,12 +87,12 @@ namespace Plugin.BLE.Android
                     Trace.Message("Connected");
 
                     //Try to find the device in the registry so that the same instance is updated
-                    if (DeviceOperationRegistry.TryGetValue(gatt.Device.Address, out device))
+                    if (_adapter.DeviceOperationRegistry.TryGetValue(gatt.Device.Address, out device))
                     {
                         ((Device)device).Update(gatt.Device, gatt, this);
 
                         //Found so we can remove it
-                        DeviceOperationRegistry.Remove(gatt.Device.Address);
+                        _adapter.DeviceOperationRegistry.Remove(gatt.Device.Address);
                     }
                     else
                     {
@@ -94,8 +100,8 @@ namespace Plugin.BLE.Android
                         device = new Device(gatt.Device, gatt, this, 0);
                     }
 
-                    ConnectedDeviceRegistry[gatt.Device.Address] = device;
-                    DeviceConnected(this, new DeviceConnectionEventArgs() { Device = device });
+                    _adapter.ConnectedDeviceRegistry[gatt.Device.Address] = device;
+                    _adapter.HandleConnectedDevice(device);
 
                     break;
                 // disconnecting
