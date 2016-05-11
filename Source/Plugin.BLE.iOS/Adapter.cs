@@ -128,28 +128,16 @@ namespace Plugin.BLE.iOS
             _centralManager.ScanForPeripherals(serviceCbuuids);
         }
 
-        protected override Task DisconnectDeviceNativeAsync(IDevice device)
+        protected override void DisconnectDeviceNative(IDevice device)
         {
-            // TODO: make abstract after refactoring
-            throw new NotImplementedException("I'm abstract, override me.");
+            _deviceOperationRegistry[device.Id.ToString()] = device;
+            _centralManager.CancelPeripheralConnection(device.NativeDevice as CBPeripheral);
         }
 
         protected override void StopScanNative()
         {
             _centralManager.StopScan();
         }
-
-        public override void ConnectToDevice(IDevice device, bool autoconnect = false)
-        {
-            if (autoconnect)
-            {
-                Trace.Message("Warning: Autoconnect is not supported in iOS");
-            }
-
-            _deviceOperationRegistry[device.Id.ToString()] = device;
-            _centralManager.ConnectPeripheral(device.NativeDevice as CBPeripheral, new PeripheralConnectionOptions());
-        }
-
 
         protected override Task ConnectToDeviceNativeAync(IDevice device, bool autoconnect, CancellationToken cancellationToken)
         {
@@ -183,16 +171,16 @@ namespace Plugin.BLE.iOS
 
             DeviceConnected += h;
             _centralManager.FailedToConnectPeripheral += he;
-            ConnectToDevice(device);
+
+            if (autoconnect)
+            {
+                Trace.Message("Warning: Autoconnect is not supported in iOS");
+            }
+
+            _deviceOperationRegistry[device.Id.ToString()] = device;
+            _centralManager.ConnectPeripheral(device.NativeDevice as CBPeripheral, new PeripheralConnectionOptions());
 
             return tcs.Task;
-        }
-
-        public override void DisconnectDevice(IDevice device)
-        {
-            // update registry
-            _deviceOperationRegistry[device.Id.ToString()] = device;
-            _centralManager.CancelPeripheralConnection(device.NativeDevice as CBPeripheral);
         }
 
         private static Guid ParseDeviceGuid(CBPeripheral peripherial)

@@ -62,7 +62,7 @@ namespace BLE.Client.ViewModels
         {
             base.Suspend();
 
-            Adapter.StopScanningForDevices();
+            Adapter.StopScanningForDevicesAsync();
             RaisePropertyChanged(() => IsRefreshing);
         }
 
@@ -76,7 +76,7 @@ namespace BLE.Client.ViewModels
             }
 
 
-            Adapter.StartScanningForDevices();
+            Adapter.StartScanningForDevicesAsync();
         }
 
         public MvxCommand RefreshCommand => new MvxCommand(ScanForDevices);
@@ -91,7 +91,7 @@ namespace BLE.Client.ViewModels
 
                 _userDialogs.ShowLoading($"Disconnecting {device.Name}...");
 
-                await Adapter.DisconnectAsync(device);
+                await Adapter.DisconnectDeviceAsync(device);
 
                 Devices.Remove(device);
             }
@@ -149,7 +149,7 @@ namespace BLE.Client.ViewModels
                     return true;
                 }
 
-                await Adapter.ConnectAsync(device);
+                await Adapter.ConnectToDeviceAync(device);
 
                 PreviousGuid = device.Id;
                 return true;
@@ -177,7 +177,7 @@ namespace BLE.Client.ViewModels
             try
             {
                 _userDialogs.ShowLoading($"Searching for '{PreviousGuid}'");
-                device = await Adapter.DiscoverSpecificDeviceAsync(PreviousGuid);
+                device = null; //await Adapter.DiscoverSpecificDeviceAsync(PreviousGuid);
 
             }
             catch (Exception ex)

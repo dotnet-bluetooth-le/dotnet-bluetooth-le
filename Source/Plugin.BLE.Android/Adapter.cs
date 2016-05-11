@@ -11,6 +11,7 @@ using Android.OS;
 using Java.Util;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Abstractions.Exceptions;
 using Object = Java.Lang.Object;
 using Trace = Plugin.BLE.Abstractions.Trace;
 
@@ -156,25 +157,53 @@ namespace Plugin.BLE.Android
             }
         }
 
-        public override void ConnectToDevice(IDevice device, bool autoconnect = false)
+        protected override Task ConnectToDeviceNativeAync(IDevice device, bool autoconnect, CancellationToken cancellationToken)
         {
             AddToDeviceOperationRegistry(device);
 
+            var tcs = new TaskCompletionSource<IDevice>();
+            EventHandler<DeviceConnectionEventArgs> h = null;
+            EventHandler<DeviceConnectionEventArgs> he = null;
+
+            h = (sender, e) =>
+            {
+                Trace.Message("ConnectAsync: {0} {1}", e.Device.Id, e.Device.Name);
+                if (e.Device.Id == device.Id)
+                {
+                    DeviceConnected -= h;
+                    DeviceConnectionError -= he;
+                    tcs.TrySetResult(e.Device);
+                }
+            };
+
+            he = (sender, e) =>
+            {
+                // Would be nice to use C#6.0 null-conditional operators like e.Device?.Id
+                Trace.Message("ConnectAsync Error: {0} {1}", e.Device?.Id, e.Device?.Name);
+                if (e.Device?.Id == device.Id)
+                {
+                    DeviceConnectionError -= he;
+                    DeviceConnected -= h;
+                    tcs.TrySetException(new DeviceConnectionException((Guid)e.Device?.Id, e.Device?.Name, e.ErrorMessage));
+                }
+            };
+
+            DeviceConnected += h;
+            DeviceConnectionError += he;
+
             ((BluetoothDevice)device.NativeDevice).ConnectGatt(Application.Context, autoconnect, _gattCallback);
+
+            return tcs.Task;
         }
 
-
-        public override void CreateBondToDevice(IDevice device)
-        {
-            ((BluetoothDevice)device.NativeDevice).CreateBond();
-        }
-
-        public override void DisconnectDevice(IDevice deviceToDisconnect)
+        protected override void DisconnectDeviceNative(IDevice device)
         {
             //make sure everything is disconnected
-            AddToDeviceOperationRegistry(deviceToDisconnect);
-            ((Device)deviceToDisconnect).Disconnect();
+            AddToDeviceOperationRegistry(device);
+
+            ((Device)device).Disconnect();
         }
+
 
         private void AddToDeviceOperationRegistry(IDevice device)
         {

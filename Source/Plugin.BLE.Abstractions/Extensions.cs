@@ -40,169 +40,80 @@ namespace Plugin.BLE.Abstractions
             return "0x" + id;
         }
 
-        public static Task<IDevice> DiscoverSpecificDeviceAsync(this IAdapter adapter, Guid deviceID)
-        {
-            return DiscoverSpecificDeviceAsync(adapter, deviceID, Guid.Empty);
-        }
+        //public static Task<IDevice> DiscoverSpecificDeviceAsync(this IAdapter adapter, Guid deviceID)
+        //{
+        //    return DiscoverSpecificDeviceAsync(adapter, deviceID, Guid.Empty);
+        //}
 
-        public static Task<IDevice> DiscoverSpecificDeviceAsync(this IAdapter adapter, Guid deviceID, Guid serviceID)
-        {
-            if (adapter.DiscoveredDevices.Count(d => d.Id == deviceID) > 0)
-            {
-                return Task.FromResult(adapter.DiscoveredDevices.First(d => d.Id == deviceID));
-            }
+        //public static Task<IDevice> DiscoverSpecificDeviceAsync(this IAdapter adapter, Guid deviceID, Guid serviceID)
+        //{
+        //    if (adapter.DiscoveredDevices.Count(d => d.Id == deviceID) > 0)
+        //    {
+        //        return Task.FromResult(adapter.DiscoveredDevices.First(d => d.Id == deviceID));
+        //    }
 
-            var tcs = new TaskCompletionSource<IDevice>();
-            EventHandler<DeviceDiscoveredEventArgs> hd = null;
-            EventHandler he = null;
+        //    var tcs = new TaskCompletionSource<IDevice>();
+        //    EventHandler<DeviceDiscoveredEventArgs> hd = null;
+        //    EventHandler he = null;
 
-            hd = (object sender, DeviceDiscoveredEventArgs e) =>
-                {
-                    if (e.Device.Id == deviceID)
-                    {
-                        adapter.StopScanningForDevices();
-                        adapter.DeviceDiscovered -= hd;
-                        adapter.ScanTimeoutElapsed -= he;
-                        tcs.TrySetResult(e.Device);
-                    }
-                };
+        //    hd = (object sender, DeviceDiscoveredEventArgs e) =>
+        //        {
+        //            if (e.Device.Id == deviceID)
+        //            {
+        //                adapter.StopScanningForDevices();
+        //                adapter.DeviceDiscovered -= hd;
+        //                adapter.ScanTimeoutElapsed -= he;
+        //                tcs.TrySetResult(e.Device);
+        //            }
+        //        };
 
-            he = (sender, e) =>
-                {
-                    adapter.DeviceDiscovered -= hd;
-                    adapter.ScanTimeoutElapsed -= he;
-                    tcs.TrySetException(new Exception("Unable to discover " + deviceID.ToString()));
-                };
+        //    he = (sender, e) =>
+        //        {
+        //            adapter.DeviceDiscovered -= hd;
+        //            adapter.ScanTimeoutElapsed -= he;
+        //            tcs.TrySetException(new Exception("Unable to discover " + deviceID.ToString()));
+        //        };
 
-            adapter.DeviceDiscovered += hd;
-            adapter.ScanTimeoutElapsed += he;
+        //    adapter.DeviceDiscovered += hd;
+        //    adapter.ScanTimeoutElapsed += he;
 
-            if (adapter.IsScanning)
-            {
-                adapter.StopScanningForDevices();
-            }
-            if (serviceID != Guid.Empty)
-            {
-                adapter.StartScanningForDevices(new[] { serviceID });
-            }
-            else
-            {
-                adapter.StartScanningForDevices();
-            }
+        //    if (adapter.IsScanning)
+        //    {
+        //        adapter.StopScanningForDevices();
+        //    }
+        //    if (serviceID != Guid.Empty)
+        //    {
+        //        adapter.StartScanningForDevices(new[] { serviceID });
+        //    }
+        //    else
+        //    {
+        //        adapter.StartScanningForDevices();
+        //    }
 
-            return tcs.Task;
-        }
+        //    return tcs.Task;
+        //}
 
-        /// <summary>
-        /// Asynchronously gets the requested service
-        /// </summary>
-        public static Task<IDevice> ConnectAsync(this IAdapter adapter, IDevice device)
-        {
-            if (device.State == DeviceState.Connected)
-                return Task.FromResult<IDevice>(device);
+    
 
-            var tcs = new TaskCompletionSource<IDevice>();
-            EventHandler<DeviceConnectionEventArgs> h = null;
-            EventHandler<DeviceConnectionEventArgs> he = null;
+        //public static Task<DeviceBondState> BondAsync(this IAdapter adapter, IDevice device)
+        //{
+        //    var tcs = new TaskCompletionSource<DeviceBondState>();
+        //    EventHandler<DeviceBondStateChangedEventArgs> h = null;
+        //    h = (sender, e) =>
+        //    {
+        //        //Debug.WriteLine("Bonded: " + e.Device.Id + " " + e.Device.State);
+        //        if (e.Device.Id == device.Id && e.State == DeviceBondState.Bonded)
+        //        {
+        //            adapter.DeviceBondStateChanged -= h;
+        //            tcs.TrySetResult(e.State);
+        //        }
+        //    };
+        //    adapter.DeviceBondStateChanged += h;
 
-            h = (sender, e) =>
-            {
-                //Mvx.TaggedTrace("ConnectAsync", "Connected: {0} {1}", e.Device.Id, e.Device.Name);
-                if (e.Device.Id == device.Id)
-                {
-                    adapter.DeviceConnected -= h;
-                    adapter.DeviceConnectionError -= he;
-                    tcs.TrySetResult(e.Device);
-                }
-            };
+        //    adapter.CreateBondToDevice(device);
 
-            he = (sender, e) =>
-            {
-                // Would be nice to use C#6.0 null-conditional operators like e.Device?.Id
-                //Mvx.TaggedWarning("ConnectAsync", "Connection Error: {0} {1}",
-                //    (e.Device != null ? e.Device.Id.ToString() : ""),
-                //    (e.Device != null ? e.Device.Name : ""));
-                if (e.Device.Id == device.Id)
-                {
-                    adapter.DeviceConnectionError -= he;
-                    adapter.DeviceConnected -= h;
-                    tcs.TrySetException(new Exception("Connect operation exception"));
-                }
-            };
-
-            adapter.DeviceConnected += h;
-            adapter.DeviceConnectionError += he;
-
-            adapter.ConnectToDevice(device);
-
-            return tcs.Task;
-        }
-
-        public static Task DisconnectAsync(this IAdapter adapter, IDevice device)
-        {
-            if (!adapter.ConnectedDevices.Contains(device))
-            {
-                //Mvx.Trace("Disconnect async: device {0} not in the list of connected devices.", device.Name);
-                return Task.FromResult(false);
-            }
-
-            var tcs = new TaskCompletionSource<IDevice>();
-            EventHandler<DeviceConnectionEventArgs> h = null;
-            EventHandler<DeviceConnectionEventArgs> he = null;
-
-            h = (sender, e) =>
-            {
-                //Mvx.TaggedTrace("DisconnectAsync", "Disconnected: {0} {1}", e.Device.Id, e.Device.Name);
-                if (e.Device.Id == device.Id)
-                {
-                    adapter.DeviceDisconnected -= h;
-                    adapter.DeviceConnectionError -= he;
-                    tcs.TrySetResult(e.Device);
-                }
-            };
-
-            he = (sender, e) =>
-                {
-                    // Would be nice to use C#6.0 null-conditional operators like e.Device?.Id
-                    //Mvx.TaggedWarning("DisconnectAsync", "Disconnect Error: {0} {1}",
-                    //    (e.Device != null ? e.Device.Id.ToString() : ""),
-                    //    (e.Device != null ? e.Device.Name : ""));
-                    if (e.Device.Id == device.Id)
-                    {
-                        adapter.DeviceConnectionError -= he;
-                        adapter.DeviceDisconnected -= h;
-                        tcs.TrySetException(new Exception("Disconnect operation exception"));
-                    }
-                };
-
-
-            adapter.DeviceDisconnected += h;
-            adapter.DeviceConnectionError += he;
-
-            adapter.DisconnectDevice(device);
-
-            return tcs.Task;
-        }
-
-        public static Task<DeviceBondState> BondAsync(this IAdapter adapter, IDevice device)
-        {
-            var tcs = new TaskCompletionSource<DeviceBondState>();
-            EventHandler<DeviceBondStateChangedEventArgs> h = null;
-            h = (sender, e) =>
-            {
-                //Debug.WriteLine("Bonded: " + e.Device.Id + " " + e.Device.State);
-                if (e.Device.Id == device.Id && e.State == DeviceBondState.Bonded)
-                {
-                    adapter.DeviceBondStateChanged -= h;
-                    tcs.TrySetResult(e.State);
-                }
-            };
-            adapter.DeviceBondStateChanged += h;
-
-            adapter.CreateBondToDevice(device);
-
-            return tcs.Task;
-        }
+        //    return tcs.Task;
+        //}
 
         public static string ToHexString(this byte[] bytes)
         {

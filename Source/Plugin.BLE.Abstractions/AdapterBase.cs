@@ -6,7 +6,7 @@ using Plugin.BLE.Abstractions.Contracts;
 
 namespace Plugin.BLE.Abstractions
 {
-    public abstract class AdapterBase : IAdapter, IAdapterNew
+    public abstract class AdapterBase : IAdapter
     {
         private CancellationTokenSource _scanCancellationTokenSource;
         private readonly IList<IDevice> _discoveredDevices;
@@ -16,7 +16,6 @@ namespace Plugin.BLE.Abstractions
         public event EventHandler<DeviceDiscoveredEventArgs> DeviceAdvertised = delegate { };
         public event EventHandler<DeviceDiscoveredEventArgs> DeviceDiscovered = delegate { };
         public event EventHandler<DeviceConnectionEventArgs> DeviceConnected = delegate { };
-        public event EventHandler<DeviceBondStateChangedEventArgs> DeviceBondStateChanged = delegate { };
         public event EventHandler<DeviceConnectionEventArgs> DeviceDisconnected = delegate { };
         public event EventHandler<DeviceConnectionEventArgs> DeviceConnectionLost = delegate { };
         public event EventHandler<DeviceConnectionEventArgs> DeviceConnectionError = delegate { };
@@ -73,7 +72,7 @@ namespace Plugin.BLE.Abstractions
             {
                 CleanupScan();
                 Trace.Message("Adapter: Scan was cancelled.");
-            }   
+            }
         }
 
         public Task StopScanningForDevicesAsync()
@@ -105,7 +104,49 @@ namespace Plugin.BLE.Abstractions
 
         public Task DisconnectDeviceAsync(IDevice device)
         {
-            return DisconnectDeviceNativeAsync(device);
+   
+            if (!ConnectedDevices.Contains(device))
+            {
+                //Mvx.Trace("Disconnect async: device {0} not in the list of connected devices.", device.Name);
+                return Task.FromResult(false);
+            }
+
+            var tcs = new TaskCompletionSource<IDevice>();
+            EventHandler<DeviceConnectionEventArgs> h = null;
+            EventHandler<DeviceConnectionEventArgs> he = null;
+
+            h = (sender, e) =>
+            {
+                //Mvx.TaggedTrace("DisconnectAsync", "Disconnected: {0} {1}", e.Device.Id, e.Device.Name);
+                if (e.Device.Id == device.Id)
+                {
+                    DeviceDisconnected -= h;
+                    DeviceConnectionError -= he;
+                    tcs.TrySetResult(e.Device);
+                }
+            };
+
+            he = (sender, e) =>
+            {
+                // Would be nice to use C#6.0 null-conditional operators like e.Device?.Id
+                //Mvx.TaggedWarning("DisconnectAsync", "Disconnect Error: {0} {1}",
+                //    (e.Device != null ? e.Device.Id.ToString() : ""),
+                //    (e.Device != null ? e.Device.Name : ""));
+                if (e.Device.Id == device.Id)
+                {
+                    DeviceConnectionError -= he;
+                    DeviceDisconnected -= h;
+                    tcs.TrySetException(new Exception("Disconnect operation exception"));
+                }
+            };
+
+
+            DeviceDisconnected += h;
+            DeviceConnectionError += he;
+
+            DisconnectDeviceNative(device);
+
+            return tcs.Task;
         }
 
         protected AdapterBase()
@@ -194,22 +235,7 @@ namespace Plugin.BLE.Abstractions
 
         protected abstract Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, CancellationToken scanCancellationToken);
         protected abstract void StopScanNative();
-
-        // TODO remove these after refactoring
-        public abstract void ConnectToDevice(IDevice device, bool autoconnect = false);
-        public virtual void CreateBondToDevice(IDevice device) { }
-        public abstract void DisconnectDevice(IDevice device);
-
-        // TODO: make abstract after refactoring
-        protected virtual Task ConnectToDeviceNativeAync(IDevice device, bool autoconnect, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException("I'm abstract, override me.");
-        }
-
-        protected virtual Task DisconnectDeviceNativeAsync(IDevice device)
-        {
-            // TODO: make abstract after refactoring
-            throw new NotImplementedException("I'm abstract, override me.");
-        }
+        protected abstract Task ConnectToDeviceNativeAync(IDevice device, bool autoconnect, CancellationToken cancellationToken);
+        protected abstract void DisconnectDeviceNative(IDevice device);
     }
 }
