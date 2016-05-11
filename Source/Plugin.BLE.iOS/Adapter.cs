@@ -15,7 +15,7 @@ namespace Plugin.BLE.iOS
     public class Adapter : AdapterBase
     {
         private readonly AutoResetEvent _stateChanged = new AutoResetEvent(false);
-        public CBCentralManager Central { get; }
+        private readonly CBCentralManager _centralManager;
 
         /// <summary>
         /// Registry used to store device instances for pending operations : disconnect
@@ -24,13 +24,11 @@ namespace Plugin.BLE.iOS
         private readonly IDictionary<string, IDevice> _deviceOperationRegistry = new ConcurrentDictionary<string, IDevice>();
         private readonly IDictionary<string, IDevice> _deviceConnectionRegistry = new ConcurrentDictionary<string, IDevice>();
 
-        public IList<IDevice> ConnectedDevices => _deviceConnectionRegistry.Values.ToList();
-
         public Adapter()
         {
-            Central = new CBCentralManager(DispatchQueue.CurrentQueue);
+            _centralManager = new CBCentralManager(DispatchQueue.CurrentQueue);
 
-            Central.DiscoveredPeripheral += (sender, e) =>
+            _centralManager.DiscoveredPeripheral += (sender, e) =>
             {
                 Trace.Message("DiscoveredPeripheral: {0}, Id: {1}", e.Peripheral.Name, e.Peripheral.Identifier);
                 var name = e.Peripheral.Name;
@@ -46,13 +44,13 @@ namespace Plugin.BLE.iOS
                 HandleDiscoveredDevice(device);
             };
 
-            Central.UpdatedState += (sender, e) =>
+            _centralManager.UpdatedState += (sender, e) =>
             {
-                Trace.Message("UpdatedState: {0}", Central.State);
+                Trace.Message("UpdatedState: {0}", _centralManager.State);
                 _stateChanged.Set();
             };
 
-            Central.ConnectedPeripheral += (sender, e) =>
+            _centralManager.ConnectedPeripheral += (sender, e) =>
             {
                 Trace.Message("ConnectedPeripherial: {0}", e.Peripheral.Name);
 
@@ -74,7 +72,7 @@ namespace Plugin.BLE.iOS
                 HandleConnectedDevice(d);
             };
 
-            Central.DisconnectedPeripheral += (sender, e) =>
+            _centralManager.DisconnectedPeripheral += (sender, e) =>
             {
                 if (e.Error != null)
                 {
@@ -103,7 +101,7 @@ namespace Plugin.BLE.iOS
                 HandleDisconnectedDevice(isNormalDisconnect, foundDevice);
             };
 
-            Central.FailedToConnectPeripheral +=
+            _centralManager.FailedToConnectPeripheral +=
                 (sender, e) => HandleConnectionFail(new Device(e.Peripheral), e.Error.Description);
         }
 
@@ -124,19 +122,19 @@ namespace Plugin.BLE.iOS
             // TODO (sms): clear out the list ?? AdapterBase??
             // DiscoveredDevices = new List<IDevice>();
 
-            Central.ScanForPeripherals(serviceCbuuids);
+            _centralManager.ScanForPeripherals(serviceCbuuids);
         }
 
         protected override void StopScanNative()
         {
-            Central.StopScan();
+            _centralManager.StopScan();
         }
 
         public override void ConnectToDevice(IDevice device, bool autoconnect = false)
         {
             //ToDo autoconnect
             _deviceOperationRegistry[device.Id.ToString()] = device;
-            Central.ConnectPeripheral(device.NativeDevice as CBPeripheral, new PeripheralConnectionOptions());
+            _centralManager.ConnectPeripheral(device.NativeDevice as CBPeripheral, new PeripheralConnectionOptions());
         }
 
         public override void CreateBondToDevice(IDevice device)
@@ -149,7 +147,7 @@ namespace Plugin.BLE.iOS
         {
             // update registry
             _deviceOperationRegistry[device.Id.ToString()] = device;
-            Central.CancelPeripheralConnection(device.NativeDevice as CBPeripheral);
+            _centralManager.CancelPeripheralConnection(device.NativeDevice as CBPeripheral);
         }
 
         private static Guid ParseDeviceGuid(CBPeripheral peripherial)
@@ -161,7 +159,7 @@ namespace Plugin.BLE.iOS
         {
             Trace.Message("Adapter: Waiting for state: " + state);
 
-            while (Central.State != state && !cancellationToken.IsCancellationRequested)
+            while (_centralManager.State != state && !cancellationToken.IsCancellationRequested)
             {
                 await Task.Run(() => _stateChanged.WaitOne(2000), cancellationToken).ConfigureAwait(false);
             }

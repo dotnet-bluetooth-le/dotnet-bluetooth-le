@@ -49,36 +49,32 @@ namespace Plugin.BLE.Abstractions.Contracts
         event EventHandler<DeviceDiscoveredEventArgs> DeviceAdvertised;
         event EventHandler<DeviceDiscoveredEventArgs> DeviceDiscovered;
         event EventHandler<DeviceConnectionEventArgs> DeviceConnected;
-        event EventHandler<DeviceBondStateChangedEventArgs> DeviceBondStateChanged;
         event EventHandler<DeviceConnectionEventArgs> DeviceDisconnected;
         event EventHandler<DeviceConnectionEventArgs> DeviceConnectionLost;
-        event EventHandler<DeviceConnectionEventArgs> DeviceConnectionError;
-
         event EventHandler ScanTimeoutElapsed;
-        //TODO: add this
-        //event EventHandler ConnectTimeoutElapsed;
 
-        // properties
         bool IsScanning { get; }
 
         /// <summary>
-        /// Timeout for Ble scanning. Default is 10000
+        /// Timeout for Ble scanning. Default is 10000.
         /// </summary>
         int ScanTimeout { get; set; }
         //IList<IDevice> DiscoveredDevices { get; }
-        //IList<IDevice> ConnectedDevices { get; }
+        IList<IDevice> ConnectedDevices { get; }
 
-        // methods
+        /// <summary>
+        /// Starts scanning for BLE devices.
+        /// </summary>
+        /// <returns></returns>
         Task StartScanningForDevicesAsync();
+        Task StartScanningForDevicesAsync(CancellationToken cancellationToken);
         Task StartScanningForDevicesAsync(Guid[] serviceUuids);
+        Task StartScanningForDevicesAsync(Guid[] serviceUuids, CancellationToken cancellationToken);
         Task StopScanningForDevicesAsync();
 
-        Task<IDevice> ConnectToDeviceAync(IDevice device, bool autoconnect = false);
-        Task<IDevice> ConnectToDeviceAync(IDevice device, bool autoconnect, CancellationToken cancellationToken);
+        Task<bool> ConnectToDeviceAync(IDevice device, bool autoconnect = false);
+        Task<bool> ConnectToDeviceAync(IDevice device, bool autoconnect, CancellationToken cancellationToken);
         Task DisconnectDeviceAsync(IDevice device);
-
-        Task<IDevice> CreateBondToDevice(IDevice device);
-        Task<IDevice> CreateBondToDevice(IDevice device, CancellationToken cancellationToken);
     }
 }
 
