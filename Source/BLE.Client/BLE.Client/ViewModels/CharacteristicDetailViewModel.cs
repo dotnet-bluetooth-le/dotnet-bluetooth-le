@@ -1,4 +1,5 @@
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using Acr.UserDialogs;
@@ -11,9 +12,14 @@ namespace BLE.Client.ViewModels
     public class CharacteristicDetailViewModel : BaseViewModel
     {
         private readonly IUserDialogs _userDialogs;
+        private bool _updatesStarted;
         public ICharacteristic Characteristic { get; private set; }
 
         public string CharacteristicValue => Characteristic?.Value.ToHexString().Replace("-", " ");
+
+        public ObservableCollection<string> Messages { get; } = new ObservableCollection<string>();
+
+        public string UpdateButtonText => _updatesStarted ? "Stop updates" : "Start updates";
 
         public string Permissions
         {
@@ -66,11 +72,15 @@ namespace BLE.Client.ViewModels
                 await Characteristic.ReadAsync();
 
                 RaisePropertyChanged(() => CharacteristicValue);
+
+                Messages.Insert(0, $"Read value {CharacteristicValue}");
             }
             catch (Exception ex)
             {
                 _userDialogs.HideLoading();
                 _userDialogs.ShowError(ex.Message);
+
+                Messages.Insert(0, $"Error {ex.Message}");
 
             }
             finally
@@ -99,18 +109,81 @@ namespace BLE.Client.ViewModels
                 _userDialogs.ShowLoading("Write characteristic value");
                 await Characteristic.WriteAsync(data);
                 _userDialogs.HideLoading();
+
+                RaisePropertyChanged(() => CharacteristicValue);
+                Messages.Insert(0, $"Wrote value {CharacteristicValue}");
             }
             catch (Exception ex)
             {
                 _userDialogs.HideLoading();
                 _userDialogs.ShowError(ex.Message);
             }
-            
+
         }
 
         private static byte[] GetBytes(string text)
         {
             return text.Split(' ').Where(token => !string.IsNullOrEmpty(token)).Select(token => Convert.ToByte(token, 16)).ToArray();
+        }
+
+        public MvxCommand ToggleUpdatesCommand => new MvxCommand((() =>
+        {
+            if (_updatesStarted)
+            {
+                StopUpdates();
+            }
+            else
+            {
+                StartUpdates();
+            }
+        }));
+
+        private void StartUpdates()
+        {
+            try
+            {
+                _updatesStarted = true;
+
+                Characteristic.ValueUpdated -= CharacteristicOnValueUpdated;
+                Characteristic.ValueUpdated += CharacteristicOnValueUpdated;
+                Characteristic.StartUpdates();
+         
+
+                Messages.Insert(0, $"Start updates");
+
+                RaisePropertyChanged(() => UpdateButtonText);
+
+            }
+            catch (Exception ex)
+            {
+                _userDialogs.ShowError(ex.Message);
+            }
+        }
+
+        private void StopUpdates()
+        {
+            try
+            {
+                _updatesStarted = false;
+
+                Characteristic.StopUpdates();
+                Characteristic.ValueUpdated -= CharacteristicOnValueUpdated;
+
+                Messages.Insert(0, $"Stop updates");
+
+                RaisePropertyChanged(() => UpdateButtonText);
+
+            }
+            catch (Exception ex)
+            {
+                _userDialogs.ShowError(ex.Message);
+            }
+        }
+
+        private void CharacteristicOnValueUpdated(object sender, CharacteristicReadEventArgs characteristicReadEventArgs)
+        {
+            Messages.Insert(0, $"Updated value: {CharacteristicValue}");
+            RaisePropertyChanged(() => CharacteristicValue);
         }
     }
 }
