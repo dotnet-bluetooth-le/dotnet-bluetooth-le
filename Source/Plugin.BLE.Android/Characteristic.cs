@@ -116,7 +116,7 @@ namespace Plugin.BLE.Android
             return _gatt.WriteCharacteristic(_nativeCharacteristic);
         }
 
-        protected override void StartUpdatesNative()
+        protected override async void StartUpdatesNative()
         {
             // wire up the characteristic value updating on the gattcallback for event forwarding
             _gattCallback.CharacteristicValueUpdated += OnCharacteristicValueChanged;
@@ -132,7 +132,7 @@ namespace Plugin.BLE.Android
             //
             // HACK: further detail, in the Forms client this only seems to work with a breakpoint on it
             // (ie. it probably needs to wait until the above 'SetCharacteristicNofication' is done before doing this...?????? [CD]
-            Thread.Sleep(100);
+            await Task.Delay(100);
             //ToDo is this still needed
             // HACK: did i mention this was a hack?????????? [CD] 50ms was too short, 100ms seems to work
 

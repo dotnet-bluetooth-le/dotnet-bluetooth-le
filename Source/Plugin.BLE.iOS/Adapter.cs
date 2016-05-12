@@ -106,7 +106,22 @@ namespace Plugin.BLE.iOS
             };
 
             _centralManager.FailedToConnectPeripheral +=
-                (sender, e) => HandleConnectionFail(new Device(e.Peripheral), e.Error.Description);
+                (sender, e) =>
+                {
+                    var id = ParseDeviceGuid(e.Peripheral);
+                    var stringId = id.ToString();
+                    IDevice foundDevice;
+
+                    // remove instance from registry
+                    if (_deviceOperationRegistry.TryGetValue(stringId, out foundDevice))
+                    {
+                        _deviceOperationRegistry.Remove(stringId);
+                    }
+
+                    foundDevice = foundDevice ?? new Device(e.Peripheral);
+
+                    HandleConnectionFail(foundDevice, e.Error.Description);
+                };
         }
 
         protected override async Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, CancellationToken scanCancellationToken)
