@@ -51,8 +51,13 @@
     </ListView>
 
     <StackLayout Grid.Row="1" Orientation="Horizontal">
-      <Button Text="Connect to previous" Command="{Binding ConnectToPreviousCommand}" HorizontalOptions="FillAndExpand"></Button>
-      <Button Text="Stop Scan" Command="{Binding StopScanCommand}" HorizontalOptions="End"></Button>
+      <Button Text="Connect to previous" Command="{Binding ConnectToPreviousCommand}" HorizontalOptions="FillAndExpand"/>
+      <Button Text="Stop Scan" Command="{Binding StopScanCommand}" HorizontalOptions="End"/>
+      <ActivityIndicator IsRunning="{Binding IsRefreshing}" 
+                         HeightRequest="24" 
+                         WidthRequest="24" 
+                         VerticalOptions="Center"
+                         HorizontalOptions="End"/>
     </StackLayout>
   </Grid>
 

@@ -82,6 +82,7 @@ namespace BLE.Client.ViewModels
             RaisePropertyChanged(() => StopScanCommand);
 
             Adapter.StartScanningForDevicesAsync(_cancellationTokenSource.Token);
+            RaisePropertyChanged(() => IsRefreshing);
         }
 
         public MvxCommand StopScanCommand => new MvxCommand(() =>
