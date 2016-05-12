@@ -7,6 +7,7 @@ using Android.App;
 using Android.Bluetooth;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Android.CallbackEventArgs;
 
 namespace Plugin.BLE.Android
 {
@@ -16,7 +17,7 @@ namespace Plugin.BLE.Android
         private readonly IGattCallback _gattCallback;
         private readonly BluetoothGattCharacteristic _nativeCharacteristic;
 
-        public override event EventHandler<CharacteristicReadEventArgs> ValueUpdated;
+        public override event EventHandler<CharacteristicUpdatedEventArgs> ValueUpdated;
 
         public override Guid Id => Guid.Parse(_nativeCharacteristic.Uuid.ToString());
         public override string Uuid => _nativeCharacteristic.Uuid.ToString();
@@ -40,10 +41,10 @@ namespace Plugin.BLE.Android
         {
             var tcs = new TaskCompletionSource<byte[]>();
 
-            EventHandler<CharacteristicReadEventArgs> readHandler = null;
+            EventHandler<CharacteristicReadCallbackEventArgs> readHandler = null;
             readHandler = (sender, args) =>
             {
-                if (args.Characteristic.Id != Id)
+                if (args.Characteristic.Uuid != _nativeCharacteristic.Uuid)
                     return;
 
                 if (_gattCallback != null)
@@ -51,7 +52,7 @@ namespace Plugin.BLE.Android
                     _gattCallback.CharacteristicValueUpdated -= readHandler;
                 }
 
-                tcs.TrySetResult(args.Characteristic.Value);
+                tcs.TrySetResult(Value);
             };
 
             _gattCallback.CharacteristicValueUpdated += readHandler;
@@ -72,19 +73,21 @@ namespace Plugin.BLE.Android
         protected override async Task<bool> WriteNativeAsync(byte[] data)
         {
             var tcs = new TaskCompletionSource<bool>();
-            EventHandler<CharacteristicWriteEventArgs> writtenHandler = null;
+            EventHandler<CharacteristicWriteCallbackEventArgs> writtenHandler = null;
             writtenHandler = (sender, args) =>
             {
-                Trace.Message("WriteCallback {0} ({1})", args.Characteristic.Id, args.IsSuccessful);
-                if (args.Characteristic.Id == Id)
-                {
-                    if (_gattCallback != null)
-                    {
-                        _gattCallback.CharacteristicValueWritten -= writtenHandler;
-                    }
+                if (args.Characteristic.Uuid != _nativeCharacteristic.Uuid)
+                    return;
 
-                    tcs.TrySetResult(args.IsSuccessful);
+
+                Trace.Message("WriteCallback {0} ({1})", Id, args.IsSuccessful);
+
+                if (_gattCallback != null)
+                {
+                    _gattCallback.CharacteristicValueWritten -= writtenHandler;
                 }
+
+                tcs.TrySetResult(args.IsSuccessful);
             };
 
             _gattCallback.CharacteristicValueWritten += writtenHandler;
@@ -152,11 +155,11 @@ namespace Plugin.BLE.Android
             Trace.Message("Characteristic.StopUpdatesNative, successful: {0}", successful);
         }
 
-        private void OnCharacteristicValueChanged(object sender, CharacteristicReadEventArgs e)
+        private void OnCharacteristicValueChanged(object sender, CharacteristicReadCallbackEventArgs e)
         {
-            if (e.Characteristic.Id == Id)
+            if (e.Characteristic.Uuid == _nativeCharacteristic.Uuid)
             {
-                ValueUpdated?.Invoke(this, new CharacteristicReadEventArgs(this));
+                ValueUpdated?.Invoke(this, new CharacteristicUpdatedEventArgs(this));
             }
         }
     }

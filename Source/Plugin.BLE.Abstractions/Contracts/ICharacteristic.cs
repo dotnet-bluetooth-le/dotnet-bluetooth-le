@@ -10,7 +10,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Event gets raised, when the davice notifies a value change on this characteristic.
         /// To start listening, call <see cref="StartUpdates"/>.
         /// </summary>
-        event EventHandler<CharacteristicReadEventArgs> ValueUpdated;
+        event EventHandler<CharacteristicUpdatedEventArgs> ValueUpdated;
 
         /// <summary>
         /// Id of the characteristic.

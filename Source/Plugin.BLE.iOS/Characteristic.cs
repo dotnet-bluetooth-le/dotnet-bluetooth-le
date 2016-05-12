@@ -18,7 +18,7 @@ namespace Plugin.BLE.iOS
             ? CBCharacteristicWriteType.WithoutResponse
             : CBCharacteristicWriteType.WithResponse;
 
-        public override event EventHandler<CharacteristicReadEventArgs> ValueUpdated;
+        public override event EventHandler<CharacteristicUpdatedEventArgs> ValueUpdated;
 
         public override Guid Id => _nativeCharacteristic.UUID.GuidFromUuid();
         public override string Uuid => _nativeCharacteristic.UUID.ToString();
@@ -112,10 +112,7 @@ namespace Plugin.BLE.iOS
         {
             if (e.Characteristic.UUID == _nativeCharacteristic.UUID)
             {
-                ValueUpdated?.Invoke(this, new CharacteristicReadEventArgs
-                {
-                    Characteristic = new Characteristic(e.Characteristic, _parentDevice)
-                });
+                ValueUpdated?.Invoke(this, new CharacteristicUpdatedEventArgs(this));
             }
         }
     }

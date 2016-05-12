@@ -9,18 +9,18 @@ namespace Plugin.BLE.Android
     public interface IGattCallback
     {
         event EventHandler<ServicesDiscoveredCallbackEventArgs> ServicesDiscovered;
-        event EventHandler<CharacteristicReadEventArgs> CharacteristicValueUpdated;
-        event EventHandler<CharacteristicWriteEventArgs> CharacteristicValueWritten;
+        event EventHandler<CharacteristicReadCallbackEventArgs> CharacteristicValueUpdated;
+        event EventHandler<CharacteristicWriteCallbackEventArgs> CharacteristicValueWritten;
         event EventHandler<RssiReadCallbackEventArgs> RemoteRssiRead;
     }
 
     public class GattCallback : BluetoothGattCallback, IGattCallback
     {
         private readonly Adapter _adapter;
-        public event EventHandler<ServicesDiscoveredCallbackEventArgs> ServicesDiscovered = delegate { };
-        public event EventHandler<CharacteristicReadEventArgs> CharacteristicValueUpdated = delegate { };
-        public event EventHandler<CharacteristicWriteEventArgs> CharacteristicValueWritten = delegate { };
-        public event EventHandler<RssiReadCallbackEventArgs> RemoteRssiRead = delegate { };
+        public event EventHandler<ServicesDiscoveredCallbackEventArgs> ServicesDiscovered;
+        public event EventHandler<CharacteristicReadCallbackEventArgs> CharacteristicValueUpdated;
+        public event EventHandler<CharacteristicWriteCallbackEventArgs> CharacteristicValueWritten;
+        public event EventHandler<RssiReadCallbackEventArgs> RemoteRssiRead;
 
         public GattCallback(Adapter adapter)
         {
@@ -118,7 +118,7 @@ namespace Plugin.BLE.Android
 
             Trace.Message("OnServicesDiscovered: {0}", status.ToString());
 
-            ServicesDiscovered(this, new ServicesDiscoveredCallbackEventArgs());
+            ServicesDiscovered?.Invoke(this, new ServicesDiscoveredCallbackEventArgs());
         }
 
         public override void OnDescriptorRead(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, GattStatus status)
@@ -135,21 +135,15 @@ namespace Plugin.BLE.Android
 
             Trace.Message("OnCharacteristicRead: value {0}; status {1}", characteristic.GetValue().ToHexString(), status);
 
-            CharacteristicValueUpdated(this, new CharacteristicReadEventArgs
-            {
-                Characteristic = new Characteristic(characteristic, gatt, this)
-            }
-            );
+            CharacteristicValueUpdated?.Invoke(this, new CharacteristicReadCallbackEventArgs(characteristic));
         }
 
         public override void OnCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic)
         {
             base.OnCharacteristicChanged(gatt, characteristic);
 
-            CharacteristicValueUpdated(this, new CharacteristicReadEventArgs
-            {
-                Characteristic = new Characteristic(characteristic, gatt, this)
-            });
+            CharacteristicValueUpdated?.Invoke(this, new CharacteristicReadCallbackEventArgs(characteristic));
+            
         }
 
         public override void OnCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, GattStatus status)
@@ -158,7 +152,7 @@ namespace Plugin.BLE.Android
 
             Trace.Message("OnCharacteristicWrite: value {0} status {1}", characteristic.GetValue().ToHexString(), status);
 
-            var args = new CharacteristicWriteEventArgs { Characteristic = new Characteristic(characteristic, gatt, this) };
+            var isSuccessful = false;
             switch (status)
             {
                 case GattStatus.Failure:
@@ -169,14 +163,13 @@ namespace Plugin.BLE.Android
                 case GattStatus.ReadNotPermitted:
                 case GattStatus.RequestNotSupported:
                 case GattStatus.WriteNotPermitted:
-                    args.IsSuccessful = false;
                     break;
                 case GattStatus.Success:
-                    args.IsSuccessful = true;
+                    isSuccessful = true;
                     break;
             }
 
-            CharacteristicValueWritten(this, args);
+            CharacteristicValueWritten?.Invoke(this, new CharacteristicWriteCallbackEventArgs(characteristic, isSuccessful));
         }
 
         public override void OnReliableWriteCompleted(BluetoothGatt gatt, GattStatus status)
@@ -218,7 +211,7 @@ namespace Plugin.BLE.Android
 
             var args = new RssiReadCallbackEventArgs(device, error, rssi);
 
-            RemoteRssiRead(this, args);
+            RemoteRssiRead?.Invoke(this, args);
         }
     }
 

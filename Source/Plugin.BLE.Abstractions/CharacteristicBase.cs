@@ -10,7 +10,7 @@ namespace Plugin.BLE.Abstractions
     {
         private IList<IDescriptor> _descriptors;
 
-        public abstract event EventHandler<CharacteristicReadEventArgs> ValueUpdated;
+        public abstract event EventHandler<CharacteristicUpdatedEventArgs> ValueUpdated;
 
         public abstract Guid Id { get; }
         public abstract string Uuid { get; }
