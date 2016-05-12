@@ -33,13 +33,7 @@ namespace Plugin.BLE.Android
 
         protected override IList<IDescriptor> GetDescriptorsNative()
         {
-            var descriptors = new List<IDescriptor>();
-            foreach (var item in _nativeCharacteristic.Descriptors)
-            {
-                descriptors.Add(new Descriptor(item));
-            }
-
-            return descriptors;
+            return _nativeCharacteristic.Descriptors.Select(item => new Descriptor(item)).Cast<IDescriptor>().ToList();
         }
 
         protected override async Task<byte[]> ReadNativeAsync()

@@ -61,9 +61,7 @@
     <Compile Include="KnownService.cs" />
     <Compile Include="KnownServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RssiReadEventArgs.cs" />
     <Compile Include="ServiceBase.cs" />
-    <Compile Include="ServicesDiscoveredEventArgs.cs" />
     <Compile Include="Trace.cs" />
     <Compile Include="Utils\ResourceLoader.cs" />
   </ItemGroup>

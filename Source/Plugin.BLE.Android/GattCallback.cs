@@ -2,24 +2,25 @@ using System;
 using Android.Bluetooth;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Android.CallbackEventArgs;
 
 namespace Plugin.BLE.Android
 {
     public interface IGattCallback
     {
-        event EventHandler<ServicesDiscoveredEventArgs> ServicesDiscovered;
+        event EventHandler<ServicesDiscoveredCallbackEventArgs> ServicesDiscovered;
         event EventHandler<CharacteristicReadEventArgs> CharacteristicValueUpdated;
         event EventHandler<CharacteristicWriteEventArgs> CharacteristicValueWritten;
-        event EventHandler<RssiReadEventArgs> RemoteRssiRead;
+        event EventHandler<RssiReadCallbackEventArgs> RemoteRssiRead;
     }
 
     public class GattCallback : BluetoothGattCallback, IGattCallback
     {
         private readonly Adapter _adapter;
-        public event EventHandler<ServicesDiscoveredEventArgs> ServicesDiscovered = delegate { };
+        public event EventHandler<ServicesDiscoveredCallbackEventArgs> ServicesDiscovered = delegate { };
         public event EventHandler<CharacteristicReadEventArgs> CharacteristicValueUpdated = delegate { };
         public event EventHandler<CharacteristicWriteEventArgs> CharacteristicValueWritten = delegate { };
-        public event EventHandler<RssiReadEventArgs> RemoteRssiRead = delegate { };
+        public event EventHandler<RssiReadCallbackEventArgs> RemoteRssiRead = delegate { };
 
         public GattCallback(Adapter adapter)
         {
@@ -117,7 +118,7 @@ namespace Plugin.BLE.Android
 
             Trace.Message("OnServicesDiscovered: {0}", status.ToString());
 
-            ServicesDiscovered(this, new ServicesDiscoveredEventArgs());
+            ServicesDiscovered(this, new ServicesDiscoveredCallbackEventArgs());
         }
 
         public override void OnDescriptorRead(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, GattStatus status)
@@ -215,7 +216,7 @@ namespace Plugin.BLE.Android
                     break;
             }
 
-            var args = new RssiReadEventArgs(device, error, rssi);
+            var args = new RssiReadCallbackEventArgs(device, error, rssi);
 
             RemoteRssiRead(this, args);
         }

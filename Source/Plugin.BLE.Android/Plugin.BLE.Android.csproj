@@ -49,6 +49,8 @@
     <Compile Include="Adapter.cs" />
     <Compile Include="BleImplementation.cs" />
     <Compile Include="BondStatusBroadcastReceiver.cs" />
+    <Compile Include="CallbackEventArgs\RssiReadCallbackEventArgs.cs" />
+    <Compile Include="CallbackEventArgs\ServicesDiscoveredCallbackEventArgs.cs" />
     <Compile Include="Characteristic.cs" />
     <Compile Include="Descriptor.cs" />
     <Compile Include="Device.cs" />
