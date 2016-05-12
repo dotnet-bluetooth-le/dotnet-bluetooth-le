@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Abstractions.Exceptions;
 using Plugin.BLE.Abstractions.Utils;
 
 namespace Plugin.BLE.Abstractions
@@ -89,7 +90,36 @@ namespace Plugin.BLE.Abstractions
             if (device.State == DeviceState.Connected)
                 return Task.FromResult(true);
 
-            return ConnectToDeviceNativeAync(device, autoconnect, cancellationToken);
+            return TaskBuilder.FromEvent<bool, EventHandler<DeviceEventArgs>, EventHandler<DeviceErrorEventArgs>>(
+                execute: () =>
+                {
+                    ConnectToDeviceNativeAync(device, autoconnect, cancellationToken);
+                },
+
+                getCompleteHandler: complete => (sender, args) =>
+                {
+                    if (args.Device.Id == device.Id)
+                    {
+                        Trace.Message("ConnectToDeviceAync Connected: {0} {1}", args.Device.Id, args.Device.Name);
+                        complete(true);
+                    }
+                },
+                subscribeComplete: handler => DeviceConnected += handler,
+                unsubscribeComplete: handler => DeviceConnected -= handler,
+
+                getRejectHandler: reject => (sender, args) =>
+                {
+                    if (args.Device?.Id == device.Id)
+                    {
+                        Trace.Message("ConnectAsync Error: {0} {1}", args.Device?.Id, args.Device?.Name);
+                        reject(new DeviceConnectionException((Guid) args.Device?.Id, args.Device?.Name,
+                            args.ErrorMessage));
+                    }
+                },
+
+                subscribeReject: handler => DeviceConnectionError += handler,
+                unsubscribeReject: handler => DeviceConnectionError -= handler,
+                token: cancellationToken);
         }
 
         public Task DisconnectDeviceAsync(IDevice device)

@@ -10,6 +10,7 @@ using Foundation;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.Exceptions;
+using Plugin.BLE.Abstractions.Utils;
 
 namespace Plugin.BLE.iOS
 {
@@ -155,46 +156,16 @@ namespace Plugin.BLE.iOS
 
         protected override Task ConnectToDeviceNativeAync(IDevice device, bool autoconnect, CancellationToken cancellationToken)
         {
-            var tcs = new TaskCompletionSource<bool>();
-            EventHandler<DeviceEventArgs> h = null;
-            EventHandler<CBPeripheralErrorEventArgs> he = null;
-
-            h = (sender, e) =>
-            {
-                Trace.Message("ConnectToDeviceAync Connected: {0} {1}", e.Device.Id, e.Device.Name);
-                if (e.Device.Id == device.Id)
-                {
-                    DeviceConnected -= h;
-                    _centralManager.FailedToConnectPeripheral -= he;
-                    tcs.TrySetResult(true);
-                }
-            };
-
-            he = (sender, e) =>
-            {
-                var id = e.Peripheral.UUID.GuidFromUuid();
-                if (id == device.Id)
-                {
-                    Trace.Message("ConnectToDeviceAync Connection Error: {0} {1}: {2}", e.Peripheral.UUID, e.Peripheral.Name, e.Error?.Description);
-
-                    DeviceConnected -= h;
-                    _centralManager.FailedToConnectPeripheral -= he;
-                    tcs.TrySetException(new DeviceConnectionException(id, e.Peripheral.Name, e.Error?.Description));
-                }
-            };
-
-            DeviceConnected += h;
-            _centralManager.FailedToConnectPeripheral += he;
-
             if (autoconnect)
             {
                 Trace.Message("Warning: Autoconnect is not supported in iOS");
             }
 
             _deviceOperationRegistry[device.Id.ToString()] = device;
-            _centralManager.ConnectPeripheral(device.NativeDevice as CBPeripheral, new PeripheralConnectionOptions());
+            _centralManager.ConnectPeripheral(device.NativeDevice as CBPeripheral,
+                new PeripheralConnectionOptions());
 
-            return tcs.Task;
+            return Task.CompletedTask;
         }
 
         private static Guid ParseDeviceGuid(CBPeripheral peripherial)

@@ -12,6 +12,7 @@ using Java.Util;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.Exceptions;
+using Plugin.BLE.Abstractions.Utils;
 using Object = Java.Lang.Object;
 using Trace = Plugin.BLE.Abstractions.Trace;
 
@@ -160,46 +161,14 @@ namespace Plugin.BLE.Android
         protected override Task ConnectToDeviceNativeAync(IDevice device, bool autoconnect, CancellationToken cancellationToken)
         {
             AddToDeviceOperationRegistry(device);
-
-            var tcs = new TaskCompletionSource<IDevice>();
-            EventHandler<DeviceEventArgs> h = null;
-            EventHandler<DeviceErrorEventArgs> he = null;
-
-            h = (sender, e) =>
-            {
-                Trace.Message("ConnectAsync: {0} {1}", e.Device.Id, e.Device.Name);
-                if (e.Device.Id == device.Id)
-                {
-                    DeviceConnected -= h;
-                    DeviceConnectionError -= he;
-                    tcs.TrySetResult(e.Device);
-                }
-            };
-
-            he = (sender, e) =>
-            {
-                Trace.Message("ConnectAsync Error: {0} {1}", e.Device?.Id, e.Device?.Name);
-                if (e.Device?.Id == device.Id)
-                {
-                    DeviceConnectionError -= he;
-                    DeviceConnected -= h;
-                    tcs.TrySetException(new DeviceConnectionException((Guid)e.Device?.Id, e.Device?.Name, e.ErrorMessage));
-                }
-            };
-
-            DeviceConnected += h;
-            DeviceConnectionError += he;
-
-            ((BluetoothDevice)device.NativeDevice).ConnectGatt(Application.Context, autoconnect, _gattCallback);
-
-            return tcs.Task;
+            ((BluetoothDevice) device.NativeDevice).ConnectGatt(Application.Context, autoconnect, _gattCallback);
+            return Task.CompletedTask;
         }
 
         protected override void DisconnectDeviceNative(IDevice device)
         {
             //make sure everything is disconnected
             AddToDeviceOperationRegistry(device);
-
             ((Device)device).Disconnect();
         }
 
@@ -207,7 +176,6 @@ namespace Plugin.BLE.Android
         private void AddToDeviceOperationRegistry(IDevice device)
         {
             var nativeDevice = ((BluetoothDevice)device.NativeDevice);
-
             DeviceOperationRegistry[nativeDevice.Address] = device;
         }
 
