@@ -162,7 +162,7 @@ namespace Plugin.BLE.Android
         {
             AddToDeviceOperationRegistry(device);
             ((BluetoothDevice) device.NativeDevice).ConnectGatt(Application.Context, autoconnect, _gattCallback);
-            return Task.CompletedTask;
+            return Task.FromResult(true);
         }
 
         protected override void DisconnectDeviceNative(IDevice device)

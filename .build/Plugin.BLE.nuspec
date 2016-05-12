@@ -1,7 +1,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Plugin.BLE</id>
-    <version>0.9.4</version>
+    <version>1.0.0-beta</version>
     <title>BLE Plugin for Xamarin</title>
     <authors>xabre, smstube</authors>
     <owners>xabre, smstube</owners>
@@ -23,15 +23,12 @@
       </group>
     </dependencies>
   </metadata>
-  <files>   
-    <!-- PCL -->    
+  <files>
+    <!-- PCL -->
     <file src="pcl\Plugin.BLE.*" target="lib\portable-net45+win8+wpa81+wp8" />
-
     <!-- droid -->
     <file src="android\Plugin.BLE.*" target="lib\MonoAndroid" />
-    
     <!-- iOS -->
     <file src="ios\Plugin.BLE.*" target="lib\Xamarin.iOS10" />
-        
   </files>
 </package>
