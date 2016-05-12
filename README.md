@@ -114,8 +114,8 @@ characteristic.StartUpdates();
 
 ## Useful Links
 
-[MvvmCross](https://github.com/MvvmCross)
-[Monkey Robotics](https://github.com/xamarin/Monkey.Robotics)
+- [MvvmCross](https://github.com/MvvmCross)
+- [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics)
 
 ## Licence
 
