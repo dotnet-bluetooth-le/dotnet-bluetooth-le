@@ -1,8 +1,8 @@
 using MvvmCross.Platform;
 using MvvmCross.Platform.Plugins;
+using Plugin.BLE;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
-using Plugin.BLE.Android;
 
 namespace MvvmCross.Plugins.BLE.Droid
 {
@@ -15,7 +15,8 @@ namespace MvvmCross.Plugins.BLE.Droid
         }
         public void Load()
         {
-            Mvx.LazyConstructAndRegisterSingleton<IAdapter>(() => new Adapter());
+            Mvx.LazyConstructAndRegisterSingleton<IBluetoothLE>(() => CrossBle.Current);
+            Mvx.LazyConstructAndRegisterSingleton<IAdapter>(() => Mvx.Resolve<IBluetoothLE>().Adapter);
         }
     }
 }

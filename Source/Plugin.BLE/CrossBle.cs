@@ -5,7 +5,7 @@ namespace Plugin.BLE
 {
     public static class CrossBle
     {
-        static readonly Lazy<IBluetoothLE> Implementation = new Lazy<IBluetoothLE>(CreatePermissions, System.Threading.LazyThreadSafetyMode.PublicationOnly);
+        static readonly Lazy<IBluetoothLE> Implementation = new Lazy<IBluetoothLE>(CreateImplementation, System.Threading.LazyThreadSafetyMode.PublicationOnly);
 
         public static IBluetoothLE Current
         {
@@ -20,7 +20,7 @@ namespace Plugin.BLE
             }
         }
 
-        static IBluetoothLE CreatePermissions()
+        static IBluetoothLE CreateImplementation()
         {
 #if PORTABLE
             return null;

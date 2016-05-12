@@ -1,6 +1,6 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>Xam.Plugin.BLE</id>
+    <id>Plugin.BLE</id>
     <version>0.9.4</version>
     <title>BLE Plugin for Xamarin</title>
     <authors>xabre, smstube</authors>

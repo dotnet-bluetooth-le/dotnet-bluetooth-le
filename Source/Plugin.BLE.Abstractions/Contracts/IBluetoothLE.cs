@@ -2,7 +2,7 @@ namespace Plugin.BLE.Abstractions.Contracts
 {
     public interface IBluetoothLE
     {
-        // TODO: IAdapter
+        IAdapter Adapter { get; }
         // TODO: Activate
         // TODO: Get some information like version (if possible), ...
     }
