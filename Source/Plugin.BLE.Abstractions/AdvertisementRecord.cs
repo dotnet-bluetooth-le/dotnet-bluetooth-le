@@ -1,4 +1,6 @@
-﻿namespace Plugin.BLE.Abstractions
+﻿using Plugin.BLE.Abstractions.Extensions;
+
+namespace Plugin.BLE.Abstractions
 {
     public enum AdvertisementRecordType
     {

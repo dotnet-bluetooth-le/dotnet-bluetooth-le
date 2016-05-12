@@ -42,7 +42,11 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Timeout for Ble scanning. Default is 10000.
         /// </summary>
         int ScanTimeout { get; set; }
-        //IList<IDevice> DiscoveredDevices { get; }
+
+        /// <summary>
+        /// List of last discovered devices.
+        /// </summary>
+        IList<IDevice> DiscoveredDevices { get; }
 
         /// <summary>
         /// List of currently connected devices.
@@ -50,32 +54,14 @@ namespace Plugin.BLE.Abstractions.Contracts
         IList<IDevice> ConnectedDevices { get; }
 
         /// <summary>
-        /// Starts scanning for BLE devices.
-        /// </summary>
-        /// <returns>A task that represents the asynchronous read operation. The Task will finish after the scan has ended.</returns>
-        Task StartScanningForDevicesAsync();
-
-        /// <summary>
-        /// Starts scanning for BLE devices.
-        /// </summary>
-        /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
-        /// <returns>A task that represents the asynchronous read operation. The Task will finish after the scan has ended.</returns>
-        Task StartScanningForDevicesAsync(CancellationToken cancellationToken);
-
-        /// <summary>
-        /// Starts scanning for BLE devices that advertise the services included in <paramref name="serviceUuids"/>.
+        /// Starts scanning for BLE devices that fulfill the <paramref name="deviceFilter"/>.
+        /// DeviceDiscovered will only be called, if <paramref name="deviceFilter"/> returns <c>true</c> for the discovered device.
         /// </summary>
         /// <param name="serviceUuids">Requested service Ids.</param>
-        /// <returns>A task that represents the asynchronous read operation. The Task will finish after the scan has ended.</returns>
-        Task StartScanningForDevicesAsync(Guid[] serviceUuids);
-
-        /// <summary>
-        /// Starts scanning for BLE devices that advertise the services included in <paramref name="serviceUuids"/>.
-        /// </summary>
-        /// <param name="serviceUuids">Requested service Ids.</param>
+        /// <param name="deviceFilter">Function that filters the devices. The default is a function that returns true.</param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
         /// <returns>A task that represents the asynchronous read operation. The Task will finish after the scan has ended.</returns>
-        Task StartScanningForDevicesAsync(Guid[] serviceUuids, CancellationToken cancellationToken);
+        Task StartScanningForDevicesAsync(Guid[] serviceUuids, Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken);
 
         /// <summary>
         /// Stops scanning for BLE devices.

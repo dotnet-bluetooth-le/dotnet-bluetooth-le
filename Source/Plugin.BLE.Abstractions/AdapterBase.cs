@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Abstractions.Utils;
 
 namespace Plugin.BLE.Abstractions
 {
@@ -11,6 +12,7 @@ namespace Plugin.BLE.Abstractions
         private CancellationTokenSource _scanCancellationTokenSource;
         private readonly IList<IDevice> _discoveredDevices;
         private volatile bool _isScanning;
+        private Func<IDevice, bool> _currentScanDeviceFilter;
 
         public event EventHandler<DeviceEventArgs> DeviceAdvertised = delegate { };
         public event EventHandler<DeviceEventArgs> DeviceDiscovered = delegate { };
@@ -32,22 +34,12 @@ namespace Plugin.BLE.Abstractions
 
         public abstract IList<IDevice> ConnectedDevices { get; }
 
-        public Task StartScanningForDevicesAsync()
+        protected AdapterBase()
         {
-            return StartScanningForDevicesAsync(CancellationToken.None);
+            _discoveredDevices = new List<IDevice>();
         }
 
-        public Task StartScanningForDevicesAsync(CancellationToken cancellationToken)
-        {
-            return StartScanningForDevicesAsync(new Guid[0], cancellationToken);
-        }
-
-        public Task StartScanningForDevicesAsync(Guid[] serviceUuids)
-        {
-            return StartScanningForDevicesAsync(new Guid[0], CancellationToken.None);
-        }
-
-        public async Task StartScanningForDevicesAsync(Guid[] serviceUuids, CancellationToken cancellationToken)
+        public async Task StartScanningForDevicesAsync(Guid[] serviceUuids, Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken)
         {
             if (IsScanning)
             {
@@ -56,16 +48,19 @@ namespace Plugin.BLE.Abstractions
             }
 
             IsScanning = true;
+            _currentScanDeviceFilter = deviceFilter ?? (d => true);
             _scanCancellationTokenSource = new CancellationTokenSource();
 
             try
             {
-                cancellationToken.Register(() => _scanCancellationTokenSource.Cancel());
-                await StartScanningForDevicesNativeAsync(serviceUuids, _scanCancellationTokenSource.Token);
-                await Task.Delay(ScanTimeout, _scanCancellationTokenSource.Token);
-                Trace.Message("Adapter: Scan timeout has elapsed.");
-                CleanupScan();
-                ScanTimeoutElapsed(this, new EventArgs());
+                using (cancellationToken.Register(() => _scanCancellationTokenSource.Cancel()))
+                {
+                    await StartScanningForDevicesNativeAsync(serviceUuids, _scanCancellationTokenSource.Token);
+                    await Task.Delay(ScanTimeout, _scanCancellationTokenSource.Token);
+                    Trace.Message("Adapter: Scan timeout has elapsed.");
+                    CleanupScan();
+                    ScanTimeoutElapsed(this, new EventArgs());
+                }
             }
             catch (TaskCanceledException)
             {
@@ -109,43 +104,30 @@ namespace Plugin.BLE.Abstractions
                 return Task.FromResult(false);
             }
 
-            var tcs = new TaskCompletionSource<IDevice>();
-            EventHandler<DeviceEventArgs> h = null;
-            EventHandler<DeviceErrorEventArgs> he = null;
+            return TaskBuilder.FromEvent<bool, EventHandler<DeviceEventArgs>, EventHandler<DeviceErrorEventArgs>>(
+               execute: () => DisconnectDeviceNative(device),
 
-            h = (sender, e) =>
-            {
-                if (e.Device.Id == device.Id)
-                {
-                    Trace.Message("DisconnectAsync Disconnected: {0} {1}", e.Device.Id, e.Device.Name);
-                    DeviceDisconnected -= h;
-                    DeviceConnectionError -= he;
-                    tcs.TrySetResult(e.Device);
-                }
-            };
+               getCompleteHandler: complete => ((sender, args) =>
+               {
+                   if (args.Device.Id == device.Id)
+                   {
+                       Trace.Message("DisconnectAsync Disconnected: {0} {1}", args.Device.Id, args.Device.Name);
+                       complete(true);
+                   }
+               }),
+               subscribeComplete: handler => DeviceDisconnected += handler,
+               unsubscribeComplete: handler => DeviceDisconnected -= handler,
 
-            he = (sender, e) =>
-            {
-                if (e.Device.Id == device.Id)
-                {
-                    Trace.Message("DisconnectAsync", "Disconnect Error: {0} {1}", e.Device?.Id, e.Device?.Name);
-                    DeviceConnectionError -= he;
-                    DeviceDisconnected -= h;
-                    tcs.TrySetException(new Exception("Disconnect operation exception"));
-                }
-            };
-
-            DeviceDisconnected += h;
-            DeviceConnectionError += he;
-
-            DisconnectDeviceNative(device);
-
-            return tcs.Task;
-        }
-
-        protected AdapterBase()
-        {
-            _discoveredDevices = new List<IDevice>();
+               getRejectHandler: reject => ((sender, args) =>
+               {
+                   if (args.Device.Id == device.Id)
+                   {
+                       Trace.Message("DisconnectAsync", "Disconnect Error: {0} {1}", args.Device?.Id, args.Device?.Name);
+                       reject(new Exception("Disconnect operation exception"));
+                   }
+               }),
+               subscribeReject: handler => DeviceConnectionError += handler,
+               unsubscribeReject: handler => DeviceConnectionError -= handler);
         }
 
         private void CleanupScan()
@@ -164,6 +146,9 @@ namespace Plugin.BLE.Abstractions
 
         public void HandleDiscoveredDevice(IDevice device)
         {
+            if (!_currentScanDeviceFilter(device))
+                return;
+
             DeviceAdvertised(this, new DeviceEventArgs { Device = device });
 
             // TODO (sms): check equality implementation of device
