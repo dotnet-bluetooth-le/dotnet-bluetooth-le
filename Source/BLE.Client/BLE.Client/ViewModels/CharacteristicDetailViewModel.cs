@@ -181,7 +181,7 @@ namespace BLE.Client.ViewModels
             }
         }
 
-        private void CharacteristicOnValueUpdated(object sender, CharacteristicReadEventArgs characteristicReadEventArgs)
+        private void CharacteristicOnValueUpdated(object sender, CharacteristicUpdatedEventArgs characteristicUpdatedEventArgs)
         {
             Messages.Insert(0, $"Updated value: {CharacteristicValue}");
             RaisePropertyChanged(() => CharacteristicValue);

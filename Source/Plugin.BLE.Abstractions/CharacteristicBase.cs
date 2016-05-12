@@ -10,7 +10,7 @@ namespace Plugin.BLE.Abstractions
     {
         private IList<IDescriptor> _descriptors;
 
-        public abstract event EventHandler<CharacteristicReadEventArgs> ValueUpdated;
+        public abstract event EventHandler<CharacteristicUpdatedEventArgs> ValueUpdated;
 
         public abstract Guid Id { get; }
         public abstract string Uuid { get; }
@@ -52,7 +52,7 @@ namespace Plugin.BLE.Abstractions
             }
         }
 
-        public async Task<ICharacteristic> ReadAsync()
+        public async Task<byte[]> ReadAsync()
         {
             if (!CanRead)
             {
@@ -99,7 +99,7 @@ namespace Plugin.BLE.Abstractions
         }
 
         protected abstract IList<IDescriptor> GetDescriptorsNative();
-        protected abstract Task<ICharacteristic> ReadNativeAsync();
+        protected abstract Task<byte[]> ReadNativeAsync();
         protected abstract Task<bool> WriteNativeAsync(byte[] data);
         protected abstract void StartUpdatesNative();
         protected abstract void StopUpdatesNative();

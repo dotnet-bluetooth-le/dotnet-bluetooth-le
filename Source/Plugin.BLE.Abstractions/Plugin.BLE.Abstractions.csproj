@@ -39,7 +39,7 @@
     <Compile Include="BluetoothKnownItemManager.cs" />
     <Compile Include="CharacteristicBase.cs" />
     <Compile Include="CharacteristicPropertyType.cs" />
-    <Compile Include="CharacteristicReadEventArgs.cs" />
+    <Compile Include="CharacteristicUpdatedEventArgs.cs" />
     <Compile Include="Contracts\IAdapter.cs" />
     <Compile Include="Contracts\IBluetoothLE.cs" />
     <Compile Include="Contracts\ICharacteristic.cs" />
@@ -63,9 +63,7 @@
     <Compile Include="KnownService.cs" />
     <Compile Include="KnownServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RssiReadEventArgs.cs" />
     <Compile Include="ServiceBase.cs" />
-    <Compile Include="ServicesDiscoveredEventArgs.cs" />
     <Compile Include="Trace.cs" />
     <Compile Include="Utils\ResourceLoader.cs" />
     <Compile Include="Utils\TaskBuilder.cs" />

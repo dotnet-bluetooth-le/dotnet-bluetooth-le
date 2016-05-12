@@ -7,6 +7,7 @@ using Android.Bluetooth;
 using Android.Content;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Android.CallbackEventArgs;
 
 namespace Plugin.BLE.Android
 {
@@ -54,7 +55,7 @@ namespace Plugin.BLE.Android
             }
 
             var tcs = new TaskCompletionSource<IEnumerable<IService>>();
-            EventHandler<ServicesDiscoveredEventArgs> handler = null;
+            EventHandler<ServicesDiscoveredCallbackEventArgs> handler = null;
 
             handler = (sender, args) =>
             {
@@ -204,10 +205,15 @@ namespace Plugin.BLE.Android
             }
 
             var tcs = new TaskCompletionSource<bool>();
-            EventHandler<RssiReadEventArgs> handler = null;
+            EventHandler<RssiReadCallbackEventArgs> handler = null;
 
             handler = (sender, args) =>
             {
+                if (args.Device.Id != Id)
+                {
+                    return;
+                }
+
                 Trace.Message("Read RSSI async for {0} {1}: {2}", Id, Name, args.Rssi);
                 _gattCallback.RemoteRssiRead -= handler;
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
 using MvvmCross.Core.ViewModels;
@@ -15,6 +16,7 @@ namespace BLE.Client.ViewModels
     {
         private readonly IUserDialogs _userDialogs;
         private Guid _previousGuid;
+        private CancellationTokenSource _cancellationTokenSource;
 
         private Guid PreviousGuid
         {
@@ -44,6 +46,8 @@ namespace BLE.Client.ViewModels
         private void Adapter_ScanTimeoutElapsed(object sender, EventArgs e)
         {
             RaisePropertyChanged(() => IsRefreshing);
+
+            CleanupCancellationToken();
         }
 
 
@@ -75,8 +79,27 @@ namespace BLE.Client.ViewModels
                 Devices.Add(connectedDevice);
             }
 
+            _cancellationTokenSource = new CancellationTokenSource();
+            RaisePropertyChanged(() => StopScanCommand);
 
-            Adapter.StartScanningForDevicesAsync();
+            Adapter.StartScanningForDevicesAsync(_cancellationTokenSource.Token);
+            RaisePropertyChanged(() => IsRefreshing);
+        }
+
+        public MvxCommand StopScanCommand => new MvxCommand(() =>
+        {
+
+            _cancellationTokenSource.Cancel();
+            CleanupCancellationToken();
+            RaisePropertyChanged(() => IsRefreshing);
+
+        }, () => _cancellationTokenSource != null);
+
+        private void CleanupCancellationToken()
+        {
+            _cancellationTokenSource.Dispose();
+            _cancellationTokenSource = null;
+            RaisePropertyChanged(() => StopScanCommand);
         }
 
         public MvxCommand RefreshCommand => new MvxCommand(ScanForDevices);
