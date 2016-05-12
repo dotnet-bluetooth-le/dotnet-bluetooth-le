@@ -57,11 +57,11 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Starts scanning for BLE devices that fulfill the <paramref name="deviceFilter"/>.
         /// DeviceDiscovered will only be called, if <paramref name="deviceFilter"/> returns <c>true</c> for the discovered device.
         /// </summary>
-        /// <param name="serviceUuids">Requested service Ids.</param>
+        /// <param name="serviceUuids">Requested service Ids. The default is null.</param>
         /// <param name="deviceFilter">Function that filters the devices. The default is a function that returns true.</param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
         /// <returns>A task that represents the asynchronous read operation. The Task will finish after the scan has ended.</returns>
-        Task StartScanningForDevicesAsync(Guid[] serviceUuids, Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken);
+        Task StartScanningForDevicesAsync(Guid[] serviceUuids = null, Func<IDevice, bool> deviceFilter = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Stops scanning for BLE devices.
@@ -73,20 +73,11 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Connects to the <paramref name="device"/>.
         /// </summary>
         /// <param name="device">Device to connect to.</param>
-        /// <param name="autoconnect">Android only: Automatically try to reconnect to the device, after the connection got lost.</param>
-        /// <returns>A task that represents the asynchronous read operation. The Task will finish after the device has been connected successfuly.</returns>
-        /// <exception cref="DeviceConnectionException">Thrown if the device connection fails.</exception>
-        Task ConnectToDeviceAync(IDevice device, bool autoconnect = false);
-
-        /// <summary>
-        /// Connects to the <paramref name="device"/>.
-        /// </summary>
-        /// <param name="device">Device to connect to.</param>
-        /// <param name="autoconnect">Android only: Automatically try to reconnect to the device, after the connection got lost.</param>
+        /// <param name="autoconnect">Android only: Automatically try to reconnect to the device, after the connection got lost. The default is false.</param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
         /// <returns>A task that represents the asynchronous read operation. The Task will finish after the device has been connected successfuly.</returns>
         /// <exception cref="DeviceConnectionException">Thrown if the device connection fails.</exception>
-        Task ConnectToDeviceAync(IDevice device, bool autoconnect, CancellationToken cancellationToken);
+        Task ConnectToDeviceAync(IDevice device, bool autoconnect = false, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Disconnects from the <paramref name="device"/>.

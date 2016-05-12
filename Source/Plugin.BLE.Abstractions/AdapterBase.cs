@@ -39,7 +39,7 @@ namespace Plugin.BLE.Abstractions
             _discoveredDevices = new List<IDevice>();
         }
 
-        public async Task StartScanningForDevicesAsync(Guid[] serviceUuids, Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken)
+        public async Task StartScanningForDevicesAsync(Guid[] serviceUuids = null, Func<IDevice, bool> deviceFilter = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (IsScanning)
             {
@@ -48,6 +48,7 @@ namespace Plugin.BLE.Abstractions
             }
 
             IsScanning = true;
+            serviceUuids = serviceUuids ?? new Guid[0];
             _currentScanDeviceFilter = deviceFilter ?? (d => true);
             _scanCancellationTokenSource = new CancellationTokenSource();
 
@@ -83,12 +84,7 @@ namespace Plugin.BLE.Abstractions
             return Task.FromResult(0);
         }
 
-        public Task ConnectToDeviceAync(IDevice device, bool autoconnect = false)
-        {
-            return ConnectToDeviceAync(device, autoconnect, CancellationToken.None);
-        }
-
-        public Task ConnectToDeviceAync(IDevice device, bool autoconnect, CancellationToken cancellationToken)
+        public Task ConnectToDeviceAync(IDevice device, bool autoconnect = false, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (device.State == DeviceState.Connected)
                 return Task.FromResult(true);
