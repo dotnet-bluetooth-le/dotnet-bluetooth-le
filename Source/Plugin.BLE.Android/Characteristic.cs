@@ -42,21 +42,22 @@ namespace Plugin.BLE.Android
             return descriptors;
         }
 
-        protected override async Task<ICharacteristic> ReadNativeAsync()
+        protected override async Task<byte[]> ReadNativeAsync()
         {
-            var tcs = new TaskCompletionSource<ICharacteristic>();
+            var tcs = new TaskCompletionSource<byte[]>();
 
             EventHandler<CharacteristicReadEventArgs> readHandler = null;
             readHandler = (sender, args) =>
             {
-                if (args.Characteristic.Id == Id)
+                if (args.Characteristic.Id != Id)
+                    return;
+
+                if (_gattCallback != null)
                 {
-                    if (_gattCallback != null)
-                    {
-                        _gattCallback.CharacteristicValueUpdated -= readHandler;
-                    }
-                    tcs.TrySetResult(args.Characteristic);
+                    _gattCallback.CharacteristicValueUpdated -= readHandler;
                 }
+
+                tcs.TrySetResult(args.Characteristic.Value);
             };
 
             _gattCallback.CharacteristicValueUpdated += readHandler;
@@ -111,7 +112,7 @@ namespace Plugin.BLE.Android
         private bool InternalWrite(byte[] data)
         {
             _nativeCharacteristic.SetValue(data);
-            Trace.Message(".....Write {0}", Id);
+            Trace.Message("Write {0}", Id);
 
             return _gatt.WriteCharacteristic(_nativeCharacteristic);
         }
@@ -129,11 +130,9 @@ namespace Plugin.BLE.Android
             // odd way to do things to me, but I'm a Bluetooth newbie. Google has a example here (but ono real explaination as
             // to what is going on):
             // http://developer.android.com/guide/topics/connectivity/bluetooth-le.html#notification
-            //
-            // HACK: further detail, in the Forms client this only seems to work with a breakpoint on it
-            // (ie. it probably needs to wait until the above 'SetCharacteristicNofication' is done before doing this...?????? [CD]
+
             await Task.Delay(100);
-            //ToDo is this still needed
+            //ToDo is this still needed?
             // HACK: did i mention this was a hack?????????? [CD] 50ms was too short, 100ms seems to work
 
             if (_nativeCharacteristic.Descriptors.Count > 0)
@@ -144,7 +143,7 @@ namespace Plugin.BLE.Android
             }
             else
             {
-                Trace.Message("RequestValue, FAILED: _nativeCharacteristic.Descriptors was empty, not sure why");
+                Trace.Message("Descriptor set value FAILED: _nativeCharacteristic.Descriptors was empty");
             }
 
             Trace.Message("Characteristic.StartUpdates, successful: {0}", successful);
@@ -163,7 +162,7 @@ namespace Plugin.BLE.Android
         {
             if (e.Characteristic.Id == Id)
             {
-                ValueUpdated?.Invoke(this, e);
+                ValueUpdated?.Invoke(this, new CharacteristicReadEventArgs(this));
             }
         }
     }

@@ -52,7 +52,7 @@ namespace Plugin.BLE.Abstractions
             }
         }
 
-        public async Task<ICharacteristic> ReadAsync()
+        public async Task<byte[]> ReadAsync()
         {
             if (!CanRead)
             {
@@ -99,7 +99,7 @@ namespace Plugin.BLE.Abstractions
         }
 
         protected abstract IList<IDescriptor> GetDescriptorsNative();
-        protected abstract Task<ICharacteristic> ReadNativeAsync();
+        protected abstract Task<byte[]> ReadNativeAsync();
         protected abstract Task<bool> WriteNativeAsync(byte[] data);
         protected abstract void StartUpdatesNative();
         protected abstract void StopUpdatesNative();

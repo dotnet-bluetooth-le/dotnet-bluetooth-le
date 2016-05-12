@@ -148,8 +148,7 @@ namespace Plugin.BLE.Android
             CharacteristicValueUpdated(this, new CharacteristicReadEventArgs
             {
                 Characteristic = new Characteristic(characteristic, gatt, this)
-            }
-            );
+            });
         }
 
         public override void OnCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, GattStatus status)
@@ -192,8 +191,14 @@ namespace Plugin.BLE.Android
 
             Trace.Message("OnReadRemoteRssi: device {0} status {1} value {2}", gatt.Device.Name, status, rssi);
 
-            //ToDo add device id, or some link between this callback and the corresponding device
-            var args = new RssiReadEventArgs() { Rssi = rssi };
+            IDevice device;
+            if (!_adapter.ConnectedDeviceRegistry.TryGetValue(gatt.Device.Address, out device))
+            {
+                device = new Device(gatt.Device, gatt, this, rssi);
+                Trace.Message("Rssi updated for device not in connected list. This should not happen.");
+            }
+
+            Exception error = null;
             switch (status)
             {
                 case GattStatus.Failure:
@@ -204,11 +209,13 @@ namespace Plugin.BLE.Android
                 case GattStatus.ReadNotPermitted:
                 case GattStatus.RequestNotSupported:
                 case GattStatus.WriteNotPermitted:
-                    args.Error = new Exception(status.ToString());
+                    error = new Exception(status.ToString());
                     break;
                 case GattStatus.Success:
                     break;
             }
+
+            var args = new RssiReadEventArgs(device, error, rssi);
 
             RemoteRssiRead(this, args);
         }

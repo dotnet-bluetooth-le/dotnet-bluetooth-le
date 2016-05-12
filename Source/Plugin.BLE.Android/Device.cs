@@ -208,6 +208,11 @@ namespace Plugin.BLE.Android
 
             handler = (sender, args) =>
             {
+                if (args.Device.Id != Id)
+                {
+                    return;
+                }
+
                 Trace.Message("Read RSSI async for {0} {1}: {2}", Id, Name, args.Rssi);
                 _gattCallback.RemoteRssiRead -= handler;
 

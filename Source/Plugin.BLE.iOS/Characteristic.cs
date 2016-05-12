@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CoreBluetooth;
 using Foundation;
@@ -32,29 +33,27 @@ namespace Plugin.BLE.iOS
 
         protected override IList<IDescriptor> GetDescriptorsNative()
         {
-            var descriptors = new List<IDescriptor>();
-            foreach (var item in _nativeCharacteristic.Descriptors)
-            {
-                descriptors.Add(new Descriptor(item));
-            }
-
-            return descriptors;
+            return _nativeCharacteristic.Descriptors.Select(item => new Descriptor(item)).Cast<IDescriptor>().ToList();
         }
 
-        protected override async Task<ICharacteristic> ReadNativeAsync()
+        protected override async Task<byte[]> ReadNativeAsync()
         {
-            var tcs = new TaskCompletionSource<ICharacteristic>();
+            var tcs = new TaskCompletionSource<byte[]>();
             EventHandler<CBCharacteristicEventArgs> readHandler = null;
             readHandler = (sender, args) =>
             {
                 if (args.Characteristic.UUID != _nativeCharacteristic.UUID)
                     return;
 
-                Trace.Message(".....UpdatedCharacterteristicValue");
-                //TODO: check args.Error and throw?
-                var c = new Characteristic(args.Characteristic, _parentDevice);
+                if (args.Error != null)
+                {
+                    tcs.TrySetException(new Exception($"Read async error: {args.Error.Description}"));
+                }
+
+                Trace.Message($"Read characterteristic value {Value.ToHexString()}");
+
                 _parentDevice.UpdatedCharacterteristicValue -= readHandler;
-                tcs.TrySetResult(c);
+                tcs.TrySetResult(Value);
             };
 
             _parentDevice.UpdatedCharacterteristicValue += readHandler;
@@ -72,15 +71,16 @@ namespace Plugin.BLE.iOS
                 EventHandler<CBCharacteristicEventArgs> writtenHandler = null;
                 writtenHandler = (sender, args) =>
                 {
-                    // TODO: review: really return when equals? Looking wrong to me. Look at Read function!
-                    if (args.Characteristic.UUID == _nativeCharacteristic.UUID)
+                    if (args.Characteristic.UUID != _nativeCharacteristic.UUID)
                     {
                         return;
                     }
 
                     _parentDevice.WroteCharacteristicValue -= writtenHandler;
+
                     tcs.TrySetResult(args.Error == null);
                 };
+
                 _parentDevice.WroteCharacteristicValue += writtenHandler;
             }
             else

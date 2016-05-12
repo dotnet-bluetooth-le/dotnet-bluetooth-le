@@ -65,11 +65,11 @@ namespace Plugin.BLE.Abstractions.Contracts
         bool CanUpdate { get; }
 
         /// <summary>
-        /// Reads the characteristic value from the device.
+        /// Reads the characteristic value from the device. The result is also stored inisde the Value property.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The read bytes</returns>
         /// <exception cref="InvalidOperationException">Thrown if characteristic doesn't support read. See: <see cref="CanRead"/></exception>
-        Task<ICharacteristic> ReadAsync();
+        Task<byte[]> ReadAsync();
 
         /// <summary>
         /// Sends <paramref name="data"/> as characteristic value to the device.
