@@ -19,6 +19,7 @@ let BootstrapFile = "BlePluginBootstrap.cs.pp"
 let NugetPath =  Path.Combine("..", "Source", ".nuget", "NuGet.exe");
 let ProjectSources = Path.Combine("..", "Source");
 let NuspecFiles = ["Plugin.BLE.nuspec"; "MvvmCross.Plugin.BLE.nuspec"];
+let VanillaPluginId = "Plugin.BLE";
 
 let Build (projectName:string, targetSubDir:string) =
     [Path.Combine(ProjectSources, projectName, projectName + ".csproj")]
@@ -30,6 +31,21 @@ let NuVersionGet (specFile:string) =
     let versionElements = doc.Descendants(XName.Get("version", doc.Root.Name.NamespaceName))
     (Seq.head versionElements).Value
 
+let NuVersionVanillaDependencySet (specFile:string, version:string) = 
+    let xmlDocument = new XmlDocument()
+    xmlDocument.Load specFile
+    let nsmgr = XmlNamespaceManager(xmlDocument.NameTable)
+    nsmgr.AddNamespace("ns", "http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd")
+    let dependencyNodes = xmlDocument.DocumentElement.SelectNodes("//ns:dependency", nsmgr)
+
+    let setAttributeVersion (node:XmlElement) = 
+        if node.GetAttribute("id").Equals(VanillaPluginId) then
+            node.SetAttribute("version", version)        
+
+    for node in dependencyNodes do
+       node :?> XmlElement |> setAttributeVersion
+    xmlDocument.Save specFile
+
 let NuVersionSet (specFile:string, version:string) = 
     let xmlDocument = new XmlDocument()
     xmlDocument.Load specFile
@@ -38,6 +54,7 @@ let NuVersionSet (specFile:string, version:string) =
     let node = xmlDocument.DocumentElement.SelectSingleNode("//ns:version", nsmgr)
     node.InnerText <- version
     xmlDocument.Save specFile
+
 
 let NuPack (specFile:string, publish:bool) = 
     let version = NuVersionGet(specFile)
@@ -57,11 +74,19 @@ let NuPackAll (publish:bool) =
     NuspecFiles |> List.iter (fun file -> NuPack(file, publish))
 
 let RestorePackages() = 
-    !! "../**/packages.config"
+    !! "../Source/**/packages.config"
     |> Seq.iter (RestorePackage (fun p ->
         { p with
             ToolPath = NugetPath
             OutputPath = Path.Combine(ProjectSources, "packages")
+        }))
+let RestorePackagesForSanityCheck() = 
+    !! "./**/packages.config"
+    |> Seq.iter (RestorePackage (fun p ->
+        { p with
+            ToolPath = NugetPath
+            OutputPath = Path.Combine("PluginNugetTest", "packages")
+            Sources = [Path.Combine(currentDirectory, "out", "nuget"); "https://api.nuget.org/v3/index.json"]
         }))
 
 // Targets
@@ -89,6 +114,15 @@ Target "build" (fun _ ->
     File.Copy(Path.Combine(ProjectSources, "MvvmCross.Plugins.BLE.iOS", BootstrapFile), Path.Combine(BuildTargetDir, "mvx", "ios", BootstrapFile))
 )
 
+
+Target "sanity-check" (fun _ ->
+    trace "restoring packages..."
+    RestorePackagesForSanityCheck()
+    [Path.Combine("PluginNugetTest", "PluginNugetTest.sln")]
+     |> MSBuildRelease ("PluginNugetTest" +/ "testbuild") "Build"
+     |> Log "Output: "
+)
+
 Target "nupack" (fun _ ->
     NuPackAll false
 )
@@ -105,7 +139,14 @@ Target "version" (fun _ ->
         AssemblyInformationalVersion = version
     })
 
-    List.iter (fun f -> NuVersionSet(f, version)) NuspecFiles
+    let updateVersions(file : string, version : string) = 
+        NuVersionSet(file, version)
+        NuVersionVanillaDependencySet(file, version)
+
+    NuspecFiles |> List.iter (fun file ->
+    
+        updateVersions(file, version)
+    )
 )
 
 Target "publish" (fun _ ->    
@@ -128,6 +169,7 @@ Target "publish" (fun _ ->
 "clean"
   ==> "build"
   ==> "nupack"
+  ==> "sanity-check"
 
 "build"
   ==> "publish"

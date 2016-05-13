@@ -165,7 +165,7 @@ namespace Plugin.BLE.iOS
             _centralManager.ConnectPeripheral(device.NativeDevice as CBPeripheral,
                 new PeripheralConnectionOptions());
 
-            return Task.CompletedTask;
+            return Task.FromResult(true);
         }
 
         private static Guid ParseDeviceGuid(CBPeripheral peripherial)
