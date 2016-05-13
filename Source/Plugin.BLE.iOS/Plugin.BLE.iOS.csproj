@@ -8,9 +8,9 @@
     <ProjectGuid>{00F27EFE-B8A3-4FD3-BC1F-1179FA7D91B9}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>Plugin.BLE.iOS</RootNamespace>
+    <RootNamespace>Plugin.BLE</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>Plugin.BLE.iOS</AssemblyName>
+    <AssemblyName>Plugin.BLE</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
