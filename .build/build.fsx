@@ -9,6 +9,7 @@ open System.Text.RegularExpressions
 open Fake
 open Fake.XMLHelper;
 open Fake.Git;
+open Fake.NuGet.Update;
 
 
 let (+/) path1 path2 = Path.Combine(path1, path2)
@@ -80,6 +81,7 @@ let RestorePackages() =
             ToolPath = NugetPath
             OutputPath = Path.Combine(ProjectSources, "packages")
         }))
+
 let RestorePackagesForSanityCheck() = 
     !! "./**/packages.config"
     |> Seq.iter (RestorePackage (fun p ->
@@ -88,6 +90,18 @@ let RestorePackagesForSanityCheck() =
             OutputPath = Path.Combine("PluginNugetTest", "packages")
             Sources = [Path.Combine(currentDirectory, "out", "nuget"); "https://api.nuget.org/v3/index.json"]
         }))
+
+
+let UpdatePackagesForSanityCheck() = 
+    !! "./**/packages.config"
+    |> Seq.iter (NugetUpdate  (fun p ->
+        { p with
+            ToolPath = NugetPath
+            Prerelease = true
+            RepositoryPath = Path.Combine("PluginNugetTest", "packages")
+            Sources = Path.Combine(currentDirectory, "out", "nuget") :: p.Sources
+        }))
+
 
 // Targets
 Target "clean" (fun _ ->
@@ -118,6 +132,7 @@ Target "build" (fun _ ->
 Target "sanity-check" (fun _ ->
     trace "restoring packages..."
     RestorePackagesForSanityCheck()
+    UpdatePackagesForSanityCheck()
     [Path.Combine("PluginNugetTest", "PluginNugetTest.sln")]
      |> MSBuildRelease ("PluginNugetTest" +/ "testbuild") "Build"
      |> Log "Output: "
