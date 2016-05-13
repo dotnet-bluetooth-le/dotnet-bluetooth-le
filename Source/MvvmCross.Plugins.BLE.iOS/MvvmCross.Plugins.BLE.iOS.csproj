@@ -35,13 +35,6 @@
     <CodesignKey>iPhone Developer</CodesignKey>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="BluetoothLEManager.cs" />
-    <Compile Include="Bluetooth\LE\Adapter.cs" />
-    <Compile Include="Bluetooth\LE\Characteristic.cs" />
-    <Compile Include="Bluetooth\LE\Descriptor.cs" />
-    <Compile Include="Bluetooth\LE\Device.cs" />
-    <Compile Include="Bluetooth\LE\Extensions.cs" />
-    <Compile Include="Bluetooth\LE\Service.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -49,6 +42,16 @@
     <ProjectReference Include="..\MvvmCross.Plugins.BLE\MvvmCross.Plugins.BLE.csproj">
       <Project>{83F1DFFB-A653-45DD-BE81-C02374C6DB07}</Project>
       <Name>MvvmCross.Plugins.BLE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugin.BLE.Abstractions\Plugin.BLE.Abstractions.csproj">
+      <Project>{f479f7db-cfa6-49e5-aa41-4fe6a4da39b0}</Project>
+      <Name>Plugin.BLE.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugin.BLE.iOS\Plugin.BLE.iOS.csproj">
+      <Project>{00F27EFE-B8A3-4FD3-BC1F-1179FA7D91B9}</Project>
+      <Name>Plugin.BLE.iOS</Name>
+      <IsAppExtension>false</IsAppExtension>
+      <IsWatchApp>false</IsWatchApp>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +69,7 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="BlePluginBootstrap.cs.pp" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

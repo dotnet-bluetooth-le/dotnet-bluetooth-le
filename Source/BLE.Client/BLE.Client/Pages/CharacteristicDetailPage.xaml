@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:BLE.Client.Pages;assembly=BLE.Client"
+             x:Class="BLE.Client.Pages.CharacteristicDetailPage" Title="Characteristic Details">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"></RowDefinition>
+      <RowDefinition Height="*"></RowDefinition>
+    </Grid.RowDefinitions>
+    <StackLayout Orientation="Vertical">
+      <Label Text="{Binding Characteristic.Id, StringFormat='Id: {0}'}"
+             FontSize="Medium"
+             HorizontalTextAlignment="Center"></Label>
+      <Label Text="{Binding Characteristic.Name}" FontSize="Small" TextColor="Gray"
+             HorizontalTextAlignment="Center"></Label>
+      <Label Text="{Binding Characteristic.Properties, StringFormat='Properties: {0}'}"></Label>
+      <Label Text="{Binding Permissions, StringFormat='Permissions: {0}'}"></Label>
+      <Label Text="{Binding CharacteristicValue, StringFormat='Value: {0}'}"></Label>
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"></ColumnDefinition>
+          <ColumnDefinition Width="Auto"></ColumnDefinition>
+          <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Button Text="Read" Command="{Binding ReadCommand}"></Button>
+        <Button Grid.Column="1" Text="Write" Command="{Binding WriteCommand}"></Button>
+        <Button Grid.Column="2" Text="{Binding UpdateButtonText}" Command="{Binding ToggleUpdatesCommand}"></Button>
+      </Grid>
+
+    </StackLayout>
+    <ListView Grid.Row="1" ItemsSource="{Binding Messages}" CachingStrategy="RecycleElement">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell Height="50">
+            <Label Text="{Binding .}" VerticalTextAlignment="Center" FontSize="Small"></Label>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+  </Grid>
+</pages:BasePage>

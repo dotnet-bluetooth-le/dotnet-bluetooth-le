@@ -1,67 +1,108 @@
-![alt tag](https://raw.github.com/xabre/MvvmCross-BluetoothLE/master/icon_small.png)
-# MvvmCross Bluetooth-LE [![Build Status](https://www.bitrise.io/app/3fe54d0a5f43c2bf.svg?token=i9LUY4rIecZWd_3j7hwXgw)](https://www.bitrise.io/app/3fe54d0a5f43c2bf)
-MvvmCross plugin for BLE - iOS and Android   
-Based on Xamarin - [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics)
-
-Plugin usefull for accessing the functiontionality of Bluetooth Low Energy in xamarin mvvmcross apps.
+# <img src="icon_small.png" width="71" height="71"/> Bluetooth LE plugin for Xamarin [![Build Status](https://www.bitrise.io/app/3fe54d0a5f43c2bf.svg?token=i9LUY4rIecZWd_3j7hwXgw)](https://www.bitrise.io/app/3fe54d0a5f43c2bf)
 
 
-Targeted for iOS and Android.
+Xamarin and MvvMCross plugin for accessing the bluetooth functionality. The plugin is based on the BLE implementation of [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics).
+
+## Support & Limitations
+
+| Platform  | Version | Limitations |
+| ------------- | ----------- | ----------- |
+| Xamarin.Android | 4.3 |  |
+| Xamarin.iOS     | 7.0 |  |
 
 ## Installation
 
+**Vanilla**
+
+```
+Install-Package Plugin.BLE
+// or
+Install-Package MvvmCross.Plugin.BLE -Pre
+```
+[![NuGet](https://img.shields.io/nuget/v/Plugin.BLE.svg?label=NuGet)](https://www.nuget.org/packages/Plugin.BLE) [![NuGet Beta](https://img.shields.io/nuget/vpre/Plugin.BLE.svg?label=NuGet Beta)](https://www.nuget.org/packages/Plugin.BLE)
+
+**MvvmCross**
+
 ```
 Install-Package MvvmCross.Plugin.BLE
+// or
+Install-Package MvvmCross.Plugin.BLE -Pre
 ```
 
-[![NuGet Pre Release](https://img.shields.io/badge/nuget-0.9.2-blue.svg?style=flat)](https://www.nuget.org/packages/MvvmCross.Plugin.BLE/0.9.2)
+[![NuGet MvvMCross](https://img.shields.io/nuget/v/MvvmCross.Plugin.BLE.svg?label=NuGet MvvMCross)](https://www.nuget.org/packages/MvvmCross.Plugin.BLE) [![NuGet MvvMCross Beta](https://img.shields.io/nuget/vpre/MvvmCross.Plugin.BLE.svg?label=NuGet MvvMCross Beta)](https://www.nuget.org/packages/MvvmCross.Plugin.BLE)
 
-## Usage basics   
+**Android**
 
-Let MvvmCross inject the `IAdapter` service in your shared code and start using BLE :)
+Add these permissions to AndroidManifest.xml. For Marshmallow, please follow [Requesting Runtime Permissions in Android Marshmallow](https://blog.xamarin.com/requesting-runtime-permissions-in-android-marshmallow/) 
+
+```xml
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.BLUETOOTH" />
+<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+```
+
+## Sample app
+
+We provide a sample Xamarin.Forms app, that is a basic BLE scanner. With this app, it's possible to 
+
+- discover devices
+- connect/disconnect
+- discover the services
+- discover the characteristics
+- see characteristic details
+- read/write and register for notifications of a characteristic
+
+Have a look at the code and use it as starting point to learn about the plugin and play around with it.
+
+## Usage  
+
+**Vanilla**
 
 ```csharp
-_adapter = Mvx.Resolve<IAdapter>();
+var adapter = CrossBle.Current.Adapter;
+```
+
+**MvvmCross**
+
+Let MvvmCross inject the `IAdapter` service in your shared code and start using BLE.
+
+```csharp
+var adapter = Mvx.Resolve<IAdapter>();
 ```
 or
 ```csharp
 MyViewModel(IAdapter adapter)
 {
-	_adapter = adapter;
+    this.adapter = adapter;
 }
 ```
 
 #### Scan for devices
 ```csharp
-_adapter.DeviceDiscovered += (s,a) => _deviceList.Add(a.Device);
-_adapter.StartScanningForDevices();
+adapter.DeviceDiscovered += (s,a) => deviceList.Add(a.Device);
+await adapter.StartScanningForDevicesAsync();
 ```
 
 #### Connect to device
 ```csharp
-_adapter.ConnectToDevice(device);
-```
-or
-```csharp
-_connectedDevice = await _adapter.ConnectAsync(_deviceList[selectedDeviceIndex]);
+var connectedDevice = await _adapter.ConnectAsync(device);
 ```
 
 #### Get services
 ```csharp
-_connectedDevice.DiscoverServices();
-_connectedDevice.ServicesDiscovered += (o, args) => { };
+var services = await connectedDevice.GetServicesAsync();
 ```
-or
+or get a specific service:
 ```csharp
-var service = await _connectedDevice.GetServiceAsync(Guid.Parse("ffe0ecd2-3d16-4f8d-90de-e89e7fc396a5"));
+var service = await connectedDevice.GetServiceAsync(Guid.Parse("ffe0ecd2-3d16-4f8d-90de-e89e7fc396a5"));
 ```
 
 #### Get characteristics
 ```csharp
-service.DiscoverCharacteristics();
-service.CharacteristicsDiscovered += (o, args) => { };
+var characteristics = await service.GetCharacteristicsAsync();
 ```
-or
+or get a specific characteristic:
 ```csharp
 var characteristic = await service.GetCharacteristicAsync(Guid.Parse("d8de624e-140f-4a22-8594-e2216b84a5f2"));
 ```
@@ -73,10 +114,6 @@ var bytes = await characteristic.ReadAsync();
 
 #### Write characteristic
 ```csharp
-characteristic.Write(bytes);
-```
-or with acknowledgment:
-```csharp
 await characteristic.WriteAsync(bytes);
 ```
 
@@ -84,7 +121,7 @@ await characteristic.WriteAsync(bytes);
 ```csharp
 characteristic.ValueUpdated += (o, args) =>
 {
- 	var bytes = args.Characteristic.Value;
+    var bytes = args.Characteristic.Value;
 };
 
 characteristic.StartUpdates();
@@ -92,9 +129,8 @@ characteristic.StartUpdates();
 
 ## Useful Links
 
-[MvvmCross](https://github.com/MvvmCross)
-
-[Monkey Robotics](https://github.com/xamarin/Monkey.Robotics)
+- [MvvmCross](https://github.com/MvvmCross)
+- [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics)
 
 ## Licence
 

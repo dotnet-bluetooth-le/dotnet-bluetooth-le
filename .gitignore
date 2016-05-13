@@ -22,6 +22,9 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
+.build/out/
+FAKE*
+.fake/
 
 # Visual Studo 2015 cache/options directory
 .vs/
@@ -195,3 +198,5 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+*.bak
+/.build/PluginNugetTest/testbuild

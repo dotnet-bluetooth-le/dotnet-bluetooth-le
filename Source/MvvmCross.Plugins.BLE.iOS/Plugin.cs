@@ -1,17 +1,25 @@
 using MvvmCross.Platform;
 using MvvmCross.Platform.Plugins;
-using MvvmCross.Plugins.BLE.Bluetooth.LE;
-using MvvmCross.Plugins.BLE.iOS.Bluetooth.LE;
+using Plugin.BLE;
+using Plugin.BLE.Abstractions;
+using Plugin.BLE.Abstractions.Contracts;
 
 namespace MvvmCross.Plugins.BLE.iOS
 {
     public class Plugin
      : IMvxPlugin
     {
+
+        public Plugin()
+        {
+            Trace.TraceImplementation = Mvx.Trace;
+        }
+
         public void Load()
         {
             Mvx.Trace("Loading BT plugin");
-            Mvx.RegisterSingleton<IAdapter>(new Adapter());
+            Mvx.LazyConstructAndRegisterSingleton<IBluetoothLE>(() => CrossBle.Current);
+            Mvx.LazyConstructAndRegisterSingleton<IAdapter>(() => Mvx.Resolve<IBluetoothLE>().Adapter);
         }
     }
 }

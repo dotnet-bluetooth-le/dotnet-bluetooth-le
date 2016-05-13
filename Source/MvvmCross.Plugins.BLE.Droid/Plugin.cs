@@ -1,22 +1,22 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-
 using MvvmCross.Platform;
 using MvvmCross.Platform.Plugins;
-using MvvmCross.Plugins.BLE.Bluetooth.LE;
-using MvvmCross.Plugins.BLE.Droid.Bluetooth.LE;
+using Plugin.BLE;
+using Plugin.BLE.Abstractions;
+using Plugin.BLE.Abstractions.Contracts;
 
 namespace MvvmCross.Plugins.BLE.Droid
 {
     public class Plugin
      : IMvxPlugin
     {
+        public Plugin()
+        {
+            Trace.TraceImplementation = Mvx.Trace;
+        }
         public void Load()
         {
-            Mvx.LazyConstructAndRegisterSingleton<IAdapter>(() => new Adapter());
+            Mvx.LazyConstructAndRegisterSingleton<IBluetoothLE>(() => CrossBle.Current);
+            Mvx.LazyConstructAndRegisterSingleton<IAdapter>(() => Mvx.Resolve<IBluetoothLE>().Adapter);
         }
     }
 }
