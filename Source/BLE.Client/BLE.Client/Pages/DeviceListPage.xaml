@@ -31,8 +31,8 @@
               </Grid.ColumnDefinitions>
               <Grid.Triggers>
                 <DataTrigger TargetType="Grid"
-                             Binding="{Binding State}"
-                             Value="{x:Static abstractions:DeviceState.Connected}">
+                             Binding="{Binding IsConnected}"
+                             Value="true">
                   <Setter Property="BackgroundColor" Value="#1A00FF00"></Setter>
                 </DataTrigger>
               </Grid.Triggers>

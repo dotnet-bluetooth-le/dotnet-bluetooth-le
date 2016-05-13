@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
@@ -28,11 +29,8 @@ namespace BLE.Client.ViewModels
             }
         }
 
-        public ObservableCollection<IDevice> Devices { get; set; } = new ObservableCollection<IDevice>();
-
+        public ObservableCollection<DeviceListItemViewModel> Devices { get; set; } = new ObservableCollection<DeviceListItemViewModel>();
         public bool IsRefreshing => Adapter.IsScanning;
-
-
 
         public DeviceListViewModel(IAdapter adapter, IUserDialogs userDialogs) : base(adapter)
         {
@@ -53,13 +51,32 @@ namespace BLE.Client.ViewModels
 
         private void OnDeviceDiscovered(object sender, DeviceEventArgs args)
         {
-            InvokeOnMainThread(() => Devices.Add(args.Device));
+            AddOrUpdateDevice(args.Device);
+        }
+
+        private void AddOrUpdateDevice(IDevice device)
+        {
+            InvokeOnMainThread(() =>
+            {
+                var vm = Devices.FirstOrDefault(d => d.Device.Id == device.Id);
+                if (vm != null)
+                {
+                    vm.Update();
+                }
+                else
+                {
+                    Devices.Add(new DeviceListItemViewModel(device));
+                }
+            });
         }
 
         public override void Resume()
         {
             base.Resume();
-            ScanForDevices();
+            if (!Devices.Any())
+            {
+                ScanForDevices();
+            }
         }
 
         public override void Suspend()
@@ -76,7 +93,7 @@ namespace BLE.Client.ViewModels
 
             foreach (var connectedDevice in Adapter.ConnectedDevices)
             {
-                Devices.Add(connectedDevice);
+                AddOrUpdateDevice(connectedDevice);
             }
 
             _cancellationTokenSource = new CancellationTokenSource();
@@ -103,20 +120,18 @@ namespace BLE.Client.ViewModels
         }
 
         public MvxCommand RefreshCommand => new MvxCommand(ScanForDevices);
-        public MvxCommand<IDevice> DisconnectCommand => new MvxCommand<IDevice>(DisconnectDevice);
+        public MvxCommand<DeviceListItemViewModel> DisconnectCommand => new MvxCommand<DeviceListItemViewModel>(DisconnectDevice);
 
-        private async void DisconnectDevice(IDevice device)
+        private async void DisconnectDevice(DeviceListItemViewModel device)
         {
             try
             {
-                if (device.State != DeviceState.Connected)
+                if (!device.IsConnected)
                     return;
 
                 _userDialogs.ShowLoading($"Disconnecting {device.Name}...");
 
-                await Adapter.DisconnectDeviceAsync(device);
-
-                Devices.Remove(device);
+                await Adapter.DisconnectDeviceAsync(device.Device);
             }
             catch (Exception ex)
             {
@@ -124,11 +139,12 @@ namespace BLE.Client.ViewModels
             }
             finally
             {
+                device.Update();
                 _userDialogs.HideLoading();
             }
         }
 
-        public IDevice SelectedDevice
+        public DeviceListItemViewModel SelectedDevice
         {
             get { return null; }
             set
@@ -143,18 +159,17 @@ namespace BLE.Client.ViewModels
             }
         }
 
-        private async void HandleSelectedDevice(IDevice device)
+        private async void HandleSelectedDevice(DeviceListItemViewModel device)
         {
             if (await ConnectDeviceAsync(device))
             {
-                ShowViewModel<ServiceListViewModel>(new MvxBundle(new Dictionary<string, string> { { DeviceIdKey, device.Id.ToString() } }));
-
+                ShowViewModel<ServiceListViewModel>(new MvxBundle(new Dictionary<string, string> { { DeviceIdKey, device.Device.Id.ToString() } }));
             }
         }
 
-        private async Task<bool> ConnectDeviceAsync(IDevice device, bool showPrompt = true)
+        private async Task<bool> ConnectDeviceAsync(DeviceListItemViewModel device, bool showPrompt = true)
         {
-            if (device.State == DeviceState.Connected)
+            if (device.IsConnected)
             {
                 return true;
             }
@@ -167,14 +182,9 @@ namespace BLE.Client.ViewModels
             {
                 _userDialogs.ShowLoading("Connecting ...");
 
-                if (device.State == DeviceState.Connected)
-                {
-                    return true;
-                }
+                await Adapter.ConnectToDeviceAync(device.Device);
 
-                await Adapter.ConnectToDeviceAync(device);
-
-                PreviousGuid = device.Id;
+                PreviousGuid = device.Device.Id;
                 return true;
             }
             catch (Exception ex)
@@ -186,6 +196,7 @@ namespace BLE.Client.ViewModels
             finally
             {
                 _userDialogs.HideLoading();
+                device.Update();
             }
         }
 
@@ -195,7 +206,7 @@ namespace BLE.Client.ViewModels
         private async void ScanAndConnectToPreviousDeviceAsync()
         {
 
-            IDevice device;
+            DeviceListItemViewModel device;
 
             try
             {
