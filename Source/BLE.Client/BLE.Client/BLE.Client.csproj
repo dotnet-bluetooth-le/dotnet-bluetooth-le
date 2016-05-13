@@ -51,6 +51,7 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CharacteristicDetailViewModel.cs" />
     <Compile Include="ViewModels\CharacteristicListViewModel.cs" />
+    <Compile Include="ViewModels\DeviceListItemViewModel.cs" />
     <Compile Include="ViewModels\ServiceListViewModel.cs" />
     <Compile Include="ViewModels\DeviceListViewModel.cs" />
     <Compile Include="Pages\DeviceListPage.xaml.cs">
