@@ -74,11 +74,19 @@ let NuPackAll (publish:bool) =
     NuspecFiles |> List.iter (fun file -> NuPack(file, publish))
 
 let RestorePackages() = 
-    !! "../**/packages.config"
+    !! "../Source/**/packages.config"
     |> Seq.iter (RestorePackage (fun p ->
         { p with
             ToolPath = NugetPath
             OutputPath = Path.Combine(ProjectSources, "packages")
+        }))
+let RestorePackagesForSanityCheck() = 
+    !! "./**/packages.config"
+    |> Seq.iter (RestorePackage (fun p ->
+        { p with
+            ToolPath = NugetPath
+            OutputPath = Path.Combine("PluginNugetTest", "packages")
+            Sources = [Path.Combine(currentDirectory, "out", "nuget"); "https://api.nuget.org/v3/index.json"]
         }))
 
 // Targets
@@ -104,6 +112,15 @@ Target "build" (fun _ ->
     trace "copy mvvm cross bootstrap files..."
     File.Copy(Path.Combine(ProjectSources, "MvvmCross.Plugins.BLE.Droid",BootstrapFile), Path.Combine(BuildTargetDir, "mvx", "android", BootstrapFile))
     File.Copy(Path.Combine(ProjectSources, "MvvmCross.Plugins.BLE.iOS", BootstrapFile), Path.Combine(BuildTargetDir, "mvx", "ios", BootstrapFile))
+)
+
+
+Target "sanity-check" (fun _ ->
+    trace "restoring packages..."
+    RestorePackagesForSanityCheck()
+    [Path.Combine("PluginNugetTest", "PluginNugetTest.sln")]
+     |> MSBuildRelease ("PluginNugetTest" +/ "testbuild") "Build"
+     |> Log "Output: "
 )
 
 Target "nupack" (fun _ ->
@@ -152,6 +169,7 @@ Target "publish" (fun _ ->
 "clean"
   ==> "build"
   ==> "nupack"
+  ==> "sanity-check"
 
 "build"
   ==> "publish"
