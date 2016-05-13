@@ -53,6 +53,10 @@
       <HintPath>..\packages\MvvmCross.Plugin.BLE.1.0.0-beta\lib\MonoAndroid\MvvmCross.Plugins.BLE.Droid.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Plugin.BLE, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Plugin.BLE.1.0.0-beta\lib\MonoAndroid\Plugin.BLE.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Plugin.BLE.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Plugin.BLE.1.0.0-beta\lib\MonoAndroid\Plugin.BLE.Abstractions.dll</HintPath>
       <Private>True</Private>
@@ -73,9 +77,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
   </ItemGroup>
   <ItemGroup>
