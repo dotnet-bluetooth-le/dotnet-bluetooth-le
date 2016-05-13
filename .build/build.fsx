@@ -88,7 +88,8 @@ let RestorePackagesForSanityCheck() =
         { p with
             ToolPath = NugetPath
             OutputPath = Path.Combine("PluginNugetTest", "packages")
-            Sources = [Path.Combine(currentDirectory, "out", "nuget"); "https://api.nuget.org/v3/index.json"]
+            Sources = ["https://api.nuget.org/v3;"+Path.Combine(currentDirectory, "out", "nuget") ]
+            Retries = 5
         }))
 
 
@@ -99,7 +100,8 @@ let UpdatePackagesForSanityCheck() =
             ToolPath = NugetPath
             Prerelease = true
             RepositoryPath = Path.Combine("PluginNugetTest", "packages")
-            Sources = Path.Combine(currentDirectory, "out", "nuget") :: p.Sources
+            Sources = ["https://api.nuget.org/v3;"+Path.Combine(currentDirectory, "out", "nuget") ]
+            Retries = 5
         }))
 
 
