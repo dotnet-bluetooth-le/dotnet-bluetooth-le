@@ -32,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Plugin.BLE.Abstractions.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AdapterBase.cs" />
