@@ -2,18 +2,26 @@ using System;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Android;
+using Plugin.BLE.BroadcastReceivers;
 
-// ReSharper disable once CheckNamespace
 namespace Plugin.BLE
 {
-    internal class BleImplementation : IBluetoothLE
+    internal class BleImplementation : BleImplementationBase
     {
-        private readonly Lazy<IAdapter> _adapter = new Lazy<IAdapter>(() => new Adapter(), System.Threading.LazyThreadSafetyMode.PublicationOnly);
-        public IAdapter Adapter => _adapter.Value;
-
         public BleImplementation()
         {
             Trace.TraceImplementation = Console.WriteLine;
+            BluetoothStatusBroadcastReceiver.StateChanged = UpdateState;
+        }
+
+        protected override IAdapter CreateNativeAdapter()
+        {
+            return new Adapter();
+        }
+
+        public void UpdateState(BluetoothState state)
+        {
+            State = state;
         }
     }
 }

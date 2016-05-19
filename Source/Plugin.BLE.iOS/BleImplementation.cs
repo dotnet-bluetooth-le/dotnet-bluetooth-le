@@ -5,14 +5,16 @@ using Plugin.BLE.iOS;
 
 namespace Plugin.BLE
 {
-    internal class BleImplementation : IBluetoothLE
+    internal class BleImplementation : BleImplementationBase
     {
-        private readonly Lazy<IAdapter> _adapter = new Lazy<IAdapter>(() => new Adapter(), System.Threading.LazyThreadSafetyMode.PublicationOnly);
-        public IAdapter Adapter => _adapter.Value;
-
         public BleImplementation()
         {
             Trace.TraceImplementation = Console.WriteLine;
+        }
+
+        protected override IAdapter CreateNativeAdapter()
+        {
+            return new Adapter();
         }
     }
 }

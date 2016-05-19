@@ -49,7 +49,8 @@
     </Compile>
     <Compile Include="Adapter.cs" />
     <Compile Include="BleImplementation.cs" />
-    <Compile Include="BondStatusBroadcastReceiver.cs" />
+    <Compile Include="BroadcastReceivers\BluetoothStatusBroadcastReceiver.cs" />
+    <Compile Include="BroadcastReceivers\BondStatusBroadcastReceiver.cs" />
     <Compile Include="CallbackEventArgs\CharacteristicReadCallbackEventArgs.cs" />
     <Compile Include="CallbackEventArgs\CharacteristicWriteCallbackEventArgs.cs" />
     <Compile Include="CallbackEventArgs\RssiReadCallbackEventArgs.cs" />

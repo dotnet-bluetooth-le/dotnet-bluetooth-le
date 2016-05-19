@@ -41,6 +41,7 @@
     <Compile Include="CharacteristicBase.cs" />
     <Compile Include="CharacteristicPropertyType.cs" />
     <Compile Include="CharacteristicUpdatedEventArgs.cs" />
+    <Compile Include="BleImplementationBase.cs" />
     <Compile Include="Contracts\IAdapter.cs" />
     <Compile Include="Contracts\IBluetoothLE.cs" />
     <Compile Include="Contracts\ICharacteristic.cs" />
