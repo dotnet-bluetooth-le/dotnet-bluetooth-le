@@ -35,8 +35,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="BleMvxFormsApp.cs" />
     <Compile Include="BleMvxApplication.cs" />
+    <Compile Include="BleMvxFormsApp.xaml.cs">
+      <DependentUpon>BleMvxFormsApp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\InverseBooleanValueConverter.cs" />
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\CharacteristicDetailPage.xaml.cs">
       <DependentUpon>CharacteristicDetailPage.xaml</DependentUpon>
@@ -137,6 +140,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\CharacteristicDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BleMvxFormsApp.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

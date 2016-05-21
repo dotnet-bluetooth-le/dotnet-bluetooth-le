@@ -1,6 +1,4 @@
-﻿using Xamarin.Forms;
-
-namespace BLE.Client.Pages
+﻿namespace BLE.Client.Pages
 {
     public partial class DeviceListPage
     {

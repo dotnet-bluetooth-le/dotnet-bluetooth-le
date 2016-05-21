@@ -15,6 +15,7 @@ namespace BLE.Client.ViewModels
 {
     public class DeviceListViewModel : BaseViewModel
     {
+        private readonly IBluetoothLE _bluetoothLe;
         private readonly IUserDialogs _userDialogs;
         private Guid _previousGuid;
         private CancellationTokenSource _cancellationTokenSource;
@@ -29,17 +30,72 @@ namespace BLE.Client.ViewModels
             }
         }
 
+        public MvxCommand RefreshCommand => new MvxCommand(() => TryStartScanning(true));
+        public MvxCommand<DeviceListItemViewModel> DisconnectCommand => new MvxCommand<DeviceListItemViewModel>(DisconnectDevice);
         public ObservableCollection<DeviceListItemViewModel> Devices { get; set; } = new ObservableCollection<DeviceListItemViewModel>();
         public bool IsRefreshing => Adapter.IsScanning;
-
-        public DeviceListViewModel(IAdapter adapter, IUserDialogs userDialogs) : base(adapter)
+        public bool IsStateOn => _bluetoothLe.IsOn;
+        public string StateText => GetStateText();
+        public DeviceListItemViewModel SelectedDevice
         {
+            get { return null; }
+            set
+            {
+                if (value != null)
+                {
+                    HandleSelectedDevice(value);
+                }
+
+                RaisePropertyChanged();
+            }
+        }
+
+        public MvxCommand StopScanCommand => new MvxCommand(() =>
+        {
+            _cancellationTokenSource.Cancel();
+            CleanupCancellationToken();
+            RaisePropertyChanged(() => IsRefreshing);
+        }, () => _cancellationTokenSource != null);
+
+        public DeviceListViewModel(IBluetoothLE bluetoothLe, IAdapter adapter, IUserDialogs userDialogs) : base(adapter)
+        {
+            _bluetoothLe = bluetoothLe;
             _userDialogs = userDialogs;
             // quick and dirty :>
+            _bluetoothLe.StateChanged += OnStateChanged;
             Adapter.DeviceDiscovered += OnDeviceDiscovered;
             Adapter.ScanTimeoutElapsed += Adapter_ScanTimeoutElapsed;
         }
 
+        private void OnStateChanged(object sender, BluetoothStateChangedArgs e)
+        {
+            RaisePropertyChanged(nameof(IsStateOn));
+            RaisePropertyChanged(nameof(StateText));
+            TryStartScanning();
+        }
+
+        private string GetStateText()
+        {
+            switch (_bluetoothLe.State)
+            {
+                case BluetoothState.Unknown:
+                    return "Unknown BLE state.";
+                case BluetoothState.Unavailable:
+                    return "BLE is not available on this device.";
+                case BluetoothState.Unauthorized:
+                    return "You are not allowed to use BLE.";
+                case BluetoothState.TurningOn:
+                    return "BLE is warming up, please wait.";
+                case BluetoothState.On:
+                    return "BLE is on.";
+                case BluetoothState.TurningOff:
+                    return "BLE is turning off. That's sad!";
+                case BluetoothState.Off:
+                    return "BLE is off. Turn it on!";
+                default:
+                    return "Unknown BLE state.";
+            }
+        }
 
         private void Adapter_ScanTimeoutElapsed(object sender, EventArgs e)
         {
@@ -47,7 +103,6 @@ namespace BLE.Client.ViewModels
 
             CleanupCancellationToken();
         }
-
 
         private void OnDeviceDiscovered(object sender, DeviceEventArgs args)
         {
@@ -73,10 +128,7 @@ namespace BLE.Client.ViewModels
         public override void Resume()
         {
             base.Resume();
-            if (!Devices.Any())
-            {
-                ScanForDevices();
-            }
+            TryStartScanning();
         }
 
         public override void Suspend()
@@ -85,6 +137,14 @@ namespace BLE.Client.ViewModels
 
             Adapter.StopScanningForDevicesAsync();
             RaisePropertyChanged(() => IsRefreshing);
+        }
+
+        private void TryStartScanning(bool refresh = false)
+        {
+            if (IsStateOn && (refresh || !Devices.Any()) && !IsRefreshing)
+            {
+                ScanForDevices();
+            }
         }
 
         private void ScanForDevices()
@@ -103,24 +163,12 @@ namespace BLE.Client.ViewModels
             RaisePropertyChanged(() => IsRefreshing);
         }
 
-        public MvxCommand StopScanCommand => new MvxCommand(() =>
-        {
-
-            _cancellationTokenSource.Cancel();
-            CleanupCancellationToken();
-            RaisePropertyChanged(() => IsRefreshing);
-
-        }, () => _cancellationTokenSource != null);
-
         private void CleanupCancellationToken()
         {
             _cancellationTokenSource.Dispose();
             _cancellationTokenSource = null;
             RaisePropertyChanged(() => StopScanCommand);
         }
-
-        public MvxCommand RefreshCommand => new MvxCommand(ScanForDevices);
-        public MvxCommand<DeviceListItemViewModel> DisconnectCommand => new MvxCommand<DeviceListItemViewModel>(DisconnectDevice);
 
         private async void DisconnectDevice(DeviceListItemViewModel device)
         {
@@ -143,27 +191,12 @@ namespace BLE.Client.ViewModels
                 _userDialogs.HideLoading();
             }
         }
-
-        public DeviceListItemViewModel SelectedDevice
-        {
-            get { return null; }
-            set
-            {
-                if (value != null)
-                {
-                    HandleSelectedDevice(value);
-                }
-
-                RaisePropertyChanged();
-
-            }
-        }
-
+        
         private async void HandleSelectedDevice(DeviceListItemViewModel device)
         {
             if (await ConnectDeviceAsync(device))
             {
-                ShowViewModel<ServiceListViewModel>(new MvxBundle(new Dictionary<string, string> { { DeviceIdKey, device.Device.Id.ToString() } }));
+                ShowViewModel<ServiceListViewModel>(new MvxBundle(new Dictionary<string, string> {{DeviceIdKey, device.Device.Id.ToString()}}));
             }
         }
 
@@ -205,14 +238,12 @@ namespace BLE.Client.ViewModels
 
         private async void ScanAndConnectToPreviousDeviceAsync()
         {
-
             DeviceListItemViewModel device;
 
             try
             {
                 _userDialogs.ShowLoading($"Searching for '{PreviousGuid}'");
                 device = null; //await Adapter.DiscoverSpecificDeviceAsync(PreviousGuid);
-
             }
             catch (Exception ex)
             {

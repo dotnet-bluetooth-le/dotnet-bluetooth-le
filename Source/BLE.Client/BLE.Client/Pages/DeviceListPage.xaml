@@ -2,16 +2,20 @@
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:BLE.Client.Pages;assembly=BLE.Client"
-             xmlns:abstractions="clr-namespace:Plugin.BLE.Abstractions;assembly=Plugin.BLE.Abstractions"
              x:Class="BLE.Client.Pages.DeviceListPage"
              Title="Discover devices"
              x:Name="DevicePage">
   <Grid>
     <Grid.RowDefinitions>
-      <RowDefinition></RowDefinition>
+      <RowDefinition Height="Auto"></RowDefinition>
+      <RowDefinition Height="*"></RowDefinition>
       <RowDefinition Height="Auto"></RowDefinition>
     </Grid.RowDefinitions>
-    <ListView ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
+    <StackLayout BackgroundColor="#FF6969" Padding="10" IsVisible="{Binding IsStateOn, Converter={StaticResource InverseBoolean}}">
+      <Label Text="{Binding StateText}" FontSize="18" HorizontalTextAlignment="Center"></Label>
+    </StackLayout>
+    
+    <ListView Grid.Row="1" ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
              IsPullToRefreshEnabled="True"
              RefreshCommand="{Binding RefreshCommand}"
              IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
@@ -50,7 +54,7 @@
       </ListView.ItemTemplate>
     </ListView>
 
-    <StackLayout Grid.Row="1" Orientation="Horizontal">
+    <StackLayout Grid.Row="2" Orientation="Horizontal">
       <Button Text="Connect to previous" Command="{Binding ConnectToPreviousCommand}" HorizontalOptions="FillAndExpand"/>
       <Button Text="Stop Scan" Command="{Binding StopScanCommand}" HorizontalOptions="End"/>
       <ActivityIndicator IsRunning="{Binding IsRefreshing}" 

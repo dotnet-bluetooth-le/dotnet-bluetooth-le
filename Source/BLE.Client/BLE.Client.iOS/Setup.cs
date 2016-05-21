@@ -1,6 +1,5 @@
 using Acr.UserDialogs;
 using MvvmCross.Core.ViewModels;
-using MvvmCross.Forms.Presenter.Core;
 using MvvmCross.Forms.Presenter.iOS;
 using MvvmCross.iOS.Platform;
 using MvvmCross.iOS.Views.Presenters;
@@ -31,7 +30,7 @@ namespace BLE.Client.iOS
         protected override IMvxIosViewPresenter CreatePresenter()
         {
             Forms.Init();
-            var xamarinFormsApp = new MvxFormsApp();
+            var xamarinFormsApp = new BleMvxFormsApp();
             return new MvxFormsIosPagePresenter(Window, xamarinFormsApp);
         }
 

@@ -1,0 +1,12 @@
+﻿<mvx:MvxFormsApp
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:mvx="clr-namespace:MvvmCross.Forms.Presenter.Core;assembly=MvvmCross.Forms.Presenter.Core"
+    xmlns:converters="clr-namespace:BLE.Client.Converters;assembly=BLE.Client"
+    x:Class="BLE.Client.BleMvxFormsApp">
+  <Application.Resources>
+    <ResourceDictionary>
+      <converters:InverseBooleanValueConverter x:Key="InverseBoolean"></converters:InverseBooleanValueConverter>
+    </ResourceDictionary>
+  </Application.Resources>
+</mvx:MvxFormsApp>
