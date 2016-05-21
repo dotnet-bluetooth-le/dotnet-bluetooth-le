@@ -23,6 +23,7 @@ bld/
 [Oo]bj/
 .build/out/
 FAKE*
+!FAKE*.cs
 .fake/
 
 # Visual Studo 2015 cache/options directory
