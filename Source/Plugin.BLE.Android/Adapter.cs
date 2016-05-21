@@ -38,15 +38,11 @@ namespace Plugin.BLE.Android
         /// </summary>
         public Dictionary<string, IDevice> DeviceOperationRegistry { get; }
 
-        public Adapter()
+        public Adapter(BluetoothAdapter adapter)
         {
+            _bluetoothAdapter = adapter;
             DeviceOperationRegistry = new Dictionary<string, IDevice>();
             ConnectedDeviceRegistry = new Dictionary<string, IDevice>();
-
-            var appContext = Application.Context;
-            // get a reference to the bluetooth system service
-            var manager = (BluetoothManager)appContext.GetSystemService(Context.BluetoothService);
-            _bluetoothAdapter = manager.Adapter;
 
             // TODO: bonding
             //var bondStatusBroadcastReceiver = new BondStatusBroadcastReceiver();

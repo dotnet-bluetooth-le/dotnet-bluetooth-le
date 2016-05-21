@@ -25,7 +25,9 @@ namespace Plugin.BLE
 #if PORTABLE
             return null;
 #else
-            return new BleImplementation();
+            var implementation = new BleImplementation();
+            implementation.Initialize();
+            return implementation;
 #endif
         }
 

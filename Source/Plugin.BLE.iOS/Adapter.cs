@@ -5,12 +5,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CoreBluetooth;
-using CoreFoundation;
 using Foundation;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
-using Plugin.BLE.Abstractions.Exceptions;
-using Plugin.BLE.Abstractions.Utils;
 
 namespace Plugin.BLE.iOS
 {
@@ -28,9 +25,9 @@ namespace Plugin.BLE.iOS
 
         public override IList<IDevice> ConnectedDevices => _deviceConnectionRegistry.Values.ToList();
 
-        public Adapter()
+        public Adapter(CBCentralManager centralManager)
         {
-            _centralManager = new CBCentralManager(DispatchQueue.CurrentQueue);
+            _centralManager = centralManager;
 
             _centralManager.DiscoveredPeripheral += (sender, e) =>
             {

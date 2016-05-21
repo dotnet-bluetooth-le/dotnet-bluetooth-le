@@ -1,5 +1,6 @@
 ﻿using System;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Abstractions.Utils;
 
 namespace Plugin.BLE.Abstractions
 {
@@ -9,6 +10,10 @@ namespace Plugin.BLE.Abstractions
         private BluetoothState _state;
 
         public event EventHandler<BluetoothStateChangedArgs> StateChanged;
+
+        public bool IsAvailable => _state != BluetoothState.Unavailable;
+        public bool IsOn => _state == BluetoothState.On;
+        public IAdapter Adapter => _adapter.Value;
 
         public BluetoothState State
         {
@@ -23,13 +28,27 @@ namespace Plugin.BLE.Abstractions
             }
         }
 
-        public IAdapter Adapter => _adapter.Value;
-
         protected BleImplementationBase()
         {
-            _adapter = new Lazy<IAdapter>(CreateNativeAdapter, System.Threading.LazyThreadSafetyMode.PublicationOnly);
+            _adapter = new Lazy<IAdapter>(CreateAdapter, System.Threading.LazyThreadSafetyMode.PublicationOnly);
         }
 
+        public void Initialize()
+        {
+            InitializeNative();
+            State = GetInitialStateNative();
+        }
+
+        private IAdapter CreateAdapter()
+        {
+            if (!IsAvailable)
+                return new FakeAdapter();
+
+            return CreateNativeAdapter();
+        }
+
+        protected abstract void InitializeNative();
+        protected abstract BluetoothState GetInitialStateNative();
         protected abstract IAdapter CreateNativeAdapter();
     }
 }

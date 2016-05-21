@@ -6,16 +6,18 @@ namespace Plugin.BLE.Abstractions.Contracts
     {
         event EventHandler<BluetoothStateChangedArgs> StateChanged;
         BluetoothState State { get; }
+        bool IsAvailable { get; }
+        bool IsOn { get; }
+
 
         IAdapter Adapter { get; }
-        // TODO: Activate
-        // TODO: Get some information like version (if possible), ...
     }
 
     public enum BluetoothState
     {
         Unknown,
         Unavailable,
+        Unauthorized,
         TurningOn,
         On,
         TurningOff,

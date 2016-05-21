@@ -50,6 +50,7 @@
     <Compile Include="Descriptor.cs" />
     <Compile Include="Device.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Extensions\BluetoothStateExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service.cs" />
   </ItemGroup>

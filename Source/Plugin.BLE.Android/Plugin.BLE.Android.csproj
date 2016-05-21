@@ -58,6 +58,7 @@
     <Compile Include="Characteristic.cs" />
     <Compile Include="Descriptor.cs" />
     <Compile Include="Device.cs" />
+    <Compile Include="Extensions\BluetoothStateExtension.cs" />
     <Compile Include="GattCallback.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
