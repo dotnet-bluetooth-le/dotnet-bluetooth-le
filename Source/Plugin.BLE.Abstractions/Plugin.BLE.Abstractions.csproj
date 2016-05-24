@@ -56,6 +56,7 @@
     <Compile Include="EventArgs\DeviceBondStateChangedEventArgs.cs" />
     <Compile Include="EventArgs\DeviceErrorEventArgs.cs" />
     <Compile Include="EventArgs\DeviceEventArgs.cs" />
+    <Compile Include="Exceptions\CharacteristicReadException.cs" />
     <Compile Include="Exceptions\DeviceConnectionException.cs" />
     <Compile Include="Exceptions\DeviceDiscoverException.cs" />
     <Compile Include="Extensions\GuidExtension.cs" />

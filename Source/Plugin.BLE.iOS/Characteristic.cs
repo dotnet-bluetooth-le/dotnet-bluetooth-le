@@ -7,7 +7,9 @@ using Foundation;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
+using Plugin.BLE.Abstractions.Exceptions;
 using Plugin.BLE.Abstractions.Extensions;
+using Plugin.BLE.Abstractions.Utils;
 
 namespace Plugin.BLE.iOS
 {
@@ -38,62 +40,53 @@ namespace Plugin.BLE.iOS
             return _nativeCharacteristic.Descriptors.Select(item => new Descriptor(item)).Cast<IDescriptor>().ToList();
         }
 
-        protected override async Task<byte[]> ReadNativeAsync()
+        protected override Task<byte[]> ReadNativeAsync()
         {
-            var tcs = new TaskCompletionSource<byte[]>();
-            EventHandler<CBCharacteristicEventArgs> readHandler = null;
-            readHandler = (sender, args) =>
-            {
-                if (args.Characteristic.UUID != _nativeCharacteristic.UUID)
-                    return;
+            return TaskBuilder.FromEvent<byte[], EventHandler<CBCharacteristicEventArgs>>(
+                    execute: () => _parentDevice.ReadValue(_nativeCharacteristic),
+                    getCompleteHandler: complete => (sender, args) =>
+                    {
+                        if (args.Characteristic.UUID != _nativeCharacteristic.UUID)
+                            return;
 
-                if (args.Error != null)
-                {
-                    tcs.TrySetException(new Exception($"Read async error: {args.Error.Description}"));
-                }
+                        if (args.Error != null)
+                            throw new CharacteristicReadException($"Read async error: {args.Error.Description}");
 
-                Trace.Message($"Read characterteristic value {Value.ToHexString()}");
+                        Trace.Message($"Read characterteristic value {Value.ToHexString()}");
 
-                _parentDevice.UpdatedCharacterteristicValue -= readHandler;
-                tcs.TrySetResult(Value);
-            };
-
-            _parentDevice.UpdatedCharacterteristicValue += readHandler;
-            _parentDevice.ReadValue(_nativeCharacteristic);
-
-            return await tcs.Task;
+                        complete(Value);
+                    },
+                    subscribeComplete: handler => _parentDevice.UpdatedCharacterteristicValue += handler,
+                    unsubscribeComplete: handler => _parentDevice.UpdatedCharacterteristicValue -= handler);
         }
 
-        protected override async Task<bool> WriteNativeAsync(byte[] data)
+        protected override Task<bool> WriteNativeAsync(byte[] data)
         {
-            var tcs = new TaskCompletionSource<bool>();
+            Task<bool> task;
 
             if (CharacteristicWriteType == CBCharacteristicWriteType.WithResponse)
             {
-                EventHandler<CBCharacteristicEventArgs> writtenHandler = null;
-                writtenHandler = (sender, args) =>
-                {
-                    if (args.Characteristic.UUID != _nativeCharacteristic.UUID)
+                task = TaskBuilder.FromEvent<bool, EventHandler<CBCharacteristicEventArgs>>(
+                    execute: () => { },
+                    getCompleteHandler: complete => (sender, args) =>
                     {
-                        return;
-                    }
+                        if (args.Characteristic.UUID != _nativeCharacteristic.UUID)
+                            return;
 
-                    _parentDevice.WroteCharacteristicValue -= writtenHandler;
-
-                    tcs.TrySetResult(args.Error == null);
-                };
-
-                _parentDevice.WroteCharacteristicValue += writtenHandler;
+                        complete(args.Error == null);
+                    },
+                    subscribeComplete: handler => _parentDevice.WroteCharacteristicValue += handler,
+                    unsubscribeComplete: handler => _parentDevice.WroteCharacteristicValue -= handler);
             }
             else
             {
-                tcs.TrySetResult(true);
+                task = Task.FromResult(true);
             }
 
             var nsdata = NSData.FromArray(data);
             _parentDevice.WriteValue(nsdata, _nativeCharacteristic, CharacteristicWriteType);
 
-            return await tcs.Task;
+            return task;
         }
 
         protected override void StartUpdatesNative()

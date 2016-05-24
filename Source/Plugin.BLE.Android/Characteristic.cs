@@ -8,6 +8,7 @@ using Android.Bluetooth;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
+using Plugin.BLE.Abstractions.Exceptions;
 using Plugin.BLE.Android.CallbackEventArgs;
 
 namespace Plugin.BLE.Android
@@ -65,7 +66,7 @@ namespace Plugin.BLE.Android
             {
                 _gattCallback.CharacteristicValueUpdated -= readHandler;
                 Trace.Message("ReadAsync: Gatt read characteristic call returned FALSE");
-                tcs.TrySetException(new InvalidOperationException("Gatt read characteristic call failed"));
+                tcs.TrySetException(new CharacteristicReadException("Gatt read characteristic call failed"));
             }
 
             return await tcs.Task;

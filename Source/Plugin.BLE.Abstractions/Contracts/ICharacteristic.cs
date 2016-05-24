@@ -70,6 +70,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// </summary>
         /// <returns>The read bytes</returns>
         /// <exception cref="InvalidOperationException">Thrown if characteristic doesn't support read. See: <see cref="CanRead"/></exception>
+        /// <exception cref="CharacteristicReadException">Thrown if the reading of the value failed.</exception>
         Task<byte[]> ReadAsync();
 
         /// <summary>
