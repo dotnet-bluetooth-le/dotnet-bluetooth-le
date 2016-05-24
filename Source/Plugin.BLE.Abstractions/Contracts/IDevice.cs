@@ -37,27 +37,32 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// - Advertised Service UUIDS
         /// - Manufacturer Specifc data
         /// - ...
-        /// ToDo create extension methods to find specific records
         /// </summary>
         IList<AdvertisementRecord> AdvertisementRecords { get; }
 
         /// <summary>
         /// Gets all services of the device.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A task that represents the asynchronous read operation. The Result property will contain a list of all available services.</returns>
         Task<IList<IService>> GetServicesAsync();
 
         /// <summary>
         /// Gets the first service with the Id <paramref name="id"/>. 
         /// </summary>
         /// <param name="id">The id of the searched service.</param>
-        /// <returns></returns>
+        /// <returns>A task that represents the asynchronous read operation. The Result property will contain the service with the specified <paramref name="id"/>.</returns>
         Task<IService> GetServiceAsync(Guid id);
 
         /// <summary>
         /// Updates the rssi value.
+        /// 
+        /// Important:
+        /// On Android: This function will only work if the device is connected. The Rssi value will be determined once on the discovery of the device.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The Result property will contain a boolean that inticates if the update was successful.
+        /// The Task will finish after Rssi has been updated.
+        /// </returns>
         Task<bool> UpdateRssiAsync();
     }
 }
