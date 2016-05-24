@@ -46,6 +46,7 @@ Add these permissions to AndroidManifest.xml. For Marshmallow, please follow [Re
 
 We provide a sample Xamarin.Forms app, that is a basic BLE scanner. With this app, it's possible to 
 
+- check the ble status
 - discover devices
 - connect/disconnect
 - discover the services
@@ -65,19 +66,36 @@ var adapter = CrossBle.Current.Adapter;
 
 **MvvmCross**
 
-Let MvvmCross inject the `IAdapter` service in your shared code and start using BLE.
+The MvvmCross plugin registers `IBluetoothLE` and  `IAdapter` as lazy initialized singletons. You can resolve/inject them as any other MvvmCross service. You don't have to resolve/inject both. It depends on your use case.
 
 ```csharp
+var ble = Mvx.Resolve<IBluetoothLE>();
 var adapter = Mvx.Resolve<IAdapter>();
 ```
 or
 ```csharp
-MyViewModel(IAdapter adapter)
+MyViewModel(IBluetoothLE ble, IAdapter adapter)
 {
+    this.ble = ble;
     this.adapter = adapter;
 }
 ```
 
+### IBluetothLE
+#### Get the bluetooth status
+```csharp
+var state = ble.State;
+```
+You can also listen for State changes. So you can react if the user turns on/off bluetooth on you smartphone.
+```csharp
+ble.StateChanged += (s, e) => 
+{
+    Debug.WriteLine($"The bluetooth state changed to {e.NewState}");
+};
+```
+
+
+### IAdapter
 #### Scan for devices
 ```csharp
 adapter.DeviceDiscovered += (s,a) => deviceList.Add(a.Device);
