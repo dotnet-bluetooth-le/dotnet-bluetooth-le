@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Plugin.BLE.Abstractions.EventArgs;
 
 namespace Plugin.BLE.Abstractions.Contracts
 {

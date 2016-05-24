@@ -1,4 +1,4 @@
-namespace Plugin.BLE.Abstractions
+namespace Plugin.BLE.Abstractions.EventArgs
 {
     public class DeviceErrorEventArgs : DeviceEventArgs
     { 

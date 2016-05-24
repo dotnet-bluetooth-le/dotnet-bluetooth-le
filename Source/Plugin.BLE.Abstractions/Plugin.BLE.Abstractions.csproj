@@ -40,7 +40,6 @@
     <Compile Include="BluetoothKnownItemManager.cs" />
     <Compile Include="CharacteristicBase.cs" />
     <Compile Include="CharacteristicPropertyType.cs" />
-    <Compile Include="CharacteristicUpdatedEventArgs.cs" />
     <Compile Include="BleImplementationBase.cs" />
     <Compile Include="Contracts\IAdapter.cs" />
     <Compile Include="Contracts\IBluetoothLE.cs" />
@@ -49,11 +48,13 @@
     <Compile Include="Contracts\IDevice.cs" />
     <Compile Include="Contracts\IService.cs" />
     <Compile Include="DeviceBase.cs" />
-    <Compile Include="DeviceBondedEventArgs.cs" />
     <Compile Include="DeviceBondState.cs" />
-    <Compile Include="DeviceConnectionEventArgs.cs" />
-    <Compile Include="DeviceEventArgs.cs" />
     <Compile Include="DeviceState.cs" />
+    <Compile Include="EventArgs\BluetoothStateChangedArgs.cs" />
+    <Compile Include="EventArgs\CharacteristicUpdatedEventArgs.cs" />
+    <Compile Include="EventArgs\DeviceBondStateChangedEventArgs.cs" />
+    <Compile Include="EventArgs\DeviceErrorEventArgs.cs" />
+    <Compile Include="EventArgs\DeviceEventArgs.cs" />
     <Compile Include="Exceptions\DeviceConnectionException.cs" />
     <Compile Include="Exceptions\DeviceDiscoverException.cs" />
     <Compile Include="Extensions\GuidExtension.cs" />

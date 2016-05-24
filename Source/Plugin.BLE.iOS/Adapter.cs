@@ -28,7 +28,6 @@ namespace Plugin.BLE.iOS
         public Adapter(CBCentralManager centralManager)
         {
             _centralManager = centralManager;
-
             _centralManager.DiscoveredPeripheral += (sender, e) =>
             {
                 Trace.Message("DiscoveredPeripheral: {0}, Id: {1}", e.Peripheral.Name, e.Peripheral.Identifier);

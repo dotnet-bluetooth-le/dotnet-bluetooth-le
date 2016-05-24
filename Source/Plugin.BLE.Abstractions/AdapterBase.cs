@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Exceptions;
 using Plugin.BLE.Abstractions.Utils;
 
@@ -61,7 +62,7 @@ namespace Plugin.BLE.Abstractions
                     await Task.Delay(ScanTimeout, _scanCancellationTokenSource.Token);
                     Trace.Message("Adapter: Scan timeout has elapsed.");
                     CleanupScan();
-                    ScanTimeoutElapsed(this, new EventArgs());
+                    ScanTimeoutElapsed(this, new System.EventArgs());
                 }
             }
             catch (TaskCanceledException)

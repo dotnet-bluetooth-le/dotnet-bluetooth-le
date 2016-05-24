@@ -1,5 +1,6 @@
 ﻿using System;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Utils;
 
 namespace Plugin.BLE.Abstractions

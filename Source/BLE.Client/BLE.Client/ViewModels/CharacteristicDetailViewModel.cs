@@ -6,6 +6,7 @@ using Acr.UserDialogs;
 using MvvmCross.Core.ViewModels;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Extensions;
 
 namespace BLE.Client.ViewModels

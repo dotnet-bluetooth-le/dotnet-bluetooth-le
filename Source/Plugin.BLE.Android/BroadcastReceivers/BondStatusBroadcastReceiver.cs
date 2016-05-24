@@ -2,6 +2,7 @@ using System;
 using Android.Bluetooth;
 using Android.Content;
 using Plugin.BLE.Abstractions;
+using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Android;
 
 namespace Plugin.BLE.BroadcastReceivers
