@@ -44,7 +44,7 @@ Add these permissions to AndroidManifest.xml. For Marshmallow, please follow [Re
 
 ## Sample app
 
-We provide a sample Xamarin.Forms app, that is a basic BLE scanner. With this app, it's possible to 
+We provide a sample Xamarin.Forms app, that is a basic bluetooth LE scanner. With this app, it's possible to 
 
 - check the ble status
 - discover devices
@@ -61,7 +61,8 @@ Have a look at the code and use it as starting point to learn about the plugin a
 **Vanilla**
 
 ```csharp
-var adapter = CrossBle.Current.Adapter;
+var ble = CrossBluetoothLE.Current;
+var adapter = CrossBluetoothLE.Current.Adapter;
 ```
 
 **MvvmCross**

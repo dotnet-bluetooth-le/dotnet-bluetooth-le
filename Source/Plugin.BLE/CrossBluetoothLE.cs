@@ -3,10 +3,16 @@ using Plugin.BLE.Abstractions.Contracts;
 
 namespace Plugin.BLE
 {
+    /// <summary>
+    /// Cross platform bluetooth LE implemenation.
+    /// </summary>
     public static class CrossBluetoothLE
     {
         static readonly Lazy<IBluetoothLE> Implementation = new Lazy<IBluetoothLE>(CreateImplementation, System.Threading.LazyThreadSafetyMode.PublicationOnly);
 
+        /// <summary>
+        /// Current bluetooth LE implementation.
+        /// </summary>
         public static IBluetoothLE Current
         {
             get
