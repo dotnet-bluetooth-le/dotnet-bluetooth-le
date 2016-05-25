@@ -44,8 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Plugin.BLE\CrossBle.cs">
-      <Link>CrossBle.cs</Link>
+    <Compile Include="..\Plugin.BLE\CrossBluetoothLE.cs">
+      <Link>CrossBluetoothLE.cs</Link>
     </Compile>
     <Compile Include="Adapter.cs" />
     <Compile Include="BleImplementation.cs" />

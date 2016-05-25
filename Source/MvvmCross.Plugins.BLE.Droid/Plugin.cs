@@ -15,7 +15,8 @@ namespace MvvmCross.Plugins.BLE.Droid
         }
         public void Load()
         {
-            Mvx.LazyConstructAndRegisterSingleton<IBluetoothLE>(() => CrossBle.Current);
+            Mvx.Trace("Loading bluetooth low energy plugin");
+            Mvx.LazyConstructAndRegisterSingleton<IBluetoothLE>(() => CrossBluetoothLE.Current);
             Mvx.LazyConstructAndRegisterSingleton<IAdapter>(() => Mvx.Resolve<IBluetoothLE>().Adapter);
         }
     }

@@ -17,8 +17,8 @@ namespace MvvmCross.Plugins.BLE.iOS
 
         public void Load()
         {
-            Mvx.Trace("Loading BT plugin");
-            Mvx.LazyConstructAndRegisterSingleton<IBluetoothLE>(() => CrossBle.Current);
+            Mvx.Trace("Loading bluetooth low energy plugin");
+            Mvx.LazyConstructAndRegisterSingleton<IBluetoothLE>(() => CrossBluetoothLE.Current);
             Mvx.LazyConstructAndRegisterSingleton<IAdapter>(() => Mvx.Resolve<IBluetoothLE>().Adapter);
         }
     }

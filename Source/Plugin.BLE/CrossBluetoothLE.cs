@@ -3,7 +3,7 @@ using Plugin.BLE.Abstractions.Contracts;
 
 namespace Plugin.BLE
 {
-    public static class CrossBle
+    public static class CrossBluetoothLE
     {
         static readonly Lazy<IBluetoothLE> Implementation = new Lazy<IBluetoothLE>(CreateImplementation, System.Threading.LazyThreadSafetyMode.PublicationOnly);
 
