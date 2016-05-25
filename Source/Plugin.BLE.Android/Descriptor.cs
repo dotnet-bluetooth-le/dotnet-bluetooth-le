@@ -1,19 +1,13 @@
 using System;
 using Android.Bluetooth;
 using Plugin.BLE.Abstractions;
-using Plugin.BLE.Abstractions.Contracts;
 
 namespace Plugin.BLE.Android
 {
-    public class Descriptor : IDescriptor
+    public class Descriptor : DescriptorBase
     {
-        public object NativeDescriptor => _nativeDescriptor as object;
         private readonly BluetoothGattDescriptor _nativeDescriptor;
-
-        public Guid ID => Guid.ParseExact(_nativeDescriptor.Uuid.ToString(), "d");
-
-        public string Name => _name ?? (_name = KnownDescriptors.Lookup(ID).Name);
-        private string _name;
+        public override Guid Id => Guid.ParseExact(_nativeDescriptor.Uuid.ToString(), "d");
 
         public Descriptor(BluetoothGattDescriptor nativeDescriptor)
         {
