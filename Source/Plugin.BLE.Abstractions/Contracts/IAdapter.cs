@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Plugin.BLE.Abstractions.EventArgs;
+using Plugin.BLE.Abstractions.Exceptions;
 
 namespace Plugin.BLE.Abstractions.Contracts
 {
+    /// <summary>
+    /// The bluetooth LE Adapter.
+    /// </summary>
     public interface IAdapter
     {
         /// <summary>
@@ -14,7 +18,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         event EventHandler<DeviceEventArgs> DeviceAdvertised;
         /// <summary>
         /// Occurs when the adapter recaives an advertisement for the first time of the current scan run.
-        /// This means once per every <see cref="StartScanningForDevicesAsync()"/> call. 
+        /// This means once per every <see cref="StartScanningForDevicesAsync(Guid[], Func&lt;IDevice, bool&gt;, CancellationToken)"/> call. 
         /// </summary>
         event EventHandler<DeviceEventArgs> DeviceDiscovered;
         /// <summary>
@@ -88,4 +92,3 @@ namespace Plugin.BLE.Abstractions.Contracts
         Task DisconnectDeviceAsync(IDevice device);
     }
 }
-

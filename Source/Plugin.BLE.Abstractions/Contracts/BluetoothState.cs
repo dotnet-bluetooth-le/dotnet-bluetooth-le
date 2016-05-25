@@ -1,7 +1,7 @@
 namespace Plugin.BLE.Abstractions.Contracts
 {
     /// <summary>
-    /// State of the Bluetooth adapter.
+    /// State of the bluetooth adapter.
     /// </summary>
     public enum BluetoothState
     {

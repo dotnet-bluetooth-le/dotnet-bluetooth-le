@@ -2,9 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Plugin.BLE.Abstractions.EventArgs;
+using Plugin.BLE.Abstractions.Exceptions;
 
 namespace Plugin.BLE.Abstractions.Contracts
 {
+    /// <summary>
+    /// A bluetooth LE GATT characteristic.
+    /// </summary>
     public interface ICharacteristic
     {
         /// <summary>
@@ -68,7 +72,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <summary>
         /// Reads the characteristic value from the device. The result is also stored inisde the Value property.
         /// </summary>
-        /// <returns>The read bytes</returns>
+        /// <returns>A task that represents the asynchronous read operation. The Result property will contain the read bytes.</returns>
         /// <exception cref="InvalidOperationException">Thrown if characteristic doesn't support read. See: <see cref="CanRead"/></exception>
         /// <exception cref="CharacteristicReadException">Thrown if the reading of the value failed.</exception>
         Task<byte[]> ReadAsync();
@@ -77,7 +81,12 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Sends <paramref name="data"/> as characteristic value to the device.
         /// </summary>
         /// <param name="data">Data that should be written.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. The Task will finish after the value was written. The Result property will be <c>true</c> if the value
+        /// was written successful, otherwise <c>false</c>.
+        /// If the characteristic is write with response, the Task will finish if the value has been written. 
+        /// If it is write without response, the task will immediately finish with <c>true</c>.
+        /// </returns>
         /// <exception cref="InvalidOperationException">Thrown if characteristic doesn't support write. See: <see cref="CanWrite"/></exception>
         /// <exception cref="ArgumentNullException">Thrwon if <paramref name="data"/> is null.</exception>
         Task<bool> WriteAsync(byte[] data);

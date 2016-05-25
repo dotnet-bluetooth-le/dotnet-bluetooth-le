@@ -4,13 +4,42 @@ using System.Threading.Tasks;
 
 namespace Plugin.BLE.Abstractions.Contracts
 {
+    /// <summary>
+    /// A bluetooth LE GATT service.
+    /// </summary>
 	public interface IService
 	{
+        /// <summary>
+        /// Id of the Service.
+        /// </summary>
 		Guid Id { get; }
-		string Name { get; }
-		bool IsPrimary { get; } 
 
-	    Task<IEnumerable<ICharacteristic>> GetCharacteristicsAsync();
+        /// <summary>
+        /// Name of the service.
+        /// Returns the name if the <see cref="Id"/> is a standard Id. See <see cref="KnownServices"/>.
+        /// </summary>
+		string Name { get; }
+
+        /// <summary>
+        /// Indicates whether the type of service is primary or secondary.
+        /// </summary>
+		bool IsPrimary { get; }
+
+        /// <summary>
+        /// Gets the characteristics of the service.
+        /// </summary>
+        /// <returns>A task that represents the asynchronous read operation. The Result property will contain a list of characteristics.</returns>
+        Task<IEnumerable<ICharacteristic>> GetCharacteristicsAsync();
+
+        /// <summary>
+        /// Gets the first characteristic with the Id <paramref name="id"/>. 
+        /// </summary>
+        /// <param name="id">The id of the searched characteristic.</param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. 
+        /// The Result property will contain the characteristic with the specified <paramref name="id"/>.
+        /// If the characteristic doesn't exist, the Result will be null.
+        /// </returns>
         Task<ICharacteristic> GetCharacteristicAsync(Guid id);
     }
 }

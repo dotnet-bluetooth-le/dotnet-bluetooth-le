@@ -30,7 +30,6 @@ namespace Plugin.BLE.Abstractions
 
         public async Task<IService> GetServiceAsync(Guid id)
         {
-            // TODO: review: First or FirstOrDefault? 
             var services = await GetServicesAsync();
             return services.FirstOrDefault(x => x.Id == id);
         }

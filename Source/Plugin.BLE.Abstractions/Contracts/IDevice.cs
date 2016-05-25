@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace Plugin.BLE.Abstractions.Contracts
 {
+    /// <summary>
+    /// A bluetooth LE device.
+    /// </summary>
     public interface IDevice
     {
         /// <summary>
@@ -18,7 +21,7 @@ namespace Plugin.BLE.Abstractions.Contracts
 
         /// <summary>
         /// Last known rssi value in decibals.
-        /// Can be updated via <see cref="UpdateRssiAsync"/>.
+        /// Can be updated via <see cref="UpdateRssiAsync()"/>.
         /// </summary>
         int Rssi { get; }
 
@@ -29,6 +32,9 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <value>The native device.</value>
         object NativeDevice { get; }
 
+        /// <summary>
+        /// State of the device.
+        /// </summary>
         DeviceState State { get; }
 
         /// <summary>
@@ -50,7 +56,11 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Gets the first service with the Id <paramref name="id"/>. 
         /// </summary>
         /// <param name="id">The id of the searched service.</param>
-        /// <returns>A task that represents the asynchronous read operation. The Result property will contain the service with the specified <paramref name="id"/>.</returns>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. 
+        /// The Result property will contain the service with the specified <paramref name="id"/>.
+        /// If the service doesn't exist, the Result will be null.
+        /// </returns>
         Task<IService> GetServiceAsync(Guid id);
 
         /// <summary>
