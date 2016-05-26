@@ -1,7 +1,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>MvvmCross.Plugin.BLE</id>
-    <version>1.0.0-beta</version>
+    <version>1.0.0-beta2</version>
     <title>BLE Plugin for MvvmCross</title>
     <authors>Adrian Seceleanu, Sven-Michael Stübe</authors>
     <owners>Adrian Seceleanu, Sven-Michael Stübe</owners>
@@ -23,15 +23,15 @@
     <dependencies>
       <group targetFramework="MonoAndroid">
         <dependency id="MvvmCross.Platform" version="4.1.0" />
-        <dependency id="Plugin.BLE" version="1.0.0-beta" />
+        <dependency id="Plugin.BLE" version="1.0.0-beta2" />
       </group>
       <group targetFramework="Xamarin.iOS">
         <dependency id="MvvmCross.Platform" version="4.1.0" />
-        <dependency id="Plugin.BLE" version="1.0.0-beta" />
+        <dependency id="Plugin.BLE" version="1.0.0-beta2" />
       </group>
       <group targetFramework="portable-net45+win8+wpa81+wp8">
         <dependency id="MvvmCross.Platform" version="4.1.0" />
-        <dependency id="Plugin.BLE" version="1.0.0-beta" />
+        <dependency id="Plugin.BLE" version="1.0.0-beta2" />
       </group>
     </dependencies>
   </metadata>
