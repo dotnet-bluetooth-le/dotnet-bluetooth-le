@@ -17,9 +17,10 @@ Xamarin and MvvMCross plugin for accessing the bluetooth functionality. The plug
 **Vanilla**
 
 ```
+// stable
 Install-Package Plugin.BLE
-// or
-Install-Package MvvmCross.Plugin.BLE -Pre
+// or pre-release (currently the case)
+Install-Package Plugin.BLE -Pre
 ```
 [![NuGet](https://img.shields.io/nuget/v/Plugin.BLE.svg?label=NuGet)](https://www.nuget.org/packages/Plugin.BLE) [![NuGet Beta](https://img.shields.io/nuget/vpre/Plugin.BLE.svg?label=NuGet Beta)](https://www.nuget.org/packages/Plugin.BLE)
 
@@ -27,7 +28,7 @@ Install-Package MvvmCross.Plugin.BLE -Pre
 
 ```
 Install-Package MvvmCross.Plugin.BLE
-// or
+// or (recommended for now until we release 1.0.0 stable)
 Install-Package MvvmCross.Plugin.BLE -Pre
 ```
 
