@@ -28,7 +28,7 @@ namespace Plugin.BLE.Android
         /// </summary>
         private IGattCallback _gattCallback;
 
-        public Device(BluetoothDevice nativeDevice, BluetoothGatt gatt, IGattCallback gattCallback, int rssi, byte[] advertisementData = null)
+        public Device(Adapter adapter, BluetoothDevice nativeDevice, BluetoothGatt gatt, IGattCallback gattCallback, int rssi, byte[] advertisementData = null) : base(adapter)
         {
             Update(nativeDevice, gatt, gattCallback);
             Rssi = rssi;
@@ -81,7 +81,7 @@ namespace Plugin.BLE.Android
             }
             else
             {
-                Console.WriteLine("Can't disconnect {0}. Gatt is null.", Name);
+                Trace.Message("[Warning]: Can't disconnect {0}. Gatt is null.", Name);
             }
         }
 
@@ -95,7 +95,7 @@ namespace Plugin.BLE.Android
             }
             else
             {
-                Console.WriteLine("Can't close gatt {0}. Gatt is null.", Name);
+                Trace.Message("[Warning]: Can't close gatt after disconnect {0}. Gatt is null.", Name);
             }
 
         }

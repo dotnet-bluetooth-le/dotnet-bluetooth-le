@@ -36,10 +36,10 @@ namespace Plugin.BLE.iOS
                 {
                     // iOS caches the peripheral name, so it can become stale (if changing)
                     // keep track of the local name key manually
-                    name = ((NSString) e.AdvertisementData.ValueForKey(CBAdvertisement.DataLocalNameKey)).ToString();
+                    name = ((NSString)e.AdvertisementData.ValueForKey(CBAdvertisement.DataLocalNameKey)).ToString();
                 }
 
-                var device = new Device(e.Peripheral, name, e.RSSI.Int32Value,
+                var device = new Device(this, e.Peripheral, name, e.RSSI.Int32Value,
                     ParseAdvertismentData(e.AdvertisementData));
                 HandleDiscoveredDevice(device);
             };
@@ -61,12 +61,12 @@ namespace Plugin.BLE.iOS
                 if (_deviceOperationRegistry.TryGetValue(guid, out device))
                 {
                     _deviceOperationRegistry.Remove(guid);
-                    ((Device) device).Update(e.Peripheral);
+                    ((Device)device).Update(e.Peripheral);
                 }
                 else
                 {
                     Trace.Message("Device not found in operation registry. Creating a new one.");
-                    device = new Device(e.Peripheral);
+                    device = new Device(this, e.Peripheral);
                 }
 
                 _deviceConnectionRegistry[guid] = device;
@@ -98,7 +98,7 @@ namespace Plugin.BLE.iOS
                     _deviceConnectionRegistry.Remove(stringId);
                 }
 
-                foundDevice = foundDevice ?? new Device(e.Peripheral);
+                foundDevice = foundDevice ?? new Device(this, e.Peripheral);
                 HandleDisconnectedDevice(isNormalDisconnect, foundDevice);
             };
 
@@ -115,7 +115,7 @@ namespace Plugin.BLE.iOS
                         _deviceOperationRegistry.Remove(stringId);
                     }
 
-                    foundDevice = foundDevice ?? new Device(e.Peripheral);
+                    foundDevice = foundDevice ?? new Device(this, e.Peripheral);
 
                     HandleConnectionFail(foundDevice, e.Error.Description);
                 };

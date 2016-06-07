@@ -36,7 +36,7 @@ namespace Plugin.BLE.Android
             if (status != GattStatus.Success)
             {
                 Trace.Message($"OnConnectionStateChange: GattCallback error: {status}");
-                device = new Device(gatt.Device, gatt, this, 0);
+                device = new Device(_adapter, gatt.Device, gatt, this, 0);
                 _adapter.HandleConnectionFail(device, $"GattCallback error: {status}");
                 // We don't return. Allowing to fall-through to the SWITCH, which will assume a disconnect, close GATT and clean up.
                 // The above error event handles the case where the error happened during a Connect call, which will close out any waiting asyncs.
@@ -99,7 +99,7 @@ namespace Plugin.BLE.Android
                     else
                     {
                         //only for on auto-reconnect (device is not in operation registry)
-                        device = new Device(gatt.Device, gatt, this, 0);
+                        device = new Device(_adapter, gatt.Device, gatt, this, 0);
                     }
 
                     _adapter.ConnectedDeviceRegistry[gatt.Device.Address] = device;
@@ -144,7 +144,7 @@ namespace Plugin.BLE.Android
             base.OnCharacteristicChanged(gatt, characteristic);
 
             CharacteristicValueUpdated?.Invoke(this, new CharacteristicReadCallbackEventArgs(characteristic));
-            
+
         }
 
         public override void OnCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, GattStatus status)
@@ -189,7 +189,7 @@ namespace Plugin.BLE.Android
             IDevice device;
             if (!_adapter.ConnectedDeviceRegistry.TryGetValue(gatt.Device.Address, out device))
             {
-                device = new Device(gatt.Device, gatt, this, rssi);
+                device = new Device(_adapter, gatt.Device, gatt, this, rssi);
                 Trace.Message("Rssi updated for device not in connected list. This should not happen.");
             }
 

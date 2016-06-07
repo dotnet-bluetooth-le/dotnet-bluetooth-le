@@ -15,13 +15,13 @@ namespace Plugin.BLE.iOS
 
         public override object NativeDevice => _nativeDevice;
 
-        public Device(CBPeripheral nativeDevice)
-            : this(nativeDevice, nativeDevice.Name, nativeDevice.RSSI?.Int32Value ?? 0,
+        public Device(Adapter adapter, CBPeripheral nativeDevice)
+            : this(adapter, nativeDevice, nativeDevice.Name, nativeDevice.RSSI?.Int32Value ?? 0,
                 new List<AdvertisementRecord>())
         {
         }
 
-        public Device(CBPeripheral nativeDevice, string name, int rssi, List<AdvertisementRecord> advertisementRecords)
+        public Device(Adapter adapter, CBPeripheral nativeDevice, string name, int rssi, List<AdvertisementRecord> advertisementRecords) : base(adapter)
         {
             _nativeDevice = nativeDevice;
             Id = Guid.ParseExact(_nativeDevice.Identifier.AsString(), "d");
@@ -29,7 +29,7 @@ namespace Plugin.BLE.iOS
 
             Rssi = rssi;
             AdvertisementRecords = advertisementRecords;
-            
+
             // TODO: smell!!!! WeakSubscribe?!
             _nativeDevice.UpdatedName += (sender, e) =>
             {

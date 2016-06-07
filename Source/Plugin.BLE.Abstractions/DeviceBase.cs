@@ -8,7 +8,14 @@ namespace Plugin.BLE.Abstractions
 {
     public abstract class DeviceBase : IDevice
     {
-        private readonly List<IService> _knownServices = new List<IService>();
+        private readonly IAdapter _adapter;
+
+        protected DeviceBase(IAdapter adapter)
+        {
+            _adapter = adapter;
+        }
+
+        protected readonly List<IService> KnownServices = new List<IService>();
 
         public Guid Id { get; protected set; }
         public string Name { get; protected set; }
@@ -20,12 +27,12 @@ namespace Plugin.BLE.Abstractions
 
         public async Task<IList<IService>> GetServicesAsync()
         {
-            if (!_knownServices.Any())
+            if (!KnownServices.Any())
             {
-                _knownServices.AddRange(await GetServicesNativeAsync());
+                KnownServices.AddRange(await GetServicesNativeAsync());
             }
 
-            return _knownServices;
+            return KnownServices;
         }
 
         public async Task<IService> GetServiceAsync(Guid id)
@@ -42,6 +49,11 @@ namespace Plugin.BLE.Abstractions
         public override string ToString()
         {
             return Name;
+        }
+
+        public void Dispose()
+        {
+            _adapter.DisconnectDeviceAsync(this);
         }
 
         #region IEquatable implementation

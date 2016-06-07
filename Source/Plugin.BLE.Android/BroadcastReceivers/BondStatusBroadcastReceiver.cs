@@ -15,7 +15,8 @@ namespace Plugin.BLE.BroadcastReceivers
         public override void OnReceive(Context context, Intent intent)
         {
             var bondState = (Bond)intent.GetIntExtra(BluetoothDevice.ExtraBondState, (int)Bond.None);
-            var device = new Device((BluetoothDevice)intent.GetParcelableExtra(BluetoothDevice.ExtraDevice), null, null, 0);
+            //ToDo
+            var device = new Device(null, (BluetoothDevice)intent.GetParcelableExtra(BluetoothDevice.ExtraDevice), null, null, 0);
             Console.WriteLine(bondState.ToString());
 
             if (BondStateChanged == null) return;
