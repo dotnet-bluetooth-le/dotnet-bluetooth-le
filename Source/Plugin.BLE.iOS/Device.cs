@@ -76,6 +76,11 @@ namespace Plugin.BLE.iOS
             return await tcs.Task;
         }
 
+        public void ClearServices()
+        {
+            KnownServices.Clear();
+        }
+
         public override async Task<bool> UpdateRssiAsync()
         {
             var tcs = new TaskCompletionSource<bool>();

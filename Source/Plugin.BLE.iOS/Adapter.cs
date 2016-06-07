@@ -99,6 +99,10 @@ namespace Plugin.BLE.iOS
                 }
 
                 foundDevice = foundDevice ?? new Device(this, e.Peripheral);
+
+                //make sure all cached services are cleared
+                ((Device)foundDevice).ClearServices();
+
                 HandleDisconnectedDevice(isNormalDisconnect, foundDevice);
             };
 

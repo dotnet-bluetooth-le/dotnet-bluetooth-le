@@ -75,7 +75,7 @@ namespace Plugin.BLE.Android
             if (_gatt != null)
             {
                 //TODO: clear cached services
-                //_services.Clear();
+                KnownServices.Clear();
 
                 _gatt.Disconnect();
             }
