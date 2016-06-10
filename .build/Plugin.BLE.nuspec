@@ -15,12 +15,9 @@
     <tags>xamarin monodroid Xamarin.iOS Bluetooth BLE LE Smart xamarin.forms ios android</tags>
     <iconUrl>https://raw.githubusercontent.com/xabre/xamarin-bluetooth-le/master/icon_small.png</iconUrl>
     <releaseNotes>
-      [1.0.0-beta3]
-      - fixed vanilla plugin
-      [1.0.0-beta]
-      - refactored/stabilized API
-      - sample app
-      - xamarin vanilla plugin in addition to MvvmCross plugin
+      [1.0.0-beta4]
+      - fixed #47, clear cached services on disconnect
+      - IDevice is IDisposable now and disconnects the device on disposal.
     </releaseNotes>
     <dependencies>
       <group targetFramework="MonoAndroid">
