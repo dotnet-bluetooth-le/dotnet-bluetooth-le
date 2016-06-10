@@ -32,6 +32,9 @@ namespace BLE.Client.ViewModels
 
         public MvxCommand RefreshCommand => new MvxCommand(() => TryStartScanning(true));
         public MvxCommand<DeviceListItemViewModel> DisconnectCommand => new MvxCommand<DeviceListItemViewModel>(DisconnectDevice);
+
+        public MvxCommand<DeviceListItemViewModel> ConnectDisposeCommand => new MvxCommand<DeviceListItemViewModel>(ConnectAndDisposeDevice);
+
         public ObservableCollection<DeviceListItemViewModel> Devices { get; set; } = new ObservableCollection<DeviceListItemViewModel>();
         public bool IsRefreshing => Adapter.IsScanning;
         public bool IsStateOn => _bluetoothLe.IsOn;
@@ -65,6 +68,7 @@ namespace BLE.Client.ViewModels
             _bluetoothLe.StateChanged += OnStateChanged;
             Adapter.DeviceDiscovered += OnDeviceDiscovered;
             Adapter.ScanTimeoutElapsed += Adapter_ScanTimeoutElapsed;
+            Adapter.DeviceDisconnected += OnDeviceDisconnected;
         }
 
         private void OnStateChanged(object sender, BluetoothStateChangedArgs e)
@@ -191,12 +195,12 @@ namespace BLE.Client.ViewModels
                 _userDialogs.HideLoading();
             }
         }
-        
+
         private async void HandleSelectedDevice(DeviceListItemViewModel device)
         {
             if (await ConnectDeviceAsync(device))
             {
-                ShowViewModel<ServiceListViewModel>(new MvxBundle(new Dictionary<string, string> {{DeviceIdKey, device.Device.Id.ToString()}}));
+                ShowViewModel<ServiceListViewModel>(new MvxBundle(new Dictionary<string, string> { { DeviceIdKey, device.Device.Id.ToString() } }));
             }
         }
 
@@ -216,6 +220,8 @@ namespace BLE.Client.ViewModels
                 _userDialogs.ShowLoading("Connecting ...");
 
                 await Adapter.ConnectToDeviceAync(device.Device);
+
+                _userDialogs.InfoToast($"Connected to {device.Device.Name}.");
 
                 PreviousGuid = device.Device.Id;
                 return true;
@@ -268,6 +274,47 @@ namespace BLE.Client.ViewModels
         private bool CanConnectToPrevious()
         {
             return PreviousGuid != default(Guid);
+        }
+
+        private async void ConnectAndDisposeDevice(DeviceListItemViewModel item)
+        {
+            try
+            {
+                using (item.Device)
+                {
+                    _userDialogs.ShowLoading($"Connecting to {item.Name} ...");
+                    await Adapter.ConnectToDeviceAync(item.Device);
+                    item.Update();
+                    _userDialogs.InfoToast($"Connected {item.Device.Name}");
+
+                    _userDialogs.HideLoading();
+                    for (var i = 5; i >= 1; i--)
+                    {
+                        _userDialogs.ShowLoading($"Disconnect in {i}s...");
+
+                        await Task.Delay(1000);
+
+                        _userDialogs.HideLoading();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _userDialogs.Alert(ex.Message, "Failed to connect and dispose.");
+            }
+            finally
+            {
+                _userDialogs.HideLoading();
+            }
+
+
+        }
+
+        private void OnDeviceDisconnected(object sender, DeviceEventArgs e)
+        {
+            Devices.FirstOrDefault(d => d.Id == e.Device.Id)?.Update();
+            _userDialogs.HideLoading();
+            _userDialogs.InfoToast($"Disconnected {e.Device.Name}");
         }
     }
 }

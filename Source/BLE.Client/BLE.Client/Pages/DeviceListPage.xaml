@@ -25,8 +25,11 @@
           <ViewCell>
             <ViewCell.ContextActions>
               <MenuItem Command="{Binding Path=BindingContext.DisconnectCommand, Source={x:Reference DevicePage}}"
-                        CommandParameter="{Binding .}"
+                        CommandParameter="{Binding .}" IsDestructive="True"
                         Text="Disconnect"/>
+              <MenuItem Command="{Binding Path=BindingContext.ConnectDisposeCommand, Source={x:Reference DevicePage}}"
+                        CommandParameter="{Binding .}"
+                        Text="Connect and Dispose"/>
             </ViewCell.ContextActions>
             <Grid>
               <Grid.ColumnDefinitions>
