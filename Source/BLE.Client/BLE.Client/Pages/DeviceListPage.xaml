@@ -10,11 +10,12 @@
       <RowDefinition Height="Auto"></RowDefinition>
       <RowDefinition Height="*"></RowDefinition>
       <RowDefinition Height="Auto"></RowDefinition>
+      <RowDefinition Height="Auto"></RowDefinition>
     </Grid.RowDefinitions>
     <StackLayout BackgroundColor="#FF6969" Padding="10" IsVisible="{Binding IsStateOn, Converter={StaticResource InverseBoolean}}">
       <Label Text="{Binding StateText}" FontSize="18" HorizontalTextAlignment="Center"></Label>
     </StackLayout>
-    
+
     <ListView Grid.Row="1" ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
              IsPullToRefreshEnabled="True"
              RefreshCommand="{Binding RefreshCommand}"
@@ -27,6 +28,9 @@
               <MenuItem Command="{Binding Path=BindingContext.DisconnectCommand, Source={x:Reference DevicePage}}"
                         CommandParameter="{Binding .}" IsDestructive="True"
                         Text="Disconnect"/>
+              <MenuItem Command="{Binding Path=BindingContext.CopyGuidCommand, Source={x:Reference DevicePage}}"
+                        CommandParameter="{Binding .}"
+                        Text="Copy Guid"/>
               <MenuItem Command="{Binding Path=BindingContext.ConnectDisposeCommand, Source={x:Reference DevicePage}}"
                         CommandParameter="{Binding .}"
                         Text="Connect and Dispose"/>
@@ -57,15 +61,18 @@
       </ListView.ItemTemplate>
     </ListView>
 
-    <StackLayout Grid.Row="2" Orientation="Horizontal">
+
+    <Label Grid.Row="2" Text="{Binding PreviousGuid, StringFormat='{0}'}" FontSize="Small" TextColor="Gray" VerticalTextAlignment="End"/>
+    <StackLayout Grid.Row="3" Orientation="Horizontal">
       <Button Text="Connect to previous" Command="{Binding ConnectToPreviousCommand}" HorizontalOptions="FillAndExpand"/>
       <Button Text="Stop Scan" Command="{Binding StopScanCommand}" HorizontalOptions="End"/>
-      <ActivityIndicator IsRunning="{Binding IsRefreshing}" 
-                         HeightRequest="24" 
-                         WidthRequest="24" 
+      <ActivityIndicator IsRunning="{Binding IsRefreshing}"
+                         HeightRequest="24"
+                         WidthRequest="24"
                          VerticalOptions="Center"
                          HorizontalOptions="End"/>
     </StackLayout>
+
   </Grid>
 
 </pages:BasePage>

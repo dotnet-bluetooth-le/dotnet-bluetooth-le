@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 using Android.App;
 using Android.Bluetooth;
 using Android.Bluetooth.LE;
-using Android.Content;
 using Android.OS;
 using Java.Util;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
-using Plugin.BLE.Abstractions.Exceptions;
-using Plugin.BLE.Abstractions.Utils;
 using Object = Java.Lang.Object;
 using Trace = Plugin.BLE.Abstractions.Trace;
 
@@ -167,6 +164,17 @@ namespace Plugin.BLE.Android
             AddToDeviceOperationRegistry(device);
             ((Device)device).Disconnect();
         }
+        
+        public override async Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid)
+        {
+            var macBytes = deviceGuid.ToByteArray().Skip(10).Take(6).ToArray();
+            var nativeDevice = _bluetoothAdapter.GetRemoteDevice(macBytes);
+
+            var device = new Device(this, nativeDevice, null, null, 0, new byte[] { });
+            await ConnectToDeviceAync(device);
+            return device;
+        }
+
 
 
         private void AddToDeviceOperationRegistry(IDevice device)
@@ -261,4 +269,6 @@ namespace Plugin.BLE.Android
         }
     }
 }
+
+
 

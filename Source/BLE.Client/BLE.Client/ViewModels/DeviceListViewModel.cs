@@ -20,12 +20,13 @@ namespace BLE.Client.ViewModels
         private Guid _previousGuid;
         private CancellationTokenSource _cancellationTokenSource;
 
-        private Guid PreviousGuid
+        public Guid PreviousGuid
         {
             get { return _previousGuid; }
             set
             {
                 _previousGuid = value;
+                RaisePropertyChanged();
                 RaisePropertyChanged(() => ConnectToPreviousCommand);
             }
         }
@@ -69,6 +70,7 @@ namespace BLE.Client.ViewModels
             Adapter.DeviceDiscovered += OnDeviceDiscovered;
             Adapter.ScanTimeoutElapsed += Adapter_ScanTimeoutElapsed;
             Adapter.DeviceDisconnected += OnDeviceDisconnected;
+            PreviousGuid = Guid.Empty;
         }
 
         private void OnStateChanged(object sender, BluetoothStateChangedArgs e)
@@ -132,7 +134,7 @@ namespace BLE.Client.ViewModels
         public override void Resume()
         {
             base.Resume();
-            TryStartScanning();
+            //TryStartScanning();
         }
 
         public override void Suspend()
@@ -244,12 +246,11 @@ namespace BLE.Client.ViewModels
 
         private async void ScanAndConnectToPreviousDeviceAsync()
         {
-            DeviceListItemViewModel device;
-
+            IDevice device;
             try
             {
                 _userDialogs.ShowLoading($"Searching for '{PreviousGuid}'");
-                device = null; //await Adapter.DiscoverSpecificDeviceAsync(PreviousGuid);
+                device =  await Adapter.ConnectToKnownDeviceAsync(PreviousGuid);
             }
             catch (Exception ex)
             {
@@ -263,7 +264,7 @@ namespace BLE.Client.ViewModels
 
             if (device != null)
             {
-                HandleSelectedDevice(device);
+                HandleSelectedDevice(new DeviceListItemViewModel(device));
             }
             else
             {
@@ -316,5 +317,11 @@ namespace BLE.Client.ViewModels
             _userDialogs.HideLoading();
             _userDialogs.InfoToast($"Disconnected {e.Device.Name}");
         }
+
+        public MvxCommand<DeviceListItemViewModel> CopyGuidCommand => new MvxCommand<DeviceListItemViewModel>(device =>
+        {
+            PreviousGuid = device.Id;
+        });
+
     }
 }

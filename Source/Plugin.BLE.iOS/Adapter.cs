@@ -25,6 +25,7 @@ namespace Plugin.BLE.iOS
 
         public override IList<IDevice> ConnectedDevices => _deviceConnectionRegistry.Values.ToList();
 
+
         public Adapter(CBCentralManager centralManager)
         {
             _centralManager = centralManager;
@@ -171,6 +172,22 @@ namespace Plugin.BLE.iOS
         private static Guid ParseDeviceGuid(CBPeripheral peripherial)
         {
             return Guid.ParseExact(peripherial.Identifier.AsString(), "d");
+        }
+
+        public override async Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid)
+        {
+            var uuid = new NSUuid(deviceGuid.ToByteArray());
+            var peripherials = _centralManager.RetrievePeripheralsWithIdentifiers(uuid);
+            var peripherial = peripherials.SingleOrDefault();
+            if (peripherial == null)
+            {
+                //ToDo consider also system connected peripherials _centralManager.RetrieveConnectedPeripherals();
+                return null;
+            }
+
+            var device = new Device(this, peripherial, peripherial.Name, peripherial.RSSI.Int32Value, new List<AdvertisementRecord>());
+            await ConnectToDeviceAync(device);
+            return device;
         }
 
         private async Task WaitForState(CBCentralManagerState state, CancellationToken cancellationToken)

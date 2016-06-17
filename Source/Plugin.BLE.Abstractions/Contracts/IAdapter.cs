@@ -90,5 +90,12 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <param name="device">Device to connect from.</param>
         /// <returns>A task that represents the asynchronous read operation. The Task will finish after the device has been disconnected successfuly.</returns>
         Task DisconnectDeviceAsync(IDevice device);
+        
+        /// <summary>
+        /// Connects to a device whith a known GUID wihtout scanning and if in range. Does not scan for devices.
+        /// </summary>
+        /// <param name="deviceGuid"></param>
+        /// <returns></returns>
+        Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid);
     }
 }
