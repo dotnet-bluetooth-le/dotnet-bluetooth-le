@@ -7,6 +7,7 @@ using MvvmCross.Droid.Views;
 using MvvmCross.Forms.Presenter.Droid;
 using MvvmCross.Platform;
 using MvvmCross.Platform.Platform;
+using Plugin.Settings;
 
 namespace BLE.Client.Droid
 {
@@ -38,6 +39,7 @@ namespace BLE.Client.Droid
             base.InitializeIoC();
 
             Mvx.RegisterSingleton(()=> UserDialogs.Instance);
+            Mvx.RegisterSingleton(() => CrossSettings.Current);
         }
     }
 }

@@ -10,6 +10,7 @@ using MvvmCross.Platform;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Extensions;
+using Plugin.Settings.Abstractions;
 
 namespace BLE.Client.ViewModels
 {
@@ -17,6 +18,7 @@ namespace BLE.Client.ViewModels
     {
         private readonly IBluetoothLE _bluetoothLe;
         private readonly IUserDialogs _userDialogs;
+        private readonly ISettings _settings;
         private Guid _previousGuid;
         private CancellationTokenSource _cancellationTokenSource;
 
@@ -26,6 +28,7 @@ namespace BLE.Client.ViewModels
             set
             {
                 _previousGuid = value;
+                _settings.AddOrUpdateValue("lastguid", _previousGuid.ToString());
                 RaisePropertyChanged();
                 RaisePropertyChanged(() => ConnectToPreviousCommand);
             }
@@ -61,16 +64,19 @@ namespace BLE.Client.ViewModels
             RaisePropertyChanged(() => IsRefreshing);
         }, () => _cancellationTokenSource != null);
 
-        public DeviceListViewModel(IBluetoothLE bluetoothLe, IAdapter adapter, IUserDialogs userDialogs) : base(adapter)
+        public DeviceListViewModel(IBluetoothLE bluetoothLe, IAdapter adapter, IUserDialogs userDialogs, ISettings settings) : base(adapter)
         {
             _bluetoothLe = bluetoothLe;
             _userDialogs = userDialogs;
+            _settings = settings;
             // quick and dirty :>
             _bluetoothLe.StateChanged += OnStateChanged;
             Adapter.DeviceDiscovered += OnDeviceDiscovered;
             Adapter.ScanTimeoutElapsed += Adapter_ScanTimeoutElapsed;
             Adapter.DeviceDisconnected += OnDeviceDisconnected;
-            PreviousGuid = Guid.Empty;
+
+            var guidString = _settings.GetValueOrDefault<string>("lastguid", null);
+            PreviousGuid = !string.IsNullOrEmpty(guidString) ? Guid.Parse(guidString) : Guid.Empty;
         }
 
         private void OnStateChanged(object sender, BluetoothStateChangedArgs e)
@@ -250,7 +256,7 @@ namespace BLE.Client.ViewModels
             try
             {
                 _userDialogs.ShowLoading($"Searching for '{PreviousGuid}'");
-                device =  await Adapter.ConnectToKnownDeviceAsync(PreviousGuid);
+                device = await Adapter.ConnectToKnownDeviceAsync(PreviousGuid);
             }
             catch (Exception ex)
             {
