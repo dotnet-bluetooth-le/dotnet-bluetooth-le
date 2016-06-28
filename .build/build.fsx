@@ -41,7 +41,7 @@ let NuVersionVanillaDependencySet (specFile:string, version:string) =
 
     let setAttributeVersion (node:XmlElement) = 
         if node.GetAttribute("id").Equals(VanillaPluginId) then
-            node.SetAttribute("version", version)        
+            node.SetAttribute("version", "[" + version + "]")        
 
     for node in dependencyNodes do
        node :?> XmlElement |> setAttributeVersion

@@ -31,13 +31,11 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Plugin.BLE, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Plugin.BLE.1.0.0-beta\lib\Xamarin.iOS10\Plugin.BLE.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Plugin.BLE">
+      <HintPath>..\packages\Plugin.BLE.1.0.0-beta4\lib\Xamarin.iOS10\Plugin.BLE.dll</HintPath>
     </Reference>
-    <Reference Include="Plugin.BLE.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Plugin.BLE.1.0.0-beta\lib\Xamarin.iOS10\Plugin.BLE.Abstractions.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Plugin.BLE.Abstractions">
+      <HintPath>..\packages\Plugin.BLE.1.0.0-beta4\lib\Xamarin.iOS10\Plugin.BLE.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />

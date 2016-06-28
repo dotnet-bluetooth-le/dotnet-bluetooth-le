@@ -7,7 +7,7 @@ namespace Plugin.BLE.Abstractions.Contracts
     /// <summary>
     /// A bluetooth LE device.
     /// </summary>
-    public interface IDevice
+    public interface IDevice : IDisposable
     {
         /// <summary>
         /// Id of the device.

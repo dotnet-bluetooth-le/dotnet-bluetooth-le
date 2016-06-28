@@ -1,7 +1,9 @@
 # <img src="icon_small.png" width="71" height="71"/> Bluetooth LE plugin for Xamarin [![Build Status](https://www.bitrise.io/app/3fe54d0a5f43c2bf.svg?token=i9LUY4rIecZWd_3j7hwXgw)](https://www.bitrise.io/app/3fe54d0a5f43c2bf)
 
 
-Xamarin and MvvMCross plugin for accessing the bluetooth functionality. The plugin is based on the BLE implementation of [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics).
+Xamarin and MvvMCross plugin for accessing the bluetooth functionality. The plugin is based on the BLE implementation of [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics). 
+
+**Important Note:** With the term *"vanilla"* we mean the non MvvmCross/pure Xamarin version. You **can** use it without MvvmCross, if you download the vanilla package.
 
 ## Support & Limitations
 
@@ -15,9 +17,10 @@ Xamarin and MvvMCross plugin for accessing the bluetooth functionality. The plug
 **Vanilla**
 
 ```
+// stable
 Install-Package Plugin.BLE
-// or
-Install-Package MvvmCross.Plugin.BLE -Pre
+// or pre-release (currently the case)
+Install-Package Plugin.BLE -Pre
 ```
 [![NuGet](https://img.shields.io/nuget/v/Plugin.BLE.svg?label=NuGet)](https://www.nuget.org/packages/Plugin.BLE) [![NuGet Beta](https://img.shields.io/nuget/vpre/Plugin.BLE.svg?label=NuGet Beta)](https://www.nuget.org/packages/Plugin.BLE)
 
@@ -25,7 +28,7 @@ Install-Package MvvmCross.Plugin.BLE -Pre
 
 ```
 Install-Package MvvmCross.Plugin.BLE
-// or
+// or (recommended for now until we release 1.0.0 stable)
 Install-Package MvvmCross.Plugin.BLE -Pre
 ```
 
@@ -41,6 +44,11 @@ Add these permissions to AndroidManifest.xml. For Marshmallow, please follow [Re
 <uses-permission android:name="android.permission.BLUETOOTH" />
 <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 ```
+
+Add this line to your manifest if you want to declare that your app is available to BLE-capable devices **only**:
+```xml
+<uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
+````
 
 ## Sample app
 

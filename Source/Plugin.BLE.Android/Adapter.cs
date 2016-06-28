@@ -157,7 +157,7 @@ namespace Plugin.BLE.Android
         protected override Task ConnectToDeviceNativeAync(IDevice device, bool autoconnect, CancellationToken cancellationToken)
         {
             AddToDeviceOperationRegistry(device);
-            ((BluetoothDevice) device.NativeDevice).ConnectGatt(Application.Context, autoconnect, _gattCallback);
+            ((BluetoothDevice)device.NativeDevice).ConnectGatt(Application.Context, autoconnect, _gattCallback);
             return Task.FromResult(true);
         }
 
@@ -188,7 +188,7 @@ namespace Plugin.BLE.Android
             {
                 Trace.Message("Adapter.LeScanCallback: " + bleDevice.Name);
 
-                _adapter.HandleDiscoveredDevice(new Device(bleDevice, null, null, rssi, scanRecord));
+                _adapter.HandleDiscoveredDevice(new Device(_adapter, bleDevice, null, null, rssi, scanRecord));
             }
         }
 
@@ -238,7 +238,7 @@ namespace Plugin.BLE.Android
                     records.Add(new AdvertisementRecord(AdvertisementRecordType.ServiceData, result.ScanRecord.ServiceData));
                 }*/
 
-                var device = new Device(result.Device, null, null, result.Rssi, result.ScanRecord.GetBytes());
+                var device = new Device(_adapter, result.Device, null, null, result.Rssi, result.ScanRecord.GetBytes());
 
                 //Device device;
                 //if (result.ScanRecord.ManufacturerSpecificData.Size() > 0)

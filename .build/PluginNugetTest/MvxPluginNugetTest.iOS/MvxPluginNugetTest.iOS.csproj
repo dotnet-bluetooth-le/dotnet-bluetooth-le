@@ -39,21 +39,17 @@
       <HintPath>..\packages\MvvmCross.Platform.4.1.0\lib\Xamarin.iOS10\MvvmCross.Platform.iOS.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MvvmCross.Plugins.BLE, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MvvmCross.Plugin.BLE.1.0.0-beta\lib\Xamarin.iOS10\MvvmCross.Plugins.BLE.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="MvvmCross.Plugins.BLE">
+      <HintPath>..\packages\MvvmCross.Plugin.BLE.1.0.0-beta4\lib\Xamarin.iOS10\MvvmCross.Plugins.BLE.dll</HintPath>
     </Reference>
-    <Reference Include="MvvmCross.Plugins.BLE.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MvvmCross.Plugin.BLE.1.0.0-beta\lib\Xamarin.iOS10\MvvmCross.Plugins.BLE.iOS.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="MvvmCross.Plugins.BLE.iOS">
+      <HintPath>..\packages\MvvmCross.Plugin.BLE.1.0.0-beta4\lib\Xamarin.iOS10\MvvmCross.Plugins.BLE.iOS.dll</HintPath>
     </Reference>
-    <Reference Include="Plugin.BLE, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Plugin.BLE.1.0.0-beta\lib\Xamarin.iOS10\Plugin.BLE.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Plugin.BLE">
+      <HintPath>..\packages\Plugin.BLE.1.0.0-beta4\lib\Xamarin.iOS10\Plugin.BLE.dll</HintPath>
     </Reference>
-    <Reference Include="Plugin.BLE.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Plugin.BLE.1.0.0-beta\lib\Xamarin.iOS10\Plugin.BLE.Abstractions.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Plugin.BLE.Abstractions">
+      <HintPath>..\packages\Plugin.BLE.1.0.0-beta4\lib\Xamarin.iOS10\Plugin.BLE.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
