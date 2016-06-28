@@ -155,6 +155,10 @@ characteristic.ValueUpdated += (o, args) =>
 characteristic.StartUpdates();
 ```
 
+## Extended topics
+
+[Characteristic Properties](doc/characteristics.md)
+
 ## Useful Links
 
 - [MvvmCross](https://github.com/MvvmCross)
