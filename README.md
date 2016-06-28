@@ -45,6 +45,11 @@ Add these permissions to AndroidManifest.xml. For Marshmallow, please follow [Re
 <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 ```
 
+Add this line to your manifest if you want to declare that your app is available to BLE-capable devices **only**:
+```xml
+<uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
+````
+
 ## Sample app
 
 We provide a sample Xamarin.Forms app, that is a basic bluetooth LE scanner. With this app, it's possible to 
