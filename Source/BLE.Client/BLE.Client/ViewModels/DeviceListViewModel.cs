@@ -75,8 +75,16 @@ namespace BLE.Client.ViewModels
             Adapter.ScanTimeoutElapsed += Adapter_ScanTimeoutElapsed;
             Adapter.DeviceDisconnected += OnDeviceDisconnected;
 
-            var guidString = _settings.GetValueOrDefault<string>("lastguid", null);
-            PreviousGuid = !string.IsNullOrEmpty(guidString) ? Guid.Parse(guidString) : Guid.Empty;
+
+        }
+
+        private Task GetPreviousGuidAsync()
+        {
+            return Task.Run(() =>
+            {
+                var guidString = _settings.GetValueOrDefault<string>("lastguid", null);
+                PreviousGuid = !string.IsNullOrEmpty(guidString) ? Guid.Parse(guidString) : Guid.Empty;
+            });
         }
 
         private void OnStateChanged(object sender, BluetoothStateChangedArgs e)
@@ -137,9 +145,11 @@ namespace BLE.Client.ViewModels
             });
         }
 
-        public override void Resume()
+        public override async void Resume()
         {
             base.Resume();
+
+            await GetPreviousGuidAsync();
             //TryStartScanning();
         }
 
@@ -248,15 +258,28 @@ namespace BLE.Client.ViewModels
         }
 
 
-        public MvxCommand ConnectToPreviousCommand => new MvxCommand(ScanAndConnectToPreviousDeviceAsync, CanConnectToPrevious);
+        public MvxCommand ConnectToPreviousCommand => new MvxCommand(ConnectToPreviousDeviceAsync, CanConnectToPrevious);
 
-        private async void ScanAndConnectToPreviousDeviceAsync()
+        private async void ConnectToPreviousDeviceAsync()
         {
             IDevice device;
             try
             {
                 _userDialogs.ShowLoading($"Searching for '{PreviousGuid}'");
                 device = await Adapter.ConnectToKnownDeviceAsync(PreviousGuid);
+
+                _userDialogs.InfoToast($"Connected to {device.Name}.");
+
+                var deviceItem = Devices.FirstOrDefault(d => d.Device.Id == device.Id);
+                if (deviceItem == null)
+                {
+                    deviceItem = new DeviceListItemViewModel(device);
+                    Devices.Add(deviceItem);
+                }
+                else
+                {
+                    deviceItem.Update(device);
+                }
             }
             catch (Exception ex)
             {
@@ -266,15 +289,6 @@ namespace BLE.Client.ViewModels
             finally
             {
                 _userDialogs.HideLoading();
-            }
-
-            if (device != null)
-            {
-                HandleSelectedDevice(new DeviceListItemViewModel(device));
-            }
-            else
-            {
-                _userDialogs.ShowError($"Device with ID '{PreviousGuid}' not found.");
             }
         }
 
