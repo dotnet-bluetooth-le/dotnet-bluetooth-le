@@ -46,13 +46,13 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MvvmCross.Plugins.BLE">
-      <HintPath>..\packages\MvvmCross.Plugin.BLE.1.0.0-beta4\lib\portable-net45+win8+wpa81+wp8\MvvmCross.Plugins.BLE.dll</HintPath>
+      <HintPath>..\packages\MvvmCross.Plugin.BLE.1.0.0-beta5\lib\portable-net45+win8+wpa81+wp8\MvvmCross.Plugins.BLE.dll</HintPath>
     </Reference>
     <Reference Include="Plugin.BLE">
-      <HintPath>..\packages\Plugin.BLE.1.0.0-beta4\lib\portable-net45+win8+wpa81+wp8\Plugin.BLE.dll</HintPath>
+      <HintPath>..\packages\Plugin.BLE.1.0.0-beta5\lib\portable-net45+win8+wpa81+wp8\Plugin.BLE.dll</HintPath>
     </Reference>
     <Reference Include="Plugin.BLE.Abstractions">
-      <HintPath>..\packages\Plugin.BLE.1.0.0-beta4\lib\portable-net45+win8+wpa81+wp8\Plugin.BLE.Abstractions.dll</HintPath>
+      <HintPath>..\packages\Plugin.BLE.1.0.0-beta5\lib\portable-net45+win8+wpa81+wp8\Plugin.BLE.Abstractions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
