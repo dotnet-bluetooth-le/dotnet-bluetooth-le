@@ -137,7 +137,20 @@ namespace Plugin.BLE.Android
             if (_nativeCharacteristic.Descriptors.Count > 0)
             {
                 var descriptor = _nativeCharacteristic.Descriptors[0];
-                descriptor.SetValue(BluetoothGattDescriptor.EnableNotificationValue.ToArray());
+                
+                //has to have one of these (either indicate or notify)
+                if (Properties.HasFlag(CharacteristicPropertyType.Indicate))
+                {
+                    descriptor.SetValue(BluetoothGattDescriptor.EnableIndicationValue.ToArray());
+                    Trace.Message("Descriptor set value: INDICATE");
+                }
+
+                if (Properties.HasFlag(CharacteristicPropertyType.Notify))
+                {
+                    descriptor.SetValue(BluetoothGattDescriptor.EnableNotificationValue.ToArray());
+                    Trace.Message("Descriptor set value: NOTIFY");
+                }
+
                 successful &= _gatt.WriteDescriptor(descriptor);
             }
             else
