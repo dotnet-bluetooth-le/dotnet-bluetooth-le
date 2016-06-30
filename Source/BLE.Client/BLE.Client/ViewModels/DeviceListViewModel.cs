@@ -219,7 +219,7 @@ namespace BLE.Client.ViewModels
             {
                 _userDialogs.ShowLoading("Connecting ...");
 
-                await Adapter.ConnectToDeviceAync(device.Device);
+                await Adapter.ConnectToDeviceAsync(device.Device);
 
                 _userDialogs.InfoToast($"Connected to {device.Device.Name}.");
 
@@ -283,7 +283,7 @@ namespace BLE.Client.ViewModels
                 using (item.Device)
                 {
                     _userDialogs.ShowLoading($"Connecting to {item.Name} ...");
-                    await Adapter.ConnectToDeviceAync(item.Device);
+                    await Adapter.ConnectToDeviceAsync(item.Device);
                     item.Update();
                     _userDialogs.InfoToast($"Connected {item.Device.Name}");
 
