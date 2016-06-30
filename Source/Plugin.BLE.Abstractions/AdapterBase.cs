@@ -86,7 +86,7 @@ namespace Plugin.BLE.Abstractions
             return Task.FromResult(0);
         }
 
-        public Task ConnectToDeviceAync(IDevice device, bool autoconnect = false, CancellationToken cancellationToken = default(CancellationToken))
+        public Task ConnectToDeviceAsync(IDevice device, bool autoconnect = false, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (device.State == DeviceState.Connected)
                 return Task.FromResult(true);
@@ -94,14 +94,14 @@ namespace Plugin.BLE.Abstractions
             return TaskBuilder.FromEvent<bool, EventHandler<DeviceEventArgs>, EventHandler<DeviceErrorEventArgs>>(
                 execute: () =>
                 {
-                    ConnectToDeviceNativeAync(device, autoconnect, cancellationToken);
+                    ConnectToDeviceNativeAsync(device, autoconnect, cancellationToken);
                 },
 
                 getCompleteHandler: complete => (sender, args) =>
                 {
                     if (args.Device.Id == device.Id)
                     {
-                        Trace.Message("ConnectToDeviceAync Connected: {0} {1}", args.Device.Id, args.Device.Name);
+                        Trace.Message("ConnectToDeviceAsync Connected: {0} {1}", args.Device.Id, args.Device.Name);
                         complete(true);
                     }
                 },
@@ -222,7 +222,7 @@ namespace Plugin.BLE.Abstractions
 
         protected abstract Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, CancellationToken scanCancellationToken);
         protected abstract void StopScanNative();
-        protected abstract Task ConnectToDeviceNativeAync(IDevice device, bool autoconnect, CancellationToken cancellationToken);
+        protected abstract Task ConnectToDeviceNativeAsync(IDevice device, bool autoconnect, CancellationToken cancellationToken);
         protected abstract void DisconnectDeviceNative(IDevice device);
     }
 }
