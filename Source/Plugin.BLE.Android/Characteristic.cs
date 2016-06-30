@@ -123,12 +123,10 @@ namespace Plugin.BLE.Android
 
             var successful = _gatt.SetCharacteristicNotification(_nativeCharacteristic, true);
 
-            // [TO20131211@1634] It seems that setting the notification above isn't enough. You have to set the NOTIFY
-            // descriptor as well, otherwise the receiver will never get the updates. I just grabbed the first (and only)
-            // descriptor that is associated with the characteristic, which is the NOTIFY descriptor. This seems like a really
-            // odd way to do things to me, but I'm a Bluetooth newbie. Google has a example here (but ono real explaination as
-            // to what is going on):
-            // http://developer.android.com/guide/topics/connectivity/bluetooth-le.html#notification
+            // In order to subscribe to notifications on a given characteristic, you must first set the Notifications Enabled bit
+            // in its Client Characteristic Configuration Descriptor. See https://developer.bluetooth.org/gatt/descriptors/Pages/DescriptorsHomePage.aspx and
+            // https://developer.bluetooth.org/gatt/descriptors/Pages/DescriptorViewer.aspx?u=org.bluetooth.descriptor.gatt.client_characteristic_configuration.xml
+            // for details.
 
             await Task.Delay(100);
             //ToDo is this still needed?
@@ -136,7 +134,8 @@ namespace Plugin.BLE.Android
 
             if (_nativeCharacteristic.Descriptors.Count > 0)
             {
-                var descriptor = _nativeCharacteristic.Descriptors[0];
+                var clientCharacteristicConfigurationDescriptorId = Java.Util.UUID.FromString("00002902-0000-1000-8000-00805f9b34fb");
+                var descriptor = _nativeCharacteristic.Descriptors.FirstOrDefault(d => d.Uuid.Equals(clientCharacteristicConfigurationDescriptorId));
                 
                 //has to have one of these (either indicate or notify)
                 if (Properties.HasFlag(CharacteristicPropertyType.Indicate))
