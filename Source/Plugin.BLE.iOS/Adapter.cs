@@ -154,7 +154,7 @@ namespace Plugin.BLE.iOS
             _centralManager.StopScan();
         }
 
-        protected override Task ConnectToDeviceNativeAync(IDevice device, bool autoconnect, CancellationToken cancellationToken)
+        protected override Task ConnectToDeviceNativeAsync(IDevice device, bool autoconnect, CancellationToken cancellationToken)
         {
             if (autoconnect)
             {
