@@ -154,7 +154,7 @@ namespace Plugin.BLE.Android
             }
         }
 
-        protected override Task ConnectToDeviceNativeAync(IDevice device, bool autoconnect, CancellationToken cancellationToken)
+        protected override Task ConnectToDeviceNativeAsync(IDevice device, bool autoconnect, CancellationToken cancellationToken)
         {
             AddToDeviceOperationRegistry(device);
             ((BluetoothDevice)device.NativeDevice).ConnectGatt(Application.Context, autoconnect, _gattCallback);
