@@ -20,7 +20,7 @@ namespace Plugin.BLE.Abstractions.Utils
             TraceUnavailability();
         }
 
-        protected override Task ConnectToDeviceNativeAync(IDevice device, bool autoconnect, CancellationToken cancellationToken)
+        protected override Task ConnectToDeviceNativeAsync(IDevice device, bool autoconnect, CancellationToken cancellationToken)
         {
             TraceUnavailability();
             return Task.FromResult(0);
