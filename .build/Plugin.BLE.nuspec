@@ -1,7 +1,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Plugin.BLE</id>
-    <version>1.0.0-beta4</version>
+    <version>1.0.0-beta5</version>
     <title>BLE Plugin for Xamarin</title>
     <authors>Adrian Seceleanu, Sven-Michael Stübe</authors>
     <owners>Adrian Seceleanu, Sven-Michael Stübe</owners>
@@ -15,9 +15,8 @@
     <tags>xamarin monodroid Xamarin.iOS Bluetooth BLE LE Smart xamarin.forms ios android</tags>
     <iconUrl>https://raw.githubusercontent.com/xabre/xamarin-bluetooth-le/master/icon_small.png</iconUrl>
     <releaseNotes>
-      [1.0.0-beta4]
-      - fixed #47, clear cached services on disconnect
-      - IDevice is IDisposable now and disconnects the device on disposal.
+      [1.0.0-beta5]
+      - added indicate support for notifications
     </releaseNotes>
     <dependencies>
       <group targetFramework="MonoAndroid">

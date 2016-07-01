@@ -42,10 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Plugin.BLE">
-      <HintPath>..\packages\Plugin.BLE.1.0.0-beta4\lib\portable-net45+win8+wpa81+wp8\Plugin.BLE.dll</HintPath>
+      <HintPath>..\packages\Plugin.BLE.1.0.0-beta5\lib\portable-net45+win8+wpa81+wp8\Plugin.BLE.dll</HintPath>
     </Reference>
     <Reference Include="Plugin.BLE.Abstractions">
-      <HintPath>..\packages\Plugin.BLE.1.0.0-beta4\lib\portable-net45+win8+wpa81+wp8\Plugin.BLE.Abstractions.dll</HintPath>
+      <HintPath>..\packages\Plugin.BLE.1.0.0-beta5\lib\portable-net45+win8+wpa81+wp8\Plugin.BLE.Abstractions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
