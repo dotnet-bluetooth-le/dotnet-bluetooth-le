@@ -17,15 +17,15 @@ namespace Plugin.BLE.Abstractions
         public abstract string Uuid { get; }
         public abstract byte[] Value { get; }
         public string Name => KnownCharacteristics.Lookup(Id).Name;
-
         public abstract CharacteristicPropertyType Properties { get; }
+        public virtual CharacteristicWriteType WriteType { get; set; } = CharacteristicWriteType.WithResponse; // Set the default value to WriteWithResponse
 
         public bool CanRead => Properties.HasFlag(CharacteristicPropertyType.Read);
 
         public bool CanUpdate => Properties.HasFlag(CharacteristicPropertyType.Notify) | Properties.HasFlag(CharacteristicPropertyType.Indicate);
 
         public bool CanWrite => Properties.HasFlag(CharacteristicPropertyType.WriteWithoutResponse) |
-                                Properties.HasFlag(CharacteristicPropertyType.AppleWriteWithoutResponse);
+                                Properties.HasFlag(CharacteristicPropertyType.WriteWithResponse);
 
         public string StringValue
         {
@@ -52,6 +52,7 @@ namespace Plugin.BLE.Abstractions
                 return _descriptors;
             }
         }
+
 
         public async Task<byte[]> ReadAsync()
         {
@@ -93,7 +94,7 @@ namespace Plugin.BLE.Abstractions
 
         public void StopUpdates()
         {
-            if (!CanUpdate) 
+            if (!CanUpdate)
                 return;
 
             StopUpdatesNative();

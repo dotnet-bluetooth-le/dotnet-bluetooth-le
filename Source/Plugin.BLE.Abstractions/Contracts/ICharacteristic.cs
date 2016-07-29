@@ -55,6 +55,11 @@ namespace Plugin.BLE.Abstractions.Contracts
         CharacteristicPropertyType Properties { get; }
 
         /// <summary>
+        /// Properties of the characteristic.
+        /// </summary>
+        CharacteristicWriteType WriteType { get; set; }
+
+        /// <summary>
         /// Indicates wheter the characteristic can be read or not.
         /// </summary>
         bool CanRead { get; }

@@ -10,9 +10,13 @@ using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Exceptions;
 using Plugin.BLE.Android.CallbackEventArgs;
+using Plugin.BLE.Extensions;
 
 namespace Plugin.BLE.Android
 {
+
+
+
     public class Characteristic : CharacteristicBase
     {
         //https://developer.android.com/samples/BluetoothLeGatt/src/com.example.android.bluetoothlegatt/SampleGattAttributes.html
@@ -29,6 +33,12 @@ namespace Plugin.BLE.Android
         public override string Uuid => _nativeCharacteristic.Uuid.ToString();
         public override byte[] Value => _nativeCharacteristic.GetValue();
         public override CharacteristicPropertyType Properties => (CharacteristicPropertyType)(int)_nativeCharacteristic.Properties;
+
+        public override CharacteristicWriteType WriteType
+        {
+            get { return _nativeCharacteristic.WriteType.ToCharacteristicWriteType(); }
+            set { _nativeCharacteristic.WriteType = value.ToNative(); }
+        }
 
         public Characteristic(BluetoothGattCharacteristic nativeCharacteristic, BluetoothGatt gatt,
             IGattCallback gattCallback)
@@ -137,7 +147,7 @@ namespace Plugin.BLE.Android
 
             if (_nativeCharacteristic.Descriptors.Count > 0)
             {
-               
+
                 var descriptor = _nativeCharacteristic.Descriptors.FirstOrDefault(d => d.Uuid.Equals(_clientCharacteristicConfigurationDescriptorId)) ??
                                  _nativeCharacteristic.Descriptors[0]; // fallback just in case manufacturer forgot
 
