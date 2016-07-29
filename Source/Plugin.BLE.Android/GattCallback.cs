@@ -60,14 +60,23 @@ namespace Plugin.BLE.Android
                         _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
                         gatt.Close();
 
-                        _adapter.HandleDisconnectedDevice(true, device);
-                        break;
+
+						if (status == GattStatus.Success)
+						{
+							//we already hadled device error so no need th raise disconnect event(happens when device not in range)
+							_adapter.HandleDisconnectedDevice(true, device);
+						}
+						else 
+						{
+							Trace.Message($"Error while connecting '{device.Name}'. Not raising disconnect event.");
+						}                       
+						break;
                     }
 
                     //connection must have been lost, bacause our device was not found in the registry but was still connected
                     if (_adapter.ConnectedDeviceRegistry.TryGetValue(gatt.Device.Address, out device))
                     {
-                        Trace.Message("Disconnected by lost connection");
+						Trace.Message($"Disconnected '{device.Name}' by lost connection");
 
                         _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
                         gatt.Close();

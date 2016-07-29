@@ -235,14 +235,28 @@ namespace BLE.Client.ViewModels
 			}
 			try
 			{
-				_userDialogs.ShowLoading("Connecting ...");
+				CancellationTokenSource tokenSource = new CancellationTokenSource();
 
-				await Adapter.ConnectToDeviceAync(device.Device);
+				var config = new ProgressDialogConfig()
+				{
+					Title = $"Connecting to '{device.Id}'",
+					CancelText = "Cancel",
+					IsDeterministic = false,
+					OnCancel = tokenSource.Cancel
+				};
+
+				using (var progress = _userDialogs.Progress(config))
+				{
+					progress.Show();
+
+					await Adapter.ConnectToDeviceAync(device.Device, tokenSource.Token);
+				}
 
 				_userDialogs.InfoToast($"Connected to {device.Device.Name}.");
 
 				PreviousGuid = device.Device.Id;
 				return true;
+
 			}
 			catch (Exception ex)
 			{
@@ -272,7 +286,7 @@ namespace BLE.Client.ViewModels
 					Title = $"Searching for '{PreviousGuid}'",
 					CancelText = "Cancel",
 					IsDeterministic = false,
-					OnCancel = () => { tokenSource.Cancel(); }
+					OnCancel = tokenSource.Cancel
 				};
 
 				using (var progress = _userDialogs.Progress(config))

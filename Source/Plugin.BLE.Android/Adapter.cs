@@ -171,7 +171,8 @@ namespace Plugin.BLE.Android
             var nativeDevice = _bluetoothAdapter.GetRemoteDevice(macBytes);
 
             var device = new Device(this, nativeDevice, null, null, 0, new byte[] { });
-            await ConnectToDeviceAync(device);
+
+			await ConnectToDeviceAync(device, false, cancellationToken);
             return device;
         }
 
