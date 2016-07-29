@@ -96,6 +96,6 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// </summary>
         /// <param name="deviceGuid"></param>
         /// <returns></returns>
-        Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid);
+		Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

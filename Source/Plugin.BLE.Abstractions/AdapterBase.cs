@@ -157,7 +157,7 @@ namespace Plugin.BLE.Abstractions
                unsubscribeReject: handler => DeviceConnectionError -= handler);
         }
 
-        public abstract Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid);
+		public abstract Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken);
       
 
         private void CleanupScan()

@@ -165,7 +165,7 @@ namespace Plugin.BLE.Android
             ((Device)device).Disconnect();
         }
         
-        public override async Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid)
+        public override async Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken)
         {
             var macBytes = deviceGuid.ToByteArray().Skip(10).Take(6).ToArray();
             var nativeDevice = _bluetoothAdapter.GetRemoteDevice(macBytes);
