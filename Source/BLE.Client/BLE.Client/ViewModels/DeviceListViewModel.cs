@@ -69,6 +69,15 @@ namespace BLE.Client.ViewModels
             Adapter.DeviceDiscovered += OnDeviceDiscovered;
             Adapter.ScanTimeoutElapsed += Adapter_ScanTimeoutElapsed;
             Adapter.DeviceDisconnected += OnDeviceDisconnected;
+            Adapter.DeviceConnectionLost += OnDeviceConnectionLost;
+        }
+
+        private void OnDeviceConnectionLost(object sender, DeviceErrorEventArgs e)
+        {
+            Devices.FirstOrDefault(d => d.Id == e.Device.Id).Update();
+            
+            _userDialogs.HideLoading();
+            _userDialogs.ErrorToast("Error", $"Connection LOST {e.Device.Name}", 6000);
         }
 
         private void OnStateChanged(object sender, BluetoothStateChangedArgs e)
