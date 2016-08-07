@@ -165,8 +165,8 @@ characteristic.StartUpdates();
 
 ## Extended topics
 
-[Characteristic Properties](doc/characteristics.md)
-[Changelog](doc/changelog.md)
+- [Characteristic Properties](doc/characteristics.md)
+- [Changelog](doc/changelog.md)
 
 
 ## Useful Links
