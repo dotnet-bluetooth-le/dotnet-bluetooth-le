@@ -15,6 +15,9 @@
     <tags>mvvm mvvmcross mvx xamarin monodroid Xamarin.iOS Xamarin.Android Bluetooth Low Energy BLE LE Smart ios android</tags>
     <iconUrl>https://raw.githubusercontent.com/xabre/xamarin-bluetooth-le/master/icon_small.png</iconUrl>
     <releaseNotes>
+      [1.0.0]
+      - stable release after major refactoring
+      - streamlined async API
       [1.0.0-beta5]
       - added indicate support for notifications
     </releaseNotes>
