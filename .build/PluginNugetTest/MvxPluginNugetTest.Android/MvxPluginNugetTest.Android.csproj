@@ -46,16 +46,16 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MvvmCross.Plugins.BLE">
-      <HintPath>..\packages\MvvmCross.Plugin.BLE.1.0.0-beta4\lib\MonoAndroid\MvvmCross.Plugins.BLE.dll</HintPath>
+      <HintPath>..\packages\MvvmCross.Plugin.BLE.1.0.0-beta5\lib\MonoAndroid\MvvmCross.Plugins.BLE.dll</HintPath>
     </Reference>
     <Reference Include="MvvmCross.Plugins.BLE.Droid">
-      <HintPath>..\packages\MvvmCross.Plugin.BLE.1.0.0-beta4\lib\MonoAndroid\MvvmCross.Plugins.BLE.Droid.dll</HintPath>
+      <HintPath>..\packages\MvvmCross.Plugin.BLE.1.0.0-beta5\lib\MonoAndroid\MvvmCross.Plugins.BLE.Droid.dll</HintPath>
     </Reference>
     <Reference Include="Plugin.BLE">
-      <HintPath>..\packages\Plugin.BLE.1.0.0-beta4\lib\MonoAndroid\Plugin.BLE.dll</HintPath>
+      <HintPath>..\packages\Plugin.BLE.1.0.0-beta5\lib\MonoAndroid\Plugin.BLE.dll</HintPath>
     </Reference>
     <Reference Include="Plugin.BLE.Abstractions">
-      <HintPath>..\packages\Plugin.BLE.1.0.0-beta4\lib\MonoAndroid\Plugin.BLE.Abstractions.dll</HintPath>
+      <HintPath>..\packages\Plugin.BLE.1.0.0-beta5\lib\MonoAndroid\Plugin.BLE.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

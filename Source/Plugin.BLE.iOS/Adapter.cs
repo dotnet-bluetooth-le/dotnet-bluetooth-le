@@ -155,7 +155,7 @@ namespace Plugin.BLE.iOS
             _centralManager.StopScan();
         }
 
-       protected override Task ConnectToDeviceNativeAync(IDevice device, bool autoconnect, CancellationToken cancellationToken)
+       protected override Task ConnectToDeviceNativeAsync(IDevice device, bool autoconnect, CancellationToken cancellationToken)
 		{
 			if (autoconnect)
 			{
@@ -215,7 +215,7 @@ namespace Plugin.BLE.iOS
 
 			var device = new Device(this, peripherial, peripherial.Name, peripherial.RSSI != null ? peripherial.RSSI.Int32Value : 0, new List<AdvertisementRecord>());
 
-			await ConnectToDeviceAync(device, false, cancellationToken);
+			await ConnectToDeviceAsync(device, false, cancellationToken);
 			return device;
 		}
 

@@ -18,7 +18,7 @@ namespace Plugin.BLE.iOS
         private readonly CBCharacteristic _nativeCharacteristic;
         private readonly CBPeripheral _parentDevice;
 
-        private CBCharacteristicWriteType CharacteristicWriteType => Properties.HasFlag(CharacteristicPropertyType.AppleWriteWithoutResponse)
+        private CBCharacteristicWriteType CharacteristicWriteType => Properties.HasFlag(CharacteristicPropertyType.WriteWithoutResponse)
             ? CBCharacteristicWriteType.WithoutResponse
             : CBCharacteristicWriteType.WithResponse;
 
@@ -64,7 +64,7 @@ namespace Plugin.BLE.iOS
         {
             Task<bool> task;
 
-            if (CharacteristicWriteType == CBCharacteristicWriteType.WithResponse)
+            if (Properties.HasFlag(CharacteristicPropertyType.Write))
             {
                 task = TaskBuilder.FromEvent<bool, EventHandler<CBCharacteristicEventArgs>>(
                     execute: () => { },

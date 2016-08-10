@@ -22,10 +22,11 @@ namespace Plugin.BLE.Abstractions
 
         public bool CanRead => Properties.HasFlag(CharacteristicPropertyType.Read);
 
-        public bool CanUpdate => Properties.HasFlag(CharacteristicPropertyType.Notify);
+        public bool CanUpdate => Properties.HasFlag(CharacteristicPropertyType.Notify) | 
+                                 Properties.HasFlag(CharacteristicPropertyType.Indicate);
 
-        public bool CanWrite => Properties.HasFlag(CharacteristicPropertyType.WriteWithoutResponse) |
-                                Properties.HasFlag(CharacteristicPropertyType.AppleWriteWithoutResponse);
+        public bool CanWrite => Properties.HasFlag(CharacteristicPropertyType.Write) |
+                                Properties.HasFlag(CharacteristicPropertyType.WriteWithoutResponse);
 
         public string StringValue
         {

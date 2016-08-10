@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
+using BLE.Client.Extensions;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform;
 using Plugin.BLE.Abstractions.Contracts;
@@ -74,9 +75,8 @@ namespace BLE.Client.ViewModels
 			Adapter.DeviceDiscovered += OnDeviceDiscovered;
 			Adapter.ScanTimeoutElapsed += Adapter_ScanTimeoutElapsed;
 			Adapter.DeviceDisconnected += OnDeviceDisconnected;
-
-
-		}
+            Adapter.DeviceConnectionLost += OnDeviceConnectionLost;
+        }
 
 		private Task GetPreviousGuidAsync()
 		{
@@ -87,7 +87,15 @@ namespace BLE.Client.ViewModels
 			});
 		}
 
-		private void OnStateChanged(object sender, BluetoothStateChangedArgs e)
+        private void OnDeviceConnectionLost(object sender, DeviceErrorEventArgs e)
+        {
+            Devices.FirstOrDefault(d => d.Id == e.Device.Id).Update();
+
+            _userDialogs.HideLoading();
+            _userDialogs.ErrorToast("Error", $"Connection LOST {e.Device.Name}", TimeSpan.FromMilliseconds(6000));
+        }
+
+        private void OnStateChanged(object sender, BluetoothStateChangedArgs e)
 		{
 			RaisePropertyChanged(nameof(IsStateOn));
 			RaisePropertyChanged(nameof(StateText));
@@ -249,7 +257,7 @@ namespace BLE.Client.ViewModels
 				{
 					progress.Show();
 
-					await Adapter.ConnectToDeviceAync(device.Device, tokenSource.Token);
+					await Adapter.ConnectToDeviceAsync(device.Device, tokenSource.Token);
 				}
 
                 _userDialogs.ShowSuccess($"Connected to {device.Device.Name}.");
@@ -329,7 +337,7 @@ namespace BLE.Client.ViewModels
 				using (item.Device)
 				{
 					_userDialogs.ShowLoading($"Connecting to {item.Name} ...");
-					await Adapter.ConnectToDeviceAync(item.Device);
+					await Adapter.ConnectToDeviceAsync(item.Device);
 					item.Update();
                     _userDialogs.ShowSuccess($"Connected {item.Device.Name}");
 
@@ -367,6 +375,5 @@ namespace BLE.Client.ViewModels
 		{
 			PreviousGuid = device.Id;
 		});
-
 	}
 }
