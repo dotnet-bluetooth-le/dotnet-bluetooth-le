@@ -88,6 +88,9 @@ namespace Plugin.BLE.Abstractions
 
         public Task ConnectToDeviceAsync(IDevice device, bool autoconnect = false, CancellationToken cancellationToken = default(CancellationToken))
         {
+            if (device == null)
+                throw new ArgumentNullException(nameof(device));
+
             if (device.State == DeviceState.Connected)
                 return Task.FromResult(true);
 
@@ -158,7 +161,6 @@ namespace Plugin.BLE.Abstractions
         }
 
 		public abstract Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken);
-      
 
         private void CleanupScan()
         {

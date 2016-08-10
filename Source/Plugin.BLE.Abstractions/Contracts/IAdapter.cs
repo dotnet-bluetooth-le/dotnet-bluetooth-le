@@ -82,6 +82,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
         /// <returns>A task that represents the asynchronous read operation. The Task will finish after the device has been connected successfuly.</returns>
         /// <exception cref="DeviceConnectionException">Thrown if the device connection fails.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="device"/> is null.</exception>
         Task ConnectToDeviceAsync(IDevice device, bool autoconnect = false, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
