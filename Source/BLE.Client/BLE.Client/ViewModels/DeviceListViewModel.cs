@@ -252,7 +252,7 @@ namespace BLE.Client.ViewModels
 					await Adapter.ConnectToDeviceAync(device.Device, tokenSource.Token);
 				}
 
-				_userDialogs.InfoToast($"Connected to {device.Device.Name}.");
+                _userDialogs.ShowSuccess($"Connected to {device.Device.Name}.");
 
 				PreviousGuid = device.Device.Id;
 				return true;
@@ -331,7 +331,7 @@ namespace BLE.Client.ViewModels
 					_userDialogs.ShowLoading($"Connecting to {item.Name} ...");
 					await Adapter.ConnectToDeviceAync(item.Device);
 					item.Update();
-					_userDialogs.InfoToast($"Connected {item.Device.Name}");
+                    _userDialogs.ShowSuccess($"Connected {item.Device.Name}");
 
 					_userDialogs.HideLoading();
 					for (var i = 5; i >= 1; i--)
@@ -360,7 +360,7 @@ namespace BLE.Client.ViewModels
 		{
 			Devices.FirstOrDefault(d => d.Id == e.Device.Id)?.Update();
 			_userDialogs.HideLoading();
-			_userDialogs.InfoToast($"Disconnected {e.Device.Name}");
+            _userDialogs.Toast($"Disconnected {e.Device.Name}");
 		}
 
 		public MvxCommand<DeviceListItemViewModel> CopyGuidCommand => new MvxCommand<DeviceListItemViewModel>(device =>

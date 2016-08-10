@@ -3,7 +3,9 @@ using System.Windows.Input;
 using Android.App;
 using Android.Views;
 using Android.Widget;
+using MvvmCross.Binding.BindingContext;
 
+//Default
 namespace BLE.Client.Droid
 {
     // This class is never actually executed, but when Xamarin linking is enabled it does how to ensure types and properties
@@ -77,6 +79,13 @@ namespace BLE.Client.Droid
             changed.PropertyChanged += (sender, e) =>  {
                 var test = e.PropertyName;
             };
+        }
+        
+        public void Include(MvxTaskBasedBindingContext context)
+        {
+            context.Dispose();
+            var context2 = new MvxTaskBasedBindingContext();
+            context2.Dispose();
         }
     }
 }

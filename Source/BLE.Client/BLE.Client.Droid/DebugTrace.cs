@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using MvvmCross.Platform.Platform;
 
+//Default
 namespace BLE.Client.Droid
 {
     public class DebugTrace : IMvxTrace

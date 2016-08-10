@@ -3,6 +3,7 @@ using System.Windows.Input;
 using MvvmCross.iOS.Views;
 using Foundation;
 using UIKit;
+using MvvmCross.Binding.BindingContext;
 
 namespace BLE.Client.iOS
 {
@@ -11,6 +12,13 @@ namespace BLE.Client.iOS
     [Preserve(AllMembers = true)]
     public class LinkerPleaseInclude
     {
+		public void Include(MvxTaskBasedBindingContext c)
+        {
+            c.Dispose();
+            var c2 = new MvxTaskBasedBindingContext();
+            c2.Dispose();
+        }
+
         public void Include(UIButton uiButton)
         {
             uiButton.TouchUpInside += (s, e) =>
