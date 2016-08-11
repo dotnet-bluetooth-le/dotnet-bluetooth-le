@@ -42,7 +42,7 @@ namespace Plugin.BLE.Android
             _gattCallback = gattCallback;
 
             Id = ParseDeviceId();
-            Name = _nativeDevice.Name;
+			Name = string.IsNullOrEmpty(_nativeDevice.Name) ? "Unknown Device" : _nativeDevice.Name;
         }
 
         public override object NativeDevice => _nativeDevice;
