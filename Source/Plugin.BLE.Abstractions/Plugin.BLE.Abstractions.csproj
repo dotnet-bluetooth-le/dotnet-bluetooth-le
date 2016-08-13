@@ -38,6 +38,7 @@
     <Compile Include="AdapterBase.cs" />
     <Compile Include="AdvertisementRecord.cs" />
     <Compile Include="BluetoothKnownItemManager.cs" />
+    <Compile Include="CharacteristicWriteType.cs" />
     <Compile Include="CharacteristicBase.cs" />
     <Compile Include="CharacteristicPropertyType.cs" />
     <Compile Include="BleImplementationBase.cs" />

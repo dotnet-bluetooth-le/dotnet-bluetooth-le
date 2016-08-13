@@ -10,6 +10,7 @@ using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Exceptions;
 using Plugin.BLE.Abstractions.Extensions;
 using Plugin.BLE.Abstractions.Utils;
+using Plugin.BLE.Extensions;
 
 namespace Plugin.BLE.iOS
 {
@@ -17,11 +18,6 @@ namespace Plugin.BLE.iOS
     {
         private readonly CBCharacteristic _nativeCharacteristic;
         private readonly CBPeripheral _parentDevice;
-
-        private CBCharacteristicWriteType CharacteristicWriteType => Properties.HasFlag(CharacteristicPropertyType.WriteWithoutResponse)
-            ? CBCharacteristicWriteType.WithoutResponse
-            : CBCharacteristicWriteType.WithResponse;
-
         public override event EventHandler<CharacteristicUpdatedEventArgs> ValueUpdated;
 
         public override Guid Id => _nativeCharacteristic.UUID.GuidFromUuid();
@@ -64,7 +60,8 @@ namespace Plugin.BLE.iOS
         {
             Task<bool> task;
 
-            if (Properties.HasFlag(CharacteristicPropertyType.Write))
+            CBCharacteristicWriteType nativeWriteType = WriteType.ToNative();
+            if (nativeWriteType == CBCharacteristicWriteType.WithResponse)
             {
                 task = TaskBuilder.FromEvent<bool, EventHandler<CBCharacteristicEventArgs>>(
                     execute: () => { },
@@ -84,7 +81,7 @@ namespace Plugin.BLE.iOS
             }
 
             var nsdata = NSData.FromArray(data);
-            _parentDevice.WriteValue(nsdata, _nativeCharacteristic, CharacteristicWriteType);
+            _parentDevice.WriteValue(nsdata, _nativeCharacteristic, nativeWriteType);
 
             return task;
         }

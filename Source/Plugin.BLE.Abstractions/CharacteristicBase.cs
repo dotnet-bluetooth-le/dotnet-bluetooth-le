@@ -17,8 +17,8 @@ namespace Plugin.BLE.Abstractions
         public abstract string Uuid { get; }
         public abstract byte[] Value { get; }
         public string Name => KnownCharacteristics.Lookup(Id).Name;
-
         public abstract CharacteristicPropertyType Properties { get; }
+        public virtual CharacteristicWriteType WriteType { get; set; } = CharacteristicWriteType.WithResponse; // Set the default value to WriteWithResponse
 
         public bool CanRead => Properties.HasFlag(CharacteristicPropertyType.Read);
 
