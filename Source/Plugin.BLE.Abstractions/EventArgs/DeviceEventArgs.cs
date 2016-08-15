@@ -7,4 +7,3 @@ namespace Plugin.BLE.Abstractions.EventArgs
         public IDevice Device;
     }
 }
-

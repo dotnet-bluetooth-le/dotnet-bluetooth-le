@@ -233,4 +233,3 @@ namespace Plugin.BLE.Android
         }
     }
 }
-

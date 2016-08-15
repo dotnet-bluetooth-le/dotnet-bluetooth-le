@@ -224,7 +224,4 @@ namespace Plugin.BLE.Android
             RemoteRssiRead?.Invoke(this, args);
         }
     }
-
-
 }
-

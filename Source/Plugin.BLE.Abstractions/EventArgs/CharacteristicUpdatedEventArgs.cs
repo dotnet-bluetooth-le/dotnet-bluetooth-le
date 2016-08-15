@@ -12,4 +12,3 @@ namespace Plugin.BLE.Abstractions.EventArgs
         }
     }
 }
-

@@ -13,14 +13,11 @@ using Plugin.BLE.Extensions;
 
 namespace Plugin.BLE.Android
 {
-
-
-
     public class Characteristic : CharacteristicBase
     {
         //https://developer.android.com/samples/BluetoothLeGatt/src/com.example.android.bluetoothlegatt/SampleGattAttributes.html
 
-        private static readonly Java.Util.UUID _clientCharacteristicConfigurationDescriptorId = Java.Util.UUID.FromString("00002902-0000-1000-8000-00805f9b34fb");
+        private static readonly Java.Util.UUID ClientCharacteristicConfigurationDescriptorId = Java.Util.UUID.FromString("00002902-0000-1000-8000-00805f9b34fb");
 
         private readonly BluetoothGatt _gatt;
         private readonly IGattCallback _gattCallback;
@@ -114,7 +111,7 @@ namespace Plugin.BLE.Android
                     if (!ret)
                     {
                         _gattCallback.CharacteristicValueWritten -= writtenHandler;
-                        tcs.TrySetResult(ret);
+                        tcs.TrySetResult(false);
                     }
                 }, null);
 
@@ -147,7 +144,7 @@ namespace Plugin.BLE.Android
             if (_nativeCharacteristic.Descriptors.Count > 0)
             {
 
-                var descriptor = _nativeCharacteristic.Descriptors.FirstOrDefault(d => d.Uuid.Equals(_clientCharacteristicConfigurationDescriptorId)) ??
+                var descriptor = _nativeCharacteristic.Descriptors.FirstOrDefault(d => d.Uuid.Equals(ClientCharacteristicConfigurationDescriptorId)) ??
                                  _nativeCharacteristic.Descriptors[0]; // fallback just in case manufacturer forgot
 
                 //has to have one of these (either indicate or notify)

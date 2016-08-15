@@ -76,4 +76,3 @@ namespace Plugin.BLE.Abstractions.Contracts
         Task<bool> UpdateRssiAsync();
     }
 }
-

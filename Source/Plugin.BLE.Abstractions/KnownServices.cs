@@ -58,4 +58,3 @@ namespace Plugin.BLE.Abstractions
 
     }
 }
-

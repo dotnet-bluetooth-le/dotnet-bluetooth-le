@@ -73,7 +73,6 @@
     <Compile Include="ServiceBase.cs" />
     <Compile Include="Trace.cs" />
     <Compile Include="Utils\FakeAdapter.cs" />
-    <Compile Include="Utils\ResourceLoader.cs" />
     <Compile Include="Utils\TaskBuilder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

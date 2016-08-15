@@ -19,4 +19,3 @@ namespace Plugin.BLE.Abstractions.Contracts
 		string Name { get; }
 	}
 }
-

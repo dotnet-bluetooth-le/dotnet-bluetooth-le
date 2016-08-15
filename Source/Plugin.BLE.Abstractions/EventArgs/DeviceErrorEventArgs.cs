@@ -5,4 +5,3 @@ namespace Plugin.BLE.Abstractions.EventArgs
         public string ErrorMessage;
     }
 }
-

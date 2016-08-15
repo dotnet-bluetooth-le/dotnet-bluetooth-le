@@ -189,5 +189,4 @@ namespace Plugin.BLE.Abstractions
             return string.Format("Adv rec [Type {0}; Data {1}]", Type, Data.ToHexString());
         }
     }
-
 }

@@ -55,7 +55,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         CharacteristicPropertyType Properties { get; }
 
         /// <summary>
-        /// Properties of the characteristic.
+        /// Specifies how the <see cref="WriteAsync"/> function writes the value.
         /// </summary>
         CharacteristicWriteType WriteType { get; set; }
 
