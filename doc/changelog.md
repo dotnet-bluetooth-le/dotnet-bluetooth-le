@@ -1,13 +1,13 @@
-## Changelog
+# Changelog
 
-### 1.1.0
+## 1.1.0
 
 #### 1.1.0-beta1
 - improvements on xml documentation
 - #62 Characteristic write type can be specified by the user
 - fixed #69, ConnectAsync throws NullReferenceException if device is null
 
-### 1.0.0
+## 1.0.0
 With this release we deliver a streamlined async API, additional functionality, xamarin vanilla plugin, sample app, better documentation.
 
 #### 1.0.0-beta5
