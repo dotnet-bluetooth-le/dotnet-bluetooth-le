@@ -30,12 +30,6 @@ namespace Plugin.BLE.Android
         public override byte[] Value => _nativeCharacteristic.GetValue();
         public override CharacteristicPropertyType Properties => (CharacteristicPropertyType)(int)_nativeCharacteristic.Properties;
 
-        public override CharacteristicWriteType WriteType
-        {
-            get { return _nativeCharacteristic.WriteType.ToCharacteristicWriteType(); }
-            set { _nativeCharacteristic.WriteType = value.ToNative(); }
-        }
-
         public Characteristic(BluetoothGattCharacteristic nativeCharacteristic, BluetoothGatt gatt,
             IGattCallback gattCallback)
         {
@@ -82,8 +76,10 @@ namespace Plugin.BLE.Android
             return await tcs.Task;
         }
 
-        protected override async Task<bool> WriteNativeAsync(byte[] data)
+        protected override async Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType)
         {
+            _nativeCharacteristic.WriteType = writeType.ToNative();
+
             var tcs = new TaskCompletionSource<bool>();
             EventHandler<CharacteristicWriteCallbackEventArgs> writtenHandler = null;
             writtenHandler = (sender, args) =>

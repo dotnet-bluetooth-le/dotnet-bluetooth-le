@@ -10,6 +10,7 @@ namespace Plugin.BLE.Abstractions
     public abstract class CharacteristicBase : ICharacteristic
     {
         private IList<IDescriptor> _descriptors;
+        private CharacteristicWriteType _writeType = CharacteristicWriteType.Default;
 
         public abstract event EventHandler<CharacteristicUpdatedEventArgs> ValueUpdated;
 
@@ -18,7 +19,21 @@ namespace Plugin.BLE.Abstractions
         public abstract byte[] Value { get; }
         public string Name => KnownCharacteristics.Lookup(Id).Name;
         public abstract CharacteristicPropertyType Properties { get; }
-        public virtual CharacteristicWriteType WriteType { get; set; } = CharacteristicWriteType.WithResponse;
+
+        public CharacteristicWriteType WriteType
+        {
+            get { return _writeType; }
+            set
+            {
+                if (value == CharacteristicWriteType.WithResponse && !Properties.HasFlag(CharacteristicPropertyType.Write) ||
+                    value == CharacteristicWriteType.WithoutResponse && !Properties.HasFlag(CharacteristicPropertyType.WriteWithoutResponse))
+                {
+                    throw new InvalidOperationException($"Write type {value} is not supported");
+                }
+
+                _writeType = value;
+            }
+        }
 
         public bool CanRead => Properties.HasFlag(CharacteristicPropertyType.Read);
 
@@ -77,8 +92,20 @@ namespace Plugin.BLE.Abstractions
                 throw new InvalidOperationException("Characteristic does not support write.");
             }
 
+            var writeType = GetWriteType();
+
             Trace.Message("Characteristic.WriteAsync");
-            return await WriteNativeAsync(data);
+            return await WriteNativeAsync(data, writeType);
+        }
+
+        private CharacteristicWriteType GetWriteType()
+        {
+            if (WriteType != CharacteristicWriteType.Default)
+                return WriteType;
+
+            return Properties.HasFlag(CharacteristicPropertyType.Write) ? 
+                CharacteristicWriteType.WithResponse : 
+                CharacteristicWriteType.WithoutResponse;
         }
 
         public void StartUpdates()
@@ -94,7 +121,7 @@ namespace Plugin.BLE.Abstractions
 
         public void StopUpdates()
         {
-            if (!CanUpdate) 
+            if (!CanUpdate)
                 return;
 
             StopUpdatesNative();
@@ -102,7 +129,7 @@ namespace Plugin.BLE.Abstractions
 
         protected abstract IList<IDescriptor> GetDescriptorsNative();
         protected abstract Task<byte[]> ReadNativeAsync();
-        protected abstract Task<bool> WriteNativeAsync(byte[] data);
+        protected abstract Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType);
         protected abstract void StartUpdatesNative();
         protected abstract void StopUpdatesNative();
     }

@@ -56,11 +56,11 @@ namespace Plugin.BLE.iOS
                     unsubscribeComplete: handler => _parentDevice.UpdatedCharacterteristicValue -= handler);
         }
 
-        protected override Task<bool> WriteNativeAsync(byte[] data)
+        protected override Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType)
         {
             Task<bool> task;
 
-            CBCharacteristicWriteType nativeWriteType = WriteType.ToNative();
+            var nativeWriteType = writeType.ToNative();
             if (nativeWriteType == CBCharacteristicWriteType.WithResponse)
             {
                 task = TaskBuilder.FromEvent<bool, EventHandler<CBCharacteristicEventArgs>>(
