@@ -22,6 +22,7 @@ bld/
 [Bb]in/
 [Oo]bj/
 .build/out/
+.build/xunit*
 FAKE*
 !FAKE*.cs
 .fake/

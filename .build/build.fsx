@@ -167,6 +167,8 @@ Target "version" (fun _ ->
 )
 
 Target "publish" (fun _ ->    
+    Run "test"
+
     if not (Fake.Git.Information.isCleanWorkingCopy RepositoryRootDir) then
         failwith "Uncommited changes. Please commit everything!"
     
@@ -180,6 +182,12 @@ Target "publish" (fun _ ->
     trace ("Creating Tag: " + tagName)
     tag RepositoryRootDir tagName
     pushTag RepositoryRootDir  "origin" tagName
+)
+
+Target "test" (fun _ ->    
+    Build("Plugin.BLE.Tests", "tests")
+    let result = Shell.Exec("xunit.runner.console.2.1.0" +/ "tools" +/ "xunit.console.exe", Path.Combine(BuildTargetDir, "tests", "Plugin.BLE.Tests.dll"), ".")
+    if result <> 0 then failwithf "Tests failed"
 )
 
 // Dependencies
