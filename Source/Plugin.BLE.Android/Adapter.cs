@@ -175,7 +175,25 @@ namespace Plugin.BLE.Android
             DeviceOperationRegistry[nativeDevice.Address] = device;
         }
 
-        public class Api18BleScanCallback : Object, BluetoothAdapter.ILeScanCallback
+		public override void TurnOn()
+		{
+			_bluetoothAdapter.Enable();
+		}
+
+		public override void TurnOff()
+		{
+			_bluetoothAdapter.Disable();
+		}
+
+		public override bool IsTurnedOn
+		{
+			get
+			{
+				return _bluetoothAdapter.IsEnabled;
+			}
+		}
+
+		public class Api18BleScanCallback : Object, BluetoothAdapter.ILeScanCallback
         {
             private readonly Adapter _adapter;
 

@@ -25,7 +25,15 @@ namespace Plugin.BLE.iOS
 
         public override IList<IDevice> ConnectedDevices => _deviceConnectionRegistry.Values.ToList();
 
-        public Adapter(CBCentralManager centralManager)
+		public override bool IsTurnedOn
+		{
+			get
+			{
+				return _centralManager.State == CBCentralManagerState.PoweredOn;
+			}
+		}
+
+		public Adapter(CBCentralManager centralManager)
         {
             _centralManager = centralManager;
             _centralManager.DiscoveredPeripheral += (sender, e) =>
@@ -238,5 +246,15 @@ namespace Plugin.BLE.iOS
 
             return records;
         }
-    }
+
+		public override void TurnOn()
+		{
+			Console.WriteLine("Bluetooth power on/off is not supported in iOS");
+		}
+
+		public override void TurnOff()
+		{
+			Console.WriteLine("Bluetooth power on/off is not supported in iOS");
+		}
+	}
 }

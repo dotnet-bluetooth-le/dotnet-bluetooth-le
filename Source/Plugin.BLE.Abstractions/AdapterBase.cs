@@ -35,8 +35,9 @@ namespace Plugin.BLE.Abstractions
         public virtual IList<IDevice> DiscoveredDevices => _discoveredDevices;
 
         public abstract IList<IDevice> ConnectedDevices { get; }
+		public abstract bool IsTurnedOn { get; }
 
-        protected AdapterBase()
+		protected AdapterBase()
         {
             _discoveredDevices = new List<IDevice>();
         }
@@ -224,5 +225,8 @@ namespace Plugin.BLE.Abstractions
         protected abstract void StopScanNative();
         protected abstract Task ConnectToDeviceNativeAsync(IDevice device, bool autoconnect, CancellationToken cancellationToken);
         protected abstract void DisconnectDeviceNative(IDevice device);
-    }
+
+		public abstract void TurnOn();
+		public abstract void TurnOff();
+	}
 }
