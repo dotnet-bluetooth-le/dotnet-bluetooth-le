@@ -181,6 +181,8 @@ characteristic.StartUpdates();
         //generic
     }
 ```
+- **Avoid caching of Characteristic or Service instances between connection sessions**. This includes saving a reference to them in you class etc. After a device has been disconnected all Service & Characteristic instances become invalid. Allways **use GetServiceAsync and GetCharacteristicAsync to get a valid instance**.
+ 
 ### General BLE iOS, Android
 
 - Scanning: Avoid performing ble device operations like Connect, Read, Write etc while scanning for devices. Scanning is battery-intensive.
