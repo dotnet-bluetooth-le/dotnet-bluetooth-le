@@ -24,8 +24,9 @@ namespace Plugin.BLE.Abstractions
                 if (_state == value)
                     return;
 
+                var oldState = _state;
                 _state = value;
-                StateChanged?.Invoke(this, new BluetoothStateChangedArgs(_state));
+                StateChanged?.Invoke(this, new BluetoothStateChangedArgs(oldState, _state));
             }
         }
 

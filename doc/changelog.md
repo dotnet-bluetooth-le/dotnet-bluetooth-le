@@ -2,6 +2,9 @@
 
 ## 1.1.0
 
+#### 1.1.0-beta2 (not released)
+- #78 BluetoothStateChangedArgs contain the old state and the new state
+
 #### 1.1.0-beta1
 - improvements on xml documentation
 - #62 Characteristic write type can be specified by the user
