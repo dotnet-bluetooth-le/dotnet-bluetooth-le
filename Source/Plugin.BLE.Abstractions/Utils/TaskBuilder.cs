@@ -33,7 +33,6 @@ namespace Plugin.BLE.Abstractions.Utils
             Action<TRejectHandler> unsubscribeReject,
             CancellationToken token = default(CancellationToken))
         {
-
             var tcs = new TaskCompletionSource<TReturn>();
             Action<TReturn> complete = args => tcs.TrySetResult(args);
             Action<Exception> reject = ex => tcs.TrySetException(ex);
