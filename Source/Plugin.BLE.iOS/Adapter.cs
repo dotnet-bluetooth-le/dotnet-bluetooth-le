@@ -191,7 +191,7 @@ namespace Plugin.BLE.iOS
 		/// </summary>
 		/// <returns>The to known device async.</returns>
 		/// <param name="deviceGuid">Device GUID.</param>
-		public override async Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken)
+        public override async Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			//ToDo attempted to use tobyte array insetead of string but there was a roblem with byte ordering Guid->NSUui
 			var uuid = new NSUuid(deviceGuid.ToString());

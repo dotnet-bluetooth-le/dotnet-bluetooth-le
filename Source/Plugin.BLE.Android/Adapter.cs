@@ -164,15 +164,15 @@ namespace Plugin.BLE.Android
             AddToDeviceOperationRegistry(device);
             ((Device)device).Disconnect();
         }
-        
-        public override async Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken)
+
+        public override async Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken = default(CancellationToken))
         {
             var macBytes = deviceGuid.ToByteArray().Skip(10).Take(6).ToArray();
             var nativeDevice = _bluetoothAdapter.GetRemoteDevice(macBytes);
 
             var device = new Device(this, nativeDevice, null, null, 0, new byte[] { });
 
-			await ConnectToDeviceAsync(device, false, cancellationToken);
+            await ConnectToDeviceAsync(device, false, cancellationToken);
             return device;
         }
 

@@ -6,7 +6,7 @@
              Title="Characteristics">
   <ListView ItemsSource="{Binding Characteristics}"
             SelectedItem="{Binding SelectedCharacteristic, Mode=TwoWay}"
-            RowHeight="60"
+            RowHeight="70"
             SeparatorVisibility="Default"
             SeparatorColor="Gray"
             CachingStrategy="RecycleElement">

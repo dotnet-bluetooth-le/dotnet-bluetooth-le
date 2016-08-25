@@ -6,7 +6,7 @@
                 Title="Services">
   <ListView ItemsSource="{Binding Services}"
             SelectedItem="{Binding SelectedService, Mode=TwoWay}"
-            RowHeight="60"
+            RowHeight="70"
             SeparatorVisibility="Default"
             SeparatorColor="Gray"
             CachingStrategy="RecycleElement">
