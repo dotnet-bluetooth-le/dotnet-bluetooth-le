@@ -8,6 +8,7 @@ using Acr.UserDialogs;
 using BLE.Client.Extensions;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform;
+using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Extensions;
@@ -89,7 +90,7 @@ namespace BLE.Client.ViewModels
 
         private void OnDeviceConnectionLost(object sender, DeviceErrorEventArgs e)
         {
-            Devices.FirstOrDefault(d => d.Id == e.Device.Id).Update();
+            Devices.FirstOrDefault(d => d.Id == e.Device.Id)?.Update();
 
             _userDialogs.HideLoading();
             _userDialogs.ErrorToast("Error", $"Connection LOST {e.Device.Name}", TimeSpan.FromMilliseconds(6000));
@@ -159,7 +160,19 @@ namespace BLE.Client.ViewModels
 
             await GetPreviousGuidAsync();
             //TryStartScanning();
+
+            try
+            {
+                SystemDevices = Adapter.GetSystemConnectedDevices().Select(d => new DeviceListItemViewModel(d)).ToList();
+                RaisePropertyChanged(() => SystemDevices);
+            }
+            catch (Exception ex)
+            {
+                Trace.Message("Failed to retreive system connected devices. {0}", ex.Message);
+            }
         }
+
+        public List<DeviceListItemViewModel> SystemDevices { get; private set; }
 
         public override void Suspend()
         {
@@ -243,10 +256,10 @@ namespace BLE.Client.ViewModels
 
         private async Task<bool> ConnectDeviceAsync(DeviceListItemViewModel device, bool showPrompt = true)
         {
-            if (device.IsConnected)
-            {
-                return true;
-            }
+            //if (device.IsConnected)
+            //{
+            //    return true;
+            //}
 
             if (showPrompt && !await _userDialogs.ConfirmAsync($"Connect to device '{device.Name}'?"))
             {

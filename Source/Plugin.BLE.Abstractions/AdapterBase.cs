@@ -161,7 +161,8 @@ namespace Plugin.BLE.Abstractions
         }
 
 		public abstract Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken = default(CancellationToken));
-
+        public abstract List<IDevice> GetSystemConnectedDevices(Guid[] services = null);
+        
         private void CleanupScan()
         {
             Trace.Message("Adapter: Stopping the scan for devices.");

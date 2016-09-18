@@ -43,7 +43,7 @@ namespace Plugin.BLE
 
         protected override IAdapter CreateNativeAdapter()
         {
-            return new Adapter(_bluetoothManager.Adapter);
+            return new Adapter(_bluetoothManager);
         }
 
         private void UpdateState(BluetoothState state)

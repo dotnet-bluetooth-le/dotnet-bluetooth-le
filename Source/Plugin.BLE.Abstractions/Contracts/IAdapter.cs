@@ -99,5 +99,16 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
         /// <returns></returns>
         Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken = default(CancellationToken));
+
+      
+        /// <summary>
+        /// Returns all BLE devices connected to the system. For android the implementations uses getConnectedDevices(GATT) and for ios the implementation uses get retrieveConnectedPeripherals(services)
+        /// https://developer.apple.com/reference/corebluetooth/cbcentralmanager/1518924-retrieveconnectedperipherals
+        /// https://developer.android.com/reference/android/bluetooth/BluetoothManager.html#getConnectedDevices(int)
+        /// </summary>
+        /// <param name="services">Only considered by iOS due to platform limitations. Filters devices by advertised services. If default(null) no filtering applied.</param>
+        /// <returns>List of IDevices connected to the OS. In order to use the device in the app you have to first call ConnectAsync. In case of no devices the list is empty.</returns>
+        List<IDevice> GetSystemConnectedDevices(Guid[] services = null);
+
     }
 }

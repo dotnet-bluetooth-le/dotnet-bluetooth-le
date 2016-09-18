@@ -206,18 +206,31 @@ namespace Plugin.BLE.iOS
 				var systemPeripherials = _centralManager.RetrieveConnectedPeripherals(new CBUUID[] { });
 
 				var cbuuid = CBUUID.FromNSUuid(uuid);
-				peripherial = systemPeripherials.Where(p => p.UUID.Equals(cbuuid)).SingleOrDefault();
+				peripherial = systemPeripherials.SingleOrDefault(p => p.UUID.Equals(cbuuid));
 
 				if (peripherial == null)
 					throw new Exception($"[Adapter] Device {deviceGuid} not found.");
 			}
 
 
-			var device = new Device(this, peripherial, peripherial.Name, peripherial.RSSI != null ? peripherial.RSSI.Int32Value : 0, new List<AdvertisementRecord>());
+			var device = new Device(this, peripherial, peripherial.Name, peripherial.RSSI?.Int32Value ?? 0, new List<AdvertisementRecord>());
 
 			await ConnectToDeviceAsync(device, false, cancellationToken);
 			return device;
 		}
+
+        public override List<IDevice> GetSystemConnectedDevices(Guid[] services = null)
+        {
+            var serviceUuids = new CBUUID[0];
+            if (services != null)
+            {
+                serviceUuids = services.Select(s => CBUUID.FromString(services.ToString())).ToArray();
+            }
+
+            var nativeDevices = _centralManager.RetrieveConnectedPeripherals(serviceUuids);
+
+            return nativeDevices.Select(d => new Device(this, d)).Cast<IDevice>().ToList();
+        }
 
         private async Task WaitForState(CBCentralManagerState state, CancellationToken cancellationToken)
         {

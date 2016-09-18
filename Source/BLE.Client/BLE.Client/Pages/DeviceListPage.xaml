@@ -1,78 +1,90 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+<pages:BaseTabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:BLE.Client.Pages;assembly=BLE.Client"
              x:Class="BLE.Client.Pages.DeviceListPage"
              Title="Discover devices"
              x:Name="DevicePage">
-  <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto"></RowDefinition>
-      <RowDefinition Height="*"></RowDefinition>
-      <RowDefinition Height="Auto"></RowDefinition>
-      <RowDefinition Height="Auto"></RowDefinition>
-    </Grid.RowDefinitions>
-    <StackLayout BackgroundColor="#FF6969" Padding="10" IsVisible="{Binding IsStateOn, Converter={StaticResource InverseBoolean}}">
-      <Label Text="{Binding StateText}" FontSize="18" HorizontalTextAlignment="Center"></Label>
-    </StackLayout>
+  <pages:BaseTabbedPage.Resources>
+    <ResourceDictionary>
+     <DataTemplate x:Key="DeviceItemTemplate">
+              <ViewCell>
+                <ViewCell.ContextActions>
+                  <MenuItem Command="{Binding Path=BindingContext.DisconnectCommand, Source={x:Reference DevicePage}}"
+                            CommandParameter="{Binding .}" IsDestructive="True"
+                            Text="Disconnect"/>
+                  <MenuItem Command="{Binding Path=BindingContext.CopyGuidCommand, Source={x:Reference DevicePage}}"
+                            CommandParameter="{Binding .}"
+                            Text="Copy Guid"/>
+                  <MenuItem Command="{Binding Path=BindingContext.ConnectDisposeCommand, Source={x:Reference DevicePage}}"
+                            CommandParameter="{Binding .}"
+                            Text="Connect and Dispose"/>
+                </ViewCell.ContextActions>
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                  </Grid.ColumnDefinitions>
+                  <Grid.Triggers>
+                    <DataTrigger TargetType="Grid"
+                                 Binding="{Binding IsConnected}"
+                                 Value="true">
+                      <Setter Property="BackgroundColor" Value="#1A00FF00"></Setter>
+                    </DataTrigger>
+                  </Grid.Triggers>
+                  <StackLayout Orientation="Vertical" VerticalOptions="Center">
+                    <Label Text="{Binding Name}" FontSize="Large" />
+                    <Label Text="{Binding Id, StringFormat='{0}'}" TextColor="Gray" FontSize="Small"/>
+                  </StackLayout>
+                  <Label Grid.Column="1"
+                         Margin="10"
+                         Text="{Binding Rssi}"
+                         VerticalTextAlignment="Center"></Label>
+                </Grid>
+              </ViewCell>
+            </DataTemplate>
+      </ResourceDictionary>
+  </pages:BaseTabbedPage.Resources>
+  <pages:BaseTabbedPage.Children>
+    <pages:BasePage Title="Scan for devices">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"></RowDefinition>
+          <RowDefinition Height="*"></RowDefinition>
+          <RowDefinition Height="Auto"></RowDefinition>
+          <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackLayout BackgroundColor="#FF6969" Padding="10" IsVisible="{Binding IsStateOn, Converter={StaticResource InverseBoolean}}">
+          <Label Text="{Binding StateText}" FontSize="18" HorizontalTextAlignment="Center"></Label>
+        </StackLayout>
 
-    <ListView Grid.Row="1" ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
-             IsPullToRefreshEnabled="True"
-             RefreshCommand="{Binding RefreshCommand}"
-             IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
-             RowHeight="80">
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ViewCell>
-            <ViewCell.ContextActions>
-              <MenuItem Command="{Binding Path=BindingContext.DisconnectCommand, Source={x:Reference DevicePage}}"
-                        CommandParameter="{Binding .}" IsDestructive="True"
-                        Text="Disconnect"/>
-              <MenuItem Command="{Binding Path=BindingContext.CopyGuidCommand, Source={x:Reference DevicePage}}"
-                        CommandParameter="{Binding .}"
-                        Text="Copy Guid"/>
-              <MenuItem Command="{Binding Path=BindingContext.ConnectDisposeCommand, Source={x:Reference DevicePage}}"
-                        CommandParameter="{Binding .}"
-                        Text="Connect and Dispose"/>
-            </ViewCell.ContextActions>
-            <Grid>
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-              </Grid.ColumnDefinitions>
-              <Grid.Triggers>
-                <DataTrigger TargetType="Grid"
-                             Binding="{Binding IsConnected}"
-                             Value="true">
-                  <Setter Property="BackgroundColor" Value="#1A00FF00"></Setter>
-                </DataTrigger>
-              </Grid.Triggers>
-              <StackLayout Orientation="Vertical" VerticalOptions="Center">
-                <Label Text="{Binding Name}" FontSize="Large" />
-                <Label Text="{Binding Id, StringFormat='{0}'}" TextColor="Gray" FontSize="Small"/>
-              </StackLayout>
-              <Label Grid.Column="1"
-                     Margin="10"
-                     Text="{Binding Rssi}"
-                     VerticalTextAlignment="Center"></Label>
-            </Grid>
-          </ViewCell>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
+        <ListView Grid.Row="1" ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
+                 IsPullToRefreshEnabled="True"
+                 RefreshCommand="{Binding RefreshCommand}"
+                 IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+                 RowHeight="80"
+                 ItemTemplate="{StaticResource DeviceItemTemplate}">
+        </ListView>
 
 
-    <Label Grid.Row="2" Text="{Binding PreviousGuid, StringFormat='{0}'}" FontSize="Small" TextColor="Gray" VerticalTextAlignment="End"/>
-    <StackLayout Grid.Row="3" Orientation="Horizontal">
-      <Button Text="Connect to previous" Command="{Binding ConnectToPreviousCommand}" HorizontalOptions="FillAndExpand"/>
-      <Button Text="Stop Scan" Command="{Binding StopScanCommand}" HorizontalOptions="End"/>
-      <ActivityIndicator IsRunning="{Binding IsRefreshing}"
-                         HeightRequest="24"
-                         WidthRequest="24"
-                         VerticalOptions="Center"
-                         HorizontalOptions="End"/>
-    </StackLayout>
+        <Label Grid.Row="2" Text="{Binding PreviousGuid, StringFormat='{0}'}" FontSize="Small" TextColor="Gray" VerticalTextAlignment="End"/>
+        <StackLayout Grid.Row="3" Orientation="Horizontal">
+          <Button Text="Connect to previous" Command="{Binding ConnectToPreviousCommand}" HorizontalOptions="FillAndExpand"/>
+          <Button Text="Stop Scan" Command="{Binding StopScanCommand}" HorizontalOptions="End"/>
+          <ActivityIndicator IsRunning="{Binding IsRefreshing}"
+                             HeightRequest="24"
+                             WidthRequest="24"
+                             VerticalOptions="Center"
+                             HorizontalOptions="End"/>
+        </StackLayout>
 
-  </Grid>
+      </Grid>
+    </pages:BasePage>
+    <pages:BasePage Title="System devices">
+       <ListView ItemsSource="{Binding SystemDevices}" SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
+                 RowHeight="80"
+                 ItemTemplate="{StaticResource DeviceItemTemplate}"/>
+    </pages:BasePage>
+  </pages:BaseTabbedPage.Children>
 
-</pages:BasePage>
+</pages:BaseTabbedPage>
