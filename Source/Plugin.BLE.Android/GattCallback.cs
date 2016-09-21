@@ -33,18 +33,8 @@ namespace Plugin.BLE.Android
             base.OnConnectionStateChange(gatt, status, newState);
             IDevice device;
 
-            if (status != GattStatus.Success)
-            {
-                Trace.Message($"OnConnectionStateChange: GattCallback error: {status}");
-                device = new Device(_adapter, gatt.Device, gatt, this, 0);
-                _adapter.HandleConnectionFail(device, $"GattCallback error: {status}");
-                // We don't return. Allowing to fall-through to the SWITCH, which will assume a disconnect, close GATT and clean up.
-                // The above error event handles the case where the error happened during a Connect call, which will close out any waiting asyncs.
-            }
-            else
-            {
-                Trace.Message("GattCallback state: {0}", newState.ToString());
-            }
+
+            Trace.Message($"OnConnectionStateChange: GattStatus: {status}");
 
             switch (newState)
             {
@@ -61,22 +51,26 @@ namespace Plugin.BLE.Android
                         gatt.Close();
 
 
-						if (status == GattStatus.Success)
-						{
-							//we already hadled device error so no need th raise disconnect event(happens when device not in range)
-							_adapter.HandleDisconnectedDevice(true, device);
-						}
-						else 
-						{
-							Trace.Message($"Error while connecting '{device.Name}'. Not raising disconnect event.");
-						}                       
-						break;
+                        if (status != GattStatus.Success)
+                        {
+                            // The above error event handles the case where the error happened during a Connect call, which will close out any waiting asyncs.
+                            // Android > 5.0 uses this switch branch when an error occurs during connect
+                            Trace.Message($"Error while connecting '{device.Name}'. Not raising disconnect event.");
+                            _adapter.HandleConnectionFail(device, $"GattCallback error: {status}");
+
+                        }
+                        else
+                        {
+                            //we already hadled device error so no need th raise disconnect event(happens when device not in range)
+                            _adapter.HandleDisconnectedDevice(true, device);
+                        }
+                        break;
                     }
 
                     //connection must have been lost, bacause our device was not found in the registry but was still connected
                     if (_adapter.ConnectedDeviceRegistry.TryGetValue(gatt.Device.Address, out device))
                     {
-						Trace.Message($"Disconnected '{device.Name}' by lost connection");
+                        Trace.Message($"Disconnected '{device.Name}' by lost connection");
 
                         _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
                         gatt.Close();
@@ -111,8 +105,20 @@ namespace Plugin.BLE.Android
                         device = new Device(_adapter, gatt.Device, gatt, this, 0);
                     }
 
-                    _adapter.ConnectedDeviceRegistry[gatt.Device.Address] = device;
-                    _adapter.HandleConnectedDevice(device);
+                    if (status != GattStatus.Success)
+                    {
+                        // The aboe error event handles the case where the error happened during a Connect call, which will close out any waiting asyncs.
+                        // Android <= 4.4 uses this switch branch when an error occurs during connect
+                        Trace.Message($"Error while connecting '{device.Name}'. GattStatus: {status}. ");
+                        _adapter.HandleConnectionFail(device, $"GattCallback error: {status}");
+
+                        gatt.Close();
+                    }
+                    else
+                    {
+                        _adapter.ConnectedDeviceRegistry[gatt.Device.Address] = device;
+                        _adapter.HandleConnectedDevice(device);
+                    }
 
                     break;
                 // disconnecting
@@ -222,6 +228,11 @@ namespace Plugin.BLE.Android
             var args = new RssiReadCallbackEventArgs(device, error, rssi);
 
             RemoteRssiRead?.Invoke(this, args);
+        }
+
+        public override void OnDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, GattStatus status)
+        {
+            base.OnDescriptorWrite(gatt, descriptor, status);
         }
     }
 }
