@@ -17,7 +17,10 @@ let RepositoryRootDir = Path.Combine("..", ".");
 let NuGetTargetDir =  Path.Combine("out" ,"nuget");
 let BuildTargetDir = Path.Combine("out" ,"lib");
 let BootstrapFile = "BlePluginBootstrap.cs.pp"
-let NugetPath =  Path.Combine("..", "Source", ".nuget", "NuGet.exe");
+let NugetPath =  if EnvironmentHelper.isMacOS then 
+                    "mono --runtime=v4.0 ../Source/.nuget/nuget.exe" 
+                 else
+                    Path.Combine("..", "Source", ".nuget", "NuGet.exe");
 let ProjectSources = Path.Combine("..", "Source");
 let NuspecFiles = ["Plugin.BLE.nuspec"; "MvvmCross.Plugin.BLE.nuspec"];
 let VanillaPluginId = "Plugin.BLE";
