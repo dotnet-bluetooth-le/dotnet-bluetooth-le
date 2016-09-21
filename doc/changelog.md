@@ -2,8 +2,12 @@
 
 ## 1.1.0
 
-#### 1.1.0-beta2 (not released)
+#### 1.1.0-beta2 (current)
 - #78 BluetoothStateChangedArgs contain the old state and the new state
+- #81 iOS: Removed code smell which caused crash. Temporarily removed UpdateName subscription.
+- Android <=4.4: fixed gatt callback to correctly detect gatt error when connecting to known device and not in range
+- #86: GetSystemConnectedDevices, beta implementation, in order to use the device in the app call ConnectAsync
+- #73: fixed crash when calling connecttoknwondevice without cancellation token
 
 #### 1.1.0-beta1
 - improvements on xml documentation
