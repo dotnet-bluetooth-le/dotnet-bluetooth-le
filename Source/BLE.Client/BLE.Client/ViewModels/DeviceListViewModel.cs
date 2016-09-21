@@ -100,7 +100,7 @@ namespace BLE.Client.ViewModels
         {
             RaisePropertyChanged(nameof(IsStateOn));
             RaisePropertyChanged(nameof(StateText));
-            TryStartScanning();
+            //TryStartScanning();
         }
 
         private string GetStateText()
