@@ -161,7 +161,34 @@ characteristic.ValueUpdated += (o, args) =>
 };
 
 characteristic.StartUpdates();
+
 ```
+## Best practice
+
+### API
+- Surround Async API calls in try-catch blocks. Most BLE calls can/will throw an exception in cetain cases, this is especiialy true for Android. We will try to update the xml doc to reflect this.
+```csharp
+    try
+    {
+        await _adapter.ConnectToDeviceAsync(device);
+    }
+    catch(DeviceConnectionException ex)
+    {
+        //specific
+    }
+    catch(Exception ex)
+    {
+        //generic
+    }
+```
+- **Avoid caching of Characteristic or Service instances between connection sessions**. This includes saving a reference to them in you class etc. After a device has been disconnected all Service & Characteristic instances become invalid. Allways **use GetServiceAsync and GetCharacteristicAsync to get a valid instance**.
+ 
+### General BLE iOS, Android
+
+- Scanning: Avoid performing ble device operations like Connect, Read, Write etc while scanning for devices. Scanning is battery-intensive.
+    - try to stop scanning before performint device operations
+    - try to stop scanning as soon as you find the desired device
+    - never scan on a loop, and set a time limit on your scan
 
 ## Extended topics
 
@@ -171,6 +198,8 @@ characteristic.StartUpdates();
 
 ## Useful Links
 
+- [Android Bluetooth LE guideline](https://developer.android.com/guide/topics/connectivity/bluetooth-le.html)
+- [iOS CoreBluetooth Best Practices](https://developer.apple.com/library/ios/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/BestPracticesForInteractingWithARemotePeripheralDevice/BestPracticesForInteractingWithARemotePeripheralDevice.html)
 - [MvvmCross](https://github.com/MvvmCross)
 - [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics)
 
