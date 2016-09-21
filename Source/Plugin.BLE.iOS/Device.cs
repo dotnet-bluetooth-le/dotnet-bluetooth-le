@@ -30,12 +30,15 @@ namespace Plugin.BLE.iOS
             Rssi = rssi;
             AdvertisementRecords = advertisementRecords;
 
-            // TODO: smell!!!! WeakSubscribe?!
-            _nativeDevice.UpdatedName += (sender, e) =>
-            {
-                Name = ((CBPeripheral)sender).Name;
-                Trace.Message("Device changed name: {0}", Name);
-            };
+            // TODO figure out if this is in any way required,  
+            // https://github.com/xabre/xamarin-bluetooth-le/issues/81
+            //_nativeDevice.UpdatedName += OnNameUpdated;
+        }
+
+        private void OnNameUpdated(object sender, EventArgs e)
+        {
+            Name = ((CBPeripheral)sender).Name;
+            Trace.Message("Device changed name: {0}", Name);
         }
 
         protected override async Task<IEnumerable<IService>> GetServicesNativeAsync()
