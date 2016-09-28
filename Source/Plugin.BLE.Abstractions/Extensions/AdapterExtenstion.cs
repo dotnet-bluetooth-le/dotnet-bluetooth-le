@@ -31,7 +31,7 @@ namespace Plugin.BLE.Abstractions.Extensions
         /// <returns>A task that represents the asynchronous read operation. The Task will finish after the scan has ended.</returns>
         public static Task StartScanningForDevicesAsync(this IAdapter adapter, Guid[] serviceUuids, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return adapter.StartScanningForDevicesAsync(serviceUuids, null, cancellationToken);
+            return adapter.StartScanningForDevicesAsync(serviceUuids, null, cancellationToken: cancellationToken);
         }
 
         /// <summary>

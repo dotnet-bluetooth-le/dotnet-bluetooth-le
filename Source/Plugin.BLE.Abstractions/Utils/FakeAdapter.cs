@@ -21,7 +21,7 @@ namespace Plugin.BLE.Abstractions.Utils
             return new List<IDevice>();
         }
 
-        protected override Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, CancellationToken scanCancellationToken)
+        protected override Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
         {
             TraceUnavailability();
             return Task.FromResult(0);

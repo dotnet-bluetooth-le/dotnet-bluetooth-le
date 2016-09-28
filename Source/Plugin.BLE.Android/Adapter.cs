@@ -67,7 +67,7 @@ namespace Plugin.BLE.Android
             _gattCallback = new GattCallback(this);
         }
 
-        protected override Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, CancellationToken scanCancellationToken)
+        protected override Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
         {
 
             // clear out the list

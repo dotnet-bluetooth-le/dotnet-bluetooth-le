@@ -64,9 +64,14 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// </summary>
         /// <param name="serviceUuids">Requested service Ids. The default is null.</param>
         /// <param name="deviceFilter">Function that filters the devices. The default is a function that returns true.</param>
+        /// <param name="allowDuplicatesKey"> iOS only: If true, filtering is disabled and a discovery event is generated each time the central receives an advertising packet from the peripheral. 
+        /// Disabling this filtering can have an adverse effect on battery life and should be used only if necessary.
+        /// If false, multiple discoveries of the same peripheral are coalesced into a single discovery event. 
+        /// If the key is not specified, the default value is false.
+        /// For android, key is ignored.</param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
         /// <returns>A task that represents the asynchronous read operation. The Task will finish after the scan has ended.</returns>
-        Task StartScanningForDevicesAsync(Guid[] serviceUuids = null, Func<IDevice, bool> deviceFilter = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task StartScanningForDevicesAsync(Guid[] serviceUuids = null, Func<IDevice, bool> deviceFilter = null, bool allowDuplicatesKey = false, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Stops scanning for BLE devices.

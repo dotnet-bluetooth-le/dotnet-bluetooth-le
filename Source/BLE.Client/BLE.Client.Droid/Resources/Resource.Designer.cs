@@ -27,7 +27,6 @@ namespace BLE.Client.Droid
 		public static void UpdateIdValues()
 		{
 			global::Splat.Resource.String.library_name = global::BLE.Client.Droid.Resource.String.library_name;
-			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::BLE.Client.Droid.Resource.Attribute.actionBarSize;
 			global::AndroidHUD.Resource.Attribute.ahBarColor = global::BLE.Client.Droid.Resource.Attribute.ahBarColor;
 			global::AndroidHUD.Resource.Attribute.ahBarLength = global::BLE.Client.Droid.Resource.Attribute.ahBarLength;
 			global::AndroidHUD.Resource.Attribute.ahBarWidth = global::BLE.Client.Droid.Resource.Attribute.ahBarWidth;
@@ -86,6 +85,7 @@ namespace BLE.Client.Droid
 			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxListView = global::BLE.Client.Droid.Resource.Styleable.MvxListView;
 			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxListView_MvxDropDownItemTemplate = global::BLE.Client.Droid.Resource.Styleable.MvxListView_MvxDropDownItemTemplate;
 			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxListView_MvxItemTemplate = global::BLE.Client.Droid.Resource.Styleable.MvxListView_MvxItemTemplate;
+			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::BLE.Client.Droid.Resource.Attribute.actionBarSize;
 		}
 		
 		public partial class Animation

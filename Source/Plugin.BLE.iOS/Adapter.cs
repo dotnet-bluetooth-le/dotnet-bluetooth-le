@@ -126,7 +126,7 @@ namespace Plugin.BLE.iOS
                 };
         }
 
-        protected override async Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, CancellationToken scanCancellationToken)
+        protected override async Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
         {
             // Wait for the PoweredOn state
             await WaitForState(CBCentralManagerState.PoweredOn, scanCancellationToken).ConfigureAwait(false);
@@ -141,7 +141,7 @@ namespace Plugin.BLE.iOS
             }
 
             DiscoveredDevices.Clear();
-            _centralManager.ScanForPeripherals(serviceCbuuids);
+            _centralManager.ScanForPeripherals(serviceCbuuids, new PeripheralScanningOptions { AllowDuplicatesKey = allowDuplicatesKey });
         }
 
         protected override void DisconnectDeviceNative(IDevice device)
@@ -155,69 +155,69 @@ namespace Plugin.BLE.iOS
             _centralManager.StopScan();
         }
 
-       protected override Task ConnectToDeviceNativeAsync(IDevice device, bool autoconnect, CancellationToken cancellationToken)
-		{
-			if (autoconnect)
-			{
-				Trace.Message("Warning: Autoconnect is not supported in iOS");
-			}
+        protected override Task ConnectToDeviceNativeAsync(IDevice device, bool autoconnect, CancellationToken cancellationToken)
+        {
+            if (autoconnect)
+            {
+                Trace.Message("Warning: Autoconnect is not supported in iOS");
+            }
 
-			_deviceOperationRegistry[device.Id.ToString()] = device;
+            _deviceOperationRegistry[device.Id.ToString()] = device;
 
-			if (cancellationToken != CancellationToken.None)
-			{
-				cancellationToken.Register(() =>
-				{
-					_centralManager.CancelPeripheralConnection(device.NativeDevice as CBPeripheral);
-				});
-			}
+            if (cancellationToken != CancellationToken.None)
+            {
+                cancellationToken.Register(() =>
+                {
+                    _centralManager.CancelPeripheralConnection(device.NativeDevice as CBPeripheral);
+                });
+            }
 
-			_centralManager.ConnectPeripheral(device.NativeDevice as CBPeripheral,
-				new PeripheralConnectionOptions());
+            _centralManager.ConnectPeripheral(device.NativeDevice as CBPeripheral,
+                new PeripheralConnectionOptions());
 
-			return Task.FromResult(true);
-		}
+            return Task.FromResult(true);
+        }
 
-		private static Guid ParseDeviceGuid(CBPeripheral peripherial)
-		{
-			return Guid.ParseExact(peripherial.Identifier.AsString(), "d");
-		}
+        private static Guid ParseDeviceGuid(CBPeripheral peripherial)
+        {
+            return Guid.ParseExact(peripherial.Identifier.AsString(), "d");
+        }
 
-		/// <summary>
-		/// Connects to known device async.
-		/// 
-		/// https://developer.apple.com/library/ios/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/BestPracticesForInteractingWithARemotePeripheralDevice/BestPracticesForInteractingWithARemotePeripheralDevice.html
-		/// 
-		/// </summary>
-		/// <returns>The to known device async.</returns>
-		/// <param name="deviceGuid">Device GUID.</param>
+        /// <summary>
+        /// Connects to known device async.
+        /// 
+        /// https://developer.apple.com/library/ios/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/BestPracticesForInteractingWithARemotePeripheralDevice/BestPracticesForInteractingWithARemotePeripheralDevice.html
+        /// 
+        /// </summary>
+        /// <returns>The to known device async.</returns>
+        /// <param name="deviceGuid">Device GUID.</param>
         public override async Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken = default(CancellationToken))
-		{
-			//ToDo attempted to use tobyte array insetead of string but there was a roblem with byte ordering Guid->NSUui
-			var uuid = new NSUuid(deviceGuid.ToString());
+        {
+            //ToDo attempted to use tobyte array insetead of string but there was a roblem with byte ordering Guid->NSUui
+            var uuid = new NSUuid(deviceGuid.ToString());
 
-			Trace.Message($"[Adapter] Attempting connection to {uuid.ToString()}");
+            Trace.Message($"[Adapter] Attempting connection to {uuid.ToString()}");
 
-			var peripherials = _centralManager.RetrievePeripheralsWithIdentifiers(uuid);
-			var peripherial = peripherials.SingleOrDefault();
+            var peripherials = _centralManager.RetrievePeripheralsWithIdentifiers(uuid);
+            var peripherial = peripherials.SingleOrDefault();
 
-			if (peripherial == null)
-			{
-				var systemPeripherials = _centralManager.RetrieveConnectedPeripherals(new CBUUID[] { });
+            if (peripherial == null)
+            {
+                var systemPeripherials = _centralManager.RetrieveConnectedPeripherals(new CBUUID[0]);
 
-				var cbuuid = CBUUID.FromNSUuid(uuid);
-				peripherial = systemPeripherials.SingleOrDefault(p => p.UUID.Equals(cbuuid));
+                var cbuuid = CBUUID.FromNSUuid(uuid);
+                peripherial = systemPeripherials.SingleOrDefault(p => p.UUID.Equals(cbuuid));
 
-				if (peripherial == null)
-					throw new Exception($"[Adapter] Device {deviceGuid} not found.");
-			}
+                if (peripherial == null)
+                    throw new Exception($"[Adapter] Device {deviceGuid} not found.");
+            }
 
 
-			var device = new Device(this, peripherial, peripherial.Name, peripherial.RSSI?.Int32Value ?? 0, new List<AdvertisementRecord>());
+            var device = new Device(this, peripherial, peripherial.Name, peripherial.RSSI?.Int32Value ?? 0, new List<AdvertisementRecord>());
 
-			await ConnectToDeviceAsync(device, false, cancellationToken);
-			return device;
-		}
+            await ConnectToDeviceAsync(device, false, cancellationToken);
+            return device;
+        }
 
         public override List<IDevice> GetSystemConnectedDevices(Guid[] services = null)
         {
