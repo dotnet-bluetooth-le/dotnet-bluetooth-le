@@ -325,7 +325,7 @@ namespace BLE.Client.ViewModels
                 {
                     progress.Show();
 
-                    device = await Adapter.ConnectToKnownDeviceAsync(PreviousGuid);
+                    device = await Adapter.ConnectToKnownDeviceAsync(PreviousGuid, tokenSource.Token);
 
                 }
 

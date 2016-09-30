@@ -131,6 +131,9 @@ namespace Plugin.BLE.iOS
             // Wait for the PoweredOn state
             await WaitForState(CBCentralManagerState.PoweredOn, scanCancellationToken).ConfigureAwait(false);
 
+            if (scanCancellationToken.IsCancellationRequested)
+                throw new TaskCanceledException("StartScanningForDevicesNativeAsync cancelled");
+
             Trace.Message("Adapter: Starting a scan for devices.");
 
             CBUUID[] serviceCbuuids = null;
@@ -193,6 +196,12 @@ namespace Plugin.BLE.iOS
         /// <param name="deviceGuid">Device GUID.</param>
         public override async Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken = default(CancellationToken))
         {
+            // Wait for the PoweredOn state
+            await WaitForState(CBCentralManagerState.PoweredOn, cancellationToken, true);
+
+            if (cancellationToken.IsCancellationRequested)
+                throw new TaskCanceledException("ConnectToKnownDeviceAsync cancelled");
+
             //ToDo attempted to use tobyte array insetead of string but there was a roblem with byte ordering Guid->NSUui
             var uuid = new NSUuid(deviceGuid.ToString());
 
@@ -232,7 +241,7 @@ namespace Plugin.BLE.iOS
             return nativeDevices.Select(d => new Device(this, d)).Cast<IDevice>().ToList();
         }
 
-        private async Task WaitForState(CBCentralManagerState state, CancellationToken cancellationToken)
+        private async Task WaitForState(CBCentralManagerState state, CancellationToken cancellationToken, bool configureAwait = false)
         {
             Trace.Message("Adapter: Waiting for state: " + state);
 
