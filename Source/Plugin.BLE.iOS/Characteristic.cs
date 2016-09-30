@@ -86,18 +86,36 @@ namespace Plugin.BLE.iOS
             return task;
         }
 
-        protected override void StartUpdatesNative()
+        protected override Task StartUpdatesNativeAsync()
         {
             _parentDevice.UpdatedCharacterteristicValue += UpdatedNotify;
+            //ToDo _parentDevice.UpdatedNotificationState
             _parentDevice.SetNotifyValue(true, _nativeCharacteristic);
             Trace.Message("Characteristic.StartUpdatesNative: successful");
+            return Task.FromResult(true);
+
+             //return TaskBuilder.FromEvent<bool, EventHandler<CBCharacteristicEventArgs>>(
+             //      execute: () => _parentDevice.SetNotifyValue(true, _nativeCharacteristic),
+             //      getCompleteHandler: complete => (sender, args) =>
+             //      {
+             //          if (args.Characteristic.UUID != _nativeCharacteristic.UUID)
+             //              return;
+
+             //          if (args.Error != null)
+             //              throw new Exception(args.Error);
+                
+             //          complete(args.Error == null);
+             //      },
+             //   subscribeComplete: handler => _parentDevice.UpdatedNotificationState += handler,
+             //      unsubscribeComplete: handler => _parentDevice.UpdatedNotificationState -= handler);
         }
 
-        protected override void StopUpdatesNative()
+        protected override Task StopUpdatesNativeAsync()
         {
             _parentDevice.SetNotifyValue(false, _nativeCharacteristic);
             _parentDevice.UpdatedCharacterteristicValue -= UpdatedNotify;
             Trace.Message("Characteristic.StopUpdatesNative: successful");
+             return Task.FromResult(true);
         }
 
         private void UpdatedNotify(object sender, CBCharacteristicEventArgs e)

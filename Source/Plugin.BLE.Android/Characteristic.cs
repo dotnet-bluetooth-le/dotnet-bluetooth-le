@@ -17,7 +17,7 @@ namespace Plugin.BLE.Android
     {
         //https://developer.android.com/samples/BluetoothLeGatt/src/com.example.android.bluetoothlegatt/SampleGattAttributes.html
 
-        private static readonly Java.Util.UUID ClientCharacteristicConfigurationDescriptorId = Java.Util.UUID.FromString("00002902-0000-1000-8000-00805f9b34fb");
+        private static readonly Guid ClientCharacteristicConfigurationDescriptorId = Guid.Parse("00002902-0000-1000-8000-00805f9b34fb");
 
         private readonly BluetoothGatt _gatt;
         private readonly IGattCallback _gattCallback;
@@ -100,14 +100,12 @@ namespace Plugin.BLE.Android
             }
         }
 
-        protected override async void StartUpdatesNative()
+        protected override async Task StartUpdatesNativeAsync()
         {
             // wire up the characteristic value updating on the gattcallback for event forwarding
             _gattCallback.CharacteristicValueUpdated += OnCharacteristicValueChanged;
-
-            var successful = _gatt.SetCharacteristicNotification(_nativeCharacteristic, true);
-
-            if (!successful)
+                       
+            if (!_gatt.SetCharacteristicNotification(_nativeCharacteristic, true))
                 throw new CharacteristicReadException("Gatt SetCharacteristicNotification FAILED.");
 
             // In order to subscribe to notifications on a given characteristic, you must first set the Notifications Enabled bit
@@ -116,38 +114,37 @@ namespace Plugin.BLE.Android
             // for details.
 
             await Task.Delay(100);
+            // this might be because we need to wait on SetCharacteristicNotification ...maybe there alos is a callback for this?
             //ToDo is this still needed?
 
             if (_nativeCharacteristic.Descriptors.Count > 0)
             {
 
-                var descriptor = _nativeCharacteristic.Descriptors.FirstOrDefault(d => d.Uuid.Equals(ClientCharacteristicConfigurationDescriptorId)) ??
-                                 _nativeCharacteristic.Descriptors[0]; // fallback just in case manufacturer forgot
+                var descriptor = Descriptors.FirstOrDefault(d => d.Id.Equals(ClientCharacteristicConfigurationDescriptorId)) ??
+                                            Descriptors.FirstOrDefault(); // fallback just in case manufacturer forgot
 
                 //has to have one of these (either indicate or notify)
                 if (Properties.HasFlag(CharacteristicPropertyType.Indicate))
                 {
-                    descriptor.SetValue(BluetoothGattDescriptor.EnableIndicationValue.ToArray());
+                    await descriptor.WriteAsync(BluetoothGattDescriptor.EnableIndicationValue.ToArray());
                     Trace.Message("Descriptor set value: INDICATE");
                 }
 
                 if (Properties.HasFlag(CharacteristicPropertyType.Notify))
                 {
-                    descriptor.SetValue(BluetoothGattDescriptor.EnableNotificationValue.ToArray());
+                    await descriptor.WriteAsync(BluetoothGattDescriptor.EnableNotificationValue.ToArray());
                     Trace.Message("Descriptor set value: NOTIFY");
                 }
-
-                successful &= _gatt.WriteDescriptor(descriptor);
             }
             else
             {
                 Trace.Message("Descriptor set value FAILED: _nativeCharacteristic.Descriptors was empty");
             }
 
-            Trace.Message("Characteristic.StartUpdates, successful: {0}", successful);
+            Trace.Message("Characteristic.StartUpdates, successful!");
         }
 
-        protected override void StopUpdatesNative()
+        protected override Task StopUpdatesNativeAsync()
         {
             _gattCallback.CharacteristicValueUpdated -= OnCharacteristicValueChanged;
 
@@ -156,7 +153,9 @@ namespace Plugin.BLE.Android
             Trace.Message("Characteristic.StopUpdatesNative, successful: {0}", successful);
 
             if (!successful)
-                throw new CharacteristicReadException("Gatt SetCharacteristicNotification FAILED.");
+                throw new CharacteristicReadException("GATT: SetCharacteristicNotification to false, FAILED.");
+
+            return Task.FromResult(true);
         }
 
         private void OnCharacteristicValueChanged(object sender, CharacteristicReadCallbackEventArgs e)
