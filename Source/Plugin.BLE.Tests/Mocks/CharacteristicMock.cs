@@ -54,7 +54,7 @@ namespace Plugin.BLE.Tests.Mocks
             throw new NotImplementedException();
         }
 
-        protected override void StopUpdatesNative()
+        protected override Task StopUpdatesNativeAsync()
         {
             throw new NotImplementedException();
         }

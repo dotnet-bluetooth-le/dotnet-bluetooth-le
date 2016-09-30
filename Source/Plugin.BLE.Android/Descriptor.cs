@@ -29,14 +29,14 @@ namespace Plugin.BLE.Android
         {
             return TaskBuilder.FromEvent<bool, EventHandler<DescriptorCallbackEventArgs>>(
                execute: () => InternalWrite(data),
-               getCompleteHandler: complete => ((sender, args) =>
+               getCompleteHandler: (complete, reject) => ((sender, args) =>
                   {
                       if (args.Descriptor.Uuid == _nativeDescriptor.Uuid)
                       {
                           if (args.Exception != null)
-                              throw args.Exception;
-
-                          complete(true);
+                              reject(args.Exception);
+                          else
+                              complete(true);
                       }
                   }),
                subscribeComplete: handler => _gattCallback.DescriptorValueWritten += handler,
@@ -57,7 +57,7 @@ namespace Plugin.BLE.Android
         {
             return await TaskBuilder.FromEvent<byte[], EventHandler<DescriptorCallbackEventArgs>>(
                execute: ReadInternal,
-               getCompleteHandler: complete => ((sender, args) =>
+               getCompleteHandler: (complete, reject) => ((sender, args) =>
                   {
                       if (args.Descriptor.Uuid == _nativeDescriptor.Uuid)
                       {

@@ -47,7 +47,7 @@ namespace Plugin.BLE.Android
         {
             return await TaskBuilder.FromEvent<byte[], EventHandler<CharacteristicReadCallbackEventArgs>>(
                execute: ReadInternal,
-               getCompleteHandler: complete => ((sender, args) =>
+               getCompleteHandler: (complete, reject) => ((sender, args) =>
                   {
                       if (args.Characteristic.Uuid == _nativeCharacteristic.Uuid)
                       {
@@ -73,7 +73,7 @@ namespace Plugin.BLE.Android
 
             return await TaskBuilder.FromEvent<bool, EventHandler<CharacteristicWriteCallbackEventArgs>>(
                 execute: () => InternalWrite(data),
-                getCompleteHandler: complete => ((sender, args) =>
+                getCompleteHandler: (complete, reject) => ((sender, args) =>
                    {
                        if (args.Characteristic.Uuid == _nativeCharacteristic.Uuid)
                        {

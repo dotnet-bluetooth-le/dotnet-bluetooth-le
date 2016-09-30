@@ -40,15 +40,15 @@ namespace Plugin.BLE.iOS
         {
             return TaskBuilder.FromEvent<byte[], EventHandler<CBDescriptorEventArgs>>(
                    execute: () => _parentDevice.ReadValue(_nativeDescriptor),
-                   getCompleteHandler: complete => (sender, args) =>
+                   getCompleteHandler: (complete, reject) => (sender, args) =>
                    {
                        if (args.Descriptor.UUID != _nativeDescriptor.UUID)
                            return;
 
                        if (args.Error != null)
-                           throw new Exception($"Read descriptor async error: {args.Error.Description}");
-
-                       complete(Value);
+                           reject(new Exception($"Read descriptor async error: {args.Error.Description}"));
+                       else
+                           complete(Value);
                    },
                    subscribeComplete: handler => _parentDevice.UpdatedValue += handler,
                    unsubscribeComplete: handler => _parentDevice.UpdatedValue -= handler);
@@ -58,15 +58,15 @@ namespace Plugin.BLE.iOS
         {
             return TaskBuilder.FromEvent<bool, EventHandler<CBDescriptorEventArgs>>(
                 execute: () => _parentDevice.WriteValue(NSData.FromArray(data), _nativeDescriptor),
-                    getCompleteHandler: complete => (sender, args) =>
+                    getCompleteHandler: (complete, reject) => (sender, args) =>
                     {
                         if (args.Descriptor.UUID != _nativeDescriptor.UUID)
                             return;
 
                         if (args.Error != null)
-                            throw new Exception(args.Error.Description);
-
-                        complete(args.Error == null);
+                            reject(new Exception(args.Error.Description));
+                        else
+                            complete(true);
                     },
                     subscribeComplete: handler => _parentDevice.WroteDescriptorValue += handler,
                     unsubscribeComplete: handler => _parentDevice.WroteDescriptorValue -= handler);

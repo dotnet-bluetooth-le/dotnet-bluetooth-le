@@ -68,7 +68,7 @@ namespace Plugin.BLE.Abstractions.Extensions
             return await TaskBuilder.FromEvent<IDevice, EventHandler<DeviceEventArgs>, EventHandler>(
                 execute: () => adapter.StartScanningForDevicesAsync(deviceFilter, cancellationToken),
 
-                getCompleteHandler: complete => ((sender, args) =>
+                getCompleteHandler: (complete, reject) => ((sender, args) =>
                 {
                     complete(args.Device);
                     adapter.StopScanningForDevicesAsync();

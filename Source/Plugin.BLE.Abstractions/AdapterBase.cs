@@ -100,7 +100,7 @@ namespace Plugin.BLE.Abstractions
                     ConnectToDeviceNativeAsync(device, autoconnect, cancellationToken);
                 },
 
-                getCompleteHandler: complete => (sender, args) =>
+                getCompleteHandler: (complete, reject) => (sender, args) =>
                 {
                     if (args.Device.Id == device.Id)
                     {
@@ -137,7 +137,7 @@ namespace Plugin.BLE.Abstractions
             return TaskBuilder.FromEvent<bool, EventHandler<DeviceEventArgs>, EventHandler<DeviceErrorEventArgs>>(
                execute: () => DisconnectDeviceNative(device),
 
-               getCompleteHandler: complete => ((sender, args) =>
+               getCompleteHandler: (complete, reject) => ((sender, args) =>
                {
                    if (args.Device.Id == device.Id)
                    {
