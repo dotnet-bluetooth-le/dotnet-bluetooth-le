@@ -1,3 +1,4 @@
+using System;
 using Android.Bluetooth;
 
 namespace Plugin.BLE.Android.CallbackEventArgs
@@ -5,12 +6,12 @@ namespace Plugin.BLE.Android.CallbackEventArgs
     public class CharacteristicWriteCallbackEventArgs
     {
         public BluetoothGattCharacteristic Characteristic { get; }
-        public bool IsSuccessful { get; }
+        public Exception Exception { get; }
 
-        public CharacteristicWriteCallbackEventArgs(BluetoothGattCharacteristic characteristic, bool isSuccessful)
+        public CharacteristicWriteCallbackEventArgs(BluetoothGattCharacteristic characteristic, Exception exception = null)
         {
             Characteristic = characteristic;
-            IsSuccessful = isSuccessful;
+            Exception = exception;
         }
     }
 }

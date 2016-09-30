@@ -33,7 +33,7 @@ namespace Plugin.BLE.iOS
 
         protected override IList<IDescriptor> GetDescriptorsNative()
         {
-            return _nativeCharacteristic.Descriptors.Select(item => new Descriptor(item)).Cast<IDescriptor>().ToList();
+            return _nativeCharacteristic.Descriptors.Select(descriptor => new Descriptor(descriptor, _parentDevice)).Cast<IDescriptor>().ToList();
         }
 
         protected override Task<byte[]> ReadNativeAsync()

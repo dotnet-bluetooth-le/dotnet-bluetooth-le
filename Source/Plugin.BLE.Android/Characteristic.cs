@@ -40,7 +40,7 @@ namespace Plugin.BLE.Android
 
         protected override IList<IDescriptor> GetDescriptorsNative()
         {
-            return _nativeCharacteristic.Descriptors.Select(item => new Descriptor(item)).Cast<IDescriptor>().ToList();
+            return _nativeCharacteristic.Descriptors.Select(item => new Descriptor(item, _gatt, _gattCallback)).Cast<IDescriptor>().ToList();
         }
 
         protected override async Task<byte[]> ReadNativeAsync()
@@ -51,7 +51,7 @@ namespace Plugin.BLE.Android
                   {
                       if (args.Characteristic.Uuid == _nativeCharacteristic.Uuid)
                       {
-                            complete(args.Characteristic.GetValue());
+                          complete(args.Characteristic.GetValue());
                       }
                   }),
               subscribeComplete: handler => _gattCallback.CharacteristicValueUpdated += handler,
@@ -62,7 +62,7 @@ namespace Plugin.BLE.Android
         void ReadInternal()
         {
             if (!_gatt.ReadCharacteristic(_nativeCharacteristic))
-            {               
+            {
                 throw new CharacteristicReadException("BluetoothGattCharacteristic.readCharacteristic returned FALSE");
             }
         }
@@ -77,7 +77,7 @@ namespace Plugin.BLE.Android
                    {
                        if (args.Characteristic.Uuid == _nativeCharacteristic.Uuid)
                        {
-                            complete(args.IsSuccessful);
+                           complete(args.Exception == null);
                        }
                    }),
                subscribeComplete: handler => _gattCallback.CharacteristicValueWritten += handler,
@@ -107,7 +107,7 @@ namespace Plugin.BLE.Android
 
             var successful = _gatt.SetCharacteristicNotification(_nativeCharacteristic, true);
 
-            if(!successful)
+            if (!successful)
                 throw new CharacteristicReadException("Gatt SetCharacteristicNotification FAILED.");
 
             // In order to subscribe to notifications on a given characteristic, you must first set the Notifications Enabled bit
@@ -155,7 +155,7 @@ namespace Plugin.BLE.Android
 
             Trace.Message("Characteristic.StopUpdatesNative, successful: {0}", successful);
 
-            if(!successful)
+            if (!successful)
                 throw new CharacteristicReadException("Gatt SetCharacteristicNotification FAILED.");
         }
 
