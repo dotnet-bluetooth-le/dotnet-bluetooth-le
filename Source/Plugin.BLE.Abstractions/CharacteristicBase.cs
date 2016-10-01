@@ -37,7 +37,7 @@ namespace Plugin.BLE.Abstractions
 
         public bool CanRead => Properties.HasFlag(CharacteristicPropertyType.Read);
 
-        public bool CanUpdate => Properties.HasFlag(CharacteristicPropertyType.Notify) | 
+        public bool CanUpdate => Properties.HasFlag(CharacteristicPropertyType.Notify) |
                                  Properties.HasFlag(CharacteristicPropertyType.Indicate);
 
         public bool CanWrite => Properties.HasFlag(CharacteristicPropertyType.Write) |
@@ -103,12 +103,12 @@ namespace Plugin.BLE.Abstractions
             if (WriteType != CharacteristicWriteType.Default)
                 return WriteType;
 
-            return Properties.HasFlag(CharacteristicPropertyType.Write) ? 
-                CharacteristicWriteType.WithResponse : 
+            return Properties.HasFlag(CharacteristicPropertyType.Write) ?
+                CharacteristicWriteType.WithResponse :
                 CharacteristicWriteType.WithoutResponse;
         }
 
-        public void StartUpdates()
+        public Task StartUpdatesAsync()
         {
             if (!CanUpdate)
             {
@@ -116,21 +116,23 @@ namespace Plugin.BLE.Abstractions
             }
 
             Trace.Message("Characteristic.StartUpdates");
-            StartUpdatesNative();
+            return StartUpdatesNativeAsync();
         }
 
-        public void StopUpdates()
+        public Task StopUpdatesAsync()
         {
             if (!CanUpdate)
-                return;
+            {
+                throw new InvalidOperationException("Characteristic does not support update.");
+            }
 
-            StopUpdatesNative();
+            return StopUpdatesNativeAsync();
         }
 
         protected abstract IList<IDescriptor> GetDescriptorsNative();
         protected abstract Task<byte[]> ReadNativeAsync();
         protected abstract Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType);
-        protected abstract void StartUpdatesNative();
-        protected abstract void StopUpdatesNative();
+        protected abstract Task StartUpdatesNativeAsync();
+        protected abstract Task StopUpdatesNativeAsync();
     }
 }

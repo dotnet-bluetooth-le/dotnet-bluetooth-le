@@ -140,7 +140,7 @@ namespace BLE.Client.ViewModels
             }
         }));
 
-        private void StartUpdates()
+        private async void StartUpdates()
         {
             try
             {
@@ -148,7 +148,7 @@ namespace BLE.Client.ViewModels
 
                 Characteristic.ValueUpdated -= CharacteristicOnValueUpdated;
                 Characteristic.ValueUpdated += CharacteristicOnValueUpdated;
-                Characteristic.StartUpdates();
+                await Characteristic.StartUpdatesAsync();
          
 
                 Messages.Insert(0, $"Start updates");
@@ -162,13 +162,13 @@ namespace BLE.Client.ViewModels
             }
         }
 
-        private void StopUpdates()
+        private async void StopUpdates()
         {
             try
             {
                 _updatesStarted = false;
 
-                Characteristic.StopUpdates();
+                await Characteristic.StopUpdatesAsync();
                 Characteristic.ValueUpdated -= CharacteristicOnValueUpdated;
 
                 Messages.Insert(0, $"Stop updates");

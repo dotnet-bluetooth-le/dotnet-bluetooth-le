@@ -49,12 +49,12 @@ namespace Plugin.BLE.Tests.Mocks
             return Task.FromResult(true);
         }
 
-        protected override void StartUpdatesNative()
+        protected override Task StartUpdatesNativeAsync()
         {
             throw new NotImplementedException();
         }
 
-        protected override void StopUpdatesNative()
+        protected override Task StopUpdatesNativeAsync()
         {
             throw new NotImplementedException();
         }

@@ -2,7 +2,13 @@
 
 ## 1.1.0
 
-#### 1.1.0-beta2 (current)
+#### 1.1.0-beta3 (current)
+- #82 Enable setting PeripheralScanningOptions for ScanForPeripherals on iOS
+- #93 Fixed iOS crash when ble is off and ConnectingToKnownDeviceAsync. Wait for state & proper use of cancellation token.
+- #94 Implementation of descriptor Write/Read for iOS and Android.
+- #95 Async for start/stop notifications so that the descriptor write callback is invoked
+
+#### 1.1.0-beta2 
 - #78 BluetoothStateChangedArgs contain the old state and the new state
 - #81 iOS: Removed code smell which caused crash. Temporarily removed UpdateName subscription.
 - Android <=4.4: fixed gatt callback to correctly detect gatt error when connecting to known device and not in range

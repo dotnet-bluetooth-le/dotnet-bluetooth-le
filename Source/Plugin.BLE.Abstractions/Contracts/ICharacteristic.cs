@@ -100,12 +100,14 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Starts listening for notify events on this characteristic.
         /// </summary>
         /// <exception cref="InvalidOperationException">Thrown if characteristic doesn't support notify. See: <see cref="CanUpdate"/></exception>
-        void StartUpdates();
+        /// <exception cref="Exception">Thrown if an error occurs while starting notifications </exception>
+        Task StartUpdatesAsync();
 
         /// <summary>
         /// Stops listening for notify events on this characteristic.
+        /// <exception cref="Exception">Thrown if an error occurs while starting notifications </exception>
         /// </summary>
-        void StopUpdates();
+        Task StopUpdatesAsync();
     }
 }
 

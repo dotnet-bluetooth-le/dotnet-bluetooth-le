@@ -41,7 +41,7 @@ namespace Plugin.BLE.Abstractions
             _discoveredDevices = new List<IDevice>();
         }
 
-        public async Task StartScanningForDevicesAsync(Guid[] serviceUuids = null, Func<IDevice, bool> deviceFilter = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task StartScanningForDevicesAsync(Guid[] serviceUuids = null, Func<IDevice, bool> deviceFilter = null, bool allowDuplicatesKey = false, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (IsScanning)
             {
@@ -58,7 +58,7 @@ namespace Plugin.BLE.Abstractions
             {
                 using (cancellationToken.Register(() => _scanCancellationTokenSource.Cancel()))
                 {
-                    await StartScanningForDevicesNativeAsync(serviceUuids, _scanCancellationTokenSource.Token);
+                    await StartScanningForDevicesNativeAsync(serviceUuids, allowDuplicatesKey, _scanCancellationTokenSource.Token);
                     await Task.Delay(ScanTimeout, _scanCancellationTokenSource.Token);
                     Trace.Message("Adapter: Scan timeout has elapsed.");
                     CleanupScan();
@@ -100,7 +100,7 @@ namespace Plugin.BLE.Abstractions
                     ConnectToDeviceNativeAsync(device, autoconnect, cancellationToken);
                 },
 
-                getCompleteHandler: complete => (sender, args) =>
+                getCompleteHandler: (complete, reject) => (sender, args) =>
                 {
                     if (args.Device.Id == device.Id)
                     {
@@ -137,7 +137,7 @@ namespace Plugin.BLE.Abstractions
             return TaskBuilder.FromEvent<bool, EventHandler<DeviceEventArgs>, EventHandler<DeviceErrorEventArgs>>(
                execute: () => DisconnectDeviceNative(device),
 
-               getCompleteHandler: complete => ((sender, args) =>
+               getCompleteHandler: (complete, reject) => ((sender, args) =>
                {
                    if (args.Device.Id == device.Id)
                    {
@@ -226,7 +226,7 @@ namespace Plugin.BLE.Abstractions
             });
         }
 
-        protected abstract Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, CancellationToken scanCancellationToken);
+        protected abstract Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, bool allowDuplicatesKey, CancellationToken scanCancellationToken);
         protected abstract void StopScanNative();
         protected abstract Task ConnectToDeviceNativeAsync(IDevice device, bool autoconnect, CancellationToken cancellationToken);
         protected abstract void DisconnectDeviceNative(IDevice device);
