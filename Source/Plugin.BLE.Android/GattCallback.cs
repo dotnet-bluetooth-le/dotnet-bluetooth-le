@@ -142,14 +142,6 @@ namespace Plugin.BLE.Android
             ServicesDiscovered?.Invoke(this, new ServicesDiscoveredCallbackEventArgs());
         }
 
-        public override void OnDescriptorRead(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, GattStatus status)
-        {
-            base.OnDescriptorRead(gatt, descriptor, status);
-
-            Trace.Message("OnDescriptorRead: {0}", descriptor.ToString());
-
-        }
-
         public override void OnCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, GattStatus status)
         {
             base.OnCharacteristicRead(gatt, characteristic, status);
@@ -171,7 +163,7 @@ namespace Plugin.BLE.Android
             base.OnCharacteristicWrite(gatt, characteristic, status);
 
             Trace.Message("OnCharacteristicWrite: value {0} status {1}", characteristic.GetValue().ToHexString(), status);
-                      
+
             CharacteristicValueWritten?.Invoke(this, new CharacteristicWriteCallbackEventArgs(characteristic, GetExceptionFromGattStatus(status)));
         }
 
@@ -202,7 +194,18 @@ namespace Plugin.BLE.Android
         {
             base.OnDescriptorWrite(gatt, descriptor, status);
 
+            Trace.Message("OnDescriptorWrite: {0}", descriptor.GetValue()?.ToHexString());
+
             DescriptorValueWritten?.Invoke(this, new DescriptorCallbackEventArgs(descriptor, GetExceptionFromGattStatus(status)));
+        }
+
+        public override void OnDescriptorRead(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, GattStatus status)
+        {
+            base.OnDescriptorRead(gatt, descriptor, status);
+
+            Trace.Message("OnDescriptorRead: {0}", descriptor.GetValue()?.ToHexString());
+
+            DescriptorValueRead?.Invoke(this, new DescriptorCallbackEventArgs(descriptor, GetExceptionFromGattStatus(status)));
         }
 
         private Exception GetExceptionFromGattStatus(GattStatus status)
