@@ -2,7 +2,7 @@
 
 ## 1.1.0
 
-#### 1.1.0-beta3 (current)
+#### 1.1.0-beta4 (current)
 - #94 Android: Quickfix for descriptor read async, callback not invoked
 
 #### 1.1.0-beta3 
