@@ -66,7 +66,16 @@ namespace BLE.Client.ViewModels
                 if (value != null)
                 {
                     var bundle = new MvxBundle(new Dictionary<string, string>(Bundle.Data) { { CharacteristicIdKey, value.Id.ToString() } });
-                    ShowViewModel<CharacteristicDetailViewModel>(bundle);
+
+                    _userDialogs.ActionSheet(new ActionSheetConfig()
+                    {
+                        Cancel = new ActionSheetOption("Cancel"),
+                        Options = new List<ActionSheetOption>()
+                        {
+                            new ActionSheetOption("Details", () => ShowViewModel<CharacteristicDetailViewModel>(bundle)),
+                            new ActionSheetOption("Descriptors", () => ShowViewModel<DescriptorListViewModel>(bundle))
+                        }
+                    });
                 }
 
                 RaisePropertyChanged();

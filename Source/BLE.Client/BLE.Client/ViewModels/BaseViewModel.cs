@@ -14,6 +14,7 @@ namespace BLE.Client.ViewModels
         protected const string DeviceIdKey = "DeviceIdNavigationKey";
         protected const string ServiceIdKey = "ServiceIdNavigationKey";
         protected const string CharacteristicIdKey = "CharacteristicIdNavigationKey";
+        protected const string DescriptorIdKey = "DescriptorIdNavigationKey";
 
         public BaseViewModel(IAdapter adapter)
         {
@@ -71,6 +72,18 @@ namespace BLE.Client.ViewModels
 
             var characteristicId = parameters.Data[CharacteristicIdKey];
             return await service.GetCharacteristicAsync(Guid.Parse(characteristicId));
+        }
+
+        protected async Task<IDescriptor> GetDescriptorFromBundleAsync(IMvxBundle parameters)
+        {
+            var characteristic = await GetCharacteristicFromBundleAsync(parameters);
+            if (characteristic == null || !parameters.Data.ContainsKey(DescriptorIdKey))
+            {
+                return null;
+            }
+
+            var descriptorId = parameters.Data[DescriptorIdKey];
+            return characteristic.Descriptors.FirstOrDefault(d => d.Id.ToString() == descriptorId);
         }
     }
 }
