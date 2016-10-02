@@ -3,6 +3,9 @@
 ## 1.1.0
 
 #### 1.1.0-beta3 (current)
+- #94 Android: Quickfix for descriptor read async, callback not invoked
+
+#### 1.1.0-beta3 
 - #82 Enable setting PeripheralScanningOptions for ScanForPeripherals on iOS
 - #93 Fixed iOS crash when ble is off and ConnectingToKnownDeviceAsync. Wait for state & proper use of cancellation token.
 - #94 Implementation of descriptor Write/Read for iOS and Android.
