@@ -85,6 +85,11 @@
                  RowHeight="80"
                  ItemTemplate="{StaticResource DeviceItemTemplate}"/>
     </pages:BasePage>
+    <pages:BasePage Title="Paired devices">
+      <ListView ItemsSource="{Binding PairedDevices}" SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
+                RowHeight="80"
+                ItemTemplate="{StaticResource DeviceItemTemplate}"/>
+    </pages:BasePage>
   </pages:BaseTabbedPage.Children>
 
 </pages:BaseTabbedPage>

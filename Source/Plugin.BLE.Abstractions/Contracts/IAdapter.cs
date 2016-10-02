@@ -105,15 +105,25 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <returns></returns>
         Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken = default(CancellationToken));
 
-      
+
         /// <summary>
         /// Returns all BLE devices connected to the system. For android the implementations uses getConnectedDevices(GATT) and for ios the implementation uses get retrieveConnectedPeripherals(services)
         /// https://developer.apple.com/reference/corebluetooth/cbcentralmanager/1518924-retrieveconnectedperipherals
         /// https://developer.android.com/reference/android/bluetooth/BluetoothManager.html#getConnectedDevices(int)
+        /// In order to use the device in the app you have to first call ConnectAsync.
         /// </summary>
         /// <param name="services">Only considered by iOS due to platform limitations. Filters devices by advertised services. If default(null) no filtering applied.</param>
-        /// <returns>List of IDevices connected to the OS. In order to use the device in the app you have to first call ConnectAsync. In case of no devices the list is empty.</returns>
+        /// <returns>List of IDevices connected to the OS.  In case of no devices the list is empty.</returns>
         List<IDevice> GetSystemConnectedDevices(Guid[] services = null);
+
+        /// <summary>
+        /// Returns all BLE devices paired(bonded) with the system. For android the implementations uses getBondedDevices() and for ios the implementation uses get retrieveConnectedPeripherals() like in GetSystemConnectedDevices
+        /// https://developer.apple.com/reference/corebluetooth/cbcentralmanager/1518924-retrieveconnectedperipherals
+        /// https://developer.android.com/reference/android/bluetooth/BluetoothAdapter.html#getBondedDevices()
+        /// In order to use the device in the app you have to first call ConnectAsync.
+        /// </summary>
+        /// <returns>List of IDevices paired (not necessarly connecte) to the OS.  In case of no devices the list is empty.</returns>
+        List<IDevice> GetSystemPairedDevices();
 
     }
 }

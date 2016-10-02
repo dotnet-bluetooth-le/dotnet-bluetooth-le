@@ -160,9 +160,6 @@ namespace Plugin.BLE.Abstractions
                unsubscribeReject: handler => DeviceConnectionError -= handler);
         }
 
-		public abstract Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken = default(CancellationToken));
-        public abstract List<IDevice> GetSystemConnectedDevices(Guid[] services = null);
-        
         private void CleanupScan()
         {
             Trace.Message("Adapter: Stopping the scan for devices.");
@@ -230,5 +227,9 @@ namespace Plugin.BLE.Abstractions
         protected abstract void StopScanNative();
         protected abstract Task ConnectToDeviceNativeAsync(IDevice device, bool autoconnect, CancellationToken cancellationToken);
         protected abstract void DisconnectDeviceNative(IDevice device);
+
+        public abstract Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken = default(CancellationToken));
+        public abstract List<IDevice> GetSystemConnectedDevices(Guid[] services = null);
+        public abstract List<IDevice> GetSystemPairedDevices();
     }
 }

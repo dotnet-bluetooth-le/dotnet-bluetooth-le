@@ -45,6 +45,7 @@ namespace BLE.Client.ViewModels
         public bool IsRefreshing => Adapter.IsScanning;
         public bool IsStateOn => _bluetoothLe.IsOn;
         public string StateText => GetStateText();
+        public List<DeviceListItemViewModel> PairedDevices { get; private set; }
         public DeviceListItemViewModel SelectedDevice
         {
             get { return null; }
@@ -161,6 +162,27 @@ namespace BLE.Client.ViewModels
             await GetPreviousGuidAsync();
             //TryStartScanning();
 
+            GetSystemConnectedDevices();
+
+            GetSystemPairedDevices();
+        }
+
+        private void GetSystemPairedDevices()
+        {
+            try
+            {
+                PairedDevices = Adapter.GetSystemPairedDevices().Select(d => new DeviceListItemViewModel(d)).ToList();
+                RaisePropertyChanged(() => PairedDevices);
+            }
+            catch (Exception ex)
+            {
+                Trace.Message("Failed to retreive system paired devices. {0}", ex.Message);
+            }
+        }
+
+
+        private void GetSystemConnectedDevices()
+        {
             try
             {
                 SystemDevices = Adapter.GetSystemConnectedDevices().Select(d => new DeviceListItemViewModel(d)).ToList();

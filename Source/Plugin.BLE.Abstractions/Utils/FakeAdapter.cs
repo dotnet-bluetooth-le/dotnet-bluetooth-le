@@ -47,5 +47,11 @@ namespace Plugin.BLE.Abstractions.Utils
         {
             Trace.Message("Bluetooth LE is not available on this device. Nothing will happen - ever!");
         }
+
+        public override List<IDevice> GetSystemPairedDevices()
+        {
+            TraceUnavailability();
+            return new List<IDevice>();
+        }
     }
 }

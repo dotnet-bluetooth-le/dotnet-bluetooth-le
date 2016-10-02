@@ -22,7 +22,7 @@ namespace Plugin.BLE.Android
         private readonly Api18BleScanCallback _api18ScanCallback;
         private readonly Api21BleScanCallback _api21ScanCallback;
         private readonly GattCallback _gattCallback;
-        
+
 
         public override IList<IDevice> ConnectedDevices => ConnectedDeviceRegistry.Values.ToList();
 
@@ -189,6 +189,14 @@ namespace Plugin.BLE.Android
             var nativeDevices = _bluetoothManager.GetConnectedDevices(ProfileType.Gatt);
 
             return nativeDevices.Select(d => new Device(this, d, null, null, 0)).Cast<IDevice>().ToList();
+        }
+
+        public override List<IDevice> GetSystemPairedDevices()
+        {
+            return _bluetoothAdapter.BondedDevices
+                .Where(d => d.Type == BluetoothDeviceType.Le)
+                .Select(d => new Device(this, d, null, null, 0))
+                .Cast<IDevice>().ToList();
         }
 
         private void AddToDeviceOperationRegistry(IDevice device)
