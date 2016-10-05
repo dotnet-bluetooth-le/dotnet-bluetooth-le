@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Acr.UserDialogs;
 using MvvmCross.Core.ViewModels;
 using Plugin.BLE.Abstractions.Contracts;
 
@@ -10,7 +8,7 @@ namespace BLE.Client.ViewModels
     {
         private ICharacteristic _characteristic;
 
-        public IList<IDescriptor> Descriptors => _characteristic?.Descriptors;
+        public IList<IDescriptor> Descriptors { get; private set;}
 
         public DescriptorListViewModel(IAdapter adapter) : base(adapter)
         {
@@ -25,6 +23,7 @@ namespace BLE.Client.ViewModels
                 return;
             }
 
+
             Close(this);
         }
 
@@ -33,6 +32,9 @@ namespace BLE.Client.ViewModels
             base.InitFromBundle(parameters);
 
             _characteristic = await GetCharacteristicFromBundleAsync(parameters);
+
+            Descriptors = await _characteristic?.GetDescriptorsAsync();
+            RaisePropertyChanged(nameof(Descriptors));
         }
 
         public IDescriptor SelectedDescriptor

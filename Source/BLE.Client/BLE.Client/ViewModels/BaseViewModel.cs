@@ -83,7 +83,7 @@ namespace BLE.Client.ViewModels
             }
 
             var descriptorId = parameters.Data[DescriptorIdKey];
-            return characteristic.Descriptors.FirstOrDefault(d => d.Id.ToString() == descriptorId);
+            return await characteristic.GetDescriptorAsync(Guid.Parse(descriptorId));
         }
     }
 }

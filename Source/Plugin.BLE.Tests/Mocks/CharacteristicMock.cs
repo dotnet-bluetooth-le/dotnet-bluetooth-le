@@ -33,7 +33,7 @@ namespace Plugin.BLE.Tests.Mocks
 
         public override CharacteristicPropertyType Properties => MockPropterties;
 
-        protected override IList<IDescriptor> GetDescriptorsNative()
+        protected override Task<IList<IDescriptor>> GetDescriptorsNativeAsync()
         {
             throw new NotImplementedException();
         }

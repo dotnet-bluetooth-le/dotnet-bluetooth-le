@@ -45,11 +45,6 @@ namespace Plugin.BLE.Abstractions.Contracts
         string StringValue { get; }
 
         /// <summary>
-        /// List of descriptors.
-        /// </summary>
-        IList<IDescriptor> Descriptors { get; }
-
-        /// <summary>
         /// Properties of the characteristic.
         /// </summary>
         CharacteristicPropertyType Properties { get; }
@@ -108,6 +103,23 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <exception cref="Exception">Thrown if an error occurs while starting notifications </exception>
         /// </summary>
         Task StopUpdatesAsync();
+
+        /// <summary>
+        /// Gets the descriptors of the characteristic.
+        /// </summary>
+        /// <returns>A task that represents the asynchronous read operation. The Result property will contain a list of descriptors.</returns> 
+        Task<IList<IDescriptor>> GetDescriptorsAsync();
+
+        /// <summary>
+        /// Gets the first descriptor with the Id <paramref name="id"/>. 
+        /// </summary>
+        /// <param name="id">The id of the searched descriptor.</param>
+        /// <returns>
+        /// A task that represents the asynchronous read operation. 
+        /// The Result property will contain the descriptor with the specified <paramref name="id"/>.
+        /// If the descriptor doesn't exist, the Result will be null.
+        /// </returns>
+        Task<IDescriptor> GetDescriptorAsync(Guid id);
     }
 }
 

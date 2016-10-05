@@ -31,9 +31,26 @@ namespace Plugin.BLE.iOS
             _parentDevice = parentDevice;
         }
 
-        protected override IList<IDescriptor> GetDescriptorsNative()
+        protected override Task<IList<IDescriptor>> GetDescriptorsNativeAsync()
         {
-            return _nativeCharacteristic.Descriptors.Select(descriptor => new Descriptor(descriptor, _parentDevice)).Cast<IDescriptor>().ToList();
+            return TaskBuilder.FromEvent<IList<IDescriptor>, EventHandler<CBCharacteristicEventArgs>>(
+                execute: () => _parentDevice.DiscoverDescriptors(_nativeCharacteristic),
+                    getCompleteHandler: (complete, reject) => (sender, args) =>
+                    {
+                        if (args.Characteristic.UUID != _nativeCharacteristic.UUID)
+                            return;
+
+                        if (args.Error != null)
+                        {
+                            reject(new Exception($"Discover descriptors error: {args.Error.Description}"));
+                        }
+                        else
+                        {
+                            complete(args.Characteristic.Descriptors.Select(descriptor => new Descriptor(descriptor, _parentDevice)).Cast<IDescriptor>().ToList());
+                        }
+                    },
+                subscribeComplete: handler => _parentDevice.DiscoveredDescriptor += handler,
+                unsubscribeComplete: handler => _parentDevice.DiscoveredDescriptor -= handler);
         }
 
         protected override Task<byte[]> ReadNativeAsync()
@@ -51,7 +68,7 @@ namespace Plugin.BLE.iOS
                         }
                         else
                         {
-                            Trace.Message($"Read characterteristic value {Value.ToHexString()}");
+                            Trace.Message($"Read characterteristic value: {Value?.ToHexString()}");
                             complete(Value);
                         }
                     },
@@ -130,7 +147,7 @@ namespace Plugin.BLE.iOS
                       {
                           reject(new Exception($"Stop Notifications: Error {args.Error.Description}"));
                       }
-                      else 
+                      else
                       {
                           Trace.Message($"StopUpdates IsNotifying: {args.Characteristic.IsNotifying}");
                           complete(args.Characteristic.IsNotifying);

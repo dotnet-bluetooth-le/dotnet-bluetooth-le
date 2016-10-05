@@ -38,9 +38,9 @@ namespace Plugin.BLE.Android
             _gattCallback = gattCallback;
         }
 
-        protected override IList<IDescriptor> GetDescriptorsNative()
+        protected override Task<IList<IDescriptor>> GetDescriptorsNativeAsync()
         {
-            return _nativeCharacteristic.Descriptors.Select(item => new Descriptor(item, _gatt, _gattCallback)).Cast<IDescriptor>().ToList();
+            return Task.FromResult<IList<IDescriptor>>(_nativeCharacteristic.Descriptors.Select(item => new Descriptor(item, _gatt, _gattCallback)).Cast<IDescriptor>().ToList());
         }
 
         protected override async Task<byte[]> ReadNativeAsync()
@@ -104,7 +104,7 @@ namespace Plugin.BLE.Android
         {
             // wire up the characteristic value updating on the gattcallback for event forwarding
             _gattCallback.CharacteristicValueUpdated += OnCharacteristicValueChanged;
-                       
+
             if (!_gatt.SetCharacteristicNotification(_nativeCharacteristic, true))
                 throw new CharacteristicReadException("Gatt SetCharacteristicNotification FAILED.");
 
@@ -119,9 +119,9 @@ namespace Plugin.BLE.Android
 
             if (_nativeCharacteristic.Descriptors.Count > 0)
             {
-
-                var descriptor = Descriptors.FirstOrDefault(d => d.Id.Equals(ClientCharacteristicConfigurationDescriptorId)) ??
-                                            Descriptors.FirstOrDefault(); // fallback just in case manufacturer forgot
+                var descriptors = await GetDescriptorsAsync();
+                var descriptor = descriptors.FirstOrDefault(d => d.Id.Equals(ClientCharacteristicConfigurationDescriptorId)) ??
+                                            descriptors.FirstOrDefault(); // fallback just in case manufacturer forgot
 
                 //has to have one of these (either indicate or notify)
                 if (Properties.HasFlag(CharacteristicPropertyType.Indicate))

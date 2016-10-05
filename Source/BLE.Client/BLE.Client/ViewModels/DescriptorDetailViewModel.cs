@@ -12,14 +12,13 @@ namespace BLE.Client.ViewModels
     public class DescriptorDetailViewModel : BaseViewModel
     {
         private readonly IUserDialogs _userDialogs;
-        private bool _updatesStarted;
         public IDescriptor Descriptor { get; private set; }
 
-        public string DescriptorValue => Descriptor?.Value.ToHexString().Replace("-", " ");
+        public string DescriptorValue => Descriptor?.Value?.ToHexString().Replace("-", " ");
 
         public ObservableCollection<string> Messages { get; } = new ObservableCollection<string>();
 
-        public string UpdateButtonText => _updatesStarted ? "Stop updates" : "Start updates";
+
 
         public DescriptorDetailViewModel(IAdapter adapter, IUserDialogs userDialogs) : base(adapter)
         {

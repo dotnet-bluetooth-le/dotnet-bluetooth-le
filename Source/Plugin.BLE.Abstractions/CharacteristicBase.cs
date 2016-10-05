@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Plugin.BLE.Abstractions.Contracts;
@@ -52,20 +53,6 @@ namespace Plugin.BLE.Abstractions
                     return string.Empty;
 
                 return Encoding.UTF8.GetString(val, 0, val.Length);
-            }
-        }
-
-        public IList<IDescriptor> Descriptors
-        {
-            get
-            {
-                if (_descriptors != null)
-                {
-                    return _descriptors;
-                }
-
-                _descriptors = GetDescriptorsNative();
-                return _descriptors;
             }
         }
 
@@ -129,7 +116,20 @@ namespace Plugin.BLE.Abstractions
             return StopUpdatesNativeAsync();
         }
 
-        protected abstract IList<IDescriptor> GetDescriptorsNative();
+        public async Task<IList<IDescriptor>> GetDescriptorsAsync()
+        {
+            if (_descriptors == null)
+                _descriptors = await GetDescriptorsNativeAsync();
+            return _descriptors;
+        }
+
+        public async Task<IDescriptor> GetDescriptorAsync(Guid id)
+        {
+            var descriptors = await GetDescriptorsAsync().ConfigureAwait(false);
+            return descriptors.FirstOrDefault(d => d.Id == id);
+        }
+
+        protected abstract Task<IList<IDescriptor>> GetDescriptorsNativeAsync();
         protected abstract Task<byte[]> ReadNativeAsync();
         protected abstract Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType);
         protected abstract Task StartUpdatesNativeAsync();
