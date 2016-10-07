@@ -2,7 +2,12 @@
 
 ## 1.1.0
 
-#### 1.1.0-beta4 (current)
+#### 1.1.0-beta5 (current)
+- #97 Fixe iOS GetSystemConnectedDevices implementation. FYI method is now called GetSystemConnectedOrPairedDevices
+- #98 and #96 Merged GetSystemConnectedDevices and GetSystemPairedDevice into single method. iOS has no equivalent method for this so it makes more sense like this. 
+- #94 iOS: Quickfix, change to GetDescriptorsAsync in order to wait for callback
+
+#### 1.1.0-beta4
 - #94 Android: Quickfix for descriptor read async, callback not invoked
 
 #### 1.1.0-beta3 
