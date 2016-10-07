@@ -15,12 +15,6 @@ namespace Plugin.BLE.Abstractions.Utils
             return Task.FromResult<IDevice>(null);
         }
 
-        public override List<IDevice> GetSystemConnectedDevices(Guid[] services = null)
-        {
-            TraceUnavailability();
-            return new List<IDevice>();
-        }
-
         protected override Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
         {
             TraceUnavailability();
@@ -48,7 +42,7 @@ namespace Plugin.BLE.Abstractions.Utils
             Trace.Message("Bluetooth LE is not available on this device. Nothing will happen - ever!");
         }
 
-        public override List<IDevice> GetSystemPairedDevices()
+        public override List<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null)
         {
             TraceUnavailability();
             return new List<IDevice>();

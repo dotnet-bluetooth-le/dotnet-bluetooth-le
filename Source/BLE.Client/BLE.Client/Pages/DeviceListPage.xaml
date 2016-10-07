@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <pages:BaseTabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:BLE.Client.Pages;assembly=BLE.Client"
@@ -84,11 +84,6 @@
        <ListView ItemsSource="{Binding SystemDevices}" SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
                  RowHeight="80"
                  ItemTemplate="{StaticResource DeviceItemTemplate}"/>
-    </pages:BasePage>
-    <pages:BasePage Title="Paired devices">
-      <ListView ItemsSource="{Binding PairedDevices}" SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
-                RowHeight="80"
-                ItemTemplate="{StaticResource DeviceItemTemplate}"/>
     </pages:BasePage>
   </pages:BaseTabbedPage.Children>
 

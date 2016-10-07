@@ -228,22 +228,15 @@ namespace Plugin.BLE.iOS
             return device;
         }
 
-        public override List<IDevice> GetSystemConnectedDevices(Guid[] services = null)
+        public override List<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null)
         {
-            var serviceUuids = new CBUUID[0];
+            CBUUID[] serviceUuids = null;
             if (services != null)
             {
-                serviceUuids = services.Select(s => CBUUID.FromString(services.ToString())).ToArray();
-            }
+                serviceUuids = services.Select(guid => CBUUID.FromString(guid.ToString())).ToArray();
+            }           
 
             var nativeDevices = _centralManager.RetrieveConnectedPeripherals(serviceUuids);
-
-            return nativeDevices.Select(d => new Device(this, d)).Cast<IDevice>().ToList();
-        }
-
-        public override List<IDevice> GetSystemPairedDevices()
-        {
-            var nativeDevices = _centralManager.RetrieveConnectedPeripherals(new CBUUID[0]);
 
             return nativeDevices.Select(d => new Device(this, d)).Cast<IDevice>().ToList();
         }
@@ -254,7 +247,7 @@ namespace Plugin.BLE.iOS
 
             while (_centralManager.State != state && !cancellationToken.IsCancellationRequested)
             {
-                await Task.Run(() => _stateChanged.WaitOne(2000), cancellationToken).ConfigureAwait(false);
+                await Task.Run(() => _stateChanged.WaitOne(2000), cancellationToken).ConfigureAwait(configureAwait);
             }
         }
 

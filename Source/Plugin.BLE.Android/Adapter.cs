@@ -179,25 +179,33 @@ namespace Plugin.BLE.Android
             return device;
         }
 
-        public override List<IDevice> GetSystemConnectedDevices(Guid[] services = null)
+        public override List<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null)
         {
             if (services != null)
             {
                 Trace.Message("Caution: GetSystemConnectedDevices does not take into account the 'services' parameter on Android.");
             }
 
-            var nativeDevices = _bluetoothManager.GetConnectedDevices(ProfileType.Gatt);
+            var connectedDevices = _bluetoothManager.GetConnectedDevices(ProfileType.Gatt).Where(d => d.Type == BluetoothDeviceType.Le);
 
-            return nativeDevices.Select(d => new Device(this, d, null, null, 0)).Cast<IDevice>().ToList();
+            var bondedDevices = _bluetoothAdapter.BondedDevices.Where(d => d.Type == BluetoothDeviceType.Le);
+
+            return connectedDevices.Union(bondedDevices, new DeviceComparer()).Select(d => new Device(this, d, null, null, 0)).Cast<IDevice>().ToList();
         }
 
-        public override List<IDevice> GetSystemPairedDevices()
+        private class DeviceComparer : IEqualityComparer<BluetoothDevice>
         {
-            return _bluetoothAdapter.BondedDevices
-                .Where(d => d.Type == BluetoothDeviceType.Le)
-                .Select(d => new Device(this, d, null, null, 0))
-                .Cast<IDevice>().ToList();
+            public bool Equals(BluetoothDevice x, BluetoothDevice y)
+            {
+                return x.Address == y.Address;
+            }
+
+            public int GetHashCode(BluetoothDevice obj)
+            {
+                return obj.GetHashCode();
+            }
         }
+
 
         private void AddToDeviceOperationRegistry(IDevice device)
         {

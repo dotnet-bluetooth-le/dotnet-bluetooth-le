@@ -107,7 +107,7 @@ namespace Plugin.BLE.Android
         {
             var manager = (BluetoothManager)Application.Context.GetSystemService(Context.BluetoothService);
             var state = manager.GetConnectionState(_nativeDevice, ProfileType.Gatt);
-
+       
             switch (state)
             {
                 case ProfileState.Connected:

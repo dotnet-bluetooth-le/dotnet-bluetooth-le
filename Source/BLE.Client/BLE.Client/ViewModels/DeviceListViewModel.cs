@@ -45,7 +45,6 @@ namespace BLE.Client.ViewModels
         public bool IsRefreshing => Adapter.IsScanning;
         public bool IsStateOn => _bluetoothLe.IsOn;
         public string StateText => GetStateText();
-        public List<DeviceListItemViewModel> PairedDevices { get; private set; }
         public DeviceListItemViewModel SelectedDevice
         {
             get { return null; }
@@ -162,30 +161,18 @@ namespace BLE.Client.ViewModels
             await GetPreviousGuidAsync();
             //TryStartScanning();
 
-            GetSystemConnectedDevices();
+            GetSystemConnectedOrPairedDevices();
 
-            GetSystemPairedDevices();
-        }
+        }  
 
-        private void GetSystemPairedDevices()
+        private void GetSystemConnectedOrPairedDevices()
         {
             try
             {
-                PairedDevices = Adapter.GetSystemPairedDevices().Select(d => new DeviceListItemViewModel(d)).ToList();
-                RaisePropertyChanged(() => PairedDevices);
-            }
-            catch (Exception ex)
-            {
-                Trace.Message("Failed to retreive system paired devices. {0}", ex.Message);
-            }
-        }
+                //heart rate
+                var guid = Guid.Parse("0000180d-0000-1000-8000-00805f9b34fb");
 
-
-        private void GetSystemConnectedDevices()
-        {
-            try
-            {
-                SystemDevices = Adapter.GetSystemConnectedDevices().Select(d => new DeviceListItemViewModel(d)).ToList();
+                SystemDevices = Adapter.GetSystemConnectedOrPairedDevices(new[] { guid }).Select(d => new DeviceListItemViewModel(d)).ToList();
                 RaisePropertyChanged(() => SystemDevices);
             }
             catch (Exception ex)
