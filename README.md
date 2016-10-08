@@ -125,6 +125,23 @@ catch(DeviceConnectionException e)
 }
 ```
 
+#### Connect to known Device
+`ConnectToKnownDeviceAsync` can connect to a device by only passing a GUI. This means that if the device GUID is known no scan is neccessary to connect to a device. Very usefull for fast background reconnect.
+Always use a cancellation toke with this method. 
+- On **iOS** it will attempt to connect indefinately, even if out of range, so the only way to cancel it is with the token.
+- On **Android** this will throw a GATT ERROR in a couple of seconds if the device is out of range.
+
+```csharp
+try 
+{
+    await _adapter.ConnectToKnownDeviceAync(guid, cancellationToken);
+}
+catch(DeviceConnectionException e)
+{
+    // ... could not connect to device
+}
+```
+
 #### Get services
 ```csharp
 var services = await connectedDevice.GetServicesAsync();
@@ -160,9 +177,25 @@ characteristic.ValueUpdated += (o, args) =>
     var bytes = args.Characteristic.Value;
 };
 
-characteristic.StartUpdates();
+await characteristic.StartUpdatesAsync();
 
 ```
+
+#### Get descriptors
+```csharp
+var descriptors = await characteristic.GetDescriptorsAsync();
+```
+
+#### Read descriptor
+```csharp
+var bytes = await descriptor.ReadAsync();
+```
+
+#### Write descriptor
+```csharp
+await descriptor.WriteAsync(bytes);
+```
+
 ## Best practice
 
 ### API
