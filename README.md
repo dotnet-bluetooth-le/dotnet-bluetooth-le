@@ -1,7 +1,7 @@
 # <img src="icon_small.png" width="71" height="71"/> Bluetooth LE plugin for Xamarin [![Build Status](https://www.bitrise.io/app/3fe54d0a5f43c2bf.svg?token=i9LUY4rIecZWd_3j7hwXgw)](https://www.bitrise.io/app/3fe54d0a5f43c2bf)
 
 
-Xamarin and MvvMCross plugin for accessing the bluetooth functionality. The plugin is based on the BLE implementation of [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics). 
+Xamarin and MvvMCross plugin for accessing the bluetooth functionality. The plugin is loosely based on the BLE implementation of [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics). 
 
 **Important Note:** With the term *"vanilla"* we mean the non MvvmCross/pure Xamarin version. You **can** use it without MvvmCross, if you download the vanilla package.
 
@@ -28,7 +28,7 @@ Install-Package Plugin.BLE -Pre
 
 ```
 Install-Package MvvmCross.Plugin.BLE
-// or (recommended for now until we release 1.0.0 stable)
+// or 
 Install-Package MvvmCross.Plugin.BLE -Pre
 ```
 
@@ -36,7 +36,7 @@ Install-Package MvvmCross.Plugin.BLE -Pre
 
 **Android**
 
-Add these permissions to AndroidManifest.xml. For Marshmallow, please follow [Requesting Runtime Permissions in Android Marshmallow](https://blog.xamarin.com/requesting-runtime-permissions-in-android-marshmallow/) 
+Add these permissions to AndroidManifest.xml. For Marshmallow and above, please follow [Requesting Runtime Permissions in Android Marshmallow](https://blog.xamarin.com/requesting-runtime-permissions-in-android-marshmallow/) and don't forget to prompt the user for the location permission.
 
 ```xml
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -196,6 +196,26 @@ var bytes = await descriptor.ReadAsync();
 await descriptor.WriteAsync(bytes);
 ```
 
+#### Get System Devices
+        
+Returns all BLE devices connected or bonded(android) to the system. In order to use the device in the app you have to first call ConnectAsync.
+- For iOS the implementation uses get [retrieveConnectedPeripherals(services)](https://developer.apple.com/reference/corebluetooth/cbcentralmanager/1518924-retrieveconnectedperipherals)
+- For Android this function merges the functionality of thw following API calls:
+    - [getConnectedDevices](https://developer.android.com/reference/android/bluetooth/BluetoothManager.html#getConnectedDevices(int))
+    - [getBondedDevices()](https://developer.android.com/reference/android/bluetooth/BluetoothAdapter.html#getBondedDevices()) 
+
+  
+```csharp
+
+var systemDevices = adapter.GetSystemConnectedOrPairedDevices();
+
+foreach(var device in systemDevice)
+{
+    await _adapter.ConnectToDeviceAync(device); 
+}
+
+```
+
 ## Best practice
 
 ### API
@@ -214,12 +234,12 @@ await descriptor.WriteAsync(bytes);
         //generic
     }
 ```
-- **Avoid caching of Characteristic or Service instances between connection sessions**. This includes saving a reference to them in you class etc. After a device has been disconnected all Service & Characteristic instances become invalid. Allways **use GetServiceAsync and GetCharacteristicAsync to get a valid instance**.
+- **Avoid caching of Characteristic or Service instances between connection sessions**. This includes saving a reference to them in you class between connection sessions etc. After a device has been disconnected all Service & Characteristic instances become **invalid**. Allways **use GetServiceAsync and GetCharacteristicAsync to get a valid instance**.
  
 ### General BLE iOS, Android
 
 - Scanning: Avoid performing ble device operations like Connect, Read, Write etc while scanning for devices. Scanning is battery-intensive.
-    - try to stop scanning before performint device operations
+    - try to stop scanning before performing device operations (connect/read/write/etc)
     - try to stop scanning as soon as you find the desired device
     - never scan on a loop, and set a time limit on your scan
 
