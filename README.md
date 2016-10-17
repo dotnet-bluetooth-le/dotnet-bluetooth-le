@@ -198,7 +198,7 @@ await descriptor.WriteAsync(bytes);
 
 #### Get System Devices
         
-Returns all BLE devices connected or bonded(android) to the system. In order to use the device in the app you have to first call ConnectAsync.
+Returns all BLE devices connected or bonded (only Android) to the system. In order to use the device in the app you have to first call ConnectAsync.
 - For iOS the implementation uses get [retrieveConnectedPeripherals(services)](https://developer.apple.com/reference/corebluetooth/cbcentralmanager/1518924-retrieveconnectedperipherals)
 - For Android this function merges the functionality of thw following API calls:
     - [getConnectedDevices](https://developer.android.com/reference/android/bluetooth/BluetoothManager.html#getConnectedDevices(int))
@@ -209,7 +209,7 @@ Returns all BLE devices connected or bonded(android) to the system. In order to 
 
 var systemDevices = adapter.GetSystemConnectedOrPairedDevices();
 
-foreach(var device in systemDevice)
+foreach(var device in systemDevices)
 {
     await _adapter.ConnectToDeviceAync(device); 
 }
