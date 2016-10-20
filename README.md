@@ -256,6 +256,10 @@ foreach(var device in systemDevices)
 - [MvvmCross](https://github.com/MvvmCross)
 - [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics)
 
+## How to contribute
+
+We usually do our development work on a branch with the name of the milestone. So please base your pull requests on the currently open development branch. The current one is 1.1.0.
+
 ## Licence
 
 [Apache 2.0](https://github.com/xabre/MvvmCross-BluetoothLE/blob/master/LICENSE)
