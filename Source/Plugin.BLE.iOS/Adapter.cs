@@ -297,6 +297,11 @@ namespace Plugin.BLE.iOS
                     records.Add(new AdvertisementRecord(AdvertisementRecordType.UuidsComplete128Bit,
                         dataList.SelectMany(d => d.ToArray()).ToArray()));
                 }
+				else if (key == CBAdvertisement.DataTxPowerLevelKey)
+				{
+					var arr = NSData.FromString(advertisementData.ObjectForKey(key).ToString()).ToArray();
+					records.Add(new AdvertisementRecord(AdvertisementRecordType.TxPowerLevel, arr));
+				}
                 else
                 {
                     Trace.Message("Parsing Advertisement: Ignoring Advertisement entry for key {0}, since we don't know how to parse it yet",
