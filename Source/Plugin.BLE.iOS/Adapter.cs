@@ -299,7 +299,11 @@ namespace Plugin.BLE.iOS
                 }
 				else if (key == CBAdvertisement.DataTxPowerLevelKey)
 				{
-					var arr = NSData.FromString(advertisementData.ObjectForKey(key).ToString()).ToArray();
+					//iOS stores TxPower as NSNumber. Get int value of number and convert it into a signed Byte
+					//TxPower has a range from -100 to 20 which can fit into a single signed byte (-128 to 127)
+					sbyte byteValue = Convert.ToSByte(((NSNumber)advertisementData.ObjectForKey(key)).Int32Value);
+					//add our signed byte to a new byte array and return it (same parsed value as android returns)
+					byte[] arr = { (byte)byteValue };
 					records.Add(new AdvertisementRecord(AdvertisementRecordType.TxPowerLevel, arr));
 				}
                 else
