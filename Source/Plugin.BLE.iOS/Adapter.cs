@@ -306,6 +306,36 @@ namespace Plugin.BLE.iOS
 					byte[] arr = { (byte)byteValue };
 					records.Add(new AdvertisementRecord(AdvertisementRecordType.TxPowerLevel, arr));
 				}
+                else if (key == CBAdvertisement.DataServiceDataKey)
+				{
+					//Service data from CoreBluetooth is returned as a key/value dictionary with the key being
+					//the service uuid (CBUUID) and the value being the NSData (bytes) of the service
+					//This is where you'll find eddystone and other service specific data
+					NSDictionary serviceDict = (NSDictionary)advertisementData.ObjectForKey(key);
+					//There can be multiple services returned in the dictionary, so loop through them
+					foreach (CBUUID dKey in serviceDict.Keys)
+					{
+						//Get the service key in bytes (from NSData)
+						byte[] keyAsData = dKey.Data.ToArray();
+
+						//Service UUID's are read backwards (little endian) according to specs, 
+						//CoreBluetooth returns the service UUIDs as Big Endian
+						//but to match the raw service data returned from Android we need to reverse it back
+						//Note haven't tested it yet on 128bit service UUID's, but should work
+						Array.Reverse(keyAsData);
+
+						//The service data under this key can just be turned into an arra
+						byte[] valueAsData = ((NSData)serviceDict.ObjectForKey(dKey)).ToArray();
+
+						//Now we append the key and value data and return that so that our parsing matches the raw
+						//byte value returned from the Android library (which matches the raw bytes from the device)
+						byte[] arr = new byte[keyAsData.Length + valueAsData.Length];
+						Buffer.BlockCopy(keyAsData, 0, arr, 0, keyAsData.Length);
+						Buffer.BlockCopy(valueAsData, 0, arr, keyAsData.Length, valueAsData.Length);
+
+						records.Add(new AdvertisementRecord(AdvertisementRecordType.ServiceData, arr));
+					}
+				}
                 else
                 {
                     Trace.Message("Parsing Advertisement: Ignoring Advertisement entry for key {0}, since we don't know how to parse it yet",
