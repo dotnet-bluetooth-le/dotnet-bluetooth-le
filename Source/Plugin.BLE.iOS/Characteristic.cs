@@ -25,7 +25,7 @@ namespace Plugin.BLE.iOS
         public override byte[] Value => _nativeCharacteristic.Value?.ToArray();
         public override CharacteristicPropertyType Properties => (CharacteristicPropertyType)(int)_nativeCharacteristic.Properties;
 
-        public Characteristic(CBCharacteristic nativeCharacteristic, CBPeripheral parentDevice)
+        public Characteristic(CBCharacteristic nativeCharacteristic, CBPeripheral parentDevice, IService service) : base(service)
         {
             _nativeCharacteristic = nativeCharacteristic;
             _parentDevice = parentDevice;
@@ -46,7 +46,7 @@ namespace Plugin.BLE.iOS
                         }
                         else
                         {
-                            complete(args.Characteristic.Descriptors.Select(descriptor => new Descriptor(descriptor, _parentDevice)).Cast<IDescriptor>().ToList());
+                            complete(args.Characteristic.Descriptors.Select(descriptor => new Descriptor(descriptor, _parentDevice, this)).Cast<IDescriptor>().ToList());
                         }
                     },
                 subscribeComplete: handler => _parentDevice.DiscoveredDescriptor += handler,

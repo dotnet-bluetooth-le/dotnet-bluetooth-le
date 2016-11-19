@@ -16,10 +16,10 @@ namespace Plugin.BLE.iOS
         public override Guid Id => _service.UUID.GuidFromUuid();
         public override bool IsPrimary => _service.Primary;
 
-        public Service(CBService service, CBPeripheral device)
+        public Service(CBService service, IDevice device) : base(device)
         {
             _service = service;
-            _device = device;
+            _device = device.NativeDevice as CBPeripheral;
         }
 
         protected override Task<IEnumerable<ICharacteristic>> GetCharacteristicsNativeAsync()
@@ -33,7 +33,7 @@ namespace Plugin.BLE.iOS
                 _device.DiscoveredCharacteristic -= handler;
                 if (args.Error == null)
                 {
-                    var characteristics = _service.Characteristics.Select(characteristic => new Characteristic(characteristic, _device));
+                    var characteristics = _service.Characteristics.Select(characteristic => new Characteristic(characteristic, _device, this));
                     tcs.TrySetResult(characteristics);
                 }
                 else

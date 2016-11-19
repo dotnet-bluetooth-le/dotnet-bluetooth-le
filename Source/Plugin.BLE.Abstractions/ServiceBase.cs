@@ -13,6 +13,12 @@ namespace Plugin.BLE.Abstractions
         public string Name => KnownServices.Lookup(Id).Name;
         public abstract Guid Id { get; }
         public abstract bool IsPrimary { get; }
+        public IDevice Device { get; }
+
+        protected ServiceBase(IDevice device)
+        {
+            Device = device;
+        }
 
         public async Task<IEnumerable<ICharacteristic>> GetCharacteristicsAsync()
         {

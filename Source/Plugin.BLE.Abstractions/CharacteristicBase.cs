@@ -20,6 +20,7 @@ namespace Plugin.BLE.Abstractions
         public abstract byte[] Value { get; }
         public string Name => KnownCharacteristics.Lookup(Id).Name;
         public abstract CharacteristicPropertyType Properties { get; }
+        public IService Service { get; }
 
         public CharacteristicWriteType WriteType
         {
@@ -54,6 +55,11 @@ namespace Plugin.BLE.Abstractions
 
                 return Encoding.UTF8.GetString(val, 0, val.Length);
             }
+        }
+
+        protected CharacteristicBase(IService service)
+        {
+            Service = service;
         }
 
         public async Task<byte[]> ReadAsync()

@@ -31,7 +31,7 @@ namespace Plugin.BLE.Android
         public override CharacteristicPropertyType Properties => (CharacteristicPropertyType)(int)_nativeCharacteristic.Properties;
 
         public Characteristic(BluetoothGattCharacteristic nativeCharacteristic, BluetoothGatt gatt,
-            IGattCallback gattCallback)
+            IGattCallback gattCallback, IService service) : base(service)
         {
             _nativeCharacteristic = nativeCharacteristic;
             _gatt = gatt;
@@ -40,7 +40,7 @@ namespace Plugin.BLE.Android
 
         protected override Task<IList<IDescriptor>> GetDescriptorsNativeAsync()
         {
-            return Task.FromResult<IList<IDescriptor>>(_nativeCharacteristic.Descriptors.Select(item => new Descriptor(item, _gatt, _gattCallback)).Cast<IDescriptor>().ToList());
+            return Task.FromResult<IList<IDescriptor>>(_nativeCharacteristic.Descriptors.Select(item => new Descriptor(item, _gatt, _gattCallback, this)).Cast<IDescriptor>().ToList());
         }
 
         protected override async Task<byte[]> ReadNativeAsync()

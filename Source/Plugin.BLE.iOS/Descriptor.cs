@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using CoreBluetooth;
 using Plugin.BLE.Abstractions;
 using Foundation;
+using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.Utils;
 
 namespace Plugin.BLE.iOS
@@ -35,7 +36,7 @@ namespace Plugin.BLE.iOS
 
         private readonly CBPeripheral _parentDevice;
 
-        public Descriptor(CBDescriptor nativeDescriptor, CBPeripheral parentDevice)
+        public Descriptor(CBDescriptor nativeDescriptor, CBPeripheral parentDevice, ICharacteristic characteristic) : base(characteristic)
         {
             _parentDevice = parentDevice;
             _nativeDescriptor = nativeDescriptor;

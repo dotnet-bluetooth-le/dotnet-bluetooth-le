@@ -60,7 +60,7 @@ namespace Plugin.BLE.Android
             handler = (sender, args) =>
             {
                 _gattCallback.ServicesDiscovered -= handler;
-                tcs.TrySetResult(_gatt.Services.Select(service => new Service(service, _gatt, _gattCallback)));
+                tcs.TrySetResult(_gatt.Services.Select(service => new Service(service, _gatt, _gattCallback, this)));
             };
 
             _gattCallback.ServicesDiscovered += handler;
@@ -74,8 +74,7 @@ namespace Plugin.BLE.Android
         {
             if (_gatt != null)
             {
-                //TODO: clear cached services
-                KnownServices.Clear();
+                ClearServices();
 
                 _gatt.Disconnect();
             }

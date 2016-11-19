@@ -67,7 +67,7 @@ namespace Plugin.BLE.iOS
                 foreach (var s in _nativeDevice.Services)
                 {
                     Trace.Message("Device.Discovered Service: " + s.Description);
-                    services[s.UUID] = new Service(s, _nativeDevice);
+                    services[s.UUID] = new Service(s, this);
                 }
 
                 tcs.TrySetResult(services.Values);
@@ -77,11 +77,6 @@ namespace Plugin.BLE.iOS
             _nativeDevice.DiscoverServices();
 
             return await tcs.Task;
-        }
-
-        public void ClearServices()
-        {
-            KnownServices.Clear();
         }
 
         public override async Task<bool> UpdateRssiAsync()

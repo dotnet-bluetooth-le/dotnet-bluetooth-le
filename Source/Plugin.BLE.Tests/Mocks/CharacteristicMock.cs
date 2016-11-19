@@ -21,6 +21,10 @@ namespace Plugin.BLE.Tests.Mocks
             }
         }
 
+        public CharacteristicMock(IService service = null) : base(service)
+        {
+        }
+
         public CharacteristicPropertyType MockPropterties { get; set; }
         public byte[] MockValue { get; set; }
         public List<WriteOperation> WriteHistory { get; } = new List<WriteOperation>();
