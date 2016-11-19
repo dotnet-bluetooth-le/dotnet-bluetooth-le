@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.2.0-beta1
+- #90: API change, added parent reference for IDescriptor to ICharacteristic to IService to IDevice
+- #109, #111 merge PR: iOS parse TxPower, ServiceData
+
 ## 1.1.0 (current stable)
 
 #### 1.1.0-beta5 

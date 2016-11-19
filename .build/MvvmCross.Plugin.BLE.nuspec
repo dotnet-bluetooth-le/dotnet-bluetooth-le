@@ -15,6 +15,9 @@
     <tags>mvvm mvvmcross mvx xamarin monodroid Xamarin.iOS Xamarin.Android Bluetooth Low Energy BLE LE BTLE Smart ios android forms xamarinforms</tags>
     <iconUrl>https://raw.githubusercontent.com/xabre/xamarin-bluetooth-le/master/icon_small.png</iconUrl>
     <releaseNotes>
+      [1.2.0-beta1]
+      - #90: API change, added parent reference for IDescriptor to ICharacteristic to IService to IDevice
+      - #109, #111 merge PR: iOS parse TxPower, ServiceData
       [1.1.0]
       - stable release incuding all beta features
       [1.1.0-beta5]
