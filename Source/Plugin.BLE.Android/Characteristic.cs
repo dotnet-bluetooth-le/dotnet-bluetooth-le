@@ -27,7 +27,7 @@ namespace Plugin.BLE.Android
 
         public override Guid Id => Guid.Parse(_nativeCharacteristic.Uuid.ToString());
         public override string Uuid => _nativeCharacteristic.Uuid.ToString();
-        public override byte[] Value => _nativeCharacteristic.GetValue();
+        public override byte[] Value => _nativeCharacteristic.GetValue() ?? new byte[0];
         public override CharacteristicPropertyType Properties => (CharacteristicPropertyType)(int)_nativeCharacteristic.Properties;
 
         public Characteristic(BluetoothGattCharacteristic nativeCharacteristic, BluetoothGatt gatt,
