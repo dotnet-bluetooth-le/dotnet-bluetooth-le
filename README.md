@@ -90,7 +90,7 @@ MyViewModel(IBluetoothLE ble, IAdapter adapter)
 }
 ```
 
-### IBluetothLE
+### IBluetoothLE
 #### Get the bluetooth status
 ```csharp
 var state = ble.State;
