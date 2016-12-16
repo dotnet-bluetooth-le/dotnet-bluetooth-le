@@ -163,7 +163,7 @@ namespace BLE.Client.ViewModels
 
             GetSystemConnectedOrPairedDevices();
 
-        }  
+        }
 
         private void GetSystemConnectedOrPairedDevices()
         {
@@ -222,8 +222,8 @@ namespace BLE.Client.ViewModels
             _cancellationTokenSource = new CancellationTokenSource();
             RaisePropertyChanged(() => StopScanCommand);
 
-            Adapter.StartScanningForDevicesAsync(_cancellationTokenSource.Token);
             RaisePropertyChanged(() => IsRefreshing);
+            await Adapter.StartScanningForDevicesAsync(_cancellationTokenSource.Token);
         }
 
         private void CleanupCancellationToken()

@@ -24,10 +24,11 @@ namespace Plugin.BLE.Android
             _gattCallback = gattCallback;
         }
 
-        protected override async Task<IEnumerable<ICharacteristic>> GetCharacteristicsNativeAsync()
+        protected override Task<IList<ICharacteristic>> GetCharacteristicsNativeAsync()
         {
-            return
-                _nativeService.Characteristics.Select(characteristic => new Characteristic(characteristic, _gatt, _gattCallback, this));
+            return Task.FromResult<IList<ICharacteristic>>(
+                _nativeService.Characteristics.Select(characteristic => new Characteristic(characteristic, _gatt, _gattCallback, this))
+                .Cast<ICharacteristic>().ToList());
         }
     }
 }

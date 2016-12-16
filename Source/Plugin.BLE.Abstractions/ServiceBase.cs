@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Plugin.BLE.Abstractions.Contracts;
+using System.Collections.ObjectModel;
 
 namespace Plugin.BLE.Abstractions
 {
@@ -18,25 +19,26 @@ namespace Plugin.BLE.Abstractions
         protected ServiceBase(IDevice device)
         {
             Device = device;
+
         }
 
-        public async Task<IEnumerable<ICharacteristic>> GetCharacteristicsAsync()
+        public async Task<IList<ICharacteristic>> GetCharacteristicsAsync()
         {
             if (!_characteristics.Any())
-            {
-                var characteristics = await GetCharacteristicsNativeAsync().ConfigureAwait(false);
-                _characteristics.AddRange(characteristics);
+            {    
+                _characteristics.AddRange(await GetCharacteristicsNativeAsync());
             }
 
-            return _characteristics;
+            // make a copy here so that the caller cant modify the original list
+            return _characteristics.ToList();
         }
         
         public async Task<ICharacteristic> GetCharacteristicAsync(Guid id)
         {
-            var characteristics = await GetCharacteristicsAsync().ConfigureAwait(false);
+            var characteristics = await GetCharacteristicsAsync();
             return characteristics.FirstOrDefault(c => c.Id == id);
         }
 
-        protected abstract Task<IEnumerable<ICharacteristic>> GetCharacteristicsNativeAsync();
+        protected abstract Task<IList<ICharacteristic>> GetCharacteristicsNativeAsync();
     }
 }
