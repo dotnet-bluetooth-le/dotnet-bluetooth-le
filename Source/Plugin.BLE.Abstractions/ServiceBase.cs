@@ -19,7 +19,6 @@ namespace Plugin.BLE.Abstractions
         protected ServiceBase(IDevice device)
         {
             Device = device;
-
         }
 
         public async Task<IList<ICharacteristic>> GetCharacteristicsAsync()
