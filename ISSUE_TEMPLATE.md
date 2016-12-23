@@ -26,6 +26,6 @@ If something causes an exception paste full stack trace + Exception here
 
 **Version:** 0.9.3
 
-**Platform:** iOS/Android/ ...
+**Platform:** iOS/Android/ ... (including version!!! e.g. Android 5.1 / i0S 10)
 
 **Device:** HTC Sensation/ ...

@@ -90,7 +90,7 @@ MyViewModel(IBluetoothLE ble, IAdapter adapter)
 }
 ```
 
-### IBluetothLE
+### IBluetoothLE
 #### Get the bluetooth status
 ```csharp
 var state = ble.State;
@@ -258,7 +258,7 @@ foreach(var device in systemDevices)
 
 ## How to contribute
 
-We usually do our development work on a branch with the name of the milestone. So please base your pull requests on the currently open development branch. The current one is 1.1.0.
+We usually do our development work on a branch with the name of the milestone. So please base your pull requests on the currently open development branch. 
 
 ## Licence
 
