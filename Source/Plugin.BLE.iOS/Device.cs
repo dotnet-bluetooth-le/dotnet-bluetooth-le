@@ -105,9 +105,6 @@ namespace Plugin.BLE.iOS
             return await tcs.Task;
         }
 
-        // TODO: investigate the validity of this. Android API seems to indicate that the
-        // bond state is available, rather than the connected state, which are two different 
-        // things. you can be bonded but not connected.
         protected override DeviceState GetState()
         {
             switch (_nativeDevice.State)

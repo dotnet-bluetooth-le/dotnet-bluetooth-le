@@ -99,18 +99,17 @@ namespace Plugin.BLE.Android
 
         }
 
-        // TODO: investigate the validity of this. Android API seems to indicate that the
-        // bond state is available, rather than the connected state, which are two different 
-        // things. you can be bonded but not connected.
         protected override DeviceState GetState()
         {
             var manager = (BluetoothManager)Application.Context.GetSystemService(Context.BluetoothService);
             var state = manager.GetConnectionState(_nativeDevice, ProfileType.Gatt);
-       
+
             switch (state)
             {
                 case ProfileState.Connected:
-                    return DeviceState.Connected;
+                    // if the device does not have a gatt instance we can't use it in the app, so we need to explicitly be able to connect it
+                    // even if the profile state is connected
+                    return _gatt != null ? DeviceState.Connected : DeviceState.Limited;
 
                 case ProfileState.Connecting:
                     return DeviceState.Connecting;
