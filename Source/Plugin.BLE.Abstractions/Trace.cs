@@ -8,7 +8,11 @@ namespace Plugin.BLE.Abstractions
         
         public static void Message(string format, params object[] args)
         {
-            TraceImplementation?.Invoke(format, args);
+            try
+            {
+                TraceImplementation?.Invoke(format, args);
+            }
+            catch { /* ignore */ }
         }
     }
 }
