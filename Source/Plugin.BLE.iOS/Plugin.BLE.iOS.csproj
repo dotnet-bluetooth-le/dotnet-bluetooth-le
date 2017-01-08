@@ -47,6 +47,7 @@
     <Compile Include="Adapter.cs" />
     <Compile Include="BleImplementation.cs" />
     <Compile Include="Characteristic.cs" />
+    <Compile Include="DefaultTrace.cs" />
     <Compile Include="Descriptor.cs" />
     <Compile Include="Device.cs" />
     <Compile Include="Extensions.cs" />

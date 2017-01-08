@@ -1,4 +1,3 @@
-using System;
 using CoreBluetooth;
 using CoreFoundation;
 using Plugin.BLE.Abstractions;
@@ -11,11 +10,6 @@ namespace Plugin.BLE
     internal class BleImplementation : BleImplementationBase
     {
         private CBCentralManager _centralManager;
-
-        public BleImplementation()
-        {
-            Trace.TraceImplementation = Console.WriteLine;
-        }
 
         protected override void InitializeNative()
         {
