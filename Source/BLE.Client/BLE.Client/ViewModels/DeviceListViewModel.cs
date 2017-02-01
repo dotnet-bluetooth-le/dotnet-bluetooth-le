@@ -163,7 +163,7 @@ namespace BLE.Client.ViewModels
 
             GetSystemConnectedOrPairedDevices();
 
-        }  
+        }
 
         private void GetSystemConnectedOrPairedDevices()
         {
@@ -172,7 +172,13 @@ namespace BLE.Client.ViewModels
                 //heart rate
                 var guid = Guid.Parse("0000180d-0000-1000-8000-00805f9b34fb");
 
-                SystemDevices = Adapter.GetSystemConnectedOrPairedDevices(new[] { guid }).Select(d => new DeviceListItemViewModel(d)).ToList();
+                // SystemDevices = Adapter.GetSystemConnectedOrPairedDevices(new[] { guid }).Select(d => new DeviceListItemViewModel(d)).ToList();
+                // remove the GUID filter for test
+                // Avoid to loose already IDevice with a connection, otherwise you can't close it
+                // Keep the reference of already known devices and drop all not in returned list.
+                var pairedOrConnectedDeviceWithNullGatt = Adapter.GetSystemConnectedOrPairedDevices();
+                SystemDevices.RemoveAll(sd => !pairedOrConnectedDeviceWithNullGatt.Any(p => p.Id == sd.Id));
+                SystemDevices.AddRange(pairedOrConnectedDeviceWithNullGatt.Where(d=>!SystemDevices.Any(sd=>sd.Id == d.Id)).Select(d => new DeviceListItemViewModel(d)));
                 RaisePropertyChanged(() => SystemDevices);
             }
             catch (Exception ex)
@@ -181,7 +187,7 @@ namespace BLE.Client.ViewModels
             }
         }
 
-        public List<DeviceListItemViewModel> SystemDevices { get; private set; }
+        public List<DeviceListItemViewModel> SystemDevices { get; private set; } = new List<DeviceListItemViewModel>();
 
         public override void Suspend()
         {
@@ -290,7 +296,7 @@ namespace BLE.Client.ViewModels
                 {
                     progress.Show();
 
-                    await Adapter.ConnectToDeviceAsync(device.Device, tokenSource.Token);
+                    await Adapter.ConnectToDeviceAsync(device.Device, tokenSource.Token, true);
                 }
 
                 _userDialogs.ShowSuccess($"Connected to {device.Device.Name}.");
@@ -334,7 +340,7 @@ namespace BLE.Client.ViewModels
                 {
                     progress.Show();
 
-                    device = await Adapter.ConnectToKnownDeviceAsync(PreviousGuid, tokenSource.Token);
+                    device = await Adapter.ConnectToKnownDeviceAsync(PreviousGuid, tokenSource.Token, true);
 
                 }
 

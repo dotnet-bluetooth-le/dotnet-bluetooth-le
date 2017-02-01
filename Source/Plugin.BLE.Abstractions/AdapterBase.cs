@@ -86,7 +86,7 @@ namespace Plugin.BLE.Abstractions
             return Task.FromResult(0);
         }
 
-        public Task ConnectToDeviceAsync(IDevice device, bool autoconnect = false, CancellationToken cancellationToken = default(CancellationToken))
+        public Task ConnectToDeviceAsync(IDevice device, bool autoconnect = false, CancellationToken cancellationToken = default(CancellationToken), bool forceBleTransport = false)
         {
             if (device == null)
                 throw new ArgumentNullException(nameof(device));
@@ -97,7 +97,7 @@ namespace Plugin.BLE.Abstractions
             return TaskBuilder.FromEvent<bool, EventHandler<DeviceEventArgs>, EventHandler<DeviceErrorEventArgs>>(
                 execute: () =>
                 {
-                    ConnectToDeviceNativeAsync(device, autoconnect, cancellationToken);
+                    ConnectToDeviceNativeAsync(device, autoconnect, cancellationToken, forceBleTransport);
                 },
 
                 getCompleteHandler: (complete, reject) => (sender, args) =>
@@ -116,7 +116,7 @@ namespace Plugin.BLE.Abstractions
                     if (args.Device?.Id == device.Id)
                     {
                         Trace.Message("ConnectAsync Error: {0} {1}", args.Device?.Id, args.Device?.Name);
-                        reject(new DeviceConnectionException((Guid) args.Device?.Id, args.Device?.Name,
+                        reject(new DeviceConnectionException((Guid)args.Device?.Id, args.Device?.Name,
                             args.ErrorMessage));
                     }
                 },
@@ -225,10 +225,10 @@ namespace Plugin.BLE.Abstractions
 
         protected abstract Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, bool allowDuplicatesKey, CancellationToken scanCancellationToken);
         protected abstract void StopScanNative();
-        protected abstract Task ConnectToDeviceNativeAsync(IDevice device, bool autoconnect, CancellationToken cancellationToken);
+        protected abstract Task ConnectToDeviceNativeAsync(IDevice device, bool autoconnect, CancellationToken cancellationToken, bool forceBleTransport);
         protected abstract void DisconnectDeviceNative(IDevice device);
 
-        public abstract Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken = default(CancellationToken));
+        public abstract Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken = default(CancellationToken), bool forceBleTransport = false);
         public abstract List<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null);
     }
 }

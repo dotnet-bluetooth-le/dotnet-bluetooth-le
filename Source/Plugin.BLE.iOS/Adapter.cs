@@ -158,7 +158,7 @@ namespace Plugin.BLE.iOS
             _centralManager.StopScan();
         }
 
-        protected override Task ConnectToDeviceNativeAsync(IDevice device, bool autoconnect, CancellationToken cancellationToken)
+        protected override Task ConnectToDeviceNativeAsync(IDevice device, bool autoconnect, CancellationToken cancellationToken, bool forceBleTransport)
         {
             if (autoconnect)
             {
@@ -194,7 +194,7 @@ namespace Plugin.BLE.iOS
         /// </summary>
         /// <returns>The to known device async.</returns>
         /// <param name="deviceGuid">Device GUID.</param>
-        public override async Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken = default(CancellationToken))
+        public override async Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken = default(CancellationToken), bool forceBleTransport = false)
         {
             // Wait for the PoweredOn state
             await WaitForState(CBCentralManagerState.PoweredOn, cancellationToken, true);
@@ -224,7 +224,7 @@ namespace Plugin.BLE.iOS
 
             var device = new Device(this, peripherial, peripherial.Name, peripherial.RSSI?.Int32Value ?? 0, new List<AdvertisementRecord>());
 
-            await ConnectToDeviceAsync(device, false, cancellationToken);
+            await ConnectToDeviceAsync(device, false, cancellationToken, forceBleTransport);
             return device;
         }
 
@@ -234,7 +234,7 @@ namespace Plugin.BLE.iOS
             if (services != null)
             {
                 serviceUuids = services.Select(guid => CBUUID.FromString(guid.ToString())).ToArray();
-            }           
+            }
 
             var nativeDevices = _centralManager.RetrieveConnectedPeripherals(serviceUuids);
 
@@ -299,12 +299,12 @@ namespace Plugin.BLE.iOS
                 }
                 else if (key == CBAdvertisement.DataTxPowerLevelKey)
                 {
-	                //iOS stores TxPower as NSNumber. Get int value of number and convert it into a signed Byte
-	                //TxPower has a range from -100 to 20 which can fit into a single signed byte (-128 to 127)
-	                sbyte byteValue = Convert.ToSByte(((NSNumber)advertisementData.ObjectForKey(key)).Int32Value);
-	                //add our signed byte to a new byte array and return it (same parsed value as android returns)
-	                byte[] arr = { (byte)byteValue };
-	                records.Add(new AdvertisementRecord(AdvertisementRecordType.TxPowerLevel, arr));
+                    //iOS stores TxPower as NSNumber. Get int value of number and convert it into a signed Byte
+                    //TxPower has a range from -100 to 20 which can fit into a single signed byte (-128 to 127)
+                    sbyte byteValue = Convert.ToSByte(((NSNumber)advertisementData.ObjectForKey(key)).Int32Value);
+                    //add our signed byte to a new byte array and return it (same parsed value as android returns)
+                    byte[] arr = { (byte)byteValue };
+                    records.Add(new AdvertisementRecord(AdvertisementRecordType.TxPowerLevel, arr));
                 }
                 else if (key == CBAdvertisement.DataServiceDataKey)
                 {

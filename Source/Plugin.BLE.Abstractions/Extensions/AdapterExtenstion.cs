@@ -91,9 +91,9 @@ namespace Plugin.BLE.Abstractions.Extensions
         /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
         /// <returns>A task that represents the asynchronous read operation. The Task will finish after the device has been connected successfuly.</returns>
         /// <exception cref="DeviceConnectionException">Thrown if the device connection fails.</exception>
-        public static Task ConnectToDeviceAsync(this IAdapter adapter, IDevice device, CancellationToken cancellationToken)
+        public static Task ConnectToDeviceAsync(this IAdapter adapter, IDevice device, CancellationToken cancellationToken, bool forceBleTransport)
         {
-            return adapter.ConnectToDeviceAsync(device, cancellationToken: cancellationToken);
+            return adapter.ConnectToDeviceAsync(device, cancellationToken: cancellationToken, forceBleTransport: forceBleTransport);
         }
     }
 }

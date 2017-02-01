@@ -85,10 +85,11 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <param name="device">Device to connect to.</param>
         /// <param name="autoconnect">Android only: Automatically try to reconnect to the device, after the connection got lost. The default is false.</param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
+        /// <param name="forceBleTransport">Android only: For Dual Mode device, force transport mode to LE. The default is false.</param>
         /// <returns>A task that represents the asynchronous read operation. The Task will finish after the device has been connected successfuly.</returns>
         /// <exception cref="DeviceConnectionException">Thrown if the device connection fails.</exception>
         /// <exception cref="ArgumentNullException">Thrown if the <paramref name="device"/> is null.</exception>
-        Task ConnectToDeviceAsync(IDevice device, bool autoconnect = false, CancellationToken cancellationToken = default(CancellationToken));
+        Task ConnectToDeviceAsync(IDevice device, bool autoconnect = false, CancellationToken cancellationToken = default(CancellationToken), bool forceBleTransport = false);
 
         /// <summary>
         /// Disconnects from the <paramref name="device"/>.
@@ -102,8 +103,9 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// </summary>
         /// <param name="deviceGuid"></param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
+        /// <param name="forceBleTransport">Android only: For Dual Mode device, force transport mode to LE. The default is false.</param>
         /// <returns></returns>
-        Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken = default(CancellationToken));
+        Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken = default(CancellationToken), bool forceBleTransport = false);
 
 
         /// <summary>

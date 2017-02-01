@@ -59,6 +59,16 @@ namespace BLE.Client.ViewModels
 
             Close(this);
         }
+        public override void Suspend()
+        {
+            base.Suspend();
+
+            if (Characteristic != null)
+            {
+                StopUpdates();
+            }
+            
+        }
 
         public MvxCommand ReadCommand => new MvxCommand(ReadValueAsync);
 
