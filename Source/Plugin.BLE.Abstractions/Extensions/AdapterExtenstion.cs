@@ -88,12 +88,13 @@ namespace Plugin.BLE.Abstractions.Extensions
         /// </summary>
         /// <param name="adapter">Target adapter.</param>
         /// <param name="device">Device to connect to.</param>
+        /// <param name="connectParameters">Connection parameters. Contains platform specific parameters needed to achieved connection. The default value is None.</param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
         /// <returns>A task that represents the asynchronous read operation. The Task will finish after the device has been connected successfuly.</returns>
         /// <exception cref="DeviceConnectionException">Thrown if the device connection fails.</exception>
-        public static Task ConnectToDeviceAsync(this IAdapter adapter, IDevice device, CancellationToken cancellationToken, bool forceBleTransport)
+        public static Task ConnectToDeviceAsync(this IAdapter adapter, IDevice device, ConnectParameters connectParameters, CancellationToken cancellationToken)
         {
-            return adapter.ConnectToDeviceAsync(device, cancellationToken: cancellationToken, forceBleTransport: forceBleTransport);
+            return adapter.ConnectToDeviceAsync(device, connectParameters:connectParameters, cancellationToken: cancellationToken);
         }
     }
 }

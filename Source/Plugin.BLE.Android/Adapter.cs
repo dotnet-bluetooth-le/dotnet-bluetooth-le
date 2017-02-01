@@ -156,31 +156,17 @@ namespace Plugin.BLE.Android
             }
         }
 
-        protected override Task ConnectToDeviceNativeAsync(IDevice device, bool autoconnect, CancellationToken cancellationToken, bool forceBleTransport)
+        protected override Task ConnectToDeviceNativeAsync(IDevice device, ConnectParameters connectParameters, CancellationToken cancellationTokent)
         {
-            AddToDeviceOperationRegistry(device);
-
-            #region isLeBrErdCapableHost : Possible default decision for Simultaneous LE and BR/EDR to Same Device Capable -> DualMode
-
-            //sometimes with dual mode devices, we have to use the LE transport in the connectGatt method.
-            //otherwise the device will not respond to a create connection request (legacy)
-            //the device will only respond to a create LE connection
-            //by default the transport mode is AUTO and in most case Android will decide to use BR/EDR connection (legacy)
-            //the following is a proposition of how handle it by default.
-            //if the device advertise for the 'Simultaneous LE and BR/EDR to Same Device Capable' capability (DualMode)
-            //the default transport mode should be LE in most of context
-            //For now, just add a boolean to force BLE transport in connectToDevice methods
-
-            //bool isLeBrErdCapableHost = nativeDevice.Type == BluetoothDeviceType.Dual;
-
-            #endregion
-
-            if (forceBleTransport /* || isLeBrErdCapableHost*/)
-                connectToGattForceBleTransportAPI(device, autoconnect);
+            AddToDeviceOperationRegistry(device);     
+            
+            if (connectParameters.ForceBleTransport)
+                connectToGattForceBleTransportAPI(device, connectParameters.AutoConnect);
             else
-                ((BluetoothDevice)device.NativeDevice).ConnectGatt(Application.Context, autoconnect, _gattCallback);
+                ((BluetoothDevice)device.NativeDevice).ConnectGatt(Application.Context, connectParameters.AutoConnect, _gattCallback);
             return Task.FromResult(true);
         }
+
         private void connectToGattForceBleTransportAPI(IDevice device, bool autoconnect)
         {
             BluetoothDevice nativeDevice = ((BluetoothDevice)device.NativeDevice);
@@ -209,9 +195,7 @@ namespace Plugin.BLE.Android
                 nativeDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback, BluetoothTransports.Le);
             }
 
-
         }
-
 
         protected override void DisconnectDeviceNative(IDevice device)
         {
@@ -220,14 +204,14 @@ namespace Plugin.BLE.Android
             ((Device)device).Disconnect();
         }
 
-        public override async Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken = default(CancellationToken), bool forceBleTransport = false)
+        public override async Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters = default(ConnectParameters), CancellationToken cancellationToken = default(CancellationToken))
         {
             var macBytes = deviceGuid.ToByteArray().Skip(10).Take(6).ToArray();
             var nativeDevice = _bluetoothAdapter.GetRemoteDevice(macBytes);
 
             var device = new Device(this, nativeDevice, null, null, 0, new byte[] { });
 
-            await ConnectToDeviceAsync(device, false, cancellationToken, forceBleTransport);
+            await ConnectToDeviceAsync(device, connectParameters, cancellationToken);
             return device;
         }
 

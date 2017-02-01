@@ -158,9 +158,9 @@ namespace Plugin.BLE.iOS
             _centralManager.StopScan();
         }
 
-        protected override Task ConnectToDeviceNativeAsync(IDevice device, bool autoconnect, CancellationToken cancellationToken, bool forceBleTransport)
+        protected override Task ConnectToDeviceNativeAsync(IDevice device, ConnectParameters connectParameters, CancellationToken cancellationToken)
         {
-            if (autoconnect)
+            if (connectParameters.AutoConnect)
             {
                 Trace.Message("Warning: Autoconnect is not supported in iOS");
             }
@@ -194,7 +194,7 @@ namespace Plugin.BLE.iOS
         /// </summary>
         /// <returns>The to known device async.</returns>
         /// <param name="deviceGuid">Device GUID.</param>
-        public override async Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken = default(CancellationToken), bool forceBleTransport = false)
+        public override async Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters = default(ConnectParameters), CancellationToken cancellationToken = default(CancellationToken))
         {
             // Wait for the PoweredOn state
             await WaitForState(CBCentralManagerState.PoweredOn, cancellationToken, true);
@@ -224,7 +224,7 @@ namespace Plugin.BLE.iOS
 
             var device = new Device(this, peripherial, peripherial.Name, peripherial.RSSI?.Int32Value ?? 0, new List<AdvertisementRecord>());
 
-            await ConnectToDeviceAsync(device, false, cancellationToken, forceBleTransport);
+            await ConnectToDeviceAsync(device, connectParameters, cancellationToken);
             return device;
         }
 

@@ -83,13 +83,12 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Connects to the <paramref name="device"/>.
         /// </summary>
         /// <param name="device">Device to connect to.</param>
-        /// <param name="autoconnect">Android only: Automatically try to reconnect to the device, after the connection got lost. The default is false.</param>
+        /// <param name="connectParameters">Connection parameters. Contains platform specific parameters needed to achieved connection. The default value is None.</param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
-        /// <param name="forceBleTransport">Android only: For Dual Mode device, force transport mode to LE. The default is false.</param>
         /// <returns>A task that represents the asynchronous read operation. The Task will finish after the device has been connected successfuly.</returns>
         /// <exception cref="DeviceConnectionException">Thrown if the device connection fails.</exception>
         /// <exception cref="ArgumentNullException">Thrown if the <paramref name="device"/> is null.</exception>
-        Task ConnectToDeviceAsync(IDevice device, bool autoconnect = false, CancellationToken cancellationToken = default(CancellationToken), bool forceBleTransport = false);
+        Task ConnectToDeviceAsync(IDevice device, ConnectParameters connectParameters = default(ConnectParameters), CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Disconnects from the <paramref name="device"/>.
@@ -102,10 +101,10 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Connects to a device whith a known GUID wihtout scanning and if in range. Does not scan for devices.
         /// </summary>
         /// <param name="deviceGuid"></param>
+        /// <param name="connectParameters">Connection parameters. Contains platform specific parameters needed to achieved connection. The default value is None.</param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
-        /// <param name="forceBleTransport">Android only: For Dual Mode device, force transport mode to LE. The default is false.</param>
         /// <returns></returns>
-        Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken = default(CancellationToken), bool forceBleTransport = false);
+        Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters = default(ConnectParameters), CancellationToken cancellationToken = default(CancellationToken));
 
 
         /// <summary>

@@ -42,6 +42,7 @@
     <Compile Include="CharacteristicBase.cs" />
     <Compile Include="CharacteristicPropertyType.cs" />
     <Compile Include="BleImplementationBase.cs" />
+    <Compile Include="ConnectParameter.cs" />
     <Compile Include="Contracts\BluetoothState.cs" />
     <Compile Include="Contracts\IAdapter.cs" />
     <Compile Include="Contracts\IBluetoothLE.cs" />

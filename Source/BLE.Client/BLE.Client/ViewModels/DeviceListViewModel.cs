@@ -296,7 +296,7 @@ namespace BLE.Client.ViewModels
                 {
                     progress.Show();
 
-                    await Adapter.ConnectToDeviceAsync(device.Device, tokenSource.Token, true);
+                    await Adapter.ConnectToDeviceAsync(device.Device, new ConnectParameters(forceBleTransport:true), tokenSource.Token);
                 }
 
                 _userDialogs.ShowSuccess($"Connected to {device.Device.Name}.");
@@ -340,7 +340,7 @@ namespace BLE.Client.ViewModels
                 {
                     progress.Show();
 
-                    device = await Adapter.ConnectToKnownDeviceAsync(PreviousGuid, tokenSource.Token, true);
+                    device = await Adapter.ConnectToKnownDeviceAsync(PreviousGuid, new ConnectParameters(forceBleTransport:true), tokenSource.Token);
 
                 }
 
