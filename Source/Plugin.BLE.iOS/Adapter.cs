@@ -101,7 +101,7 @@ namespace Plugin.BLE.iOS
 
                 foundDevice = foundDevice ?? new Device(this, e.Peripheral);
 
-                //make sure all cached services are cleared
+                //make sure all cached services are cleared this will also clear characteristics and descriptors implicitly
                 ((Device)foundDevice).ClearServices();
 
                 HandleDisconnectedDevice(isNormalDisconnect, foundDevice);
@@ -202,7 +202,7 @@ namespace Plugin.BLE.iOS
             if (cancellationToken.IsCancellationRequested)
                 throw new TaskCanceledException("ConnectToKnownDeviceAsync cancelled");
 
-            //ToDo attempted to use tobyte array insetead of string but there was a roblem with byte ordering Guid->NSUui
+            //FYI attempted to use tobyte array insetead of string but there was a problem with byte ordering Guid->NSUui
             var uuid = new NSUuid(deviceGuid.ToString());
 
             Trace.Message($"[Adapter] Attempting connection to {uuid.ToString()}");

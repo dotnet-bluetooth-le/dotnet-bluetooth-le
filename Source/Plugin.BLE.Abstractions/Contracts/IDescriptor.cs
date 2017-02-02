@@ -26,6 +26,11 @@ namespace Plugin.BLE.Abstractions.Contracts
         byte[] Value { get; }
 
         /// <summary>
+        /// Returns the parent characteristic
+        /// </summary>
+        ICharacteristic Characteristic { get; }
+
+        /// <summary>
         /// Reads the characteristic value from the device. The result is also stored inisde the Value property.
         /// </summary>
         /// <returns>A task that represents the asynchronous read operation. The Result property will contain the read bytes.</returns>

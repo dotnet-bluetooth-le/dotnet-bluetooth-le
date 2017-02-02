@@ -26,10 +26,15 @@ namespace Plugin.BLE.Abstractions.Contracts
 		bool IsPrimary { get; }
 
         /// <summary>
+        /// Returns the parent device.
+        /// </summary>
+        IDevice Device { get; }
+
+        /// <summary>
         /// Gets the characteristics of the service.
         /// </summary>
         /// <returns>A task that represents the asynchronous read operation. The Result property will contain a list of characteristics.</returns>
-        Task<IEnumerable<ICharacteristic>> GetCharacteristicsAsync();
+        Task<IList<ICharacteristic>> GetCharacteristicsAsync();
 
         /// <summary>
         /// Gets the first characteristic with the Id <paramref name="id"/>. 

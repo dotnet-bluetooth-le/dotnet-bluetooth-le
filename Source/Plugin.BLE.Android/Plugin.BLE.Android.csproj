@@ -56,6 +56,7 @@
     <Compile Include="CallbackEventArgs\RssiReadCallbackEventArgs.cs" />
     <Compile Include="CallbackEventArgs\ServicesDiscoveredCallbackEventArgs.cs" />
     <Compile Include="Characteristic.cs" />
+    <Compile Include="DefaultTrace.cs" />
     <Compile Include="Descriptor.cs" />
     <Compile Include="Device.cs" />
     <Compile Include="Extensions\BluetoothStateExtension.cs" />

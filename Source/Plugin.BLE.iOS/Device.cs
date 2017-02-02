@@ -67,7 +67,7 @@ namespace Plugin.BLE.iOS
                 foreach (var s in _nativeDevice.Services)
                 {
                     Trace.Message("Device.Discovered Service: " + s.Description);
-                    services[s.UUID] = new Service(s, _nativeDevice);
+                    services[s.UUID] = new Service(s, this);
                 }
 
                 tcs.TrySetResult(services.Values);
@@ -77,11 +77,6 @@ namespace Plugin.BLE.iOS
             _nativeDevice.DiscoverServices();
 
             return await tcs.Task;
-        }
-
-        public void ClearServices()
-        {
-            KnownServices.Clear();
         }
 
         public override async Task<bool> UpdateRssiAsync()
@@ -110,9 +105,6 @@ namespace Plugin.BLE.iOS
             return await tcs.Task;
         }
 
-        // TODO: investigate the validity of this. Android API seems to indicate that the
-        // bond state is available, rather than the connected state, which are two different 
-        // things. you can be bonded but not connected.
         protected override DeviceState GetState()
         {
             switch (_nativeDevice.State)

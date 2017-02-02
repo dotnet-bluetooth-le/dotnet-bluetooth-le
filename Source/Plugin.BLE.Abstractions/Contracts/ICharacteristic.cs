@@ -68,7 +68,12 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Indicates wheter the characteristic supports notify or not.
         /// </summary>
         bool CanUpdate { get; }
-
+        
+        /// <summary>
+        /// Returns the parent service. Use this to access the device.
+        /// </summary>
+        IService Service { get; }
+        
         /// <summary>
         /// Reads the characteristic value from the device. The result is also stored inisde the Value property.
         /// </summary>

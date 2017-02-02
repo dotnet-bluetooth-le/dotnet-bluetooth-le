@@ -1,4 +1,13 @@
 # Changelog
+### 1.2.0-beta4
+- #122 Android: Introduced a extra connectivity state to distinguish system connected device from app connected devices. System connected devices can't be used by the app because we have no gatt instance so we should allow to connect them via the adapter even though the ProfileState is -Connected-
+### 1.2.0-beta3
+- #121 #126 hardened characteristic discovery error handling for iOS
+### 1.2.0-beta2
+- #118 fixed crash on read in empty value on iOS
+### 1.2.0-beta1
+- #90: API change, added parent reference for IDescriptor to ICharacteristic to IService to IDevice
+- #109, #111 merge PR: iOS parse TxPower, ServiceData
 
 ## 1.1.0 (current stable)
 

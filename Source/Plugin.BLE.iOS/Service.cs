@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CoreBluetooth;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Abstractions.Utils;
 
 namespace Plugin.BLE.iOS
 {
@@ -16,38 +17,37 @@ namespace Plugin.BLE.iOS
         public override Guid Id => _service.UUID.GuidFromUuid();
         public override bool IsPrimary => _service.Primary;
 
-        public Service(CBService service, CBPeripheral device)
+        public Service(CBService service, IDevice device) : base(device)
         {
             _service = service;
-            _device = device;
+            _device = device.NativeDevice as CBPeripheral;
         }
 
-        protected override Task<IEnumerable<ICharacteristic>> GetCharacteristicsNativeAsync()
+        protected override Task<IList<ICharacteristic>> GetCharacteristicsNativeAsync()
         {
-            //TODO: review: is this correct? Event was not used, yet
-            var tcs = new TaskCompletionSource<IEnumerable<ICharacteristic>>();
-            EventHandler<CBServiceEventArgs> handler = null;
-
-            handler = (sender, args) =>
-            {
-                _device.DiscoveredCharacteristic -= handler;
-                if (args.Error == null)
+            return TaskBuilder.FromEvent<IList<ICharacteristic>, EventHandler<CBServiceEventArgs>>(
+                execute: () => _device.DiscoverCharacteristics(_service),
+                getCompleteHandler: (complete, reject) => (sender, args) =>
                 {
-                    var characteristics = _service.Characteristics.Select(characteristic => new Characteristic(characteristic, _device));
-                    tcs.TrySetResult(characteristics);
-                }
-                else
-                {
-                    Trace.Message("Could not discover characteristics: {0}", args.Error.Description);
-                    // TODO: use proper exception
-                    tcs.TrySetException(new Exception());
-                }
-            };
-
-            _device.DiscoveredCharacteristic += handler;
-            _device.DiscoverCharacteristics(_service);
-
-            return tcs.Task;
+                    if (args.Error != null)
+                    {
+                        reject(new Exception($"Discover characteristics error: {args.Error.Description}"));
+                    }
+                    else
+                    if (args.Service?.Characteristics == null)
+                    {
+                        reject(new Exception($"Discover characteristics error: returned list is null"));
+                    }
+                    else
+                    {
+                        var characteristics = args.Service.Characteristics
+                                                  .Select(characteristic => new Characteristic(characteristic, _device, this))
+                                                  .Cast<ICharacteristic>().ToList();
+                        complete(characteristics);
+                    }
+                },
+                subscribeComplete: handler => _device.DiscoveredCharacteristic += handler,
+                unsubscribeComplete: handler => _device.DiscoveredCharacteristic -= handler);
         }
     }
 }

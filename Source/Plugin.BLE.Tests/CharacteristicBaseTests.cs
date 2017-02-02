@@ -30,8 +30,11 @@ namespace Plugin.BLE.Tests
         [InlineData(CharacteristicWriteType.WithoutResponse, CharacteristicPropertyType.Write | CharacteristicPropertyType.WriteWithoutResponse)]
         public void WriteType_set(CharacteristicWriteType writeType, CharacteristicPropertyType currentProperties)
         {
-            var characteristic = new CharacteristicMock { MockPropterties = currentProperties };
-            characteristic.WriteType = writeType;
+            var characteristic = new CharacteristicMock
+            {
+                MockPropterties = currentProperties,
+                WriteType = writeType
+            };
 
             Assert.Equal(writeType, characteristic.WriteType);
         }
@@ -44,7 +47,7 @@ namespace Plugin.BLE.Tests
             Assert.Equal(CharacteristicWriteType.Default, characteristic.WriteType);
         }
 
-        [Theory(DisplayName = "Write should derive write type from properties if set to default")]
+        [Theory(DisplayName = "WriteAsync should derive write type from properties if set to default")]
         [InlineData(CharacteristicWriteType.WithResponse, CharacteristicWriteType.Default, CharacteristicPropertyType.Write)]
         [InlineData(CharacteristicWriteType.WithResponse, CharacteristicWriteType.WithResponse, CharacteristicPropertyType.Write | CharacteristicPropertyType.WriteWithoutResponse)]
         [InlineData(CharacteristicWriteType.WithoutResponse, CharacteristicWriteType.Default, CharacteristicPropertyType.WriteWithoutResponse)]
@@ -61,6 +64,26 @@ namespace Plugin.BLE.Tests
             var writtenType = characteristic.WriteHistory.First().WriteType;
 
             Assert.Equal(expectedWriteType, writtenType);
+        }
+
+        [Fact(DisplayName = "WriteAsync should throw ArgumentNullException if value is null.")]
+        public async Task WriteAsync_null_value()
+        {
+            var characteristic = new CharacteristicMock();
+            await Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                await characteristic.WriteAsync(null);
+            });
+        }
+
+        [Fact(DisplayName = "WriteAsync should throw InvalidOperationException if not writable.")]
+        public async Task WriteAsync_not_writable()
+        {
+            var characteristic = new CharacteristicMock();
+            await Assert.ThrowsAsync<InvalidOperationException>(async () =>
+            {
+                await characteristic.WriteAsync(new byte[0]);
+            });
         }
     }
 }

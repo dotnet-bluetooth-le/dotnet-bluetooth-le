@@ -41,14 +41,16 @@ namespace BLE.Client.ViewModels
             _userDialogs.ShowLoading("Loading characteristics...");
             try
             {
-                Characteristics = new List<ICharacteristic>(await _service.GetCharacteristicsAsync());
+                Characteristics = await _service.GetCharacteristicsAsync();
+                _userDialogs.HideLoading();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                
+                _userDialogs.HideLoading();
+                _userDialogs.ShowError(ex.Message);
             }
 
-            _userDialogs.HideLoading();
+
         }
 
         protected override async void InitFromBundle(IMvxBundle parameters)

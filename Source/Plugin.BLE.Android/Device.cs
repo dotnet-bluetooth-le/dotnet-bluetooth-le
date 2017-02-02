@@ -7,6 +7,8 @@ using Android.Bluetooth;
 using Android.Content;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Abstractions.EventArgs;
+using Plugin.BLE.Abstractions.Utils;
 using Plugin.BLE.Android.CallbackEventArgs;
 
 namespace Plugin.BLE.Android
@@ -54,19 +56,14 @@ namespace Plugin.BLE.Android
                 return Enumerable.Empty<IService>();
             }
 
-            var tcs = new TaskCompletionSource<IEnumerable<IService>>();
-            EventHandler<ServicesDiscoveredCallbackEventArgs> handler = null;
-
-            handler = (sender, args) =>
-            {
-                _gattCallback.ServicesDiscovered -= handler;
-                tcs.TrySetResult(_gatt.Services.Select(service => new Service(service, _gatt, _gattCallback)));
-            };
-
-            _gattCallback.ServicesDiscovered += handler;
-            _gatt.DiscoverServices();
-
-            return await tcs.Task;
+            return await TaskBuilder.FromEvent<IEnumerable<IService>, EventHandler<ServicesDiscoveredCallbackEventArgs>>(
+                execute: () => _gatt.DiscoverServices(),
+                getCompleteHandler: (complete, reject) => ((sender, args) =>
+                {
+                    complete(_gatt.Services.Select(service => new Service(service, _gatt, _gattCallback, this)));
+                }),
+                subscribeComplete: handler => _gattCallback.ServicesDiscovered += handler,
+                unsubscribeComplete: handler => _gattCallback.ServicesDiscovered -= handler);
         }
 
         // First step
@@ -74,8 +71,7 @@ namespace Plugin.BLE.Android
         {
             if (_gatt != null)
             {
-                //TODO: clear cached services
-                KnownServices.Clear();
+                ClearServices();
 
                 _gatt.Disconnect();
             }
@@ -100,18 +96,17 @@ namespace Plugin.BLE.Android
 
         }
 
-        // TODO: investigate the validity of this. Android API seems to indicate that the
-        // bond state is available, rather than the connected state, which are two different 
-        // things. you can be bonded but not connected.
         protected override DeviceState GetState()
         {
             var manager = (BluetoothManager)Application.Context.GetSystemService(Context.BluetoothService);
             var state = manager.GetConnectionState(_nativeDevice, ProfileType.Gatt);
-       
+
             switch (state)
             {
                 case ProfileState.Connected:
-                    return DeviceState.Connected;
+                    // if the device does not have a gatt instance we can't use it in the app, so we need to explicitly be able to connect it
+                    // even if the profile state is connected
+                    return _gatt != null ? DeviceState.Connected : DeviceState.Limited;
 
                 case ProfileState.Connecting:
                     return DeviceState.Connecting;
@@ -204,32 +199,26 @@ namespace Plugin.BLE.Android
                 return false;
             }
 
-            var tcs = new TaskCompletionSource<bool>();
-            EventHandler<RssiReadCallbackEventArgs> handler = null;
+            return await TaskBuilder.FromEvent<bool, EventHandler<RssiReadCallbackEventArgs>>(
+              execute: () => _gatt.ReadRemoteRssi(),
+              getCompleteHandler: (complete, reject) => ((sender, args) =>
+              {
+                  if (args.Device.Id == Id) return;
 
-            handler = (sender, args) =>
-            {
-                if (args.Device.Id != Id)
-                {
-                    return;
-                }
-
-                Trace.Message("Read RSSI async for {0} {1}: {2}", Id, Name, args.Rssi);
-                _gattCallback.RemoteRssiRead -= handler;
-
-                var success = args.Error == null;
-                if (success)
-                {
-                    Rssi = args.Rssi;
-                }
-
-                tcs.TrySetResult(success);
-            };
-
-            _gattCallback.RemoteRssiRead += handler;
-            _gatt.ReadRemoteRssi();
-
-            return await tcs.Task;
+                  if (args.Error == null)
+                  {
+                      Trace.Message("Read RSSI for {0} {1}: {2}", Id, Name, args.Rssi);
+                      Rssi = args.Rssi;
+                      complete(true);
+                  }
+                  else
+                  {
+                      Trace.Message($"Failed to read RSSI for device {Id}-{Name}. {args.Error.Message}");
+                      complete(false);
+                  }
+              }),
+              subscribeComplete: handler => _gattCallback.RemoteRssiRead += handler,
+              unsubscribeComplete: handler => _gattCallback.RemoteRssiRead -= handler);
         }
     }
 }

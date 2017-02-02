@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Android.Bluetooth;
 using Plugin.BLE.Abstractions;
+using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.Utils;
 using Plugin.BLE.Android.CallbackEventArgs;
 
@@ -17,11 +18,10 @@ namespace Plugin.BLE.Android
 
         public override byte[] Value => _nativeDescriptor.GetValue();
 
-        public Descriptor(BluetoothGattDescriptor nativeDescriptor, BluetoothGatt gatt, IGattCallback gattCallback)
+        public Descriptor(BluetoothGattDescriptor nativeDescriptor, BluetoothGatt gatt, IGattCallback gattCallback, ICharacteristic characteristic) : base(characteristic)
         {
             _gattCallback = gattCallback;
             _gatt = gatt;
-
             _nativeDescriptor = nativeDescriptor;
         }
 

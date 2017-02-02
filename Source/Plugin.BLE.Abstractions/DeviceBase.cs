@@ -56,6 +56,11 @@ namespace Plugin.BLE.Abstractions
             _adapter.DisconnectDeviceAsync(this);
         }
 
+        public void ClearServices()
+        {
+            KnownServices.Clear();
+        }
+
         #region IEquatable implementation
 
         public override bool Equals(object other)

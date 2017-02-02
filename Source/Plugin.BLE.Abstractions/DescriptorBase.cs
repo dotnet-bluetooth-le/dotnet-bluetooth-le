@@ -14,6 +14,13 @@ namespace Plugin.BLE.Abstractions
 
         public abstract byte[] Value { get; }
 
+        public ICharacteristic Characteristic { get; }
+
+        protected DescriptorBase(ICharacteristic characteristic)
+        {
+            Characteristic = characteristic;
+        }
+
         public Task<byte[]> ReadAsync()
         {
             return ReadNativeAsync();
@@ -32,6 +39,8 @@ namespace Plugin.BLE.Abstractions
         }
 
         protected abstract Task WriteNativeAsync(byte[] data);
-       
+
+
+
     }
 }

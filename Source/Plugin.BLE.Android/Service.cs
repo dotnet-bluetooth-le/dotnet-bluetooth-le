@@ -17,17 +17,18 @@ namespace Plugin.BLE.Android
         public override Guid Id => Guid.ParseExact(_nativeService.Uuid.ToString(), "d");
         public override bool IsPrimary => _nativeService.Type == GattServiceType.Primary;
 
-        public Service(BluetoothGattService nativeService, BluetoothGatt gatt, IGattCallback gattCallback)
+        public Service(BluetoothGattService nativeService, BluetoothGatt gatt, IGattCallback gattCallback, IDevice device) : base(device)
         {
             _nativeService = nativeService;
             _gatt = gatt;
             _gattCallback = gattCallback;
         }
 
-        protected override async Task<IEnumerable<ICharacteristic>> GetCharacteristicsNativeAsync()
+        protected override Task<IList<ICharacteristic>> GetCharacteristicsNativeAsync()
         {
-            return
-                _nativeService.Characteristics.Select(characteristic => new Characteristic(characteristic, _gatt, _gattCallback));
+            return Task.FromResult<IList<ICharacteristic>>(
+                _nativeService.Characteristics.Select(characteristic => new Characteristic(characteristic, _gatt, _gattCallback, this))
+                .Cast<ICharacteristic>().ToList());
         }
     }
 }

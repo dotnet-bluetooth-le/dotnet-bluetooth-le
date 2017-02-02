@@ -22,10 +22,24 @@ namespace Plugin.BLE.iOS
 
         public override Guid Id => _nativeCharacteristic.UUID.GuidFromUuid();
         public override string Uuid => _nativeCharacteristic.UUID.ToString();
-        public override byte[] Value => _nativeCharacteristic.Value?.ToArray();
+
+        public override byte[] Value
+        {
+            get
+            {
+                var value = _nativeCharacteristic.Value;
+                if (value == null || value.Length == 0)
+                {
+                    return new byte[0];
+                }
+                    
+                return value.ToArray();
+            }
+        } 
+
         public override CharacteristicPropertyType Properties => (CharacteristicPropertyType)(int)_nativeCharacteristic.Properties;
 
-        public Characteristic(CBCharacteristic nativeCharacteristic, CBPeripheral parentDevice)
+        public Characteristic(CBCharacteristic nativeCharacteristic, CBPeripheral parentDevice, IService service) : base(service)
         {
             _nativeCharacteristic = nativeCharacteristic;
             _parentDevice = parentDevice;
@@ -46,7 +60,7 @@ namespace Plugin.BLE.iOS
                         }
                         else
                         {
-                            complete(args.Characteristic.Descriptors.Select(descriptor => new Descriptor(descriptor, _parentDevice)).Cast<IDescriptor>().ToList());
+                            complete(args.Characteristic.Descriptors.Select(descriptor => new Descriptor(descriptor, _parentDevice, this)).Cast<IDescriptor>().ToList());
                         }
                     },
                 subscribeComplete: handler => _parentDevice.DiscoveredDescriptor += handler,

@@ -1,4 +1,3 @@
-using System;
 using Android.App;
 using Android.Bluetooth;
 using Android.Content;
@@ -15,11 +14,6 @@ namespace Plugin.BLE
     internal class BleImplementation : BleImplementationBase
     {
         private BluetoothManager _bluetoothManager;
-
-        public BleImplementation()
-        {
-            Trace.TraceImplementation = Console.WriteLine;
-        }
 
         protected override void InitializeNative()
         {
