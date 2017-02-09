@@ -165,7 +165,8 @@ namespace Plugin.BLE.Android
         {
             //make sure everything is disconnected
             AddToDeviceOperationRegistry(device);
-            ((Device)device).Disconnect();
+            //((Device)device).Disconnect();
+            ((Device)device).CloseGatt();
         }
 
         public override async Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken = default(CancellationToken))
