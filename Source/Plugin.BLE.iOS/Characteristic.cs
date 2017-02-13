@@ -22,7 +22,7 @@ namespace Plugin.BLE.iOS
 
         public override Guid Id => _nativeCharacteristic.UUID.GuidFromUuid();
         public override string Uuid => _nativeCharacteristic.UUID.ToString();
-        public override byte[] Value => _nativeCharacteristic.Value?.ToArray();
+        public override byte[] Value => _nativeCharacteristic.Value != null && _nativeCharacteristic.Value.Length > 0 ? _nativeCharacteristic.Value?.ToArray() : null;
         public override CharacteristicPropertyType Properties => (CharacteristicPropertyType)(int)_nativeCharacteristic.Properties;
 
         public Characteristic(CBCharacteristic nativeCharacteristic, CBPeripheral parentDevice)
