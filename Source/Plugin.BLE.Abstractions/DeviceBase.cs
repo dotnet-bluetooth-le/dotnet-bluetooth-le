@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Plugin.BLE.Abstractions.Contracts;
 
@@ -25,7 +26,7 @@ namespace Plugin.BLE.Abstractions
 
         public abstract object NativeDevice { get; }
 
-        public async Task<IList<IService>> GetServicesAsync()
+        public async Task<IList<IService>> GetServicesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             if (!KnownServices.Any())
             {
@@ -35,9 +36,9 @@ namespace Plugin.BLE.Abstractions
             return KnownServices;
         }
 
-        public async Task<IService> GetServiceAsync(Guid id)
+        public async Task<IService> GetServiceAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var services = await GetServicesAsync();
+            var services = await GetServicesAsync(cancellationToken);
             return services.FirstOrDefault(x => x.Id == id);
         }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
@@ -62,7 +63,7 @@ namespace Plugin.BLE.Abstractions
             Service = service;
         }
 
-        public async Task<byte[]> ReadAsync()
+        public async Task<byte[]> ReadAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             if (!CanRead)
             {
@@ -73,7 +74,7 @@ namespace Plugin.BLE.Abstractions
             return await ReadNativeAsync();
         }
 
-        public async Task<bool> WriteAsync(byte[] data)
+        public async Task<bool> WriteAsync(byte[] data, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (data == null)
             {
@@ -122,14 +123,14 @@ namespace Plugin.BLE.Abstractions
             return StopUpdatesNativeAsync();
         }
 
-        public async Task<IList<IDescriptor>> GetDescriptorsAsync()
+        public async Task<IList<IDescriptor>> GetDescriptorsAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             if (_descriptors == null)
                 _descriptors = await GetDescriptorsNativeAsync();
             return _descriptors;
         }
 
-        public async Task<IDescriptor> GetDescriptorAsync(Guid id)
+        public async Task<IDescriptor> GetDescriptorAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken))
         {
             var descriptors = await GetDescriptorsAsync().ConfigureAwait(false);
             return descriptors.FirstOrDefault(d => d.Id == id);

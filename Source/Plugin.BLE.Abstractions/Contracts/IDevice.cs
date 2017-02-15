@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Plugin.BLE.Abstractions.Contracts
@@ -49,19 +50,21 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <summary>
         /// Gets all services of the device.
         /// </summary>
+        /// <param name="cancellationToken"></param>
         /// <returns>A task that represents the asynchronous read operation. The Result property will contain a list of all available services.</returns>
-        Task<IList<IService>> GetServicesAsync();
+        Task<IList<IService>> GetServicesAsync(CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Gets the first service with the Id <paramref name="id"/>. 
         /// </summary>
         /// <param name="id">The id of the searched service.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns>
         /// A task that represents the asynchronous read operation. 
         /// The Result property will contain the service with the specified <paramref name="id"/>.
         /// If the service doesn't exist, the Result will be null.
         /// </returns>
-        Task<IService> GetServiceAsync(Guid id);
+        Task<IService> GetServiceAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Updates the rssi value.
