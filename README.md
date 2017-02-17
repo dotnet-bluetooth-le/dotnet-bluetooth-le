@@ -245,6 +245,7 @@ foreach(var device in systemDevices)
 
 ## Extended topics
 
+- [How to set custom trace method?](doc/howto_custom_trace.md)
 - [Characteristic Properties](doc/characteristics.md)
 - [Changelog](doc/changelog.md)
 
