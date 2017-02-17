@@ -86,44 +86,47 @@ namespace Plugin.BLE.Abstractions
             return Task.FromResult(0);
         }
 
-        public Task ConnectToDeviceAsync(IDevice device, bool autoconnect = false, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task ConnectToDeviceAsync(IDevice device, bool autoconnect = false, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (device == null)
                 throw new ArgumentNullException(nameof(device));
 
             if (device.State == DeviceState.Connected)
-                return Task.FromResult(true);
+                return;
 
-            return TaskBuilder.FromEvent<bool, EventHandler<DeviceEventArgs>, EventHandler<DeviceErrorEventArgs>>(
-                execute: () =>
-                {
-                    ConnectToDeviceNativeAsync(device, autoconnect, cancellationToken);
-                },
-
-                getCompleteHandler: (complete, reject) => (sender, args) =>
-                {
-                    if (args.Device.Id == device.Id)
+            using (var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken))
+            {
+                await TaskBuilder.FromEvent<bool, EventHandler<DeviceEventArgs>, EventHandler<DeviceErrorEventArgs>>(
+                    execute: () =>
                     {
-                        Trace.Message("ConnectToDeviceAsync Connected: {0} {1}", args.Device.Id, args.Device.Name);
-                        complete(true);
-                    }
-                },
-                subscribeComplete: handler => DeviceConnected += handler,
-                unsubscribeComplete: handler => DeviceConnected -= handler,
+                        ConnectToDeviceNativeAsync(device, autoconnect, cts.Token);
+                    },
 
-                getRejectHandler: reject => (sender, args) =>
-                {
-                    if (args.Device?.Id == device.Id)
+                    getCompleteHandler: (complete, reject) => (sender, args) =>
                     {
-                        Trace.Message("ConnectAsync Error: {0} {1}", args.Device?.Id, args.Device?.Name);
-                        reject(new DeviceConnectionException((Guid) args.Device?.Id, args.Device?.Name,
-                            args.ErrorMessage));
-                    }
-                },
+                        if (args.Device.Id == device.Id)
+                        {
+                            Trace.Message("ConnectToDeviceAsync Connected: {0} {1}", args.Device.Id, args.Device.Name);
+                            complete(true);
+                        }
+                    },
+                    subscribeComplete: handler => DeviceConnected += handler,
+                    unsubscribeComplete: handler => DeviceConnected -= handler,
 
-                subscribeReject: handler => DeviceConnectionError += handler,
-                unsubscribeReject: handler => DeviceConnectionError -= handler,
-                token: cancellationToken);
+                    getRejectHandler: reject => (sender, args) =>
+                    {
+                        if (args.Device?.Id == device.Id)
+                        {
+                            Trace.Message("ConnectAsync Error: {0} {1}", args.Device?.Id, args.Device?.Name);
+                            reject(new DeviceConnectionException((Guid)args.Device?.Id, args.Device?.Name,
+                                args.ErrorMessage));
+                        }
+                    },
+
+                    subscribeReject: handler => DeviceConnectionError += handler,
+                    unsubscribeReject: handler => DeviceConnectionError -= handler,
+                    token: cts.Token);
+            }
         }
 
         public Task DisconnectDeviceAsync(IDevice device)

@@ -167,13 +167,13 @@ namespace Plugin.BLE.iOS
 
             _deviceOperationRegistry[device.Id.ToString()] = device;
 
-            if (cancellationToken != CancellationToken.None)
+            // this is dirty: We should not assume, AdapterBase is doing the cleanup for us...
+            // move ConnectToDeviceAsync() code to native implementations.
+            cancellationToken.Register(() =>
             {
-                cancellationToken.Register(() =>
-                {
-                    _centralManager.CancelPeripheralConnection(device.NativeDevice as CBPeripheral);
-                });
-            }
+                Trace.Message("Canceling the connect attempt");
+                _centralManager.CancelPeripheralConnection(device.NativeDevice as CBPeripheral);
+            });
 
             _centralManager.ConnectPeripheral(device.NativeDevice as CBPeripheral,
                 new PeripheralConnectionOptions());
