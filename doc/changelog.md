@@ -1,4 +1,6 @@
 # Changelog
+## 1.2.0 
+- #150 iOS: No disconnect when the connect CancelationToken is cancelled after a successful connect.
 ### 1.2.0-beta4
 - #122 Android: Introduced a extra connectivity state to distinguish system connected device from app connected devices. System connected devices can't be used by the app because we have no gatt instance so we should allow to connect them via the adapter even though the ProfileState is -Connected-
 ### 1.2.0-beta3

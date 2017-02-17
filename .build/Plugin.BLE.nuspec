@@ -15,6 +15,8 @@
     <tags>xamarin monodroid Xamarin.iOS bluetooth BLE LE BTLE Smart xamarin.forms ios android forms xamarinforms</tags>
     <iconUrl>https://raw.githubusercontent.com/xabre/xamarin-bluetooth-le/master/icon_small.png</iconUrl>
     <releaseNotes>
+      [1.2.0]
+      - #150 iOS: No disconnect when the connect CancelationToken is cancelled after a successful connect.
       [1.2.0-beta4]
       - #122 Android: Introduced a extra connectivity state to distinguish system connected device from app connected devices. System connected devices can't be used by the app because we have no gatt instance so we should allow to connect them via the adapter even though the ProfileState is -Connected-
       [1.2.0-beta3]
@@ -47,11 +49,8 @@
       - improvements on xml documentation
       - Characteristic write type can be specified by the user
       - ConnectAsync throws NullReferenceException if device is null
-      [1.0.0]
-      - stable release after major refactoring
-      - streamlined async API
-      [1.0.0-beta5]
-      - added indicate support for notifications
+
+      for older releases: https://github.com/xabre/xamarin-bluetooth-le/blob/master/doc/changelog.md
     </releaseNotes>
     <dependencies>
       <group targetFramework="MonoAndroid">
