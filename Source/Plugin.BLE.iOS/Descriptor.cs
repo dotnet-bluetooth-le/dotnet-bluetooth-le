@@ -28,6 +28,11 @@ namespace Plugin.BLE.iOS
                     return BitConverter.GetBytes(((NSNumber)_nativeDescriptor.Value).UInt64Value);
                 }
 
+                if (_nativeDescriptor.Value is NSString)
+                {
+                    return System.Text.Encoding.UTF8.GetBytes(((NSString)_nativeDescriptor.Value).ToString());
+                }
+
                 //TODO https://developer.apple.com/reference/corebluetooth/cbuuid/1667288-characteristic_descriptors
                 Trace.Message($"Descriptor: can't convert {_nativeDescriptor.Value?.GetType().Name} with value {_nativeDescriptor.Value?.ToString()} to byte[]");
                 return null;
