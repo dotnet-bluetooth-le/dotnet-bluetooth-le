@@ -5,6 +5,7 @@ using MvvmCross.iOS.Platform;
 using MvvmCross.iOS.Views.Presenters;
 using MvvmCross.Platform;
 using MvvmCross.Platform.Platform;
+using Plugin.Permissions;
 using Plugin.Settings;
 using UIKit;
 using Xamarin.Forms;
@@ -41,6 +42,7 @@ namespace BLE.Client.iOS
 
             Mvx.RegisterSingleton(() => UserDialogs.Instance);
             Mvx.RegisterSingleton(() => CrossSettings.Current);
+            Mvx.RegisterSingleton(() => CrossPermissions.Current);
         }
     }
 }
