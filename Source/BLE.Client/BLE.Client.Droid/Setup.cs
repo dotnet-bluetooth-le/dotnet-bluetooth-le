@@ -8,6 +8,7 @@ using MvvmCross.Forms.Presenter.Droid;
 using MvvmCross.Platform;
 using MvvmCross.Platform.Platform;
 using Plugin.Settings;
+using Plugin.Permissions;
 
 namespace BLE.Client.Droid
 {
@@ -40,6 +41,7 @@ namespace BLE.Client.Droid
 
             Mvx.RegisterSingleton(()=> UserDialogs.Instance);
             Mvx.RegisterSingleton(() => CrossSettings.Current);
+			Mvx.RegisterSingleton(() => CrossPermissions.Current);
         }
     }
 }

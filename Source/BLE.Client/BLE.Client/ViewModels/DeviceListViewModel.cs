@@ -12,6 +12,7 @@ using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Extensions;
+using Plugin.Permissions.Abstractions;
 using Plugin.Settings.Abstractions;
 
 namespace BLE.Client.ViewModels
@@ -66,9 +67,12 @@ namespace BLE.Client.ViewModels
             RaisePropertyChanged(() => IsRefreshing);
         }, () => _cancellationTokenSource != null);
 
-        public DeviceListViewModel(IBluetoothLE bluetoothLe, IAdapter adapter, IUserDialogs userDialogs, ISettings settings) : base(adapter)
+		readonly IPermissions _permissions;
+
+		public DeviceListViewModel(IBluetoothLE bluetoothLe, IAdapter adapter, IUserDialogs userDialogs, ISettings settings, IPermissions permissions) : base(adapter)
         {
-            _bluetoothLe = bluetoothLe;
+			_permissions = permissions;
+			_bluetoothLe = bluetoothLe;
             _userDialogs = userDialogs;
             _settings = settings;
             // quick and dirty :>
@@ -77,6 +81,8 @@ namespace BLE.Client.ViewModels
             Adapter.ScanTimeoutElapsed += Adapter_ScanTimeoutElapsed;
             Adapter.DeviceDisconnected += OnDeviceDisconnected;
             Adapter.DeviceConnectionLost += OnDeviceConnectionLost;
+			//Adapter.DeviceConnected += (sender, e) => Adapter.DisconnectDeviceAsync(e.Device);
+
         }
 
         private Task GetPreviousGuidAsync()
@@ -191,8 +197,14 @@ namespace BLE.Client.ViewModels
             RaisePropertyChanged(() => IsRefreshing);
         }
 
-        private void TryStartScanning(bool refresh = false)
+        private async void TryStartScanning(bool refresh = false)
         {
+			var status = await _permissions.CheckPermissionStatusAsync(Permission.Location);
+			if (status != PermissionStatus.Granted)
+			{
+				await _permissions.RequestPermissionsAsync(Permission.Location);
+			}
+			
             if (IsStateOn && (refresh || !Devices.Any()) && !IsRefreshing)
             {
                 ScanForDevices();
@@ -296,7 +308,7 @@ namespace BLE.Client.ViewModels
                 _userDialogs.ShowSuccess($"Connected to {device.Device.Name}.");
 
                 PreviousGuid = device.Device.Id;
-                return true;
+				return true;
 
             }
             catch (Exception ex)
