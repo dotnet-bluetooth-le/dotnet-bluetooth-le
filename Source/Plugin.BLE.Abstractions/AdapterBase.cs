@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -86,7 +86,7 @@ namespace Plugin.BLE.Abstractions
             return Task.FromResult(0);
         }
 
-        public async Task ConnectToDeviceAsync(IDevice device, bool autoconnect = false, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task ConnectToDeviceAsync(IDevice device, ConnectParameters connectParameters = default(ConnectParameters), CancellationToken cancellationToken = default(CancellationToken))
         {
             if (device == null)
                 throw new ArgumentNullException(nameof(device));
@@ -99,7 +99,7 @@ namespace Plugin.BLE.Abstractions
                 await TaskBuilder.FromEvent<bool, EventHandler<DeviceEventArgs>, EventHandler<DeviceErrorEventArgs>>(
                     execute: () =>
                     {
-                        ConnectToDeviceNativeAsync(device, autoconnect, cts.Token);
+					ConnectToDeviceNativeAsync(device, connectParameters, cts.Token);
                     },
 
                     getCompleteHandler: (complete, reject) => (sender, args) =>
@@ -228,10 +228,10 @@ namespace Plugin.BLE.Abstractions
 
         protected abstract Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, bool allowDuplicatesKey, CancellationToken scanCancellationToken);
         protected abstract void StopScanNative();
-        protected abstract Task ConnectToDeviceNativeAsync(IDevice device, bool autoconnect, CancellationToken cancellationToken);
+        protected abstract Task ConnectToDeviceNativeAsync(IDevice device, ConnectParameters connectParameters, CancellationToken cancellationToken);
         protected abstract void DisconnectDeviceNative(IDevice device);
 
-        public abstract Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, CancellationToken cancellationToken = default(CancellationToken));
+        public abstract Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters = default(ConnectParameters), CancellationToken cancellationToken = default(CancellationToken));
         public abstract List<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null);
     }
 }
