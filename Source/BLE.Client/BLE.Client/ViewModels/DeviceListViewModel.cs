@@ -199,10 +199,19 @@ namespace BLE.Client.ViewModels
 
         private async void TryStartScanning(bool refresh = false)
         {
-			var status = await _permissions.CheckPermissionStatusAsync(Permission.Location);
-			if (status != PermissionStatus.Granted)
+			if (Xamarin.Forms.Device.OS == Xamarin.Forms.TargetPlatform.Android)
 			{
-				await _permissions.RequestPermissionsAsync(Permission.Location);
+				var status = await _permissions.CheckPermissionStatusAsync(Permission.Location);
+				if (status != PermissionStatus.Granted)
+				{
+					var permissionResult = await _permissions.RequestPermissionsAsync(Permission.Location);
+
+					if (permissionResult.First().Value != PermissionStatus.Granted)
+					{
+						_userDialogs.ShowError("Permission denied. Not scanning.");
+						return;
+					}
+				}
 			}
 			
             if (IsStateOn && (refresh || !Devices.Any()) && !IsRefreshing)
