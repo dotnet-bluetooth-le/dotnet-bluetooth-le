@@ -317,7 +317,7 @@ namespace BLE.Client.ViewModels
                 {
                     progress.Show();
 
-                    await Adapter.ConnectToDeviceAsync(device.Device, new ConnectParameters(forceBleTransport:true), tokenSource.Token);
+                    await Adapter.ConnectToDeviceAsync(device.Device, new ConnectParameters(forceBleTransport: false), tokenSource.Token);
                 }
 
                 _userDialogs.ShowSuccess($"Connected to {device.Device.Name}.");

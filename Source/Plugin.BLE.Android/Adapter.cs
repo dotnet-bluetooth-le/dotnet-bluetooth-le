@@ -13,7 +13,6 @@ using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Object = Java.Lang.Object;
 using Trace = Plugin.BLE.Abstractions.Trace;
-using Java.Lang.Reflect;
 
 namespace Plugin.BLE.Android
 {
@@ -156,28 +155,28 @@ namespace Plugin.BLE.Android
             }
         }
 
-        protected override Task ConnectToDeviceNativeAsync(IDevice device, ConnectParameters connectParameters, CancellationToken cancellationTokent)
+        protected override Task ConnectToDeviceNativeAsync(IDevice device, ConnectParameters connectParameters, CancellationToken cancellationToken)
         {
             AddToDeviceOperationRegistry(device);
 
-			if (connectParameters.ForceBleTransport)
-			{
-				connectToGattForceBleTransportAPI(device, connectParameters.AutoConnect);
-			}
-			else
-			{
-				((BluetoothDevice)device.NativeDevice).ConnectGatt(Application.Context, connectParameters.AutoConnect, _gattCallback);
-			}
+            if (connectParameters.ForceBleTransport)
+            {
+                ConnectToGattForceBleTransportAPI(device, connectParameters.AutoConnect);
+            }
+            else
+            {
+                ((BluetoothDevice)device.NativeDevice).ConnectGatt(Application.Context, connectParameters.AutoConnect, _gattCallback);
+            }
+
             return Task.FromResult(true);
         }
 
-        private void connectToGattForceBleTransportAPI(IDevice device, bool autoconnect)
+        private void ConnectToGattForceBleTransportAPI(IDevice device, bool autoconnect)
         {
-            BluetoothDevice nativeDevice = ((BluetoothDevice)device.NativeDevice);
-            
+            var nativeDevice = ((BluetoothDevice)device.NativeDevice);
+
             //This parameter is present from API 18 but only public from API 23
             //So reflection is used before API 23
-
             if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
             {
                 //no transport mode before lollipop, it will probably not work... gattCallBackError 133 again alas
@@ -185,14 +184,14 @@ namespace Plugin.BLE.Android
             }
             else if (Build.VERSION.SdkInt < BuildVersionCodes.M)
             {
-                Method m = nativeDevice.Class.GetDeclaredMethod("connectGatt", new Java.Lang.Class[] {
+                var m = nativeDevice.Class.GetDeclaredMethod("connectGatt", new Java.Lang.Class[] {
                                 Java.Lang.Class.FromType(typeof(Context))
                             ,  Java.Lang.Boolean.Type
                             ,  Java.Lang.Class.FromType(typeof(BluetoothGattCallback))
                             ,  Java.Lang.Integer.Type});
 
-                int transport = nativeDevice.Class.GetDeclaredField("TRANSPORT_LE").GetInt(null);      // LE = 2, BREDR = 1, AUTO = 0
-                BluetoothGatt mGatt = (BluetoothGatt)m.Invoke(nativeDevice, new Java.Lang.Object[] { Application.Context, false, _gattCallback, transport });
+                var transport = nativeDevice.Class.GetDeclaredField("TRANSPORT_LE").GetInt(null);      // LE = 2, BREDR = 1, AUTO = 0
+                m.Invoke(nativeDevice, new Object[] { Application.Context, false, _gattCallback, transport });
             }
             else
             {
