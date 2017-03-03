@@ -170,7 +170,12 @@ namespace Plugin.BLE.Abstractions
         /// <summary>
         /// «Manufacturer Specific Data»	Bluetooth Core Specification:
         /// </summary>
-        ManufacturerSpecificData = 0xFF
+        ManufacturerSpecificData = 0xFF,
+
+        /// <summary>
+        /// The is connectable flag. This is only reliable for the ios imlementation. The android stack does not expose this in the client.
+        /// </summary>
+        IsConnectable = 0xAA
     }
 
     public class AdvertisementRecord
