@@ -16,7 +16,7 @@ namespace Plugin.BLE.BroadcastReceivers
         {
             var bondState = (Bond)intent.GetIntExtra(BluetoothDevice.ExtraBondState, (int)Bond.None);
             //ToDo
-            var device = new Device(null, (BluetoothDevice)intent.GetParcelableExtra(BluetoothDevice.ExtraDevice), null, null, 0);
+            var device = new Device(null, (BluetoothDevice)intent.GetParcelableExtra(BluetoothDevice.ExtraDevice), null, 0);
             Console.WriteLine(bondState.ToString());
 
             if (BondStateChanged == null) return;
