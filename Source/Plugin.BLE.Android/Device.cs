@@ -52,7 +52,7 @@ namespace Plugin.BLE.Android
         }
 
         public override object NativeDevice => BluetoothDevice;
-        public bool IsOperationRequested { get; private set; }
+        internal bool IsOperationRequested { get; set; }
 
         protected override async Task<IEnumerable<IService>> GetServicesNativeAsync()
         {
@@ -255,9 +255,7 @@ namespace Plugin.BLE.Android
             return await TaskBuilder.FromEvent<bool, EventHandler<RssiReadCallbackEventArgs>>(
               execute: () => _gatt.ReadRemoteRssi(),
               getCompleteHandler: (complete, reject) => ((sender, args) =>
-              {
-                  if (args.Device.Id == Id) return;
-
+              {  
                   if (args.Error == null)
                   {
                       Trace.Message("Read RSSI for {0} {1}: {2}", Id, Name, args.Rssi);

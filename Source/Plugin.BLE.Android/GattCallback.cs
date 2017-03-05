@@ -63,6 +63,7 @@ namespace Plugin.BLE.Android
 
                         //Found so we can remove it
                         //_adapter.DeviceOperationRegistry.Remove(gatt.Device.Address);
+                        _device.IsOperationRequested = false;
                         _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
                         gatt.Close();
 
@@ -115,6 +116,7 @@ namespace Plugin.BLE.Android
                     {
                         _device.Update(gatt.Device, gatt);//ToDO check if this is required
 
+                        _device.IsOperationRequested = false;
                         //Found so we can remove it
                         //_adapter.DeviceOperationRegistry.Remove(gatt.Device.Address);
                     }
@@ -204,7 +206,7 @@ namespace Plugin.BLE.Android
                 Trace.Message("Rssi updated for another device in this callback instance. This should not happen.");
             }
 
-            RemoteRssiRead?.Invoke(this, new RssiReadCallbackEventArgs(_device, GetExceptionFromGattStatus(status), rssi));
+            RemoteRssiRead?.Invoke(this, new RssiReadCallbackEventArgs(GetExceptionFromGattStatus(status), rssi));
         }
 
         public override void OnDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, GattStatus status)
