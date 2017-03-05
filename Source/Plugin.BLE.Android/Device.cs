@@ -9,6 +9,7 @@ using Android.OS;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
+using Plugin.BLE.Abstractions.Exceptions;
 using Plugin.BLE.Abstractions.Utils;
 using Plugin.BLE.Android.CallbackEventArgs;
 using Trace = Plugin.BLE.Abstractions.Trace;
@@ -22,16 +23,14 @@ namespace Plugin.BLE.Android
         /// <summary>
         /// we have to keep a reference to this because Android's api is weird and requires
         /// the GattServer in order to do nearly anything, including enumerating services
-        /// 
-        /// TODO: consider wrapping the Gatt and Callback into a single object and passing that around instead.
         /// </summary>
-        BluetoothGatt _gatt;
+        internal BluetoothGatt _gatt;
 
         /// <summary>
         /// we also track this because of gogole's weird API. the gatt callback is where
         /// we'll get notified when services are enumerated
         /// </summary>
-        private GattCallback _gattCallback;
+        private readonly GattCallback _gattCallback;
 
         public Device(Adapter adapter, BluetoothDevice nativeDevice, BluetoothGatt gatt, int rssi, byte[] advertisementData = null) : base(adapter)
         {
@@ -61,14 +60,20 @@ namespace Plugin.BLE.Android
                 return Enumerable.Empty<IService>();
             }
 
-            return await TaskBuilder.FromEvent<IEnumerable<IService>, EventHandler<ServicesDiscoveredCallbackEventArgs>>(
+            return await TaskBuilder.FromEvent<IEnumerable<IService>, EventHandler<ServicesDiscoveredCallbackEventArgs>, EventHandler>(
                 execute: () => _gatt.DiscoverServices(),
                 getCompleteHandler: (complete, reject) => ((sender, args) =>
                 {
                     complete(_gatt.Services.Select(service => new Service(service, _gatt, _gattCallback, this)));
                 }),
                 subscribeComplete: handler => _gattCallback.ServicesDiscovered += handler,
-                unsubscribeComplete: handler => _gattCallback.ServicesDiscovered -= handler);
+                unsubscribeComplete: handler => _gattCallback.ServicesDiscovered -= handler,
+                getRejectHandler: reject => ((sender, args) =>
+                {
+                    reject(new Exception($"Device {Name} disconnected while fetching services."));
+                }),
+                subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
+                unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler);
         }
 
         public void Connect(ConnectParameters connectParameters)
@@ -144,10 +149,7 @@ namespace Plugin.BLE.Android
             {
                 Trace.Message("[Warning]: Can't close gatt after disconnect {0}. Gatt is null.", Name);
             }
-
         }
-
-
 
         protected override DeviceState GetState()
         {
@@ -252,10 +254,10 @@ namespace Plugin.BLE.Android
                 return false;
             }
 
-            return await TaskBuilder.FromEvent<bool, EventHandler<RssiReadCallbackEventArgs>>(
+            return await TaskBuilder.FromEvent<bool, EventHandler<RssiReadCallbackEventArgs>, EventHandler>(
               execute: () => _gatt.ReadRemoteRssi(),
               getCompleteHandler: (complete, reject) => ((sender, args) =>
-              {  
+              {
                   if (args.Error == null)
                   {
                       Trace.Message("Read RSSI for {0} {1}: {2}", Id, Name, args.Rssi);
@@ -269,7 +271,13 @@ namespace Plugin.BLE.Android
                   }
               }),
               subscribeComplete: handler => _gattCallback.RemoteRssiRead += handler,
-              unsubscribeComplete: handler => _gattCallback.RemoteRssiRead -= handler);
+              unsubscribeComplete: handler => _gattCallback.RemoteRssiRead -= handler,
+              getRejectHandler: reject => ((sender, args) =>
+              {
+                  reject(new Exception($"Device {Name} disconnected while updating rssi."));
+              }),
+              subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
+              unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler);
         }
     }
 }

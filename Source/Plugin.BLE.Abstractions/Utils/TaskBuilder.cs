@@ -15,11 +15,9 @@ namespace Plugin.BLE.Abstractions.Utils
         {
             return FromEvent<TReturn, TEventHandler, object>(
                 execute, getCompleteHandler, subscribeComplete, unsubscribeComplete,
-
                 getRejectHandler: reject => null,
                 subscribeReject: handler => { },
                 unsubscribeReject: handler => { },
-
                 token: token);
         }
 

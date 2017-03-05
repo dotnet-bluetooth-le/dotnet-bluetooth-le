@@ -8,11 +8,11 @@ namespace Plugin.BLE.Abstractions
 {
     public abstract class DeviceBase : IDevice
     {
-        private readonly IAdapter _adapter;
+        protected readonly IAdapter Adapter;
 
         protected DeviceBase(IAdapter adapter)
         {
-            _adapter = adapter;
+            Adapter = adapter;
         }
 
         protected readonly List<IService> KnownServices = new List<IService>();
@@ -53,7 +53,7 @@ namespace Plugin.BLE.Abstractions
 
         public void Dispose()
         {
-            _adapter.DisconnectDeviceAsync(this);
+            Adapter.DisconnectDeviceAsync(this);
         }
 
         public void ClearServices()
