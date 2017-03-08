@@ -1,4 +1,9 @@
 # Changelog
+## 1.2.1
+- Merge PR #157 iOS add support for NSString descriptor values
+- Merge PR #148 Added a boolean (forceBleTransport) to force the use of 'transport' parameter to BLE in connectGatt() method in Android
+- Breaking changes: ConnectDeviceAsync optional parameters are now encapsulated in a ConnectParameter class
+
 ## 1.2.0 
 - #150 iOS: No disconnect when the connect CancelationToken is cancelled after a successful connect.
 ### 1.2.0-beta4
