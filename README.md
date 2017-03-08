@@ -134,7 +134,7 @@ Always use a cancellation toke with this method.
 ```csharp
 try 
 {
-    await _adapter.ConnectToKnownDeviceAync(guid, cancellationToken);
+    await _adapter.ConnectToKnownDeviceAsync(guid, cancellationToken);
 }
 catch(DeviceConnectionException e)
 {
@@ -211,7 +211,7 @@ var systemDevices = adapter.GetSystemConnectedOrPairedDevices();
 
 foreach(var device in systemDevices)
 {
-    await _adapter.ConnectToDeviceAync(device); 
+    await _adapter.ConnectToDeviceAsync(device); 
 }
 
 ```
