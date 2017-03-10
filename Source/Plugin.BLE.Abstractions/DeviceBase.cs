@@ -7,30 +7,58 @@ using Plugin.BLE.Abstractions.Contracts;
 
 namespace Plugin.BLE.Abstractions
 {
-    public abstract class DeviceBase : IDevice
+    public interface ICancellationMaster
+    {
+        CancellationTokenSource TokenSource { get; set; }
+    }
+
+    public static class ICancellationMasterExtensions
+    {
+        public static CancellationTokenSource GetCombinedSource(this ICancellationMaster cancellationMaster, CancellationToken token)
+        {
+            return CancellationTokenSource.CreateLinkedTokenSource(cancellationMaster.TokenSource.Token, token);
+        }
+
+        public static void CancelEverything(this ICancellationMaster cancellationMaster)
+        {
+            cancellationMaster.TokenSource?.Cancel();
+            cancellationMaster.TokenSource?.Dispose();
+            cancellationMaster.TokenSource = null;
+        }
+
+        public static void CancelEverythingAndReInitialize(this ICancellationMaster cancellationMaster)
+        {
+            cancellationMaster.CancelEverything();
+            cancellationMaster.TokenSource = new CancellationTokenSource();
+        }
+    }
+
+    public abstract class DeviceBase : IDevice, ICancellationMaster
     {
         private readonly IAdapter _adapter;
+        protected readonly List<IService> KnownServices = new List<IService>();
+        public Guid Id { get; protected set; }
+        public string Name { get; protected set; }
+        public int Rssi { get; protected set; }
+        public DeviceState State => GetState();
+        public IList<AdvertisementRecord> AdvertisementRecords { get; protected set; }
+        public abstract object NativeDevice { get; }
+
+        CancellationTokenSource ICancellationMaster.TokenSource { get; set; } = new CancellationTokenSource();
 
         protected DeviceBase(IAdapter adapter)
         {
             _adapter = adapter;
         }
 
-        protected readonly List<IService> KnownServices = new List<IService>();
-
-        public Guid Id { get; protected set; }
-        public string Name { get; protected set; }
-        public int Rssi { get; protected set; }
-        public DeviceState State => GetState();
-        public IList<AdvertisementRecord> AdvertisementRecords { get; protected set; }
-
-        public abstract object NativeDevice { get; }
-
         public async Task<IList<IService>> GetServicesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             if (!KnownServices.Any())
             {
-                KnownServices.AddRange(await GetServicesNativeAsync());
+                using (var source = this.GetCombinedSource(cancellationToken))
+                {
+                    KnownServices.AddRange(await GetServicesNativeAsync());
+                }
             }
 
             return KnownServices;
@@ -59,10 +87,22 @@ namespace Plugin.BLE.Abstractions
 
         public void ClearServices()
         {
+            this.CancelEverythingAndReInitialize();
+
+            foreach (var service in KnownServices)
+            {
+                try
+                {
+                    service.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    Trace.Message("Exception while cleanup of service: {0}", ex.Message);
+                }
+            }
+
             KnownServices.Clear();
         }
-
-        #region IEquatable implementation
 
         public override bool Equals(object other)
         {
@@ -76,7 +116,7 @@ namespace Plugin.BLE.Abstractions
                 return false;
             }
 
-            var otherDeviceBase = (DeviceBase)other;
+            var otherDeviceBase = (DeviceBase) other;
             return Id == otherDeviceBase.Id;
         }
 
@@ -84,7 +124,5 @@ namespace Plugin.BLE.Abstractions
         {
             return Id.GetHashCode();
         }
-
-        #endregion
     }
 }

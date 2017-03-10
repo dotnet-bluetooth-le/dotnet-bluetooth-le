@@ -7,7 +7,7 @@ namespace Plugin.BLE.Abstractions.Contracts
     /// <summary>
     /// A bluetooth LE GATT service.
     /// </summary>
-	public interface IService
+	public interface IService : IDisposable
     {
         /// <summary>
         /// Id of the Service.

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Plugin.BLE.Abstractions.Contracts;
-using System.Collections.ObjectModel;
 
 namespace Plugin.BLE.Abstractions
 {
@@ -39,5 +38,10 @@ namespace Plugin.BLE.Abstractions
         }
 
         protected abstract Task<IList<ICharacteristic>> GetCharacteristicsNativeAsync();
+
+        public virtual void Dispose()
+        {
+            
+        }
     }
 }
