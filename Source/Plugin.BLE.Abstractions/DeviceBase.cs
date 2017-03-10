@@ -35,7 +35,7 @@ namespace Plugin.BLE.Abstractions
 
     public abstract class DeviceBase : IDevice, ICancellationMaster
     {
-        private readonly IAdapter _adapter;
+        protected readonly IAdapter Adapter;
         protected readonly List<IService> KnownServices = new List<IService>();
         public Guid Id { get; protected set; }
         public string Name { get; protected set; }
@@ -48,7 +48,7 @@ namespace Plugin.BLE.Abstractions
 
         protected DeviceBase(IAdapter adapter)
         {
-            _adapter = adapter;
+            Adapter = adapter;
         }
 
         public async Task<IList<IService>> GetServicesAsync(CancellationToken cancellationToken = default(CancellationToken))
@@ -82,7 +82,7 @@ namespace Plugin.BLE.Abstractions
 
         public void Dispose()
         {
-            _adapter.DisconnectDeviceAsync(this);
+            Adapter.DisconnectDeviceAsync(this);
         }
 
         public void ClearServices()

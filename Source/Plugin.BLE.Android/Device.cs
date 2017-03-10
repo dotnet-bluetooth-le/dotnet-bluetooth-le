@@ -5,49 +5,53 @@ using System.Threading.Tasks;
 using Android.App;
 using Android.Bluetooth;
 using Android.Content;
+using Android.OS;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
+using Plugin.BLE.Abstractions.Exceptions;
 using Plugin.BLE.Abstractions.Utils;
 using Plugin.BLE.Android.CallbackEventArgs;
+using Trace = Plugin.BLE.Abstractions.Trace;
 
 namespace Plugin.BLE.Android
 {
     public class Device : DeviceBase
     {
-        private BluetoothDevice _nativeDevice;
+        public BluetoothDevice BluetoothDevice { get; private set; }
+
         /// <summary>
         /// we have to keep a reference to this because Android's api is weird and requires
         /// the GattServer in order to do nearly anything, including enumerating services
-        /// 
-        /// TODO: consider wrapping the Gatt and Callback into a single object and passing that around instead.
         /// </summary>
-        private BluetoothGatt _gatt;
+        internal BluetoothGatt _gatt;
 
         /// <summary>
         /// we also track this because of gogole's weird API. the gatt callback is where
         /// we'll get notified when services are enumerated
         /// </summary>
-        private IGattCallback _gattCallback;
+        private readonly GattCallback _gattCallback;
 
-        public Device(Adapter adapter, BluetoothDevice nativeDevice, BluetoothGatt gatt, IGattCallback gattCallback, int rssi, byte[] advertisementData = null) : base(adapter)
+        public Device(Adapter adapter, BluetoothDevice nativeDevice, BluetoothGatt gatt, int rssi, byte[] advertisementData = null) : base(adapter)
         {
-            Update(nativeDevice, gatt, gattCallback);
+            Update(nativeDevice, gatt);
             Rssi = rssi;
             AdvertisementRecords = ParseScanRecord(advertisementData);
+            _gattCallback = new GattCallback(adapter, this);
         }
 
-        public void Update(BluetoothDevice nativeDevice, BluetoothGatt gatt, IGattCallback gattCallback)
+        public void Update(BluetoothDevice nativeDevice, BluetoothGatt gatt)
         {
-            _nativeDevice = nativeDevice;
+            BluetoothDevice = nativeDevice;
             _gatt = gatt;
-            _gattCallback = gattCallback;
+
 
             Id = ParseDeviceId();
-            Name = _nativeDevice.Name;
+            Name = BluetoothDevice.Name;
         }
 
-        public override object NativeDevice => _nativeDevice;
+        public override object NativeDevice => BluetoothDevice;
+        internal bool IsOperationRequested { get; set; }
 
         protected override async Task<IEnumerable<IService>> GetServicesNativeAsync()
         {
@@ -56,14 +60,63 @@ namespace Plugin.BLE.Android
                 return Enumerable.Empty<IService>();
             }
 
-            return await TaskBuilder.FromEvent<IEnumerable<IService>, EventHandler<ServicesDiscoveredCallbackEventArgs>>(
+            return await TaskBuilder.FromEvent<IEnumerable<IService>, EventHandler<ServicesDiscoveredCallbackEventArgs>, EventHandler>(
                 execute: () => _gatt.DiscoverServices(),
                 getCompleteHandler: (complete, reject) => ((sender, args) =>
                 {
                     complete(_gatt.Services.Select(service => new Service(service, _gatt, _gattCallback, this)));
                 }),
                 subscribeComplete: handler => _gattCallback.ServicesDiscovered += handler,
-                unsubscribeComplete: handler => _gattCallback.ServicesDiscovered -= handler);
+                unsubscribeComplete: handler => _gattCallback.ServicesDiscovered -= handler,
+                getRejectHandler: reject => ((sender, args) =>
+                {
+                    reject(new Exception($"Device {Name} disconnected while fetching services."));
+                }),
+                subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
+                unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler);
+        }
+
+        public void Connect(ConnectParameters connectParameters)
+        {
+            IsOperationRequested = true;
+
+            if (connectParameters.ForceBleTransport)
+            {
+                ConnectToGattForceBleTransportAPI(connectParameters.AutoConnect);
+            }
+            else
+            {
+                /*_gatt = */
+                BluetoothDevice.ConnectGatt(Application.Context, connectParameters.AutoConnect, _gattCallback);
+            }
+        }
+
+        private void ConnectToGattForceBleTransportAPI(bool autoconnect)
+        {
+
+            //This parameter is present from API 18 but only public from API 23
+            //So reflection is used before API 23
+            if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
+            {
+                //no transport mode before lollipop, it will probably not work... gattCallBackError 133 again alas
+                BluetoothDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback);
+            }
+            else if (Build.VERSION.SdkInt < BuildVersionCodes.M)
+            {
+                var m = BluetoothDevice.Class.GetDeclaredMethod("connectGatt", new Java.Lang.Class[] {
+                                Java.Lang.Class.FromType(typeof(Context))
+                            ,  Java.Lang.Boolean.Type
+                            ,  Java.Lang.Class.FromType(typeof(BluetoothGattCallback))
+                            ,  Java.Lang.Integer.Type});
+
+                var transport = BluetoothDevice.Class.GetDeclaredField("TRANSPORT_LE").GetInt(null);      // LE = 2, BREDR = 1, AUTO = 0
+                m.Invoke(BluetoothDevice, Application.Context, false, _gattCallback, transport);
+            }
+            else
+            {
+                BluetoothDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback, BluetoothTransports.Le);
+            }
+
         }
 
         // First step
@@ -71,6 +124,8 @@ namespace Plugin.BLE.Android
         {
             if (_gatt != null)
             {
+                IsOperationRequested = true;
+
                 ClearServices();
 
                 _gatt.Disconnect();
@@ -84,6 +139,7 @@ namespace Plugin.BLE.Android
         //Second step
         public void CloseGatt()
         {
+
             if (_gatt != null)
             {
                 _gatt.Close();
@@ -93,13 +149,12 @@ namespace Plugin.BLE.Android
             {
                 Trace.Message("[Warning]: Can't close gatt after disconnect {0}. Gatt is null.", Name);
             }
-
         }
 
         protected override DeviceState GetState()
         {
             var manager = (BluetoothManager)Application.Context.GetSystemService(Context.BluetoothService);
-            var state = manager.GetConnectionState(_nativeDevice, ProfileType.Gatt);
+            var state = manager.GetConnectionState(BluetoothDevice, ProfileType.Gatt);
 
             switch (state)
             {
@@ -121,7 +176,7 @@ namespace Plugin.BLE.Android
         private Guid ParseDeviceId()
         {
             var deviceGuid = new byte[16];
-            var macWithoutColons = _nativeDevice.Address.Replace(":", "");
+            var macWithoutColons = BluetoothDevice.Address.Replace(":", "");
             var macBytes = Enumerable.Range(0, macWithoutColons.Length)
                 .Where(x => x % 2 == 0)
                 .Select(x => Convert.ToByte(macWithoutColons.Substring(x, 2), 16))
@@ -199,12 +254,10 @@ namespace Plugin.BLE.Android
                 return false;
             }
 
-            return await TaskBuilder.FromEvent<bool, EventHandler<RssiReadCallbackEventArgs>>(
+            return await TaskBuilder.FromEvent<bool, EventHandler<RssiReadCallbackEventArgs>, EventHandler>(
               execute: () => _gatt.ReadRemoteRssi(),
               getCompleteHandler: (complete, reject) => ((sender, args) =>
               {
-                  if (args.Device.Id == Id) return;
-
                   if (args.Error == null)
                   {
                       Trace.Message("Read RSSI for {0} {1}: {2}", Id, Name, args.Rssi);
@@ -218,7 +271,13 @@ namespace Plugin.BLE.Android
                   }
               }),
               subscribeComplete: handler => _gattCallback.RemoteRssiRead += handler,
-              unsubscribeComplete: handler => _gattCallback.RemoteRssiRead -= handler);
+              unsubscribeComplete: handler => _gattCallback.RemoteRssiRead -= handler,
+              getRejectHandler: reject => ((sender, args) =>
+              {
+                  reject(new Exception($"Device {Name} disconnected while updating rssi."));
+              }),
+              subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
+              unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler);
         }
     }
 }
