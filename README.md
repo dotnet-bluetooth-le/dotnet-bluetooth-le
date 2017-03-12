@@ -112,12 +112,12 @@ await adapter.StartScanningForDevicesAsync();
 ```
 
 #### Connect to device
-`ConnectToDeviceAync` returns a Task that finishes if the device has been connected successful. Otherwise a `DeviceConnectionException` gets thrown.
+`ConnectToDeviceAsync` returns a Task that finishes if the device has been connected successful. Otherwise a `DeviceConnectionException` gets thrown.
 
 ```csharp
 try 
 {
-    await _adapter.ConnectToDeviceAync(device);
+    await _adapter.ConnectToDeviceAsync(device);
 }
 catch(DeviceConnectionException e)
 {
