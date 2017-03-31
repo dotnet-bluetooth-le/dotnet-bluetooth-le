@@ -215,6 +215,12 @@ foreach(var device in systemDevices)
 }
 
 ```
+## Caution! Important remarks / API limitations
+
+The BLE API implementation (especially on **Android**) has the following limitations:
+
+- *Characterisitc/Descriptor Write*:make sure you call characteristic.**WriteAsync**(...) from the **main thread**, failing to do so will most probably result in a GattWriteError.
+- *Sequential calls*:**Allways** wait for the previous ble command do finish before invoking the next. The Android API needs it's calls to be seriall, otherwise calls that do not wait for the previous ones will fail with some type of GattError. A more explicit example: if you call this in you view lifecycle (onAppearing etc) all these methods return **void** and 100% don't quarantee that any await bleCommand() called here will be truly awaited by other lifecycle methods.
 
 ## Best practice
 
