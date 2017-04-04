@@ -49,7 +49,8 @@ namespace Plugin.BLE.Abstractions.Contracts
         int ScanTimeout { get; set; }
 
         /// <summary>
-        /// Specifies the scanning mode. 
+        /// Specifies the scanning mode. Must be set before calling StartScanningForDevicesAsync().
+        /// Changing it while scanning, will have no change the current scan behavior.
         /// Default: <see cref="ScanMode.LowPower"/> 
         /// </summary>
         ScanMode ScanMode { get; set; }

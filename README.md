@@ -113,9 +113,10 @@ adapter.DeviceDiscovered += (s,a) => deviceList.Add(a.Device);
 await adapter.StartScanningForDevicesAsync();
 ```
 
+##### ScanTimeout
 Set `adapter.ScanTimeout` to specify the maximum duration of the scan.
 
-Set `adapter.ScanMode` to specify scan mode.
+##### ScanMode
 
 #### Connect to device
 `ConnectToDeviceAsync` returns a Task that finishes if the device has been connected successful. Otherwise a `DeviceConnectionException` gets thrown.
