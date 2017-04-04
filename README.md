@@ -12,6 +12,8 @@ Xamarin and MvvMCross plugin for accessing the bluetooth functionality. The plug
 | Xamarin.Android | 4.3 |  |
 | Xamarin.iOS     | 7.0 |  |
 
+[Changelog](doc/changelog.md)
+
 ## Installation
 
 **Vanilla**
@@ -110,6 +112,10 @@ ble.StateChanged += (s, e) =>
 adapter.DeviceDiscovered += (s,a) => deviceList.Add(a.Device);
 await adapter.StartScanningForDevicesAsync();
 ```
+
+Set `adapter.ScanTimeout` to specify the maximum duration of the scan.
+
+Set `adapter.ScanMode` to specify scan mode.
 
 #### Connect to device
 `ConnectToDeviceAsync` returns a Task that finishes if the device has been connected successful. Otherwise a `DeviceConnectionException` gets thrown.
@@ -254,7 +260,7 @@ The BLE API implementation (especially on **Android**) has the following limitat
 
 - [How to set custom trace method?](doc/howto_custom_trace.md)
 - [Characteristic Properties](doc/characteristics.md)
-- [Changelog](doc/changelog.md)
+- [Scan Mode Mapping](doc/scanmode_mapping.md)
 
 
 ## Useful Links
@@ -266,7 +272,7 @@ The BLE API implementation (especially on **Android**) has the following limitat
 
 ## How to contribute
 
-We usually do our development work on a branch with the name of the milestone. So please base your pull requests on the currently open development branch. 
+We usually do our development work on a branch with the name of the milestone. So please base your pull requests on the currently open development branch.
 
 ## Licence
 

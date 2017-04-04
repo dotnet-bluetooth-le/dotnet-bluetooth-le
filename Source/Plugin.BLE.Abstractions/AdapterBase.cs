@@ -31,6 +31,7 @@ namespace Plugin.BLE.Abstractions
         }
 
         public int ScanTimeout { get; set; } = 10000;
+        public ScanMode ScanMode { get; set; } = ScanMode.LowPower;
 
         public virtual IList<IDevice> DiscoveredDevices => _discoveredDevices;
 

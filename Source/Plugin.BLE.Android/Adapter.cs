@@ -11,6 +11,7 @@ using Android.Content;
 using Java.Util;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Extensions;
 using Object = Java.Lang.Object;
 using Trace = Plugin.BLE.Abstractions.Trace;
 
@@ -70,73 +71,68 @@ namespace Plugin.BLE.Android
 
         protected override Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
         {
-
             // clear out the list
             DiscoveredDevices.Clear();
 
-            if (serviceUuids == null || !serviceUuids.Any())
+            if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
             {
-                if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
-                {
-                    Trace.Message("Adapter < 21: Starting a scan for devices.");
-                    //without filter
-#pragma warning disable 618
-                    _bluetoothAdapter.StartLeScan(_api18ScanCallback);
-#pragma warning restore 618
-                }
-                else
-                {
-                    Trace.Message("Adapter >= 21: Starting a scan for devices.");
-                    if (_bluetoothAdapter.BluetoothLeScanner != null)
-                    {
-                        _bluetoothAdapter.BluetoothLeScanner.StartScan(_api21ScanCallback);
-                    }
-                    else
-                    {
-                        Trace.Message("Adapter >= 21: Scan failed. Bluetooth is probably off");
-                    }
-                }
-
+                StartScanningOld(serviceUuids);
             }
             else
             {
-                if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
-                {
-                    var uuids = serviceUuids.Select(u => UUID.FromString(u.ToString())).ToArray();
-                    Trace.Message("Adapter < 21: Starting a scan for devices.");
-#pragma warning disable 618
-                    _bluetoothAdapter.StartLeScan(uuids, _api18ScanCallback);
-#pragma warning restore 618
-                }
-                else
-                {
-
-                    Trace.Message("Adapter >=21: Starting a scan for devices with service Id {0}.", serviceUuids.First());
-
-                    var scanFilters = new List<ScanFilter>();
-                    foreach (var serviceUuid in serviceUuids)
-                    {
-                        var sfb = new ScanFilter.Builder();
-                        sfb.SetServiceUuid(ParcelUuid.FromString(serviceUuid.ToString()));
-                        scanFilters.Add(sfb.Build());
-                    }
-
-                    var ssb = new ScanSettings.Builder();
-                    //ssb.SetCallbackType(ScanCallbackType.AllMatches);
-
-                    if (_bluetoothAdapter.BluetoothLeScanner != null)
-                    {
-                        _bluetoothAdapter.BluetoothLeScanner.StartScan(scanFilters, ssb.Build(), _api21ScanCallback);
-                    }
-                    else
-                    {
-                        Trace.Message("Adapter >= 21: Scan failed. Bluetooth is probably off");
-                    }
-                }
-
+                StartScanningNew(serviceUuids);
             }
 
             return Task.FromResult(true);
+        }
+
+        private void StartScanningOld(Guid[] serviceUuids)
+        {
+            var hasFilter = serviceUuids?.Any() ?? false;
+            UUID[] uuids = null;
+            if (hasFilter)
+            {
+                uuids = serviceUuids.Select(u => UUID.FromString(u.ToString())).ToArray();
+            }
+            Trace.Message("Adapter < 21: Starting a scan for devices.");
+#pragma warning disable 618
+            _bluetoothAdapter.StartLeScan(uuids, _api18ScanCallback);
+#pragma warning restore 618
+        }
+
+        private void StartScanningNew(Guid[] serviceUuids)
+        {
+            var hasFilter = serviceUuids?.Any() ?? false;
+            List<ScanFilter> scanFilters = null;
+
+            if (hasFilter)
+            {
+                scanFilters = new List<ScanFilter>();
+                foreach (var serviceUuid in serviceUuids)
+                {
+                    var sfb = new ScanFilter.Builder();
+                    sfb.SetServiceUuid(ParcelUuid.FromString(serviceUuid.ToString()));
+                    scanFilters.Add(sfb.Build());
+                }
+            }
+
+            var ssb = new ScanSettings.Builder();
+            ssb.SetScanMode(ScanMode.ToNative());
+            //ssb.SetCallbackType(ScanCallbackType.AllMatches);
+
+            if (_bluetoothAdapter.BluetoothLeScanner != null)
+            {
+                Trace.Message($"Adapter >=21: Starting a scan for devices. ScanMode: {ScanMode}");
+                if (hasFilter)
+                {
+                    Trace.Message($"ScanFilters: {string.Join(", ", serviceUuids)}");
+                }
+                _bluetoothAdapter.BluetoothLeScanner.StartScan(scanFilters, ssb.Build(), _api21ScanCallback);
+            }
+            else
+            {
+                Trace.Message("Adapter >= 21: Scan failed. Bluetooth is probably off");
+            }
         }
 
         protected override void StopScanNative()
@@ -184,20 +180,18 @@ namespace Plugin.BLE.Android
             }
             else if (Build.VERSION.SdkInt < BuildVersionCodes.M)
             {
-                var m = nativeDevice.Class.GetDeclaredMethod("connectGatt", new Java.Lang.Class[] {
-                                Java.Lang.Class.FromType(typeof(Context))
-                            ,  Java.Lang.Boolean.Type
-                            ,  Java.Lang.Class.FromType(typeof(BluetoothGattCallback))
-                            ,  Java.Lang.Integer.Type});
+                var m = nativeDevice.Class.GetDeclaredMethod("connectGatt", Java.Lang.Class.FromType(typeof(Context)),
+                    Java.Lang.Boolean.Type,
+                    Java.Lang.Class.FromType(typeof(BluetoothGattCallback)),
+                    Java.Lang.Integer.Type);
 
                 var transport = nativeDevice.Class.GetDeclaredField("TRANSPORT_LE").GetInt(null);      // LE = 2, BREDR = 1, AUTO = 0
-                m.Invoke(nativeDevice, new Object[] { Application.Context, false, _gattCallback, transport });
+                m.Invoke(nativeDevice, Application.Context, false, _gattCallback, transport);
             }
             else
             {
                 nativeDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback, BluetoothTransports.Le);
             }
-
         }
 
         protected override void DisconnectDeviceNative(IDevice device)

@@ -1,4 +1,7 @@
 # Changelog
+## 1.2.2
+- #136: Added support for scan modes
+
 ## 1.2.1
 - Merge PR #157 iOS add support for NSString descriptor values
 - Merge PR #148 Added a boolean (forceBleTransport) to force the use of 'transport' parameter to BLE in connectGatt() method in Android

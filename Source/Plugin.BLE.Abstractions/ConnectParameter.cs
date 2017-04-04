@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Plugin.BLE.Abstractions
+﻿namespace Plugin.BLE.Abstractions
 {
     /// <summary>
     /// Connection parameters. Contains platform specific parameters needed to achieved connection
@@ -10,12 +8,12 @@ namespace Plugin.BLE.Abstractions
         /// <summary>
         /// Android only: Automatically try to reconnect to the device, after the connection got lost. The default is false.
         /// </summary>
-        public bool AutoConnect { get; private set; }
+        public bool AutoConnect { get; }
 
         /// <summary>
         /// Android only: For Dual Mode device, force transport mode to LE. The default is false.
         /// </summary>
-        public bool ForceBleTransport { get; private set; }
+        public bool ForceBleTransport { get; }
 
 
         public static ConnectParameters None { get; } = new ConnectParameters();

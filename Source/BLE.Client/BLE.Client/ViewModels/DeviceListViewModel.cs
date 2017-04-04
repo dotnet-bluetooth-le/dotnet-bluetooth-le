@@ -250,6 +250,7 @@ namespace BLE.Client.ViewModels
             RaisePropertyChanged(() => StopScanCommand);
 
             RaisePropertyChanged(() => IsRefreshing);
+            Adapter.ScanMode = ScanMode.LowLatency;
             await Adapter.StartScanningForDevicesAsync(_cancellationTokenSource.Token);
         }
 
