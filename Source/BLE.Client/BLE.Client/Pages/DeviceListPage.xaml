@@ -13,12 +13,6 @@
                   <MenuItem Command="{Binding Path=BindingContext.DisconnectCommand, Source={x:Reference DevicePage}}"
                             CommandParameter="{Binding .}" IsDestructive="True"
                             Text="Disconnect"/>
-                  <MenuItem Command="{Binding Path=BindingContext.CopyGuidCommand, Source={x:Reference DevicePage}}"
-                            CommandParameter="{Binding .}"
-                            Text="Copy Guid"/>
-                  <MenuItem Command="{Binding Path=BindingContext.ConnectDisposeCommand, Source={x:Reference DevicePage}}"
-                            CommandParameter="{Binding .}"
-                            Text="Connect and Dispose"/>
                 </ViewCell.ContextActions>
                 <Grid>
                   <Grid.ColumnDefinitions>
@@ -53,6 +47,7 @@
           <RowDefinition Height="*"></RowDefinition>
           <RowDefinition Height="Auto"></RowDefinition>
           <RowDefinition Height="Auto"></RowDefinition>
+          <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <StackLayout BackgroundColor="#FF6969" Padding="10" IsVisible="{Binding IsStateOn, Converter={StaticResource InverseBoolean}}">
           <Label Text="{Binding StateText}" FontSize="18" HorizontalTextAlignment="Center"></Label>
@@ -67,8 +62,15 @@
         </ListView>
 
 
-        <Label Grid.Row="2" Text="{Binding PreviousGuid, StringFormat='{0}'}" FontSize="Small" TextColor="Gray" VerticalTextAlignment="End"/>
-        <StackLayout Grid.Row="3" Orientation="Horizontal">
+        <Label Grid.Row="2" Text="{Binding PreviousGuid, StringFormat='GUID {0}'}" FontSize="Small" TextColor="Gray" VerticalTextAlignment="End"/>
+        <StackLayout Grid.Row="3" Orientation="Horizontal" HorizontalOptions="Fill">
+            <StackLayout.IsVisible>
+                <OnPlatform x:TypeArguments="x:Boolean" iOS="false" Android="true" />
+            </StackLayout.IsVisible>
+            <Label Text="Use Android AutoConnect" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+            <Switch IsToggled="{Binding UseAutoConnect}" HorizontalOptions="End"></Switch>
+        </StackLayout>
+        <StackLayout Grid.Row="4" Orientation="Horizontal">
           <Button Text="Connect to previous" Command="{Binding ConnectToPreviousCommand}" HorizontalOptions="FillAndExpand"/>
           <Button Text="Stop Scan" Command="{Binding StopScanCommand}" HorizontalOptions="End"/>
           <ActivityIndicator IsRunning="{Binding IsRefreshing}"

@@ -1,14 +1,11 @@
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Android.App;
 using Android.Bluetooth;
 using Android.Bluetooth.LE;
 using Android.OS;
-using Android.Content;
 using Java.Util;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
@@ -30,7 +27,7 @@ namespace Plugin.BLE.Android
         /// Used to store all connected devices
         /// </summary>
         public Dictionary<string, IDevice> ConnectedDeviceRegistry { get; }
-   
+
         public Adapter(BluetoothManager bluetoothManager)
         {
             _bluetoothManager = bluetoothManager;
