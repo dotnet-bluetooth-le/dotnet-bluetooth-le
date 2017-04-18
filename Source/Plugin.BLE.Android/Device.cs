@@ -203,7 +203,8 @@ namespace Plugin.BLE.Android
               execute: () => _gatt.ReadRemoteRssi(),
               getCompleteHandler: (complete, reject) => ((sender, args) =>
               {
-                  if (args.Device.Id == Id) return;
+                  if (args.Device.Id != Id)
+                      return;
 
                   if (args.Error == null)
                   {
