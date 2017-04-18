@@ -1,4 +1,7 @@
 # Changelog
+## 1.2.3
+- #183: Android fixed UpdateRssiAsync
+
 ## 1.2.2
 - #136: Added support for scan modes
 
