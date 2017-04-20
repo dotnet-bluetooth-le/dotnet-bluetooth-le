@@ -5,6 +5,13 @@ Xamarin and MvvMCross plugin for accessing the bluetooth functionality. The plug
 
 **Important Note:** With the term *"vanilla"* we mean the non MvvmCross/pure Xamarin version. You **can** use it without MvvmCross, if you download the vanilla package.
 
+## Changes in this fork
+
+This project was forked in order to support some functionality required by the Bang & Olufsen app.
+
+- The BLE stack in our products doesn't support multi-packet writes, so we request a sufficiently large MTU before writing anything to the product. Yes, this means that the write might fail if the connection is poor. See 4bcc45dab54b415eb6bb594c774ab636f8064a09.
+- We guard against an error when reading from a characteristic that has no value. See c27757a0d6958feb73e8dae5cb7d9b8913b90785.
+
 ## Support & Limitations
 
 | Platform  | Version | Limitations |
