@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Android.Bluetooth;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
@@ -16,6 +16,7 @@ namespace Plugin.BLE.Android
         event EventHandler<DescriptorCallbackEventArgs> DescriptorValueWritten;
         event EventHandler<DescriptorCallbackEventArgs> DescriptorValueRead;
         event EventHandler<RssiReadCallbackEventArgs> RemoteRssiRead;
+        event EventHandler<MtuRequestCallbackEventArgs> MtuRequested;
     }
 
     public class GattCallback : BluetoothGattCallback, IGattCallback
@@ -27,6 +28,7 @@ namespace Plugin.BLE.Android
         public event EventHandler<RssiReadCallbackEventArgs> RemoteRssiRead;
         public event EventHandler<DescriptorCallbackEventArgs> DescriptorValueWritten;
         public event EventHandler<DescriptorCallbackEventArgs> DescriptorValueRead;
+        public event EventHandler<MtuRequestCallbackEventArgs> MtuRequested;
 
         public GattCallback(Adapter adapter)
         {
@@ -172,6 +174,14 @@ namespace Plugin.BLE.Android
             base.OnReliableWriteCompleted(gatt, status);
 
             Trace.Message("OnReliableWriteCompleted: {0}", status);
+        }
+
+        public override void OnMtuChanged(BluetoothGatt gatt, int mtu, GattStatus status)
+        {
+            base.OnMtuChanged(gatt, mtu, status);
+
+            Trace.Message("OnMtuChanged to value: {0}", mtu);
+            MtuRequested?.Invoke(this, new MtuRequestCallbackEventArgs(GetExceptionFromGattStatus(status), mtu));
         }
 
         public override void OnReadRemoteRssi(BluetoothGatt gatt, int rssi, GattStatus status)
