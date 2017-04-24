@@ -133,7 +133,7 @@ namespace Plugin.BLE.iOS
         protected override async Task<int> RequestMtuNativeAsync(int requestValue)
         {
             Trace.Message($"Request MTU is not supported on iOS.");
-            return await Task.FromResult((int)_nativeDevice.GetMaximumWriteValueLength(CBCharacteristicWriteType.WithoutResponse) - 3);
+            return await Task.FromResult((int)_nativeDevice.GetMaximumWriteValueLength(CBCharacteristicWriteType.WithoutResponse));
         }
     }
 }
