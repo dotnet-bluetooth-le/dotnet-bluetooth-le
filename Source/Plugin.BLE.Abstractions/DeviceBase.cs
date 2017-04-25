@@ -41,10 +41,10 @@ namespace Plugin.BLE.Abstractions
             return services.FirstOrDefault(x => x.Id == id);
         }
 
-		public async Task<int> RequestMtuAsync(int requestValue)
-		{
-			return await RequestMtuNativeAsync(requestValue);
-		}
+        public async Task<int> RequestMtuAsync(int requestValue)
+        {
+            return await RequestMtuNativeAsync(requestValue);
+        }
 
         public abstract Task<bool> UpdateRssiAsync();
         protected abstract DeviceState GetState();
