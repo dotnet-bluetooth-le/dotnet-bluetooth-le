@@ -400,6 +400,7 @@ namespace BLE.Client.ViewModels
                     _userDialogs.ShowLoading($"Connecting to {item.Name} ...");
                     await Adapter.ConnectToDeviceAsync(item.Device);
 
+                    // TODO make this configurable
                     var resultMTU = await item.Device.RequestMtuAsync(60);
                     System.Diagnostics.Debug.WriteLine($"Requested MTU. Result is {resultMTU}");
 

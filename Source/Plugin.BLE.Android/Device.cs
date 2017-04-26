@@ -234,13 +234,23 @@ namespace Plugin.BLE.Android
             }
 
             return await TaskBuilder.FromEvent<int, EventHandler<MtuRequestCallbackEventArgs>>(
-                execute: () => { _gatt.RequestMtu(requestValue); },
-                getCompleteHandler: (complete, reject) => ((sender, args) =>
+              execute: () => { _gatt.RequestMtu(requestValue); },
+              getCompleteHandler: (complete, reject) => ((sender, args) =>
                {
-                   complete(args.Mtu);
-               }),
+                   if (args.Device == null || args.Device.Id != Id)
+                       return;
 
-                subscribeComplete: handler => _gattCallback.MtuRequested += handler,
+                   if (args.Error != null)
+                   {
+                       Trace.Message($"Failed to request MTU ({requestValue}) for device {Id}-{Name}. {args.Error.Message}");
+                       reject(new Exception($"Request MTU error: {args.Error.Message}"));
+                   }
+                   else
+                   {
+                       complete(args.Mtu);
+                   }
+               }),
+              subscribeComplete: handler => _gattCallback.MtuRequested += handler,
               unsubscribeComplete: handler => _gattCallback.MtuRequested -= handler
             );
         }
