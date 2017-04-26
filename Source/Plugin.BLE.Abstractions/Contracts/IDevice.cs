@@ -1,4 +1,4 @@
-using System;
+﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -77,5 +77,17 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// The Task will finish after Rssi has been updated.
         /// </returns>
         Task<bool> UpdateRssiAsync();
+
+        /// <summary>
+        /// Requests a MTU update and fires an "Exchange MTU Request" on the ble stack. Be aware that the resulting MTU value will be negotiated between master and slave using your requested value for the negotiation.
+        /// 
+        /// Important: 
+        /// On Android: This function will only work with API level 21 and higher. Other API level will get an default value as function result.
+        /// On iOS: Requesting MTU sizes is not supported by iOS. The function will return the current negotiated MTU between master / slave.
+        /// </summary>
+        /// <returns>
+        /// A task that represents the asynchronous operation. The result contains the negotiated MTU size between master and slave</returns>
+        /// <param name="requestValue">The requested MTU</param>
+        Task<int> RequestMtuAsync(int requestValue);
     }
 }

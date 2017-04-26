@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -70,10 +70,15 @@ namespace Plugin.BLE.Abstractions
             return services.FirstOrDefault(x => x.Id == id);
         }
 
-        public abstract Task<bool> UpdateRssiAsync();
+        public async Task<int> RequestMtuAsync(int requestValue)
+        {
+            return await RequestMtuNativeAsync(requestValue);
+        }
 
+        public abstract Task<bool> UpdateRssiAsync();
         protected abstract DeviceState GetState();
         protected abstract Task<IEnumerable<IService>> GetServicesNativeAsync();
+        protected abstract Task<int> RequestMtuNativeAsync(int requestValue);
 
         public override string ToString()
         {

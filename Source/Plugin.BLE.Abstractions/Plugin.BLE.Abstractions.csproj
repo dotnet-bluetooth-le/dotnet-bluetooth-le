@@ -50,6 +50,7 @@
     <Compile Include="Contracts\IDescriptor.cs" />
     <Compile Include="Contracts\IDevice.cs" />
     <Compile Include="Contracts\IService.cs" />
+    <Compile Include="Contracts\ScanMode.cs" />
     <Compile Include="DescriptorBase.cs" />
     <Compile Include="DeviceBase.cs" />
     <Compile Include="DeviceBondState.cs" />

@@ -1,8 +1,9 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Android.App;
+using Android.OS;
 using Android.Bluetooth;
 using Android.Content;
 using Android.OS;
@@ -278,6 +279,43 @@ namespace Plugin.BLE.Android
               }),
               subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
               unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler);
+        }
+
+        protected override async Task<int> RequestMtuNativeAsync(int requestValue)
+        {
+            if (_gatt == null || _gattCallback == null)
+            {
+                Trace.Message("You can't request a MTU for disconnected devices. Device is {0}", State);
+                return -1;
+            }
+
+
+            if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
+            {
+                Trace.Message($"Request MTU not supported in this Android API level");
+                return -1;
+            }
+
+            return await TaskBuilder.FromEvent<int, EventHandler<MtuRequestCallbackEventArgs>>(
+              execute: () => { _gatt.RequestMtu(requestValue); },
+              getCompleteHandler: (complete, reject) => ((sender, args) =>
+               {
+                   if (args.Device == null || args.Device.Id != Id)
+                       return;
+
+                   if (args.Error != null)
+                   {
+                       Trace.Message($"Failed to request MTU ({requestValue}) for device {Id}-{Name}. {args.Error.Message}");
+                       reject(new Exception($"Request MTU error: {args.Error.Message}"));
+                   }
+                   else
+                   {
+                       complete(args.Mtu);
+                   }
+               }),
+              subscribeComplete: handler => _gattCallback.MtuRequested += handler,
+              unsubscribeComplete: handler => _gattCallback.MtuRequested -= handler
+            );
         }
     }
 }

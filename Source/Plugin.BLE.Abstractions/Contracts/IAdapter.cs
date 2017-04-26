@@ -49,6 +49,13 @@ namespace Plugin.BLE.Abstractions.Contracts
         int ScanTimeout { get; set; }
 
         /// <summary>
+        /// Specifies the scanning mode. Must be set before calling StartScanningForDevicesAsync().
+        /// Changing it while scanning, will have no change the current scan behavior.
+        /// Default: <see cref="ScanMode.LowPower"/> 
+        /// </summary>
+        ScanMode ScanMode { get; set; }
+
+        /// <summary>
         /// List of last discovered devices.
         /// </summary>
         IList<IDevice> DiscoveredDevices { get; }
@@ -106,7 +113,6 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <returns></returns>
         Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters = default(ConnectParameters), CancellationToken cancellationToken = default(CancellationToken));
 
-
         /// <summary>
         /// Returns all BLE devices connected to the system. For android the implementations uses getConnectedDevices(GATT) & getBondedDevices()
         /// and for ios the implementation uses get retrieveConnectedPeripherals(services)
@@ -120,6 +126,5 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <param name="services">IMPORTANT: Only considered by iOS due to platform limitations. Filters devices by advertised services. SET THIS VALUE FOR ANY RESULTS</param>
         /// <returns>List of IDevices connected to the OS.  In case of no devices the list is empty.</returns>
         List<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null);
-
     }
 }

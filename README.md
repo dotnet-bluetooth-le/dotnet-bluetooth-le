@@ -1,5 +1,5 @@
 # <img src="icon_small.png" width="71" height="71"/> Bluetooth LE plugin for Xamarin [![Build Status](https://www.bitrise.io/app/3fe54d0a5f43c2bf.svg?token=i9LUY4rIecZWd_3j7hwXgw)](https://www.bitrise.io/app/3fe54d0a5f43c2bf) 
-[![Issue Stats](http://www.issuestats.com/github/xabre/xamarin-bluetooth-le/badge/issue?style=flat)](http://www.issuestats.com/github/xabre/xamarin-bluetooth-le)[![Issue Stats](http://www.issuestats.com/github/xabre/xamarin-bluetooth-le/badge/issue?style=flat)](http://www.issuestats.com/github/xabre/xamarin-bluetooth-le)
+[![Issue Stats](http://www.issuestats.com/github/xabre/xamarin-bluetooth-le/badge/issue?style=flat)](http://www.issuestats.com/github/xabre/xamarin-bluetooth-le)
 
 Xamarin and MvvMCross plugin for accessing the bluetooth functionality. The plugin is loosely based on the BLE implementation of [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics). 
 
@@ -12,6 +12,8 @@ Xamarin and MvvMCross plugin for accessing the bluetooth functionality. The plug
 | Xamarin.Android | 4.3 |  |
 | Xamarin.iOS     | 7.0 |  |
 
+[Changelog](doc/changelog.md)
+
 ## Installation
 
 **Vanilla**
@@ -22,7 +24,7 @@ Install-Package Plugin.BLE
 // or pre-release
 Install-Package Plugin.BLE -Pre
 ```
-[![NuGet](https://img.shields.io/nuget/v/Plugin.BLE.svg?label=NuGet)](https://www.nuget.org/packages/Plugin.BLE) [![NuGet Beta](https://img.shields.io/nuget/vpre/Plugin.BLE.svg?label=NuGet Beta)](https://www.nuget.org/packages/Plugin.BLE)
+[![NuGet](https://img.shields.io/nuget/v/Plugin.BLE.svg?label=NuGet)](https://www.nuget.org/packages/Plugin.BLE) [![NuGet Beta](https://img.shields.io/nuget/vpre/Plugin.BLE.svg?label=NuGet%20Beta)](https://www.nuget.org/packages/Plugin.BLE)
 
 **MvvmCross**
 
@@ -32,7 +34,7 @@ Install-Package MvvmCross.Plugin.BLE
 Install-Package MvvmCross.Plugin.BLE -Pre
 ```
 
-[![NuGet MvvMCross](https://img.shields.io/nuget/v/MvvmCross.Plugin.BLE.svg?label=NuGet MvvMCross)](https://www.nuget.org/packages/MvvmCross.Plugin.BLE) [![NuGet MvvMCross Beta](https://img.shields.io/nuget/vpre/MvvmCross.Plugin.BLE.svg?label=NuGet MvvMCross Beta)](https://www.nuget.org/packages/MvvmCross.Plugin.BLE)
+[![NuGet MvvMCross](https://img.shields.io/nuget/v/MvvmCross.Plugin.BLE.svg?label=NuGet%20MvvMCross)](https://www.nuget.org/packages/MvvmCross.Plugin.BLE) [![NuGet MvvMCross Beta](https://img.shields.io/nuget/vpre/MvvmCross.Plugin.BLE.svg?label=NuGet%20MvvMCross%20Beta)](https://www.nuget.org/packages/MvvmCross.Plugin.BLE)
 
 **Android**
 
@@ -111,13 +113,19 @@ adapter.DeviceDiscovered += (s,a) => deviceList.Add(a.Device);
 await adapter.StartScanningForDevicesAsync();
 ```
 
+##### ScanTimeout
+Set `adapter.ScanTimeout` to specify the maximum duration of the scan.
+
+##### ScanMode
+Set `adapter.ScanMode` to specify scan mode. It must be set **before** calling `StartScanningForDevicesAsync()`. Changing it while scanning, will not affect the current scan.
+
 #### Connect to device
-`ConnectToDeviceAync` returns a Task that finishes if the device has been connected successful. Otherwise a `DeviceConnectionException` gets thrown.
+`ConnectToDeviceAsync` returns a Task that finishes if the device has been connected successful. Otherwise a `DeviceConnectionException` gets thrown.
 
 ```csharp
 try 
 {
-    await _adapter.ConnectToDeviceAync(device);
+    await _adapter.ConnectToDeviceAsync(device);
 }
 catch(DeviceConnectionException e)
 {
@@ -134,7 +142,7 @@ Always use a cancellation toke with this method.
 ```csharp
 try 
 {
-    await _adapter.ConnectToKnownDeviceAync(guid, cancellationToken);
+    await _adapter.ConnectToKnownDeviceAsync(guid, cancellationToken);
 }
 catch(DeviceConnectionException e)
 {
@@ -211,10 +219,17 @@ var systemDevices = adapter.GetSystemConnectedOrPairedDevices();
 
 foreach(var device in systemDevices)
 {
-    await _adapter.ConnectToDeviceAync(device); 
+    await _adapter.ConnectToDeviceAsync(device); 
 }
 
 ```
+## Caution! Important remarks / API limitations
+
+The BLE API implementation (especially on **Android**) has the following limitations:
+
+- *Characterisitc/Descriptor Write*: make sure you call characteristic.**WriteAsync**(...) from the **main thread**, failing to do so will most probably result in a GattWriteError.
+- *Sequential calls*: **Allways** wait for the previous ble command do finish before invoking the next. The Android API needs it's calls to be seriall, otherwise calls that do not wait for the previous ones will fail with some type of GattError. A more explicit example: if you call this in you view lifecycle (onAppearing etc) all these methods return **void** and 100% don't quarantee that any await bleCommand() called here will be truly awaited by other lifecycle methods.
+- *Scan wit services filter*: On **specifically Android 4.3** the *scan services filter does not work* (due to the underlying android implementation). For android 4.3 you will have to use a workaround and scan without filter and then manually filter by using the advertisment data (which contains the published service guids).
 
 ## Best practice
 
@@ -247,7 +262,7 @@ foreach(var device in systemDevices)
 
 - [How to set custom trace method?](doc/howto_custom_trace.md)
 - [Characteristic Properties](doc/characteristics.md)
-- [Changelog](doc/changelog.md)
+- [Scan Mode Mapping](doc/scanmode_mapping.md)
 
 
 ## Useful Links
@@ -259,7 +274,7 @@ foreach(var device in systemDevices)
 
 ## How to contribute
 
-We usually do our development work on a branch with the name of the milestone. So please base your pull requests on the currently open development branch. 
+We usually do our development work on a branch with the name of the milestone. So please base your pull requests on the currently open development branch.
 
 ## Licence
 

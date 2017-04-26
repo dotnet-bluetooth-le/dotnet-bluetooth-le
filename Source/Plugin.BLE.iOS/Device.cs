@@ -129,5 +129,11 @@ namespace Plugin.BLE.iOS
             //It's maybe not the best idea to updated the name based on CBPeripherial name because this might be stale.
             //Name = nativeDevice.Name; 
         }
+
+        protected override async Task<int> RequestMtuNativeAsync(int requestValue)
+        {
+            Trace.Message($"Request MTU is not supported on iOS.");
+            return await Task.FromResult((int)_nativeDevice.GetMaximumWriteValueLength(CBCharacteristicWriteType.WithoutResponse));
+        }
     }
 }

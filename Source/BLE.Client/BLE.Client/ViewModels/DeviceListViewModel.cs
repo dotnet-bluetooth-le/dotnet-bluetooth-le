@@ -268,6 +268,7 @@ namespace BLE.Client.ViewModels
             RaisePropertyChanged(() => StopScanCommand);
 
             RaisePropertyChanged(() => IsRefreshing);
+            Adapter.ScanMode = ScanMode.LowLatency;
             await Adapter.StartScanningForDevicesAsync(_cancellationTokenSource.Token);
         }
 
@@ -450,6 +451,11 @@ namespace BLE.Client.ViewModels
                 {
                     _userDialogs.ShowLoading($"Connecting to {item.Name} ...");
                     await Adapter.ConnectToDeviceAsync(item.Device);
+
+                    // TODO make this configurable
+                    var resultMTU = await item.Device.RequestMtuAsync(60);
+                    System.Diagnostics.Debug.WriteLine($"Requested MTU. Result is {resultMTU}");
+
                     item.Update();
                     _userDialogs.ShowSuccess($"Connected {item.Device.Name}");
 

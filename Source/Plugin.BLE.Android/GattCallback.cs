@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Android.Bluetooth;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
@@ -18,6 +18,7 @@ namespace Plugin.BLE.Android
         event EventHandler<DescriptorCallbackEventArgs> DescriptorValueRead;
         event EventHandler<RssiReadCallbackEventArgs> RemoteRssiRead;
         event EventHandler ConnectionInterrupted;
+        event EventHandler<MtuRequestCallbackEventArgs> MtuRequested;
     }
 
     public class GattCallback : BluetoothGattCallback, IGattCallback
@@ -31,6 +32,7 @@ namespace Plugin.BLE.Android
         public event EventHandler ConnectionInterrupted;
         public event EventHandler<DescriptorCallbackEventArgs> DescriptorValueWritten;
         public event EventHandler<DescriptorCallbackEventArgs> DescriptorValueRead;
+        public event EventHandler<MtuRequestCallbackEventArgs> MtuRequested;
 
         public GattCallback(Adapter adapter, Device device)
         {
@@ -191,6 +193,21 @@ namespace Plugin.BLE.Android
             base.OnReliableWriteCompleted(gatt, status);
 
             Trace.Message("OnReliableWriteCompleted: {0}", status);
+        }
+
+        public override void OnMtuChanged(BluetoothGatt gatt, int mtu, GattStatus status)
+        {
+            base.OnMtuChanged(gatt, mtu, status);
+
+            Trace.Message("OnMtuChanged to value: {0}", mtu);
+
+            IDevice device;
+            if (!_adapter.ConnectedDeviceRegistry.TryGetValue(gatt.Device.Address, out device))
+            {
+                Trace.Message("Device for MTU changed is not in connected list. This should not happen.");
+            }
+
+            MtuRequested?.Invoke(this, new MtuRequestCallbackEventArgs(device, GetExceptionFromGattStatus(status), mtu));
         }
 
         public override void OnReadRemoteRssi(BluetoothGatt gatt, int rssi, GattStatus status)

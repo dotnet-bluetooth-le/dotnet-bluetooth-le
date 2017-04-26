@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Plugin.BLE.Abstractions
+﻿namespace Plugin.BLE.Abstractions
 {
     /// <summary>
     /// Connection parameters. Contains platform specific parameters needed to achieved connection
@@ -11,12 +9,12 @@ namespace Plugin.BLE.Abstractions
         /// Android only, from documnetation:  
         /// boolean: Whether to directly connect to the remote device (false) or to automatically connect as soon as the remote device becomes available (true).
         /// </summary>
-        public bool AutoConnect { get; private set; }
+        public bool AutoConnect { get; }
 
         /// <summary>
         /// Android only: For Dual Mode device, force transport mode to LE. The default is false.
         /// </summary>
-        public bool ForceBleTransport { get; private set; }
+        public bool ForceBleTransport { get; }
 
 
         public static ConnectParameters None { get; } = new ConnectParameters();

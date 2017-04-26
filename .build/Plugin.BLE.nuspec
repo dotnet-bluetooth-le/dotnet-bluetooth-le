@@ -17,6 +17,10 @@
     <releaseNotes>
       [1.3.0-alpha.1]
       - GATT callback refactoring
+      [1.2.3]
+      - #183: Android fixed UpdateRssiAsync
+      [1.2.2]
+      - #136: Added support for scan modes
       [1.2.1]
       - Merge PR #157 iOS add support for NSString descriptor values
       - Merge PR #148 Added a boolean (forceBleTransport) to force the use of transport parameter to BLE in connectGatt method in Android
@@ -32,29 +36,6 @@
       [1.2.0-beta1]
       - #90: API change, added parent reference for IDescriptor to ICharacteristic to IService to IDevice
       - #109, #111 merge PR: iOS parse TxPower, ServiceData
-      [1.1.0]
-      - stable release incuding all beta features
-      [1.1.0-beta5]
-      - #97 Fixe iOS GetSystemConnectedDevices implementation. FYI method is now called GetSystemConnectedOrPairedDevices
-      - #98 and #96 Merged GetSystemConnectedDevices and GetSystemPairedDevice into single method. iOS has no equivalent method for this so it makes more sense like this.
-      - #94 iOS: Quickfix, change to GetDescriptorsAsync in order to wait for callback
-      [1.1.0-beta4]
-      - #94 Android: Quickfix for descriptor read async, callback not invoked
-      [1.1.0-beta3]
-      - #82 Enable setting PeripheralScanningOptions for ScanForPeripherals on iOS
-      - #93 Fixed iOS crash when ble is off and ConnectingToKnownDeviceAsync. Wait for state and proper use of cancellation token.
-      - #94 Implementation of descriptor Write/Read for iOS and Android.
-      - #95 Async for start/stop notifications so that the descriptor write callback is invoked
-      [1.1.0-beta2]
-      - #78 BluetoothStateChangedArgs contain the old state and the new state
-      - #81 iOS: Removed code smell which caused crash. Temporarily removed UpdateName subscription.
-      - Android 4.4: fixed gatt callback to correctly detect gatt error when connecting to known device and not in range
-      - #86: GetSystemConnectedDevices, beta implementation, in order to use the device in the app call ConnectAsync
-      - #73: fixed crash when calling connecttoknwondevice without cancellation token
-      [1.1.0-beta1]
-      - improvements on xml documentation
-      - Characteristic write type can be specified by the user
-      - ConnectAsync throws NullReferenceException if device is null
 
       for older releases: https://github.com/xabre/xamarin-bluetooth-le/blob/master/doc/changelog.md
     </releaseNotes>
