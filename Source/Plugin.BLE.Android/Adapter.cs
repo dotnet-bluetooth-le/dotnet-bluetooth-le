@@ -12,6 +12,7 @@ using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Extensions;
 using Object = Java.Lang.Object;
 using Trace = Plugin.BLE.Abstractions.Trace;
+using Android.App;
 
 namespace Plugin.BLE.Android
 {
@@ -144,33 +145,6 @@ namespace Plugin.BLE.Android
         {
             ((Device)device).Connect(connectParameters);
             return Task.CompletedTask;
-        }
-
-        private void ConnectToGattForceBleTransportAPI(IDevice device, bool autoconnect)
-        {
-            var nativeDevice = ((BluetoothDevice)device.NativeDevice);
-
-            //This parameter is present from API 18 but only public from API 23
-            //So reflection is used before API 23
-            if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
-            {
-                //no transport mode before lollipop, it will probably not work... gattCallBackError 133 again alas
-                nativeDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback);
-            }
-            else if (Build.VERSION.SdkInt < BuildVersionCodes.M)
-            {
-                var m = nativeDevice.Class.GetDeclaredMethod("connectGatt", Java.Lang.Class.FromType(typeof(Context)),
-                    Java.Lang.Boolean.Type,
-                    Java.Lang.Class.FromType(typeof(BluetoothGattCallback)),
-                    Java.Lang.Integer.Type);
-
-                var transport = nativeDevice.Class.GetDeclaredField("TRANSPORT_LE").GetInt(null);      // LE = 2, BREDR = 1, AUTO = 0
-                m.Invoke(nativeDevice, Application.Context, false, _gattCallback, transport);
-            }
-            else
-            {
-                nativeDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback, BluetoothTransports.Le);
-            }
         }
 
         protected override void DisconnectDeviceNative(IDevice device)

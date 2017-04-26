@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,7 +6,6 @@ using Android.App;
 using Android.OS;
 using Android.Bluetooth;
 using Android.Content;
-using Android.OS;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
@@ -94,7 +93,6 @@ namespace Plugin.BLE.Android
 
         private void ConnectToGattForceBleTransportAPI(bool autoconnect)
         {
-
             //This parameter is present from API 18 but only public from API 23
             //So reflection is used before API 23
             if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
@@ -296,13 +294,10 @@ namespace Plugin.BLE.Android
                 return -1;
             }
 
-            return await TaskBuilder.FromEvent<int, EventHandler<MtuRequestCallbackEventArgs>>(
+            return await TaskBuilder.FromEvent<int, EventHandler<MtuRequestCallbackEventArgs>, EventHandler>(
               execute: () => { _gatt.RequestMtu(requestValue); },
               getCompleteHandler: (complete, reject) => ((sender, args) =>
                {
-                   if (args.Device == null || args.Device.Id != Id)
-                       return;
-
                    if (args.Error != null)
                    {
                        Trace.Message($"Failed to request MTU ({requestValue}) for device {Id}-{Name}. {args.Error.Message}");
@@ -314,7 +309,13 @@ namespace Plugin.BLE.Android
                    }
                }),
               subscribeComplete: handler => _gattCallback.MtuRequested += handler,
-              unsubscribeComplete: handler => _gattCallback.MtuRequested -= handler
+              unsubscribeComplete: handler => _gattCallback.MtuRequested -= handler,
+              getRejectHandler: reject => ((sender, args) =>
+               {
+                   reject(new Exception($"Device {Name} disconnected while requesting MTU."));
+               }),
+              subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
+              unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler
             );
         }
     }

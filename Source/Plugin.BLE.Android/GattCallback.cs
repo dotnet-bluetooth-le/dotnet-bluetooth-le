@@ -201,13 +201,7 @@ namespace Plugin.BLE.Android
 
             Trace.Message("OnMtuChanged to value: {0}", mtu);
 
-            IDevice device;
-            if (!_adapter.ConnectedDeviceRegistry.TryGetValue(gatt.Device.Address, out device))
-            {
-                Trace.Message("Device for MTU changed is not in connected list. This should not happen.");
-            }
-
-            MtuRequested?.Invoke(this, new MtuRequestCallbackEventArgs(device, GetExceptionFromGattStatus(status), mtu));
+            MtuRequested?.Invoke(this, new MtuRequestCallbackEventArgs(GetExceptionFromGattStatus(status), mtu));
         }
 
         public override void OnReadRemoteRssi(BluetoothGatt gatt, int rssi, GattStatus status)
