@@ -227,6 +227,13 @@ namespace Plugin.BLE.Android
 
         protected override async Task<int> RequestMtuNativeAsync(int requestValue)
         {
+            if (_gatt == null || _gattCallback == null)
+            {
+                Trace.Message("You can't request a MTU for disconnected devices. Device is {0}", State);
+                return -1;
+            }
+
+
             if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
             {
                 Trace.Message($"Request MTU not supported in this Android API level");
