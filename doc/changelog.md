@@ -1,6 +1,9 @@
 # Changelog
 ## 1.3.0
 
+#### 1.3.0-beta.1
+- Merge PR #195 Request MTU
+
 #### 1.3.0-alpha.1
 - GATT callback refactoring
 

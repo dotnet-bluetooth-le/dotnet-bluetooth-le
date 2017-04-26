@@ -1,7 +1,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Plugin.BLE</id>
-    <version>1.3.0-alpha1</version>
+    <version>1.3.0-beta1</version>
     <title>Bluetooth LE Plugin for Xamarin</title>
     <authors>Adrian Seceleanu, Sven-Michael Stübe</authors>
     <owners>Adrian Seceleanu, Sven-Michael Stübe</owners>
@@ -15,6 +15,8 @@
     <tags>xamarin monodroid Xamarin.iOS bluetooth BLE LE BTLE Smart xamarin.forms ios android forms xamarinforms</tags>
     <iconUrl>https://raw.githubusercontent.com/xabre/xamarin-bluetooth-le/master/icon_small.png</iconUrl>
     <releaseNotes>
+      [1.3.0-beta.1]
+      - Merge PR #195 Request MTU
       [1.3.0-alpha.1]
       - GATT callback refactoring
       [1.2.3]
