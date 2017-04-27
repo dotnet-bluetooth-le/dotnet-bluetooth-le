@@ -103,10 +103,10 @@ namespace Plugin.BLE.Android
             else if (Build.VERSION.SdkInt < BuildVersionCodes.M)
             {
                 var m = BluetoothDevice.Class.GetDeclaredMethod("connectGatt", new Java.Lang.Class[] {
-                                Java.Lang.Class.FromType(typeof(Context))
-                            ,  Java.Lang.Boolean.Type
-                            ,  Java.Lang.Class.FromType(typeof(BluetoothGattCallback))
-                            ,  Java.Lang.Integer.Type});
+                                Java.Lang.Class.FromType(typeof(Context)),
+                                Java.Lang.Boolean.Type,
+                                Java.Lang.Class.FromType(typeof(BluetoothGattCallback)),
+                                Java.Lang.Integer.Type});
 
                 var transport = BluetoothDevice.Class.GetDeclaredField("TRANSPORT_LE").GetInt(null); // LE = 2, BREDR = 1, AUTO = 0
                 m.Invoke(BluetoothDevice, Application.Context, false, _gattCallback, transport);
@@ -118,7 +118,10 @@ namespace Plugin.BLE.Android
 
         }
 
-        // First step
+        /// <summary>
+        /// This method is only called by a user triggered disconnect.
+        /// A user will first trigger _gatt.disconnect -> which in turn will trigger _gatt.Close() via the gattCallback
+        /// </summary>
         public void Disconnect()
         {
             if (_gatt != null)
@@ -135,12 +138,17 @@ namespace Plugin.BLE.Android
             }
         }
 
-        //Second step
+        /// <summary>
+        /// CloseGatt is called by the gattCallback in case of user disconnect or a disconnect by signal loss or a connection error. 
+        /// </summary>
         public void CloseGatt()
         {
-
             if (_gatt != null)
             {
+                // ClossGatt might will get called on signal loss without Disconnect being called
+                // we have to make sure we clear the services
+                ClearServices();
+
                 _gatt.Close();
                 _gatt = null;
             }
@@ -286,7 +294,6 @@ namespace Plugin.BLE.Android
                 Trace.Message("You can't request a MTU for disconnected devices. Device is {0}", State);
                 return -1;
             }
-
 
             if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
             {
