@@ -1,11 +1,13 @@
 # Changelog
 ## 1.3.0
+#### 1.3.0-beta.2
+- #198 Android. Clear cached services, characteristics etc on signal loss
 
 #### 1.3.0-beta.1
 - Merge PR #195 Request MTU
 
 #### 1.3.0-alpha.1
-- GATT callback refactoring
+- GATT callback refactoring, one GattCallback instance per device instead of a global one
 
 ## 1.2.3
 - #183: Android fixed UpdateRssiAsync
