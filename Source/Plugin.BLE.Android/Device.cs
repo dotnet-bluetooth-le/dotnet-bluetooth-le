@@ -321,7 +321,6 @@ namespace Plugin.BLE.Android
 
         protected override async Task<bool> UpdateConnectionIntervalNativeAsync(ConnectionInterval interval)
         {
-
             if (_gatt == null || _gattCallback == null)
             {
                 Trace.Message("You can't update a connection interval for disconnected devices. Device is {0}", State);
@@ -336,6 +335,8 @@ namespace Plugin.BLE.Android
 
             try
             {
+                // map to android gattConnectionPriorities
+                // https://developer.android.com/reference/android/bluetooth/BluetoothGatt.html#CONNECTION_PRIORITY_BALANCED
                 return await Task.FromResult(_gatt.RequestConnectionPriority((GattConnectionPriority)(int)interval));
             }
             catch(Exception ex)

@@ -1,5 +1,4 @@
-﻿using System;
-namespace Plugin.BLE.Abstractions
+﻿namespace Plugin.BLE.Abstractions
 {
     public enum ConnectionInterval
     {
