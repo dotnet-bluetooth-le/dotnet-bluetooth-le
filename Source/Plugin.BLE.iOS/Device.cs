@@ -135,5 +135,11 @@ namespace Plugin.BLE.iOS
             Trace.Message($"Request MTU is not supported on iOS.");
             return await Task.FromResult((int)_nativeDevice.GetMaximumWriteValueLength(CBCharacteristicWriteType.WithoutResponse));
         }
+
+        protected override async Task<bool> UpdateConnectionIntervalNativeAsync(ConnectionInterval interval)
+        {
+            Trace.Message("Cannot update connection inteval on iOS. Returning TRUE ..");
+            return await Task.FromResult(true);
+        }
     }
 }

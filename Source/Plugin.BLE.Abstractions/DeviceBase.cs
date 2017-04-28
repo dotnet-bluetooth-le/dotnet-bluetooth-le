@@ -75,10 +75,16 @@ namespace Plugin.BLE.Abstractions
             return await RequestMtuNativeAsync(requestValue);
         }
 
+        public async Task<bool> UpdateConnectionIntervalAsync(ConnectionInterval interval)
+        {
+            return await UpdateConnectionIntervalNativeAsync(interval);
+        }
+
         public abstract Task<bool> UpdateRssiAsync();
         protected abstract DeviceState GetState();
         protected abstract Task<IEnumerable<IService>> GetServicesNativeAsync();
         protected abstract Task<int> RequestMtuNativeAsync(int requestValue);
+        protected abstract Task<bool> UpdateConnectionIntervalNativeAsync(ConnectionInterval interval);
 
         public override string ToString()
         {

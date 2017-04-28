@@ -89,5 +89,18 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// A task that represents the asynchronous operation. The result contains the negotiated MTU size between master and slave</returns>
         /// <param name="requestValue">The requested MTU</param>
         Task<int> RequestMtuAsync(int requestValue);
+
+        /// <summary>
+        /// Requests a bluetooth-le connection update request. Be aware that this is only implemented on Android (>= API 21). 
+        /// You can choose between a high, low and a normal mode which will requests the following connection intervals: HIGH (11-15ms). NORMAL (30-50ms). LOW (100-125ms).
+        /// Its not possible to request a specific connection interval.
+        /// 
+        /// Important:
+        /// On Android: This function will only work with API level 21 and higher. Other API level will return false as function result.
+        /// On iOS: Updating the connection interval is not supported by iOS. The function simply returns true.
+        /// </summary>
+        /// <returns>True if the update request was sucessfull. On iOS it will always return true.</returns>
+        /// <param name="interval">The requested interval (High/Low/Normal)</param>
+        Task<bool> UpdateConnectionIntervalAsync(ConnectionInterval interval);
     }
 }

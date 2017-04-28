@@ -318,5 +318,30 @@ namespace Plugin.BLE.Android
               unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler
             );
         }
+
+        protected override async Task<bool> UpdateConnectionIntervalNativeAsync(ConnectionInterval interval)
+        {
+
+            if (_gatt == null || _gattCallback == null)
+            {
+                Trace.Message("You can't update a connection interval for disconnected devices. Device is {0}", State);
+                return false;
+            }
+
+            if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
+            {
+                Trace.Message($"Update connection interval paramter in this Android API level");
+                return false;
+            }
+
+            try
+            {
+                return await Task.FromResult(_gatt.RequestConnectionPriority((GattConnectionPriority)(int)interval));
+            }
+            catch(Exception ex)
+            {
+                throw new Exception($"Update Connection Interval fails with error. {ex.Message}");
+            }
+        }
     }
 }
