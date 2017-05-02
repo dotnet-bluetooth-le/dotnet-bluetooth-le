@@ -97,9 +97,9 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// 
         /// Important:
         /// On Android: This function will only work with API level 21 and higher. Other API level will return false as function result.
-        /// On iOS: Updating the connection interval is not supported by iOS. The function simply returns true.
+        /// On iOS: Updating the connection interval is not supported by iOS. The function simply returns false.
         /// </summary>
-        /// <returns>True if the update request was sucessfull. On iOS it will always return true.</returns>
+        /// <returns>True if the update request was sucessfull. On iOS it will always return false.</returns>
         /// <param name="interval">The requested interval (High/Low/Normal)</param>
         Task<bool> UpdateConnectionIntervalAsync(ConnectionInterval interval);
     }
