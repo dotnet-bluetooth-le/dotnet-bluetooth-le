@@ -1,6 +1,9 @@
 # Changelog
 ## 1.3.0
 #### 1.3.0-beta.2
+- Merge pull request #200. Possibility to change ConnectionPriority/ ConnectionInterval for Android
+
+#### 1.3.0-beta.2
 - #198 Android. Clear cached services, characteristics etc on signal loss
 
 #### 1.3.0-beta.1
