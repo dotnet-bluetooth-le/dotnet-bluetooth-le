@@ -319,7 +319,7 @@ namespace Plugin.BLE.Android
             );
         }
 
-        protected override async Task<bool> UpdateConnectionIntervalNativeAsync(ConnectionInterval interval)
+        protected override bool UpdateConnectionIntervalNative(ConnectionInterval interval)
         {
             if (_gatt == null || _gattCallback == null)
             {
@@ -337,7 +337,7 @@ namespace Plugin.BLE.Android
             {
                 // map to android gattConnectionPriorities
                 // https://developer.android.com/reference/android/bluetooth/BluetoothGatt.html#CONNECTION_PRIORITY_BALANCED
-                return await Task.FromResult(_gatt.RequestConnectionPriority((GattConnectionPriority)(int)interval));
+                return _gatt.RequestConnectionPriority((GattConnectionPriority)(int)interval);
             }
             catch(Exception ex)
             {

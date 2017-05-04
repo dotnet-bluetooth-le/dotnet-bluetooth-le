@@ -136,10 +136,10 @@ namespace Plugin.BLE.iOS
             return await Task.FromResult((int)_nativeDevice.GetMaximumWriteValueLength(CBCharacteristicWriteType.WithoutResponse));
         }
 
-        protected override Task<bool> UpdateConnectionIntervalNativeAsync(ConnectionInterval interval)
+        protected override bool UpdateConnectionIntervalNative(ConnectionInterval interval)
         {
             Trace.Message("Cannot update connection inteval on iOS.");
-            return Task.FromResult(false);
+            return false;
         }
     }
 }

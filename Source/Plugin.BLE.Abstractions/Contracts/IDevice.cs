@@ -101,6 +101,6 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// </summary>
         /// <returns>True if the update request was sucessfull. On iOS it will always return false.</returns>
         /// <param name="interval">The requested interval (High/Low/Normal)</param>
-        Task<bool> UpdateConnectionIntervalAsync(ConnectionInterval interval);
+        bool UpdateConnectionInterval(ConnectionInterval interval);
     }
 }
