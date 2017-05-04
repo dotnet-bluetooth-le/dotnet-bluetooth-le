@@ -456,6 +456,10 @@ namespace BLE.Client.ViewModels
                     var resultMTU = await item.Device.RequestMtuAsync(60);
                     System.Diagnostics.Debug.WriteLine($"Requested MTU. Result is {resultMTU}");
 
+                    // TODO make this configurable
+                    var resultInterval = item.Device.UpdateConnectionInterval(ConnectionInterval.High);
+                    System.Diagnostics.Debug.WriteLine($"Set Connection Interval. Result is {resultInterval}");
+
                     item.Update();
                     _userDialogs.ShowSuccess($"Connected {item.Device.Name}");
 
