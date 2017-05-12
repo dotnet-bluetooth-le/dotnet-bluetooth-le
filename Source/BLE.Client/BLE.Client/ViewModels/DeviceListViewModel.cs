@@ -72,7 +72,7 @@ namespace BLE.Client.ViewModels
             {
                 if (_useAutoConnect == value)
                     return;
-                
+
                 _useAutoConnect = value;
                 RaisePropertyChanged();
             }
@@ -246,8 +246,6 @@ namespace BLE.Client.ViewModels
 
         private async void ScanForDevices()
         {
-            Devices.Clear();
-
             foreach (var connectedDevice in Adapter.ConnectedDevices)
             {
                 //update rssi for already connected evices (so tha 0 is not shown in the list)
@@ -307,6 +305,10 @@ namespace BLE.Client.ViewModels
 
             if (device.IsConnected)
             {
+                config.Add("Details", () =>
+                {
+                    ShowViewModel<ServiceListViewModel>(new MvxBundle(new Dictionary<string, string> { { DeviceIdKey, device.Device.Id.ToString() } }));
+                });
                 config.Add("Update RSSI", async () =>
                 {
                     try
