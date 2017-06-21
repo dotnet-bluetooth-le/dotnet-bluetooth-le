@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Exceptions;
@@ -73,19 +74,21 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Returns the parent service. Use this to access the device.
         /// </summary>
         IService Service { get; }
-        
+
         /// <summary>
         /// Reads the characteristic value from the device. The result is also stored inisde the Value property.
         /// </summary>
+        /// <param name="cancellationToken"></param>
         /// <returns>A task that represents the asynchronous read operation. The Result property will contain the read bytes.</returns>
         /// <exception cref="InvalidOperationException">Thrown if characteristic doesn't support read. See: <see cref="CanRead"/></exception>
         /// <exception cref="CharacteristicReadException">Thrown if the reading of the value failed.</exception>
-        Task<byte[]> ReadAsync();
+        Task<byte[]> ReadAsync(CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Sends <paramref name="data"/> as characteristic value to the device.
         /// </summary>
         /// <param name="data">Data that should be written.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns>
         /// A task that represents the asynchronous read operation. The Task will finish after the value was written. The Result property will be <c>true</c> if the value
         /// was written successful, otherwise <c>false</c>.
@@ -94,7 +97,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// </returns>
         /// <exception cref="InvalidOperationException">Thrown if characteristic doesn't support write. See: <see cref="CanWrite"/></exception>
         /// <exception cref="ArgumentNullException">Thrwon if <paramref name="data"/> is null.</exception>
-        Task<bool> WriteAsync(byte[] data);
+        Task<bool> WriteAsync(byte[] data, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Starts listening for notify events on this characteristic.
@@ -112,19 +115,21 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <summary>
         /// Gets the descriptors of the characteristic.
         /// </summary>
+        /// <param name="cancellationToken"></param>
         /// <returns>A task that represents the asynchronous read operation. The Result property will contain a list of descriptors.</returns> 
-        Task<IList<IDescriptor>> GetDescriptorsAsync();
+        Task<IList<IDescriptor>> GetDescriptorsAsync(CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Gets the first descriptor with the Id <paramref name="id"/>. 
         /// </summary>
         /// <param name="id">The id of the searched descriptor.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns>
         /// A task that represents the asynchronous read operation. 
         /// The Result property will contain the descriptor with the specified <paramref name="id"/>.
         /// If the descriptor doesn't exist, the Result will be null.
         /// </returns>
-        Task<IDescriptor> GetDescriptorAsync(Guid id);
+        Task<IDescriptor> GetDescriptorAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken));
     }
 }
 

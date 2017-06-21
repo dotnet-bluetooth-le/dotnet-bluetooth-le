@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Android.App;
 using Android.Bluetooth;
 using Android.Bluetooth.LE;
 using Android.OS;
-using Android.Content;
 using Java.Util;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Extensions;
 using Object = Java.Lang.Object;
 using Trace = Plugin.BLE.Abstractions.Trace;
+using Android.App;
 
 namespace Plugin.BLE.Android
 {
@@ -23,8 +22,6 @@ namespace Plugin.BLE.Android
         private readonly BluetoothAdapter _bluetoothAdapter;
         private readonly Api18BleScanCallback _api18ScanCallback;
         private readonly Api21BleScanCallback _api21ScanCallback;
-        private readonly GattCallback _gattCallback;
-
 
         public override IList<IDevice> ConnectedDevices => ConnectedDeviceRegistry.Values.ToList();
 
@@ -33,17 +30,11 @@ namespace Plugin.BLE.Android
         /// </summary>
         public Dictionary<string, IDevice> ConnectedDeviceRegistry { get; }
 
-
-        /// <summary>
-        /// Registry used to store device instances for pending operations : connect 
-        /// </summary>
-        public Dictionary<string, IDevice> DeviceOperationRegistry { get; }
-
         public Adapter(BluetoothManager bluetoothManager)
         {
             _bluetoothManager = bluetoothManager;
             _bluetoothAdapter = bluetoothManager.Adapter;
-            DeviceOperationRegistry = new Dictionary<string, IDevice>();
+
             ConnectedDeviceRegistry = new Dictionary<string, IDevice>();
 
             // TODO: bonding
@@ -65,8 +56,6 @@ namespace Plugin.BLE.Android
             {
                 _api18ScanCallback = new Api18BleScanCallback(this);
             }
-
-            _gattCallback = new GattCallback(this);
         }
 
         protected override Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
@@ -151,53 +140,16 @@ namespace Plugin.BLE.Android
             }
         }
 
-        protected override Task ConnectToDeviceNativeAsync(IDevice device, ConnectParameters connectParameters, CancellationToken cancellationToken)
+        protected override Task ConnectToDeviceNativeAsync(IDevice device, ConnectParameters connectParameters,
+            CancellationToken cancellationToken)
         {
-            AddToDeviceOperationRegistry(device);
-
-            if (connectParameters.ForceBleTransport)
-            {
-                ConnectToGattForceBleTransportAPI(device, connectParameters.AutoConnect);
-            }
-            else
-            {
-                ((BluetoothDevice)device.NativeDevice).ConnectGatt(Application.Context, connectParameters.AutoConnect, _gattCallback);
-            }
-
-            return Task.FromResult(true);
-        }
-
-        private void ConnectToGattForceBleTransportAPI(IDevice device, bool autoconnect)
-        {
-            var nativeDevice = ((BluetoothDevice)device.NativeDevice);
-
-            //This parameter is present from API 18 but only public from API 23
-            //So reflection is used before API 23
-            if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
-            {
-                //no transport mode before lollipop, it will probably not work... gattCallBackError 133 again alas
-                nativeDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback);
-            }
-            else if (Build.VERSION.SdkInt < BuildVersionCodes.M)
-            {
-                var m = nativeDevice.Class.GetDeclaredMethod("connectGatt", Java.Lang.Class.FromType(typeof(Context)),
-                    Java.Lang.Boolean.Type,
-                    Java.Lang.Class.FromType(typeof(BluetoothGattCallback)),
-                    Java.Lang.Integer.Type);
-
-                var transport = nativeDevice.Class.GetDeclaredField("TRANSPORT_LE").GetInt(null);      // LE = 2, BREDR = 1, AUTO = 0
-                m.Invoke(nativeDevice, Application.Context, false, _gattCallback, transport);
-            }
-            else
-            {
-                nativeDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback, BluetoothTransports.Le);
-            }
+            ((Device)device).Connect(connectParameters);
+            return Task.CompletedTask;
         }
 
         protected override void DisconnectDeviceNative(IDevice device)
         {
             //make sure everything is disconnected
-            AddToDeviceOperationRegistry(device);
             ((Device)device).Disconnect();
         }
 
@@ -206,7 +158,7 @@ namespace Plugin.BLE.Android
             var macBytes = deviceGuid.ToByteArray().Skip(10).Take(6).ToArray();
             var nativeDevice = _bluetoothAdapter.GetRemoteDevice(macBytes);
 
-            var device = new Device(this, nativeDevice, null, null, 0, new byte[] { });
+            var device = new Device(this, nativeDevice, null, 0, new byte[] { });
 
             await ConnectToDeviceAsync(device, connectParameters, cancellationToken);
             return device;
@@ -224,7 +176,7 @@ namespace Plugin.BLE.Android
 
             var bondedDevices = _bluetoothAdapter.BondedDevices.Where(d => d.Type == BluetoothDeviceType.Le || d.Type == BluetoothDeviceType.Dual);
 
-            return connectedDevices.Union(bondedDevices, new DeviceComparer()).Select(d => new Device(this, d, null, null, 0)).Cast<IDevice>().ToList();
+            return connectedDevices.Union(bondedDevices, new DeviceComparer()).Select(d => new Device(this, d, null, 0)).Cast<IDevice>().ToList();
         }
 
         private class DeviceComparer : IEqualityComparer<BluetoothDevice>
@@ -241,12 +193,6 @@ namespace Plugin.BLE.Android
         }
 
 
-        private void AddToDeviceOperationRegistry(IDevice device)
-        {
-            var nativeDevice = ((BluetoothDevice)device.NativeDevice);
-            DeviceOperationRegistry[nativeDevice.Address] = device;
-        }
-
         public class Api18BleScanCallback : Object, BluetoothAdapter.ILeScanCallback
         {
             private readonly Adapter _adapter;
@@ -260,7 +206,7 @@ namespace Plugin.BLE.Android
             {
                 Trace.Message("Adapter.LeScanCallback: " + bleDevice.Name);
 
-                _adapter.HandleDiscoveredDevice(new Device(_adapter, bleDevice, null, null, rssi, scanRecord));
+                _adapter.HandleDiscoveredDevice(new Device(_adapter, bleDevice, null, rssi, scanRecord));
             }
         }
 
@@ -310,7 +256,7 @@ namespace Plugin.BLE.Android
                     records.Add(new AdvertisementRecord(AdvertisementRecordType.ServiceData, result.ScanRecord.ServiceData));
                 }*/
 
-                var device = new Device(_adapter, result.Device, null, null, result.Rssi, result.ScanRecord.GetBytes());
+                var device = new Device(_adapter, result.Device, null, result.Rssi, result.ScanRecord.GetBytes());
 
                 //Device device;
                 //if (result.ScanRecord.ManufacturerSpecificData.Size() > 0)

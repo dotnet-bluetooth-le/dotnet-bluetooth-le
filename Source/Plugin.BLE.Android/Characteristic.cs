@@ -45,18 +45,24 @@ namespace Plugin.BLE.Android
 
         protected override async Task<byte[]> ReadNativeAsync()
         {
-            return await TaskBuilder.FromEvent<byte[], EventHandler<CharacteristicReadCallbackEventArgs>>(
-               execute: ReadInternal,
-               getCompleteHandler: (complete, reject) => ((sender, args) =>
-                  {
-                      if (args.Characteristic.Uuid == _nativeCharacteristic.Uuid)
-                      {
-                          complete(args.Characteristic.GetValue());
-                      }
-                  }),
-              subscribeComplete: handler => _gattCallback.CharacteristicValueUpdated += handler,
-              unsubscribeComplete: handler => _gattCallback.CharacteristicValueUpdated -= handler
-           );
+            return await TaskBuilder.FromEvent<byte[], EventHandler<CharacteristicReadCallbackEventArgs>, EventHandler>(
+                execute: ReadInternal,
+                getCompleteHandler: (complete, reject) => ((sender, args) =>
+                {
+                    if (args.Characteristic.Uuid == _nativeCharacteristic.Uuid)
+                    {
+                        complete(args.Characteristic.GetValue());
+                    }
+                }),
+                subscribeComplete: handler => _gattCallback.CharacteristicValueUpdated += handler,
+                unsubscribeComplete: handler => _gattCallback.CharacteristicValueUpdated -= handler,
+                getRejectHandler: reject => ((sender, args) =>
+                {
+                    reject(new Exception($"Device '{Service.Device.Id}' disconnected while reading characteristic with {Id}."));
+                }),
+                subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
+                unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler);
+
         }
 
         void ReadInternal()
@@ -71,7 +77,7 @@ namespace Plugin.BLE.Android
         {
             _nativeCharacteristic.WriteType = writeType.ToNative();
 
-            return await TaskBuilder.FromEvent<bool, EventHandler<CharacteristicWriteCallbackEventArgs>>(
+            return await TaskBuilder.FromEvent<bool, EventHandler<CharacteristicWriteCallbackEventArgs>, EventHandler>(
                 execute: () => InternalWrite(data),
                 getCompleteHandler: (complete, reject) => ((sender, args) =>
                    {
@@ -81,8 +87,13 @@ namespace Plugin.BLE.Android
                        }
                    }),
                subscribeComplete: handler => _gattCallback.CharacteristicValueWritten += handler,
-               unsubscribeComplete: handler => _gattCallback.CharacteristicValueWritten -= handler
-            );
+               unsubscribeComplete: handler => _gattCallback.CharacteristicValueWritten -= handler,
+               getRejectHandler: reject => ((sender, args) =>
+               {
+                   reject(new Exception($"Device '{Service.Device.Id}' disconnected while writing characteristic with {Id}."));
+               }),
+               subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
+               unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler);
         }
 
         private void InternalWrite(byte[] data)
