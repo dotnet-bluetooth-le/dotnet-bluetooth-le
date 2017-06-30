@@ -276,8 +276,12 @@ namespace Plugin.BLE.iOS
                 var key = (NSString)o;
                 if (key == CBAdvertisement.DataLocalNameKey)
                 {
-                    records.Add(new AdvertisementRecord(AdvertisementRecordType.CompleteLocalName,
-                        NSData.FromString(advertisementData.ObjectForKey(key) as NSString).ToArray()));
+                    var value = advertisementData.ObjectForKey(key) as NSString;
+                    if (value != null)
+                    {
+                        records.Add(new AdvertisementRecord(AdvertisementRecordType.CompleteLocalName,
+                            NSData.FromString(value).ToArray()));
+                    }
                 }
                 else if (key == CBAdvertisement.DataManufacturerDataKey)
                 {
