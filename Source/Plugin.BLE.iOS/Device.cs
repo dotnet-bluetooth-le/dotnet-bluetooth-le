@@ -54,16 +54,16 @@ namespace Plugin.BLE.iOS
                 {
                     Trace.Message("Error while discovering services {0}", args.Error.LocalizedDescription);
                 }
-
-                // why we have to do this check is beyond me. if a service has been discovered, the collection
-                // shouldn't be null, but sometimes it is. le sigh, apple.
+                var services = new Dictionary<CBUUID, IService>();
+                
+                // If args.Error was not null then the Service might be null
                 if (_nativeDevice.Services == null)
                 {
-                    // TODO: review: return? really? Will the Task end?
+                    // No service discovered. Return empty Dictionary.
+                    tcs.TrySetResult(services.Values);
                     return;
                 }
 
-                var services = new Dictionary<CBUUID, IService>();
                 foreach (var s in _nativeDevice.Services)
                 {
                     Trace.Message("Device.Discovered Service: " + s.Description);
