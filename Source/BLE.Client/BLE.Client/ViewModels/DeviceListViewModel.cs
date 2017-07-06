@@ -107,7 +107,7 @@ namespace BLE.Client.ViewModels
         {
             return Task.Run(() =>
             {
-                var guidString = _settings.GetValueOrDefault<string>("lastguid", null);
+                var guidString = _settings.GetValueOrDefault("lastguid", string.Empty);
                 PreviousGuid = !string.IsNullOrEmpty(guidString) ? Guid.Parse(guidString) : Guid.Empty;
             });
         }
