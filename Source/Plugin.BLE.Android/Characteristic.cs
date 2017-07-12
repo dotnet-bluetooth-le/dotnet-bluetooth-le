@@ -144,7 +144,7 @@ namespace Plugin.BLE.Android
             Trace.Message("Characteristic.StartUpdates, successful!");
         }
 
-        protected override Task StopUpdatesNativeAsync()
+        protected override async Task StopUpdatesNativeAsync()
         {
             _gattCallback.CharacteristicValueUpdated -= OnCharacteristicValueChanged;
 
@@ -155,7 +155,22 @@ namespace Plugin.BLE.Android
             if (!successful)
                 throw new CharacteristicReadException("GATT: SetCharacteristicNotification to false, FAILED.");
 
-            return Task.FromResult(true);
+            if (_nativeCharacteristic.Descriptors.Count > 0)
+            {
+                var descriptors = await GetDescriptorsAsync();
+                var descriptor = descriptors.FirstOrDefault(d => d.Id.Equals(ClientCharacteristicConfigurationDescriptorId)) ??
+                                            descriptors.FirstOrDefault(); // fallback just in case manufacturer forgot
+
+                if (Properties.HasFlag(CharacteristicPropertyType.Notify))
+                {
+                    await descriptor.WriteAsync(BluetoothGattDescriptor.DisableNotificationValue.ToArray());
+                    Trace.Message("Descriptor set value: DISABLE_NOTIFY");
+                }
+            }
+            else
+            {
+                Trace.Message("Descriptor set value FAILED: _nativeCharacteristic.Descriptors was empty");
+            }
         }
 
         private void OnCharacteristicValueChanged(object sender, CharacteristicReadCallbackEventArgs e)
