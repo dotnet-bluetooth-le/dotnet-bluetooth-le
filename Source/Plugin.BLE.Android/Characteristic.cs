@@ -144,21 +144,36 @@ namespace Plugin.BLE.Android
             Trace.Message("Characteristic.StartUpdates, successful!");
         }
 
-        protected override Task StopUpdatesNativeAsync()
-        {
-            _gattCallback.CharacteristicValueUpdated -= OnCharacteristicValueChanged;
+      protected override async Task StopUpdatesNativeAsync()
+      {
+         _gattCallback.CharacteristicValueUpdated -= OnCharacteristicValueChanged;
 
-            var successful = _gatt.SetCharacteristicNotification(_nativeCharacteristic, false);
+         var successful = _gatt.SetCharacteristicNotification(_nativeCharacteristic, false);
 
-            Trace.Message("Characteristic.StopUpdatesNative, successful: {0}", successful);
+         Trace.Message("Characteristic.StopUpdatesNative, successful: {0}", successful);
 
-            if (!successful)
-                throw new CharacteristicReadException("GATT: SetCharacteristicNotification to false, FAILED.");
+         if (!successful)
+            throw new CharacteristicReadException("GATT: SetCharacteristicNotification to false, FAILED.");
 
-            return Task.FromResult(true);
-        }
+         if (_nativeCharacteristic.Descriptors.Count > 0)
+         {
+            var descriptors = await GetDescriptorsAsync();
+            var descriptor = descriptors.FirstOrDefault(d => d.Id.Equals(ClientCharacteristicConfigurationDescriptorId)) ??
+                                        descriptors.FirstOrDefault(); // fallback just in case manufacturer forgot
 
-        private void OnCharacteristicValueChanged(object sender, CharacteristicReadCallbackEventArgs e)
+            if (Properties.HasFlag(CharacteristicPropertyType.Notify))
+            {
+               await descriptor.WriteAsync(BluetoothGattDescriptor.DisableNotificationValue.ToArray());
+               Trace.Message("Descriptor set value: DISABLE_NOTIFY");
+            }
+         }
+         else
+         {
+            Trace.Message("Descriptor set value FAILED: _nativeCharacteristic.Descriptors was empty");
+         }
+      }
+
+      private void OnCharacteristicValueChanged(object sender, CharacteristicReadCallbackEventArgs e)
         {
             if (e.Characteristic.Uuid == _nativeCharacteristic.Uuid)
             {
