@@ -31,7 +31,7 @@ namespace Plugin.BLE.Android
         public override CharacteristicPropertyType Properties => (CharacteristicPropertyType)(int)_nativeCharacteristic.Properties;
 
         public Characteristic(BluetoothGattCharacteristic nativeCharacteristic, BluetoothGatt gatt,
-            IGattCallback gattCallback, IService service) : base(service)
+             IGattCallback gattCallback, IService service) : base(service)
         {
             _nativeCharacteristic = nativeCharacteristic;
             _gatt = gatt;
@@ -46,17 +46,17 @@ namespace Plugin.BLE.Android
         protected override async Task<byte[]> ReadNativeAsync()
         {
             return await TaskBuilder.FromEvent<byte[], EventHandler<CharacteristicReadCallbackEventArgs>>(
-               execute: ReadInternal,
-               getCompleteHandler: (complete, reject) => ((sender, args) =>
-                  {
-                      if (args.Characteristic.Uuid == _nativeCharacteristic.Uuid)
-                      {
-                          complete(args.Characteristic.GetValue());
-                      }
-                  }),
+                execute: ReadInternal,
+                getCompleteHandler: (complete, reject) => ((sender, args) =>
+                    {
+                        if (args.Characteristic.Uuid == _nativeCharacteristic.Uuid)
+                        {
+                            complete(args.Characteristic.GetValue());
+                        }
+                    }),
               subscribeComplete: handler => _gattCallback.CharacteristicValueUpdated += handler,
               unsubscribeComplete: handler => _gattCallback.CharacteristicValueUpdated -= handler
-           );
+          );
         }
 
         void ReadInternal()
@@ -72,16 +72,16 @@ namespace Plugin.BLE.Android
             _nativeCharacteristic.WriteType = writeType.ToNative();
 
             return await TaskBuilder.FromEvent<bool, EventHandler<CharacteristicWriteCallbackEventArgs>>(
-                execute: () => InternalWrite(data),
-                getCompleteHandler: (complete, reject) => ((sender, args) =>
-                   {
-                       if (args.Characteristic.Uuid == _nativeCharacteristic.Uuid)
-                       {
-                           complete(args.Exception == null);
-                       }
-                   }),
-               subscribeComplete: handler => _gattCallback.CharacteristicValueWritten += handler,
-               unsubscribeComplete: handler => _gattCallback.CharacteristicValueWritten -= handler
+                 execute: () => InternalWrite(data),
+                 getCompleteHandler: (complete, reject) => ((sender, args) =>
+                     {
+                         if (args.Characteristic.Uuid == _nativeCharacteristic.Uuid)
+                         {
+                             complete(args.Exception == null);
+                         }
+                     }),
+                subscribeComplete: handler => _gattCallback.CharacteristicValueWritten += handler,
+                unsubscribeComplete: handler => _gattCallback.CharacteristicValueWritten -= handler
             );
         }
 
@@ -121,7 +121,7 @@ namespace Plugin.BLE.Android
             {
                 var descriptors = await GetDescriptorsAsync();
                 var descriptor = descriptors.FirstOrDefault(d => d.Id.Equals(ClientCharacteristicConfigurationDescriptorId)) ??
-                                            descriptors.FirstOrDefault(); // fallback just in case manufacturer forgot
+                                                     descriptors.FirstOrDefault(); // fallback just in case manufacturer forgot
 
                 //has to have one of these (either indicate or notify)
                 if (Properties.HasFlag(CharacteristicPropertyType.Indicate))
@@ -144,7 +144,7 @@ namespace Plugin.BLE.Android
             Trace.Message("Characteristic.StartUpdates, successful!");
         }
 
-        protected override Task StopUpdatesNativeAsync()
+        protected override async Task StopUpdatesNativeAsync()
         {
             _gattCallback.CharacteristicValueUpdated -= OnCharacteristicValueChanged;
 
@@ -155,7 +155,22 @@ namespace Plugin.BLE.Android
             if (!successful)
                 throw new CharacteristicReadException("GATT: SetCharacteristicNotification to false, FAILED.");
 
-            return Task.FromResult(true);
+            if (_nativeCharacteristic.Descriptors.Count > 0)
+            {
+                var descriptors = await GetDescriptorsAsync();
+                var descriptor = descriptors.FirstOrDefault(d => d.Id.Equals(ClientCharacteristicConfigurationDescriptorId)) ??
+                                                     descriptors.FirstOrDefault(); // fallback just in case manufacturer forgot
+
+                if (Properties.HasFlag(CharacteristicPropertyType.Notify))
+                {
+                    await descriptor.WriteAsync(BluetoothGattDescriptor.DisableNotificationValue.ToArray());
+                    Trace.Message("Descriptor set value: DISABLE_NOTIFY");
+                }
+            }
+            else
+            {
+                Trace.Message("Descriptor set value FAILED: _nativeCharacteristic.Descriptors was empty");
+            }
         }
 
         private void OnCharacteristicValueChanged(object sender, CharacteristicReadCallbackEventArgs e)
