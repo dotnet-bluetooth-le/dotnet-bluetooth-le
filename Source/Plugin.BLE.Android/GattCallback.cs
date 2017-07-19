@@ -62,7 +62,9 @@ namespace Plugin.BLE.Android
 
                     // Close GATT regardless, else we can accumulate zombie gatts.
                     CloseGattInstances(gatt);
-
+                    // Clear services & characteristics otherwise we will get gatt operation return FALSE when connecting to the same IDevice instace at a later time
+                    _device.ClearServices();
+                     
                     if (_device.IsOperationRequested)
                     {
                         Trace.Message("Disconnected by user");
