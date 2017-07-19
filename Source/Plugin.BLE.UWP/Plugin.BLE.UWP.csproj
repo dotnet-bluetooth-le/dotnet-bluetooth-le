@@ -7,8 +7,8 @@
     <ProjectGuid>{CCD85512-A2D7-4076-B31D-7A24829058AF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Plugin.BLE.UWP</RootNamespace>
-    <AssemblyName>Plugin.BLE.UWP</AssemblyName>
+    <RootNamespace>Plugin.BLE</RootNamespace>
+    <AssemblyName>Plugin.BLE</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.15063.0</TargetPlatformVersion>
