@@ -135,7 +135,7 @@ catch(DeviceConnectionException e)
 
 #### Connect to known Device
 `ConnectToKnownDeviceAsync` can connect to a device by only passing a GUI. This means that if the device GUID is known no scan is neccessary to connect to a device. Very usefull for fast background reconnect.
-Always use a cancellation toke with this method. 
+Always use a cancellation token with this method. 
 - On **iOS** it will attempt to connect indefinately, even if out of range, so the only way to cancel it is with the token.
 - On **Android** this will throw a GATT ERROR in a couple of seconds if the device is out of range.
 
