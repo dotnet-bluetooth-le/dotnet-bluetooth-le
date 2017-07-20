@@ -144,7 +144,7 @@ namespace Plugin.BLE.UWP
                 }
                 return false;
             }
-            var status = await _nativeCharacteristic.WriteValueAsync(CryptographicBuffer.CreateFromByteArray(data));
+            var status = await _nativeCharacteristic.WriteValueAsync(CryptographicBuffer.CreateFromByteArray(data), GattWriteOption.WriteWithoutResponse);
             if (status == GattCommunicationStatus.Success)
             {
                 return true;
