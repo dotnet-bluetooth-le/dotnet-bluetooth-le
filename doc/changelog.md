@@ -1,4 +1,20 @@
 # Changelog
+## 1.3.0
+- Stable release including all the 1.3.0-beta.x previous releases.
+- Merge pull request #229 and #224 which fixed #227 set descriptor for android characteristic stop notify. 
+
+#### 1.3.0-beta.2
+- Merge pull request #200. Possibility to change ConnectionPriority/ ConnectionInterval for Android
+
+#### 1.3.0-beta.2
+- #198 Android. Clear cached services, characteristics etc on signal loss
+
+#### 1.3.0-beta.1
+- Merge PR #195 Request MTU
+
+#### 1.3.0-alpha.1
+- GATT callback refactoring, one GattCallback instance per device instead of a global one
+
 ## 1.2.3
 - #183: Android fixed UpdateRssiAsync
 
@@ -12,17 +28,17 @@
 
 ## 1.2.0 
 - #150 iOS: No disconnect when the connect CancelationToken is cancelled after a successful connect.
-### 1.2.0-beta4
+#### 1.2.0-beta4
 - #122 Android: Introduced a extra connectivity state to distinguish system connected device from app connected devices. System connected devices can't be used by the app because we have no gatt instance so we should allow to connect them via the adapter even though the ProfileState is -Connected-
-### 1.2.0-beta3
+#### 1.2.0-beta3
 - #121 #126 hardened characteristic discovery error handling for iOS
-### 1.2.0-beta2
+#### 1.2.0-beta2
 - #118 fixed crash on read in empty value on iOS
-### 1.2.0-beta1
+#### 1.2.0-beta1
 - #90: API change, added parent reference for IDescriptor to ICharacteristic to IService to IDevice
 - #109, #111 merge PR: iOS parse TxPower, ServiceData
 
-## 1.1.0 (current stable)
+## 1.1.0
 
 #### 1.1.0-beta5 
 - #97 Fixe iOS GetSystemConnectedDevices implementation. FYI method is now called GetSystemConnectedOrPairedDevices

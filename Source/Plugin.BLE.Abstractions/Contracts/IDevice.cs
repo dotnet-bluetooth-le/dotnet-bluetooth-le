@@ -1,5 +1,6 @@
 ﻿﻿﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Plugin.BLE.Abstractions.Contracts
@@ -49,19 +50,21 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <summary>
         /// Gets all services of the device.
         /// </summary>
+        /// <param name="cancellationToken"></param>
         /// <returns>A task that represents the asynchronous read operation. The Result property will contain a list of all available services.</returns>
-        Task<IList<IService>> GetServicesAsync();
+        Task<IList<IService>> GetServicesAsync(CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Gets the first service with the Id <paramref name="id"/>. 
         /// </summary>
         /// <param name="id">The id of the searched service.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns>
         /// A task that represents the asynchronous read operation. 
         /// The Result property will contain the service with the specified <paramref name="id"/>.
         /// If the service doesn't exist, the Result will be null.
         /// </returns>
-        Task<IService> GetServiceAsync(Guid id);
+        Task<IService> GetServiceAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Updates the rssi value.
@@ -86,5 +89,18 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// A task that represents the asynchronous operation. The result contains the negotiated MTU size between master and slave</returns>
         /// <param name="requestValue">The requested MTU</param>
         Task<int> RequestMtuAsync(int requestValue);
+
+        /// <summary>
+        /// Requests a bluetooth-le connection update request. Be aware that this is only implemented on Android (>= API 21). 
+        /// You can choose between a high, low and a normal mode which will requests the following connection intervals: HIGH (11-15ms). NORMAL (30-50ms). LOW (100-125ms).
+        /// Its not possible to request a specific connection interval.
+        /// 
+        /// Important:
+        /// On Android: This function will only work with API level 21 and higher. Other API level will return false as function result.
+        /// On iOS: Updating the connection interval is not supported by iOS. The function simply returns false.
+        /// </summary>
+        /// <returns>True if the update request was sucessfull. On iOS it will always return false.</returns>
+        /// <param name="interval">The requested interval (High/Low/Normal)</param>
+        bool UpdateConnectionInterval(ConnectionInterval interval);
     }
 }

@@ -1,10 +1,8 @@
 ﻿using System;
 using Android.Bluetooth;
 using Plugin.BLE.Abstractions;
-using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.Extensions;
 using Plugin.BLE.Android.CallbackEventArgs;
-using Plugin.BLE.Abstractions.Exceptions;
 
 namespace Plugin.BLE.Android
 {
@@ -16,30 +14,41 @@ namespace Plugin.BLE.Android
         event EventHandler<DescriptorCallbackEventArgs> DescriptorValueWritten;
         event EventHandler<DescriptorCallbackEventArgs> DescriptorValueRead;
         event EventHandler<RssiReadCallbackEventArgs> RemoteRssiRead;
+        event EventHandler ConnectionInterrupted;
         event EventHandler<MtuRequestCallbackEventArgs> MtuRequested;
     }
 
     public class GattCallback : BluetoothGattCallback, IGattCallback
     {
         private readonly Adapter _adapter;
+        private readonly Device _device;
         public event EventHandler<ServicesDiscoveredCallbackEventArgs> ServicesDiscovered;
         public event EventHandler<CharacteristicReadCallbackEventArgs> CharacteristicValueUpdated;
         public event EventHandler<CharacteristicWriteCallbackEventArgs> CharacteristicValueWritten;
         public event EventHandler<RssiReadCallbackEventArgs> RemoteRssiRead;
+        public event EventHandler ConnectionInterrupted;
         public event EventHandler<DescriptorCallbackEventArgs> DescriptorValueWritten;
         public event EventHandler<DescriptorCallbackEventArgs> DescriptorValueRead;
         public event EventHandler<MtuRequestCallbackEventArgs> MtuRequested;
 
-        public GattCallback(Adapter adapter)
+        public GattCallback(Adapter adapter, Device device)
         {
             _adapter = adapter;
+            _device = device;
         }
 
         public override void OnConnectionStateChange(BluetoothGatt gatt, GattStatus status, ProfileState newState)
         {
             base.OnConnectionStateChange(gatt, status, newState);
-            IDevice device;
 
+            if (!gatt.Device.Address.Equals(_device.BluetoothDevice.Address))
+            {
+                Trace.Message($"Gatt callback for device {_device.BluetoothDevice.Address} was called for device with address {gatt.Device.Address}. This shoud not happen. Please log an issue.");
+                return;
+            }
+
+            //ToDo ignore just for me
+            Trace.Message($"References of parent device and gatt callback device equal? {ReferenceEquals(_device.BluetoothDevice, gatt.Device).ToString().ToUpper()}");
 
             Trace.Message($"OnConnectionStateChange: GattStatus: {status}");
 
@@ -48,47 +57,40 @@ namespace Plugin.BLE.Android
                 // disconnected
                 case ProfileState.Disconnected:
 
-                    if (_adapter.DeviceOperationRegistry.TryGetValue(gatt.Device.Address, out device))
+                    // Close GATT regardless, else we can accumulate zombie gatts.
+                    CloseGattInstances(gatt);
+
+                    if (_device.IsOperationRequested)
                     {
                         Trace.Message("Disconnected by user");
 
                         //Found so we can remove it
-                        _adapter.DeviceOperationRegistry.Remove(gatt.Device.Address);
+                        _device.IsOperationRequested = false;
                         _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
-                        gatt.Close();
-
 
                         if (status != GattStatus.Success)
                         {
                             // The above error event handles the case where the error happened during a Connect call, which will close out any waiting asyncs.
                             // Android > 5.0 uses this switch branch when an error occurs during connect
-                            Trace.Message($"Error while connecting '{device.Name}'. Not raising disconnect event.");
-                            _adapter.HandleConnectionFail(device, $"GattCallback error: {status}");
-
+                            Trace.Message($"Error while connecting '{_device.Name}'. Not raising disconnect event.");
+                            _adapter.HandleConnectionFail(_device, $"GattCallback error: {status}");
                         }
                         else
                         {
                             //we already hadled device error so no need th raise disconnect event(happens when device not in range)
-                            _adapter.HandleDisconnectedDevice(true, device);
+                            _adapter.HandleDisconnectedDevice(true, _device);
                         }
                         break;
                     }
 
-                    //connection must have been lost, bacause our device was not found in the registry but was still connected
-                    if (_adapter.ConnectedDeviceRegistry.TryGetValue(gatt.Device.Address, out device))
-                    {
-                        Trace.Message($"Disconnected '{device.Name}' by lost connection");
+                    //connection must have been lost, because the callback was not triggered by calling disconnect
+                    Trace.Message($"Disconnected '{_device.Name}' by lost connection");
 
-                        _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
-                        gatt.Close();
+                    _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
+                    _adapter.HandleDisconnectedDevice(false, _device);
 
-                        _adapter.HandleDisconnectedDevice(false, device);
-                        break;
-                    }
-
-                    gatt.Close(); // Close GATT regardless, else we can accumulate zombie gatts.
-                    Trace.Message("Disconnect. Device not found in registry. Not raising disconnect/lost event.");
-
+                    // inform pending tasks
+                    ConnectionInterrupted?.Invoke(this, EventArgs.Empty);
                     break;
                 // connecting
                 case ProfileState.Connecting:
@@ -98,33 +100,34 @@ namespace Plugin.BLE.Android
                 case ProfileState.Connected:
                     Trace.Message("Connected");
 
-                    //Try to find the device in the registry so that the same instance is updated
-                    if (_adapter.DeviceOperationRegistry.TryGetValue(gatt.Device.Address, out device))
+                    //Check if the operation was requested by the user                    
+                    if (_device.IsOperationRequested)
                     {
-                        ((Device)device).Update(gatt.Device, gatt, this);
+                        _device.Update(gatt.Device, gatt);
 
                         //Found so we can remove it
-                        _adapter.DeviceOperationRegistry.Remove(gatt.Device.Address);
+                        _device.IsOperationRequested = false;
                     }
                     else
                     {
+                        //ToDo explore this
                         //only for on auto-reconnect (device is not in operation registry)
-                        device = new Device(_adapter, gatt.Device, gatt, this, 0);
+                        _device.Update(gatt.Device, gatt);
                     }
 
                     if (status != GattStatus.Success)
                     {
-                        // The aboe error event handles the case where the error happened during a Connect call, which will close out any waiting asyncs.
+                        // The above error event handles the case where the error happened during a Connect call, which will close out any waiting asyncs.
                         // Android <= 4.4 uses this switch branch when an error occurs during connect
-                        Trace.Message($"Error while connecting '{device.Name}'. GattStatus: {status}. ");
-                        _adapter.HandleConnectionFail(device, $"GattCallback error: {status}");
+                        Trace.Message($"Error while connecting '{_device.Name}'. GattStatus: {status}. ");
+                        _adapter.HandleConnectionFail(_device, $"GattCallback error: {status}");
 
-                        gatt.Close();
+                        CloseGattInstances(gatt);
                     }
                     else
                     {
-                        _adapter.ConnectedDeviceRegistry[gatt.Device.Address] = device;
-                        _adapter.HandleConnectedDevice(device);
+                        _adapter.ConnectedDeviceRegistry[gatt.Device.Address] = _device;
+                        _adapter.HandleConnectedDevice(_device);
                     }
 
                     break;
@@ -133,6 +136,20 @@ namespace Plugin.BLE.Android
                     Trace.Message("Disconnecting");
                     break;
             }
+        }
+
+        private void CloseGattInstances(BluetoothGatt gatt)
+        {
+            //ToDO just for me
+            Trace.Message($"References of parnet device gatt and callback gatt equal? {ReferenceEquals(_device._gatt, gatt).ToString().ToUpper()}");
+
+            if (!ReferenceEquals(gatt, _device._gatt))
+            {
+                gatt.Close();
+            }
+
+            //cleanup everything else
+            _device.CloseGatt();
         }
 
         public override void OnServicesDiscovered(BluetoothGatt gatt, GattStatus status)
@@ -182,13 +199,7 @@ namespace Plugin.BLE.Android
 
             Trace.Message("OnMtuChanged to value: {0}", mtu);
 
-            IDevice device;
-            if (!_adapter.ConnectedDeviceRegistry.TryGetValue(gatt.Device.Address, out device))
-            {
-                Trace.Message("Device for MTU changed is not in connected list. This should not happen.");
-            }
-
-            MtuRequested?.Invoke(this, new MtuRequestCallbackEventArgs(device, GetExceptionFromGattStatus(status), mtu));
+            MtuRequested?.Invoke(this, new MtuRequestCallbackEventArgs(GetExceptionFromGattStatus(status), mtu));
         }
 
         public override void OnReadRemoteRssi(BluetoothGatt gatt, int rssi, GattStatus status)
@@ -197,14 +208,7 @@ namespace Plugin.BLE.Android
 
             Trace.Message("OnReadRemoteRssi: device {0} status {1} value {2}", gatt.Device.Name, status, rssi);
 
-            IDevice device;
-            if (!_adapter.ConnectedDeviceRegistry.TryGetValue(gatt.Device.Address, out device))
-            {
-                device = new Device(_adapter, gatt.Device, gatt, this, rssi);
-                Trace.Message("Rssi updated for device not in connected list. This should not happen.");
-            }
-
-            RemoteRssiRead?.Invoke(this, new RssiReadCallbackEventArgs(device, GetExceptionFromGattStatus(status), rssi));
+            RemoteRssiRead?.Invoke(this, new RssiReadCallbackEventArgs(GetExceptionFromGattStatus(status), rssi));
         }
 
         public override void OnDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, GattStatus status)

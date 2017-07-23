@@ -6,6 +6,7 @@ using CoreBluetooth;
 using Foundation;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Abstractions.Utils;
 
 namespace Plugin.BLE.iOS
 {
@@ -41,42 +42,32 @@ namespace Plugin.BLE.iOS
             Trace.Message("Device changed name: {0}", Name);
         }
 
-        protected override async Task<IEnumerable<IService>> GetServicesNativeAsync()
+        protected override Task<IEnumerable<IService>> GetServicesNativeAsync()
         {
-            var tcs = new TaskCompletionSource<IEnumerable<IService>>();
-            EventHandler<NSErrorEventArgs> handler = null;
-
-            handler = (sender, args) =>
-            {
-                _nativeDevice.DiscoveredService -= handler;
-
-                if (args.Error != null)
-                {
-                    Trace.Message("Error while discovering services {0}", args.Error.LocalizedDescription);
-                }
-
-                // why we have to do this check is beyond me. if a service has been discovered, the collection
-                // shouldn't be null, but sometimes it is. le sigh, apple.
-                if (_nativeDevice.Services == null)
-                {
-                    // TODO: review: return? really? Will the Task end?
-                    return;
-                }
-
-                var services = new Dictionary<CBUUID, IService>();
-                foreach (var s in _nativeDevice.Services)
-                {
-                    Trace.Message("Device.Discovered Service: " + s.Description);
-                    services[s.UUID] = new Service(s, this);
-                }
-
-                tcs.TrySetResult(services.Values);
-            };
-
-            _nativeDevice.DiscoveredService += handler;
-            _nativeDevice.DiscoverServices();
-
-            return await tcs.Task;
+            return TaskBuilder.FromEvent<IEnumerable<IService>, EventHandler<NSErrorEventArgs>>(
+               execute: () => _nativeDevice.DiscoverServices(),
+               getCompleteHandler: (complete, reject) => (sender, args) =>
+               {
+                   // If args.Error was not null then the Service might be null
+                   if (args.Error != null)
+                   {
+                       reject(new Exception($"Error while discovering services {args.Error.LocalizedDescription}"));
+                   }
+                   else if (_nativeDevice.Services == null)
+                   {
+                       // No service discovered. 
+                       reject(new Exception($"Error while discovering services: returned list is null"));
+                   }
+                   else
+                   {
+                       var services = _nativeDevice.Services
+                                            .Select(nativeService => new Service(nativeService, this))
+                                            .Cast<IService>().ToList();
+                       complete(services);
+                   }
+               },
+               subscribeComplete: handler => _nativeDevice.DiscoveredService += handler,
+               unsubscribeComplete: handler => _nativeDevice.DiscoveredService -= handler);
         }
 
         public override async Task<bool> UpdateRssiAsync()
@@ -134,6 +125,12 @@ namespace Plugin.BLE.iOS
         {
             Trace.Message($"Request MTU is not supported on iOS.");
             return await Task.FromResult((int)_nativeDevice.GetMaximumWriteValueLength(CBCharacteristicWriteType.WithoutResponse));
+        }
+
+        protected override bool UpdateConnectionIntervalNative(ConnectionInterval interval)
+        {
+            Trace.Message("Cannot update connection inteval on iOS.");
+            return false;
         }
     }
 }

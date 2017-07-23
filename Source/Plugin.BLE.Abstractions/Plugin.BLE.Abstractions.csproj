@@ -74,8 +74,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceBase.cs" />
     <Compile Include="Trace.cs" />
+    <Compile Include="Utils\BleCommandQueue.cs" />
     <Compile Include="Utils\FakeAdapter.cs" />
     <Compile Include="Utils\TaskBuilder.cs" />
+    <Compile Include="ConnectionInterval.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -45,18 +45,24 @@ namespace Plugin.BLE.Android
 
         protected override async Task<byte[]> ReadNativeAsync()
         {
-            return await TaskBuilder.FromEvent<byte[], EventHandler<CharacteristicReadCallbackEventArgs>>(
-               execute: ReadInternal,
-               getCompleteHandler: (complete, reject) => ((sender, args) =>
-                  {
-                      if (args.Characteristic.Uuid == _nativeCharacteristic.Uuid)
-                      {
-                          complete(args.Characteristic.GetValue());
-                      }
-                  }),
-              subscribeComplete: handler => _gattCallback.CharacteristicValueUpdated += handler,
-              unsubscribeComplete: handler => _gattCallback.CharacteristicValueUpdated -= handler
-           );
+            return await TaskBuilder.FromEvent<byte[], EventHandler<CharacteristicReadCallbackEventArgs>, EventHandler>(
+                execute: ReadInternal,
+                getCompleteHandler: (complete, reject) => ((sender, args) =>
+                {
+                    if (args.Characteristic.Uuid == _nativeCharacteristic.Uuid)
+                    {
+                        complete(args.Characteristic.GetValue());
+                    }
+                }),
+                subscribeComplete: handler => _gattCallback.CharacteristicValueUpdated += handler,
+                unsubscribeComplete: handler => _gattCallback.CharacteristicValueUpdated -= handler,
+                getRejectHandler: reject => ((sender, args) =>
+                {
+                    reject(new Exception($"Device '{Service.Device.Id}' disconnected while reading characteristic with {Id}."));
+                }),
+                subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
+                unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler);
+
         }
 
         void ReadInternal()
@@ -71,7 +77,7 @@ namespace Plugin.BLE.Android
         {
             _nativeCharacteristic.WriteType = writeType.ToNative();
 
-            return await TaskBuilder.FromEvent<bool, EventHandler<CharacteristicWriteCallbackEventArgs>>(
+            return await TaskBuilder.FromEvent<bool, EventHandler<CharacteristicWriteCallbackEventArgs>, EventHandler>(
                 execute: () => InternalWrite(data),
                 getCompleteHandler: (complete, reject) => ((sender, args) =>
                    {
@@ -81,8 +87,13 @@ namespace Plugin.BLE.Android
                        }
                    }),
                subscribeComplete: handler => _gattCallback.CharacteristicValueWritten += handler,
-               unsubscribeComplete: handler => _gattCallback.CharacteristicValueWritten -= handler
-            );
+               unsubscribeComplete: handler => _gattCallback.CharacteristicValueWritten -= handler,
+               getRejectHandler: reject => ((sender, args) =>
+               {
+                   reject(new Exception($"Device '{Service.Device.Id}' disconnected while writing characteristic with {Id}."));
+               }),
+               subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
+               unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler);
         }
 
         private void InternalWrite(byte[] data)
@@ -144,7 +155,7 @@ namespace Plugin.BLE.Android
             Trace.Message("Characteristic.StartUpdates, successful!");
         }
 
-        protected override Task StopUpdatesNativeAsync()
+        protected override async Task StopUpdatesNativeAsync()
         {
             _gattCallback.CharacteristicValueUpdated -= OnCharacteristicValueChanged;
 
@@ -155,7 +166,22 @@ namespace Plugin.BLE.Android
             if (!successful)
                 throw new CharacteristicReadException("GATT: SetCharacteristicNotification to false, FAILED.");
 
-            return Task.FromResult(true);
+            if (_nativeCharacteristic.Descriptors.Count > 0)
+            {
+                var descriptors = await GetDescriptorsAsync();
+                var descriptor = descriptors.FirstOrDefault(d => d.Id.Equals(ClientCharacteristicConfigurationDescriptorId)) ??
+                                            descriptors.FirstOrDefault(); // fallback just in case manufacturer forgot
+
+                if (Properties.HasFlag(CharacteristicPropertyType.Notify) || Properties.HasFlag(CharacteristicPropertyType.Indicate))
+                {
+                    await descriptor.WriteAsync(BluetoothGattDescriptor.DisableNotificationValue.ToArray());
+                    Trace.Message("Descriptor set value: DISABLE_NOTIFY");
+                }
+            }
+            else
+            {
+                Trace.Message("Descriptor set value FAILED: _nativeCharacteristic.Descriptors was empty");
+            }
         }
 
         private void OnCharacteristicValueChanged(object sender, CharacteristicReadCallbackEventArgs e)
