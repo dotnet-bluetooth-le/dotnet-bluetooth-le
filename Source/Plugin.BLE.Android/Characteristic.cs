@@ -172,7 +172,7 @@ namespace Plugin.BLE.Android
                 var descriptor = descriptors.FirstOrDefault(d => d.Id.Equals(ClientCharacteristicConfigurationDescriptorId)) ??
                                             descriptors.FirstOrDefault(); // fallback just in case manufacturer forgot
 
-                if (Properties.HasFlag(CharacteristicPropertyType.Notify))
+                if (Properties.HasFlag(CharacteristicPropertyType.Notify) || Properties.HasFlag(CharacteristicPropertyType.Indicate))
                 {
                     await descriptor.WriteAsync(BluetoothGattDescriptor.DisableNotificationValue.ToArray());
                     Trace.Message("Descriptor set value: DISABLE_NOTIFY");

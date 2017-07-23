@@ -1,11 +1,8 @@
 ﻿using System;
 using Android.Bluetooth;
 using Plugin.BLE.Abstractions;
-using Plugin.BLE.Abstractions.Contracts;
-using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Extensions;
 using Plugin.BLE.Android.CallbackEventArgs;
-using Plugin.BLE.Abstractions.Exceptions;
 
 namespace Plugin.BLE.Android
 {
@@ -50,8 +47,8 @@ namespace Plugin.BLE.Android
                 return;
             }
 
-            //just for me
-            Trace.Message($"References of parnet device and gatt callback device equal? {ReferenceEquals(_device.BluetoothDevice, gatt.Device).ToString().ToUpper()}");
+            //ToDo ignore just for me
+            Trace.Message($"References of parent device and gatt callback device equal? {ReferenceEquals(_device.BluetoothDevice, gatt.Device).ToString().ToUpper()}");
 
             Trace.Message($"OnConnectionStateChange: GattStatus: {status}");
 
@@ -62,9 +59,7 @@ namespace Plugin.BLE.Android
 
                     // Close GATT regardless, else we can accumulate zombie gatts.
                     CloseGattInstances(gatt);
-                    // Clear services & characteristics otherwise we will get gatt operation return FALSE when connecting to the same IDevice instace at a later time
-                    _device.ClearServices();
-                     
+
                     if (_device.IsOperationRequested)
                     {
                         Trace.Message("Disconnected by user");
@@ -153,6 +148,7 @@ namespace Plugin.BLE.Android
                 gatt.Close();
             }
 
+            //cleanup everything else
             _device.CloseGatt();
         }
 

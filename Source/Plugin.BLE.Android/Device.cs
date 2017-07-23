@@ -140,22 +140,16 @@ namespace Plugin.BLE.Android
 
         /// <summary>
         /// CloseGatt is called by the gattCallback in case of user disconnect or a disconnect by signal loss or a connection error. 
+        /// Cleares all cached services.
         /// </summary>
         public void CloseGatt()
         {
-            if (_gatt != null)
-            {
-                // ClossGatt might will get called on signal loss without Disconnect being called
-                // we have to make sure we clear the services
-                ClearServices();
+            _gatt?.Close();
+            _gatt = null;
 
-                _gatt.Close();
-                _gatt = null;
-            }
-            else
-            {
-                Trace.Message("[Warning]: Can't close gatt after disconnect {0}. Gatt is null.", Name);
-            }
+            // ClossGatt might will get called on signal loss without Disconnect being called we have to make sure we clear the services
+            // Clear services & characteristics otherwise we will get gatt operation return FALSE when connecting to the same IDevice instace at a later time
+            ClearServices();
         }
 
         protected override DeviceState GetState()
@@ -346,7 +340,7 @@ namespace Plugin.BLE.Android
                 // https://developer.android.com/reference/android/bluetooth/BluetoothGatt.html#CONNECTION_PRIORITY_BALANCED
                 return _gatt.RequestConnectionPriority((GattConnectionPriority)(int)interval);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception($"Update Connection Interval fails with error. {ex.Message}");
             }
