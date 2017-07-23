@@ -48,18 +48,39 @@
 
       for older releases: https://github.com/xabre/xamarin-bluetooth-le/blob/master/doc/changelog.md
     </releaseNotes>
-    <dependencies>
-      <group targetFramework="MonoAndroid">
-      </group>
-      <group targetFramework="Xamarin.iOS">
-      </group>
-      <group targetFramework="portable-net45+win8+wpa81+wp8">
-      </group>
-    </dependencies>
+		<dependencies>
+			<group targetFramework="net">
+			</group>
+			<group targetFramework="win">
+			</group>
+			<group targetFramework="wp">
+			</group>
+			<group targetFramework="wpa">
+			</group>
+			<group targetFramework="netstandard1.0">
+				<dependency id="NETStandard.Library" version="1.6.1" />
+			</group>
+			<group targetFramework="MonoAndroid">
+			</group>
+			<group targetFramework="Xamarin.iOS10">
+			</group>
+			<group targetFramework="Xamarin.Mac20">
+			</group>
+			<group targetFramework="portable-net45+win8+wpa81+wp8">
+			</group>
+			<group targetFramework="uap">
+			</group>
+			<group targetFramework="dotnet">
+			</group>
+			<group targetFramework="xamarintvos">
+			</group>
+			<group targetFramework="xamarinwatchos">
+			</group>
+		</dependencies>
   </metadata>
   <files>
     <!-- PCL -->
-    <file src="pcl\Plugin.BLE.*" target="lib\portable-net45+win8+wpa81+wp8" />
+    <file src="pcl\Plugin.BLE.*" target="lib\netstandard1.0" />
     <!-- droid -->
     <file src="android\Plugin.BLE.*" target="lib\MonoAndroid" />
     <!-- iOS -->

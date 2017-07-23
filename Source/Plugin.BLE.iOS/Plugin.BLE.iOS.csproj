@@ -59,7 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Plugin.BLE.Abstractions\Plugin.BLE.Abstractions.csproj">
-      <Project>{F479F7DB-CFA6-49E5-AA41-4FE6A4DA39B0}</Project>
+      <Project>{56531910-6309-4f1d-a12b-f69e2914fae6}</Project>
       <Name>Plugin.BLE.Abstractions</Name>
     </ProjectReference>
   </ItemGroup>

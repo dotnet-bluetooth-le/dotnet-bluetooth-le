@@ -36,20 +36,61 @@
       - Breaking changes: ConnectDeviceAsync optional parameters are now encapsulated in a ConnectParameter class
       for older releases: https://github.com/xabre/xamarin-bluetooth-le/blob/master/doc/changelog.md
     </releaseNotes>
-    <dependencies>
-      <group targetFramework="MonoAndroid">
-        <dependency id="MvvmCross.Platform" version="4.1.0" />
-        <dependency id="Plugin.BLE" version="[1.3.0]" />
-      </group>
-      <group targetFramework="Xamarin.iOS">
-        <dependency id="MvvmCross.Platform" version="4.1.0" />
-        <dependency id="Plugin.BLE" version="[1.3.0]" />
-      </group>
-      <group targetFramework="portable-net45+win8+wpa81+wp8">
-        <dependency id="MvvmCross.Platform" version="4.1.0" />
-        <dependency id="Plugin.BLE" version="[1.3.0]" />
-      </group>
-    </dependencies>
+	  <dependencies>
+		  <group targetFramework="net">
+			  <dependency id="MvvmCross.Platform" version="4.1.0" />
+			  <dependency id="Plugin.BLE" version="[1.3.0]" />
+		  </group>
+		  <group targetFramework="win">
+			  <dependency id="MvvmCross.Platform" version="4.1.0" />
+			  <dependency id="Plugin.BLE" version="[1.3.0]" />
+		  </group>
+		  <group targetFramework="wp">
+			  <dependency id="MvvmCross.Platform" version="4.1.0" />
+			  <dependency id="Plugin.BLE" version="[1.3.0]" />
+		  </group>
+		  <group targetFramework="wpa">
+			  <dependency id="MvvmCross.Platform" version="4.1.0" />
+			  <dependency id="Plugin.BLE" version="[1.3.0]" />
+		  </group>
+		  <group targetFramework="netstandard1.0">
+			  <dependency id="NETStandard.Library" version="1.6.1" />
+			  <dependency id="MvvmCross.Platform" version="4.1.0" />
+			  <dependency id="Plugin.BLE" version="[1.3.0]" />
+		  </group>
+		  <group targetFramework="MonoAndroid">
+			  <dependency id="MvvmCross.Platform" version="4.1.0" />
+			  <dependency id="Plugin.BLE" version="[1.3.0]" />
+		  </group>
+		  <group targetFramework="Xamarin.iOS10">
+			  <dependency id="MvvmCross.Platform" version="4.1.0" />
+			  <dependency id="Plugin.BLE" version="[1.3.0]" />
+		  </group>
+		  <group targetFramework="Xamarin.Mac20">
+			  <dependency id="MvvmCross.Platform" version="4.1.0" />
+			  <dependency id="Plugin.BLE" version="[1.3.0]" />
+		  </group>
+		  <group targetFramework="portable-net45+win8+wpa81+wp8">
+			  <dependency id="MvvmCross.Platform" version="4.1.0" />
+			  <dependency id="Plugin.BLE" version="[1.3.0]" />
+		  </group>
+		  <group targetFramework="uap">
+			  <dependency id="MvvmCross.Platform" version="4.1.0" />
+			  <dependency id="Plugin.BLE" version="[1.3.0]" />
+		  </group>
+		  <group targetFramework="dotnet">
+			  <dependency id="MvvmCross.Platform" version="4.1.0" />
+			  <dependency id="Plugin.BLE" version="[1.3.0]" />
+		  </group>
+		  <group targetFramework="xamarintvos">
+			  <dependency id="MvvmCross.Platform" version="4.1.0" />
+			  <dependency id="Plugin.BLE" version="[1.3.0]" />
+		  </group>
+		  <group targetFramework="xamarinwatchos">
+			  <dependency id="MvvmCross.Platform" version="4.1.0" />
+			  <dependency id="Plugin.BLE" version="[1.3.0]" />
+		  </group>
+	  </dependencies>
   </metadata>
   <files>
     <!-- src -->
