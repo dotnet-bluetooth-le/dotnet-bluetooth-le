@@ -28,7 +28,7 @@ namespace BLE.Client.Droid
             LoadApplication(formsApp);
 
             var presenter = (MvxFormsDroidPagePresenter) Mvx.Resolve<IMvxViewPresenter>();
-            presenter.MvxFormsApp = formsApp;
+            presenter.FormsApplication = formsApp;
 
             Mvx.Resolve<IMvxAppStart>().Start();
         }
