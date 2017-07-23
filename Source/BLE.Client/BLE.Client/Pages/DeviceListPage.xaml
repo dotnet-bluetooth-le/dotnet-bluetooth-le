@@ -72,6 +72,7 @@
         </StackLayout>
         <StackLayout Grid.Row="4" Orientation="Horizontal">
           <Button Text="Connect to previous" Command="{Binding ConnectToPreviousCommand}" HorizontalOptions="FillAndExpand"/>
+          <Button Text="Start Scan" Command="{Binding RefreshCommand}" HorizontalOptions="End"/>
           <Button Text="Stop Scan" Command="{Binding StopScanCommand}" HorizontalOptions="End"/>
           <ActivityIndicator IsRunning="{Binding IsRefreshing}"
                              HeightRequest="24"
