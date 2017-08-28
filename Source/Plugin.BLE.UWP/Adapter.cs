@@ -39,7 +39,6 @@ namespace Plugin.BLE.UWP
             var hasFilter = serviceUuids?.Any() ?? false;
             DiscoveredDevices.Clear();
             _BleWatcher = new BluetoothLEAdvertisementWatcher();
-            _BleWatcher.ScanningMode = BluetoothLEScanningMode.Active;
             _prevScannedDevices = new List<ulong>();
             Trace.Message("Starting a scan for devices.");
             if (hasFilter)
