@@ -1,6 +1,6 @@
 using Acr.UserDialogs;
 using MvvmCross.Core.ViewModels;
-using MvvmCross.Forms.Presenter.iOS;
+using MvvmCross.Forms.iOS.Presenters;
 using MvvmCross.iOS.Platform;
 using MvvmCross.iOS.Views.Presenters;
 using MvvmCross.Platform;

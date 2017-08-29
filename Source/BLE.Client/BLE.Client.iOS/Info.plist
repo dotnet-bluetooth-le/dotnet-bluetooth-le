@@ -25,7 +25,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>BLE.Client</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.BLE.Client</string>
+	<string>com.plugin.ble</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>

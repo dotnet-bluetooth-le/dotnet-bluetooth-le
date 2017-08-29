@@ -1,11 +1,8 @@
 ﻿using System;
 using Android.Bluetooth;
 using Plugin.BLE.Abstractions;
-using Plugin.BLE.Abstractions.Contracts;
-using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Extensions;
 using Plugin.BLE.Android.CallbackEventArgs;
-using Plugin.BLE.Abstractions.Exceptions;
 
 namespace Plugin.BLE.Android
 {
@@ -50,13 +47,8 @@ namespace Plugin.BLE.Android
                 return;
             }
 
-            //TODO only here for debug purposes
-            var referencesEqual = ReferenceEquals(_device.BluetoothDevice, gatt.Device);
-            if (!referencesEqual)
-            {
-                Trace.Message($"References of parent device and gatt callback device are not equal." +
-                              "Parent {_device.BluetoothDevice.Address} vs callback {gatt.Device.Address}");
-            }
+            //ToDo ignore just for me
+            Trace.Message($"References of parent device and gatt callback device equal? {ReferenceEquals(_device.BluetoothDevice, gatt.Device).ToString().ToUpper()}");
 
             Trace.Message($"OnConnectionStateChange: GattStatus: {status}");
 
@@ -148,15 +140,15 @@ namespace Plugin.BLE.Android
 
         private void CloseGattInstances(BluetoothGatt gatt)
         {
+            //ToDO just for me
+            Trace.Message($"References of parnet device gatt and callback gatt equal? {ReferenceEquals(_device._gatt, gatt).ToString().ToUpper()}");
 
-            //ToDO debug purposes only referencesEqual
-            var referencesEqual = ReferenceEquals(gatt, _device._gatt);
-            if (!referencesEqual && !_device.IsAutoConnectRequested)
+            if (!ReferenceEquals(gatt, _device._gatt))
             {
-                Trace.Message($"Gatt close: References of parnet device gatt and callback gatt NOT equal.");
                 gatt.Close();
             }
 
+            //cleanup everything else
             _device.CloseGatt();
         }
 

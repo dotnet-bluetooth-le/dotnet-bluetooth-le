@@ -143,6 +143,7 @@ namespace Plugin.BLE.Android
 
         /// <summary>
         /// CloseGatt is called by the gattCallback in case of user disconnect or a disconnect by signal loss or a connection error. 
+        /// Cleares all cached services.
         /// </summary>
         public void CloseGatt()
         {

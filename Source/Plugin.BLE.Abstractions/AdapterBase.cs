@@ -57,7 +57,7 @@ namespace Plugin.BLE.Abstractions
 
             try
             {
-                using (cancellationToken.Register(() => _scanCancellationTokenSource.Cancel()))
+                using (cancellationToken.Register(() => _scanCancellationTokenSource?.Cancel()))
                 {
                     await StartScanningForDevicesNativeAsync(serviceUuids, allowDuplicatesKey, _scanCancellationTokenSource.Token);
                     await Task.Delay(ScanTimeout, _scanCancellationTokenSource.Token);
@@ -100,7 +100,7 @@ namespace Plugin.BLE.Abstractions
                 await TaskBuilder.FromEvent<bool, EventHandler<DeviceEventArgs>, EventHandler<DeviceErrorEventArgs>>(
                     execute: () =>
                     {
-					ConnectToDeviceNativeAsync(device, connectParameters, cts.Token);
+                        ConnectToDeviceNativeAsync(device, connectParameters, cts.Token);
                     },
 
                     getCompleteHandler: (complete, reject) => (sender, args) =>
