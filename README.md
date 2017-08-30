@@ -52,6 +52,14 @@ Add this line to your manifest if you want to declare that your app is available
 <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
 ````
 
+**UWP**
+
+Add this line to the Package Manifest (.appxmanifest):
+
+```xml
+<DeviceCapability Name="bluetooth" />
+```
+
 ## Sample app
 
 We provide a sample Xamarin.Forms app, that is a basic bluetooth LE scanner. With this app, it's possible to 
