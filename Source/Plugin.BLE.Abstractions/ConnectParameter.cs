@@ -6,7 +6,7 @@
     public struct ConnectParameters
     {
         /// <summary>
-        /// Android only, from documnetation:  
+        /// Android only, from documentation:  
         /// boolean: Whether to directly connect to the remote device (false) or to automatically connect as soon as the remote device becomes available (true).
         /// </summary>
         public bool AutoConnect { get; }
