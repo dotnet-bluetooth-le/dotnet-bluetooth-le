@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+using Microsoft.Toolkit.Uwp.Connectivity;
 using Windows.Devices.Bluetooth;
+
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
-using Microsoft.Toolkit.Uwp;
 
 namespace Plugin.BLE.UWP
 {

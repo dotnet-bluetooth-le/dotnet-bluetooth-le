@@ -1,7 +1,7 @@
 ﻿using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.UWP;
-using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.Connectivity;
 
 namespace Plugin.BLE
 {
