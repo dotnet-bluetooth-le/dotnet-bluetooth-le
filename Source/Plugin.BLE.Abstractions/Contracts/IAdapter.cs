@@ -26,11 +26,11 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// </summary>
         event EventHandler<DeviceEventArgs> DeviceConnected;
         /// <summary>
-        /// Occurs when a device has been disconnected. This occurs on intendet disconnects after <see cref="DisconnectDeviceAsync"/>.
+        /// Occurs when a device has been disconnected. This occurs on intended disconnects after <see cref="DisconnectDeviceAsync"/>.
         /// </summary>
         event EventHandler<DeviceEventArgs> DeviceDisconnected;
         /// <summary>
-        /// Occurs when a device has been disconnected. This occurs on unintendet disconnects (e.g. when the device exploded).
+        /// Occurs when a device has been disconnected. This occurs on unintended disconnects (e.g. when the device exploded).
         /// </summary>
         event EventHandler<DeviceErrorEventArgs> DeviceConnectionLost;
         /// <summary>
