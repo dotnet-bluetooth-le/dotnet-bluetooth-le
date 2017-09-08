@@ -85,31 +85,18 @@ namespace Plugin.BLE.UWP
             if (nativeDevice == null)
                 return;
 
-            nativeDevice.PropertyChanged += Device_PropertyChanged;
+            var uwpDevice = (Device)device;
+            uwpDevice.ConnectionStatusChanged += Device_ConnectionStatusChanged;
 
             await nativeDevice.ConnectAsync();
 
-            var uwpDevice = (Device)device;
             if (!ConnectedDeviceRegistry.ContainsKey(uwpDevice.Id.ToString()))
                 ConnectedDeviceRegistry.Add(uwpDevice.Id.ToString(), device);
         }
 
-        private void Device_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void Device_ConnectionStatusChanged(Device device, BluetoothConnectionStatus status)
         {
-            if (e.PropertyName != "IsConnected")
-                return;
-
-            ObservableBluetoothLEDevice nativeDevice = sender as ObservableBluetoothLEDevice;
-            if (nativeDevice == null)
-                return;
-
-            Guid id = new Device(this, nativeDevice.BluetoothLEDevice, 0, String.Empty).Id;
-
-            ConnectedDeviceRegistry.TryGetValue(id.ToString(), out IDevice device);
-            if (device == null)
-                return;
-
-            if (nativeDevice.IsConnected)
+            if (status == BluetoothConnectionStatus.Connected)
                 HandleConnectedDevice(device);
             else
                 HandleDisconnectedDevice(false, device);
