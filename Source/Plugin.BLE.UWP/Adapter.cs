@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using System.Threading.Tasks;
+
+using Microsoft.Toolkit.Uwp.Connectivity;
 using Windows.Devices.Bluetooth;
 using Windows.Devices.Bluetooth.Advertisement;
+
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
-using System.Threading;
-using Microsoft.Toolkit.Uwp;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace Plugin.BLE.UWP
 {
