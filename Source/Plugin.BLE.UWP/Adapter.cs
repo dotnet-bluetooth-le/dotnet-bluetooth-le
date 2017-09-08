@@ -76,23 +76,34 @@ namespace Plugin.BLE.UWP
 
         protected async override Task ConnectToDeviceNativeAsync(IDevice device, ConnectParameters connectParameters, CancellationToken cancellationToken)
         {
-            var uwpDevice = (Device)device;
             Trace.Message($"Connecting to device with ID:  {device.Id.ToString()}");
-            await ((ObservableBluetoothLEDevice)uwpDevice.NativeDevice).ConnectAsync();
+
+            ObservableBluetoothLEDevice nativeDevice = device.NativeDevice as ObservableBluetoothLEDevice;
+            if (nativeDevice == null)
+                return;
+
+            var uwpDevice = (Device)device;
+            uwpDevice.ConnectionStatusChanged += Device_ConnectionStatusChanged;
+
+            await nativeDevice.ConnectAsync();
+
             if (!ConnectedDeviceRegistry.ContainsKey(uwpDevice.Id.ToString()))
-            {
                 ConnectedDeviceRegistry.Add(uwpDevice.Id.ToString(), device);
-            }
-            await Task.Delay(100); //wait for windows to add services to the device
-            HandleConnectedDevice(device);
+        }
+
+        private void Device_ConnectionStatusChanged(Device device, BluetoothConnectionStatus status)
+        {
+            if (status == BluetoothConnectionStatus.Connected)
+                HandleConnectedDevice(device);
+            else
+                HandleDisconnectedDevice(true, device);
         }
 
         protected override void DisconnectDeviceNative(IDevice device)
         {
-            //windows doesn't support disconnecting, so currently just disposes of device
+            // Windows doesn't support disconnecting, so currently just dispose of the device
             Trace.Message($"Disconnected from device with ID:  {device.Id.ToString()}");
             ConnectedDeviceRegistry.Remove(device.Id.ToString());
-            HandleDisconnectedDevice(true, device);
         }
 
         public async override Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters, CancellationToken cancellationToken)
