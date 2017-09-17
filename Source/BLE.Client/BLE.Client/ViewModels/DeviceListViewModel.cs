@@ -43,7 +43,7 @@ namespace BLE.Client.ViewModels
         public MvxCommand<DeviceListItemViewModel> ConnectDisposeCommand => new MvxCommand<DeviceListItemViewModel>(ConnectAndDisposeDevice);
 
         public ObservableCollection<DeviceListItemViewModel> Devices { get; set; } = new ObservableCollection<DeviceListItemViewModel>();
-        public bool IsRefreshing => Adapter.IsScanning;
+        public bool IsRefreshing => (Adapter != null) ? Adapter.IsScanning : false;
         public bool IsStateOn => _bluetoothLe.IsOn;
         public string StateText => GetStateText();
         public DeviceListItemViewModel SelectedDevice

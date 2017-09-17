@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
+using Microsoft.Toolkit.Uwp.Connectivity;
 using Windows.Devices.Bluetooth.GenericAttributeProfile;
+
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
-using Microsoft.Toolkit.Uwp;
 
 namespace Plugin.BLE.UWP
 {

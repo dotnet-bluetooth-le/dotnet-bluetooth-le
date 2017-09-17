@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+
+using Microsoft.Toolkit.Uwp.Connectivity;
 using Windows.Devices.Bluetooth;
+
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
-using Microsoft.Toolkit.Uwp;
 
 namespace Plugin.BLE.UWP
 {
@@ -21,6 +24,18 @@ namespace Plugin.BLE.UWP
             Id = ParseDeviceId(nativeDevice.BluetoothAddress.ToString("x"));
             Name = nativeDevice.Name;
             AdvertisementRecords = advertisementRecords;
+            _nativeDevice.PropertyChanged += NativeDevice_PropertyChanged;
+        }
+
+        public delegate void ConnectionStatusChangedHandler(Device device, BluetoothConnectionStatus status);
+        public ConnectionStatusChangedHandler ConnectionStatusChanged;
+
+        private void NativeDevice_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != "IsConnected")
+                return;
+
+            ConnectionStatusChanged?.Invoke(this, _nativeDevice.BluetoothLEDevice.ConnectionStatus);
         }
 
         /// <summary>
