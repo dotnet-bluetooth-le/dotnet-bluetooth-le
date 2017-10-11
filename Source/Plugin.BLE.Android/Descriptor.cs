@@ -5,6 +5,7 @@ using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.Utils;
 using Plugin.BLE.Android.CallbackEventArgs;
+using System.Threading;
 
 namespace Plugin.BLE.Android
 {
@@ -25,7 +26,7 @@ namespace Plugin.BLE.Android
             _nativeDescriptor = nativeDescriptor;
         }
 
-        protected override Task WriteNativeAsync(byte[] data)
+        protected override Task WriteNativeAsync(byte[] data, CancellationToken cancellationToken = default(CancellationToken))
         {
             return TaskBuilder.FromEvent<bool, EventHandler<DescriptorCallbackEventArgs>, EventHandler>(
                execute: () => InternalWrite(data),
@@ -46,7 +47,8 @@ namespace Plugin.BLE.Android
                    reject(new Exception($"Device '{Characteristic.Service.Device.Id}' disconnected while writing descriptor with {Id}."));
                }),
                subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
-               unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler);
+               unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler,
+               token: cancellationToken);
         }
 
         private void InternalWrite(byte[] data)
@@ -58,7 +60,7 @@ namespace Plugin.BLE.Android
                 throw new Exception("GATT: WRITE descriptor value failed");
         }
 
-        protected override async Task<byte[]> ReadNativeAsync()
+        protected override async Task<byte[]> ReadNativeAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return await TaskBuilder.FromEvent<byte[], EventHandler<DescriptorCallbackEventArgs>, EventHandler>(
                execute: ReadInternal,
@@ -76,7 +78,8 @@ namespace Plugin.BLE.Android
                    reject(new Exception($"Device '{Characteristic.Service.Device.Id}' disconnected while reading descripor with {Id}."));
                }),
                subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
-               unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler);
+               unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler,
+               token: cancellationToken);
         }
 
         private void ReadInternal()

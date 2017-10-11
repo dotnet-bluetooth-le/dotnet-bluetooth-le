@@ -104,13 +104,13 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// </summary>
         /// <exception cref="InvalidOperationException">Thrown if characteristic doesn't support notify. See: <see cref="CanUpdate"/></exception>
         /// <exception cref="Exception">Thrown if an error occurs while starting notifications </exception>
-        Task StartUpdatesAsync();
+        Task StartUpdatesAsync(CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Stops listening for notify events on this characteristic.
         /// <exception cref="Exception">Thrown if an error occurs while starting notifications </exception>
         /// </summary>
-        Task StopUpdatesAsync();
+        Task StopUpdatesAsync(CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Gets the descriptors of the characteristic.

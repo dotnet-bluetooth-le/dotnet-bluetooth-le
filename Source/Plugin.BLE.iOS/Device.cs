@@ -7,6 +7,7 @@ using Foundation;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.Utils;
+using System.Threading;
 
 namespace Plugin.BLE.iOS
 {
@@ -42,7 +43,7 @@ namespace Plugin.BLE.iOS
             Trace.Message("Device changed name: {0}", Name);
         }
 
-        protected override Task<IEnumerable<IService>> GetServicesNativeAsync()
+        protected override Task<IEnumerable<IService>> GetServicesNativeAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return TaskBuilder.FromEvent<IEnumerable<IService>, EventHandler<NSErrorEventArgs>>(
                execute: () => _nativeDevice.DiscoverServices(),
@@ -67,7 +68,8 @@ namespace Plugin.BLE.iOS
                    }
                },
                subscribeComplete: handler => _nativeDevice.DiscoveredService += handler,
-               unsubscribeComplete: handler => _nativeDevice.DiscoveredService -= handler);
+               unsubscribeComplete: handler => _nativeDevice.DiscoveredService -= handler,
+               token: cancellationToken);
         }
 
         public override async Task<bool> UpdateRssiAsync()

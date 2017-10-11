@@ -5,6 +5,7 @@ using Plugin.BLE.Abstractions;
 using Foundation;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.Utils;
+using System.Threading;
 
 namespace Plugin.BLE.iOS
 {
@@ -47,7 +48,7 @@ namespace Plugin.BLE.iOS
             _nativeDescriptor = nativeDescriptor;
         }
 
-        protected override Task<byte[]> ReadNativeAsync()
+        protected override Task<byte[]> ReadNativeAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return TaskBuilder.FromEvent<byte[], EventHandler<CBDescriptorEventArgs>>(
                    execute: () => _parentDevice.ReadValue(_nativeDescriptor),
@@ -62,10 +63,11 @@ namespace Plugin.BLE.iOS
                            complete(Value);
                    },
                    subscribeComplete: handler => _parentDevice.UpdatedValue += handler,
-                   unsubscribeComplete: handler => _parentDevice.UpdatedValue -= handler);
+                   unsubscribeComplete: handler => _parentDevice.UpdatedValue -= handler,
+                   token: cancellationToken);
         }
 
-        protected override Task WriteNativeAsync(byte[] data)
+        protected override Task WriteNativeAsync(byte[] data, CancellationToken cancellationToken = default(CancellationToken))
         {
             return TaskBuilder.FromEvent<bool, EventHandler<CBDescriptorEventArgs>>(
                 execute: () => _parentDevice.WriteValue(NSData.FromArray(data), _nativeDescriptor),
@@ -80,7 +82,8 @@ namespace Plugin.BLE.iOS
                             complete(true);
                     },
                     subscribeComplete: handler => _parentDevice.WroteDescriptorValue += handler,
-                    unsubscribeComplete: handler => _parentDevice.WroteDescriptorValue -= handler);
+                    unsubscribeComplete: handler => _parentDevice.WroteDescriptorValue -= handler,
+                    token: cancellationToken);
         }
 
     }

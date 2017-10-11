@@ -24,10 +24,10 @@ namespace Plugin.BLE.Abstractions
 
         public Task<byte[]> ReadAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            return ReadNativeAsync();
+            return ReadNativeAsync(cancellationToken);
         }
 
-        protected abstract Task<byte[]> ReadNativeAsync();
+        protected abstract Task<byte[]> ReadNativeAsync(CancellationToken cancellationToken = default(CancellationToken));
 
         public Task WriteAsync(byte[] data, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -36,10 +36,10 @@ namespace Plugin.BLE.Abstractions
                 throw new ArgumentNullException(nameof(data));
             }
 
-            return WriteNativeAsync(data);
+            return WriteNativeAsync(data, cancellationToken);
         }
 
-        protected abstract Task WriteNativeAsync(byte[] data);
+        protected abstract Task WriteNativeAsync(byte[] data, CancellationToken cancellationToken = default(CancellationToken));
 
 
 
