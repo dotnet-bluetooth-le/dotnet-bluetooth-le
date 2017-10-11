@@ -57,7 +57,7 @@ namespace Plugin.BLE.Abstractions
             {
                 using (var source = this.GetCombinedSource(cancellationToken))
                 {
-                    KnownServices.AddRange(await GetServicesNativeAsync());
+                    KnownServices.AddRange(await GetServicesNativeAsync(cancellationToken));
                 }
             }
 
@@ -82,7 +82,7 @@ namespace Plugin.BLE.Abstractions
 
         public abstract Task<bool> UpdateRssiAsync();
         protected abstract DeviceState GetState();
-        protected abstract Task<IEnumerable<IService>> GetServicesNativeAsync();
+        protected abstract Task<IEnumerable<IService>> GetServicesNativeAsync(CancellationToken cancellationToken = default(CancellationToken));
         protected abstract Task<int> RequestMtuNativeAsync(int requestValue);
         protected abstract bool UpdateConnectionIntervalNative(ConnectionInterval interval);
 

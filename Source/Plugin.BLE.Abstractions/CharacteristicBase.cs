@@ -71,7 +71,7 @@ namespace Plugin.BLE.Abstractions
             }
 
             Trace.Message("Characteristic.ReadAsync");
-            return await ReadNativeAsync();
+            return await ReadNativeAsync(cancellationToken);
         }
 
         public async Task<bool> WriteAsync(byte[] data, CancellationToken cancellationToken = default(CancellationToken))
@@ -89,7 +89,7 @@ namespace Plugin.BLE.Abstractions
             var writeType = GetWriteType();
 
             Trace.Message("Characteristic.WriteAsync");
-            return await WriteNativeAsync(data, writeType);
+            return await WriteNativeAsync(data, writeType, cancellationToken);
         }
 
         private CharacteristicWriteType GetWriteType()
@@ -102,7 +102,7 @@ namespace Plugin.BLE.Abstractions
                 CharacteristicWriteType.WithoutResponse;
         }
 
-        public Task StartUpdatesAsync()
+        public Task StartUpdatesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             if (!CanUpdate)
             {
@@ -110,36 +110,36 @@ namespace Plugin.BLE.Abstractions
             }
 
             Trace.Message("Characteristic.StartUpdates");
-            return StartUpdatesNativeAsync();
+            return StartUpdatesNativeAsync(cancellationToken);
         }
 
-        public Task StopUpdatesAsync()
+        public Task StopUpdatesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             if (!CanUpdate)
             {
                 throw new InvalidOperationException("Characteristic does not support update.");
             }
 
-            return StopUpdatesNativeAsync();
+            return StopUpdatesNativeAsync(cancellationToken);
         }
 
         public async Task<IList<IDescriptor>> GetDescriptorsAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             if (_descriptors == null)
-                _descriptors = await GetDescriptorsNativeAsync();
+                _descriptors = await GetDescriptorsNativeAsync(cancellationToken);
             return _descriptors;
         }
 
         public async Task<IDescriptor> GetDescriptorAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var descriptors = await GetDescriptorsAsync().ConfigureAwait(false);
+            var descriptors = await GetDescriptorsAsync(cancellationToken);
             return descriptors.FirstOrDefault(d => d.Id == id);
         }
 
-        protected abstract Task<IList<IDescriptor>> GetDescriptorsNativeAsync();
-        protected abstract Task<byte[]> ReadNativeAsync();
-        protected abstract Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType);
-        protected abstract Task StartUpdatesNativeAsync();
-        protected abstract Task StopUpdatesNativeAsync();
+        protected abstract Task<IList<IDescriptor>> GetDescriptorsNativeAsync(CancellationToken cancellationToken = default(CancellationToken));
+        protected abstract Task<byte[]> ReadNativeAsync(CancellationToken cancellationToken = default(CancellationToken));
+        protected abstract Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType, CancellationToken cancellationToken = default(CancellationToken));
+        protected abstract Task StartUpdatesNativeAsync(CancellationToken cancellationToken = default(CancellationToken));
+        protected abstract Task StopUpdatesNativeAsync(CancellationToken cancellationToken = default(CancellationToken));
     }
 }

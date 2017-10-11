@@ -11,6 +11,7 @@ using Plugin.BLE.Abstractions.Exceptions;
 using Plugin.BLE.Abstractions.Extensions;
 using Plugin.BLE.Abstractions.Utils;
 using Plugin.BLE.Extensions;
+using System.Threading;
 
 namespace Plugin.BLE.iOS
 {
@@ -45,7 +46,7 @@ namespace Plugin.BLE.iOS
             _parentDevice = parentDevice;
         }
 
-        protected override Task<IList<IDescriptor>> GetDescriptorsNativeAsync()
+        protected override Task<IList<IDescriptor>> GetDescriptorsNativeAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return TaskBuilder.FromEvent<IList<IDescriptor>, EventHandler<CBCharacteristicEventArgs>>(
                 execute: () => _parentDevice.DiscoverDescriptors(_nativeCharacteristic),
@@ -64,10 +65,11 @@ namespace Plugin.BLE.iOS
                         }
                     },
                 subscribeComplete: handler => _parentDevice.DiscoveredDescriptor += handler,
-                unsubscribeComplete: handler => _parentDevice.DiscoveredDescriptor -= handler);
+                unsubscribeComplete: handler => _parentDevice.DiscoveredDescriptor -= handler,
+                token: cancellationToken);
         }
 
-        protected override Task<byte[]> ReadNativeAsync()
+        protected override Task<byte[]> ReadNativeAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return TaskBuilder.FromEvent<byte[], EventHandler<CBCharacteristicEventArgs>>(
                     execute: () => _parentDevice.ReadValue(_nativeCharacteristic),
@@ -87,10 +89,11 @@ namespace Plugin.BLE.iOS
                         }
                     },
                     subscribeComplete: handler => _parentDevice.UpdatedCharacterteristicValue += handler,
-                    unsubscribeComplete: handler => _parentDevice.UpdatedCharacterteristicValue -= handler);
+                    unsubscribeComplete: handler => _parentDevice.UpdatedCharacterteristicValue -= handler,
+                    token: cancellationToken);
         }
 
-        protected override Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType)
+        protected override Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType, CancellationToken cancellationToken = default(CancellationToken))
         {
             Task<bool> task;
 
@@ -107,7 +110,8 @@ namespace Plugin.BLE.iOS
                         complete(args.Error == null);
                     },
                     subscribeComplete: handler => _parentDevice.WroteCharacteristicValue += handler,
-                    unsubscribeComplete: handler => _parentDevice.WroteCharacteristicValue -= handler);
+                    unsubscribeComplete: handler => _parentDevice.WroteCharacteristicValue -= handler,
+                    token:  cancellationToken);
             }
             else
             {
@@ -120,7 +124,7 @@ namespace Plugin.BLE.iOS
             return task;
         }
 
-        protected override Task StartUpdatesNativeAsync()
+        protected override Task StartUpdatesNativeAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             _parentDevice.UpdatedCharacterteristicValue -= UpdatedNotify;
             _parentDevice.UpdatedCharacterteristicValue += UpdatedNotify;
@@ -144,10 +148,11 @@ namespace Plugin.BLE.iOS
                       }
                   },
                subscribeComplete: handler => _parentDevice.UpdatedNotificationState += handler,
-                  unsubscribeComplete: handler => _parentDevice.UpdatedNotificationState -= handler);
+                  unsubscribeComplete: handler => _parentDevice.UpdatedNotificationState -= handler,
+               token: cancellationToken);
         }
 
-        protected override Task StopUpdatesNativeAsync()
+        protected override Task StopUpdatesNativeAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             _parentDevice.UpdatedCharacterteristicValue -= UpdatedNotify;
             return TaskBuilder.FromEvent<bool, EventHandler<CBCharacteristicEventArgs>>(
@@ -168,7 +173,8 @@ namespace Plugin.BLE.iOS
                       }
                   },
                 subscribeComplete: handler => _parentDevice.UpdatedNotificationState += handler,
-                unsubscribeComplete: handler => _parentDevice.UpdatedNotificationState -= handler);
+                unsubscribeComplete: handler => _parentDevice.UpdatedNotificationState -= handler,
+                token: cancellationToken);
         }
 
         private void UpdatedNotify(object sender, CBCharacteristicEventArgs e)

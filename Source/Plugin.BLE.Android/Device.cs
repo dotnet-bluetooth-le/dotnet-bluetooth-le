@@ -13,6 +13,7 @@ using Plugin.BLE.Abstractions.Exceptions;
 using Plugin.BLE.Abstractions.Utils;
 using Plugin.BLE.Android.CallbackEventArgs;
 using Trace = Plugin.BLE.Abstractions.Trace;
+using System.Threading;
 
 namespace Plugin.BLE.Android
 {
@@ -53,7 +54,7 @@ namespace Plugin.BLE.Android
         public override object NativeDevice => BluetoothDevice;
         internal bool IsOperationRequested { get; set; }
 
-        protected override async Task<IEnumerable<IService>> GetServicesNativeAsync()
+        protected override async Task<IEnumerable<IService>> GetServicesNativeAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             if (_gattCallback == null || _gatt == null)
             {
@@ -73,7 +74,8 @@ namespace Plugin.BLE.Android
                     reject(new Exception($"Device {Name} disconnected while fetching services."));
                 }),
                 subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
-                unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler);
+                unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler,
+                token: cancellationToken);
         }
 
         public void Connect(ConnectParameters connectParameters)

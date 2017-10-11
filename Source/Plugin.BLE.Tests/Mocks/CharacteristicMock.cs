@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
+using System.Threading;
 
 namespace Plugin.BLE.Tests.Mocks
 {
@@ -37,28 +38,28 @@ namespace Plugin.BLE.Tests.Mocks
 
         public override CharacteristicPropertyType Properties => MockPropterties;
 
-        protected override Task<IList<IDescriptor>> GetDescriptorsNativeAsync()
+        protected override Task<IList<IDescriptor>> GetDescriptorsNativeAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             throw new NotImplementedException();
         }
 
-        protected override Task<byte[]> ReadNativeAsync()
+        protected override Task<byte[]> ReadNativeAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             throw new NotImplementedException();
         }
 
-        protected override Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType)
+        protected override Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType, CancellationToken cancellationToken = default(CancellationToken))
         {
             WriteHistory.Add(new WriteOperation(data, writeType));
             return Task.FromResult(true);
         }
 
-        protected override Task StartUpdatesNativeAsync()
+        protected override Task StartUpdatesNativeAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             throw new NotImplementedException();
         }
 
-        protected override Task StopUpdatesNativeAsync()
+        protected override Task StopUpdatesNativeAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             throw new NotImplementedException();
         }
