@@ -132,7 +132,7 @@ namespace Plugin.BLE.Abstractions
 
         public async Task<IDescriptor> GetDescriptorAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var descriptors = await GetDescriptorsAsync(cancellationToken);
+            var descriptors = await GetDescriptorsAsync(cancellationToken).ConfigureAwait(false);
             return descriptors.FirstOrDefault(d => d.Id == id);
         }
 
