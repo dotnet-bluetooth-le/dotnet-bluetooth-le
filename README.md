@@ -1,5 +1,4 @@
 # <img src="icon_small.png" width="71" height="71"/> Bluetooth LE plugin for Xamarin [![Build Status](https://www.bitrise.io/app/3fe54d0a5f43c2bf.svg?token=i9LUY4rIecZWd_3j7hwXgw)](https://www.bitrise.io/app/3fe54d0a5f43c2bf) 
-[![Issue Stats](http://www.issuestats.com/github/xabre/xamarin-bluetooth-le/badge/issue?style=flat)](http://www.issuestats.com/github/xabre/xamarin-bluetooth-le)
 
 Xamarin and MvvMCross plugin for accessing the bluetooth functionality. The plugin is loosely based on the BLE implementation of [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics). 
 
@@ -31,7 +30,7 @@ Install-Package Plugin.BLE
 // or pre-release
 Install-Package Plugin.BLE -Pre
 ```
-[![NuGet](https://img.shields.io/nuget/v/Plugin.BLE.svg?label=NuGet)](https://www.nuget.org/packages/Plugin.BLE) [![NuGet Beta](https://img.shields.io/nuget/vpre/Plugin.BLE.svg?label=NuGet%20Beta)](https://www.nuget.org/packages/Plugin.BLE)
+[![NuGet](https://img.shields.io/nuget/v/Plugin.BLE.svg?label=NuGet&style=flat-square)](https://www.nuget.org/packages/Plugin.BLE) [![NuGet Beta](https://img.shields.io/nuget/vpre/Plugin.BLE.svg?label=NuGet%20Beta&style=flat-square)](https://www.nuget.org/packages/Plugin.BLE)
 
 **MvvmCross**
 
@@ -41,7 +40,7 @@ Install-Package MvvmCross.Plugin.BLE
 Install-Package MvvmCross.Plugin.BLE -Pre
 ```
 
-[![NuGet MvvMCross](https://img.shields.io/nuget/v/MvvmCross.Plugin.BLE.svg?label=NuGet%20MvvMCross)](https://www.nuget.org/packages/MvvmCross.Plugin.BLE) [![NuGet MvvMCross Beta](https://img.shields.io/nuget/vpre/MvvmCross.Plugin.BLE.svg?label=NuGet%20MvvMCross%20Beta)](https://www.nuget.org/packages/MvvmCross.Plugin.BLE)
+[![NuGet MvvMCross](https://img.shields.io/nuget/v/MvvmCross.Plugin.BLE.svg?label=NuGet%20MvvMCross&style=flat-square)](https://www.nuget.org/packages/MvvmCross.Plugin.BLE) [![NuGet MvvMCross Beta](https://img.shields.io/nuget/vpre/MvvmCross.Plugin.BLE.svg?label=NuGet%20MvvMCross%20Beta&style=flat-square)](https://www.nuget.org/packages/MvvmCross.Plugin.BLE)
 
 **Android**
 
@@ -142,7 +141,7 @@ catch(DeviceConnectionException e)
 
 #### Connect to known Device
 `ConnectToKnownDeviceAsync` can connect to a device by only passing a GUI. This means that if the device GUID is known no scan is neccessary to connect to a device. Very usefull for fast background reconnect.
-Always use a cancellation toke with this method. 
+Always use a cancellation token with this method. 
 - On **iOS** it will attempt to connect indefinately, even if out of range, so the only way to cancel it is with the token.
 - On **Android** this will throw a GATT ERROR in a couple of seconds if the device is out of range.
 

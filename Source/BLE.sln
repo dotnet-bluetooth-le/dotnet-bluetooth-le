@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.Plugins.BLE", "MvvmCross.Plugins.BLE\MvvmCross.Plugins.BLE.csproj", "{83F1DFFB-A653-45DD-BE81-C02374C6DB07}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -52,9 +52,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{BF3073
 	ProjectSection(SolutionItems) = preProject
 		..\.build\build.bat = ..\.build\build.bat
 		..\.build\build.fsx = ..\.build\build.fsx
+		..\doc\changelog.md = ..\doc\changelog.md
 		..\.build\MvvmCross.Plugin.BLE.nuspec = ..\.build\MvvmCross.Plugin.BLE.nuspec
 		..\.build\Plugin.BLE.nuspec = ..\.build\Plugin.BLE.nuspec
-		..\doc\changelog.md = ..\doc\changelog.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.BLE.Tests", "Plugin.BLE.Tests\Plugin.BLE.Tests.csproj", "{F8374603-78C8-4CB8-A622-EC9226424474}"

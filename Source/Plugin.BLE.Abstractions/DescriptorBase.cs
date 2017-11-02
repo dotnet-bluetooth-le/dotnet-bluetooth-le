@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Plugin.BLE.Abstractions.Contracts;
 
@@ -21,14 +22,14 @@ namespace Plugin.BLE.Abstractions
             Characteristic = characteristic;
         }
 
-        public Task<byte[]> ReadAsync()
+        public Task<byte[]> ReadAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return ReadNativeAsync();
         }
 
         protected abstract Task<byte[]> ReadNativeAsync();
 
-        public Task WriteAsync(byte[] data)
+        public Task WriteAsync(byte[] data, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (data == null)
             {
