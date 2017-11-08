@@ -72,25 +72,10 @@ namespace Plugin.BLE.Android
                 throw new CharacteristicReadException("BluetoothGattCharacteristic.readCharacteristic returned FALSE");
             }
         }
-
-        private int _currentMtu;
-
+        
         protected override async Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType)
         {
             _nativeCharacteristic.WriteType = writeType.ToNative();
-
-            // Make sure to request an MTU of sufficient length (but at least 260)
-            var requiredMtu = Math.Max(data.Length + 4, 260);
-            if (requiredMtu > _currentMtu)
-            {
-                var requestResult = _gatt.RequestMtu(requiredMtu);
-                Trace.Message($"Setting MTU to {requiredMtu}: {requestResult}");
-                if (requestResult)
-                {
-                    _currentMtu = requiredMtu;
-                }
-                await Task.Delay(200);
-            }
 
             return await TaskBuilder.FromEvent<bool, EventHandler<CharacteristicWriteCallbackEventArgs>, EventHandler>(
                 execute: () => InternalWrite(data),
