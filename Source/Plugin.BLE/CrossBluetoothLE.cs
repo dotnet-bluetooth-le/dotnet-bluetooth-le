@@ -1,4 +1,5 @@
 ﻿using System;
+using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 
 namespace Plugin.BLE
@@ -6,36 +7,12 @@ namespace Plugin.BLE
     /// <summary>
     /// Cross platform bluetooth LE implemenation.
     /// </summary>
-    public static class CrossBluetoothLE
+    public class PortableCrossBluetoothLE : ICrossBluetoothLE
     {
-        static readonly Lazy<IBluetoothLE> Implementation = new Lazy<IBluetoothLE>(CreateImplementation, System.Threading.LazyThreadSafetyMode.PublicationOnly);
-
         /// <summary>
         /// Current bluetooth LE implementation.
         /// </summary>
-        public static IBluetoothLE Current
-        {
-            get
-            {
-                var ret = Implementation.Value;
-                if (ret == null)
-                {
-                    throw NotImplementedInReferenceAssembly();
-                }
-                return ret;
-            }
-        }
-
-        static IBluetoothLE CreateImplementation()
-        {
-//#if PORTABLE
-//            return null;
-//#else
-            var implementation = new BleImplementation();
-            implementation.Initialize();
-            return implementation;
-//#endif
-        }
+        public IBluetoothLE Current => throw NotImplementedInReferenceAssembly();
 
         internal static Exception NotImplementedInReferenceAssembly()
         {

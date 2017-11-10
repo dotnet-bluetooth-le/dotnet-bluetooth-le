@@ -50,6 +50,7 @@
       <Link>CrossBluetoothLE.cs</Link>
     </Compile>
     <Compile Include="Adapter.cs" />
+    <Compile Include="AndroidCrossBluetoothLE.cs" />
     <Compile Include="BleImplementation.cs" />
     <Compile Include="BroadcastReceivers\BluetoothStatusBroadcastReceiver.cs" />
     <Compile Include="BroadcastReceivers\BondStatusBroadcastReceiver.cs" />

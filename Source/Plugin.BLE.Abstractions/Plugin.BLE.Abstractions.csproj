@@ -65,6 +65,7 @@
     <Compile Include="Exceptions\DeviceDiscoverException.cs" />
     <Compile Include="Extensions\GuidExtension.cs" />
     <Compile Include="Extensions\AdapterExtenstion.cs" />
+    <Compile Include="ICrossBluetoothLE.cs" />
     <Compile Include="KnownCharacteristic.cs" />
     <Compile Include="KnownCharacteristics.cs" />
     <Compile Include="KnownDescriptor.cs" />
