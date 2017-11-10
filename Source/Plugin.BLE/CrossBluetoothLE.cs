@@ -28,14 +28,12 @@ namespace Plugin.BLE
 
         static IBluetoothLE CreateImplementation()
         {
-            return null;
-
 //#if PORTABLE
 //            return null;
 //#else
-//            var implementation = new BleImplementation();
-//            implementation.Initialize();
-//            return implementation;
+            var implementation = new BleImplementation();
+            implementation.Initialize();
+            return implementation;
 //#endif
         }
 
