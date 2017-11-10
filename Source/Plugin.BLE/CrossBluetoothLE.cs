@@ -12,7 +12,13 @@ namespace Plugin.BLE
         /// <summary>
         /// Current bluetooth LE implementation.
         /// </summary>
-        public IBluetoothLE Current => throw NotImplementedInReferenceAssembly();
+        public IBluetoothLE Current
+        {
+            get
+            {
+                throw NotImplementedInReferenceAssembly();
+            }
+        }
 
         internal static Exception NotImplementedInReferenceAssembly()
         {
