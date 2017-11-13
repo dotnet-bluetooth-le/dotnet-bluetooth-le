@@ -49,6 +49,18 @@ namespace Plugin.BLE.iOS
             {
                 Trace.Message("UpdatedState: {0}", _centralManager.State);
                 _stateChanged.Set();
+
+                //handle PoweredOff state
+                //notify subscribers about disconnection
+                if (_centralManager.State == CBCentralManagerState.PoweredOff)
+                {
+                    foreach (var device in _deviceConnectionRegistry.Values.ToList())
+                    {
+                        _deviceConnectionRegistry.Remove(device.Id.ToString());
+                        ((Device)device).ClearServices();
+                        HandleDisconnectedDevice(false, device);
+                    }
+                }
             };
 
             _centralManager.ConnectedPeripheral += (sender, e) =>
