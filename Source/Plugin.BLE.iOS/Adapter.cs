@@ -105,6 +105,12 @@ namespace Plugin.BLE.iOS
                     _deviceOperationRegistry.Remove(stringId);
                 }
 
+				// check if it is a peripheral disconnection, which would be treated as normal
+				if(e.Error != null && e.Error.Code == 7 && e.Error.Domain == "CBErrorDomain")
+				{
+					isNormalDisconnect = true;
+				}
+
                 // remove from connected devices
                 if (_deviceConnectionRegistry.TryGetValue(stringId, out foundDevice))
                 {
