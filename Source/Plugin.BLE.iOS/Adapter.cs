@@ -40,7 +40,7 @@ namespace Plugin.BLE.iOS
                     name = ((NSString)e.AdvertisementData.ValueForKey(CBAdvertisement.DataLocalNameKey)).ToString();
                 }
 
-                var device = new Device(this, e.Peripheral, name, e.RSSI.Int32Value,
+                var device = new Device(this, e.Peripheral, _centralManager, name, e.RSSI.Int32Value,
                     ParseAdvertismentData(e.AdvertisementData));
                 HandleDiscoveredDevice(device);
             };
@@ -79,7 +79,7 @@ namespace Plugin.BLE.iOS
                 else
                 {
                     Trace.Message("Device not found in operation registry. Creating a new one.");
-                    device = new Device(this, e.Peripheral);
+                    device = new Device(this, e.Peripheral, _centralManager);
                 }
 
                 _deviceConnectionRegistry[guid] = device;
@@ -117,7 +117,7 @@ namespace Plugin.BLE.iOS
                     _deviceConnectionRegistry.Remove(stringId);
                 }
 
-                foundDevice = foundDevice ?? new Device(this, e.Peripheral);
+                foundDevice = foundDevice ?? new Device(this, e.Peripheral, _centralManager);
 
                 //make sure all cached services are cleared this will also clear characteristics and descriptors implicitly
                 ((Device)foundDevice).ClearServices();
@@ -138,7 +138,7 @@ namespace Plugin.BLE.iOS
                         _deviceOperationRegistry.Remove(stringId);
                     }
 
-                    foundDevice = foundDevice ?? new Device(this, e.Peripheral);
+                    foundDevice = foundDevice ?? new Device(this, e.Peripheral, _centralManager);
 
                     HandleConnectionFail(foundDevice, e.Error.Description);
                 };
@@ -185,6 +185,9 @@ namespace Plugin.BLE.iOS
 
             _deviceOperationRegistry[device.Id.ToString()] = device;
 
+            _centralManager.ConnectPeripheral(device.NativeDevice as CBPeripheral,
+                new PeripheralConnectionOptions());
+
             // this is dirty: We should not assume, AdapterBase is doing the cleanup for us...
             // move ConnectToDeviceAsync() code to native implementations.
             cancellationToken.Register(() =>
@@ -192,9 +195,6 @@ namespace Plugin.BLE.iOS
                 Trace.Message("Canceling the connect attempt");
                 _centralManager.CancelPeripheralConnection(device.NativeDevice as CBPeripheral);
             });
-
-            _centralManager.ConnectPeripheral(device.NativeDevice as CBPeripheral,
-                new PeripheralConnectionOptions());
 
             return Task.FromResult(true);
         }
@@ -240,7 +240,7 @@ namespace Plugin.BLE.iOS
             }
 
 
-            var device = new Device(this, peripherial, peripherial.Name, peripherial.RSSI?.Int32Value ?? 0, new List<AdvertisementRecord>());
+            var device = new Device(this, peripherial, _centralManager, peripherial.Name, peripherial.RSSI?.Int32Value ?? 0, new List<AdvertisementRecord>());
 
             await ConnectToDeviceAsync(device, connectParameters, cancellationToken);
             return device;
@@ -256,7 +256,7 @@ namespace Plugin.BLE.iOS
 
             var nativeDevices = _centralManager.RetrieveConnectedPeripherals(serviceUuids);
 
-            return nativeDevices.Select(d => new Device(this, d)).Cast<IDevice>().ToList();
+            return nativeDevices.Select(d => new Device(this, d, _centralManager)).Cast<IDevice>().ToList();
         }
 
         private async Task WaitForState(CBCentralManagerState state, CancellationToken cancellationToken, bool configureAwait = false)
