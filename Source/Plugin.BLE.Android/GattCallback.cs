@@ -77,7 +77,10 @@ namespace Plugin.BLE.Android
                         }
                         else
                         {
-                            //we already hadled device error so no need th raise disconnect event(happens when device not in range)
+                            //Disconnection is requested by the application . So set the gatt object to null.
+                            //close the gatt client object.
+                            _device.Update(gatt.Device, null);
+                            gatt.Close();
                             _adapter.HandleDisconnectedDevice(true, _device);
                         }
                         break;

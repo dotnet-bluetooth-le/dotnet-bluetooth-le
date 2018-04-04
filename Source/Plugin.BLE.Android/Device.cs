@@ -88,8 +88,17 @@ namespace Plugin.BLE.Android
             }
             else
             {
-                /*_gatt = */
-                BluetoothDevice.ConnectGatt(Application.Context, connectParameters.AutoConnect, _gattCallback);
+                // If gatt is null then initiate the connection process by passing application context , connection parameters
+                //and gattcallbacks.
+                if (null == _gatt)
+                {
+                    _gatt = BluetoothDevice.ConnectGatt(Application.Context, connectParameters.AutoConnect, _gattCallback);
+                }
+                //else a valid gatt object is already exist.Just call connect. DO NOT craete new Gatt object by calling ConnectGatt.
+                else
+                {
+                    _gatt.Connect();
+                }
             }
         }
 
