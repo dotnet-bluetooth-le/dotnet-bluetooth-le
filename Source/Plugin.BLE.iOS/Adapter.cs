@@ -337,7 +337,8 @@ namespace Plugin.BLE.iOS
                         Array.Reverse(keyAsData);
 
                         //The service data under this key can just be turned into an arra
-                        byte[] valueAsData = ((NSData)serviceDict.ObjectForKey(dKey)).ToArray();
+                        var data = (NSData)serviceDict.ObjectForKey(dKey);
+                        byte[] valueAsData = data.Length > 0 ? data.ToArray() : new byte[0];
 
                         //Now we append the key and value data and return that so that our parsing matches the raw
                         //byte value returned from the Android library (which matches the raw bytes from the device)
