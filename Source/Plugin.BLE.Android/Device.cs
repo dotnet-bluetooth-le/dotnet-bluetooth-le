@@ -111,7 +111,7 @@ namespace Plugin.BLE.Android
                                 Java.Lang.Integer.Type});
 
                 var transport = BluetoothDevice.Class.GetDeclaredField("TRANSPORT_LE").GetInt(null); // LE = 2, BREDR = 1, AUTO = 0
-                return (BluetoothGatt)m.Invoke(BluetoothDevice, Application.Context, false, _gattCallback, transport);
+                return (BluetoothGatt)m.Invoke(BluetoothDevice, Application.Context, autoconnect, _gattCallback, transport);
             }
             else
             {
