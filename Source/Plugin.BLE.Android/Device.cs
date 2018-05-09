@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Android.App;
 using Android.OS;
@@ -77,30 +78,29 @@ namespace Plugin.BLE.Android
                 unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler);
         }
 
-        public void Connect(ConnectParameters connectParameters)
+        public void Connect(ConnectParameters connectParameters, CancellationToken cancellationToken)
         {
             IsOperationRequested = true;
             IsAutoConnectRequested = connectParameters.AutoConnect;
 
-            if (connectParameters.ForceBleTransport)
-            {
-                ConnectToGattForceBleTransportAPI(connectParameters.AutoConnect);
-            }
-            else
-            {
-                /*_gatt = */
-                BluetoothDevice.ConnectGatt(Application.Context, connectParameters.AutoConnect, _gattCallback);
+            var gatt = connectParameters.ForceBleTransport
+                ? ConnectToGattForceBleTransportAPI(connectParameters.AutoConnect)
+                : BluetoothDevice.ConnectGatt(Application.Context, connectParameters.AutoConnect, _gattCallback);
+
+            if (IsAutoConnectRequested)
+            {   // Close GATT to unregister device connection when connection request is canceled
+                cancellationToken.Register(() => gatt.Close());
             }
         }
 
-        private void ConnectToGattForceBleTransportAPI(bool autoconnect)
+        private BluetoothGatt ConnectToGattForceBleTransportAPI(bool autoconnect)
         {
             //This parameter is present from API 18 but only public from API 23
             //So reflection is used before API 23
             if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
             {
                 //no transport mode before lollipop, it will probably not work... gattCallBackError 133 again alas
-                BluetoothDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback);
+                return BluetoothDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback);
             }
             else if (Build.VERSION.SdkInt < BuildVersionCodes.M)
             {
@@ -111,13 +111,12 @@ namespace Plugin.BLE.Android
                                 Java.Lang.Integer.Type});
 
                 var transport = BluetoothDevice.Class.GetDeclaredField("TRANSPORT_LE").GetInt(null); // LE = 2, BREDR = 1, AUTO = 0
-                m.Invoke(BluetoothDevice, Application.Context, false, _gattCallback, transport);
+                return (BluetoothGatt)m.Invoke(BluetoothDevice, Application.Context, autoconnect, _gattCallback, transport);
             }
             else
             {
-                BluetoothDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback, BluetoothTransports.Le);
+                return BluetoothDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback, BluetoothTransports.Le);
             }
-
         }
 
         /// <summary>
