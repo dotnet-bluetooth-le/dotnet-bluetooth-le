@@ -3,11 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.Plugins.BLE", "MvvmCross.Plugins.BLE\MvvmCross.Plugins.BLE.csproj", "{83F1DFFB-A653-45DD-BE81-C02374C6DB07}"
-	ProjectSection(ProjectDependencies) = postProject
-		{F479F7DB-CFA6-49E5-AA41-4FE6A4DA39B0} = {F479F7DB-CFA6-49E5-AA41-4FE6A4DA39B0}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.Plugins.BLE.Droid", "MvvmCross.Plugins.BLE.Droid\MvvmCross.Plugins.BLE.Droid.csproj", "{6CF7D1D9-FDD9-4158-9E0F-F102027291F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.Plugins.BLE.iOS", "MvvmCross.Plugins.BLE.iOS\MvvmCross.Plugins.BLE.iOS.csproj", "{CB52CFF4-F804-41A0-8408-A31365F4BA91}"
@@ -55,6 +50,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugin.BLE", "Plugin.BLE\Plugin.BLE.csproj", "{951ED11D-D026-449C-90DC-5027BC41FB3B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugin.BLE.Tests", "Plugin.BLE.Tests\Plugin.BLE.Tests.csproj", "{F8374603-78C8-4CB8-A622-EC9226424474}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.Plugins.BLE", "MvvmCross.Plugins.BLE\MvvmCross.Plugins.BLE.csproj", "{83F1DFFB-A653-45DD-BE81-C02374C6DB07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
