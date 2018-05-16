@@ -30,8 +30,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.BLE.iOS", "Plugin.BL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.BLE.Android", "Plugin.BLE.Android\Plugin.BLE.Android.csproj", "{80C10C11-6FCB-4038-B029-A700039E8F99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLE.Client.Droid", "BLE.Client\BLE.Client.Droid\BLE.Client.Droid.csproj", "{7B0E4EFD-EEB8-4CE9-9C8D-7A4BF734E9A7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLE.Client.iOS", "BLE.Client\BLE.Client.iOS\BLE.Client.iOS.csproj", "{D0FBE2BA-799B-4071-A45D-8FB037006C9C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{BF30732D-F8EA-4DDE-B892-81D51D02A5D4}"
@@ -50,6 +48,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugin.BLE", "Plugin.BLE\Plugin.BLE.csproj", "{951ED11D-D026-449C-90DC-5027BC41FB3B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugin.BLE.Tests", "Plugin.BLE.Tests\Plugin.BLE.Tests.csproj", "{F8374603-78C8-4CB8-A622-EC9226424474}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLE.Client.Droid", "BLE.Client\BLE.Client.Droid\BLE.Client.Droid.csproj", "{7B0E4EFD-EEB8-4CE9-9C8D-7A4BF734E9A7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCross.Plugins.BLE", "MvvmCross.Plugins.BLE\MvvmCross.Plugins.BLE.csproj", "{83F1DFFB-A653-45DD-BE81-C02374C6DB07}"
 EndProject
