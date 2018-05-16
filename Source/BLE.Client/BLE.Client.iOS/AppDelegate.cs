@@ -1,29 +1,17 @@
-﻿using Foundation;
-using MvvmCross.Core.ViewModels;
-using MvvmCross.iOS.Platform;
-using MvvmCross.Platform;
+﻿using System;
+using Foundation;
+using MvvmCross.Core;
+using MvvmCross.Forms.Platforms.Ios.Core;
 using UIKit;
 
 namespace BLE.Client.iOS
 {
     [Register("AppDelegate")]
-    public partial class AppDelegate : MvxApplicationDelegate
+    public partial class AppDelegate : MvxFormsApplicationDelegate
     {
-        UIWindow _window;
-
-        public override bool FinishedLaunching(UIApplication app, NSDictionary options)
+        protected override void RegisterSetup()
         {
-            _window = new UIWindow(UIScreen.MainScreen.Bounds);
-
-            var setup = new Setup(this, _window);
-            setup.Initialize();
-
-            var startup = Mvx.Resolve<IMvxAppStart>();
-            startup.Start();
-
-            _window.MakeKeyAndVisible();
-
-            return true;
+            this.RegisterSetupType<Setup>();
         }
     }
 }
