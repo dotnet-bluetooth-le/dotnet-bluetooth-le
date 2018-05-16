@@ -50,7 +50,7 @@ namespace BLE.Client.ViewModels
             catch (Exception ex)
             {
                 _userDialogs.HideLoading();
-                _userDialogs.Alert(ex.Message);
+                await _userDialogs.AlertAsync(ex.Message);
             }
 
 

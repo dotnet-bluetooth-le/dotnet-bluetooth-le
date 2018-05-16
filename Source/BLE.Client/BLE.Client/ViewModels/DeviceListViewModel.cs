@@ -234,7 +234,7 @@ namespace BLE.Client.ViewModels
 
                     if (permissionResult.First().Value != PermissionStatus.Granted)
                     {
-                        _userDialogs.Alert("Permission denied. Not scanning.");
+                        await _userDialogs.AlertAsync("Permission denied. Not scanning.");
                         return;
                     }
                 }
@@ -260,7 +260,7 @@ namespace BLE.Client.ViewModels
                 catch (Exception ex)
                 {
                     Trace.Message(ex.Message);
-                    _userDialogs.Alert($"Failed to update RSSI for {connectedDevice.Name}");
+                    await _userDialogs.AlertAsync($"Failed to update RSSI for {connectedDevice.Name}");
                 }
 
                 AddOrUpdateDevice(connectedDevice);
@@ -294,7 +294,7 @@ namespace BLE.Client.ViewModels
             }
             catch (Exception ex)
             {
-                _userDialogs.Alert(ex.Message, "Disconnect error");
+                await _userDialogs.AlertAsync(ex.Message, "Disconnect error");
             }
             finally
             {
@@ -325,7 +325,7 @@ namespace BLE.Client.ViewModels
                     catch (Exception ex)
                     {
                         _userDialogs.HideLoading();
-                        _userDialogs.Alert($"Failed to update rssi. Exception: {ex.Message}");
+                        await _userDialogs.AlertAsync($"Failed to update rssi. Exception: {ex.Message}");
                     }
                 });
 
@@ -376,7 +376,7 @@ namespace BLE.Client.ViewModels
                     await Adapter.ConnectToDeviceAsync(device.Device, new ConnectParameters(autoConnect: UseAutoConnect, forceBleTransport: true), tokenSource.Token);
                 }
 
-                _userDialogs.Alert($"Connected to {device.Device.Name}.");
+                await _userDialogs.AlertAsync($"Connected to {device.Device.Name}.");
 
                 PreviousGuid = device.Device.Id;
                 return true;
@@ -384,7 +384,7 @@ namespace BLE.Client.ViewModels
             }
             catch (Exception ex)
             {
-                _userDialogs.Alert(ex.Message, "Connection error");
+                await _userDialogs.AlertAsync(ex.Message, "Connection error");
                 Trace.Message(ex.Message);
                 return false;
             }
@@ -421,7 +421,7 @@ namespace BLE.Client.ViewModels
 
                 }
 
-                _userDialogs.Alert($"Connected to {device.Name}.");
+                await _userDialogs.AlertAsync($"Connected to {device.Name}.");
 
                 var deviceItem = Devices.FirstOrDefault(d => d.Device.Id == device.Id);
                 if (deviceItem == null)
@@ -464,7 +464,7 @@ namespace BLE.Client.ViewModels
                     System.Diagnostics.Debug.WriteLine($"Set Connection Interval. Result is {resultInterval}");
 
                     item.Update();
-                    _userDialogs.Alert($"Connected {item.Device.Name}");
+                    await _userDialogs.AlertAsync($"Connected {item.Device.Name}");
 
                     _userDialogs.HideLoading();
                     for (var i = 5; i >= 1; i--)
@@ -479,7 +479,7 @@ namespace BLE.Client.ViewModels
             }
             catch (Exception ex)
             {
-                _userDialogs.Alert(ex.Message, "Failed to connect and dispose.");
+                await _userDialogs.AlertAsync(ex.Message, "Failed to connect and dispose.");
             }
             finally
             {

@@ -68,7 +68,7 @@ namespace BLE.Client.ViewModels
             catch (Exception ex)
             {
                 _userDialogs.HideLoading();
-                _userDialogs.Alert(ex.Message);
+                await _userDialogs.AlertAsync(ex.Message);
 
                 Messages.Insert(0, $"Error {ex.Message}");
 
@@ -106,7 +106,7 @@ namespace BLE.Client.ViewModels
             catch (Exception ex)
             {
                 _userDialogs.HideLoading();
-                _userDialogs.Alert(ex.Message);
+                await _userDialogs.AlertAsync(ex.Message);
             }
 
         }

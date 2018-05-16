@@ -40,7 +40,7 @@ namespace BLE.Client.ViewModels
             }
             catch (Exception ex)
             {
-                _userDialogs.Alert(ex.Message, "Error while discovering services");
+                await _userDialogs.AlertAsync(ex.Message, "Error while discovering services");
                 Trace.Message(ex.Message);
             }
             finally
