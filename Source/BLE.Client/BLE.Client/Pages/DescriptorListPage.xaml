@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+<views:MvxContentPage x:TypeArguments="viewModels:DescriptorListViewModel" 
+                      xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:pages="clr-namespace:BLE.Client.Pages;assembly=BLE.Client"
+             xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+             xmlns:viewModels="clr-namespace:BLE.Client.ViewModels;assembly=BLE.Client"
              x:Class="BLE.Client.Pages.DescriptorListPage"
              Title="Descriptors">
   <ListView ItemsSource="{Binding Descriptors}"
@@ -21,4 +23,4 @@
       </DataTemplate>
     </ListView.ItemTemplate>
   </ListView>
-</pages:BasePage>
+</views:MvxContentPage>
