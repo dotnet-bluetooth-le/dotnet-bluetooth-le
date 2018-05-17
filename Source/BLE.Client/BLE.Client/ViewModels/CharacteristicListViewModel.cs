@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Acr.UserDialogs;
-using MvvmCross.Core.ViewModels;
+using MvvmCross.Navigation;
+using MvvmCross.ViewModels;
 using Plugin.BLE.Abstractions.Contracts;
 
 namespace BLE.Client.ViewModels
@@ -9,6 +10,7 @@ namespace BLE.Client.ViewModels
     public class CharacteristicListViewModel : BaseViewModel
     {
         private readonly IUserDialogs _userDialogs;
+        private readonly IMvxNavigationService _navigation;
         private IService _service;
         private IList<ICharacteristic> _characteristics;
 
@@ -18,18 +20,19 @@ namespace BLE.Client.ViewModels
             private set { SetProperty(ref _characteristics, value); }
         }
 
-        public CharacteristicListViewModel(IAdapter adapter, IUserDialogs userDialogs) : base(adapter)
+        public CharacteristicListViewModel(IAdapter adapter, IUserDialogs userDialogs, IMvxNavigationService navigation) : base(adapter)
         {
             _userDialogs = userDialogs;
+            _navigation = navigation;
         }
 
-        public override void Resume()
+        public override void ViewAppeared()
         {
-            base.Resume();
+            base.ViewAppeared();
 
             if (_service == null)
             {
-                Close(this);
+                _navigation.Close(this);
                 return;
             }
 
@@ -47,15 +50,15 @@ namespace BLE.Client.ViewModels
             catch (Exception ex)
             {
                 _userDialogs.HideLoading();
-                _userDialogs.ShowError(ex.Message);
+                await _userDialogs.AlertAsync(ex.Message);
             }
 
 
         }
 
-        protected override async void InitFromBundle(IMvxBundle parameters)
+        public override async void Prepare(MvxBundle parameters)
         {
-            base.InitFromBundle(parameters);
+            base.Prepare(parameters);
 
             _service = await GetServiceFromBundleAsync(parameters);
         }
@@ -74,8 +77,8 @@ namespace BLE.Client.ViewModels
                         Cancel = new ActionSheetOption("Cancel"),
                         Options = new List<ActionSheetOption>()
                         {
-                            new ActionSheetOption("Details", () => ShowViewModel<CharacteristicDetailViewModel>(bundle)),
-                            new ActionSheetOption("Descriptors", () => ShowViewModel<DescriptorListViewModel>(bundle))
+                            new ActionSheetOption("Details", () => _navigation.Navigate<CharacteristicDetailViewModel,MvxBundle>(bundle)),
+                            new ActionSheetOption("Descriptors", () => _navigation.Navigate<DescriptorListViewModel,MvxBundle>(bundle))
                         }
                     });
                 }
