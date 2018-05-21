@@ -1,4 +1,10 @@
 # Changelog
+## 2.0.0
+
+#### 2.0.0-pre1
+- .NETStandard 1.0 support
+- Merge PR #298, #289, #290, #263
+
 ## 1.3.0
 - Stable release including all the 1.3.0-beta.x previous releases.
 - Merge pull request #229 and #224 which fixed #227 set descriptor for android characteristic stop notify. 
