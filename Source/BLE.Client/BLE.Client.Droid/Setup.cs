@@ -1,38 +1,21 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using Acr.UserDialogs;
 using Android.Content;
-using MvvmCross.Droid.Platform;
-using MvvmCross.Core.ViewModels;
-using MvvmCross.Core.Views;
-using MvvmCross.Droid.Views;
-using MvvmCross.Platform;
-using MvvmCross.Platform.Platform;
-using Plugin.Settings;
+using MvvmCross.ViewModels;
+using MvvmCross;
+using MvvmCross.Forms.Platforms.Android.Core;
 using Plugin.Permissions;
-using MvvmCross.Forms.Droid.Presenters;
+using Plugin.Settings;
 
 namespace BLE.Client.Droid
 {
-    public class Setup : MvxAndroidSetup
+    public class Setup : MvxFormsAndroidSetup<BleMvxApplication,BleMvxFormsApp>
     {
-        public Setup(Context applicationContext) : base(applicationContext)
+        public override IEnumerable<Assembly> GetViewAssemblies()
         {
-        }
-
-        protected override IMvxApplication CreateApp()
-        {
-            return new BleMvxApplication();
-        }
-
-        protected override IMvxTrace CreateDebugTrace()
-        {
-            return new DebugTrace();
-        }
-
-        protected override IMvxAndroidViewPresenter CreateViewPresenter()
-        {
-            var presenter = new MvxFormsDroidPagePresenter();
-            Mvx.RegisterSingleton<IMvxViewPresenter>(presenter);
-            return presenter;
+            return new List<Assembly>(base.GetViewAssemblies().Union(new[] { typeof(BleMvxFormsApp).GetTypeInfo().Assembly }));
         }
 
         protected override void InitializeIoC()

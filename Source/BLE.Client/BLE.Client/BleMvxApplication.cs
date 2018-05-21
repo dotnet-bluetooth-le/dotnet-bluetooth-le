@@ -1,5 +1,5 @@
 ﻿using BLE.Client.ViewModels;
-using MvvmCross.Core.ViewModels;
+using MvvmCross.ViewModels;
 
 namespace BLE.Client
 {

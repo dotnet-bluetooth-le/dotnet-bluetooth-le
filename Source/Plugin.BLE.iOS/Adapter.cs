@@ -248,7 +248,7 @@ namespace Plugin.BLE.iOS
 
         public override List<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null)
         {
-            CBUUID[] serviceUuids = null;
+            CBUUID[] serviceUuids = new CBUUID[0];
             if (services != null)
             {
                 serviceUuids = services.Select(guid => CBUUID.FromString(guid.ToString())).ToArray();

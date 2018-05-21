@@ -1,6 +1,6 @@
-﻿using System;
+﻿using MvvmCross.Converters;
+using System;
 using System.Globalization;
-using MvvmCross.Platform.Converters;
 using Xamarin.Forms;
 
 namespace BLE.Client.Converters

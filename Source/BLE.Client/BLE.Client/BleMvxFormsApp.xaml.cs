@@ -1,5 +1,6 @@
-﻿using MvvmCross.Forms.Core;
-using MvvmCross.Platform;
+﻿using MvvmCross;
+using MvvmCross.Forms.Core;
+using Plugin.BLE.Abstractions;
 
 namespace BLE.Client
 {
@@ -13,19 +14,19 @@ namespace BLE.Client
         protected override void OnStart()
         {
             base.OnStart();
-            Mvx.Trace("App Start");
+            Trace.Message("App Start");
         }
 
         protected override void OnResume()
         {
             base.OnResume();
-            Mvx.Trace("App Resume");
+            Trace.Message("App Resume");
         }
 
         protected override void OnSleep()
         {
             base.OnSleep();
-            Mvx.Trace("App Sleep");
+            Trace.Message("App Sleep");
         }
     }
 }
