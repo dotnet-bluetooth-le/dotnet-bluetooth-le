@@ -49,6 +49,18 @@ namespace Plugin.BLE.iOS
             {
                 Trace.Message("UpdatedState: {0}", _centralManager.State);
                 _stateChanged.Set();
+
+                //handle PoweredOff state
+                //notify subscribers about disconnection
+                if (_centralManager.State == CBCentralManagerState.PoweredOff)
+                {
+                    foreach (var device in _deviceConnectionRegistry.Values.ToList())
+                    {
+                        _deviceConnectionRegistry.Remove(device.Id.ToString());
+                        ((Device)device).ClearServices();
+                        HandleDisconnectedDevice(false, device);
+                    }
+                }
             };
 
             _centralManager.ConnectedPeripheral += (sender, e) =>
@@ -325,7 +337,8 @@ namespace Plugin.BLE.iOS
                         Array.Reverse(keyAsData);
 
                         //The service data under this key can just be turned into an arra
-                        byte[] valueAsData = ((NSData)serviceDict.ObjectForKey(dKey)).ToArray();
+                        var data = (NSData)serviceDict.ObjectForKey(dKey);
+                        byte[] valueAsData = data.Length > 0 ? data.ToArray() : new byte[0];
 
                         //Now we append the key and value data and return that so that our parsing matches the raw
                         //byte value returned from the Android library (which matches the raw bytes from the device)
