@@ -4,6 +4,6 @@
         <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wpa81</PackageTargetFallback>
     </PropertyGroup>
     <ItemGroup>
-      <PackageReference Include="MvvmCross.Platform" Version="5.1.0" />
+      <ProjectReference Include="..\Plugin.BLE.Abstractions\Plugin.BLE.Abstractions.csproj" />
     </ItemGroup>
 </Project>
