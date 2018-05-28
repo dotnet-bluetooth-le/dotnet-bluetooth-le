@@ -2,7 +2,10 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using Acr.UserDialogs;
-using MvvmCross.Core.ViewModels;
+using MvvmCross;
+using MvvmCross.Commands;
+using MvvmCross.Navigation;
+using MvvmCross.ViewModels;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Extensions;
@@ -25,23 +28,24 @@ namespace BLE.Client.ViewModels
             _userDialogs = userDialogs;
         }
 
-        protected override async void InitFromBundle(IMvxBundle parameters)
+        public override async void Prepare(MvxBundle parameters)
         {
-            base.InitFromBundle(parameters);
+            base.Prepare(parameters);
 
             Descriptor = await GetDescriptorFromBundleAsync(parameters);
         }
 
-        public override void Resume()
+        public override void ViewAppeared()
         {
-            base.Resume();
+            base.ViewAppeared();
 
             if (Descriptor != null)
             {
                 return;
             }
 
-            Close(this);
+            var navigation = Mvx.Resolve<IMvxNavigationService>();
+            navigation.Close(this);
         }
 
         public MvxCommand ReadCommand => new MvxCommand(ReadValueAsync);
@@ -64,7 +68,7 @@ namespace BLE.Client.ViewModels
             catch (Exception ex)
             {
                 _userDialogs.HideLoading();
-                _userDialogs.ShowError(ex.Message);
+                await _userDialogs.AlertAsync(ex.Message);
 
                 Messages.Insert(0, $"Error {ex.Message}");
 
@@ -102,7 +106,7 @@ namespace BLE.Client.ViewModels
             catch (Exception ex)
             {
                 _userDialogs.HideLoading();
-                _userDialogs.ShowError(ex.Message);
+                await _userDialogs.AlertAsync(ex.Message);
             }
 
         }
