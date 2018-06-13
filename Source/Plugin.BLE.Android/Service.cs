@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Android.Bluetooth;
 using Plugin.BLE.Abstractions;
@@ -24,7 +25,7 @@ namespace Plugin.BLE.Android
             _gattCallback = gattCallback;
         }
 
-        protected override Task<IList<ICharacteristic>> GetCharacteristicsNativeAsync()
+        protected override Task<IList<ICharacteristic>> GetCharacteristicsNativeAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return Task.FromResult<IList<ICharacteristic>>(
                 _nativeService.Characteristics.Select(characteristic => new Characteristic(characteristic, _gatt, _gattCallback, this))

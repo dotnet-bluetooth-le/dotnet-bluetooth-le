@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Plugin.BLE.Abstractions.Contracts;
 
@@ -20,24 +21,24 @@ namespace Plugin.BLE.Abstractions
             Device = device;
         }
 
-        public async Task<IList<ICharacteristic>> GetCharacteristicsAsync()
+        public async Task<IList<ICharacteristic>> GetCharacteristicsAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             if (!_characteristics.Any())
             {    
-                _characteristics.AddRange(await GetCharacteristicsNativeAsync());
+                _characteristics.AddRange(await GetCharacteristicsNativeAsync(cancellationToken));
             }
 
             // make a copy here so that the caller cant modify the original list
             return _characteristics.ToList();
         }
         
-        public async Task<ICharacteristic> GetCharacteristicAsync(Guid id)
+        public async Task<ICharacteristic> GetCharacteristicAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var characteristics = await GetCharacteristicsAsync();
+            var characteristics = await GetCharacteristicsAsync(cancellationToken);
             return characteristics.FirstOrDefault(c => c.Id == id);
         }
 
-        protected abstract Task<IList<ICharacteristic>> GetCharacteristicsNativeAsync();
+        protected abstract Task<IList<ICharacteristic>> GetCharacteristicsNativeAsync(CancellationToken cancellationToken = default(CancellationToken));
 
         public virtual void Dispose()
         {

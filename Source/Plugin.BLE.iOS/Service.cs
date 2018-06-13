@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using CoreBluetooth;
 using Plugin.BLE.Abstractions;
@@ -23,7 +24,7 @@ namespace Plugin.BLE.iOS
             _device = device.NativeDevice as CBPeripheral;
         }
 
-        protected override Task<IList<ICharacteristic>> GetCharacteristicsNativeAsync()
+        protected override Task<IList<ICharacteristic>> GetCharacteristicsNativeAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return TaskBuilder.FromEvent<IList<ICharacteristic>, EventHandler<CBServiceEventArgs>>(
                 execute: () => _device.DiscoverCharacteristics(_service),
@@ -47,7 +48,8 @@ namespace Plugin.BLE.iOS
                     }
                 },
                 subscribeComplete: handler => _device.DiscoveredCharacteristic += handler,
-                unsubscribeComplete: handler => _device.DiscoveredCharacteristic -= handler);
+                unsubscribeComplete: handler => _device.DiscoveredCharacteristic -= handler,
+                token: cancellationToken);
         }
     }
 }
