@@ -3,7 +3,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using Acr.UserDialogs;
-using MvvmCross.Core.ViewModels;
+using MvvmCross;
+using MvvmCross.Commands;
+using MvvmCross.Navigation;
+using MvvmCross.ViewModels;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
@@ -41,27 +44,28 @@ namespace BLE.Client.ViewModels
             _userDialogs = userDialogs;
         }
 
-        protected override async void InitFromBundle(IMvxBundle parameters)
+        public override async void Prepare(MvxBundle parameters)
         {
-            base.InitFromBundle(parameters);
+            base.Prepare(parameters);
 
             Characteristic = await GetCharacteristicFromBundleAsync(parameters);
         }
 
-        public override void Resume()
+        public override void ViewAppeared()
         {
-            base.Resume();
+            base.ViewAppeared();
 
             if (Characteristic != null)
             {
                 return;
             }
 
-            Close(this);
+            var navigation = Mvx.Resolve<IMvxNavigationService>();
+            navigation.Close(this);
         }
-        public override void Suspend()
+        public override void ViewDisappeared()
         {
-            base.Suspend();
+            base.ViewDisappeared();
 
             if (Characteristic != null)
             {
@@ -90,7 +94,7 @@ namespace BLE.Client.ViewModels
             catch (Exception ex)
             {
                 _userDialogs.HideLoading();
-                _userDialogs.ShowError(ex.Message);
+                await _userDialogs.AlertAsync(ex.Message);
 
                 Messages.Insert(0, $"Error {ex.Message}");
 
@@ -128,7 +132,7 @@ namespace BLE.Client.ViewModels
             catch (Exception ex)
             {
                 _userDialogs.HideLoading();
-                _userDialogs.ShowError(ex.Message);
+                await _userDialogs.AlertAsync(ex.Message);
             }
 
         }
@@ -168,7 +172,7 @@ namespace BLE.Client.ViewModels
             }
             catch (Exception ex)
             {
-                _userDialogs.ShowError(ex.Message);
+                await _userDialogs.AlertAsync(ex.Message);
             }
         }
 
@@ -188,7 +192,7 @@ namespace BLE.Client.ViewModels
             }
             catch (Exception ex)
             {
-                _userDialogs.ShowError(ex.Message);
+                await _userDialogs.AlertAsync(ex.Message);
             }
         }
 

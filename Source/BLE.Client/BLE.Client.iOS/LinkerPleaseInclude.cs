@@ -1,9 +1,10 @@
 using System.Collections.Specialized;
 using System.Windows.Input;
-using MvvmCross.iOS.Views;
 using Foundation;
 using UIKit;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Views;
+using MvvmCross.Plugin;
 
 namespace BLE.Client.iOS
 {
@@ -104,14 +105,20 @@ namespace BLE.Client.iOS
            command.CanExecuteChanged += (s, e) => { if (command.CanExecute(null)) command.Execute(null); };
         }
 
-        public void Include(MvvmCross.Platform.IoC.MvxPropertyInjector injector)
+        public void Include(MvvmCross.IoC.MvxPropertyInjector injector)
         {
-            injector = new MvvmCross.Platform.IoC.MvxPropertyInjector();
+            injector = new MvvmCross.IoC.MvxPropertyInjector();
         } 
 
         public void Include(System.ComponentModel.INotifyPropertyChanged changed)
         {
             changed.PropertyChanged += (sender, e) => { var test = e.PropertyName; };
+        }
+
+        //it seems that neight PreserveAttribute or [assembly: Preserve] is working. The only way to load it is this LinkerPleaseInclude file.
+        public void Include(out IMvxPlugin plugin)
+        {
+            plugin = new MvvmCross.Plugins.BLE.iOS.Plugin();//Make sure the plugin is loaded.
         }
     }
 }

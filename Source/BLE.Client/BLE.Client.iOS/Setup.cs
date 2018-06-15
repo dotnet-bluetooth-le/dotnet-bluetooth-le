@@ -1,10 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using Acr.UserDialogs;
-using MvvmCross.Core.ViewModels;
-using MvvmCross.Forms.iOS.Presenters;
-using MvvmCross.iOS.Platform;
-using MvvmCross.iOS.Views.Presenters;
-using MvvmCross.Platform;
-using MvvmCross.Platform.Platform;
+using MvvmCross;
+using MvvmCross.Forms.Platforms.Ios.Core;
+using MvvmCross.Plugin;
+using MvvmCross.ViewModels;
 using Plugin.Permissions;
 using Plugin.Settings;
 using UIKit;
@@ -12,28 +14,11 @@ using Xamarin.Forms;
 
 namespace BLE.Client.iOS
 {
-    public class Setup : MvxIosSetup
+    public class Setup : MvxFormsIosSetup
     {
-        public Setup(MvxApplicationDelegate applicationDelegate, UIWindow window)
-            : base(applicationDelegate, window)
-        {
-        }
-
         protected override IMvxApplication CreateApp()
         {
             return new BleMvxApplication();
-        }
-
-        protected override IMvxTrace CreateDebugTrace()
-        {
-            return new DebugTrace();
-        }
-
-        protected override IMvxIosViewPresenter CreatePresenter()
-        {
-            Forms.Init();
-            var xamarinFormsApp = new BleMvxFormsApp();
-            return new MvxFormsIosPagePresenter(Window, xamarinFormsApp);
         }
 
         protected override void InitializeIoC()
@@ -44,5 +29,17 @@ namespace BLE.Client.iOS
             Mvx.RegisterSingleton(() => CrossSettings.Current);
             Mvx.RegisterSingleton(() => CrossPermissions.Current);
         }
+
+        protected override Xamarin.Forms.Application CreateFormsApplication()
+        {
+            return new BleMvxFormsApp();
+        }
+
+        /*
+        public override IEnumerable<Assembly> GetPluginAssemblies()
+        {
+            return new List<Assembly>(base.GetViewAssemblies().Union(new[] { typeof(MvvmCross.Plugins.BLE.iOS.Plugin).GetTypeInfo().Assembly }));
+        }
+        */
     }
 }
