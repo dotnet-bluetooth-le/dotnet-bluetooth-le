@@ -10,11 +10,15 @@ namespace Plugin.BLE
     internal class BleImplementation : BleImplementationBase
     {
         private CBCentralManager _centralManager;
+	    private IBleCentralManagerDelegate _bleCentralManagerDelegate;
 
         protected override void InitializeNative()
         {
-            _centralManager = new CBCentralManager(DispatchQueue.CurrentQueue);
-            _centralManager.UpdatedState += (s, e) => State = GetState();
+			var cmDelegate = new BleBleCentralManagerDelegate();
+	        _bleCentralManagerDelegate = cmDelegate;
+
+            _centralManager = new CBCentralManager(cmDelegate, DispatchQueue.CurrentQueue);
+            _bleCentralManagerDelegate.UpdatedState += (s, e) => State = GetState();
         }
 
         protected override BluetoothState GetInitialStateNative()
@@ -24,7 +28,7 @@ namespace Plugin.BLE
 
         protected override IAdapter CreateNativeAdapter()
         {
-            return new Adapter(_centralManager);
+            return new Adapter(_centralManager, _bleCentralManagerDelegate);
         }
 
         private BluetoothState GetState()

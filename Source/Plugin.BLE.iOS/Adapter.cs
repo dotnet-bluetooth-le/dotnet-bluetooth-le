@@ -15,21 +15,24 @@ namespace Plugin.BLE.iOS
     {
         private readonly AutoResetEvent _stateChanged = new AutoResetEvent(false);
         private readonly CBCentralManager _centralManager;
+	    private readonly IBleCentralManagerDelegate _bleCentralManagerDelegate;
 
-        /// <summary>
-        /// Registry used to store device instances for pending operations : disconnect
-        /// Helps to detect connection lost events.
-        /// </summary>
-        private readonly IDictionary<string, IDevice> _deviceOperationRegistry = new ConcurrentDictionary<string, IDevice>();
+		/// <summary>
+		/// Registry used to store device instances for pending operations : disconnect
+		/// Helps to detect connection lost events.
+		/// </summary>
+		private readonly IDictionary<string, IDevice> _deviceOperationRegistry = new ConcurrentDictionary<string, IDevice>();
         private readonly IDictionary<string, IDevice> _deviceConnectionRegistry = new ConcurrentDictionary<string, IDevice>();
 
         public override IList<IDevice> ConnectedDevices => _deviceConnectionRegistry.Values.ToList();
 
 
-        public Adapter(CBCentralManager centralManager)
+        public Adapter(CBCentralManager centralManager, IBleCentralManagerDelegate bleCentralManagerDelegate)
         {
             _centralManager = centralManager;
-            _centralManager.DiscoveredPeripheral += (sender, e) =>
+	        _bleCentralManagerDelegate = bleCentralManagerDelegate;
+
+            _bleCentralManagerDelegate.DiscoveredPeripheral += (sender, e) =>
             {
                 Trace.Message("DiscoveredPeripheral: {0}, Id: {1}", e.Peripheral.Name, e.Peripheral.Identifier);
                 var name = e.Peripheral.Name;
@@ -45,13 +48,13 @@ namespace Plugin.BLE.iOS
                 HandleDiscoveredDevice(device);
             };
 
-            _centralManager.UpdatedState += (sender, e) =>
+            _bleCentralManagerDelegate.UpdatedState += (sender, e) =>
             {
                 Trace.Message("UpdatedState: {0}", _centralManager.State);
                 _stateChanged.Set();
             };
 
-            _centralManager.ConnectedPeripheral += (sender, e) =>
+            _bleCentralManagerDelegate.ConnectedPeripheral += (sender, e) =>
             {
                 Trace.Message("ConnectedPeripherial: {0}", e.Peripheral.Name);
 
@@ -74,7 +77,7 @@ namespace Plugin.BLE.iOS
                 HandleConnectedDevice(device);
             };
 
-            _centralManager.DisconnectedPeripheral += (sender, e) =>
+            _bleCentralManagerDelegate.DisconnectedPeripheral += (sender, e) =>
             {
                 if (e.Error != null)
                 {
@@ -107,7 +110,7 @@ namespace Plugin.BLE.iOS
                 HandleDisconnectedDevice(isNormalDisconnect, foundDevice);
             };
 
-            _centralManager.FailedToConnectPeripheral +=
+            _bleCentralManagerDelegate.FailedToConnectPeripheral +=
                 (sender, e) =>
                 {
                     var id = ParseDeviceGuid(e.Peripheral);
