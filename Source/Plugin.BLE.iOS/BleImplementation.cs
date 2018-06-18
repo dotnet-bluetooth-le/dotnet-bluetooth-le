@@ -10,12 +10,12 @@ namespace Plugin.BLE
     internal class BleImplementation : BleImplementationBase
     {
         private CBCentralManager _centralManager;
-	    private IBleCentralManagerDelegate _bleCentralManagerDelegate;
+        private IBleCentralManagerDelegate _bleCentralManagerDelegate;
 
         protected override void InitializeNative()
         {
-			var cmDelegate = new BleBleCentralManagerDelegate();
-	        _bleCentralManagerDelegate = cmDelegate;
+            var cmDelegate = new BleBleCentralManagerDelegate();
+            _bleCentralManagerDelegate = cmDelegate;
 
             _centralManager = new CBCentralManager(cmDelegate, DispatchQueue.CurrentQueue);
             _bleCentralManagerDelegate.UpdatedState += (s, e) => State = GetState();

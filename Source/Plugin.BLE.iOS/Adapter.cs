@@ -15,13 +15,13 @@ namespace Plugin.BLE.iOS
     {
         private readonly AutoResetEvent _stateChanged = new AutoResetEvent(false);
         private readonly CBCentralManager _centralManager;
-	    private readonly IBleCentralManagerDelegate _bleCentralManagerDelegate;
+        private readonly IBleCentralManagerDelegate _bleCentralManagerDelegate;
 
-		/// <summary>
-		/// Registry used to store device instances for pending operations : disconnect
-		/// Helps to detect connection lost events.
-		/// </summary>
-		private readonly IDictionary<string, IDevice> _deviceOperationRegistry = new ConcurrentDictionary<string, IDevice>();
+        /// <summary>
+        /// Registry used to store device instances for pending operations : disconnect
+        /// Helps to detect connection lost events.
+        /// </summary>
+        private readonly IDictionary<string, IDevice> _deviceOperationRegistry = new ConcurrentDictionary<string, IDevice>();
         private readonly IDictionary<string, IDevice> _deviceConnectionRegistry = new ConcurrentDictionary<string, IDevice>();
 
         public override IList<IDevice> ConnectedDevices => _deviceConnectionRegistry.Values.ToList();
@@ -30,7 +30,7 @@ namespace Plugin.BLE.iOS
         public Adapter(CBCentralManager centralManager, IBleCentralManagerDelegate bleCentralManagerDelegate)
         {
             _centralManager = centralManager;
-	        _bleCentralManagerDelegate = bleCentralManagerDelegate;
+            _bleCentralManagerDelegate = bleCentralManagerDelegate;
 
             _bleCentralManagerDelegate.DiscoveredPeripheral += (sender, e) =>
             {
