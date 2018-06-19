@@ -18,7 +18,7 @@ namespace Plugin.BLE.iOS
     {
         private readonly CBCharacteristic _nativeCharacteristic;
         private readonly CBPeripheral _parentDevice;
-        private readonly CBCentralManager _centralManager;
+        private readonly IBleCentralManagerDelegate _bleCentralManagerDelegate;
 
         public override event EventHandler<CharacteristicUpdatedEventArgs> ValueUpdated;
 
@@ -41,12 +41,12 @@ namespace Plugin.BLE.iOS
 
         public override CharacteristicPropertyType Properties => (CharacteristicPropertyType)(int)_nativeCharacteristic.Properties;
 
-        public Characteristic(CBCharacteristic nativeCharacteristic, CBPeripheral parentDevice, IService service, CBCentralManager centralManager) 
+        public Characteristic(CBCharacteristic nativeCharacteristic, CBPeripheral parentDevice, IService service, IBleCentralManagerDelegate bleCentralManagerDelegate) 
             : base(service)
         {
             _nativeCharacteristic = nativeCharacteristic;
             _parentDevice = parentDevice;
-            _centralManager = centralManager;
+            _bleCentralManagerDelegate = bleCentralManagerDelegate;
         }
 
         protected override Task<IList<IDescriptor>> GetDescriptorsNativeAsync()
@@ -72,7 +72,7 @@ namespace Plugin.BLE.iOS
                     }
                     else
                     {
-                        complete(args.Characteristic.Descriptors.Select(descriptor => new Descriptor(descriptor, _parentDevice, this, _centralManager)).Cast<IDescriptor>().ToList());
+                        complete(args.Characteristic.Descriptors.Select(descriptor => new Descriptor(descriptor, _parentDevice, this, _bleCentralManagerDelegate)).Cast<IDescriptor>().ToList());
                     }
                 },
                 subscribeComplete: handler => _parentDevice.DiscoveredDescriptor += handler,
@@ -82,8 +82,8 @@ namespace Plugin.BLE.iOS
                     if (args.Peripheral.Identifier == _parentDevice.Identifier)
                         reject(exception);
                 }),
-                subscribeReject: handler => _centralManager.DisconnectedPeripheral += handler,
-                unsubscribeReject: handler => _centralManager.DisconnectedPeripheral -= handler);
+                subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
+                unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
         }
 
         protected override Task<byte[]> ReadNativeAsync()
@@ -120,8 +120,8 @@ namespace Plugin.BLE.iOS
                         if (args.Peripheral.Identifier == _parentDevice.Identifier)
                             reject(exception);
                     }),
-                    subscribeReject: handler => _centralManager.DisconnectedPeripheral += handler,
-                    unsubscribeReject: handler => _centralManager.DisconnectedPeripheral -= handler);
+                    subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
+                    unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
         }
 
         protected override Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType)
@@ -151,8 +151,8 @@ namespace Plugin.BLE.iOS
                         if (args.Peripheral.Identifier == _parentDevice.Identifier)
                             reject(exception);
                     }),
-                    subscribeReject: handler => _centralManager.DisconnectedPeripheral += handler,
-                    unsubscribeReject: handler => _centralManager.DisconnectedPeripheral -= handler);
+                    subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
+                    unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
             }
             else
             {
@@ -203,8 +203,8 @@ namespace Plugin.BLE.iOS
                       if (args.Peripheral.Identifier == _parentDevice.Identifier)
                           reject(new Exception($"Device {Service.Device.Id} disconnected while starting updates for characteristic with {Id}."));
                   }),
-                  subscribeReject: handler => _centralManager.DisconnectedPeripheral += handler,
-                  unsubscribeReject: handler => _centralManager.DisconnectedPeripheral -= handler);
+                  subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
+                  unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
         }
 
         protected override Task StopUpdatesNativeAsync()
@@ -243,8 +243,8 @@ namespace Plugin.BLE.iOS
                     if (args.Peripheral.Identifier == _parentDevice.Identifier)
                         reject(exception);
                 }),
-                subscribeReject: handler => _centralManager.DisconnectedPeripheral += handler,
-                unsubscribeReject: handler => _centralManager.DisconnectedPeripheral -= handler);
+                subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
+                unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
         }
 
         private void UpdatedNotify(object sender, CBCharacteristicEventArgs e)

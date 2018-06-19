@@ -13,17 +13,17 @@ namespace Plugin.BLE.iOS
     {
         private readonly CBService _service;
         private readonly CBPeripheral _device;
-        private readonly CBCentralManager _centralManager;
+        private readonly IBleCentralManagerDelegate _bleCentralManagerDelegate;
 
         public override Guid Id => _service.UUID.GuidFromUuid();
         public override bool IsPrimary => _service.Primary;
 
-        public Service(CBService service, IDevice device, CBCentralManager centralManager) 
+        public Service(CBService service, IDevice device, IBleCentralManagerDelegate bleCentralManagerDelegate) 
             : base(device)
         {
             _service = service;
             _device = device.NativeDevice as CBPeripheral;
-            _centralManager = centralManager;
+            _bleCentralManagerDelegate = bleCentralManagerDelegate;
         }
 
         protected override Task<IList<ICharacteristic>> GetCharacteristicsNativeAsync()
@@ -52,7 +52,7 @@ namespace Plugin.BLE.iOS
                     else
                     {
                         var characteristics = args.Service.Characteristics
-                                                  .Select(characteristic => new Characteristic(characteristic, _device, this, _centralManager))
+                                                  .Select(characteristic => new Characteristic(characteristic, _device, this, _bleCentralManagerDelegate))
                                                   .Cast<ICharacteristic>().ToList();
                         complete(characteristics);
                     }
@@ -64,8 +64,8 @@ namespace Plugin.BLE.iOS
                     if (args.Peripheral.Identifier == _device.Identifier)
                         reject(exception);
                 }),
-                subscribeReject: handler => _centralManager.DisconnectedPeripheral += handler,
-                unsubscribeReject: handler => _centralManager.DisconnectedPeripheral -= handler);
+                subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
+                unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
         }
     }
 }
