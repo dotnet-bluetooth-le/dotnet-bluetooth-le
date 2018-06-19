@@ -16,7 +16,7 @@ namespace Plugin.BLE
         event EventHandler<CBPeripheralEventArgs> ConnectedPeripheral;
     }
 
-    public class BleBleCentralManagerDelegate : CBCentralManagerDelegate, IBleCentralManagerDelegate
+    public class BleCentralManagerDelegate : CBCentralManagerDelegate, IBleCentralManagerDelegate
     {
         #region IBleCentralManagerDelegate events
 

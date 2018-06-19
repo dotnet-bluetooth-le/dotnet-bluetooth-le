@@ -14,7 +14,7 @@ namespace Plugin.BLE
 
         protected override void InitializeNative()
         {
-            var cmDelegate = new BleBleCentralManagerDelegate();
+            var cmDelegate = new BleCentralManagerDelegate();
             _bleCentralManagerDelegate = cmDelegate;
 
             _centralManager = new CBCentralManager(cmDelegate, DispatchQueue.CurrentQueue);
