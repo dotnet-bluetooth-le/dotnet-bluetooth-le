@@ -1,22 +1,25 @@
 ﻿using System.Collections.Generic;
-using MvvmCross.Core.ViewModels;
+using MvvmCross.Navigation;
+using MvvmCross.ViewModels;
 using Plugin.BLE.Abstractions.Contracts;
 
 namespace BLE.Client.ViewModels
 {
     public class DescriptorListViewModel : BaseViewModel
     {
+        private readonly IMvxNavigationService _navigation;
         private ICharacteristic _characteristic;
 
         public IList<IDescriptor> Descriptors { get; private set;}
 
-        public DescriptorListViewModel(IAdapter adapter) : base(adapter)
+        public DescriptorListViewModel(IAdapter adapter, IMvxNavigationService navigation) : base(adapter)
         {
+            _navigation = navigation;
         }
 
-        public override void Resume()
+        public override void ViewAppeared()
         {
-            base.Resume();
+            base.ViewAppeared();
 
             if (_characteristic != null)
             {
@@ -24,12 +27,12 @@ namespace BLE.Client.ViewModels
             }
 
 
-            Close(this);
+            _navigation.Close(this);
         }
 
-        protected override async void InitFromBundle(IMvxBundle parameters)
+        public override async void Prepare(MvxBundle parameters)
         {
-            base.InitFromBundle(parameters);
+            base.Prepare(parameters);
 
             _characteristic = await GetCharacteristicFromBundleAsync(parameters);
 
@@ -46,7 +49,7 @@ namespace BLE.Client.ViewModels
                 {
                     var bundle = new MvxBundle(new Dictionary<string, string>(Bundle.Data) { { DescriptorIdKey, value.Id.ToString() } });
 
-                    ShowViewModel<DescriptorDetailViewModel>(bundle);
+                    _navigation.Navigate<DescriptorDetailViewModel,MvxBundle>(bundle);
                 }
 
                 RaisePropertyChanged();

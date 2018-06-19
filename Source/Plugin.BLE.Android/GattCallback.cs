@@ -1,11 +1,8 @@
 ﻿using System;
 using Android.Bluetooth;
 using Plugin.BLE.Abstractions;
-using Plugin.BLE.Abstractions.Contracts;
-using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Extensions;
 using Plugin.BLE.Android.CallbackEventArgs;
-using Plugin.BLE.Abstractions.Exceptions;
 
 namespace Plugin.BLE.Android
 {
@@ -50,8 +47,8 @@ namespace Plugin.BLE.Android
                 return;
             }
 
-            //just for me
-            Trace.Message($"References of parnet device and gatt callback device equal? {ReferenceEquals(_device.BluetoothDevice, gatt.Device).ToString().ToUpper()}");
+            //ToDo ignore just for me
+            Trace.Message($"References of parent device and gatt callback device equal? {ReferenceEquals(_device.BluetoothDevice, gatt.Device).ToString().ToUpper()}");
 
             Trace.Message($"OnConnectionStateChange: GattStatus: {status}");
 
@@ -63,16 +60,17 @@ namespace Plugin.BLE.Android
                     // Close GATT regardless, else we can accumulate zombie gatts.
                     CloseGattInstances(gatt);
 
-                    if (_device.IsOperationRequested)
-                    {
-                        Trace.Message("Disconnected by user");
+					// If status == 19, then connection was closed by the peripheral device (clean disconnect), consider this as a DeviceDisconnected
+					if (_device.IsOperationRequested || (int)status == 19)
+					{
+						Trace.Message("Disconnected by user");
 
                         //Found so we can remove it
                         _device.IsOperationRequested = false;
                         _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
 
-                        if (status != GattStatus.Success)
-                        {
+						if (status != GattStatus.Success && (int)status != 19)
+						{
                             // The above error event handles the case where the error happened during a Connect call, which will close out any waiting asyncs.
                             // Android > 5.0 uses this switch branch when an error occurs during connect
                             Trace.Message($"Error while connecting '{_device.Name}'. Not raising disconnect event.");
@@ -151,6 +149,7 @@ namespace Plugin.BLE.Android
                 gatt.Close();
             }
 
+            //cleanup everything else
             _device.CloseGatt();
         }
 

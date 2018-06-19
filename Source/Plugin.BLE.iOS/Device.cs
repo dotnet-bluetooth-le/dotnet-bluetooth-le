@@ -6,24 +6,29 @@ using CoreBluetooth;
 using Foundation;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Abstractions.Utils;
 
 namespace Plugin.BLE.iOS
 {
     public class Device : DeviceBase
     {
         private readonly CBPeripheral _nativeDevice;
+        private readonly CBCentralManager _centralManager;
 
         public override object NativeDevice => _nativeDevice;
 
-        public Device(Adapter adapter, CBPeripheral nativeDevice)
-            : this(adapter, nativeDevice, nativeDevice.Name, nativeDevice.RSSI?.Int32Value ?? 0,
+        public Device(Adapter adapter, CBPeripheral nativeDevice, CBCentralManager centralManager)
+            : this(adapter, nativeDevice, centralManager, nativeDevice.Name, nativeDevice.RSSI?.Int32Value ?? 0,
                 new List<AdvertisementRecord>())
         {
         }
 
-        public Device(Adapter adapter, CBPeripheral nativeDevice, string name, int rssi, List<AdvertisementRecord> advertisementRecords) : base(adapter)
+        public Device(Adapter adapter, CBPeripheral nativeDevice, CBCentralManager centralManager, string name, int rssi, List<AdvertisementRecord> advertisementRecords) 
+            : base(adapter)
         {
             _nativeDevice = nativeDevice;
+            _centralManager = centralManager;
+
             Id = Guid.ParseExact(_nativeDevice.Identifier.AsString(), "d");
             Name = name;
 
@@ -41,42 +46,47 @@ namespace Plugin.BLE.iOS
             Trace.Message("Device changed name: {0}", Name);
         }
 
-        protected override async Task<IEnumerable<IService>> GetServicesNativeAsync()
+        protected override Task<IEnumerable<IService>> GetServicesNativeAsync()
         {
-            var tcs = new TaskCompletionSource<IEnumerable<IService>>();
-            EventHandler<NSErrorEventArgs> handler = null;
+            var exception = new Exception($"Device {Name} disconnected while fetching services.");
 
-            handler = (sender, args) =>
-            {
-                _nativeDevice.DiscoveredService -= handler;
+            return TaskBuilder.FromEvent<IEnumerable<IService>, EventHandler<NSErrorEventArgs>, EventHandler<CBPeripheralErrorEventArgs>>(
+               execute: () =>
+               {
+                   if (_nativeDevice.State != CBPeripheralState.Connected)
+                       throw exception;
 
-                if (args.Error != null)
-                {
-                    Trace.Message("Error while discovering services {0}", args.Error.LocalizedDescription);
-                }
-
-                // why we have to do this check is beyond me. if a service has been discovered, the collection
-                // shouldn't be null, but sometimes it is. le sigh, apple.
-                if (_nativeDevice.Services == null)
-                {
-                    // TODO: review: return? really? Will the Task end?
-                    return;
-                }
-
-                var services = new Dictionary<CBUUID, IService>();
-                foreach (var s in _nativeDevice.Services)
-                {
-                    Trace.Message("Device.Discovered Service: " + s.Description);
-                    services[s.UUID] = new Service(s, this);
-                }
-
-                tcs.TrySetResult(services.Values);
-            };
-
-            _nativeDevice.DiscoveredService += handler;
-            _nativeDevice.DiscoverServices();
-
-            return await tcs.Task;
+                   _nativeDevice.DiscoverServices();
+               },
+               getCompleteHandler: (complete, reject) => (sender, args) =>
+               {
+                   // If args.Error was not null then the Service might be null
+                   if (args.Error != null)
+                   {
+                       reject(new Exception($"Error while discovering services {args.Error.LocalizedDescription}"));
+                   }
+                   else if (_nativeDevice.Services == null)
+                   {
+                       // No service discovered. 
+                       reject(new Exception($"Error while discovering services: returned list is null"));
+                   }
+                   else
+                   {
+                       var services = _nativeDevice.Services
+                                            .Select(nativeService => new Service(nativeService, this, _centralManager))
+                                            .Cast<IService>().ToList();
+                       complete(services);
+                   }
+               },
+               subscribeComplete: handler => _nativeDevice.DiscoveredService += handler,
+               unsubscribeComplete: handler => _nativeDevice.DiscoveredService -= handler,
+               getRejectHandler: reject => ((sender, args) =>
+               {
+                   if (args.Peripheral.Identifier == _nativeDevice.Identifier)
+                       reject(exception);
+               }),
+               subscribeReject: handler => _centralManager.DisconnectedPeripheral += handler,
+               unsubscribeReject: handler => _centralManager.DisconnectedPeripheral -= handler);
         }
 
         public override async Task<bool> UpdateRssiAsync()

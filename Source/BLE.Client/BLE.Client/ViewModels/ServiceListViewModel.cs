@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Acr.UserDialogs;
-using MvvmCross.Core.ViewModels;
-using MvvmCross.Platform;
+using MvvmCross.Navigation;
+using MvvmCross.ViewModels;
+using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 
 namespace BLE.Client.ViewModels
@@ -10,17 +11,20 @@ namespace BLE.Client.ViewModels
     public class ServiceListViewModel : BaseViewModel
     {
         private readonly IUserDialogs _userDialogs;
+        private readonly IMvxNavigationService _navigation;
+
         private IDevice _device;
 
         public IList<IService> Services { get; private set; }
-        public ServiceListViewModel(IAdapter adapter, IUserDialogs userDialogs) : base(adapter)
+        public ServiceListViewModel(IAdapter adapter, IUserDialogs userDialogs, IMvxNavigationService navigation) : base(adapter)
         {
             _userDialogs = userDialogs;
+            _navigation = navigation;
         }
 
-        public override void Resume()
+        public override void ViewAppeared()
         {
-            base.Resume();
+            base.ViewAppeared();
 
             LoadServices();
         }
@@ -36,8 +40,8 @@ namespace BLE.Client.ViewModels
             }
             catch (Exception ex)
             {
-                _userDialogs.Alert(ex.Message, "Error while discovering services");
-                Mvx.Trace(ex.Message);
+                await _userDialogs.AlertAsync(ex.Message, "Error while discovering services");
+                Trace.Message(ex.Message);
             }
             finally
             {
@@ -45,15 +49,15 @@ namespace BLE.Client.ViewModels
             }
         }
 
-        protected override void InitFromBundle(IMvxBundle parameters)
+        public override void Prepare(MvxBundle parameters)
         {
-            base.InitFromBundle(parameters);
+            base.Prepare(parameters);
 
             _device = GetDeviceFromBundle(parameters);
 
             if (_device == null)
             {
-                Close(this);
+                _navigation.Close(this);
             }
         }
 
@@ -66,7 +70,7 @@ namespace BLE.Client.ViewModels
                 if (value != null)
                 {
                     var bundle = new MvxBundle(new Dictionary<string, string>(Bundle.Data) { { ServiceIdKey, value.Id.ToString() } });
-                    ShowViewModel<CharacteristicListViewModel>(bundle);
+                    _navigation.Navigate<CharacteristicListViewModel, MvxBundle>(bundle);
                 }
 
                 RaisePropertyChanged();

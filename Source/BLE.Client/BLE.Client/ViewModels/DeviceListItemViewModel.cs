@@ -1,5 +1,5 @@
 ﻿using System;
-using MvvmCross.Core.ViewModels;
+using MvvmCross.ViewModels;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 

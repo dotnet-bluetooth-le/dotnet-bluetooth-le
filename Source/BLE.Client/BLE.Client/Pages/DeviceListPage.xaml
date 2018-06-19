@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<pages:BaseTabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+<views:MvxTabbedPage x:TypeArguments="viewModels:DeviceListViewModel" 
+             xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:pages="clr-namespace:BLE.Client.Pages;assembly=BLE.Client"
+             xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+             xmlns:viewModels="clr-namespace:BLE.Client.ViewModels;assembly=BLE.Client"
              x:Class="BLE.Client.Pages.DeviceListPage"
              Title="Discover devices"
              x:Name="DevicePage">
-  <pages:BaseTabbedPage.Resources>
+    <views:MvxTabbedPage.Resources>
     <ResourceDictionary>
      <DataTemplate x:Key="DeviceItemTemplate">
               <ViewCell>
@@ -38,9 +40,9 @@
               </ViewCell>
             </DataTemplate>
       </ResourceDictionary>
-  </pages:BaseTabbedPage.Resources>
-  <pages:BaseTabbedPage.Children>
-    <pages:BasePage Title="Scan for devices">
+  </views:MvxTabbedPage.Resources>
+    <views:MvxTabbedPage.Children>
+    <ContentPage Title="Scan for devices">
       <Grid>
         <Grid.RowDefinitions>
           <RowDefinition Height="Auto"></RowDefinition>
@@ -81,12 +83,12 @@
         </StackLayout>
 
       </Grid>
-    </pages:BasePage>
-    <pages:BasePage Title="System devices">
+    </ContentPage>
+    <ContentPage Title="System devices">
        <ListView ItemsSource="{Binding SystemDevices}" SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
                  RowHeight="80"
                  ItemTemplate="{StaticResource DeviceItemTemplate}"/>
-    </pages:BasePage>
-  </pages:BaseTabbedPage.Children>
+    </ContentPage>
+  </views:MvxTabbedPage.Children>
 
-</pages:BaseTabbedPage>
+</views:MvxTabbedPage>

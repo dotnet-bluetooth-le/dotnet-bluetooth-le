@@ -143,7 +143,7 @@ namespace Plugin.BLE.Android
         protected override Task ConnectToDeviceNativeAsync(IDevice device, ConnectParameters connectParameters,
             CancellationToken cancellationToken)
         {
-            ((Device)device).Connect(connectParameters);
+            ((Device)device).Connect(connectParameters, cancellationToken);
             return Task.CompletedTask;
         }
 
