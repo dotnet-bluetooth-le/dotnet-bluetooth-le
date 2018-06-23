@@ -16,7 +16,6 @@ let (+/) path1 path2 = Path.Combine(path1, path2)
 let RepositoryRootDir = Path.Combine("..", ".");
 let NuGetTargetDir =  Path.Combine("out" ,"nuget");
 let BuildTargetDir = Path.Combine("out" ,"lib");
-let BootstrapFile = "BlePluginBootstrap.cs.pp"
 let NugetPath =  if EnvironmentHelper.isMacOS then 
                     "mono --runtime=v4.0 ../Source/.nuget/nuget.exe" 
                  else
@@ -127,10 +126,6 @@ Target "build" (fun _ ->
     Build("MvvmCross.Plugins.BLE", Path.Combine("mvx","pcl"))
     Build("MvvmCross.Plugins.BLE.Droid", Path.Combine("mvx", "android"))
     Build("MvvmCross.Plugins.BLE.iOS", Path.Combine("mvx","ios"))
-    
-    trace "copy mvvm cross bootstrap files..."
-    File.Copy(Path.Combine(ProjectSources, "MvvmCross.Plugins.BLE.Droid",BootstrapFile), Path.Combine(BuildTargetDir, "mvx", "android", BootstrapFile))
-    File.Copy(Path.Combine(ProjectSources, "MvvmCross.Plugins.BLE.iOS", BootstrapFile), Path.Combine(BuildTargetDir, "mvx", "ios", BootstrapFile))
 )
 
 
