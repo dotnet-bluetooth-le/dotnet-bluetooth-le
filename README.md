@@ -264,6 +264,7 @@ The BLE API implementation (especially on **Android**) has the following limitat
 - [How to set custom trace method?](doc/howto_custom_trace.md)
 - [Characteristic Properties](doc/characteristics.md)
 - [Scan Mode Mapping](doc/scanmode_mapping.md)
+- [iOS state restoration (basic support)](doc/ios_state_restoration.md)
 
 
 ## Useful Links
