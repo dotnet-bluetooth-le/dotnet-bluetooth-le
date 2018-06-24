@@ -7,17 +7,28 @@ using Plugin.BLE.iOS;
 
 namespace Plugin.BLE
 {
-    internal class BleImplementation : BleImplementationBase
+    public class BleImplementation : BleImplementationBase
     {
+        private static string _restorationIdentifier;
+
         private CBCentralManager _centralManager;
         private IBleCentralManagerDelegate _bleCentralManagerDelegate;
+
+        public static void UseRestorationIdentifier(string restorationIdentifier)
+        {
+            _restorationIdentifier = restorationIdentifier;
+        }
 
         protected override void InitializeNative()
         {
             var cmDelegate = new BleCentralManagerDelegate();
             _bleCentralManagerDelegate = cmDelegate;
 
-            _centralManager = new CBCentralManager(cmDelegate, DispatchQueue.CurrentQueue);
+            var options = string.IsNullOrEmpty(_restorationIdentifier)
+                ? null
+                : new CBCentralInitOptions { RestoreIdentifier = _restorationIdentifier };
+
+            _centralManager = new CBCentralManager(cmDelegate, DispatchQueue.CurrentQueue, options);
             _bleCentralManagerDelegate.UpdatedState += (s, e) => State = GetState();
         }
 
