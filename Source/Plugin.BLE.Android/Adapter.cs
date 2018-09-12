@@ -150,7 +150,7 @@ namespace Plugin.BLE.Android
         protected override void DisconnectDeviceNative(IDevice device)
         {
             //make sure everything is disconnected
-            //((Device)device).Disconnect();
+            ((Device)device).Disconnect();
             ((Device)device).CloseGatt();
         }
 
