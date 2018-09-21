@@ -4,6 +4,7 @@ using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Extensions;
 using Plugin.BLE.iOS;
+using UIKit;
 
 namespace Plugin.BLE
 {
@@ -13,7 +14,7 @@ namespace Plugin.BLE
 
         protected override void InitializeNative()
         {
-            _centralManager = new CBCentralManager(DispatchQueue.CurrentQueue);
+            _centralManager = new CBCentralManager(DispatchQueue.MainQueue);
             _centralManager.UpdatedState += (s, e) => State = GetState();
         }
 
@@ -29,7 +30,15 @@ namespace Plugin.BLE
 
         private BluetoothState GetState()
         {
-            return _centralManager.State.ToBluetoothState();
+            if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
+            {
+                var manager = (CBManager)_centralManager;
+                return manager.State.ToBluetoothState();
+            }
+            else
+            {
+                return _centralManager.State.ToBluetoothState();
+            }
         }
     }
 }
