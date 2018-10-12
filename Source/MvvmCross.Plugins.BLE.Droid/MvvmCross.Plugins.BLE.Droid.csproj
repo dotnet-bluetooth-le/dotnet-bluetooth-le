@@ -42,8 +42,8 @@
     <Reference Include="Mono.Android" />
     <Reference Include="Mono.Android.Export" />
     <Reference Include="mscorlib" />
-    <Reference Include="MvvmCross, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MvvmCross.6.0.0\lib\netstandard2.0\MvvmCross.dll</HintPath>
+    <Reference Include="MvvmCross, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.6.2.1\lib\netstandard2.0\MvvmCross.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

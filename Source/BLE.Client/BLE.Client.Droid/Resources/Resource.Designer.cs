@@ -8106,11 +8106,11 @@ namespace BLE.Client.Droid
 			// aapt resource value: 0x7f0a0035
 			public const int character_counter_pattern = 2131361845;
 			
-			// aapt resource value: 0x7f0a003d
-			public const int fab_scroll_shrink_grow_autohide_behavior = 2131361853;
-			
 			// aapt resource value: 0x7f0a003c
-			public const int library_name = 2131361852;
+			public const int fab_scroll_shrink_grow_autohide_behavior = 2131361852;
+			
+			// aapt resource value: 0x7f0a003e
+			public const int library_name = 2131361854;
 			
 			// aapt resource value: 0x7f0a0000
 			public const int mr_button_content_description = 2131361792;
@@ -8196,8 +8196,8 @@ namespace BLE.Client.Droid
 			// aapt resource value: 0x7f0a003b
 			public const int status_bar_notification_info_overflow = 2131361851;
 			
-			// aapt resource value: 0x7f0a003e
-			public const int view_scroll_translation_autohide_behavior = 2131361854;
+			// aapt resource value: 0x7f0a003d
+			public const int view_scroll_translation_autohide_behavior = 2131361853;
 			
 			static String()
 			{
