@@ -5,13 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Acr.UserDialogs" Version="7.0.0" />
-    <PackageReference Include="MvvmCross" Version="6.0.0" />
-    <PackageReference Include="MvvmCross.Forms" Version="6.0.0" />
-    <PackageReference Include="Plugin.Permissions" Version="2.0.1" />
-    <PackageReference Include="Splat" Version="4.0.0" />
-    <PackageReference Include="Xam.Plugins.Settings" Version="3.0.1" />
-    <PackageReference Include="Xamarin.Forms" Version="2.5.1.527436" />
+    <PackageReference Include="Acr.UserDialogs" Version="7.0.1" />
+    <PackageReference Include="MvvmCross" Version="6.2.1" />
+    <PackageReference Include="MvvmCross.Forms" Version="6.2.1" />
+    <PackageReference Include="Plugin.Permissions" Version="3.0.0.12" />
+    <PackageReference Include="Splat" Version="5.0.2" />
+    <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
+    <PackageReference Include="Xamarin.Forms" Version="3.2.0.871581" />
   </ItemGroup>
 
   <ItemGroup>

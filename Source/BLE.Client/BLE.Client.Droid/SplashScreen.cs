@@ -6,6 +6,7 @@ using MvvmCross.Core;
 using Xamarin.Forms;
 using MvvmCross.Forms.Platforms.Android.Views;
 using MvvmCross.Platforms.Android.Views;
+using System.Threading.Tasks;
 
 namespace BLE.Client.Droid
 {
@@ -19,6 +20,7 @@ namespace BLE.Client.Droid
         public SplashScreen()
             : base(Resource.Layout.SplashScreen)
         {
+            this.RegisterSetupType<Setup>();
         }
 
         protected override void OnCreate(Bundle bundle)
@@ -28,10 +30,10 @@ namespace BLE.Client.Droid
 
         }
 
-        protected override void RunAppStart(Bundle bundle)
+        protected override Task RunAppStartAsync(Bundle bundle)
         {
             StartActivity(typeof(MainActivity));
-            base.RunAppStart(bundle);
+            return Task.CompletedTask;
         }
     }
 }

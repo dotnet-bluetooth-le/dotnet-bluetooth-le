@@ -55,8 +55,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="MvvmCross, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MvvmCross.6.0.0\lib\xamarinios10\MvvmCross.dll</HintPath>
+    <Reference Include="MvvmCross, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmCross.6.2.1\lib\xamarinios10\MvvmCross.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
