@@ -259,6 +259,20 @@ The BLE API implementation (especially on **Android**) has the following limitat
     - try to stop scanning as soon as you find the desired device
     - never scan on a loop, and set a time limit on your scan
 
+## How to build the nuget package
+### On Windows
+1) Build
+
+    Open a cmd console windows and cd to the folder of "xamarin-bluetooth-le\\.build", then run `build.bat`.
+
+2) pack the nuget
+
+    `nuget pack Plugin.BLE.nuspec -BasePath out\lib\`
+    
+    `nuget pack MvvmCross.Plugin.BLE.nuspec -BasePath out\lib\`
+
+
+
 ## Extended topics
 
 - [How to set custom trace method?](doc/howto_custom_trace.md)
