@@ -16,9 +16,9 @@ namespace PluginNugetTest.iOS
             device.UpdateRssiAsync();
         }
 
-        public void CheckMyCharacteristic(ICharacteristic characteristic)
+        public async void CheckMyCharacteristic(ICharacteristic characteristic)
         {
-            characteristic.StartUpdates();
+            await characteristic.StartUpdatesAsync();
         }
 
         public void CheckMyService(IService service)
@@ -36,9 +36,9 @@ namespace PluginNugetTest.iOS
             await device.UpdateRssiAsync();
         }
 
-        public void CheckMyCharacteristic(Characteristic characteristic)
+        public async void CheckMyCharacteristic(Characteristic characteristic)
         {
-            characteristic.StartUpdates();
+            await characteristic.StartUpdatesAsync();
         }
 
         public async void CheckMyService(Service service)
