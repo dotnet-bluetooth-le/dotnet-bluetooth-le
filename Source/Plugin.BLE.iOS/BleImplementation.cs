@@ -15,11 +15,8 @@ namespace Plugin.BLE
 
         protected override void InitializeNative()
         {
-            var centralManagerDelegate = new CBDelegate();
             var cbCentralInitOptions = new CBCentralInitOptions() { ShowPowerAlert = false };
             _centralManager = new CBCentralManager(null, DispatchQueue.MainQueue, cbCentralInitOptions);
-
-            ////_centralManager = new CBCentralManager(DispatchQueue.MainQueue);
             _centralManager.UpdatedState += (s, e) => State = GetState();
         }
 
@@ -45,13 +42,6 @@ namespace Plugin.BLE
             {
                 var bluetoothState = _centralManager.State.ToBluetoothState();
                 return bluetoothState;
-            }
-        }
-
-        public class CBDelegate : CBCentralManagerDelegate
-        {
-            public override void UpdatedState(CBCentralManager central)
-            {
             }
         }
     }
