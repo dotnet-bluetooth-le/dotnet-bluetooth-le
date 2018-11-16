@@ -1,4 +1,5 @@
 using System;
+using CoreBluetooth;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 
@@ -9,9 +10,9 @@ namespace Plugin.BLE
     /// </summary>
     public class iOSCrossBluetoothLE : ICrossBluetoothLE
     {
-        public iOSCrossBluetoothLE()
+        public iOSCrossBluetoothLE(CBCentralInitOptions cbCentralInitOptions)
         {
-            Current = CreateImplementation();
+            Current = CreateImplementation(cbCentralInitOptions);
         }
 
         /// <summary>
@@ -19,10 +20,9 @@ namespace Plugin.BLE
         /// </summary>
         public IBluetoothLE Current { get; }
 
-        private static IBluetoothLE CreateImplementation()
+        private static IBluetoothLE CreateImplementation(CBCentralInitOptions cbCentralInitOptions)
         {
-            System.Diagnostics.Debug.WriteLine("XXX Creates Implementation");
-            var implementation = new BleImplementation();
+            var implementation = new BleImplementation(cbCentralInitOptions);
             implementation.Initialize();
             return implementation;
         }

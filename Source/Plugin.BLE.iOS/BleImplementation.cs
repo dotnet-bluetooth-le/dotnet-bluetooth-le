@@ -11,12 +11,17 @@ namespace Plugin.BLE
 {
     internal class BleImplementation : BleImplementationBase
     {
+        private readonly CBCentralInitOptions _cbCentralInitOptions;
         private CBCentralManager _centralManager;
+
+        public BleImplementation(CBCentralInitOptions cbCentralInitOptions)
+        {
+            _cbCentralInitOptions = cbCentralInitOptions ?? new CBCentralInitOptions();
+        }
 
         protected override void InitializeNative()
         {
-            var cbCentralInitOptions = new CBCentralInitOptions() { ShowPowerAlert = false };
-            _centralManager = new CBCentralManager(null, DispatchQueue.MainQueue, cbCentralInitOptions);
+            _centralManager = new CBCentralManager(null, DispatchQueue.MainQueue, _cbCentralInitOptions);
             _centralManager.UpdatedState += (s, e) => State = GetState();
         }
 
