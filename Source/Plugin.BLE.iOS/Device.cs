@@ -13,21 +13,21 @@ namespace Plugin.BLE.iOS
     public class Device : DeviceBase
     {
         private readonly CBPeripheral _nativeDevice;
-        private readonly CBCentralManager _centralManager;
+        private readonly IBleCentralManagerDelegate _bleCentralManagerDelegate;
 
         public override object NativeDevice => _nativeDevice;
 
-        public Device(Adapter adapter, CBPeripheral nativeDevice, CBCentralManager centralManager)
-            : this(adapter, nativeDevice, centralManager, nativeDevice.Name, nativeDevice.RSSI?.Int32Value ?? 0,
+        public Device(Adapter adapter, CBPeripheral nativeDevice, IBleCentralManagerDelegate bleCentralManagerDelegate)
+            : this(adapter, nativeDevice, bleCentralManagerDelegate, nativeDevice.Name, nativeDevice.RSSI?.Int32Value ?? 0,
                 new List<AdvertisementRecord>())
         {
         }
 
-        public Device(Adapter adapter, CBPeripheral nativeDevice, CBCentralManager centralManager, string name, int rssi, List<AdvertisementRecord> advertisementRecords) 
+        public Device(Adapter adapter, CBPeripheral nativeDevice, IBleCentralManagerDelegate bleCentralManagerDelegate, string name, int rssi, List<AdvertisementRecord> advertisementRecords) 
             : base(adapter)
         {
             _nativeDevice = nativeDevice;
-            _centralManager = centralManager;
+            _bleCentralManagerDelegate = bleCentralManagerDelegate;
 
             Id = Guid.ParseExact(_nativeDevice.Identifier.AsString(), "d");
             Name = name;
@@ -73,7 +73,7 @@ namespace Plugin.BLE.iOS
                    else
                    {
                        var services = _nativeDevice.Services
-                                            .Select(nativeService => new Service(nativeService, this, _centralManager))
+                                            .Select(nativeService => new Service(nativeService, this, _bleCentralManagerDelegate))
                                             .Cast<IService>().ToList();
                        complete(services);
                    }
@@ -85,8 +85,8 @@ namespace Plugin.BLE.iOS
                    if (args.Peripheral.Identifier == _nativeDevice.Identifier)
                        reject(exception);
                }),
-               subscribeReject: handler => _centralManager.DisconnectedPeripheral += handler,
-               unsubscribeReject: handler => _centralManager.DisconnectedPeripheral -= handler);
+               subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
+               unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
         }
 
         public override async Task<bool> UpdateRssiAsync()
