@@ -1,3 +1,4 @@
+using System;
 using CoreBluetooth;
 using CoreFoundation;
 using Plugin.BLE.Abstractions;
@@ -14,7 +15,11 @@ namespace Plugin.BLE
 
         protected override void InitializeNative()
         {
-            _centralManager = new CBCentralManager(DispatchQueue.MainQueue);
+            var centralManagerDelegate = new CBDelegate();
+            var cbCentralInitOptions = new CBCentralInitOptions() { ShowPowerAlert = false };
+            _centralManager = new CBCentralManager(null, DispatchQueue.MainQueue, cbCentralInitOptions);
+
+            ////_centralManager = new CBCentralManager(DispatchQueue.MainQueue);
             _centralManager.UpdatedState += (s, e) => State = GetState();
         }
 
@@ -33,11 +38,20 @@ namespace Plugin.BLE
             if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
             {
                 var manager = (CBManager)_centralManager;
-                return manager.State.ToBluetoothState();
+                var bluetoothState = manager.State.ToBluetoothState();
+                return bluetoothState;
             }
             else
             {
-                return _centralManager.State.ToBluetoothState();
+                var bluetoothState = _centralManager.State.ToBluetoothState();
+                return bluetoothState;
+            }
+        }
+
+        public class CBDelegate : CBCentralManagerDelegate
+        {
+            public override void UpdatedState(CBCentralManager central)
+            {
             }
         }
     }

@@ -39,6 +39,7 @@ namespace Plugin.BLE.Abstractions
         {
             InitializeNative();
             State = GetInitialStateNative();
+            System.Diagnostics.Debug.WriteLine("XXX Initial state: " + State);
         }
 
         private IAdapter CreateAdapter()

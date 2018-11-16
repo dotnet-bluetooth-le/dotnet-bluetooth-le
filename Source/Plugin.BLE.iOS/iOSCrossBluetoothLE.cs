@@ -9,15 +9,19 @@ namespace Plugin.BLE
     /// </summary>
     public class iOSCrossBluetoothLE : ICrossBluetoothLE
     {
-        readonly Lazy<IBluetoothLE> Implementation = new Lazy<IBluetoothLE>(CreateImplementation, System.Threading.LazyThreadSafetyMode.PublicationOnly);
+        public iOSCrossBluetoothLE()
+        {
+            Current = CreateImplementation();
+        }
 
         /// <summary>
         /// Current bluetooth LE implementation.
         /// </summary>
-        public IBluetoothLE Current => Implementation.Value;
+        public IBluetoothLE Current { get; }
 
-        static IBluetoothLE CreateImplementation()
+        private static IBluetoothLE CreateImplementation()
         {
+            System.Diagnostics.Debug.WriteLine("XXX Creates Implementation");
             var implementation = new BleImplementation();
             implementation.Initialize();
             return implementation;
