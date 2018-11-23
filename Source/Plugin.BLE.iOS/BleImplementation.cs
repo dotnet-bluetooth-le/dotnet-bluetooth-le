@@ -1,3 +1,4 @@
+using System;
 using CoreBluetooth;
 using CoreFoundation;
 using Plugin.BLE.Abstractions;
@@ -10,11 +11,18 @@ namespace Plugin.BLE
 {
     internal class BleImplementation : BleImplementationBase
     {
+        private readonly CBCentralInitOptions _cbCentralInitOptions;
+
         private CBCentralManager _centralManager;
+
+        public BleImplementation(CBCentralInitOptions cbCentralInitOptions)
+        {
+            _cbCentralInitOptions = cbCentralInitOptions ?? new CBCentralInitOptions();
+        }
 
         protected override void InitializeNative()
         {
-            _centralManager = new CBCentralManager(DispatchQueue.MainQueue);
+            _centralManager = new CBCentralManager(null, DispatchQueue.MainQueue, _cbCentralInitOptions);
             _centralManager.UpdatedState += (s, e) => State = GetState();
         }
 
