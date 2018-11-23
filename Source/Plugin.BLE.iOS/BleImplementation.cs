@@ -12,6 +12,7 @@ namespace Plugin.BLE
     internal class BleImplementation : BleImplementationBase
     {
         private readonly CBCentralInitOptions _cbCentralInitOptions;
+
         private CBCentralManager _centralManager;
 
         public BleImplementation(CBCentralInitOptions cbCentralInitOptions)
@@ -40,13 +41,11 @@ namespace Plugin.BLE
             if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
             {
                 var manager = (CBManager)_centralManager;
-                var bluetoothState = manager.State.ToBluetoothState();
-                return bluetoothState;
+                return manager.State.ToBluetoothState();
             }
             else
             {
-                var bluetoothState = _centralManager.State.ToBluetoothState();
-                return bluetoothState;
+                return _centralManager.State.ToBluetoothState();
             }
         }
     }
