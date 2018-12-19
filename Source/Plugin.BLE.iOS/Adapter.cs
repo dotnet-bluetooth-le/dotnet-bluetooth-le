@@ -70,6 +70,9 @@ namespace Plugin.BLE.iOS
                     device = new Device(this, e.Peripheral);
                 }
 
+                //make sure all cached services are cleared this will also clear characteristics and descriptors implicitly
+                ((Device)device).ClearServices();
+
                 _deviceConnectionRegistry[guid] = device;
                 HandleConnectedDevice(device);
             };
