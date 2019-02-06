@@ -10,6 +10,7 @@ using Plugin.BLE.Abstractions.Exceptions;
 using Plugin.BLE.Android.CallbackEventArgs;
 using Plugin.BLE.Extensions;
 using Plugin.BLE.Abstractions.Utils;
+using System.Threading;
 
 namespace Plugin.BLE.Android
 {
@@ -72,8 +73,8 @@ namespace Plugin.BLE.Android
                 throw new CharacteristicReadException("BluetoothGattCharacteristic.readCharacteristic returned FALSE");
             }
         }
-        
-        protected override async Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType)
+
+        protected override async Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType, CancellationToken token = default)
         {
             _nativeCharacteristic.WriteType = writeType.ToNative();
 
@@ -93,7 +94,8 @@ namespace Plugin.BLE.Android
                    reject(new Exception($"Device '{Service.Device.Id}' disconnected while writing characteristic with {Id}."));
                }),
                subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
-               unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler);
+               unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler,
+               token: token);
         }
 
         private void InternalWrite(byte[] data)

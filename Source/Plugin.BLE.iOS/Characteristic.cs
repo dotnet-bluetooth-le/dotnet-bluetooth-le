@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using CoreBluetooth;
 using Foundation;
@@ -32,10 +33,10 @@ namespace Plugin.BLE.iOS
                 {
                     return new byte[0];
                 }
-                    
+
                 return value.ToArray();
             }
-        } 
+        }
 
         public override CharacteristicPropertyType Properties => (CharacteristicPropertyType)(int)_nativeCharacteristic.Properties;
 
@@ -90,7 +91,7 @@ namespace Plugin.BLE.iOS
                     unsubscribeComplete: handler => _parentDevice.UpdatedCharacterteristicValue -= handler);
         }
 
-        protected override Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType)
+        protected override Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType, CancellationToken token = default(CancellationToken))
         {
             Task<bool> task;
 
@@ -107,7 +108,8 @@ namespace Plugin.BLE.iOS
                         complete(args.Error == null);
                     },
                     subscribeComplete: handler => _parentDevice.WroteCharacteristicValue += handler,
-                    unsubscribeComplete: handler => _parentDevice.WroteCharacteristicValue -= handler);
+                    unsubscribeComplete: handler => _parentDevice.WroteCharacteristicValue -= handler,
+                    token: token);
             }
             else
             {

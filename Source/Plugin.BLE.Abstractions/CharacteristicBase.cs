@@ -89,7 +89,7 @@ namespace Plugin.BLE.Abstractions
             var writeType = GetWriteType();
 
             Trace.Message("Characteristic.WriteAsync");
-            return await WriteNativeAsync(data, writeType);
+            return await WriteNativeAsync(data, writeType, cancellationToken);
         }
 
         private CharacteristicWriteType GetWriteType()
@@ -138,7 +138,7 @@ namespace Plugin.BLE.Abstractions
 
         protected abstract Task<IList<IDescriptor>> GetDescriptorsNativeAsync();
         protected abstract Task<byte[]> ReadNativeAsync();
-        protected abstract Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType);
+        protected abstract Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType, CancellationToken token = default(CancellationToken));
         protected abstract Task StartUpdatesNativeAsync();
         protected abstract Task StopUpdatesNativeAsync();
     }
