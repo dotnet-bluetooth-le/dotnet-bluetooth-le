@@ -74,7 +74,7 @@ namespace Plugin.BLE.Android
             }
         }
 
-        protected override async Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType, CancellationToken token = default)
+        protected override async Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType, CancellationToken token = default(CancellationToken))
         {
             _nativeCharacteristic.WriteType = writeType.ToNative();
 
