@@ -80,6 +80,7 @@ namespace Plugin.BLE.Android
                             //we already hadled device error so no need th raise disconnect event(happens when device not in range)
                             _adapter.HandleDisconnectedDevice(true, _device);
                         }
+                        _device.Dispose();
                         break;
                     }
 
@@ -123,6 +124,7 @@ namespace Plugin.BLE.Android
                         _adapter.HandleConnectionFail(_device, $"GattCallback error: {status}");
 
                         CloseGattInstances(gatt);
+                        _device.Dispose();
                     }
                     else
                     {
