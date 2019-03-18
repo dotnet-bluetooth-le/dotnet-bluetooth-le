@@ -30,6 +30,11 @@ namespace Plugin.BLE.Android
         /// </summary>
         public Dictionary<string, IDevice> ConnectedDeviceRegistry { get; }
 
+        /// <summary>
+        ///  Thread safety
+        /// </summary>
+        public object ConnectedDeviceRegistryLock { get; } = new object();
+
         public Adapter(BluetoothManager bluetoothManager)
         {
             _bluetoothManager = bluetoothManager;

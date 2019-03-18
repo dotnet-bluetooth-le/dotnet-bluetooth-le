@@ -41,8 +41,6 @@ namespace Plugin.BLE.Android
         {
             base.OnConnectionStateChange(gatt, status, newState);
 
-            object deviceRegistryLock = new object();
-
             if (!gatt.Device.Address.Equals(_device.BluetoothDevice.Address))
             {
                 Trace.Message($"Gatt callback for device {_device.BluetoothDevice.Address} was called for device with address {gatt.Device.Address}. This shoud not happen. Please log an issue.");
@@ -68,7 +66,7 @@ namespace Plugin.BLE.Android
 
                         //Found so we can remove it
                         _device.IsOperationRequested = false;
-                        lock (deviceRegistryLock)
+                        lock (_adapter.ConnectedDeviceRegistryLock)
                         {
                             _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
                         }
@@ -92,7 +90,7 @@ namespace Plugin.BLE.Android
                     //connection must have been lost, because the callback was not triggered by calling disconnect
                     Trace.Message($"Disconnected '{_device.Name}' by lost connection");
 
-                    lock (deviceRegistryLock)
+                    lock (_adapter.ConnectedDeviceRegistryLock)
                     {
                         _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
                     }
@@ -136,7 +134,7 @@ namespace Plugin.BLE.Android
                     }
                     else
                     {
-                        lock (deviceRegistryLock)
+                        lock (_adapter.ConnectedDeviceRegistryLock)
                         {
                             _adapter.ConnectedDeviceRegistry[gatt.Device.Address] = _device;
                         }
