@@ -41,6 +41,8 @@ namespace Plugin.BLE.Android
         {
             base.OnConnectionStateChange(gatt, status, newState);
 
+            object deviceRegistryLock = new object();
+
             if (!gatt.Device.Address.Equals(_device.BluetoothDevice.Address))
             {
                 Trace.Message($"Gatt callback for device {_device.BluetoothDevice.Address} was called for device with address {gatt.Device.Address}. This shoud not happen. Please log an issue.");
@@ -66,7 +68,10 @@ namespace Plugin.BLE.Android
 
                         //Found so we can remove it
                         _device.IsOperationRequested = false;
-                        _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
+                        lock (deviceRegistryLock)
+                        {
+                            _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
+                        }
 
                         if (status != GattStatus.Success)
                         {
@@ -87,7 +92,10 @@ namespace Plugin.BLE.Android
                     //connection must have been lost, because the callback was not triggered by calling disconnect
                     Trace.Message($"Disconnected '{_device.Name}' by lost connection");
 
-                    _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
+                    lock (deviceRegistryLock)
+                    {
+                        _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
+                    }
                     _adapter.HandleDisconnectedDevice(false, _device);
 
                     // inform pending tasks
@@ -128,7 +136,10 @@ namespace Plugin.BLE.Android
                     }
                     else
                     {
-                        _adapter.ConnectedDeviceRegistry[gatt.Device.Address] = _device;
+                        lock (deviceRegistryLock)
+                        {
+                            _adapter.ConnectedDeviceRegistry[gatt.Device.Address] = _device;
+                        }
                         _adapter.HandleConnectedDevice(_device);
                     }
 
