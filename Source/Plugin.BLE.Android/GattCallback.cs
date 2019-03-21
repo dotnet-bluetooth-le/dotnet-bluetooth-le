@@ -66,7 +66,10 @@ namespace Plugin.BLE.Android
 
                         //Found so we can remove it
                         _device.IsOperationRequested = false;
-                        _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
+                        lock (_adapter.ConnectedDeviceRegistryLock)
+                        {
+                            _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
+                        }
 
                         if (status != GattStatus.Success)
                         {
@@ -87,7 +90,10 @@ namespace Plugin.BLE.Android
                     //connection must have been lost, because the callback was not triggered by calling disconnect
                     Trace.Message($"Disconnected '{_device.Name}' by lost connection");
 
-                    _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
+                    lock (_adapter.ConnectedDeviceRegistryLock)
+                    {
+                        _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
+                    }
                     _adapter.HandleDisconnectedDevice(false, _device);
 
                     // inform pending tasks
@@ -128,7 +134,10 @@ namespace Plugin.BLE.Android
                     }
                     else
                     {
-                        _adapter.ConnectedDeviceRegistry[gatt.Device.Address] = _device;
+                        lock (_adapter.ConnectedDeviceRegistryLock)
+                        {
+                            _adapter.ConnectedDeviceRegistry[gatt.Device.Address] = _device;
+                        }
                         _adapter.HandleConnectedDevice(_device);
                     }
 
