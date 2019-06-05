@@ -53,6 +53,23 @@ Add this line to your manifest if you want to declare that your app is available
 <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
 ````
 
+**iOS**
+
+On iOS you must add the following keys to your `Info.plist`
+
+    <key>UIBackgroundModes</key>
+    <array>
+        <!--for connecting to devices (client)-->
+        <string>bluetooth-central</string>
+    
+        <!--for server configurations if needed-->
+        <string>bluetooth-peripheral</string>
+    </array>
+    
+    <!--Description of the Bluetooth request message (required on iOS 10)-->
+    <key>NSBluetoothPeripheralUsageDescription</key>
+    <string>YOUR CUSTOM MESSAGE</string>
+
 ## Sample app
 
 We provide a sample Xamarin.Forms app, that is a basic bluetooth LE scanner. With this app, it's possible to 
