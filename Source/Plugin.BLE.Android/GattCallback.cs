@@ -134,6 +134,11 @@ namespace Plugin.BLE.Android
                     }
                     else
                     {
+                        if (gatt.Device.Address == null || _device == null)
+                        {
+                            return;
+                        }
+
                         lock (_adapter.ConnectedDeviceRegistryLock)
                         {
                             _adapter.ConnectedDeviceRegistry[gatt.Device.Address] = _device;
