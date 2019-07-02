@@ -97,6 +97,14 @@
       <Project>{F479F7DB-CFA6-49E5-AA41-4FE6A4DA39B0}</Project>
       <Name>Plugin.BLE.Abstractions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\BC.Mobile.Logging\BC.Mobile.Logging.csproj">
+      <Project>{5D1E57AC-E909-4AF3-BD3D-331FF21893D7}</Project>
+      <Name>BC.Mobile.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BC.Mobile.Logging.iOS\BC.Mobile.Logging.iOS.csproj">
+      <Project>{E50D1817-B880-494B-BF32-9FDF2E21D1FC}</Project>
+      <Name>BC.Mobile.Logging.iOS</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

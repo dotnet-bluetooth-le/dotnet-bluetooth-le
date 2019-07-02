@@ -134,6 +134,12 @@ namespace Plugin.BLE.Android
                     }
                     else
                     {
+                        if (gatt.Device.Address == null || _device == null)
+                        {
+                            Trace.Info($"Address or device is null address is: {gatt.Device.Address} device is: {_device} GattStatus is: {status}");
+                            return;
+                        }
+
                         lock (_adapter.ConnectedDeviceRegistryLock)
                         {
                             _adapter.ConnectedDeviceRegistry[gatt.Device.Address] = _device;
