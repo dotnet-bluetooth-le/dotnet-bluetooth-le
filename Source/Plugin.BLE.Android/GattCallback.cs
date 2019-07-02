@@ -136,6 +136,7 @@ namespace Plugin.BLE.Android
                     {
                         if (gatt.Device.Address == null || _device == null)
                         {
+                            Trace.Info($"Address or device is null address is: {gatt.Device.Address} device is: {_device} GattStatus is: {status}");
                             return;
                         }
 
