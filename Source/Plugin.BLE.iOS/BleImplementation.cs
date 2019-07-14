@@ -10,6 +10,7 @@ namespace Plugin.BLE
     public class BleImplementation : BleImplementationBase
     {
         private static string _restorationIdentifier;
+        private static bool _showPowerAlert = true;
 
         private CBCentralManager _centralManager;
         private IBleCentralManagerDelegate _bleCentralManagerDelegate;
@@ -19,14 +20,17 @@ namespace Plugin.BLE
             _restorationIdentifier = restorationIdentifier;
         }
 
+        public static void ShowPowerAlert(bool showPowerAlert)
+        {
+            _showPowerAlert = showPowerAlert;
+        }
+
         protected override void InitializeNative()
         {
             var cmDelegate = new BleCentralManagerDelegate();
             _bleCentralManagerDelegate = cmDelegate;
 
-            var options = string.IsNullOrEmpty(_restorationIdentifier)
-                ? null
-                : new CBCentralInitOptions { RestoreIdentifier = _restorationIdentifier };
+            var options = CreateInitOptions();
 
             _centralManager = new CBCentralManager(cmDelegate, DispatchQueue.CurrentQueue, options);
             _bleCentralManagerDelegate.UpdatedState += (s, e) => State = GetState();
@@ -45,6 +49,11 @@ namespace Plugin.BLE
         private BluetoothState GetState()
         {
             return _centralManager.State.ToBluetoothState();
+        }
+
+        private CBCentralInitOptions CreateInitOptions()
+        {
+            return new CBCentralInitOptions { RestoreIdentifier = _restorationIdentifier, ShowPowerAlert = _showPowerAlert };
         }
     }
 }
