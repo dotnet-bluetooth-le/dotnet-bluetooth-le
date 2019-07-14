@@ -44,7 +44,7 @@ namespace BLE.Client.ViewModels
                 return;
             }
 
-            var navigation = Mvx.Resolve<IMvxNavigationService>();
+            var navigation = Mvx.IoCProvider.Resolve<IMvxNavigationService>();
             navigation.Close(this);
         }
 
@@ -100,7 +100,7 @@ namespace BLE.Client.ViewModels
                 await Descriptor.WriteAsync(data);
                 _userDialogs.HideLoading();
 
-                RaisePropertyChanged(() => DescriptorValue);
+                _ = RaisePropertyChanged(() => DescriptorValue);
                 Messages.Insert(0, $"Wrote value {DescriptorValue}");
             }
             catch (Exception ex)

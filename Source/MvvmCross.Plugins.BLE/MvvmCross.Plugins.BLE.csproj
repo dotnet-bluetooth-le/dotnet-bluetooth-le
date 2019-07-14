@@ -1,8 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>netstandard1.0</TargetFramework>
-        <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wpa81</PackageTargetFallback>
+        <TargetFramework>netstandard2.0</TargetFramework>
     </PropertyGroup>
+    <ItemGroup>
+      <PackageReference Include="MvvmCross" Version="6.3.1" />
+    </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\Plugin.BLE.Abstractions\Plugin.BLE.Abstractions.csproj" />
     </ItemGroup>

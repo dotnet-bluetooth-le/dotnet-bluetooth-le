@@ -11,7 +11,7 @@ using Plugin.Settings;
 
 namespace BLE.Client.Droid
 {
-    public class Setup : MvxFormsAndroidSetup<BleMvxApplication,BleMvxFormsApp>
+    public class Setup : MvxFormsAndroidSetup<BleMvxApplication, BleMvxFormsApp>
     {
         public override IEnumerable<Assembly> GetViewAssemblies()
         {
@@ -22,9 +22,9 @@ namespace BLE.Client.Droid
         {
             base.InitializeIoC();
 
-            Mvx.RegisterSingleton(() => UserDialogs.Instance);
-            Mvx.RegisterSingleton(() => CrossSettings.Current);
-            Mvx.RegisterSingleton(() => CrossPermissions.Current);
+            Mvx.IoCProvider.RegisterSingleton(() => UserDialogs.Instance);
+            Mvx.IoCProvider.RegisterSingleton(() => CrossSettings.Current);
+            Mvx.IoCProvider.RegisterSingleton(() => CrossPermissions.Current);
         }
     }
 }
