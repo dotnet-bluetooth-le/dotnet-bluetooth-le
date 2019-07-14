@@ -1,4 +1,4 @@
-**Looking for Maintainers**: Lately our time dedicated to supporting the library was indeed limited, we would greately appreciate any volunteer who would aid with maintaining this usefull plugin :). Please comment in issue #274 :) Thanks
+**Looking for Maintainers**: Lately our time dedicated to supporting the library was indeed limited, we would greatly appreciate any volunteer who would aid with maintaining this useful plugin :). Please comment in issue #274 :) Thanks
 
 # <img src="icon_small.png" width="71" height="71"/> Bluetooth LE plugin for Xamarin [![Build Status](https://www.bitrise.io/app/3fe54d0a5f43c2bf.svg?token=i9LUY4rIecZWd_3j7hwXgw)](https://www.bitrise.io/app/3fe54d0a5f43c2bf) 
 
@@ -52,6 +52,23 @@ Add this line to your manifest if you want to declare that your app is available
 ```xml
 <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
 ````
+
+**iOS**
+
+On iOS you must add the following keys to your `Info.plist`
+
+    <key>UIBackgroundModes</key>
+    <array>
+        <!--for connecting to devices (client)-->
+        <string>bluetooth-central</string>
+    
+        <!--for server configurations if needed-->
+        <string>bluetooth-peripheral</string>
+    </array>
+    
+    <!--Description of the Bluetooth request message (required on iOS 10)-->
+    <key>NSBluetoothPeripheralUsageDescription</key>
+    <string>YOUR CUSTOM MESSAGE</string>
 
 ## Sample app
 
@@ -144,9 +161,9 @@ catch(DeviceConnectionException e)
 ```
 
 #### Connect to known Device
-`ConnectToKnownDeviceAsync` can connect to a device by only passing a GUI. This means that if the device GUID is known no scan is neccessary to connect to a device. Very usefull for fast background reconnect.
+`ConnectToKnownDeviceAsync` can connect to a device with a given GUID. This means that if the device GUID is known, no scan is necessary to connect to a device. This can be very useful for a fast background reconnect.
 Always use a cancellation token with this method. 
-- On **iOS** it will attempt to connect indefinately, even if out of range, so the only way to cancel it is with the token.
+- On **iOS** it will attempt to connect indefinitely, even if out of range, so the only way to cancel it is with the token.
 - On **Android** this will throw a GATT ERROR in a couple of seconds if the device is out of range.
 
 ```csharp
@@ -237,14 +254,14 @@ foreach(var device in systemDevices)
 
 The BLE API implementation (especially on **Android**) has the following limitations:
 
-- *Characterisitc/Descriptor Write*: make sure you call characteristic.**WriteAsync**(...) from the **main thread**, failing to do so will most probably result in a GattWriteError.
-- *Sequential calls*: **Allways** wait for the previous ble command do finish before invoking the next. The Android API needs it's calls to be seriall, otherwise calls that do not wait for the previous ones will fail with some type of GattError. A more explicit example: if you call this in you view lifecycle (onAppearing etc) all these methods return **void** and 100% don't quarantee that any await bleCommand() called here will be truly awaited by other lifecycle methods.
-- *Scan wit services filter*: On **specifically Android 4.3** the *scan services filter does not work* (due to the underlying android implementation). For android 4.3 you will have to use a workaround and scan without filter and then manually filter by using the advertisment data (which contains the published service guids).
+- *Characteristic/Descriptor Write*: make sure you call characteristic.**WriteAsync**(...) from the **main thread**, failing to do so will most probably result in a GattWriteError.
+- *Sequential calls*: **Always** wait for the previous BLE command to finish before invoking the next. The Android API needs it's calls to be serial, otherwise calls that do not wait for the previous ones will fail with some type of GattError. A more explicit example: if you call this in your view lifecycle (onAppearing etc) all these methods return **void** and 100% don't quarantee that any await bleCommand() called here will be truly awaited by other lifecycle methods.
+- *Scan wit services filter*: On **specifically Android 4.3** the *scan services filter does not work* (due to the underlying android implementation). For android 4.3 you will have to use a workaround and scan without a filter and then manually filter by using the advertisement data (which contains the published service GUIDs).
 
 ## Best practice
 
 ### API
-- Surround Async API calls in try-catch blocks. Most BLE calls can/will throw an exception in cetain cases, this is especiialy true for Android. We will try to update the xml doc to reflect this.
+- Surround Async API calls in try-catch blocks. Most BLE calls can/will throw an exception in certain cases, this is especially true for Android. We will try to update the xml doc to reflect this.
 ```csharp
     try
     {

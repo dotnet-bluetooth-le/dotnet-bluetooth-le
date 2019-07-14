@@ -67,7 +67,7 @@ namespace Plugin.BLE.Abstractions
         public async Task<IService> GetServiceAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken))
         {
             var services = await GetServicesAsync(cancellationToken);
-            return services.FirstOrDefault(x => x.Id == id);
+            return services.ToList().FirstOrDefault(x => x.Id == id);
         }
 
         public async Task<int> RequestMtuAsync(int requestValue)
