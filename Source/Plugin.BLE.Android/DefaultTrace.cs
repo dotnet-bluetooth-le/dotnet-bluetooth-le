@@ -34,4 +34,5 @@ namespace Plugin.BLE
                 }
             };
         }
+    }
 }
