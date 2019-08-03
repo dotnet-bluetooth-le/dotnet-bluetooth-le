@@ -180,7 +180,7 @@ namespace Plugin.BLE.Abstractions
 
         public void HandleDiscoveredDevice(IDevice device)
         {
-            if (!_currentScanDeviceFilter(device))
+            if (_currentScanDeviceFilter != null && !_currentScanDeviceFilter(device))
                 return;
 
             DeviceAdvertised(this, new DeviceEventArgs { Device = device });
