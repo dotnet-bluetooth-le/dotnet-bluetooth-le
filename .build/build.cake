@@ -118,7 +118,7 @@ Task("Publish")
     .IsDependentOn("Pack")
     .Does(() =>
     {    
-        var packages = new [] { GetFiles(".build/nuget/Plugin.BLE*.nupkg").LastOrDefault(), GetFiles(".build/nuget/MvvmCross*.nupkg").LastOrDefault() };
+        var packages = new [] { GetFiles("nuget/Plugin.BLE*.nupkg").LastOrDefault(), GetFiles("nuget/MvvmCross*.nupkg").LastOrDefault() };
 
 		foreach(var nupack in packages)
         {
