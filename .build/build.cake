@@ -82,9 +82,10 @@ Task("Clean").Does (() =>
     CleanDirectories ("./**/obj");
 });
 
-Task("Version")
+// ./build.ps1 -Target UpdateVersion -newVersion="2.0.1"       
+Task("UpdateVersion")
    .Does(() => {
-    var version = Argument<string>("version", "");
+    var version = Argument<string>("newVersion", "");
     var cleanVersion = System.Text.RegularExpressions.Regex.Replace(version, @"[^\d\.].*$", "");
 
     if(string.IsNullOrEmpty(cleanVersion))
@@ -93,8 +94,8 @@ Task("Version")
     }
     
     ReplaceRegexInFiles("./**/AssemblyInfo.cs", "(?<=AssemblyVersion\\(\")(.+?)(?=\"\\))", cleanVersion);
-    ReplaceRegexInFiles("./**/*.nuspec", "<version>(.+?)</version>", cleanVersion);
-    ReplaceRegexInFiles("./**/*.nuspec", "<dependency id=\"Plugin.BLE\" version=\"(.+?)\" />", cleanVersion);
+    ReplaceRegexInFiles("./**/*.nuspec", "(?<=<version>)(.+?)(?=</version>)", cleanVersion);
+    ReplaceRegexInFiles("./**/*.nuspec", "(?<=<dependency id=\"Plugin.BLE\" version=\")(.+?)(?=\" />)", cleanVersion);
     
 });
 
