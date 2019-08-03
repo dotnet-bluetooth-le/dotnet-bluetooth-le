@@ -15,6 +15,10 @@
     <tags>xamarin monodroid Xamarin.iOS bluetooth BLE LE BTLE Smart xamarin.forms ios android forms xamarinforms</tags>
     <iconUrl>https://raw.githubusercontent.com/xabre/xamarin-bluetooth-le/master/icon_small.png</iconUrl>
     <releaseNotes>
+      [2.0.0]
+      - .NETStandard 2.0
+      - Merge PR #365 (NRE), #358, #359, #341, #314, #332, #331, #329, #307
+      - Update to package references/ update sample apps/ update libraries
       [2.0.0-pre1]
       - NETStandard 1.0
       - Merge PR #298, #289, #290, #263
@@ -43,16 +47,7 @@
       for older releases: https://github.com/xabre/xamarin-bluetooth-le/blob/master/doc/changelog.md
     </releaseNotes>
     <dependencies>
-      <group targetFramework="net">
-      </group>
-      <group targetFramework="win">
-      </group>
-      <group targetFramework="wp">
-      </group>
-      <group targetFramework="wpa">
-      </group>
-      <group targetFramework="netstandard1.0">
-        <dependency id="NETStandard.Library" version="1.6.1" />
+      <group targetFramework="netstandard2.0">
       </group>
       <group targetFramework="MonoAndroid">
       </group>
@@ -60,15 +55,7 @@
       </group>
       <group targetFramework="Xamarin.Mac20">
       </group>
-      <group targetFramework="portable-net45+win8+wpa81+wp8">
-      </group>
       <group targetFramework="uap">
-      </group>
-      <group targetFramework="dotnet">
-      </group>
-      <group targetFramework="xamarintvos">
-      </group>
-      <group targetFramework="xamarinwatchos">
       </group>
     </dependencies>
   </metadata>

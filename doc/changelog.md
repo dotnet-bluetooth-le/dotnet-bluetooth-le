@@ -1,6 +1,12 @@
 # Changelog
 ## 2.0.0
 
+#### 2.0.0
+- .NETStandard 2.0
+- Merge PR #365 (NRE), #358, #359, #341, #314, #332, #331, #329, #307
+- Update to package references/ update sample apps/ update libraries
+
+
 #### 2.0.0-pre1
 - .NETStandard 1.0 support
 - Merge PR #298, #289, #290, #263
