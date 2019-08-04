@@ -65,6 +65,7 @@ Task("Build")
     .Does(() =>
 {
     BuildProject("Plugin.BLE.Abstractions", "netstandard2.0");
+    BuildProject("Plugin.BLE", "netstandard2.0");
     BuildProject("Plugin.BLE.Android", "android");
     BuildProject("Plugin.BLE.iOS", "ios");
     BuildProject("Plugin.BLE.macOS", "macOS");
