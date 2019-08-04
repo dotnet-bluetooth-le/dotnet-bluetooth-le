@@ -89,7 +89,7 @@ Task("Clean").Does (() =>
 Task("UpdateVersion")
    .Does(() => {
     var version = Argument<string>("newVersion", "");
-    var cleanVersion = System.Text.RegularExpressions.Regex.Replace(version, @"[^\d\.].*$", "");
+    var cleanVersion = version; //TODO
 
     if(string.IsNullOrEmpty(cleanVersion))
     {

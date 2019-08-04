@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.0
+
+#### 2.1.0-pre.1
+- #54 macOS support
 
 ## 2.0.0
 
