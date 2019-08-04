@@ -7,13 +7,8 @@ using Plugin.Settings;
 
 namespace BLE.Client.macOS
 {
-    public class Setup : MvxFormsMacSetup
+    public class Setup : MvxFormsMacSetup<BleMvxApplication, BleMvxFormsApp>
     {
-        protected override IMvxApplication CreateApp()
-        {
-            return new BleMvxApplication();
-        }
-
         protected override void InitializeIoC()
         {
             base.InitializeIoC();
@@ -21,11 +16,6 @@ namespace BLE.Client.macOS
             Mvx.IoCProvider.RegisterSingleton(() => UserDialogs.Instance);
             Mvx.IoCProvider.RegisterSingleton(() => CrossSettings.Current);
             Mvx.IoCProvider.RegisterSingleton(() => CrossPermissions.Current);
-        }
-
-        protected override Xamarin.Forms.Application CreateFormsApplication()
-        {
-            return new BleMvxFormsApp();
         }
 
         /*

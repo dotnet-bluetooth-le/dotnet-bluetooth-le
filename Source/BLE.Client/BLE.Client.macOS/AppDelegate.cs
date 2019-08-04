@@ -8,7 +8,7 @@ using Xamarin.Forms.Platform.MacOS;
 namespace BLE.Client.macOS
 {
     [Register("AppDelegate")]
-    public class AppDelegate : MvxFormsApplicationDelegate
+    public class AppDelegate : MvxFormsApplicationDelegate<Setup, BleMvxApplication, BleMvxFormsApp>
     {
         public override NSWindow MainWindow { get; }
 
@@ -22,11 +22,6 @@ namespace BLE.Client.macOS
                 Title = "Xamarin.Forms Badge Plugin on Mac!",
                 TitleVisibility = NSWindowTitleVisibility.Hidden
             };
-        }
-
-        protected override void RegisterSetup()
-        {
-            this.RegisterSetupType<Setup>();
         }
     }
 }
