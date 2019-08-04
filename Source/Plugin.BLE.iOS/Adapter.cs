@@ -235,8 +235,16 @@ namespace Plugin.BLE.iOS
             {
                 var systemPeripherials = _centralManager.RetrieveConnectedPeripherals(new CBUUID[0]);
 
+#if __IOS__
                 var cbuuid = CBUUID.FromNSUuid(uuid);
-                peripherial = systemPeripherials.SingleOrDefault(p => p.UUID.Equals(cbuuid));
+#endif
+                peripherial = systemPeripherials.SingleOrDefault(p =>
+#if __IOS__
+                p.UUID.Equals(cbuuid)
+#else
+                 p.Identifier.Equals(uuid)
+#endif
+                );
 
                 if (peripherial == null)
                     throw new Exception($"[Adapter] Device {deviceGuid} not found.");
