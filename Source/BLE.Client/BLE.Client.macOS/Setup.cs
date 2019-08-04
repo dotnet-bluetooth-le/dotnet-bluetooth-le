@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
 using MvvmCross;
 using MvvmCross.Forms.Platforms.Mac.Core;
 using MvvmCross.ViewModels;
-using Plugin.BLE;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using Plugin.Settings;
@@ -21,11 +21,16 @@ namespace BLE.Client.macOS
         {
             base.InitializeIoC();
 
-            Mvx.IoCProvider.RegisterSingleton(() => CrossBluetoothLE.Current);
-            Mvx.IoCProvider.RegisterSingleton(() => CrossBluetoothLE.Current.Adapter);
+            // Mvx.IoCProvider.RegisterSingleton(() => CrossBluetoothLE.Current);
+            // Mvx.IoCProvider.RegisterSingleton(() => CrossBluetoothLE.Current.Adapter);
             Mvx.IoCProvider.RegisterSingleton(() => CrossSettings.Current);
             Mvx.IoCProvider.RegisterSingleton<IPermissions>(() => new PermissionMac());
             Mvx.IoCProvider.RegisterSingleton<IUserDialogs>(() => new UserDialogsMac());
+        }
+
+        public override IEnumerable<Assembly> GetPluginAssemblies()
+        {
+            return base.GetPluginAssemblies().Union(new[] { typeof(MvvmCross.Plugins.BLE.macOS.Plugin).Assembly });
         }
 
         /*
