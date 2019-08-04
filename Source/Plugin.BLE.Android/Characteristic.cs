@@ -114,6 +114,7 @@ namespace Plugin.BLE.Android
         protected override async Task StartUpdatesNativeAsync()
         {
             // wire up the characteristic value updating on the gattcallback for event forwarding
+            _gattCallback.CharacteristicValueUpdated -= OnCharacteristicValueChanged;
             _gattCallback.CharacteristicValueUpdated += OnCharacteristicValueChanged;
 
             if (!_gatt.SetCharacteristicNotification(_nativeCharacteristic, true))
@@ -123,10 +124,6 @@ namespace Plugin.BLE.Android
             // in its Client Characteristic Configuration Descriptor. See https://developer.bluetooth.org/gatt/descriptors/Pages/DescriptorsHomePage.aspx and
             // https://developer.bluetooth.org/gatt/descriptors/Pages/DescriptorViewer.aspx?u=org.bluetooth.descriptor.gatt.client_characteristic_configuration.xml
             // for details.
-
-            await Task.Delay(100);
-            // this might be because we need to wait on SetCharacteristicNotification ...maybe there alos is a callback for this?
-            //ToDo is this still needed?
 
             if (_nativeCharacteristic.Descriptors.Count > 0)
             {

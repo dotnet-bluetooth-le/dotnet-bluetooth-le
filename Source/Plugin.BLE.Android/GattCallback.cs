@@ -60,17 +60,17 @@ namespace Plugin.BLE.Android
                     // Close GATT regardless, else we can accumulate zombie gatts.
                     CloseGattInstances(gatt);
 
-					// If status == 19, then connection was closed by the peripheral device (clean disconnect), consider this as a DeviceDisconnected
-					if (_device.IsOperationRequested || (int)status == 19)
-					{
-						Trace.Message("Disconnected by user");
+                    // If status == 19, then connection was closed by the peripheral device (clean disconnect), consider this as a DeviceDisconnected
+                    if (_device.IsOperationRequested || (int)status == 19)
+                    {
+                        Trace.Message("Disconnected by user");
 
                         //Found so we can remove it
                         _device.IsOperationRequested = false;
                         _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
 
-						if (status != GattStatus.Success && (int)status != 19)
-						{
+                        if (status != GattStatus.Success && (int)status != 19)
+                        {
                             // The above error event handles the case where the error happened during a Connect call, which will close out any waiting asyncs.
                             // Android > 5.0 uses this switch branch when an error occurs during connect
                             Trace.Message($"Error while connecting '{_device.Name}'. Not raising disconnect event.");
@@ -101,7 +101,7 @@ namespace Plugin.BLE.Android
                 case ProfileState.Connected:
                     Trace.Message("Connected");
 
-                    //Check if the operation was requested by the user                    
+                    //Check if the operation was requested by the user
                     if (_device.IsOperationRequested)
                     {
                         _device.Update(gatt.Device, gatt);

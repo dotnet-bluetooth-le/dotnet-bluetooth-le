@@ -16,6 +16,7 @@ using Plugin.Settings.Abstractions;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross;
+using Xamarin.Forms;
 
 namespace BLE.Client.ViewModels
 {
@@ -74,7 +75,7 @@ namespace BLE.Client.ViewModels
             {
                 if (_useAutoConnect == value)
                     return;
-                
+
                 _useAutoConnect = value;
                 RaisePropertyChanged();
             }
@@ -225,7 +226,7 @@ namespace BLE.Client.ViewModels
 
         private async void TryStartScanning(bool refresh = false)
         {
-            if (Xamarin.Forms.Device.OS == Xamarin.Forms.TargetPlatform.Android)
+            if (Xamarin.Forms.Device.RuntimePlatform == Device.Android)
             {
                 var status = await _permissions.CheckPermissionStatusAsync(Permission.Location);
                 if (status != PermissionStatus.Granted)
@@ -235,6 +236,7 @@ namespace BLE.Client.ViewModels
                     if (permissionResult.First().Value != PermissionStatus.Granted)
                     {
                         await _userDialogs.AlertAsync("Permission denied. Not scanning.");
+                        _permissions.OpenAppSettings();
                         return;
                     }
                 }
@@ -327,6 +329,11 @@ namespace BLE.Client.ViewModels
                         _userDialogs.HideLoading();
                         await _userDialogs.AlertAsync($"Failed to update rssi. Exception: {ex.Message}");
                     }
+                });
+
+                config.Add("Show Services", async () =>
+                {
+                    await Mvx.Resolve<IMvxNavigationService>().Navigate<ServiceListViewModel, MvxBundle>(new MvxBundle(new Dictionary<string, string> { { DeviceIdKey, device.Device.Id.ToString() } }));
                 });
 
                 config.Destructive = new ActionSheetOption("Disconnect", () => DisconnectCommand.Execute(device));
@@ -436,7 +443,7 @@ namespace BLE.Client.ViewModels
             }
             catch (Exception ex)
             {
-                _userDialogs.ErrorToast(string.Empty,ex.Message, TimeSpan.FromSeconds(5000));
+                _userDialogs.ErrorToast(string.Empty, ex.Message, TimeSpan.FromSeconds(5000));
                 return;
             }
         }

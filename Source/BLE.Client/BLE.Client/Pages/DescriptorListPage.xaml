@@ -8,7 +8,7 @@
              Title="Descriptors">
   <ListView ItemsSource="{Binding Descriptors}"
             SelectedItem="{Binding SelectedDescriptor, Mode=TwoWay}"
-            RowHeight="70"
+            HasUnevenRows="True"
             SeparatorVisibility="Default"
             SeparatorColor="Gray"
             CachingStrategy="RecycleElement">

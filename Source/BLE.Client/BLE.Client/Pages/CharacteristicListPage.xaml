@@ -8,7 +8,7 @@
              Title="Characteristics">
   <ListView ItemsSource="{Binding Characteristics}"
             SelectedItem="{Binding SelectedCharacteristic, Mode=TwoWay}"
-            RowHeight="70"
+            HasUnevenRows="True"
             SeparatorVisibility="Default"
             SeparatorColor="Gray"
             CachingStrategy="RecycleElement">
