@@ -53,7 +53,7 @@
       </group>
       <group targetFramework="Xamarin.iOS10">
       </group>
-      <group targetFramework="Xamarin.Mac20">
+      <group targetFramework="xamarinmac20">
       </group>
       <group targetFramework="uap">
       </group>
@@ -66,5 +66,7 @@
     <file src="out\lib\android\Plugin.BLE.*" target="lib\MonoAndroid" />
     <!-- iOS -->
     <file src="out\lib\ios\Plugin.BLE.*" target="lib\Xamarin.iOS10" />
+    <!-- macOS -->
+    <file src="out\lib\macOS\Plugin.BLE.*" target="lib\xamarinmac20" />
   </files>
 </package>
