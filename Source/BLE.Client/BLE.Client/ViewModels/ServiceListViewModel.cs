@@ -15,7 +15,7 @@ namespace BLE.Client.ViewModels
 
         private IDevice _device;
 
-        public IList<IService> Services { get; private set; }
+        public IReadOnlyList<IService> Services { get; private set; }
         public ServiceListViewModel(IAdapter adapter, IUserDialogs userDialogs, IMvxNavigationService navigation) : base(adapter)
         {
             _userDialogs = userDialogs;
@@ -64,7 +64,7 @@ namespace BLE.Client.ViewModels
 
         public IService SelectedService
         {
-            get { return null; }
+            get => null;
             set
             {
                 if (value != null)

@@ -12,12 +12,12 @@ namespace BLE.Client.ViewModels
         private readonly IUserDialogs _userDialogs;
         private readonly IMvxNavigationService _navigation;
         private IService _service;
-        private IList<ICharacteristic> _characteristics;
+        private IReadOnlyList<ICharacteristic> _characteristics;
 
-        public IList<ICharacteristic> Characteristics
+        public IReadOnlyList<ICharacteristic> Characteristics
         {
-            get { return _characteristics; }
-            private set { SetProperty(ref _characteristics, value); }
+            get => _characteristics;
+            private set => SetProperty(ref _characteristics, value);
         }
 
         public CharacteristicListViewModel(IAdapter adapter, IUserDialogs userDialogs, IMvxNavigationService navigation) : base(adapter)
@@ -65,7 +65,7 @@ namespace BLE.Client.ViewModels
 
         public ICharacteristic SelectedCharacteristic
         {
-            get { return null; }
+            get => null;
             set
             {
                 if (value != null)

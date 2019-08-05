@@ -22,7 +22,7 @@ namespace BLE.Client.ViewModels
         public BaseViewModel(IAdapter adapter)
         {
             Adapter = adapter;
-            _log = Mvx.Resolve<IMvxLog>();
+            _log = Mvx.IoCProvider.Resolve<IMvxLog>();
         }
 
         public override void ViewAppeared()

@@ -73,7 +73,7 @@ namespace Plugin.BLE.Android
                unsubscribeComplete: handler => _gattCallback.DescriptorValueRead -= handler,
                getRejectHandler: reject => ((sender, args) =>
                {
-                   reject(new Exception($"Device '{Characteristic.Service.Device.Id}' disconnected while reading descripor with {Id}."));
+                   reject(new Exception($"Device '{Characteristic.Service.Device.Id}' disconnected while reading descriptor with {Id}."));
                }),
                subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
                unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler);

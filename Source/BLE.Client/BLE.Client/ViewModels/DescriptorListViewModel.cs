@@ -10,7 +10,7 @@ namespace BLE.Client.ViewModels
         private readonly IMvxNavigationService _navigation;
         private ICharacteristic _characteristic;
 
-        public IList<IDescriptor> Descriptors { get; private set;}
+        public IReadOnlyList<IDescriptor> Descriptors { get; private set;}
 
         public DescriptorListViewModel(IAdapter adapter, IMvxNavigationService navigation) : base(adapter)
         {
@@ -35,14 +35,18 @@ namespace BLE.Client.ViewModels
             base.Prepare(parameters);
 
             _characteristic = await GetCharacteristicFromBundleAsync(parameters);
+            if (_characteristic == null)
+            {
+                return;
+            }
 
-            Descriptors = await _characteristic?.GetDescriptorsAsync();
+            Descriptors = await _characteristic.GetDescriptorsAsync();
             RaisePropertyChanged(nameof(Descriptors));
         }
 
         public IDescriptor SelectedDescriptor
         {
-            get { return null; }
+            get => null;
             set
             {
                 if (value != null)

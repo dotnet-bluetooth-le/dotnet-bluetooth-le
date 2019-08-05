@@ -49,11 +49,11 @@ namespace Plugin.BLE.iOS
             _bleCentralManagerDelegate = bleCentralManagerDelegate;
         }
 
-        protected override Task<IList<IDescriptor>> GetDescriptorsNativeAsync()
+        protected override Task<IReadOnlyList<IDescriptor>> GetDescriptorsNativeAsync()
         {
             var exception = new Exception($"Device '{Service.Device.Id}' disconnected while fetching descriptors for characteristic with {Id}.");
 
-            return TaskBuilder.FromEvent<IList<IDescriptor>, EventHandler<CBCharacteristicEventArgs>, EventHandler<CBPeripheralErrorEventArgs>>(
+            return TaskBuilder.FromEvent<IReadOnlyList<IDescriptor>, EventHandler<CBCharacteristicEventArgs>, EventHandler<CBPeripheralErrorEventArgs>>(
                 execute: () =>
                 {
                     if (_parentDevice.State != CBPeripheralState.Connected)

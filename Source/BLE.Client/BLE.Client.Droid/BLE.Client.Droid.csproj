@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="LinkerPleaseInclude.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="MainApplication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Setup.cs" />
@@ -99,6 +100,10 @@
     <ProjectReference Include="..\..\MvvmCross.Plugins.BLE\MvvmCross.Plugins.BLE.csproj">
       <Project>{83f1dffb-a653-45dd-be81-c02374c6db07}</Project>
       <Name>MvvmCross.Plugins.BLE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Plugin.BLE.Android\Plugin.BLE.Android.csproj">
+      <Project>{80c10c11-6fcb-4038-b029-a700039e8f99}</Project>
+      <Name>Plugin.BLE.Android</Name>
     </ProjectReference>
     <ProjectReference Include="..\BLE.Client\BLE.Client.csproj">
       <Name>BLE.Client</Name>

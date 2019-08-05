@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Plugin.BLE.Abstractions.Contracts;
@@ -11,38 +13,39 @@ namespace Plugin.BLE.Abstractions
 {
     public abstract class AdapterBase : IAdapter
     {
+        private readonly ConcurrentDictionary<Guid, IDevice> _discoveredDevices = new ConcurrentDictionary<Guid, IDevice>();
+
         private CancellationTokenSource _scanCancellationTokenSource;
-        private readonly IList<IDevice> _discoveredDevices;
         private volatile bool _isScanning;
         private Func<IDevice, bool> _currentScanDeviceFilter;
 
-        public event EventHandler<DeviceEventArgs> DeviceAdvertised = delegate { };
-        public event EventHandler<DeviceEventArgs> DeviceDiscovered = delegate { };
-        public event EventHandler<DeviceEventArgs> DeviceConnected = delegate { };
-        public event EventHandler<DeviceEventArgs> DeviceDisconnected = delegate { };
-        public event EventHandler<DeviceErrorEventArgs> DeviceConnectionLost = delegate { };
-        public event EventHandler<DeviceErrorEventArgs> DeviceConnectionError = delegate { };
-        public event EventHandler ScanTimeoutElapsed = delegate { };
+        public event EventHandler<DeviceEventArgs> DeviceAdvertised;
+        public event EventHandler<DeviceEventArgs> DeviceDiscovered;
+        public event EventHandler<DeviceEventArgs> DeviceConnected;
+        public event EventHandler<DeviceEventArgs> DeviceDisconnected;
+        public event EventHandler<DeviceErrorEventArgs> DeviceConnectionLost;
+        public event EventHandler<DeviceErrorEventArgs> DeviceConnectionError;
+        public event EventHandler ScanTimeoutElapsed;
 
         public bool IsScanning
         {
-            get { return _isScanning; }
-            private set { _isScanning = value; }
+            get => _isScanning;
+            private set => _isScanning = value;
         }
 
         public int ScanTimeout { get; set; } = 10000;
         public ScanMode ScanMode { get; set; } = ScanMode.LowPower;
 
-        public virtual IList<IDevice> DiscoveredDevices => _discoveredDevices;
+        public virtual IReadOnlyList<IDevice> DiscoveredDevices => _discoveredDevices.Values.ToList();
 
-        public abstract IList<IDevice> ConnectedDevices { get; }
+        /// <summary>
+        /// Used to store all connected devices
+        /// </summary>
+        public ConcurrentDictionary<string, IDevice> ConnectedDeviceRegistry { get; } = new ConcurrentDictionary<string, IDevice>();
 
-        protected AdapterBase()
-        {
-            _discoveredDevices = new List<IDevice>();
-        }
+        public IReadOnlyList<IDevice> ConnectedDevices => ConnectedDeviceRegistry.Values.ToList();
 
-        public async Task StartScanningForDevicesAsync(Guid[] serviceUuids = null, Func<IDevice, bool> deviceFilter = null, bool allowDuplicatesKey = false, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task StartScanningForDevicesAsync(Guid[] serviceUuids = null, Func<IDevice, bool> deviceFilter = null, bool allowDuplicatesKey = false, CancellationToken cancellationToken = default)
         {
             if (IsScanning)
             {
@@ -57,13 +60,15 @@ namespace Plugin.BLE.Abstractions
 
             try
             {
+                _discoveredDevices.Clear();
+
                 using (cancellationToken.Register(() => _scanCancellationTokenSource?.Cancel()))
                 {
                     await StartScanningForDevicesNativeAsync(serviceUuids, allowDuplicatesKey, _scanCancellationTokenSource.Token);
                     await Task.Delay(ScanTimeout, _scanCancellationTokenSource.Token);
                     Trace.Message("Adapter: Scan timeout has elapsed.");
                     CleanupScan();
-                    ScanTimeoutElapsed(this, new System.EventArgs());
+                    ScanTimeoutElapsed?.Invoke(this, new System.EventArgs());
                 }
             }
             catch (TaskCanceledException)
@@ -87,7 +92,7 @@ namespace Plugin.BLE.Abstractions
             return Task.FromResult(0);
         }
 
-        public async Task ConnectToDeviceAsync(IDevice device, ConnectParameters connectParameters = default(ConnectParameters), CancellationToken cancellationToken = default(CancellationToken))
+        public async Task ConnectToDeviceAsync(IDevice device, ConnectParameters connectParameters = default, CancellationToken cancellationToken = default)
         {
             if (device == null)
                 throw new ArgumentNullException(nameof(device));
@@ -183,19 +188,19 @@ namespace Plugin.BLE.Abstractions
             if (_currentScanDeviceFilter != null && !_currentScanDeviceFilter(device))
                 return;
 
-            DeviceAdvertised(this, new DeviceEventArgs { Device = device });
+            DeviceAdvertised?.Invoke(this, new DeviceEventArgs { Device = device });
 
             // TODO (sms): check equality implementation of device
-            if (_discoveredDevices.Contains(device))
+            if (_discoveredDevices.ContainsKey(device.Id))
                 return;
 
-            _discoveredDevices.Add(device);
-            DeviceDiscovered(this, new DeviceEventArgs { Device = device });
+            _discoveredDevices[device.Id] = device;
+            DeviceDiscovered?.Invoke(this, new DeviceEventArgs { Device = device });
         }
 
         public void HandleConnectedDevice(IDevice device)
         {
-            DeviceConnected(this, new DeviceEventArgs { Device = device });
+            DeviceConnected?.Invoke(this, new DeviceEventArgs { Device = device });
         }
 
         public void HandleDisconnectedDevice(bool disconnectRequested, IDevice device)
@@ -203,16 +208,16 @@ namespace Plugin.BLE.Abstractions
             if (disconnectRequested)
             {
                 Trace.Message("DisconnectedPeripheral by user: {0}", device.Name);
-                DeviceDisconnected(this, new DeviceEventArgs { Device = device });
+                DeviceDisconnected?.Invoke(this, new DeviceEventArgs { Device = device });
             }
             else
             {
                 Trace.Message("DisconnectedPeripheral by lost signal: {0}", device.Name);
-                DeviceConnectionLost(this, new DeviceErrorEventArgs { Device = device });
+                DeviceConnectionLost?.Invoke(this, new DeviceErrorEventArgs { Device = device });
 
-                if (DiscoveredDevices.Contains(device))
+                if (_discoveredDevices.TryRemove(device.Id, out _))
                 {
-                    DiscoveredDevices.Remove(device);
+                    Trace.Message("Removed device from discovered devices list: {0}", device.Name);
                 }
             }
         }
@@ -220,7 +225,7 @@ namespace Plugin.BLE.Abstractions
         public void HandleConnectionFail(IDevice device, string errorMessage)
         {
             Trace.Message("Failed to connect peripheral {0}: {1}", device.Id, device.Name);
-            DeviceConnectionError(this, new DeviceErrorEventArgs
+            DeviceConnectionError?.Invoke(this, new DeviceErrorEventArgs
             {
                 Device = device,
                 ErrorMessage = errorMessage
@@ -232,7 +237,7 @@ namespace Plugin.BLE.Abstractions
         protected abstract Task ConnectToDeviceNativeAsync(IDevice device, ConnectParameters connectParameters, CancellationToken cancellationToken);
         protected abstract void DisconnectDeviceNative(IDevice device);
 
-        public abstract Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters = default(ConnectParameters), CancellationToken cancellationToken = default(CancellationToken));
-        public abstract List<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null);
+        public abstract Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters = default, CancellationToken cancellationToken = default);
+        public abstract IReadOnlyList<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null);
     }
 }

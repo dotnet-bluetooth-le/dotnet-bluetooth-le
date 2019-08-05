@@ -82,7 +82,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <returns>A task that represents the asynchronous read operation. The Result property will contain the read bytes.</returns>
         /// <exception cref="InvalidOperationException">Thrown if characteristic doesn't support read. See: <see cref="CanRead"/></exception>
         /// <exception cref="CharacteristicReadException">Thrown if the reading of the value failed.</exception>
-        Task<byte[]> ReadAsync(CancellationToken cancellationToken = default(CancellationToken));
+        Task<byte[]> ReadAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Sends <paramref name="data"/> as characteristic value to the device.
@@ -97,7 +97,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// </returns>
         /// <exception cref="InvalidOperationException">Thrown if characteristic doesn't support write. See: <see cref="CanWrite"/></exception>
         /// <exception cref="ArgumentNullException">Thrwon if <paramref name="data"/> is null.</exception>
-        Task<bool> WriteAsync(byte[] data, CancellationToken cancellationToken = default(CancellationToken));
+        Task<bool> WriteAsync(byte[] data, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Starts listening for notify events on this characteristic.
@@ -117,7 +117,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns>A task that represents the asynchronous read operation. The Result property will contain a list of descriptors.</returns> 
-        Task<IList<IDescriptor>> GetDescriptorsAsync(CancellationToken cancellationToken = default(CancellationToken));
+        Task<IReadOnlyList<IDescriptor>> GetDescriptorsAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets the first descriptor with the Id <paramref name="id"/>. 
@@ -129,7 +129,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// The Result property will contain the descriptor with the specified <paramref name="id"/>.
         /// If the descriptor doesn't exist, the Result will be null.
         /// </returns>
-        Task<IDescriptor> GetDescriptorAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken));
+        Task<IDescriptor> GetDescriptorAsync(Guid id, CancellationToken cancellationToken = default);
     }
 }
 

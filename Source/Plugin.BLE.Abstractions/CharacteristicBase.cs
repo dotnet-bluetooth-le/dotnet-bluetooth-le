@@ -11,7 +11,7 @@ namespace Plugin.BLE.Abstractions
 {
     public abstract class CharacteristicBase : ICharacteristic
     {
-        private IList<IDescriptor> _descriptors;
+        private IReadOnlyList<IDescriptor> _descriptors;
         private CharacteristicWriteType _writeType = CharacteristicWriteType.Default;
 
         public abstract event EventHandler<CharacteristicUpdatedEventArgs> ValueUpdated;
@@ -25,7 +25,7 @@ namespace Plugin.BLE.Abstractions
 
         public CharacteristicWriteType WriteType
         {
-            get { return _writeType; }
+            get => _writeType;
             set
             {
                 if (value == CharacteristicWriteType.WithResponse && !Properties.HasFlag(CharacteristicPropertyType.Write) ||
@@ -63,7 +63,7 @@ namespace Plugin.BLE.Abstractions
             Service = service;
         }
 
-        public async Task<byte[]> ReadAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<byte[]> ReadAsync(CancellationToken cancellationToken = default)
         {
             if (!CanRead)
             {
@@ -74,7 +74,7 @@ namespace Plugin.BLE.Abstractions
             return await ReadNativeAsync();
         }
 
-        public async Task<bool> WriteAsync(byte[] data, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<bool> WriteAsync(byte[] data, CancellationToken cancellationToken = default)
         {
             if (data == null)
             {
@@ -123,20 +123,18 @@ namespace Plugin.BLE.Abstractions
             return StopUpdatesNativeAsync();
         }
 
-        public async Task<IList<IDescriptor>> GetDescriptorsAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<IReadOnlyList<IDescriptor>> GetDescriptorsAsync(CancellationToken cancellationToken = default)
         {
-            if (_descriptors == null)
-                _descriptors = await GetDescriptorsNativeAsync();
-            return _descriptors;
+            return _descriptors ?? (_descriptors = await GetDescriptorsNativeAsync());
         }
 
-        public async Task<IDescriptor> GetDescriptorAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<IDescriptor> GetDescriptorAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            var descriptors = await GetDescriptorsAsync().ConfigureAwait(false);
+            var descriptors = await GetDescriptorsAsync(cancellationToken).ConfigureAwait(false);
             return descriptors.FirstOrDefault(d => d.Id == id);
         }
 
-        protected abstract Task<IList<IDescriptor>> GetDescriptorsNativeAsync();
+        protected abstract Task<IReadOnlyList<IDescriptor>> GetDescriptorsNativeAsync();
         protected abstract Task<byte[]> ReadNativeAsync();
         protected abstract Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType);
         protected abstract Task StartUpdatesNativeAsync();
