@@ -46,11 +46,11 @@ namespace Plugin.BLE.iOS
             Trace.Message("Device changed name: {0}", Name);
         }
 
-        protected override Task<IEnumerable<IService>> GetServicesNativeAsync()
+        protected override Task<IReadOnlyList<IService>> GetServicesNativeAsync()
         {
             var exception = new Exception($"Device {Name} disconnected while fetching services.");
 
-            return TaskBuilder.FromEvent<IEnumerable<IService>, EventHandler<NSErrorEventArgs>, EventHandler<CBPeripheralErrorEventArgs>>(
+            return TaskBuilder.FromEvent<IReadOnlyList<IService>, EventHandler<NSErrorEventArgs>, EventHandler<CBPeripheralErrorEventArgs>>(
                execute: () =>
                {
                    if (_nativeDevice.State != CBPeripheralState.Connected)

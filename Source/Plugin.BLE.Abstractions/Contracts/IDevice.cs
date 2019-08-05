@@ -52,7 +52,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns>A task that represents the asynchronous read operation. The Result property will contain a list of all available services.</returns>
-        Task<IList<IService>> GetServicesAsync(CancellationToken cancellationToken = default(CancellationToken));
+        Task<IReadOnlyList<IService>> GetServicesAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets the first service with the Id <paramref name="id"/>. 
@@ -64,7 +64,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// The Result property will contain the service with the specified <paramref name="id"/>.
         /// If the service doesn't exist, the Result will be null.
         /// </returns>
-        Task<IService> GetServiceAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken));
+        Task<IService> GetServiceAsync(Guid id, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Updates the rssi value.

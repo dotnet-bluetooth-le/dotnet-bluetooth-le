@@ -67,7 +67,7 @@ namespace Plugin.BLE.Android
 
                         //Found so we can remove it
                         _device.IsOperationRequested = false;
-                        _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
+                        _adapter.ConnectedDeviceRegistry.TryRemove(gatt.Device.Address, out _);
 
                         if (status != GattStatus.Success && (int)status != 19)
                         {
@@ -87,7 +87,7 @@ namespace Plugin.BLE.Android
                     //connection must have been lost, because the callback was not triggered by calling disconnect
                     Trace.Message($"Disconnected '{_device.Name}' by lost connection");
 
-                    _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
+                    _adapter.ConnectedDeviceRegistry.TryRemove(gatt.Device.Address, out _);
                     _adapter.HandleDisconnectedDevice(false, _device);
 
                     // inform pending tasks
@@ -174,6 +174,8 @@ namespace Plugin.BLE.Android
         public override void OnCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic)
         {
             base.OnCharacteristicChanged(gatt, characteristic);
+
+            Trace.Message("OnCharacteristicChanged: value {0}", characteristic.GetValue().ToHexString());
 
             CharacteristicValueUpdated?.Invoke(this, new CharacteristicReadCallbackEventArgs(characteristic));
         }

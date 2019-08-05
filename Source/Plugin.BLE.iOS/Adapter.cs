@@ -22,10 +22,6 @@ namespace Plugin.BLE.iOS
         /// Helps to detect connection lost events.
         /// </summary>
         private readonly IDictionary<string, IDevice> _deviceOperationRegistry = new ConcurrentDictionary<string, IDevice>();
-        private readonly IDictionary<string, IDevice> _deviceConnectionRegistry = new ConcurrentDictionary<string, IDevice>();
-
-        public override IList<IDevice> ConnectedDevices => _deviceConnectionRegistry.Values.ToList();
-
 
         public Adapter(CBCentralManager centralManager, IBleCentralManagerDelegate bleCentralManagerDelegate)
         {
@@ -57,12 +53,13 @@ namespace Plugin.BLE.iOS
                 //notify subscribers about disconnection
                 if (_centralManager.State == CBCentralManagerState.PoweredOff)
                 {
-                    foreach (var device in _deviceConnectionRegistry.Values.ToList())
+                    foreach (var device in ConnectedDeviceRegistry.Values.ToList())
                     {
-                        _deviceConnectionRegistry.Remove(device.Id.ToString());
                         ((Device)device).ClearServices();
                         HandleDisconnectedDevice(false, device);
                     }
+
+                    ConnectedDeviceRegistry.Clear();
                 }
             };
 
@@ -85,7 +82,7 @@ namespace Plugin.BLE.iOS
                     device = new Device(this, e.Peripheral, _bleCentralManagerDelegate);
                 }
 
-                _deviceConnectionRegistry[guid] = device;
+                ConnectedDeviceRegistry[guid] = device;
                 HandleConnectedDevice(device);
             };
 
@@ -108,16 +105,16 @@ namespace Plugin.BLE.iOS
                     _deviceOperationRegistry.Remove(stringId);
                 }
 
-				// check if it is a peripheral disconnection, which would be treated as normal
-				if(e.Error != null && e.Error.Code == 7 && e.Error.Domain == "CBErrorDomain")
-				{
-					isNormalDisconnect = true;
-				}
+                // check if it is a peripheral disconnection, which would be treated as normal
+                if (e.Error != null && e.Error.Code == 7 && e.Error.Domain == "CBErrorDomain")
+                {
+                    isNormalDisconnect = true;
+                }
 
                 // remove from connected devices
-                if (_deviceConnectionRegistry.TryGetValue(stringId, out foundDevice))
+                if (!ConnectedDeviceRegistry.TryRemove(stringId, out foundDevice))
                 {
-                    _deviceConnectionRegistry.Remove(stringId);
+                    Trace.Message($"Failed to remove {foundDevice.Id}-{foundDevice.Name} from device connected registry");
                 }
 
                 foundDevice = foundDevice ?? new Device(this, e.Peripheral, _bleCentralManagerDelegate);
@@ -164,7 +161,6 @@ namespace Plugin.BLE.iOS
                 Trace.Message("Adapter: Scanning for " + serviceCbuuids.First());
             }
 
-            DiscoveredDevices.Clear();
             _centralManager.ScanForPeripherals(serviceCbuuids, new PeripheralScanningOptions { AllowDuplicatesKey = allowDuplicatesKey });
         }
 
@@ -249,7 +245,7 @@ namespace Plugin.BLE.iOS
             return device;
         }
 
-        public override List<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null)
+        public override IReadOnlyList<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null)
         {
             CBUUID[] serviceUuids = null;
             if (services != null)

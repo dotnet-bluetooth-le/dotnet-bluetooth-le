@@ -60,7 +60,7 @@ namespace BLE.Client.ViewModels
                 return;
             }
 
-            var navigation = Mvx.Resolve<IMvxNavigationService>();
+            var navigation = Mvx.IoCProvider.Resolve<IMvxNavigationService>();
             navigation.Close(this);
         }
         public override void ViewDisappeared()

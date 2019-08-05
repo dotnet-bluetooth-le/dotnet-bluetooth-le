@@ -1,3 +1,4 @@
+using MvvmCross.IoC;
 using MvvmCross.Logging;
 using MvvmCross.Plugin;
 using Plugin.BLE;
@@ -12,14 +13,14 @@ namespace MvvmCross.Plugins.BLE.Droid
     {
         public Plugin()
         {
-            var log = Mvx.Resolve<IMvxLog>();
+            var log = Mvx.IoCProvider.Resolve<IMvxLog>();
             Trace.TraceImplementation = log.Trace;
         }
         public void Load()
         {
             Trace.Message("Loading bluetooth low energy plugin");
-            Mvx.LazyConstructAndRegisterSingleton<IBluetoothLE>(() => CrossBluetoothLE.Current);
-            Mvx.LazyConstructAndRegisterSingleton<IAdapter>(() => Mvx.Resolve<IBluetoothLE>().Adapter);
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IBluetoothLE>(() => CrossBluetoothLE.Current);
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IAdapter>(() => Mvx.IoCProvider.Resolve<IBluetoothLE>().Adapter);
         }
     }
 }

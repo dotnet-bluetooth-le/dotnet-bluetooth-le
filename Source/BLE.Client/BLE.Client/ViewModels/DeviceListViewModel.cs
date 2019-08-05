@@ -30,7 +30,7 @@ namespace BLE.Client.ViewModels
 
         public Guid PreviousGuid
         {
-            get { return _previousGuid; }
+            get => _previousGuid;
             set
             {
                 _previousGuid = value;
@@ -51,7 +51,7 @@ namespace BLE.Client.ViewModels
         public string StateText => GetStateText();
         public DeviceListItemViewModel SelectedDevice
         {
-            get { return null; }
+            get => null;
             set
             {
                 if (value != null)
@@ -66,10 +66,7 @@ namespace BLE.Client.ViewModels
         bool _useAutoConnect;
         public bool UseAutoConnect
         {
-            get
-            {
-                return _useAutoConnect;
-            }
+            get => _useAutoConnect;
 
             set
             {
@@ -224,7 +221,7 @@ namespace BLE.Client.ViewModels
             RaisePropertyChanged(() => IsRefreshing);
         }
 
-        private async void TryStartScanning(bool refresh = false)
+        private async void  TryStartScanning(bool refresh = false)
         {
             if (Xamarin.Forms.Device.RuntimePlatform == Device.Android)
             {
@@ -333,7 +330,7 @@ namespace BLE.Client.ViewModels
 
                 config.Add("Show Services", async () =>
                 {
-                    await Mvx.Resolve<IMvxNavigationService>().Navigate<ServiceListViewModel, MvxBundle>(new MvxBundle(new Dictionary<string, string> { { DeviceIdKey, device.Device.Id.ToString() } }));
+                    await Mvx.IoCProvider.Resolve<IMvxNavigationService>().Navigate<ServiceListViewModel, MvxBundle>(new MvxBundle(new Dictionary<string, string> { { DeviceIdKey, device.Device.Id.ToString() } }));
                 });
 
                 config.Destructive = new ActionSheetOption("Disconnect", () => DisconnectCommand.Execute(device));
@@ -344,7 +341,7 @@ namespace BLE.Client.ViewModels
                 {
                     if (await ConnectDeviceAsync(device))
                     {
-                        var navigation = Mvx.Resolve<IMvxNavigationService>();
+                        var navigation = Mvx.IoCProvider.Resolve<IMvxNavigationService>();
                         await navigation.Navigate<ServiceListViewModel, MvxBundle>(new MvxBundle(new Dictionary<string, string> { { DeviceIdKey, device.Device.Id.ToString() } }));
                     }
                 });
@@ -501,6 +498,8 @@ namespace BLE.Client.ViewModels
             Devices.FirstOrDefault(d => d.Id == e.Device.Id)?.Update();
             _userDialogs.HideLoading();
             _userDialogs.Toast($"Disconnected {e.Device.Name}");
+
+            Console.WriteLine($"Disconnected {e.Device.Name}");
         }
 
         public MvxCommand<DeviceListItemViewModel> CopyGuidCommand => new MvxCommand<DeviceListItemViewModel>(device =>

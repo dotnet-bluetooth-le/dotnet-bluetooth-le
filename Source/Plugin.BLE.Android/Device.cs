@@ -62,18 +62,18 @@ namespace Plugin.BLE.Android
         public override object NativeDevice => BluetoothDevice;
         internal bool IsOperationRequested { get; set; }
 
-        protected override async Task<IEnumerable<IService>> GetServicesNativeAsync()
+        protected override async Task<IReadOnlyList<IService>> GetServicesNativeAsync()
         {
             if (_gattCallback == null || _gatt == null)
             {
-                return Enumerable.Empty<IService>();
+                return new List<IService>();
             }
 
-            return await TaskBuilder.FromEvent<IEnumerable<IService>, EventHandler<ServicesDiscoveredCallbackEventArgs>, EventHandler>(
+            return await TaskBuilder.FromEvent<IReadOnlyList<IService>, EventHandler<ServicesDiscoveredCallbackEventArgs>, EventHandler>(
                 execute: () => _gatt.DiscoverServices(),
                 getCompleteHandler: (complete, reject) => ((sender, args) =>
                 {
-                    complete(_gatt.Services.Select(service => new Service(service, _gatt, _gattCallback, this)));
+                    complete(_gatt.Services.Select(service => new Service(service, _gatt, _gattCallback, this)).ToList());
                 }),
                 subscribeComplete: handler => _gattCallback.ServicesDiscovered += handler,
                 unsubscribeComplete: handler => _gattCallback.ServicesDiscovered -= handler,

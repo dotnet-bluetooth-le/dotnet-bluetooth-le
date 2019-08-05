@@ -38,9 +38,9 @@ namespace Plugin.BLE.Android
             _gattCallback = gattCallback;
         }
 
-        protected override Task<IList<IDescriptor>> GetDescriptorsNativeAsync()
+        protected override Task<IReadOnlyList<IDescriptor>> GetDescriptorsNativeAsync()
         {
-            return Task.FromResult<IList<IDescriptor>>(_nativeCharacteristic.Descriptors.Select(item => new Descriptor(item, _gatt, _gattCallback, this)).Cast<IDescriptor>().ToList());
+            return Task.FromResult<IReadOnlyList<IDescriptor>>(_nativeCharacteristic.Descriptors.Select(item => new Descriptor(item, _gatt, _gattCallback, this)).Cast<IDescriptor>().ToList());
         }
 
         protected override async Task<byte[]> ReadNativeAsync()

@@ -20,17 +20,17 @@ namespace Plugin.BLE.Abstractions
             Device = device;
         }
 
-        public async Task<IList<ICharacteristic>> GetCharacteristicsAsync()
+        public async Task<IReadOnlyList<ICharacteristic>> GetCharacteristicsAsync()
         {
             if (!_characteristics.Any())
-            {    
+            {
                 _characteristics.AddRange(await GetCharacteristicsNativeAsync());
             }
 
             // make a copy here so that the caller cant modify the original list
             return _characteristics.ToList();
         }
-        
+
         public async Task<ICharacteristic> GetCharacteristicAsync(Guid id)
         {
             var characteristics = await GetCharacteristicsAsync();
@@ -41,7 +41,7 @@ namespace Plugin.BLE.Abstractions
 
         public virtual void Dispose()
         {
-            
+
         }
     }
 }
