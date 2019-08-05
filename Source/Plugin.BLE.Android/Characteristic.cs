@@ -131,14 +131,14 @@ namespace Plugin.BLE.Android
                 var descriptor = descriptors.FirstOrDefault(d => d.Id.Equals(ClientCharacteristicConfigurationDescriptorId)) ??
                                             descriptors.FirstOrDefault(); // fallback just in case manufacturer forgot
 
-                //has to have one of these (either indicate or notify)
-                if (Properties.HasFlag(CharacteristicPropertyType.Indicate))
+                // has to have one of these (either indicate or notify)
+                if (descriptor != null && Properties.HasFlag(CharacteristicPropertyType.Indicate))
                 {
                     await descriptor.WriteAsync(BluetoothGattDescriptor.EnableIndicationValue.ToArray());
                     Trace.Message("Descriptor set value: INDICATE");
                 }
 
-                if (Properties.HasFlag(CharacteristicPropertyType.Notify))
+                if (descriptor != null && Properties.HasFlag(CharacteristicPropertyType.Notify))
                 {
                     await descriptor.WriteAsync(BluetoothGattDescriptor.EnableNotificationValue.ToArray());
                     Trace.Message("Descriptor set value: NOTIFY");

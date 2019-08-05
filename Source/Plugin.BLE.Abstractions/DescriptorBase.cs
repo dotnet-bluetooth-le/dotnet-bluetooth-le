@@ -40,8 +40,5 @@ namespace Plugin.BLE.Abstractions
         }
 
         protected abstract Task WriteNativeAsync(byte[] data);
-
-
-
     }
 }

@@ -92,7 +92,6 @@ namespace Plugin.BLE.iOS
                     {
                         if (_parentDevice.State != CBPeripheralState.Connected)
                             throw exception;
-
                         _parentDevice.WriteValue(NSData.FromArray(data), _nativeDescriptor);
                     },
                     getCompleteHandler: (complete, reject) => (sender, args) =>

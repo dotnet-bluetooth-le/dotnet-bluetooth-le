@@ -245,7 +245,7 @@ namespace Plugin.BLE.Android
                 case GattStatus.ReadNotPermitted:
                 case GattStatus.RequestNotSupported:
                 case GattStatus.WriteNotPermitted:
-                    exception = new Exception(status.ToString());
+                    exception = new Exception($"GattStatus: {(int)status} - {status.ToString()}");
                     break;
                 case GattStatus.Success:
                     break;
