@@ -18,50 +18,52 @@ namespace Plugin.BLE.UWP
         /// </summary>
         private byte[] _value;
         public override Guid Id => _nativeDescriptor.Uuid;
-        public override byte[] Value
-        {
-            get
-            {
-                if (_value == null)
-                {
-                    return new byte[0];
-                }
-                return _value;
-            }
-        }
+        public override byte[] Value => _value ?? new byte[0];
 
         public Descriptor(GattDescriptor nativeDescriptor, ICharacteristic characteristic) : base(characteristic)
         {
             _nativeDescriptor = nativeDescriptor;
         }
 
-        protected async override Task<byte[]> ReadNativeAsync()
+        protected override async Task<byte[]> ReadNativeAsync()
         {
             var readResult = await _nativeDescriptor.ReadValueAsync();
-            if (readResult.Status == GattCommunicationStatus.Success)
+            
+            //ToDo throw
+            switch (readResult.Status)
             {
-                Trace.Message("Descriptor Read Successfully");
+                case GattCommunicationStatus.Success:
+                    Trace.Message("Descriptor Read Successfully");
+                    break;
+                case GattCommunicationStatus.Unreachable:
+                case GattCommunicationStatus.ProtocolError:
+                case GattCommunicationStatus.AccessDenied:
+                default:
+                    Trace.Message("Descriptor Read Failed");
+                    break;
             }
-            else
-            {
-                Trace.Message("Descriptor Read Failed");
-            }
-            _value = readResult.Value.ToArray();
-            return _value;
+
+            return _value = readResult.Value.ToArray();
         }
 
-        protected async override Task WriteNativeAsync(byte[] data)
+        protected override async Task WriteNativeAsync(byte[] data)
         {
             //method contains no option for writing with response, so always write
             //without response
             var writeResult = await _nativeDescriptor.WriteValueAsync(CryptographicBuffer.CreateFromByteArray(data));
-            if (writeResult == GattCommunicationStatus.Success)
+
+            // ToDO throw error
+            switch (writeResult)
             {
-                Trace.Message("Descriptor Write Successfully");
-            }
-            else
-            {
-                Trace.Message("Descriptor Write Failed");
+                case GattCommunicationStatus.Success:
+                    Trace.Message("Descriptor Write Successfully");
+                    break;
+                case GattCommunicationStatus.Unreachable:
+                case GattCommunicationStatus.ProtocolError:
+                case GattCommunicationStatus.AccessDenied:
+                default:
+                    Trace.Message("Descriptor Write Failed");
+                    break;
             }
         }
     }

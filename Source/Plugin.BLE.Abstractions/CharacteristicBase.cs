@@ -19,7 +19,7 @@ namespace Plugin.BLE.Abstractions
         public abstract Guid Id { get; }
         public abstract string Uuid { get; }
         public abstract byte[] Value { get; }
-        public string Name => KnownCharacteristics.Lookup(Id).Name;
+        public virtual string Name => KnownCharacteristics.Lookup(Id).Name;
         public abstract CharacteristicPropertyType Properties { get; }
         public IService Service { get; }
 

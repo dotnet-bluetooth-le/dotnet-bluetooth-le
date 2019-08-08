@@ -17,64 +17,55 @@ namespace Plugin.BLE.UWP
     public class Adapter : AdapterBase
     {
         private BluetoothLEHelper _bluetoothHelper;
-        private BluetoothLEAdvertisementWatcher _BleWatcher;
+        private BluetoothLEAdvertisementWatcher _bleWatcher;
         /// <summary>
         /// Needed to check for scanned devices so that duplicated don't get
         /// added due to race conditions
         /// </summary>
         private IList<ulong> _prevScannedDevices;
-        /// <summary>
-        /// Used to store all connected devices
-        /// </summary>
-        public IDictionary<string, IDevice> ConnectedDeviceRegistry { get; }
-        public override IList<IDevice> ConnectedDevices => ConnectedDeviceRegistry.Values.ToList();
-        
 
-        public Adapter (BluetoothLEHelper bluetoothHelper)
+        public Adapter(BluetoothLEHelper bluetoothHelper)
         {
             _bluetoothHelper = bluetoothHelper;
-            ConnectedDeviceRegistry = new Dictionary<string, IDevice>();
         }
 
         protected override Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
         {
             var hasFilter = serviceUuids?.Any() ?? false;
-            DiscoveredDevices.Clear();
-            _BleWatcher = new BluetoothLEAdvertisementWatcher();
-            _BleWatcher.ScanningMode = BluetoothLEScanningMode.Active;
+
+            _bleWatcher = new BluetoothLEAdvertisementWatcher { ScanningMode = BluetoothLEScanningMode.Active }; //ToDo investigate passive scanning, readonly?
             _prevScannedDevices = new List<ulong>();
+
             Trace.Message("Starting a scan for devices.");
             if (hasFilter)
             {
                 //adds filter to native scanner if serviceUuids are specified
                 foreach (var uuid in serviceUuids)
                 {
-                    _BleWatcher.AdvertisementFilter.Advertisement.ServiceUuids.Add(uuid);
+                    _bleWatcher.AdvertisementFilter.Advertisement.ServiceUuids.Add(uuid);
                 }
+
                 Trace.Message($"ScanFilters: {string.Join(", ", serviceUuids)}");
             }
-            //don't allow duplicates except for testing, results in multiple versions
-            //of the same device being found
-            if (allowDuplicatesKey)
-            {
-                _BleWatcher.Received += DeviceFoundAsyncDuplicate;
-            }
-            else
-            {
-                _BleWatcher.Received += DeviceFoundAsync;
-            }
-            _BleWatcher.Start();
+
+
+            _bleWatcher.Received += DeviceFoundAsync;
+
+            _bleWatcher.Start();
             return Task.FromResult(true);
         }
 
         protected override void StopScanNative()
         {
-            Trace.Message("Stopping the scan for devices");
-            _BleWatcher.Stop();
-            _BleWatcher = null;
+            if (_bleWatcher != null)
+            {
+                Trace.Message("Stopping the scan for devices");
+                _bleWatcher.Stop();
+                _bleWatcher = null;
+            }
         }
 
-        protected async override Task ConnectToDeviceNativeAsync(IDevice device, ConnectParameters connectParameters, CancellationToken cancellationToken)
+        protected override async Task ConnectToDeviceNativeAsync(IDevice device, ConnectParameters connectParameters, CancellationToken cancellationToken)
         {
             Trace.Message($"Connecting to device with ID:  {device.Id.ToString()}");
 
@@ -88,7 +79,7 @@ namespace Plugin.BLE.UWP
             await nativeDevice.ConnectAsync();
 
             if (!ConnectedDeviceRegistry.ContainsKey(uwpDevice.Id.ToString()))
-                ConnectedDeviceRegistry.Add(uwpDevice.Id.ToString(), device);
+                ConnectedDeviceRegistry[uwpDevice.Id.ToString()] = device;
         }
 
         private void Device_ConnectionStatusChanged(Device device, BluetoothConnectionStatus status)
@@ -103,28 +94,29 @@ namespace Plugin.BLE.UWP
         {
             // Windows doesn't support disconnecting, so currently just dispose of the device
             Trace.Message($"Disconnected from device with ID:  {device.Id.ToString()}");
-            ConnectedDeviceRegistry.Remove(device.Id.ToString());
+            ConnectedDeviceRegistry.TryRemove(device.Id.ToString(), out _);
         }
 
-        public async override Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters, CancellationToken cancellationToken)
+        public override async Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters, CancellationToken cancellationToken)
         {
             //convert GUID to string and take last 12 characters as MAC address
             var guidString = deviceGuid.ToString("N").Substring(20);
-            ulong bluetoothAddr = Convert.ToUInt64(guidString, 16);
-            var nativeDevice = await BluetoothLEDevice.FromBluetoothAddressAsync(bluetoothAddr);
+            ulong bluetoothAddress = Convert.ToUInt64(guidString, 16);
+            var nativeDevice = await BluetoothLEDevice.FromBluetoothAddressAsync(bluetoothAddress);
             var currDevice = new Device(this, nativeDevice, 0, guidString);
-            await ConnectToDeviceAsync(currDevice);
+
+            await ConnectToDeviceAsync(currDevice, cancellationToken: cancellationToken);
             return currDevice;
         }
 
-        public override List<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null)
+        public override IReadOnlyList<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null)
         {
             //currently no way to retrieve paired and connected devices on windows without using an
             //async method. 
             Trace.Message("Returning devices connected by this app only");
-            return (List<IDevice>) ConnectedDevices;
+            return (List<IDevice>)ConnectedDevices;
         }
-        
+
         /// <summary>
         /// Parses a given advertisement for various stored properties
         /// Currently only parses the manufacturer specific data
@@ -159,32 +151,15 @@ namespace Plugin.BLE.UWP
             if (!_prevScannedDevices.Contains(btAdv.BluetoothAddress))
             {
                 _prevScannedDevices.Add(btAdv.BluetoothAddress);
-                BluetoothLEDevice currDevice = await BluetoothLEDevice.FromBluetoothAddressAsync(btAdv.BluetoothAddress);
-                if (currDevice != null)     //make sure advertisement bluetooth address actually returns a device
+                var bluetoothLeDevice = await BluetoothLEDevice.FromBluetoothAddressAsync(btAdv.BluetoothAddress);
+                if (bluetoothLeDevice != null)     //make sure advertisement bluetooth address actually returns a device
                 {
-                    var device = new Device(this, currDevice, btAdv.RawSignalStrengthInDBm, btAdv.BluetoothAddress.ToString(), ParseAdvertisementData(btAdv.Advertisement));
+                    var device = new Device(this, bluetoothLeDevice, btAdv.RawSignalStrengthInDBm, btAdv.BluetoothAddress.ToString(), ParseAdvertisementData(btAdv.Advertisement));
                     Trace.Message("DiscoveredPeripheral: {0} Id: {1}", device.Name, device.Id);
                     this.HandleDiscoveredDevice(device);
                 }
                 return;
             }
-        }
-
-        /// <summary>
-        /// Handler for devices found when duplicates are allowed
-        /// </summary>
-        /// <param name="watcher">The bluetooth advertisement watcher currently being used</param>
-        /// <param name="btAdv">The advertisement recieved by the watcher</param>
-        private async void DeviceFoundAsyncDuplicate(BluetoothLEAdvertisementWatcher watcher, BluetoothLEAdvertisementReceivedEventArgs btAdv)
-        {
-            BluetoothLEDevice currDevice = await BluetoothLEDevice.FromBluetoothAddressAsync(btAdv.BluetoothAddress);
-            if (currDevice != null)
-            {
-                var device = new Device(this, currDevice, btAdv.RawSignalStrengthInDBm, btAdv.BluetoothAddress.ToString(), ParseAdvertisementData(btAdv.Advertisement));
-                Trace.Message("DiscoveredPeripheral: {0} Id: {1}", device.Name, device.Id);
-                this.HandleDiscoveredDevice(device);
-            }
-            return;
         }
     }
 }

@@ -12,9 +12,9 @@ using Plugin.BLE.Abstractions.Contracts;
 
 namespace Plugin.BLE.UWP
 {
-    class Device : DeviceBase
+    public class Device : DeviceBase
     {
-        public ObservableBluetoothLEDevice _nativeDevice { get; private set; }
+        private readonly ObservableBluetoothLEDevice _nativeDevice;
         public override object NativeDevice => _nativeDevice;
 
         public Device(Adapter adapter, BluetoothLEDevice nativeDevice, int rssi, string address, List<AdvertisementRecord> advertisementRecords = null) : base(adapter)
@@ -60,38 +60,34 @@ namespace Plugin.BLE.UWP
         {
             //No current method to update the Rssi of a device
             //In future implementations, maybe listen for device's advertisements
-            throw new NotImplementedException();
+            this.Rssi = _nativeDevice.RSSI;
+            return Task.FromResult(true);
         }
 
-        protected async override Task<IEnumerable<IService>> GetServicesNativeAsync()
+        protected override async Task<IReadOnlyList<IService>> GetServicesNativeAsync()
         {
-            var GattServiceList = (await _nativeDevice.BluetoothLEDevice.GetGattServicesAsync(BluetoothCacheMode.Uncached)).Services;
-            var ServiceList = new List<IService>();
-            foreach (var nativeService in GattServiceList)
-            {
-                var service = new Service(nativeService, this);
-                ServiceList.Add(service);
-            }
-            return ServiceList;
+            var gattServiceList = await _nativeDevice.BluetoothLEDevice.GetGattServicesAsync(BluetoothCacheMode.Uncached); // ToDo investigate cache modes
+
+            //ToDo error handling
+            return gattServiceList.Services.Select(nativeService => new Service(nativeService, this)).Cast<IService>().ToList();
         }
 
         protected override DeviceState GetState()
         {
             //windows only supports retrieval of two states currently
-            if (_nativeDevice.IsConnected) return DeviceState.Connected;
-            else return DeviceState.Disconnected;
+            return _nativeDevice.IsConnected ? DeviceState.Connected : DeviceState.Disconnected;
         }
 
         protected override Task<int> RequestMtuNativeAsync(int requestValue)
         {
             Trace.Message("Request MTU not supported in UWP");
-            return Task.FromResult(-1); 
+            return Task.FromResult(-1);
         }
 
         protected override bool UpdateConnectionIntervalNative(ConnectionInterval interval)
         {
             Trace.Message("Update Connection Interval not supported in UWP");
-            throw new NotImplementedException();
+            return false;
         }
     }
 }

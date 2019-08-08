@@ -8,12 +8,14 @@ using Windows.Security.Cryptography;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
+using Plugin.BLE.Abstractions.Exceptions;
 
 namespace Plugin.BLE.UWP
 {
     public class Characteristic : CharacteristicBase
     {
         private readonly GattCharacteristic _nativeCharacteristic;
+
         /// <summary>
         /// Value of the characteristic to be stored locally after
         /// update notification or read
@@ -24,127 +26,130 @@ namespace Plugin.BLE.UWP
         public override CharacteristicPropertyType Properties => (CharacteristicPropertyType)(int)_nativeCharacteristic.CharacteristicProperties;
 
         public override event EventHandler<CharacteristicUpdatedEventArgs> ValueUpdated;
-        public override byte[] Value
-        {
-            get
-            {
-                //return empty array if value is equal to null
-                if (_value == null)
-                {
-                    return new byte[0];
-                }
-                return _value;
-            }
-        }
+        public override byte[] Value => _value ?? new byte[0]; // return empty array if value is equal to null
 
+        public override string Name => string.IsNullOrEmpty(_nativeCharacteristic.UserDescription)
+            ? base.Name
+            : _nativeCharacteristic.UserDescription;
 
         public Characteristic(GattCharacteristic nativeCharacteristic, IService service) : base(service)
         {
             _nativeCharacteristic = nativeCharacteristic;
-        }       
+        }
 
-        protected async override Task<IList<IDescriptor>> GetDescriptorsNativeAsync()
+        protected override async Task<IReadOnlyList<IDescriptor>> GetDescriptorsNativeAsync()
         {
             var nativeDescriptors = (await _nativeCharacteristic.GetDescriptorsAsync()).Descriptors;
-            var descriptorList = new List<IDescriptor>();
+
             //convert to generic descriptors
-            foreach (var nativeDescriptor in nativeDescriptors)
-            {
-                var descriptor = new Descriptor(nativeDescriptor, this);
-                descriptorList.Add(descriptor);
-            }
-            return descriptorList;
+            return nativeDescriptors.Select(nativeDescriptor => new Descriptor(nativeDescriptor, this)).Cast<IDescriptor>().ToList();
         }
 
-        protected async override Task<byte[]> ReadNativeAsync()
+        protected override async Task<byte[]> ReadNativeAsync()
         {
-            var readResult = (await _nativeCharacteristic.ReadValueAsync()).Value.ToArray();
-            _value = readResult;
-            return readResult;
-        }
-
-        protected async override Task StartUpdatesNativeAsync()
-        {
-            _nativeCharacteristic.ValueChanged += OnCharacteristicValueChanged;
-            var result = await _nativeCharacteristic.WriteClientCharacteristicConfigurationDescriptorWithResultAsync(GattClientCharacteristicConfigurationDescriptorValue.Notify);
-            //output trace message with status of update
-            if (result.Status == GattCommunicationStatus.Success)
+            var readResult = await _nativeCharacteristic.ReadValueAsync();
+            switch (readResult.Status)
             {
-                Trace.Message("Start Updates Successful");
-            }
-            else if (result.Status == GattCommunicationStatus.AccessDenied)
-            {
-                Trace.Message("Incorrect permissions to start updates");
-            }
-            else if (result.Status == GattCommunicationStatus.ProtocolError && result.ProtocolError != null)
-            {
-                Trace.Message("Start updates returned with error: {0}", parseError(result.ProtocolError));
-            }
-            else if (result.Status == GattCommunicationStatus.ProtocolError)
-            {
-                Trace.Message("Start updates returned with unknown error");
-            }
-            else if (result.Status == GattCommunicationStatus.Unreachable)
-            {
-                Trace.Message("Characteristic properties are unreachable");
+                case GattCommunicationStatus.Success:
+                    return _value = readResult.Value.ToArray();
+                case GattCommunicationStatus.Unreachable:
+                case GattCommunicationStatus.ProtocolError:
+                case GattCommunicationStatus.AccessDenied:
+                    throw new CharacteristicReadException($"Error while reading characteristic. Status: {readResult.Status}");
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
-        protected async override Task StopUpdatesNativeAsync()
+        protected override async Task StartUpdatesNativeAsync()
         {
             _nativeCharacteristic.ValueChanged -= OnCharacteristicValueChanged;
-            var result  = await _nativeCharacteristic.WriteClientCharacteristicConfigurationDescriptorWithResultAsync(GattClientCharacteristicConfigurationDescriptorValue.None);
-            if (result.Status == GattCommunicationStatus.Success)
+            _nativeCharacteristic.ValueChanged += OnCharacteristicValueChanged;
+
+            var result = await _nativeCharacteristic.WriteClientCharacteristicConfigurationDescriptorWithResultAsync(GattClientCharacteristicConfigurationDescriptorValue.Notify);
+
+            //ToDo throw
+            switch (result.Status)
             {
-                Trace.Message("Stop Updates Successful");
-            }
-            else if (result.Status == GattCommunicationStatus.AccessDenied)
-            {
-                Trace.Message("Incorrect permissions to stop updates");
-            }
-            else if (result.Status == GattCommunicationStatus.ProtocolError && result.ProtocolError != null)
-            {
-                Trace.Message("Stop updates returned with error: {0}", parseError(result.ProtocolError));
-            }
-            else if (result.Status == GattCommunicationStatus.ProtocolError)
-            {
-                Trace.Message("Stop updates returned with unknown error");
-            }
-            else if (result.Status == GattCommunicationStatus.Unreachable)
-            {
-                Trace.Message("Characteristic properties are unreachable");
+                //output trace message with status of update
+                case GattCommunicationStatus.Success:
+                    Trace.Message("Start Updates Successful");
+                    break;
+                case GattCommunicationStatus.AccessDenied:
+                    Trace.Message("Incorrect permissions to start updates");
+                    break;
+                case GattCommunicationStatus.ProtocolError when result.ProtocolError != null:
+                    Trace.Message("Start updates returned with error: {0}", parseError(result.ProtocolError));
+                    break;
+                case GattCommunicationStatus.ProtocolError:
+                    Trace.Message("Start updates returned with unknown error");
+                    break;
+                case GattCommunicationStatus.Unreachable:
+                    Trace.Message("Characteristic properties are unreachable");
+                    break;
             }
         }
 
-        protected async override Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType)
+        protected override async Task StopUpdatesNativeAsync()
+        {
+            _nativeCharacteristic.ValueChanged -= OnCharacteristicValueChanged;
+
+            var result = await _nativeCharacteristic.WriteClientCharacteristicConfigurationDescriptorWithResultAsync(GattClientCharacteristicConfigurationDescriptorValue.None);
+
+            //ToDo throw
+            switch (result.Status)
+            {
+                case GattCommunicationStatus.Success:
+                    Trace.Message("Stop Updates Successful");
+                    break;
+                case GattCommunicationStatus.AccessDenied:
+                    Trace.Message("Incorrect permissions to stop updates");
+                    break;
+                case GattCommunicationStatus.ProtocolError when result.ProtocolError != null:
+                    Trace.Message("Stop updates returned with error: {0}", parseError(result.ProtocolError));
+                    break;
+                case GattCommunicationStatus.ProtocolError:
+                    Trace.Message("Stop updates returned with unknown error");
+                    break;
+                case GattCommunicationStatus.Unreachable:
+                    Trace.Message("Characteristic properties are unreachable");
+                    break;
+            }
+        }
+
+        protected override async Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType)
         {
             //print errors if error and write with response
-            if(writeType == CharacteristicWriteType.WithResponse)
+            if (writeType == CharacteristicWriteType.WithResponse)
             {
                 var result = await _nativeCharacteristic.WriteValueWithResultAsync(CryptographicBuffer.CreateFromByteArray(data));
-                if (result.Status == GattCommunicationStatus.Success) {
-                    Trace.Message("Write successful");
-                    return true;
-                }
-                else if (result.Status == GattCommunicationStatus.AccessDenied)
+
+                //Todo throw
+                switch (result.Status)
                 {
-                    Trace.Message("Incorrect permissions to stop updates");
+                    case GattCommunicationStatus.Success:
+                        Trace.Message("Write successful");
+                        return true;
+                    case GattCommunicationStatus.AccessDenied:
+                        Trace.Message("Incorrect permissions to stop updates");
+                        break;
+                    case GattCommunicationStatus.ProtocolError when result.ProtocolError != null:
+                        Trace.Message("Write Characteristic returned with error: {0}", parseError(result.ProtocolError));
+                        break;
+                    case GattCommunicationStatus.ProtocolError:
+                        Trace.Message("Write Characteristic returned with unknown error");
+                        break;
+                    case GattCommunicationStatus.Unreachable:
+                        Trace.Message("Characteristic write is unreachable");
+                        break;
                 }
-                else if (result.Status == GattCommunicationStatus.ProtocolError && result.ProtocolError != null)
-                {
-                    Trace.Message("Write Characteristic returned with error: {0}", parseError(result.ProtocolError));
-                }
-                else if (result.Status == GattCommunicationStatus.ProtocolError)
-                {
-                    Trace.Message("Write Characteristic returned with unknown error");
-                }
-                else if (result.Status == GattCommunicationStatus.Unreachable)
-                {
-                    Trace.Message("Characteristic write is unreachable");
-                }
+
                 return false;
             }
+
             var status = await _nativeCharacteristic.WriteValueAsync(CryptographicBuffer.CreateFromByteArray(data), GattWriteOption.WriteWithoutResponse);
+
+            // ToDo switch and throw
             if (status == GattCommunicationStatus.Success)
             {
                 return true;

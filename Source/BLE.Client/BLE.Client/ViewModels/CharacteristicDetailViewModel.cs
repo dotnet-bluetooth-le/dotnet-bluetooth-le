@@ -11,6 +11,7 @@ using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Extensions;
+using Xamarin.Forms;
 
 namespace BLE.Client.ViewModels
 {
@@ -198,8 +199,11 @@ namespace BLE.Client.ViewModels
 
         private void CharacteristicOnValueUpdated(object sender, CharacteristicUpdatedEventArgs characteristicUpdatedEventArgs)
         {
-            Messages.Insert(0, $"{DateTime.Now.TimeOfDay} - Updated: {CharacteristicValue}");
-            RaisePropertyChanged(() => CharacteristicValue);
+            Device.InvokeOnMainThreadAsync(() =>
+            {
+                Messages.Insert(0, $"{DateTime.Now.TimeOfDay} - Updated: {CharacteristicValue}");
+                RaisePropertyChanged(() => CharacteristicValue);
+            });
         }
     }
 }

@@ -106,10 +106,12 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\Plugin.BLE\CrossBluetoothLE.cs">
+      <Link>CrossBluetoothLE.cs</Link>
+    </Compile>
     <Compile Include="Adapter.cs" />
     <Compile Include="BleImplementation.cs" />
     <Compile Include="Characteristic.cs" />
-    <Compile Include="CrossBluetoothLE.cs" />
     <Compile Include="DefaultTrace.cs" />
     <Compile Include="Descriptor.cs" />
     <Compile Include="Device.cs" />
@@ -121,10 +123,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>5.4.0</Version>
+      <Version>6.2.8</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.Connectivity">
-      <Version>2.0.0</Version>
+      <Version>5.1.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
