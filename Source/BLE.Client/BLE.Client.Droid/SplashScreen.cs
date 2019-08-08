@@ -1,7 +1,12 @@
+using Acr.UserDialogs;
 using Android.App;
 using Android.Content.PM;
-using MvvmCross.Droid.Views;
+using Android.OS;
+using MvvmCross.Core;
 using Xamarin.Forms;
+using MvvmCross.Forms.Platforms.Android.Views;
+using MvvmCross.Platforms.Android.Views;
+using System.Threading.Tasks;
 
 namespace BLE.Client.Droid
 {
@@ -10,35 +15,25 @@ namespace BLE.Client.Droid
         , NoHistory = true
         , ScreenOrientation = ScreenOrientation.Portrait)]
     public class SplashScreen
-        : MvxSplashScreenActivity
+        : MvxFormsSplashScreenActivity<Setup, BleMvxApplication, BleMvxFormsApp>
     {
         public SplashScreen()
             : base(Resource.Layout.SplashScreen)
         {
+            this.RegisterSetupType<Setup>();
         }
 
-        private bool _isInitializationComplete;
-        public override void InitializationComplete()
+        protected override void OnCreate(Bundle bundle)
         {
-            if (!_isInitializationComplete)
-            {
-                _isInitializationComplete = true;
-                StartActivity(typeof(MainActivity));
-            }
-        }
-
-        protected override void OnCreate(Android.OS.Bundle bundle)
-        {
-            Forms.Init(this, bundle);
-            Forms.ViewInitialized += (object sender, ViewInitializedEventArgs e) =>
-            {
-                if (!string.IsNullOrWhiteSpace(e.View.StyleId))
-                {
-                    e.NativeView.ContentDescription = e.View.StyleId;
-                }
-            };
-
             base.OnCreate(bundle);
+            UserDialogs.Init(this);
+
+        }
+
+        protected override Task RunAppStartAsync(Bundle bundle)
+        {
+            StartActivity(typeof(MainActivity));
+            return Task.CompletedTask;
         }
     }
 }

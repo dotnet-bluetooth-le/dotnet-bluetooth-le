@@ -13,20 +13,31 @@ namespace Plugin.BLE.iOS
     {
         private readonly CBService _service;
         private readonly CBPeripheral _device;
+        private readonly IBleCentralManagerDelegate _bleCentralManagerDelegate;
 
         public override Guid Id => _service.UUID.GuidFromUuid();
         public override bool IsPrimary => _service.Primary;
 
-        public Service(CBService service, IDevice device) : base(device)
+        public Service(CBService service, IDevice device, IBleCentralManagerDelegate bleCentralManagerDelegate) 
+            : base(device)
         {
             _service = service;
             _device = device.NativeDevice as CBPeripheral;
+            _bleCentralManagerDelegate = bleCentralManagerDelegate;
         }
 
         protected override Task<IList<ICharacteristic>> GetCharacteristicsNativeAsync()
         {
-            return TaskBuilder.FromEvent<IList<ICharacteristic>, EventHandler<CBServiceEventArgs>>(
-                execute: () => _device.DiscoverCharacteristics(_service),
+            var exception = new Exception($"Device '{Device.Id}' disconnected while fetching characteristics for service with {Id}.");
+
+            return TaskBuilder.FromEvent<IList<ICharacteristic>, EventHandler<CBServiceEventArgs>, EventHandler<CBPeripheralErrorEventArgs>>(
+                execute: () =>
+                {
+                    if (_device.State != CBPeripheralState.Connected)
+                        throw exception;
+
+                    _device.DiscoverCharacteristics(_service);
+                },
                 getCompleteHandler: (complete, reject) => (sender, args) =>
                 {
                     if (args.Error != null)
@@ -41,13 +52,20 @@ namespace Plugin.BLE.iOS
                     else
                     {
                         var characteristics = args.Service.Characteristics
-                                                  .Select(characteristic => new Characteristic(characteristic, _device, this))
+                                                  .Select(characteristic => new Characteristic(characteristic, _device, this, _bleCentralManagerDelegate))
                                                   .Cast<ICharacteristic>().ToList();
                         complete(characteristics);
                     }
                 },
                 subscribeComplete: handler => _device.DiscoveredCharacteristic += handler,
-                unsubscribeComplete: handler => _device.DiscoveredCharacteristic -= handler);
+                unsubscribeComplete: handler => _device.DiscoveredCharacteristic -= handler,
+                getRejectHandler: reject => ((sender, args) =>
+                {
+                    if (args.Peripheral.Identifier == _device.Identifier)
+                        reject(exception);
+                }),
+                subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
+                unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
         }
     }
 }

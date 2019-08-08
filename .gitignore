@@ -204,3 +204,5 @@ FakesAssemblies/
 *.opt
 *.bak
 /.build/PluginNugetTest/testbuild
+.build/tools/
+tools/

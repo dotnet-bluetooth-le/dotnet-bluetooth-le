@@ -8,7 +8,6 @@ namespace Plugin.BLE.Abstractions.Utils
 {
     internal class FakeAdapter : AdapterBase
     {
-        public override IList<IDevice> ConnectedDevices { get; } = new List<IDevice>();
         public override Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters, CancellationToken cancellationToken)
         {
             TraceUnavailability();
@@ -42,7 +41,7 @@ namespace Plugin.BLE.Abstractions.Utils
             Trace.Message("Bluetooth LE is not available on this device. Nothing will happen - ever!");
         }
 
-        public override List<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null)
+        public override IReadOnlyList<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null)
         {
             TraceUnavailability();
             return new List<IDevice>();

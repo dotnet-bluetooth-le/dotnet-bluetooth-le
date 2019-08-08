@@ -1,5 +1,11 @@
-﻿using BLE.Client.ViewModels;
-using MvvmCross.Core.ViewModels;
+﻿using System;
+using BLE.Client.ViewModels;
+using MvvmCross;
+using MvvmCross.Forms.Core;
+using MvvmCross.IoC;
+using MvvmCross.Localization;
+using MvvmCross.ViewModels;
+using Xamarin.Forms;
 
 namespace BLE.Client
 {
@@ -7,6 +13,11 @@ namespace BLE.Client
     {
         public override void Initialize()
         {
+            CreatableTypes()
+                .EndingWith("Service")
+                .AsInterfaces()
+                .RegisterAsLazySingleton();
+
             RegisterAppStart<DeviceListViewModel>();
         }
     }

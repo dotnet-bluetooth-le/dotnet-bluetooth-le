@@ -31,12 +31,6 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Plugin.BLE">
-      <HintPath>..\packages\Plugin.BLE.1.0.0-beta5\lib\Xamarin.iOS10\Plugin.BLE.dll</HintPath>
-    </Reference>
-    <Reference Include="Plugin.BLE.Abstractions">
-      <HintPath>..\packages\Plugin.BLE.1.0.0-beta5\lib\Xamarin.iOS10\Plugin.BLE.Abstractions.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -50,7 +44,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <PackageReference Include="Plugin.BLE">
+      <Version>2.0.0-pre2</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

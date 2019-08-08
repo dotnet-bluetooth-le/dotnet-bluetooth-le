@@ -7,14 +7,33 @@ using Plugin.BLE.iOS;
 
 namespace Plugin.BLE
 {
-    internal class BleImplementation : BleImplementationBase
+    public class BleImplementation : BleImplementationBase
     {
+        private static string _restorationIdentifier;
+        private static bool _showPowerAlert = true;
+
         private CBCentralManager _centralManager;
+        private IBleCentralManagerDelegate _bleCentralManagerDelegate;
+
+        public static void UseRestorationIdentifier(string restorationIdentifier)
+        {
+            _restorationIdentifier = restorationIdentifier;
+        }
+
+        public static void ShowPowerAlert(bool showPowerAlert)
+        {
+            _showPowerAlert = showPowerAlert;
+        }
 
         protected override void InitializeNative()
         {
-            _centralManager = new CBCentralManager(DispatchQueue.CurrentQueue);
-            _centralManager.UpdatedState += (s, e) => State = GetState();
+            var cmDelegate = new BleCentralManagerDelegate();
+            _bleCentralManagerDelegate = cmDelegate;
+
+            var options = CreateInitOptions();
+
+            _centralManager = new CBCentralManager(cmDelegate, DispatchQueue.CurrentQueue, options);
+            _bleCentralManagerDelegate.UpdatedState += (s, e) => State = GetState();
         }
 
         protected override BluetoothState GetInitialStateNative()
@@ -24,12 +43,17 @@ namespace Plugin.BLE
 
         protected override IAdapter CreateNativeAdapter()
         {
-            return new Adapter(_centralManager);
+            return new Adapter(_centralManager, _bleCentralManagerDelegate);
         }
 
         private BluetoothState GetState()
         {
             return _centralManager.State.ToBluetoothState();
+        }
+
+        private CBCentralInitOptions CreateInitOptions()
+        {
+            return new CBCentralInitOptions { RestoreIdentifier = _restorationIdentifier, ShowPowerAlert = _showPowerAlert };
         }
     }
 }

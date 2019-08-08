@@ -38,9 +38,9 @@ namespace Plugin.BLE.Android
             _gattCallback = gattCallback;
         }
 
-        protected override Task<IList<IDescriptor>> GetDescriptorsNativeAsync()
+        protected override Task<IReadOnlyList<IDescriptor>> GetDescriptorsNativeAsync()
         {
-            return Task.FromResult<IList<IDescriptor>>(_nativeCharacteristic.Descriptors.Select(item => new Descriptor(item, _gatt, _gattCallback, this)).Cast<IDescriptor>().ToList());
+            return Task.FromResult<IReadOnlyList<IDescriptor>>(_nativeCharacteristic.Descriptors.Select(item => new Descriptor(item, _gatt, _gattCallback, this)).Cast<IDescriptor>().ToList());
         }
 
         protected override async Task<byte[]> ReadNativeAsync()
@@ -114,6 +114,7 @@ namespace Plugin.BLE.Android
         protected override async Task StartUpdatesNativeAsync()
         {
             // wire up the characteristic value updating on the gattcallback for event forwarding
+            _gattCallback.CharacteristicValueUpdated -= OnCharacteristicValueChanged;
             _gattCallback.CharacteristicValueUpdated += OnCharacteristicValueChanged;
 
             if (!_gatt.SetCharacteristicNotification(_nativeCharacteristic, true))
@@ -124,24 +125,20 @@ namespace Plugin.BLE.Android
             // https://developer.bluetooth.org/gatt/descriptors/Pages/DescriptorViewer.aspx?u=org.bluetooth.descriptor.gatt.client_characteristic_configuration.xml
             // for details.
 
-            await Task.Delay(100);
-            // this might be because we need to wait on SetCharacteristicNotification ...maybe there alos is a callback for this?
-            //ToDo is this still needed?
-
             if (_nativeCharacteristic.Descriptors.Count > 0)
             {
                 var descriptors = await GetDescriptorsAsync();
                 var descriptor = descriptors.FirstOrDefault(d => d.Id.Equals(ClientCharacteristicConfigurationDescriptorId)) ??
                                             descriptors.FirstOrDefault(); // fallback just in case manufacturer forgot
 
-                //has to have one of these (either indicate or notify)
-                if (Properties.HasFlag(CharacteristicPropertyType.Indicate))
+                // has to have one of these (either indicate or notify)
+                if (descriptor != null && Properties.HasFlag(CharacteristicPropertyType.Indicate))
                 {
                     await descriptor.WriteAsync(BluetoothGattDescriptor.EnableIndicationValue.ToArray());
                     Trace.Message("Descriptor set value: INDICATE");
                 }
 
-                if (Properties.HasFlag(CharacteristicPropertyType.Notify))
+                if (descriptor != null && Properties.HasFlag(CharacteristicPropertyType.Notify))
                 {
                     await descriptor.WriteAsync(BluetoothGattDescriptor.EnableNotificationValue.ToArray());
                     Trace.Message("Descriptor set value: NOTIFY");

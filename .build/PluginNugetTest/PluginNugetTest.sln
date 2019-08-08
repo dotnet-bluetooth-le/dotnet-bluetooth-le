@@ -1,19 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginNugetTest", "PluginNugetTest\PluginNugetTest.csproj", "{F6531B41-95E1-4B2B-9C50-9A5F7245D403}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginNugetTest.iOS", "PluginNugetTest.iOS\PluginNugetTest.iOS.csproj", "{40B8A58D-384F-420E-B108-53F5240E4032}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvxPluginNugetTest.iOS", "MvxPluginNugetTest.iOS\MvxPluginNugetTest.iOS.csproj", "{0A09D3FD-771F-4269-B3DF-6D8FEAC5CE67}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvxPluginNugetTest.iOS", "MvxPluginNugetTest.iOS\MvxPluginNugetTest.iOS.csproj", "{80A96B52-6758-4BDB-B0B4-CEA4CA155C60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvxPluginNugetTest.Android", "MvxPluginNugetTest.Android\MvxPluginNugetTest.Android.csproj", "{A1952148-C09E-47E3-8CD8-93EE90717CCD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvxPluginNugetTest.Android", "MvxPluginNugetTest.Android\MvxPluginNugetTest.Android.csproj", "{09C8CDD3-D42F-4847-B805-115B56392ED7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginNugetTest.Android", "PluginNugetTest.Android\PluginNugetTest.Android.csproj", "{8DCB6437-273B-4761-A7A0-684374B7AE48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvxPluginNugetTest", "MvxPluginNugetTest\MvxPluginNugetTest.csproj", "{67F9D3A8-F71E-4428-913F-C37AE82CDB24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvxPluginNugetTest", "MvxPluginNugetTest\MvxPluginNugetTest.csproj", "{FFA8466D-9881-4CC1-8AE5-705C107DE5B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,38 +28,41 @@ Global
 		{F6531B41-95E1-4B2B-9C50-9A5F7245D403}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6531B41-95E1-4B2B-9C50-9A5F7245D403}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6531B41-95E1-4B2B-9C50-9A5F7245D403}.Release|Any CPU.Build.0 = Release|Any CPU
-		{40B8A58D-384F-420E-B108-53F5240E4032}.AppStore|Any CPU.ActiveCfg = AppStore|Any CPU
-		{40B8A58D-384F-420E-B108-53F5240E4032}.AppStore|Any CPU.Build.0 = AppStore|Any CPU
+		{40B8A58D-384F-420E-B108-53F5240E4032}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
+		{40B8A58D-384F-420E-B108-53F5240E4032}.AppStore|Any CPU.Build.0 = Release|Any CPU
 		{40B8A58D-384F-420E-B108-53F5240E4032}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{40B8A58D-384F-420E-B108-53F5240E4032}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40B8A58D-384F-420E-B108-53F5240E4032}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40B8A58D-384F-420E-B108-53F5240E4032}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0A09D3FD-771F-4269-B3DF-6D8FEAC5CE67}.AppStore|Any CPU.ActiveCfg = AppStore|Any CPU
-		{0A09D3FD-771F-4269-B3DF-6D8FEAC5CE67}.AppStore|Any CPU.Build.0 = AppStore|Any CPU
-		{0A09D3FD-771F-4269-B3DF-6D8FEAC5CE67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0A09D3FD-771F-4269-B3DF-6D8FEAC5CE67}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0A09D3FD-771F-4269-B3DF-6D8FEAC5CE67}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0A09D3FD-771F-4269-B3DF-6D8FEAC5CE67}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A1952148-C09E-47E3-8CD8-93EE90717CCD}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
-		{A1952148-C09E-47E3-8CD8-93EE90717CCD}.AppStore|Any CPU.Build.0 = Release|Any CPU
-		{A1952148-C09E-47E3-8CD8-93EE90717CCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A1952148-C09E-47E3-8CD8-93EE90717CCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A1952148-C09E-47E3-8CD8-93EE90717CCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A1952148-C09E-47E3-8CD8-93EE90717CCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80A96B52-6758-4BDB-B0B4-CEA4CA155C60}.AppStore|Any CPU.ActiveCfg = Release|iPhone
+		{80A96B52-6758-4BDB-B0B4-CEA4CA155C60}.AppStore|Any CPU.Build.0 = Release|iPhone
+		{80A96B52-6758-4BDB-B0B4-CEA4CA155C60}.Debug|Any CPU.ActiveCfg = Debug|iPhone
+		{80A96B52-6758-4BDB-B0B4-CEA4CA155C60}.Debug|Any CPU.Build.0 = Debug|iPhone
+		{80A96B52-6758-4BDB-B0B4-CEA4CA155C60}.Release|Any CPU.ActiveCfg = Release|iPhone
+		{09C8CDD3-D42F-4847-B805-115B56392ED7}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
+		{09C8CDD3-D42F-4847-B805-115B56392ED7}.AppStore|Any CPU.Build.0 = Release|Any CPU
+		{09C8CDD3-D42F-4847-B805-115B56392ED7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09C8CDD3-D42F-4847-B805-115B56392ED7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09C8CDD3-D42F-4847-B805-115B56392ED7}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{09C8CDD3-D42F-4847-B805-115B56392ED7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09C8CDD3-D42F-4847-B805-115B56392ED7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8DCB6437-273B-4761-A7A0-684374B7AE48}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
 		{8DCB6437-273B-4761-A7A0-684374B7AE48}.AppStore|Any CPU.Build.0 = Release|Any CPU
 		{8DCB6437-273B-4761-A7A0-684374B7AE48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8DCB6437-273B-4761-A7A0-684374B7AE48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DCB6437-273B-4761-A7A0-684374B7AE48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DCB6437-273B-4761-A7A0-684374B7AE48}.Release|Any CPU.Build.0 = Release|Any CPU
-		{67F9D3A8-F71E-4428-913F-C37AE82CDB24}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
-		{67F9D3A8-F71E-4428-913F-C37AE82CDB24}.AppStore|Any CPU.Build.0 = Release|Any CPU
-		{67F9D3A8-F71E-4428-913F-C37AE82CDB24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{67F9D3A8-F71E-4428-913F-C37AE82CDB24}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{67F9D3A8-F71E-4428-913F-C37AE82CDB24}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{67F9D3A8-F71E-4428-913F-C37AE82CDB24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFA8466D-9881-4CC1-8AE5-705C107DE5B5}.AppStore|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFA8466D-9881-4CC1-8AE5-705C107DE5B5}.AppStore|Any CPU.Build.0 = Debug|Any CPU
+		{FFA8466D-9881-4CC1-8AE5-705C107DE5B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFA8466D-9881-4CC1-8AE5-705C107DE5B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFA8466D-9881-4CC1-8AE5-705C107DE5B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFA8466D-9881-4CC1-8AE5-705C107DE5B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {72DB488A-5C42-4401-ABC1-795928FD82E5}
 	EndGlobalSection
 EndGlobal

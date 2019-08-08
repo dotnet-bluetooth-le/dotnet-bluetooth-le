@@ -48,11 +48,12 @@ namespace Plugin.BLE.Abstractions
         /// <summary>
         /// Indicates that more properties are set in the extended properties descriptor.
         /// </summary>
-        ExtendedProperties = 128
+        ExtendedProperties = 128,
 
         // TODO: move these to seperate enum
-        // NotifyEncryptionRequired = 256, //0x100
-        // IndicateEncryptionRequired = 512, //0x200
+        NotifyEncryptionRequired = 256, //0x100
+        
+        IndicateEncryptionRequired = 512, //0x200
     }
 }
 

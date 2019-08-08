@@ -11,7 +11,7 @@ namespace Plugin.BLE.Abstractions.Utils
             Func<Action<TReturn>, Action<Exception>, TEventHandler> getCompleteHandler,
             Action<TEventHandler> subscribeComplete,
             Action<TEventHandler> unsubscribeComplete,
-            CancellationToken token = default(CancellationToken))
+            CancellationToken token = default)
         {
             return FromEvent<TReturn, TEventHandler, object>(
                 execute, getCompleteHandler, subscribeComplete, unsubscribeComplete,
@@ -29,7 +29,7 @@ namespace Plugin.BLE.Abstractions.Utils
             Func<Action<Exception>, TRejectHandler> getRejectHandler,
             Action<TRejectHandler> subscribeReject,
             Action<TRejectHandler> unsubscribeReject,
-            CancellationToken token = default(CancellationToken))
+            CancellationToken token = default)
         {
             var tcs = new TaskCompletionSource<TReturn>();
             Action<TReturn> complete = args => tcs.TrySetResult(args);

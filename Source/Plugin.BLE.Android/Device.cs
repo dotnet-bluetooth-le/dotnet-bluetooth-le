@@ -13,6 +13,7 @@ using Plugin.BLE.Abstractions.Exceptions;
 using Plugin.BLE.Abstractions.Utils;
 using Plugin.BLE.Android.CallbackEventArgs;
 using Trace = Plugin.BLE.Abstractions.Trace;
+using System.Threading;
 
 namespace Plugin.BLE.Android
 {
@@ -32,6 +33,11 @@ namespace Plugin.BLE.Android
         /// </summary>
         private readonly GattCallback _gattCallback;
 
+        /// <summary>
+        /// the registration must be disposed to avoid disconnecting after a connection
+        /// </summary>
+        private CancellationTokenRegistration _connectCancellationTokenRegistration;
+
         public Device(Adapter adapter, BluetoothDevice nativeDevice, BluetoothGatt gatt, int rssi, byte[] advertisementData = null) : base(adapter)
         {
             Update(nativeDevice, gatt);
@@ -42,6 +48,9 @@ namespace Plugin.BLE.Android
 
         public void Update(BluetoothDevice nativeDevice, BluetoothGatt gatt)
         {
+            _connectCancellationTokenRegistration.Dispose();
+            _connectCancellationTokenRegistration = new CancellationTokenRegistration();
+
             BluetoothDevice = nativeDevice;
             _gatt = gatt;
 
@@ -53,18 +62,18 @@ namespace Plugin.BLE.Android
         public override object NativeDevice => BluetoothDevice;
         internal bool IsOperationRequested { get; set; }
 
-        protected override async Task<IEnumerable<IService>> GetServicesNativeAsync()
+        protected override async Task<IReadOnlyList<IService>> GetServicesNativeAsync()
         {
             if (_gattCallback == null || _gatt == null)
             {
-                return Enumerable.Empty<IService>();
+                return new List<IService>();
             }
 
-            return await TaskBuilder.FromEvent<IEnumerable<IService>, EventHandler<ServicesDiscoveredCallbackEventArgs>, EventHandler>(
+            return await TaskBuilder.FromEvent<IReadOnlyList<IService>, EventHandler<ServicesDiscoveredCallbackEventArgs>, EventHandler>(
                 execute: () => _gatt.DiscoverServices(),
                 getCompleteHandler: (complete, reject) => ((sender, args) =>
                 {
-                    complete(_gatt.Services.Select(service => new Service(service, _gatt, _gattCallback, this)));
+                    complete(_gatt.Services.Select(service => new Service(service, _gatt, _gattCallback, this)).ToList());
                 }),
                 subscribeComplete: handler => _gattCallback.ServicesDiscovered += handler,
                 unsubscribeComplete: handler => _gattCallback.ServicesDiscovered -= handler,
@@ -76,29 +85,32 @@ namespace Plugin.BLE.Android
                 unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler);
         }
 
-        public void Connect(ConnectParameters connectParameters)
+        public void Connect(ConnectParameters connectParameters, CancellationToken cancellationToken)
         {
             IsOperationRequested = true;
 
             if (connectParameters.ForceBleTransport)
             {
-                ConnectToGattForceBleTransportAPI(connectParameters.AutoConnect);
+                ConnectToGattForceBleTransportAPI(connectParameters.AutoConnect, cancellationToken);
             }
             else
             {
-                /*_gatt = */
-                BluetoothDevice.ConnectGatt(Application.Context, connectParameters.AutoConnect, _gattCallback);
+                var connectGatt = BluetoothDevice.ConnectGatt(Application.Context, connectParameters.AutoConnect, _gattCallback);
+                _connectCancellationTokenRegistration.Dispose();
+                _connectCancellationTokenRegistration = cancellationToken.Register(() => connectGatt.Disconnect());
             }
         }
 
-        private void ConnectToGattForceBleTransportAPI(bool autoconnect)
+        private void ConnectToGattForceBleTransportAPI(bool autoconnect, CancellationToken cancellationToken)
         {
             //This parameter is present from API 18 but only public from API 23
             //So reflection is used before API 23
             if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
             {
                 //no transport mode before lollipop, it will probably not work... gattCallBackError 133 again alas
-                BluetoothDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback);
+                var connectGatt = BluetoothDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback);
+                _connectCancellationTokenRegistration.Dispose();
+                _connectCancellationTokenRegistration = cancellationToken.Register(() => connectGatt.Disconnect());
             }
             else if (Build.VERSION.SdkInt < BuildVersionCodes.M)
             {
@@ -113,7 +125,9 @@ namespace Plugin.BLE.Android
             }
             else
             {
-                BluetoothDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback, BluetoothTransports.Le);
+                var connectGatt = BluetoothDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback, BluetoothTransports.Le);
+                _connectCancellationTokenRegistration.Dispose();
+                _connectCancellationTokenRegistration = cancellationToken.Register(() => connectGatt.Disconnect());
             }
 
         }

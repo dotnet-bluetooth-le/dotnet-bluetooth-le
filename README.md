@@ -1,5 +1,6 @@
-# <img src="icon_small.png" width="71" height="71"/> Bluetooth LE plugin for Xamarin [![Build Status](https://www.bitrise.io/app/3fe54d0a5f43c2bf.svg?token=i9LUY4rIecZWd_3j7hwXgw)](https://www.bitrise.io/app/3fe54d0a5f43c2bf) 
-[![Issue Stats](http://www.issuestats.com/github/xabre/xamarin-bluetooth-le/badge/issue?style=flat)](http://www.issuestats.com/github/xabre/xamarin-bluetooth-le)
+**Looking for Maintainers**: Lately our time dedicated to supporting the library was indeed limited, we would greatly appreciate any volunteer who would aid with maintaining this useful plugin :). Please comment in issue #274 :) Thanks
+
+# <img src="icon_small.png" width="71" height="71"/> Bluetooth LE plugin for Xamarin ![Build Status](https://app.bitrise.io/app/3fe54d0a5f43c2bf/status.svg?token=i9LUY4rIecZWd_3j7hwXgw) 
 
 Xamarin and MvvMCross plugin for accessing the bluetooth functionality. The plugin is loosely based on the BLE implementation of [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics). 
 
@@ -24,7 +25,7 @@ Install-Package Plugin.BLE
 // or pre-release
 Install-Package Plugin.BLE -Pre
 ```
-[![NuGet](https://img.shields.io/nuget/v/Plugin.BLE.svg?label=NuGet)](https://www.nuget.org/packages/Plugin.BLE) [![NuGet Beta](https://img.shields.io/nuget/vpre/Plugin.BLE.svg?label=NuGet%20Beta)](https://www.nuget.org/packages/Plugin.BLE)
+[![NuGet](https://img.shields.io/nuget/v/Plugin.BLE.svg?label=NuGet&style=flat-square)](https://www.nuget.org/packages/Plugin.BLE) [![NuGet Beta](https://img.shields.io/nuget/vpre/Plugin.BLE.svg?label=NuGet%20Beta&style=flat-square)](https://www.nuget.org/packages/Plugin.BLE)
 
 **MvvmCross**
 
@@ -34,7 +35,7 @@ Install-Package MvvmCross.Plugin.BLE
 Install-Package MvvmCross.Plugin.BLE -Pre
 ```
 
-[![NuGet MvvMCross](https://img.shields.io/nuget/v/MvvmCross.Plugin.BLE.svg?label=NuGet%20MvvMCross)](https://www.nuget.org/packages/MvvmCross.Plugin.BLE) [![NuGet MvvMCross Beta](https://img.shields.io/nuget/vpre/MvvmCross.Plugin.BLE.svg?label=NuGet%20MvvMCross%20Beta)](https://www.nuget.org/packages/MvvmCross.Plugin.BLE)
+[![NuGet MvvMCross](https://img.shields.io/nuget/v/MvvmCross.Plugin.BLE.svg?label=NuGet%20MvvMCross&style=flat-square)](https://www.nuget.org/packages/MvvmCross.Plugin.BLE) [![NuGet MvvMCross Beta](https://img.shields.io/nuget/vpre/MvvmCross.Plugin.BLE.svg?label=NuGet%20MvvMCross%20Beta&style=flat-square)](https://www.nuget.org/packages/MvvmCross.Plugin.BLE)
 
 **Android**
 
@@ -51,6 +52,23 @@ Add this line to your manifest if you want to declare that your app is available
 ```xml
 <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
 ````
+
+**iOS**
+
+On iOS you must add the following keys to your `Info.plist`
+
+    <key>UIBackgroundModes</key>
+    <array>
+        <!--for connecting to devices (client)-->
+        <string>bluetooth-central</string>
+    
+        <!--for server configurations if needed-->
+        <string>bluetooth-peripheral</string>
+    </array>
+    
+    <!--Description of the Bluetooth request message (required on iOS 10)-->
+    <key>NSBluetoothPeripheralUsageDescription</key>
+    <string>YOUR CUSTOM MESSAGE</string>
 
 **UWP**
 
@@ -100,6 +118,15 @@ MyViewModel(IBluetoothLE ble, IAdapter adapter)
 }
 ```
 
+Please make sure you have this code in your LinkerPleaseLink.cs file
+
+```csharp
+public void Include(MvvmCross.Plugins.BLE.iOS.Plugin plugin)
+{
+    plugin.Load();
+}
+```
+
 ### IBluetoothLE
 #### Get the bluetooth status
 ```csharp
@@ -142,9 +169,9 @@ catch(DeviceConnectionException e)
 ```
 
 #### Connect to known Device
-`ConnectToKnownDeviceAsync` can connect to a device by only passing a GUI. This means that if the device GUID is known no scan is neccessary to connect to a device. Very usefull for fast background reconnect.
+`ConnectToKnownDeviceAsync` can connect to a device with a given GUID. This means that if the device GUID is known, no scan is necessary to connect to a device. This can be very useful for a fast background reconnect.
 Always use a cancellation token with this method. 
-- On **iOS** it will attempt to connect indefinately, even if out of range, so the only way to cancel it is with the token.
+- On **iOS** it will attempt to connect indefinitely, even if out of range, so the only way to cancel it is with the token.
 - On **Android** this will throw a GATT ERROR in a couple of seconds if the device is out of range.
 
 ```csharp
@@ -235,14 +262,14 @@ foreach(var device in systemDevices)
 
 The BLE API implementation (especially on **Android**) has the following limitations:
 
-- *Characterisitc/Descriptor Write*: make sure you call characteristic.**WriteAsync**(...) from the **main thread**, failing to do so will most probably result in a GattWriteError.
-- *Sequential calls*: **Allways** wait for the previous ble command do finish before invoking the next. The Android API needs it's calls to be seriall, otherwise calls that do not wait for the previous ones will fail with some type of GattError. A more explicit example: if you call this in you view lifecycle (onAppearing etc) all these methods return **void** and 100% don't quarantee that any await bleCommand() called here will be truly awaited by other lifecycle methods.
-- *Scan wit services filter*: On **specifically Android 4.3** the *scan services filter does not work* (due to the underlying android implementation). For android 4.3 you will have to use a workaround and scan without filter and then manually filter by using the advertisment data (which contains the published service guids).
+- *Characteristic/Descriptor Write*: make sure you call characteristic.**WriteAsync**(...) from the **main thread**, failing to do so will most probably result in a GattWriteError.
+- *Sequential calls*: **Always** wait for the previous BLE command to finish before invoking the next. The Android API needs it's calls to be serial, otherwise calls that do not wait for the previous ones will fail with some type of GattError. A more explicit example: if you call this in your view lifecycle (onAppearing etc) all these methods return **void** and 100% don't quarantee that any await bleCommand() called here will be truly awaited by other lifecycle methods.
+- *Scan wit services filter*: On **specifically Android 4.3** the *scan services filter does not work* (due to the underlying android implementation). For android 4.3 you will have to use a workaround and scan without a filter and then manually filter by using the advertisement data (which contains the published service GUIDs).
 
 ## Best practice
 
 ### API
-- Surround Async API calls in try-catch blocks. Most BLE calls can/will throw an exception in cetain cases, this is especiialy true for Android. We will try to update the xml doc to reflect this.
+- Surround Async API calls in try-catch blocks. Most BLE calls can/will throw an exception in certain cases, this is especially true for Android. We will try to update the xml doc to reflect this.
 ```csharp
     try
     {
@@ -266,17 +293,33 @@ The BLE API implementation (especially on **Android**) has the following limitat
     - try to stop scanning as soon as you find the desired device
     - never scan on a loop, and set a time limit on your scan
 
+## How to build the nuget package
+### On Windows
+1) Build
+
+    Open a cmd console windows and cd to the folder of "xamarin-bluetooth-le\\.build", then run `build.bat`.
+
+2) pack the nuget
+
+    `nuget pack Plugin.BLE.nuspec -BasePath out\lib\`
+    
+    `nuget pack MvvmCross.Plugin.BLE.nuspec -BasePath out\lib\`
+
+
+
 ## Extended topics
 
 - [How to set custom trace method?](doc/howto_custom_trace.md)
 - [Characteristic Properties](doc/characteristics.md)
 - [Scan Mode Mapping](doc/scanmode_mapping.md)
+- [iOS state restoration (basic support)](doc/ios_state_restoration.md)
 
 
 ## Useful Links
 
 - [Android Bluetooth LE guideline](https://developer.android.com/guide/topics/connectivity/bluetooth-le.html)
 - [iOS CoreBluetooth Best Practices](https://developer.apple.com/library/ios/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/BestPracticesForInteractingWithARemotePeripheralDevice/BestPracticesForInteractingWithARemotePeripheralDevice.html)
+- [iOS CoreBluetooth Background Modes](https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/CoreBluetoothBackgroundProcessingForIOSApps/PerformingTasksWhileYourAppIsInTheBackground.html#//apple_ref/doc/uid/TP40013257-CH7-SW7)
 - [MvvmCross](https://github.com/MvvmCross)
 - [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics)
 

@@ -40,17 +40,28 @@ namespace Plugin.BLE.iOS
         }
 
         private readonly CBPeripheral _parentDevice;
+        private readonly IBleCentralManagerDelegate _bleCentralManagerDelegate;
 
-        public Descriptor(CBDescriptor nativeDescriptor, CBPeripheral parentDevice, ICharacteristic characteristic) : base(characteristic)
+        public Descriptor(CBDescriptor nativeDescriptor, CBPeripheral parentDevice, ICharacteristic characteristic, IBleCentralManagerDelegate bleCentralManagerDelegate) 
+            : base(characteristic)
         {
             _parentDevice = parentDevice;
             _nativeDescriptor = nativeDescriptor;
+            _bleCentralManagerDelegate = bleCentralManagerDelegate;
         }
 
         protected override Task<byte[]> ReadNativeAsync()
         {
-            return TaskBuilder.FromEvent<byte[], EventHandler<CBDescriptorEventArgs>>(
-                   execute: () => _parentDevice.ReadValue(_nativeDescriptor),
+            var exception = new Exception($"Device '{Characteristic.Service.Device.Id}' disconnected while reading descriptor with {Id}.");
+
+            return TaskBuilder.FromEvent<byte[], EventHandler<CBDescriptorEventArgs>, EventHandler<CBPeripheralErrorEventArgs>>(
+                   execute: () =>
+                   {
+                       if (_parentDevice.State != CBPeripheralState.Connected)
+                           throw exception;
+
+                       _parentDevice.ReadValue(_nativeDescriptor);
+                   },
                    getCompleteHandler: (complete, reject) => (sender, args) =>
                    {
                        if (args.Descriptor.UUID != _nativeDescriptor.UUID)
@@ -62,13 +73,27 @@ namespace Plugin.BLE.iOS
                            complete(Value);
                    },
                    subscribeComplete: handler => _parentDevice.UpdatedValue += handler,
-                   unsubscribeComplete: handler => _parentDevice.UpdatedValue -= handler);
+                   unsubscribeComplete: handler => _parentDevice.UpdatedValue -= handler,
+                   getRejectHandler: reject => ((sender, args) =>
+                   {
+                       if (args.Peripheral.Identifier == _parentDevice.Identifier)
+                           reject(exception);
+                   }),
+                   subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
+                   unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
         }
 
         protected override Task WriteNativeAsync(byte[] data)
         {
-            return TaskBuilder.FromEvent<bool, EventHandler<CBDescriptorEventArgs>>(
-                execute: () => _parentDevice.WriteValue(NSData.FromArray(data), _nativeDescriptor),
+            var exception = new Exception($"Device '{Characteristic.Service.Device.Id}' disconnected while writing descriptor with {Id}.");
+
+            return TaskBuilder.FromEvent<bool, EventHandler<CBDescriptorEventArgs>, EventHandler<CBPeripheralErrorEventArgs>>(
+                    execute: () =>
+                    {
+                        if (_parentDevice.State != CBPeripheralState.Connected)
+                            throw exception;
+                        _parentDevice.WriteValue(NSData.FromArray(data), _nativeDescriptor);
+                    },
                     getCompleteHandler: (complete, reject) => (sender, args) =>
                     {
                         if (args.Descriptor.UUID != _nativeDescriptor.UUID)
@@ -80,8 +105,14 @@ namespace Plugin.BLE.iOS
                             complete(true);
                     },
                     subscribeComplete: handler => _parentDevice.WroteDescriptorValue += handler,
-                    unsubscribeComplete: handler => _parentDevice.WroteDescriptorValue -= handler);
+                    unsubscribeComplete: handler => _parentDevice.WroteDescriptorValue -= handler,
+                    getRejectHandler: reject => ((sender, args) =>
+                    {
+                        if (args.Peripheral.Identifier == _parentDevice.Identifier)
+                            reject(exception);
+                    }),
+                    subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
+                    unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
         }
-
     }
 }

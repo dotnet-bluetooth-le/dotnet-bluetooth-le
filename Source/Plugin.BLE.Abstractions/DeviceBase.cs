@@ -51,7 +51,7 @@ namespace Plugin.BLE.Abstractions
             Adapter = adapter;
         }
 
-        public async Task<IList<IService>> GetServicesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<IReadOnlyList<IService>> GetServicesAsync(CancellationToken cancellationToken = default)
         {
             if (!KnownServices.Any())
             {
@@ -64,10 +64,10 @@ namespace Plugin.BLE.Abstractions
             return KnownServices;
         }
 
-        public async Task<IService> GetServiceAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<IService> GetServiceAsync(Guid id, CancellationToken cancellationToken = default)
         {
             var services = await GetServicesAsync(cancellationToken);
-            return services.FirstOrDefault(x => x.Id == id);
+            return services.ToList().FirstOrDefault(x => x.Id == id);
         }
 
         public async Task<int> RequestMtuAsync(int requestValue)
@@ -82,7 +82,7 @@ namespace Plugin.BLE.Abstractions
 
         public abstract Task<bool> UpdateRssiAsync();
         protected abstract DeviceState GetState();
-        protected abstract Task<IEnumerable<IService>> GetServicesNativeAsync();
+        protected abstract Task<IReadOnlyList<IService>> GetServicesNativeAsync();
         protected abstract Task<int> RequestMtuNativeAsync(int requestValue);
         protected abstract bool UpdateConnectionIntervalNative(ConnectionInterval interval);
 

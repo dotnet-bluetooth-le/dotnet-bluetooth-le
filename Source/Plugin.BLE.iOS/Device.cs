@@ -13,18 +13,22 @@ namespace Plugin.BLE.iOS
     public class Device : DeviceBase
     {
         private readonly CBPeripheral _nativeDevice;
+        private readonly IBleCentralManagerDelegate _bleCentralManagerDelegate;
 
         public override object NativeDevice => _nativeDevice;
 
-        public Device(Adapter adapter, CBPeripheral nativeDevice)
-            : this(adapter, nativeDevice, nativeDevice.Name, nativeDevice.RSSI?.Int32Value ?? 0,
+        public Device(Adapter adapter, CBPeripheral nativeDevice, IBleCentralManagerDelegate bleCentralManagerDelegate)
+            : this(adapter, nativeDevice, bleCentralManagerDelegate, nativeDevice.Name, nativeDevice.RSSI?.Int32Value ?? 0,
                 new List<AdvertisementRecord>())
         {
         }
 
-        public Device(Adapter adapter, CBPeripheral nativeDevice, string name, int rssi, List<AdvertisementRecord> advertisementRecords) : base(adapter)
+        public Device(Adapter adapter, CBPeripheral nativeDevice, IBleCentralManagerDelegate bleCentralManagerDelegate, string name, int rssi, List<AdvertisementRecord> advertisementRecords) 
+            : base(adapter)
         {
             _nativeDevice = nativeDevice;
+            _bleCentralManagerDelegate = bleCentralManagerDelegate;
+
             Id = Guid.ParseExact(_nativeDevice.Identifier.AsString(), "d");
             Name = name;
 
@@ -42,10 +46,18 @@ namespace Plugin.BLE.iOS
             Trace.Message("Device changed name: {0}", Name);
         }
 
-        protected override Task<IEnumerable<IService>> GetServicesNativeAsync()
+        protected override Task<IReadOnlyList<IService>> GetServicesNativeAsync()
         {
-            return TaskBuilder.FromEvent<IEnumerable<IService>, EventHandler<NSErrorEventArgs>>(
-               execute: () => _nativeDevice.DiscoverServices(),
+            var exception = new Exception($"Device {Name} disconnected while fetching services.");
+
+            return TaskBuilder.FromEvent<IReadOnlyList<IService>, EventHandler<NSErrorEventArgs>, EventHandler<CBPeripheralErrorEventArgs>>(
+               execute: () =>
+               {
+                   if (_nativeDevice.State != CBPeripheralState.Connected)
+                       throw exception;
+
+                   _nativeDevice.DiscoverServices();
+               },
                getCompleteHandler: (complete, reject) => (sender, args) =>
                {
                    // If args.Error was not null then the Service might be null
@@ -61,13 +73,20 @@ namespace Plugin.BLE.iOS
                    else
                    {
                        var services = _nativeDevice.Services
-                                            .Select(nativeService => new Service(nativeService, this))
+                                            .Select(nativeService => new Service(nativeService, this, _bleCentralManagerDelegate))
                                             .Cast<IService>().ToList();
                        complete(services);
                    }
                },
                subscribeComplete: handler => _nativeDevice.DiscoveredService += handler,
-               unsubscribeComplete: handler => _nativeDevice.DiscoveredService -= handler);
+               unsubscribeComplete: handler => _nativeDevice.DiscoveredService -= handler,
+               getRejectHandler: reject => ((sender, args) =>
+               {
+                   if (args.Peripheral.Identifier == _nativeDevice.Identifier)
+                       reject(exception);
+               }),
+               subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
+               unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
         }
 
         public override async Task<bool> UpdateRssiAsync()

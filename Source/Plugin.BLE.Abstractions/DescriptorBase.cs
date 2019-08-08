@@ -22,14 +22,14 @@ namespace Plugin.BLE.Abstractions
             Characteristic = characteristic;
         }
 
-        public Task<byte[]> ReadAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public Task<byte[]> ReadAsync(CancellationToken cancellationToken = default)
         {
             return ReadNativeAsync();
         }
 
         protected abstract Task<byte[]> ReadNativeAsync();
 
-        public Task WriteAsync(byte[] data, CancellationToken cancellationToken = default(CancellationToken))
+        public Task WriteAsync(byte[] data, CancellationToken cancellationToken = default)
         {
             if (data == null)
             {
@@ -40,8 +40,5 @@ namespace Plugin.BLE.Abstractions
         }
 
         protected abstract Task WriteNativeAsync(byte[] data);
-
-
-
     }
 }
