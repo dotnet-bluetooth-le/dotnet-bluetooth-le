@@ -80,7 +80,6 @@ Should prevent crashes like: #320
     <!-- macOS -->
     <file src="out\lib\macOS\Plugin.BLE.*" target="lib\xamarinmac20" />
     <!-- uap -->
-    <file src="out\lib\uwp\Plugin.Badge.*" target="lib\uap10.0" />
-    <file src="out\lib\uwp\Plugin.Badge.UWP.xr.xml" target="lib\uap10.0\Plugin.BLE.UWP" />
+    <file src="out\lib\uwp\Plugin.BLE.*\Plugin.BLE.*" target="lib\uap10.0" />
   </files>
 </package>
