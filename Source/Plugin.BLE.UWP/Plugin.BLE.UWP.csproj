@@ -115,6 +115,7 @@
     <Compile Include="DefaultTrace.cs" />
     <Compile Include="Descriptor.cs" />
     <Compile Include="Device.cs" />
+    <Compile Include="Extensions\ScanModeExtension.cs" />
     <Compile Include="Extensions\GattResultExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service.cs" />

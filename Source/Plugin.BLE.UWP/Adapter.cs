@@ -12,6 +12,7 @@ using Windows.Devices.Bluetooth.Advertisement;
 
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Extensions;
 
 namespace Plugin.BLE.UWP
 {
@@ -29,7 +30,7 @@ namespace Plugin.BLE.UWP
         {
             var hasFilter = serviceUuids?.Any() ?? false;
 
-            _bleWatcher = new BluetoothLEAdvertisementWatcher { ScanningMode = ScanMode == ScanMode.Passive ? BluetoothLEScanningMode.Passive : BluetoothLEScanningMode.Active };
+            _bleWatcher = new BluetoothLEAdvertisementWatcher { ScanningMode = ScanMode.ToNative() };
 
             Trace.Message("Starting a scan for devices.");
             if (hasFilter)
@@ -67,7 +68,7 @@ namespace Plugin.BLE.UWP
             if (!(device.NativeDevice is ObservableBluetoothLEDevice nativeDevice))
                 return;
 
-            // nativeDevice.PropertyChanged -= Device_ConnectionStatusChanged;
+            nativeDevice.PropertyChanged -= Device_ConnectionStatusChanged;
             nativeDevice.PropertyChanged += Device_ConnectionStatusChanged;
 
             ConnectedDeviceRegistry[device.Id.ToString()] = device;
