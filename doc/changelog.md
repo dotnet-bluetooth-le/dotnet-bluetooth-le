@@ -1,11 +1,13 @@
 # Changelog
 
-## 2.1.0
+## 2.1.0 MacOS  
+- Use IReadOnlyLists for Services/Charactersitics/Descriptors and concurrent collections for DiscoveredDevices/ConnectedDevices
+Should prevent crashes like: #320
 
 #### 2.1.0-pre.1
 - #54 macOS support
 
-## 2.0.0
+## 2.0.0 .NETStanard
 
 #### 2.0.1
 - Fix #367
