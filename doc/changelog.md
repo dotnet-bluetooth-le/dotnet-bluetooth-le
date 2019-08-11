@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.2.0 UWP
+#### 2.2.0-pre.1
+    - UWP support pre-release
+
+
 ## 2.1.0 MacOS  
 - Use IReadOnlyLists for Services/Charactersitics/Descriptors and concurrent collections for DiscoveredDevices/ConnectedDevices
 Should prevent crashes like: #320
