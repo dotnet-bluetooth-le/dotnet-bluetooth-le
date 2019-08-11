@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-using Microsoft.Toolkit.Uwp.Connectivity;
 using Windows.Devices.Bluetooth.GenericAttributeProfile;
 
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Extensions;
 
 namespace Plugin.BLE.UWP
 {
@@ -28,10 +27,13 @@ namespace Plugin.BLE.UWP
 
         protected override async Task<IList<ICharacteristic>> GetCharacteristicsNativeAsync()
         {
-            var nativeChars = await _nativeService.GetCharacteristicsAsync();
+            var result = await _nativeService.GetCharacteristicsAsync(BleImplementation.CacheModeGetCharacteristics);
+            result.ThrowIfError();
 
-            // ToDo error handling
-            return nativeChars.Characteristics.Select(nativeChar => new Characteristic(nativeChar, this)).Cast<ICharacteristic>().ToList();
+            return result.Characteristics?
+                .Select(nativeChar => new Characteristic(nativeChar, this))
+                .Cast<ICharacteristic>()
+                .ToList();
         }
     }
 }

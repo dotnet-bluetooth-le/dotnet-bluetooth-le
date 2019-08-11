@@ -45,7 +45,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// - Manufacturer Specifc data
         /// - ...
         /// </summary>
-        IList<AdvertisementRecord> AdvertisementRecords { get; }
+        IReadOnlyList<AdvertisementRecord> AdvertisementRecords { get; }
 
         /// <summary>
         /// Gets all services of the device.

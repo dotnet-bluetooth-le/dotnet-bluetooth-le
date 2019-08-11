@@ -96,6 +96,7 @@ namespace BLE.Client.ViewModels
             // quick and dirty :>
             _bluetoothLe.StateChanged += OnStateChanged;
             Adapter.DeviceDiscovered += OnDeviceDiscovered;
+            Adapter.DeviceAdvertised += OnDeviceDiscovered;
             Adapter.ScanTimeoutElapsed += Adapter_ScanTimeoutElapsed;
             Adapter.DeviceDisconnected += OnDeviceDisconnected;
             Adapter.DeviceConnectionLost += OnDeviceConnectionLost;

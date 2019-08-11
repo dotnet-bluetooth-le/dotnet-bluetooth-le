@@ -13,8 +13,6 @@ namespace Plugin.BLE.Abstractions
 {
     public abstract class AdapterBase : IAdapter
     {
-        private readonly ConcurrentDictionary<Guid, IDevice> _discoveredDevices = new ConcurrentDictionary<Guid, IDevice>();
-
         private CancellationTokenSource _scanCancellationTokenSource;
         private volatile bool _isScanning;
         private Func<IDevice, bool> _currentScanDeviceFilter;
@@ -36,7 +34,9 @@ namespace Plugin.BLE.Abstractions
         public int ScanTimeout { get; set; } = 10000;
         public ScanMode ScanMode { get; set; } = ScanMode.LowPower;
 
-        public virtual IReadOnlyList<IDevice> DiscoveredDevices => _discoveredDevices.Values.ToList();
+        protected ConcurrentDictionary<Guid, IDevice> DiscoveredDevicesRegistry { get; } = new ConcurrentDictionary<Guid, IDevice>();
+
+        public virtual IReadOnlyList<IDevice> DiscoveredDevices => DiscoveredDevicesRegistry.Values.ToList();
 
         /// <summary>
         /// Used to store all connected devices
@@ -60,7 +60,7 @@ namespace Plugin.BLE.Abstractions
 
             try
             {
-                _discoveredDevices.Clear();
+                DiscoveredDevicesRegistry.Clear();
 
                 using (cancellationToken.Register(() => _scanCancellationTokenSource?.Cancel()))
                 {
@@ -191,10 +191,10 @@ namespace Plugin.BLE.Abstractions
             DeviceAdvertised?.Invoke(this, new DeviceEventArgs { Device = device });
 
             // TODO (sms): check equality implementation of device
-            if (_discoveredDevices.ContainsKey(device.Id))
+            if (DiscoveredDevicesRegistry.ContainsKey(device.Id))
                 return;
 
-            _discoveredDevices[device.Id] = device;
+            DiscoveredDevicesRegistry[device.Id] = device;
             DeviceDiscovered?.Invoke(this, new DeviceEventArgs { Device = device });
         }
 
@@ -215,7 +215,7 @@ namespace Plugin.BLE.Abstractions
                 Trace.Message("DisconnectedPeripheral by lost signal: {0}", device.Name);
                 DeviceConnectionLost?.Invoke(this, new DeviceErrorEventArgs { Device = device });
 
-                if (_discoveredDevices.TryRemove(device.Id, out _))
+                if (DiscoveredDevicesRegistry.TryRemove(device.Id, out _))
                 {
                     Trace.Message("Removed device from discovered devices list: {0}", device.Name);
                 }

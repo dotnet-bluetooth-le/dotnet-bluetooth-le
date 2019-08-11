@@ -5,7 +5,9 @@ using Windows.Devices.Bluetooth.GenericAttributeProfile;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Devices.Bluetooth;
 using Windows.Security.Cryptography;
+using Plugin.BLE.Extensions;
 
 namespace Plugin.BLE.UWP
 {
@@ -27,44 +29,14 @@ namespace Plugin.BLE.UWP
 
         protected override async Task<byte[]> ReadNativeAsync()
         {
-            var readResult = await _nativeDescriptor.ReadValueAsync();
-            
-            //ToDo throw
-            switch (readResult.Status)
-            {
-                case GattCommunicationStatus.Success:
-                    Trace.Message("Descriptor Read Successfully");
-                    break;
-                case GattCommunicationStatus.Unreachable:
-                case GattCommunicationStatus.ProtocolError:
-                case GattCommunicationStatus.AccessDenied:
-                default:
-                    Trace.Message("Descriptor Read Failed");
-                    break;
-            }
-
-            return _value = readResult.Value.ToArray();
+            var readResult = await _nativeDescriptor.ReadValueAsync(BleImplementation.CacheModeDescriptorRead);
+            return _value = readResult.GetValueOrThrowIfError();
         }
 
         protected override async Task WriteNativeAsync(byte[] data)
         {
-            //method contains no option for writing with response, so always write
-            //without response
-            var writeResult = await _nativeDescriptor.WriteValueAsync(CryptographicBuffer.CreateFromByteArray(data));
-
-            // ToDO throw error
-            switch (writeResult)
-            {
-                case GattCommunicationStatus.Success:
-                    Trace.Message("Descriptor Write Successfully");
-                    break;
-                case GattCommunicationStatus.Unreachable:
-                case GattCommunicationStatus.ProtocolError:
-                case GattCommunicationStatus.AccessDenied:
-                default:
-                    Trace.Message("Descriptor Write Failed");
-                    break;
-            }
+            var result = await _nativeDescriptor.WriteValueWithResultAsync(CryptographicBuffer.CreateFromByteArray(data));
+            result.ThrowIfError();
         }
     }
 }

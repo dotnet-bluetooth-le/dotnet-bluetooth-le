@@ -35,7 +35,7 @@ namespace Plugin.BLE.iOS
             Rssi = rssi;
             AdvertisementRecords = advertisementRecords;
 
-            // TODO figure out if this is in any way required,  
+            // TODO figure out if this is in any way required,
             // https://github.com/xabre/xamarin-bluetooth-le/issues/81
             //_nativeDevice.UpdatedName += OnNameUpdated;
         }
