@@ -3,7 +3,7 @@
 <table>
   <tr>
     <th>Value</th>
-    <th>iOS</th>
+    <th>iOS/macOS</th>
     <th>Android</th>
     <th>UWP</th>
   </tr>
