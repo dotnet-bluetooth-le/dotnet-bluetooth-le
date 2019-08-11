@@ -87,6 +87,14 @@ namespace BLE.Client.ViewModels
 
         readonly IPermissions _permissions;
 
+        public List<ScanMode> ScanModes => Enum.GetValues(typeof(ScanMode)).Cast<ScanMode>().ToList();
+
+        public ScanMode SelectedScanMode
+        {
+            get => Adapter.ScanMode;
+            set => Adapter.ScanMode = value;
+        }
+
         public DeviceListViewModel(IBluetoothLE bluetoothLe, IAdapter adapter, IUserDialogs userDialogs, ISettings settings, IPermissions permissions) : base(adapter)
         {
             _permissions = permissions;
@@ -102,6 +110,7 @@ namespace BLE.Client.ViewModels
             Adapter.DeviceConnectionLost += OnDeviceConnectionLost;
             //Adapter.DeviceConnected += (sender, e) => Adapter.DisconnectDeviceAsync(e.Device);
 
+            Adapter.ScanMode = ScanMode.LowLatency;
         }
 
         private Task GetPreviousGuidAsync()
@@ -222,7 +231,7 @@ namespace BLE.Client.ViewModels
             RaisePropertyChanged(() => IsRefreshing);
         }
 
-        private async void  TryStartScanning(bool refresh = false)
+        private async void TryStartScanning(bool refresh = false)
         {
             if (Xamarin.Forms.Device.RuntimePlatform == Device.Android)
             {
@@ -270,7 +279,6 @@ namespace BLE.Client.ViewModels
             RaisePropertyChanged(() => StopScanCommand);
 
             RaisePropertyChanged(() => IsRefreshing);
-            Adapter.ScanMode = ScanMode.LowLatency;
             await Adapter.StartScanningForDevicesAsync(_cancellationTokenSource.Token);
         }
 

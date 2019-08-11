@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using Acr.UserDialogs;
+using BLE.Client.Extensions;
 using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
@@ -40,6 +42,26 @@ namespace BLE.Client.ViewModels
             }
         }
 
+        public List<CharacteristicWriteType> CharacteristicWriteTypes => Enum.GetValues(typeof(CharacteristicWriteType))
+            .Cast<CharacteristicWriteType>().ToList();
+
+        public CharacteristicWriteType CharacteristicWriteType
+        {
+            get => Characteristic.WriteType;
+            set
+            {
+                try
+                {
+                    Characteristic.WriteType = value;
+                }
+                catch (Exception ex)
+                {
+                    _userDialogs.ErrorToast("Cannot set write type.", ex.Message, TimeSpan.FromSeconds(3));
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         public CharacteristicDetailViewModel(IAdapter adapter, IUserDialogs userDialogs) : base(adapter)
         {
             _userDialogs = userDialogs;
@@ -72,7 +94,7 @@ namespace BLE.Client.ViewModels
             {
                 StopUpdates();
             }
-            
+
         }
 
         public MvxCommand ReadCommand => new MvxCommand(ReadValueAsync);
@@ -164,7 +186,7 @@ namespace BLE.Client.ViewModels
                 Characteristic.ValueUpdated -= CharacteristicOnValueUpdated;
                 Characteristic.ValueUpdated += CharacteristicOnValueUpdated;
                 await Characteristic.StartUpdatesAsync();
-         
+
 
                 Messages.Insert(0, $"Start updates");
 
