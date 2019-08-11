@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/xabre/xamarin-bluetooth-le</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
-      Xamarin plugin to access Bluetooth Low Energy functionality on Android and iOS.
+      Xamarin plugin to access Bluetooth Low Energy functionality on Android, iOS, macOS and UWP.
       Read the full documentation on the projects page.
     </description>
     <tags>xamarin monodroid Xamarin.iOS bluetooth BLE LE BTLE Smart xamarin.forms ios android forms xamarinforms</tags>
@@ -63,7 +63,8 @@ Should prevent crashes like: #320
       </group>
       <group targetFramework="xamarinmac20">
       </group>
-      <group targetFramework="uap">
+      <group targetFramework="uap10.0">
+          <dependency id="Microsoft.Toolkit.Uwp.Connectivity" version="5.0.0" />
       </group>
     </dependencies>
   </metadata>
@@ -76,5 +77,8 @@ Should prevent crashes like: #320
     <file src="out\lib\ios\Plugin.BLE.*" target="lib\Xamarin.iOS10" />
     <!-- macOS -->
     <file src="out\lib\macOS\Plugin.BLE.*" target="lib\xamarinmac20" />
+    <!-- uap -->
+    <file src="out\lib\uwp\Plugin.Badge.*" target="lib\uap10.0" />
+    <file src="out\lib\uwp\Plugin.Badge.UWP.xr.xml" target="lib\uap10.0\Plugin.BLE.UWP" />
   </files>
 </package>

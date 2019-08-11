@@ -69,11 +69,13 @@ Task("Build")
     BuildProject("Plugin.BLE.Android", "android");
     BuildProject("Plugin.BLE.iOS", "ios");
     BuildProject("Plugin.BLE.macOS", "macOS");
+    BuildProject("Plugin.BLE.UWP", "uwp");
 
-    BuildProject("MvvmCross.Plugins.BLE", Path.Combine("mvx","netstandard2.0"));
+    BuildProject("MvvmCross.Plugins.BLE", Path.Combine("mvx", "netstandard2.0"));
     BuildProject("MvvmCross.Plugins.BLE.Droid", Path.Combine("mvx", "android"));
-    BuildProject("MvvmCross.Plugins.BLE.iOS", Path.Combine("mvx","ios"));
-    BuildProject("MvvmCross.Plugins.BLE.macOS", Path.Combine("mvx","macOS"));
+    BuildProject("MvvmCross.Plugins.BLE.iOS", Path.Combine("mvx", "ios"));
+    BuildProject("MvvmCross.Plugins.BLE.macOS", Path.Combine("mvx", "macOS"));
+    BuildProject("MvvmCross.Plugins.BLE.UWP", Path.Combine("mvx", "uwp"));
 });
 
 Task("Clean").Does (() => 

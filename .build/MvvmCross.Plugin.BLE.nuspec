@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/xabre/xamarin-bluetooth-le</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
-      This package contains a Bluetooth Low Energy plugin for MvvmCross. It allows access to Bluetooth Low Energy functionality on Android and iOS.
+      This package contains a Bluetooth Low Energy plugin for MvvmCross. It allows access to Bluetooth Low Energy functionality on Android, iOS, macOS and UWP.
       Read the full documentation on the projects page.
     </description>
     <tags>mvvm mvvmcross mvx xamarin monodroid Xamarin.iOS Xamarin.Android Bluetooth Low Energy BLE LE BTLE Smart ios android forms xamarinforms</tags>
