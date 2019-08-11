@@ -10,7 +10,7 @@ Xamarin and MvvMCross plugin for accessing the bluetooth functionality. The plug
 | ------------- | ----------- | ----------- |
 | Xamarin.Android | 4.3 |  |
 | Xamarin.iOS     | 7.0 |  |
-| Xamarin.Mac     | 10.9 (Maveriks) | Plugin v2.1.0-pre1 |
+| Xamarin.Mac     | 10.9 (Maveriks) |  >= v2.1.0 |
 | UWP             | 1709 - 10.0.16299 (Fall Creators Update) | TBA | 
 
 [Changelog](doc/changelog.md)
