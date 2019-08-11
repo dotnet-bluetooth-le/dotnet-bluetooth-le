@@ -53,7 +53,13 @@ namespace Plugin.BLE
 
         private CBCentralInitOptions CreateInitOptions()
         {
-            return new CBCentralInitOptions { RestoreIdentifier = _restorationIdentifier, ShowPowerAlert = _showPowerAlert };
+            return new CBCentralInitOptions
+            {
+#if __IOS__
+                RestoreIdentifier = _restorationIdentifier,
+#endif
+                ShowPowerAlert = _showPowerAlert
+            };
         }
     }
 }

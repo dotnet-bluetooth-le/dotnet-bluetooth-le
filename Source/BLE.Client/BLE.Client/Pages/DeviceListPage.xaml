@@ -50,6 +50,7 @@
           <RowDefinition Height="Auto"></RowDefinition>
           <RowDefinition Height="Auto"></RowDefinition>
           <RowDefinition Height="Auto"></RowDefinition>
+          <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <StackLayout BackgroundColor="#FF6969" Padding="10" IsVisible="{Binding IsStateOn, Converter={StaticResource InverseBoolean}}">
           <Label Text="{Binding StateText}" FontSize="18" HorizontalTextAlignment="Center"></Label>
@@ -72,10 +73,12 @@
             <Label Text="Use Android AutoConnect" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
             <Switch IsToggled="{Binding UseAutoConnect}" HorizontalOptions="End"></Switch>
         </StackLayout>
-        <StackLayout Grid.Row="4" Orientation="Horizontal">
+         <Button Text="Scan" Command="{Binding RefreshCommand}" />
+        <StackLayout Grid.Row="5" Orientation="Horizontal">
           <Button Text="Connect to previous" Command="{Binding ConnectToPreviousCommand}" HorizontalOptions="FillAndExpand"/>
           <Button Text="Stop Scan" Command="{Binding StopScanCommand}" HorizontalOptions="End"/>
           <ActivityIndicator IsRunning="{Binding IsRefreshing}"
+                             IsVisible="{Binding IsRefreshing}"
                              HeightRequest="24"
                              WidthRequest="24"
                              VerticalOptions="Center"

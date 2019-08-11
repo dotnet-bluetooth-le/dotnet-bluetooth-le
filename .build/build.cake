@@ -68,10 +68,12 @@ Task("Build")
     BuildProject("Plugin.BLE", "netstandard2.0");
     BuildProject("Plugin.BLE.Android", "android");
     BuildProject("Plugin.BLE.iOS", "ios");
+    BuildProject("Plugin.BLE.macOS", "macOS");
 
     BuildProject("MvvmCross.Plugins.BLE", Path.Combine("mvx","netstandard2.0"));
     BuildProject("MvvmCross.Plugins.BLE.Droid", Path.Combine("mvx", "android"));
     BuildProject("MvvmCross.Plugins.BLE.iOS", Path.Combine("mvx","ios"));
+    BuildProject("MvvmCross.Plugins.BLE.macOS", Path.Combine("mvx","macOS"));
 });
 
 Task("Clean").Does (() => 
@@ -87,7 +89,7 @@ Task("Clean").Does (() =>
 Task("UpdateVersion")
    .Does(() => {
     var version = Argument<string>("newVersion", "");
-    var cleanVersion = System.Text.RegularExpressions.Regex.Replace(version, @"[^\d\.].*$", "");
+    var cleanVersion = version; //TODO
 
     if(string.IsNullOrEmpty(cleanVersion))
     {

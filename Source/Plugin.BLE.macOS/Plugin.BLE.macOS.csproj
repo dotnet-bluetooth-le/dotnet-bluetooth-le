@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{239AD7CE-149F-4465-9BAF-7D60373BE5CB}</ProjectGuid>
+    <ProjectTypeGuids>{A3F8F2AB-B479-4A4A-A458-A89E7DC349F1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Plugin.BLE.macOS</RootNamespace>
+    <AssemblyName>Plugin.BLE.macOS</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkIdentifier>Xamarin.Mac</TargetFrameworkIdentifier>
+    <MonoMacResourcePrefix>Resources</MonoMacResourcePrefix>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;__UNIFIED__;__MACOS__</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <EnableCodeSigning>false</EnableCodeSigning>
+    <CreatePackage>false</CreatePackage>
+    <EnablePackageSigning>false</EnablePackageSigning>
+    <IncludeMonoRuntime>false</IncludeMonoRuntime>
+    <UseSGen>false</UseSGen>
+    <HttpClientHandler>
+    </HttpClientHandler>
+    <LinkMode>
+    </LinkMode>
+    <XamMacArch>
+    </XamMacArch>
+    <AOTMode>None</AOTMode>
+    <DocumentationFile>bin\Debug\Plugin.BLE.macOS.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <DefineConstants>__UNIFIED__;__MACOS__</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <EnableCodeSigning>false</EnableCodeSigning>
+    <CreatePackage>false</CreatePackage>
+    <EnablePackageSigning>false</EnablePackageSigning>
+    <IncludeMonoRuntime>false</IncludeMonoRuntime>
+    <UseSGen>false</UseSGen>
+    <HttpClientHandler>HttpClientHandler</HttpClientHandler>
+    <LinkMode>None</LinkMode>
+    <XamMacArch>
+    </XamMacArch>
+    <AOTMode>None</AOTMode>
+    <DocumentationFile>bin\Release\Plugin.BLE.macOS.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Xamarin.Mac" />
+    <Reference Include="netstandard" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\Plugin.BLE.iOS\Adapter.cs">
+      <Link>Adapter.cs</Link>
+    </Compile>
+    <Compile Include="..\Plugin.BLE.iOS\BleCentralManagerDelegate.cs">
+      <Link>BleCentralManagerDelegate.cs</Link>
+    </Compile>
+    <Compile Include="..\Plugin.BLE.iOS\BleImplementation.cs">
+      <Link>BleImplementation.cs</Link>
+    </Compile>
+    <Compile Include="..\Plugin.BLE.iOS\Characteristic.cs">
+      <Link>Characteristic.cs</Link>
+    </Compile>
+    <Compile Include="..\Plugin.BLE.iOS\DefaultTrace.cs">
+      <Link>DefaultTrace.cs</Link>
+    </Compile>
+    <Compile Include="..\Plugin.BLE.iOS\Descriptor.cs">
+      <Link>Descriptor.cs</Link>
+    </Compile>
+    <Compile Include="..\Plugin.BLE.iOS\Device.cs">
+      <Link>Device.cs</Link>
+    </Compile>
+    <Compile Include="..\Plugin.BLE.iOS\Extensions.cs">
+      <Link>Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Plugin.BLE.iOS\Service.cs">
+      <Link>Service.cs</Link>
+    </Compile>
+    <Compile Include="..\Plugin.BLE.iOS\Extensions\BluetoothStateExtension.cs">
+      <Link>Extensions\BluetoothStateExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\Plugin.BLE.iOS\Extensions\CBCharacteristicWriteTypeExtension.cs">
+      <Link>Extensions\CBCharacteristicWriteTypeExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\Plugin.BLE.iOS\Extensions\CharacteristicWriteTypeExtension.cs">
+      <Link>Extensions\CharacteristicWriteTypeExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\Plugin.BLE\CrossBluetoothLE.cs">
+      <Link>CrossBluetoothLE.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Plugin.BLE.Abstractions\Plugin.BLE.Abstractions.csproj">
+      <Project>{56531910-6309-4F1D-A12B-F69E2914FAE6}</Project>
+      <Name>Plugin.BLE.Abstractions</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
+</Project>
