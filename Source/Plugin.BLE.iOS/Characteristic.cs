@@ -68,7 +68,7 @@ namespace Plugin.BLE.iOS
                 unsubscribeComplete: handler => _parentDevice.DiscoveredDescriptor -= handler);
         }
 
-        protected override Task<byte[]> ReadNativeAsync()
+        protected override Task<byte[]> ReadNativeAsync(CancellationToken token)
         {
             return TaskBuilder.FromEvent<byte[], EventHandler<CBCharacteristicEventArgs>>(
                     execute: () => _parentDevice.ReadValue(_nativeCharacteristic),
@@ -88,7 +88,8 @@ namespace Plugin.BLE.iOS
                         }
                     },
                     subscribeComplete: handler => _parentDevice.UpdatedCharacterteristicValue += handler,
-                    unsubscribeComplete: handler => _parentDevice.UpdatedCharacterteristicValue -= handler);
+                    unsubscribeComplete: handler => _parentDevice.UpdatedCharacterteristicValue -= handler,
+                    token: token);
         }
 
         protected override Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType, CancellationToken token = default(CancellationToken))

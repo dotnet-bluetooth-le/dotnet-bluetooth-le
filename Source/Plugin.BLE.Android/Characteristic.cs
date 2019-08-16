@@ -44,7 +44,7 @@ namespace Plugin.BLE.Android
             return Task.FromResult<IList<IDescriptor>>(_nativeCharacteristic.Descriptors.Select(item => new Descriptor(item, _gatt, _gattCallback, this)).Cast<IDescriptor>().ToList());
         }
 
-        protected override async Task<byte[]> ReadNativeAsync()
+        protected override async Task<byte[]> ReadNativeAsync(CancellationToken token)
         {
             return await TaskBuilder.FromEvent<byte[], EventHandler<CharacteristicReadCallbackEventArgs>, EventHandler>(
                 execute: ReadInternal,
@@ -62,7 +62,8 @@ namespace Plugin.BLE.Android
                     reject(new Exception($"Device '{Service.Device.Id}' disconnected while reading characteristic with {Id}."));
                 }),
                 subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
-                unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler);
+                unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler,
+                token: token);
 
         }
 
