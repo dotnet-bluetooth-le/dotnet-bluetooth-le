@@ -71,7 +71,7 @@ namespace Plugin.BLE.Abstractions
             }
 
             Trace.Message("Characteristic.ReadAsync");
-            return await ReadNativeAsync();
+            return await ReadNativeAsync(cancellationToken);
         }
 
         public async Task<bool> WriteAsync(byte[] data, CancellationToken cancellationToken = default(CancellationToken))
@@ -137,7 +137,7 @@ namespace Plugin.BLE.Abstractions
         }
 
         protected abstract Task<IList<IDescriptor>> GetDescriptorsNativeAsync();
-        protected abstract Task<byte[]> ReadNativeAsync();
+        protected abstract Task<byte[]> ReadNativeAsync(CancellationToken token);
         protected abstract Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType, CancellationToken token = default(CancellationToken));
         protected abstract Task StartUpdatesNativeAsync();
         protected abstract Task StopUpdatesNativeAsync();
