@@ -8,12 +8,11 @@ using Android.Bluetooth;
 using Android.Content;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
-using Plugin.BLE.Abstractions.EventArgs;
-using Plugin.BLE.Abstractions.Exceptions;
 using Plugin.BLE.Abstractions.Utils;
 using Plugin.BLE.Android.CallbackEventArgs;
 using Trace = Plugin.BLE.Abstractions.Trace;
 using System.Threading;
+using Java.Util;
 
 namespace Plugin.BLE.Android
 {
@@ -28,7 +27,7 @@ namespace Plugin.BLE.Android
         internal BluetoothGatt _gatt;
 
         /// <summary>
-        /// we also track this because of gogole's weird API. the gatt callback is where
+        /// we also track this because of google's weird API. the gatt callback is where
         /// we'll get notified when services are enumerated
         /// </summary>
         private readonly GattCallback _gattCallback;
@@ -69,20 +68,59 @@ namespace Plugin.BLE.Android
                 return new List<IService>();
             }
 
-            return await TaskBuilder.FromEvent<IReadOnlyList<IService>, EventHandler<ServicesDiscoveredCallbackEventArgs>, EventHandler>(
-                execute: () => _gatt.DiscoverServices(),
-                getCompleteHandler: (complete, reject) => ((sender, args) =>
-                {
-                    complete(_gatt.Services.Select(service => new Service(service, _gatt, _gattCallback, this)).ToList());
-                }),
-                subscribeComplete: handler => _gattCallback.ServicesDiscovered += handler,
-                unsubscribeComplete: handler => _gattCallback.ServicesDiscovered -= handler,
-                getRejectHandler: reject => ((sender, args) =>
-                {
-                    reject(new Exception($"Device {Name} disconnected while fetching services."));
-                }),
-                subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
-                unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler);
+            // _gatt.Services is already populated if device service discovery was already done
+            if (_gatt.Services.Any())
+            {
+                return _gatt.Services.Select(service => new Service(service, _gatt, _gattCallback, this)).ToList();
+            }
+
+            return await DiscoverServicesInternal();
+        }
+
+        protected override async Task<IService> GetServiceNativeAsync(Guid id)
+        {
+            if (_gattCallback == null || _gatt == null)
+            {
+                return null;
+            }
+
+            var uuid = UUID.FromString(id.ToString("d"));
+
+            // _gatt.GetService will directly return if device service discovery was already done
+            var nativeService = _gatt.GetService(uuid);
+            if (nativeService != null)
+            {
+                return new Service(nativeService, _gatt, _gattCallback, this);
+            }
+
+            var services = await DiscoverServicesInternal();
+            return services?.FirstOrDefault(service => service.Id == id);
+        }
+
+        private async Task<IReadOnlyList<IService>> DiscoverServicesInternal()
+        {
+            return await TaskBuilder
+                .FromEvent<IReadOnlyList<IService>, EventHandler<ServicesDiscoveredCallbackEventArgs>, EventHandler>(
+                    execute: () =>
+                    {
+                        if (!_gatt.DiscoverServices())
+                        {
+                            throw new Exception("Could not start service discovery");
+                        }
+                    },
+                    getCompleteHandler: (complete, reject) => ((sender, args) =>
+                    {
+                        complete(
+                            _gatt.Services.Select(service => new Service(service, _gatt, _gattCallback, this)).ToList());
+                    }),
+                    subscribeComplete: handler => _gattCallback.ServicesDiscovered += handler,
+                    unsubscribeComplete: handler => _gattCallback.ServicesDiscovered -= handler,
+                    getRejectHandler: reject => ((sender, args) =>
+                    {
+                        reject(new Exception($"Device {Name} disconnected while fetching services."));
+                    }),
+                    subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
+                    unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler);
         }
 
         public void Connect(ConnectParameters connectParameters, CancellationToken cancellationToken)
@@ -142,7 +180,7 @@ namespace Plugin.BLE.Android
             {
                 IsOperationRequested = true;
 
-                ClearServices();
+                DisposeServices();
 
                 _gatt.Disconnect();
             }
@@ -163,7 +201,7 @@ namespace Plugin.BLE.Android
 
             // ClossGatt might will get called on signal loss without Disconnect being called we have to make sure we clear the services
             // Clear services & characteristics otherwise we will get gatt operation return FALSE when connecting to the same IDevice instace at a later time
-            ClearServices();
+            DisposeServices();
         }
 
         protected override DeviceState GetState()

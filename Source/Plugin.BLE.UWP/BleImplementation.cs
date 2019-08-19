@@ -11,9 +11,9 @@ namespace Plugin.BLE
     {
         public static BluetoothCacheMode CacheModeCharacteristicRead { get; set; } = BluetoothCacheMode.Uncached;
         public static BluetoothCacheMode CacheModeDescriptorRead { get; set; } = BluetoothCacheMode.Uncached;
-        public static BluetoothCacheMode CacheModeGetDescriptors { get; set; } = BluetoothCacheMode.Uncached;
-        public static BluetoothCacheMode CacheModeGetCharacteristics { get; set; } = BluetoothCacheMode.Uncached;
-        public static BluetoothCacheMode CacheModeGetServices { get; set; } = BluetoothCacheMode.Uncached;
+        public static BluetoothCacheMode CacheModeGetDescriptors { get; set; } = BluetoothCacheMode.Cached;
+        public static BluetoothCacheMode CacheModeGetCharacteristics { get; set; } = BluetoothCacheMode.Cached;
+        public static BluetoothCacheMode CacheModeGetServices { get; set; } = BluetoothCacheMode.Cached;
 
         private BluetoothLEHelper _bluetoothHelper;
 

@@ -94,7 +94,8 @@
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Label Text="Scan Mode: "
-                               FontSize="Small" />
+                               FontSize="Small"
+                               VerticalTextAlignment="Center"/>
                         <Picker TextColor="DarkGreen"
                                 ItemsSource="{Binding ScanModes}"
                                 SelectedItem="{Binding SelectedScanMode, Mode=TwoWay}" />

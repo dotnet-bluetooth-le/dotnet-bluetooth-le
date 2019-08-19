@@ -55,7 +55,7 @@ namespace Plugin.BLE.iOS
                 {
                     foreach (var device in ConnectedDeviceRegistry.Values.ToList())
                     {
-                        ((Device)device).ClearServices();
+                        ((Device)device).DisposeServices();
                         HandleDisconnectedDevice(false, device);
                     }
 
@@ -119,7 +119,7 @@ namespace Plugin.BLE.iOS
                 foundDevice = foundDevice ?? new Device(this, e.Peripheral, _bleCentralManagerDelegate);
 
                 //make sure all cached services are cleared this will also clear characteristics and descriptors implicitly
-                ((Device)foundDevice).ClearServices();
+                ((Device)foundDevice).DisposeServices();
 
                 HandleDisconnectedDevice(isNormalDisconnect, foundDevice);
             };

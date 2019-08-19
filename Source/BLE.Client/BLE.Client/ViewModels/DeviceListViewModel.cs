@@ -506,7 +506,7 @@ namespace BLE.Client.ViewModels
         {
             Devices.FirstOrDefault(d => d.Id == e.Device.Id)?.Update();
             _userDialogs.HideLoading();
-            _userDialogs.Toast($"Disconnected {e.Device.Name}");
+            _userDialogs.Toast($"Disconnected {e.Device.Name}", TimeSpan.FromSeconds(3));
 
             Console.WriteLine($"Disconnected {e.Device.Name}");
         }

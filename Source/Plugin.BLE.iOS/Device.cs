@@ -23,7 +23,7 @@ namespace Plugin.BLE.iOS
         {
         }
 
-        public Device(Adapter adapter, CBPeripheral nativeDevice, IBleCentralManagerDelegate bleCentralManagerDelegate, string name, int rssi, List<AdvertisementRecord> advertisementRecords) 
+        public Device(Adapter adapter, CBPeripheral nativeDevice, IBleCentralManagerDelegate bleCentralManagerDelegate, string name, int rssi, List<AdvertisementRecord> advertisementRecords)
             : base(adapter)
         {
             _nativeDevice = nativeDevice;
@@ -48,45 +48,70 @@ namespace Plugin.BLE.iOS
 
         protected override Task<IReadOnlyList<IService>> GetServicesNativeAsync()
         {
+            return GetServicesInternal();
+        }
+
+        protected override async Task<IService> GetServiceNativeAsync(Guid id)
+        {
+            var cbuuid = CBUUID.FromString(id.ToString());
+            var nativeService = _nativeDevice.Services.FirstOrDefault(service => service.UUID.Equals(cbuuid));
+            if (nativeService != null)
+            {
+                return new Service(nativeService, this, _bleCentralManagerDelegate);
+            }
+
+            var services = await GetServicesInternal(cbuuid);
+            return services?.FirstOrDefault();
+        }
+
+        private Task<IReadOnlyList<IService>> GetServicesInternal(CBUUID id = null)
+        {
             var exception = new Exception($"Device {Name} disconnected while fetching services.");
 
             return TaskBuilder.FromEvent<IReadOnlyList<IService>, EventHandler<NSErrorEventArgs>, EventHandler<CBPeripheralErrorEventArgs>>(
-               execute: () =>
-               {
-                   if (_nativeDevice.State != CBPeripheralState.Connected)
-                       throw exception;
+                    execute: () =>
+                    {
+                        if (_nativeDevice.State != CBPeripheralState.Connected)
+                            throw exception;
 
-                   _nativeDevice.DiscoverServices();
-               },
-               getCompleteHandler: (complete, reject) => (sender, args) =>
-               {
-                   // If args.Error was not null then the Service might be null
-                   if (args.Error != null)
-                   {
-                       reject(new Exception($"Error while discovering services {args.Error.LocalizedDescription}"));
-                   }
-                   else if (_nativeDevice.Services == null)
-                   {
-                       // No service discovered. 
-                       reject(new Exception($"Error while discovering services: returned list is null"));
-                   }
-                   else
-                   {
-                       var services = _nativeDevice.Services
-                                            .Select(nativeService => new Service(nativeService, this, _bleCentralManagerDelegate))
-                                            .Cast<IService>().ToList();
-                       complete(services);
-                   }
-               },
-               subscribeComplete: handler => _nativeDevice.DiscoveredService += handler,
-               unsubscribeComplete: handler => _nativeDevice.DiscoveredService -= handler,
-               getRejectHandler: reject => ((sender, args) =>
-               {
-                   if (args.Peripheral.Identifier == _nativeDevice.Identifier)
-                       reject(exception);
-               }),
-               subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
-               unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
+                        if (id != null)
+                        {
+                            _nativeDevice.DiscoverServices(new[] { id });
+                        }
+                        else
+                        {
+                            _nativeDevice.DiscoverServices();
+                        }
+                    },
+                    getCompleteHandler: (complete, reject) => (sender, args) =>
+                    {
+                        // If args.Error was not null then the Service might be null
+                        if (args.Error != null)
+                        {
+                            reject(new Exception($"Error while discovering services {args.Error.LocalizedDescription}"));
+                        }
+                        else if (_nativeDevice.Services == null)
+                        {
+                            // No service discovered. 
+                            reject(new Exception($"Error while discovering services: returned list is null"));
+                        }
+                        else
+                        {
+                            var services = _nativeDevice.Services
+                                .Select(nativeService => new Service(nativeService, this, _bleCentralManagerDelegate))
+                                .Cast<IService>().ToList();
+                            complete(services);
+                        }
+                    },
+                    subscribeComplete: handler => _nativeDevice.DiscoveredService += handler,
+                    unsubscribeComplete: handler => _nativeDevice.DiscoveredService -= handler,
+                    getRejectHandler: reject => ((sender, args) =>
+                    {
+                        if (args.Peripheral.Identifier == _nativeDevice.Identifier)
+                            reject(exception);
+                    }),
+                    subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
+                    unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
         }
 
         public override async Task<bool> UpdateRssiAsync()
@@ -135,7 +160,6 @@ namespace Plugin.BLE.iOS
         public void Update(CBPeripheral nativeDevice)
         {
             Rssi = nativeDevice.RSSI?.Int32Value ?? 0;
-
             //It's maybe not the best idea to updated the name based on CBPeripherial name because this might be stale.
             //Name = nativeDevice.Name; 
         }
