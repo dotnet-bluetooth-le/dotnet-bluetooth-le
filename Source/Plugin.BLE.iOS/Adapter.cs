@@ -114,7 +114,7 @@ namespace Plugin.BLE.iOS
                 // remove from connected devices
                 if (!ConnectedDeviceRegistry.TryRemove(stringId, out foundDevice))
                 {
-                    Trace.Message($"Failed to remove {foundDevice.Id}-{foundDevice.Name} from device connected registry");
+                    Trace.Message($"Device with id '{stringId}' was not found in the connected device registry. Nothing to remove.");
                 }
 
                 foundDevice = foundDevice ?? new Device(this, e.Peripheral, _bleCentralManagerDelegate);
@@ -222,7 +222,7 @@ namespace Plugin.BLE.iOS
             //FYI attempted to use tobyte array insetead of string but there was a problem with byte ordering Guid->NSUui
             var uuid = new NSUuid(deviceGuid.ToString());
 
-            Trace.Message($"[Adapter] Attempting connection to {uuid.ToString()}");
+            Trace.Message($"[Adapter] Attempting connection to {uuid}");
 
             var peripherials = _centralManager.RetrievePeripheralsWithIdentifiers(uuid);
             var peripherial = peripherials.SingleOrDefault();
