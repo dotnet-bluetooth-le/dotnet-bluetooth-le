@@ -1,6 +1,11 @@
 # Changelog
-
+   
 ## 2.1.0 MacOS  
+
+### 2.1.1 Service Release for 2.1.0
+- [iOS] #373, #377 Fixed trace ouptut that caused NRE. 
+
+### 2.1.0 Stable Release MacOS
 - Use IReadOnlyLists for Services/Charactersitics/Descriptors and concurrent collections for DiscoveredDevices/ConnectedDevices
 Should prevent crashes like: #320
 
