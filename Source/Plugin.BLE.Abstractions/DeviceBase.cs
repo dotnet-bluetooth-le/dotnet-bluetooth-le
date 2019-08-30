@@ -33,7 +33,7 @@ namespace Plugin.BLE.Abstractions
         }
     }
 
-    public abstract class DeviceBase : IDevice, ICancellationMaster
+    public abstract class DeviceBase<TNativeDevice> : IDevice, ICancellationMaster
     {
         protected readonly IAdapter Adapter;
         protected readonly Dictionary<Guid, IService> KnownServices = new Dictionary<Guid, IService>();
@@ -42,13 +42,14 @@ namespace Plugin.BLE.Abstractions
         public int Rssi { get; protected set; }
         public DeviceState State => GetState();
         public IReadOnlyList<AdvertisementRecord> AdvertisementRecords { get; protected set; }
-        public abstract object NativeDevice { get; }
-
+        public TNativeDevice NativeDevice { get; protected set; }
         CancellationTokenSource ICancellationMaster.TokenSource { get; set; } = new CancellationTokenSource();
+        object IDevice.NativeDevice => NativeDevice;
 
-        protected DeviceBase(IAdapter adapter)
+        protected DeviceBase(IAdapter adapter, TNativeDevice nativeDevice)
         {
             Adapter = adapter;
+            NativeDevice = nativeDevice;
         }
 
         public async Task<IReadOnlyList<IService>> GetServicesAsync(CancellationToken cancellationToken = default)
@@ -138,7 +139,7 @@ namespace Plugin.BLE.Abstractions
                 return false;
             }
 
-            var otherDeviceBase = (DeviceBase)other;
+            var otherDeviceBase = (DeviceBase<TNativeDevice>)other;
             return Id == otherDeviceBase.Id;
         }
 

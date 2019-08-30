@@ -9,10 +9,12 @@ using Plugin.BLE.Abstractions.EventArgs;
 
 namespace Plugin.BLE.Abstractions
 {
-    public abstract class CharacteristicBase : ICharacteristic
+    public abstract class CharacteristicBase<TNativeCharacteristic> : ICharacteristic
     {
         private IReadOnlyList<IDescriptor> _descriptors;
         private CharacteristicWriteType _writeType = CharacteristicWriteType.Default;
+
+        protected TNativeCharacteristic NativeCharacteristic { get; }
 
         public abstract event EventHandler<CharacteristicUpdatedEventArgs> ValueUpdated;
 
@@ -58,9 +60,10 @@ namespace Plugin.BLE.Abstractions
             }
         }
 
-        protected CharacteristicBase(IService service)
+        protected CharacteristicBase(IService service, TNativeCharacteristic nativeCharacteristic)
         {
             Service = service;
+            NativeCharacteristic = nativeCharacteristic;
         }
 
         public async Task<byte[]> ReadAsync(CancellationToken cancellationToken = default)

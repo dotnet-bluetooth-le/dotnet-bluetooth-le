@@ -9,24 +9,21 @@ using Plugin.BLE.Extensions;
 
 namespace Plugin.BLE.UWP
 {
-    public class Service : ServiceBase
+    public class Service : ServiceBase<GattDeviceService>
     {
-        private readonly GattDeviceService _nativeService;
-
-        public override Guid Id => _nativeService.Uuid;
+        public override Guid Id => NativeService.Uuid;
 
         //method to get parent devices to check if primary is obsolete
         //return true as a placeholder
         public override bool IsPrimary => true;
 
-        public Service(GattDeviceService service, IDevice device) : base(device)
+        public Service(GattDeviceService nativeService, IDevice device) : base(device, nativeService)
         {
-            _nativeService = service;
         }
 
         protected override async Task<IList<ICharacteristic>> GetCharacteristicsNativeAsync()
         {
-            var result = await _nativeService.GetCharacteristicsAsync(BleImplementation.CacheModeGetCharacteristics);
+            var result = await NativeService.GetCharacteristicsAsync(BleImplementation.CacheModeGetCharacteristics);
             result.ThrowIfError();
 
             return result.Characteristics?
@@ -38,7 +35,7 @@ namespace Plugin.BLE.UWP
         public override void Dispose()
         {
             base.Dispose();
-            _nativeService?.Dispose();
+            NativeService?.Dispose();
         }
     }
 }

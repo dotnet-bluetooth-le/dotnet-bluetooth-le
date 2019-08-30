@@ -3,7 +3,6 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.Devices.Bluetooth;
 using Windows.Devices.Bluetooth.GenericAttributeProfile;
 using Windows.Security.Cryptography;
 using Plugin.BLE.Abstractions;
@@ -13,34 +12,32 @@ using Plugin.BLE.Extensions;
 
 namespace Plugin.BLE.UWP
 {
-    public class Characteristic : CharacteristicBase
+    public class Characteristic : CharacteristicBase<GattCharacteristic>
     {
-        private readonly GattCharacteristic _nativeCharacteristic;
-
         /// <summary>
         /// Value of the characteristic to be stored locally after
         /// update notification or read
         /// </summary>
         private byte[] _value;
-        public override Guid Id => _nativeCharacteristic.Uuid;
-        public override string Uuid => _nativeCharacteristic.Uuid.ToString();
-        public override CharacteristicPropertyType Properties => (CharacteristicPropertyType)(int)_nativeCharacteristic.CharacteristicProperties;
+        public override Guid Id => NativeCharacteristic.Uuid;
+        public override string Uuid => NativeCharacteristic.Uuid.ToString();
+        public override CharacteristicPropertyType Properties => (CharacteristicPropertyType)(int)NativeCharacteristic.CharacteristicProperties;
 
         public override event EventHandler<CharacteristicUpdatedEventArgs> ValueUpdated;
         public override byte[] Value => _value ?? new byte[0]; // return empty array if value is equal to null
 
-        public override string Name => string.IsNullOrEmpty(_nativeCharacteristic.UserDescription)
+        public override string Name => string.IsNullOrEmpty(NativeCharacteristic.UserDescription)
             ? base.Name
-            : _nativeCharacteristic.UserDescription;
+            : NativeCharacteristic.UserDescription;
 
-        public Characteristic(GattCharacteristic nativeCharacteristic, IService service) : base(service)
+        public Characteristic(GattCharacteristic nativeCharacteristic, IService service) 
+            : base(service, nativeCharacteristic)
         {
-            _nativeCharacteristic = nativeCharacteristic;
         }
 
         protected override async Task<IReadOnlyList<IDescriptor>> GetDescriptorsNativeAsync()
         {
-            var descriptorsResult = await _nativeCharacteristic.GetDescriptorsAsync(BleImplementation.CacheModeGetDescriptors);
+            var descriptorsResult = await NativeCharacteristic.GetDescriptorsAsync(BleImplementation.CacheModeGetDescriptors);
             descriptorsResult.ThrowIfError();
 
             return descriptorsResult.Descriptors?
@@ -51,30 +48,30 @@ namespace Plugin.BLE.UWP
 
         protected override async Task<byte[]> ReadNativeAsync()
         {
-            var readResult = await _nativeCharacteristic.ReadValueAsync(BleImplementation.CacheModeCharacteristicRead);
+            var readResult = await NativeCharacteristic.ReadValueAsync(BleImplementation.CacheModeCharacteristicRead);
             return _value = readResult.GetValueOrThrowIfError();
         }
 
         protected override async Task StartUpdatesNativeAsync()
         {
-            _nativeCharacteristic.ValueChanged -= OnCharacteristicValueChanged;
-            _nativeCharacteristic.ValueChanged += OnCharacteristicValueChanged;
+            NativeCharacteristic.ValueChanged -= OnCharacteristicValueChanged;
+            NativeCharacteristic.ValueChanged += OnCharacteristicValueChanged;
 
-            var result = await _nativeCharacteristic.WriteClientCharacteristicConfigurationDescriptorWithResultAsync(GattClientCharacteristicConfigurationDescriptorValue.Notify);
+            var result = await NativeCharacteristic.WriteClientCharacteristicConfigurationDescriptorWithResultAsync(GattClientCharacteristicConfigurationDescriptorValue.Notify);
             result.ThrowIfError();
         }
 
         protected override async Task StopUpdatesNativeAsync()
         {
-            _nativeCharacteristic.ValueChanged -= OnCharacteristicValueChanged;
+            NativeCharacteristic.ValueChanged -= OnCharacteristicValueChanged;
 
-            var result = await _nativeCharacteristic.WriteClientCharacteristicConfigurationDescriptorWithResultAsync(GattClientCharacteristicConfigurationDescriptorValue.None);
+            var result = await NativeCharacteristic.WriteClientCharacteristicConfigurationDescriptorWithResultAsync(GattClientCharacteristicConfigurationDescriptorValue.None);
             result.ThrowIfError();
         }
 
         protected override async Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType)
         {
-            var result = await _nativeCharacteristic.WriteValueWithResultAsync(
+            var result = await NativeCharacteristic.WriteValueWithResultAsync(
                 CryptographicBuffer.CreateFromByteArray(data),
                 writeType == CharacteristicWriteType.WithResponse ? GattWriteOption.WriteWithResponse : GattWriteOption.WriteWithoutResponse);
 
