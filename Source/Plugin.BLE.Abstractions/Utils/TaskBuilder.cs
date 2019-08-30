@@ -6,20 +6,11 @@ namespace Plugin.BLE.Abstractions.Utils
 {
     public static class TaskBuilder
     {
-        public static Task<TReturn> FromEvent<TReturn, TEventHandler>(
-            Action execute,
-            Func<Action<TReturn>, Action<Exception>, TEventHandler> getCompleteHandler,
-            Action<TEventHandler> subscribeComplete,
-            Action<TEventHandler> unsubscribeComplete,
-            CancellationToken token = default)
-        {
-            return FromEvent<TReturn, TEventHandler, object>(
-                execute, getCompleteHandler, subscribeComplete, unsubscribeComplete,
-                getRejectHandler: reject => null,
-                subscribeReject: handler => { },
-                unsubscribeReject: handler => { },
-                token: token);
-        }
+        private const int SemaphoreQueueTimeout = 30;
+        public static Action<Action> MainThreadQueueInvoker { get; set; }
+        public static bool ShouldQueueOnMainThread { get; set; }
+
+        private static readonly SemaphoreSlim QueueSemaphore = new SemaphoreSlim(1);
 
         public static async Task<TReturn> FromEvent<TReturn, TEventHandler, TRejectHandler>(
             Action execute,
@@ -32,12 +23,12 @@ namespace Plugin.BLE.Abstractions.Utils
             CancellationToken token = default)
         {
             var tcs = new TaskCompletionSource<TReturn>();
-            Action<TReturn> complete = args => tcs.TrySetResult(args);
-            Action<Exception> completeException = ex => tcs.TrySetException(ex);
-            Action<Exception> reject = ex => tcs.TrySetException(ex);
+            void Complete(TReturn args) => tcs.TrySetResult(args);
+            void CompleteException(Exception ex) => tcs.TrySetException(ex);
+            void Reject(Exception ex) => tcs.TrySetException(ex);
 
-            var handler = getCompleteHandler(complete, completeException);
-            var rejectHandler = getRejectHandler(reject);
+            var handler = getCompleteHandler(Complete, CompleteException);
+            var rejectHandler = getRejectHandler(Reject);
 
             try
             {
@@ -45,8 +36,7 @@ namespace Plugin.BLE.Abstractions.Utils
                 subscribeReject(rejectHandler);
                 using (token.Register(() => tcs.TrySetCanceled(), false))
                 {
-                    execute();
-                    return await tcs.Task;
+                    return await SafeEnqueueAndExecute(execute, token, tcs);
                 }
             }
             finally
@@ -54,6 +44,63 @@ namespace Plugin.BLE.Abstractions.Utils
                 unsubscribeReject(rejectHandler);
                 unsubscribeComplete(handler);
             }
+        }
+
+        public static async Task EnqueueOnMainThreadAsync(Action execute, CancellationToken token = default)
+        {
+            if (await SafeEnqueueAndExecute<bool>(execute, token))
+            {
+                QueueSemaphore.Release();
+            }
+        }
+
+        private static async Task<TReturn> SafeEnqueueAndExecute<TReturn>(Action execute, CancellationToken token, TaskCompletionSource<TReturn> tcs = null)
+        {
+            if (ShouldQueueOnMainThread && MainThreadQueueInvoker != null)
+            {
+                var shouldReleaseSemaphore = false;
+                var shouldCompleteTask = tcs == null;
+                tcs = tcs ?? new TaskCompletionSource<TReturn>();
+                if (await QueueSemaphore.WaitAsync(TimeSpan.FromSeconds(SemaphoreQueueTimeout), token))
+                {
+                    shouldReleaseSemaphore = true;
+                    MainThreadQueueInvoker.Invoke(() =>
+                    {
+                        try
+                        {
+                            execute();
+
+                            if (shouldCompleteTask)
+                            {
+                                tcs.TrySetResult(default);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            tcs.TrySetException(ex);
+                        }
+                    });
+                }
+                else
+                {
+                    tcs.TrySetCanceled(token);
+                }
+
+                try
+                {
+                    return await tcs.Task;
+                }
+                finally
+                {
+                    if (shouldReleaseSemaphore)
+                    {
+                        QueueSemaphore.Release();
+                    }
+                }
+            }
+
+            execute();
+            return await (tcs?.Task ?? Task.FromResult(default(TReturn)));
         }
     }
 }
