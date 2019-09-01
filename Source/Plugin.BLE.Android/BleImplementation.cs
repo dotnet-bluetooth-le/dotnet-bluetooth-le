@@ -13,10 +13,14 @@ using IAdapter = Plugin.BLE.Abstractions.Contracts.IAdapter;
 
 namespace Plugin.BLE
 {
-    internal class BleImplementation : BleImplementationBase
+    public class BleImplementation : BleImplementationBase
     {
-        private BluetoothManager _bluetoothManager;
-        private static volatile Handler handler;
+        private static volatile Handler _handler;
+
+        /// <summary>
+        /// Set this field to force are task builder execute() actions to be invoked on the main app tread one at a time (synchronous queue)
+        /// </summary>
+        public static bool ShouldQueueOnMainThread { get; set; } = true;
 
         private static bool IsMainThread
         {
@@ -31,6 +35,9 @@ namespace Plugin.BLE
             }
         }
 
+        private BluetoothManager _bluetoothManager;
+
+
         protected override void InitializeNative()
         {
             var ctx = Application.Context;
@@ -42,29 +49,31 @@ namespace Plugin.BLE
 
             _bluetoothManager = (BluetoothManager)ctx.GetSystemService(Context.BluetoothService);
 
-            TaskBuilder.ShouldQueueOnMainThread = true;
-            TaskBuilder.MainThreadQueueInvoker = action =>
+            if (ShouldQueueOnMainThread)
             {
+                TaskBuilder.MainThreadInvoker = action =>
+                {
 
-                if (IsMainThread)
-                {
-                    action();
-                }
-                else
-                {
-                    if (handler == null)
+                    if (IsMainThread)
                     {
-                        handler = new Handler(Looper.MainLooper);
+                        action();
                     }
+                    else
+                    {
+                        if (_handler == null)
+                        {
+                            _handler = new Handler(Looper.MainLooper);
+                        }
 
-                    handler.Post(action);
-                }
-            };
+                        _handler.Post(action);
+                    }
+                };
+            }
         }
 
         protected override BluetoothState GetInitialStateNative()
             => _bluetoothManager?.Adapter.State.ToBluetoothState() ?? BluetoothState.Unavailable;
-        
+
         protected override IAdapter CreateNativeAdapter()
             => new Adapter(_bluetoothManager);
     }

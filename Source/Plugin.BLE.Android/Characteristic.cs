@@ -114,8 +114,11 @@ namespace Plugin.BLE.Android
             _gattCallback.CharacteristicValueUpdated -= OnCharacteristicValueChanged;
             _gattCallback.CharacteristicValueUpdated += OnCharacteristicValueChanged;
 
-            if (!_gatt.SetCharacteristicNotification(NativeCharacteristic, true))
-                throw new CharacteristicReadException("Gatt SetCharacteristicNotification FAILED.");
+            await TaskBuilder.EnqueueOnMainThreadAsync(() =>
+            {
+                if (!_gatt.SetCharacteristicNotification(NativeCharacteristic, true))
+                    throw new CharacteristicReadException("Gatt SetCharacteristicNotification FAILED.");
+            });
 
             // In order to subscribe to notifications on a given characteristic, you must first set the Notifications Enabled bit
             // in its Client Characteristic Configuration Descriptor. See https://developer.bluetooth.org/gatt/descriptors/Pages/DescriptorsHomePage.aspx and
@@ -153,12 +156,11 @@ namespace Plugin.BLE.Android
         {
             _gattCallback.CharacteristicValueUpdated -= OnCharacteristicValueChanged;
 
-            var successful = _gatt.SetCharacteristicNotification(NativeCharacteristic, false);
-
-            Trace.Message("Characteristic.StopUpdatesNative, successful: {0}", successful);
-
-            if (!successful)
-                throw new CharacteristicReadException("GATT: SetCharacteristicNotification to false, FAILED.");
+            await TaskBuilder.EnqueueOnMainThreadAsync(() =>
+            {
+                if (!_gatt.SetCharacteristicNotification(NativeCharacteristic, false))
+                    throw new CharacteristicReadException("GATT: SetCharacteristicNotification to false, FAILED.");
+            });
 
             if (NativeCharacteristic.Descriptors.Count > 0)
             {
@@ -166,7 +168,7 @@ namespace Plugin.BLE.Android
                 var descriptor = descriptors.FirstOrDefault(d => d.Id.Equals(ClientCharacteristicConfigurationDescriptorId)) ??
                                             descriptors.FirstOrDefault(); // fallback just in case manufacturer forgot
 
-                if (Properties.HasFlag(CharacteristicPropertyType.Notify) || Properties.HasFlag(CharacteristicPropertyType.Indicate))
+                if (descriptor != null && (Properties.HasFlag(CharacteristicPropertyType.Notify) || Properties.HasFlag(CharacteristicPropertyType.Indicate)))
                 {
                     await descriptor.WriteAsync(BluetoothGattDescriptor.DisableNotificationValue.ToArray());
                     Trace.Message("Descriptor set value: DISABLE_NOTIFY");
@@ -174,7 +176,7 @@ namespace Plugin.BLE.Android
             }
             else
             {
-                Trace.Message("Descriptor set value FAILED: _nativeCharacteristic.Descriptors was empty");
+                Trace.Message("StopUpdatesNativeAsync descriptor set value FAILED: _nativeCharacteristic.Descriptors was empty");
             }
         }
 

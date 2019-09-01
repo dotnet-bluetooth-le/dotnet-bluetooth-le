@@ -8,8 +8,8 @@
                       Title="Characteristic Details">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackLayout Orientation="Vertical">
             <Label Text="{Binding Characteristic.Id, StringFormat='Id: {0}'}"
@@ -30,27 +30,44 @@
             <BoxView HeightRequest="1"
                      BackgroundColor="Gray" />
             <StackLayout Orientation="Horizontal">
-                <Label FontSize="Small"
-                       Text="Write type:" />
-                <Picker TextColor="Brown"
-                        ItemsSource="{Binding CharacteristicWriteTypes}"
-                        SelectedItem="{Binding CharacteristicWriteType, Mode=TwoWay}" />
+
             </StackLayout>
 
             <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
-                <Button Text="Read"
-                        Command="{Binding ReadCommand}"></Button>
-                <Button Grid.Column="1"
+                <Label FontSize="Small"
+                       Text="Write type:"
+                       VerticalOptions="Fill"
+                       VerticalTextAlignment="Center" />
+                <Picker Grid.Row="0"
+                        Grid.Column="1"
+                        TextColor="Brown"
+                        ItemsSource="{Binding CharacteristicWriteTypes}"
+                        SelectedItem="{Binding CharacteristicWriteType, Mode=TwoWay}" />
+                <Button Grid.Row="0"
+                        Grid.Column="2"
+                        Text="WriteMultiple"
+                        Command="{Binding WriteMultipleCommand}" />
+                <Button Grid.Row="1"
+                        Grid.Column="0"
+                        Text="Read"
+                        Command="{Binding ReadCommand}" />
+                <Button Grid.Row="1"
+                        Grid.Column="1"
                         Text="Write"
-                        Command="{Binding WriteCommand}"></Button>
-                <Button Grid.Column="2"
+                        Command="{Binding WriteCommand}" />
+                <Button Grid.Row="1"
+                        Grid.Column="2"
                         Text="{Binding UpdateButtonText}"
-                        Command="{Binding ToggleUpdatesCommand}"></Button>
+                        Command="{Binding ToggleUpdatesCommand}" />
             </Grid>
             <BoxView HeightRequest="1"
                      BackgroundColor="Gray" />

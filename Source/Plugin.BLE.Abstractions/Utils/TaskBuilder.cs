@@ -6,9 +6,18 @@ namespace Plugin.BLE.Abstractions.Utils
 {
     public static class TaskBuilder
     {
-        private const int SemaphoreQueueTimeout = 30;
-        public static Action<Action> MainThreadQueueInvoker { get; set; }
-        public static bool ShouldQueueOnMainThread { get; set; }
+        /// <summary>
+        /// Main thread queue get semaphore timeout
+        /// </summary>
+        public static int SemaphoreQueueTimeout { get; set; } = 30;
+
+        /// <summary>
+        /// Platform specific main thread invocation. Useful to avoid GATT 133 errors on Android.
+        /// Set this to NULL in order to disable main thread queued invocations.
+        /// Android: already implemented and set by default
+        /// UWP, iOS, macOS: NULL by default - not needed, turning this on is redundant as it's already handled internaly by the platform
+        /// </summary>
+        public static Action<Action> MainThreadInvoker { get; set; }
 
         private static readonly SemaphoreSlim QueueSemaphore = new SemaphoreSlim(1);
 
@@ -46,17 +55,13 @@ namespace Plugin.BLE.Abstractions.Utils
             }
         }
 
-        public static async Task EnqueueOnMainThreadAsync(Action execute, CancellationToken token = default)
-        {
-            if (await SafeEnqueueAndExecute<bool>(execute, token))
-            {
-                QueueSemaphore.Release();
-            }
-        }
+        public static Task EnqueueOnMainThreadAsync(Action execute, CancellationToken token = default)
+            => SafeEnqueueAndExecute<bool>(execute, token);
+
 
         private static async Task<TReturn> SafeEnqueueAndExecute<TReturn>(Action execute, CancellationToken token, TaskCompletionSource<TReturn> tcs = null)
         {
-            if (ShouldQueueOnMainThread && MainThreadQueueInvoker != null)
+            if (MainThreadInvoker != null)
             {
                 var shouldReleaseSemaphore = false;
                 var shouldCompleteTask = tcs == null;
@@ -64,7 +69,7 @@ namespace Plugin.BLE.Abstractions.Utils
                 if (await QueueSemaphore.WaitAsync(TimeSpan.FromSeconds(SemaphoreQueueTimeout), token))
                 {
                     shouldReleaseSemaphore = true;
-                    MainThreadQueueInvoker.Invoke(() =>
+                    MainThreadInvoker.Invoke(() =>
                     {
                         try
                         {
