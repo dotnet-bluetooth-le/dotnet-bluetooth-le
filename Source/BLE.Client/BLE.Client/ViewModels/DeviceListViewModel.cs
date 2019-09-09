@@ -266,9 +266,9 @@ namespace BLE.Client.ViewModels
             }
 
             _cancellationTokenSource = new CancellationTokenSource();
-            RaisePropertyChanged(() => StopScanCommand);
+            await RaisePropertyChanged(() => StopScanCommand);
 
-            RaisePropertyChanged(() => IsRefreshing);
+            await RaisePropertyChanged(() => IsRefreshing);
             Adapter.ScanMode = ScanMode.LowLatency;
             await Adapter.StartScanningForDevicesAsync(_cancellationTokenSource.Token);
         }
@@ -315,11 +315,11 @@ namespace BLE.Client.ViewModels
                         _userDialogs.ShowLoading();
 
                         await device.Device.UpdateRssiAsync();
-                        device.RaisePropertyChanged(nameof(device.Rssi));
+                        await device.RaisePropertyChanged(nameof(device.Rssi));
 
                         _userDialogs.HideLoading();
 
-                        _userDialogs.Toast($"RSSI updated {device.Rssi}", TimeSpan.FromSeconds(1000));
+                        _userDialogs.Toast($"RSSI updated {device.Rssi}", TimeSpan.FromSeconds(1));
                     }
                     catch (Exception ex)
                     {
@@ -361,10 +361,10 @@ namespace BLE.Client.ViewModels
             {
                 return false;
             }
+
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
             try
             {
-                CancellationTokenSource tokenSource = new CancellationTokenSource();
-
                 var config = new ProgressDialogConfig()
                 {
                     Title = $"Connecting to '{device.Id}'",
@@ -396,6 +396,8 @@ namespace BLE.Client.ViewModels
             {
                 _userDialogs.HideLoading();
                 device.Update();
+                tokenSource.Dispose();
+                tokenSource = null;
             }
         }
 
@@ -405,10 +407,9 @@ namespace BLE.Client.ViewModels
         private async void ConnectToPreviousDeviceAsync()
         {
             IDevice device;
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
             try
             {
-                CancellationTokenSource tokenSource = new CancellationTokenSource();
-
                 var config = new ProgressDialogConfig()
                 {
                     Title = $"Searching for '{PreviousGuid}'",
@@ -440,14 +441,19 @@ namespace BLE.Client.ViewModels
             }
             catch (Exception ex)
             {
-                _userDialogs.ErrorToast(string.Empty, ex.Message, TimeSpan.FromSeconds(5000));
+                _userDialogs.ErrorToast(string.Empty, ex.Message, TimeSpan.FromSeconds(5));
                 return;
+            }
+            finally
+            {
+                tokenSource.Dispose();
+                tokenSource = null;
             }
         }
 
         private bool CanConnectToPrevious()
         {
-            return PreviousGuid != default(Guid);
+            return PreviousGuid != default;
         }
 
         private async void ConnectAndDisposeDevice(DeviceListItemViewModel item)

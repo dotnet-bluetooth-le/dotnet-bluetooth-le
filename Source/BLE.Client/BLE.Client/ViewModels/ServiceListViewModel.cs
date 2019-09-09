@@ -36,7 +36,7 @@ namespace BLE.Client.ViewModels
                 _userDialogs.ShowLoading("Discovering services...");
 
                 Services = await _device.GetServicesAsync();
-                RaisePropertyChanged(() => Services);
+                await RaisePropertyChanged(() => Services);
             }
             catch (Exception ex)
             {
