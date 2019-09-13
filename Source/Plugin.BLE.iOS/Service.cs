@@ -30,6 +30,9 @@ namespace Plugin.BLE.iOS
                 execute: () => _device.DiscoverCharacteristics(_service),
                 getCompleteHandler: (complete, reject) => (sender, args) =>
                 {
+                    if (args.Service.UUID != _service.UUID)
+                        return;
+
                     if (args.Error != null)
                     {
                         reject(new Exception($"Discover characteristics error: {args.Error.Description}"));
