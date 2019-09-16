@@ -69,10 +69,13 @@ namespace Plugin.BLE.Android
 
         void ReadInternal()
         {
-            if (!_gatt.ReadCharacteristic(_nativeCharacteristic))
+            CrazyQueue.Run(() =>
             {
-                throw new CharacteristicReadException("BluetoothGattCharacteristic.readCharacteristic returned FALSE");
-            }
+                if (!_gatt.ReadCharacteristic(_nativeCharacteristic))
+                {
+                    throw new CharacteristicReadException("BluetoothGattCharacteristic.readCharacteristic returned FALSE");
+                }
+            });
         }
 
         protected override async Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType, CancellationToken token = default(CancellationToken))
@@ -101,17 +104,20 @@ namespace Plugin.BLE.Android
 
         private void InternalWrite(byte[] data)
         {
-            if (!_nativeCharacteristic.SetValue(data))
+            CrazyQueue.Run(() =>
             {
-                throw new CharacteristicReadException("Gatt characteristic set value FAILED.");
-            }
+                if (!_nativeCharacteristic.SetValue(data))
+                {
+                    throw new CharacteristicReadException("Gatt characteristic set value FAILED.");
+                }
 
-            Trace.Message("Write {0}", Id);
+                Trace.Message("Write {0}", Id);
 
-            if (!_gatt.WriteCharacteristic(_nativeCharacteristic))
-            {
-                throw new CharacteristicReadException("Gatt write characteristic FAILED.");
-            }
+                if (!_gatt.WriteCharacteristic(_nativeCharacteristic))
+                {
+                    throw new CharacteristicReadException("Gatt write characteristic FAILED.");
+                }
+            });
         }
 
         protected override async Task StartUpdatesNativeAsync()

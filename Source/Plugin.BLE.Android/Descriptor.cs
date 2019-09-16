@@ -51,11 +51,14 @@ namespace Plugin.BLE.Android
 
         private void InternalWrite(byte[] data)
         {
-            if (!_nativeDescriptor.SetValue(data))
-                throw new Exception("GATT: SET descriptor value failed");
+            CrazyQueue.Run(() =>
+            {
+                if (!_nativeDescriptor.SetValue(data))
+                    throw new Exception("GATT: SET descriptor value failed");
 
-            if (!_gatt.WriteDescriptor(_nativeDescriptor))
-                throw new Exception("GATT: WRITE descriptor value failed");
+                if (!_gatt.WriteDescriptor(_nativeDescriptor))
+                    throw new Exception("GATT: WRITE descriptor value failed");
+            });
         }
 
         protected override async Task<byte[]> ReadNativeAsync()
@@ -81,8 +84,11 @@ namespace Plugin.BLE.Android
 
         private void ReadInternal()
         {
-            if (!_gatt.ReadDescriptor(_nativeDescriptor))
-                throw new Exception("GATT: read characteristic FALSE");
+            CrazyQueue.Run(() =>
+            {
+                if (!_gatt.ReadDescriptor(_nativeDescriptor))
+                    throw new Exception("GATT: read characteristic FALSE");
+            });
         }
     }
 }

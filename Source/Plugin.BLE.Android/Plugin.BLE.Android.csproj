@@ -71,6 +71,7 @@
     <Compile Include="Service.cs" />
     <Compile Include="CallbackEventArgs\DescriptorCallbackEventArgs.cs" />
     <Compile Include="CallbackEventArgs\MtuRequestCallbackEventArgs.cs" />
+    <Compile Include="CrazyQueue.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Plugin.BLE.Abstractions\Plugin.BLE.Abstractions.csproj">
