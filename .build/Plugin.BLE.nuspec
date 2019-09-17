@@ -17,6 +17,8 @@
     <releaseNotes>
       [2.2.0-pre1]
       - UWP support
+      [2.1.1]
+      - iOS #373, #377 Fixed trace ouptut that caused NRE. 
       [2.1.0]
       - Use IReadOnlyLists for Services/ Charactersitics/ Descriptors and concurrent collections for DiscoveredDevices/ConnectedDevices
 Should prevent crashes like: #320

@@ -110,7 +110,7 @@ namespace BLE.Client.ViewModels
 
                 await Characteristic.ReadAsync();
 
-                RaisePropertyChanged(() => CharacteristicValue);
+                await RaisePropertyChanged(() => CharacteristicValue);
 
                 Messages.Insert(0, $"Read value {CharacteristicValue}");
             }
@@ -149,7 +149,7 @@ namespace BLE.Client.ViewModels
                 await Characteristic.WriteAsync(data);
                 _userDialogs.HideLoading();
 
-                RaisePropertyChanged(() => CharacteristicValue);
+                await RaisePropertyChanged(() => CharacteristicValue);
                 Messages.Insert(0, $"Wrote value {CharacteristicValue}");
             }
             catch (Exception ex)
@@ -190,7 +190,7 @@ namespace BLE.Client.ViewModels
 
                 Messages.Insert(0, $"Start updates");
 
-                RaisePropertyChanged(() => UpdateButtonText);
+                await RaisePropertyChanged(() => UpdateButtonText);
 
             }
             catch (Exception ex)
@@ -210,7 +210,7 @@ namespace BLE.Client.ViewModels
 
                 Messages.Insert(0, $"Stop updates");
 
-                RaisePropertyChanged(() => UpdateButtonText);
+                await RaisePropertyChanged(() => UpdateButtonText);
 
             }
             catch (Exception ex)
