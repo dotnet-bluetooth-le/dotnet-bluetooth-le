@@ -15,9 +15,23 @@ namespace Plugin.BLE
         private static readonly Queue<Task> _queue = new Queue<Task>();
         private static int _isRunning = 0;
 
-        public static Task Run(Action action)
+        public static Task Run(Func<Task> action)
         {
-            var task = new Task(action);
+            var completion = new TaskCompletionSource<bool>();
+
+            var task = new Task(async () =>
+            {
+                try
+                {
+                    await action();
+                    completion.TrySetResult(true);
+                }
+                catch(Exception ex)
+                {
+                    completion.TrySetException(ex);
+                }
+            });
+
             lock (_queueLock)
             {
                 _queue.Enqueue(task);
@@ -25,13 +39,13 @@ namespace Plugin.BLE
 
             if (Interlocked.Exchange(ref _isRunning, 1) == 0)
             {
-                InnerRun();
+                var _ = InnerRun();
             }
 
-            return task;
+            return completion.Task;
         }
 
-        private static async void InnerRun()
+        private static async Task InnerRun()
         {
             Task task;
             lock (_queueLock)
@@ -49,7 +63,7 @@ namespace Plugin.BLE
 
             await task;
             await Task.Delay(MinimumDelay);
-            InnerRun();
+            var _ = InnerRun();
         }
     }
 }
