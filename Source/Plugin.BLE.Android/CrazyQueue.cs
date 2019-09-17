@@ -8,7 +8,7 @@ namespace Plugin.BLE
 {
     public static class CrazyQueue
     {
-        private const int MinimumDelay = 100;
+        private const int MinimumDelay = 75;
         private static readonly ILogger _logger = LoggerFactory.CreateLogger(nameof(CrazyQueue));
 
         private static readonly object _queueLock = new object();
@@ -35,6 +35,7 @@ namespace Plugin.BLE
             lock (_queueLock)
             {
                 _queue.Enqueue(task);
+                _logger.Debug(() => "Task enqued " + $"({_queue.Count})");
             }
 
             if (Interlocked.Exchange(ref _isRunning, 1) == 0)
@@ -61,7 +62,9 @@ namespace Plugin.BLE
 
             task.Start();
 
+            _logger.Debug(() => "Running task");
             await task;
+            _logger.Debug(() => "Finished task");
             await Task.Delay(MinimumDelay);
             var _ = InnerRun();
         }
