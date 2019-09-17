@@ -1,9 +1,15 @@
 # Changelog
 
 ## 2.2.0 UWP
-#### 2.2.0-pre.1
-    - UWP support pre-release
 
+#### 2.2.0-pre2 Experimental main thread queue for Android
+    - #376 Android: Main thread queue experimental
+    - #336 Get service by GUID
+    - #381 Merged PR
+    - Merged fixes from 2.1.1
+
+#### 2.2.0-pre.1 UWP
+    - UWP support pre-release
 
 ## 2.1.0 MacOS  
 
