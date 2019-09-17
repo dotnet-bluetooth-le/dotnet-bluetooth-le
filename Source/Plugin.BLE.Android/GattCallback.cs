@@ -41,14 +41,14 @@ namespace Plugin.BLE.Android
         {
             base.OnConnectionStateChange(gatt, status, newState);
 
-            if (!gatt.Device.Address.Equals(_device.BluetoothDevice.Address))
+            if (!gatt.Device.Address.Equals(_device.NativeDevice.Address))
             {
-                Trace.Message($"Gatt callback for device {_device.BluetoothDevice.Address} was called for device with address {gatt.Device.Address}. This shoud not happen. Please log an issue.");
+                Trace.Message($"Gatt callback for device {_device.NativeDevice.Address} was called for device with address {gatt.Device.Address}. This shoud not happen. Please log an issue.");
                 return;
             }
 
             //ToDo ignore just for me
-            Trace.Message($"References of parent device and gatt callback device equal? {ReferenceEquals(_device.BluetoothDevice, gatt.Device).ToString().ToUpper()}");
+            Trace.Message($"References of parent device and gatt callback device equal? {ReferenceEquals(_device.NativeDevice, gatt.Device).ToString().ToUpper()}");
 
             Trace.Message($"OnConnectionStateChange: GattStatus: {status}");
 
@@ -142,7 +142,7 @@ namespace Plugin.BLE.Android
         private void CloseGattInstances(BluetoothGatt gatt)
         {
             //ToDO just for me
-            Trace.Message($"References of parnet device gatt and callback gatt equal? {ReferenceEquals(_device._gatt, gatt).ToString().ToUpper()}");
+            Trace.Message($"References of parent device gatt and callback gatt equal? {ReferenceEquals(_device._gatt, gatt).ToString().ToUpper()}");
 
             if (!ReferenceEquals(gatt, _device._gatt))
             {

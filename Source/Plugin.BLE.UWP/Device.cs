@@ -11,14 +11,11 @@ using Plugin.BLE.Extensions;
 
 namespace Plugin.BLE.UWP
 {
-    public class Device : DeviceBase, IDisposable
+    public class Device : DeviceBase<ObservableBluetoothLEDevice>
     {
-        private readonly ObservableBluetoothLEDevice _nativeDevice;
-        public override object NativeDevice => _nativeDevice;
-
-        public Device(Adapter adapter, BluetoothLEDevice nativeDevice, int rssi, Guid id, IReadOnlyList<AdvertisementRecord> advertisementRecords = null) : base(adapter)
+        public Device(Adapter adapter, BluetoothLEDevice nativeDevice, int rssi, Guid id, IReadOnlyList<AdvertisementRecord> advertisementRecords = null) 
+            : base(adapter, new ObservableBluetoothLEDevice(nativeDevice.DeviceInformation))
         {
-            _nativeDevice = new ObservableBluetoothLEDevice(nativeDevice.DeviceInformation);
             Rssi = rssi;
             Id = id;
             Name = nativeDevice.Name;
@@ -43,7 +40,7 @@ namespace Plugin.BLE.UWP
 
         protected override async Task<IReadOnlyList<IService>> GetServicesNativeAsync()
         {
-            var result = await _nativeDevice.BluetoothLEDevice.GetGattServicesAsync(BleImplementation.CacheModeGetServices);
+            var result = await NativeDevice.BluetoothLEDevice.GetGattServicesAsync(BleImplementation.CacheModeGetServices);
             result.ThrowIfError();
 
             return result.Services?
@@ -54,7 +51,7 @@ namespace Plugin.BLE.UWP
 
         protected override async Task<IService> GetServiceNativeAsync(Guid id)
         {
-            var result = await _nativeDevice.BluetoothLEDevice.GetGattServicesForUuidAsync(id, BleImplementation.CacheModeGetServices);
+            var result = await NativeDevice.BluetoothLEDevice.GetGattServicesForUuidAsync(id, BleImplementation.CacheModeGetServices);
             result.ThrowIfError();
 
             var nativeService = result.Services?.FirstOrDefault();
@@ -63,12 +60,12 @@ namespace Plugin.BLE.UWP
 
         protected override DeviceState GetState()
         {
-            if (_nativeDevice.IsConnected)
+            if (NativeDevice.IsConnected)
             {
                 return DeviceState.Connected;
             }
 
-            return _nativeDevice.IsPaired ? DeviceState.Limited : DeviceState.Disconnected;
+            return NativeDevice.IsPaired ? DeviceState.Limited : DeviceState.Disconnected;
         }
 
         protected override Task<int> RequestMtuNativeAsync(int requestValue)

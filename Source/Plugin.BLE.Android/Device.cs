@@ -16,10 +16,8 @@ using Java.Util;
 
 namespace Plugin.BLE.Android
 {
-    public class Device : DeviceBase
+    public class Device : DeviceBase<BluetoothDevice>
     {
-        public BluetoothDevice BluetoothDevice { get; private set; }
-
         /// <summary>
         /// we have to keep a reference to this because Android's api is weird and requires
         /// the GattServer in order to do nearly anything, including enumerating services
@@ -37,7 +35,7 @@ namespace Plugin.BLE.Android
         /// </summary>
         private CancellationTokenRegistration _connectCancellationTokenRegistration;
 
-        public Device(Adapter adapter, BluetoothDevice nativeDevice, BluetoothGatt gatt, int rssi, byte[] advertisementData = null) : base(adapter)
+        public Device(Adapter adapter, BluetoothDevice nativeDevice, BluetoothGatt gatt, int rssi, byte[] advertisementData = null) : base(adapter, nativeDevice)
         {
             Update(nativeDevice, gatt);
             Rssi = rssi;
@@ -50,15 +48,14 @@ namespace Plugin.BLE.Android
             _connectCancellationTokenRegistration.Dispose();
             _connectCancellationTokenRegistration = new CancellationTokenRegistration();
 
-            BluetoothDevice = nativeDevice;
+            NativeDevice = nativeDevice;
             _gatt = gatt;
 
 
             Id = ParseDeviceId();
-            Name = BluetoothDevice.Name;
+            Name = NativeDevice.Name;
         }
 
-        public override object NativeDevice => BluetoothDevice;
         internal bool IsOperationRequested { get; set; }
 
         protected override async Task<IReadOnlyList<IService>> GetServicesNativeAsync()
@@ -110,8 +107,7 @@ namespace Plugin.BLE.Android
                     },
                     getCompleteHandler: (complete, reject) => ((sender, args) =>
                     {
-                        complete(
-                            _gatt.Services.Select(service => new Service(service, _gatt, _gattCallback, this)).ToList());
+                        complete(_gatt.Services.Select(service => new Service(service, _gatt, _gattCallback, this)).ToList());
                     }),
                     subscribeComplete: handler => _gattCallback.ServicesDiscovered += handler,
                     unsubscribeComplete: handler => _gattCallback.ServicesDiscovered -= handler,
@@ -133,7 +129,7 @@ namespace Plugin.BLE.Android
             }
             else
             {
-                var connectGatt = BluetoothDevice.ConnectGatt(Application.Context, connectParameters.AutoConnect, _gattCallback);
+                var connectGatt = NativeDevice.ConnectGatt(Application.Context, connectParameters.AutoConnect, _gattCallback);
                 _connectCancellationTokenRegistration.Dispose();
                 _connectCancellationTokenRegistration = cancellationToken.Register(() => connectGatt.Disconnect());
             }
@@ -146,24 +142,24 @@ namespace Plugin.BLE.Android
             if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
             {
                 //no transport mode before lollipop, it will probably not work... gattCallBackError 133 again alas
-                var connectGatt = BluetoothDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback);
+                var connectGatt = NativeDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback);
                 _connectCancellationTokenRegistration.Dispose();
                 _connectCancellationTokenRegistration = cancellationToken.Register(() => connectGatt.Disconnect());
             }
             else if (Build.VERSION.SdkInt < BuildVersionCodes.M)
             {
-                var m = BluetoothDevice.Class.GetDeclaredMethod("connectGatt", new Java.Lang.Class[] {
+                var m = NativeDevice.Class.GetDeclaredMethod("connectGatt", new Java.Lang.Class[] {
                                 Java.Lang.Class.FromType(typeof(Context)),
                                 Java.Lang.Boolean.Type,
                                 Java.Lang.Class.FromType(typeof(BluetoothGattCallback)),
                                 Java.Lang.Integer.Type});
 
-                var transport = BluetoothDevice.Class.GetDeclaredField("TRANSPORT_LE").GetInt(null); // LE = 2, BREDR = 1, AUTO = 0
-                m.Invoke(BluetoothDevice, Application.Context, false, _gattCallback, transport);
+                var transport = NativeDevice.Class.GetDeclaredField("TRANSPORT_LE").GetInt(null); // LE = 2, BREDR = 1, AUTO = 0
+                m.Invoke(NativeDevice, Application.Context, false, _gattCallback, transport);
             }
             else
             {
-                var connectGatt = BluetoothDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback, BluetoothTransports.Le);
+                var connectGatt = NativeDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback, BluetoothTransports.Le);
                 _connectCancellationTokenRegistration.Dispose();
                 _connectCancellationTokenRegistration = cancellationToken.Register(() => connectGatt.Disconnect());
             }
@@ -207,7 +203,7 @@ namespace Plugin.BLE.Android
         protected override DeviceState GetState()
         {
             var manager = (BluetoothManager)Application.Context.GetSystemService(Context.BluetoothService);
-            var state = manager.GetConnectionState(BluetoothDevice, ProfileType.Gatt);
+            var state = manager.GetConnectionState(NativeDevice, ProfileType.Gatt);
 
             switch (state)
             {
@@ -229,7 +225,7 @@ namespace Plugin.BLE.Android
         private Guid ParseDeviceId()
         {
             var deviceGuid = new byte[16];
-            var macWithoutColons = BluetoothDevice.Address.Replace(":", "");
+            var macWithoutColons = NativeDevice.Address.Replace(":", "");
             var macBytes = Enumerable.Range(0, macWithoutColons.Length)
                 .Where(x => x % 2 == 0)
                 .Select(x => Convert.ToByte(macWithoutColons.Substring(x, 2), 16))

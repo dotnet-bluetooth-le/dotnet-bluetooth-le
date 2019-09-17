@@ -6,7 +6,7 @@ using Plugin.BLE.Abstractions.Contracts;
 
 namespace Plugin.BLE.Abstractions
 {
-    public abstract class ServiceBase : IService
+    public abstract class ServiceBase<TNativeService> : IService
     {
         private readonly List<ICharacteristic> _characteristics = new List<ICharacteristic>();
 
@@ -14,10 +14,12 @@ namespace Plugin.BLE.Abstractions
         public abstract Guid Id { get; }
         public abstract bool IsPrimary { get; }
         public IDevice Device { get; }
+        protected TNativeService NativeService { get; }
 
-        protected ServiceBase(IDevice device)
+        protected ServiceBase(IDevice device, TNativeService nativeService)
         {
             Device = device;
+            NativeService = nativeService;
         }
 
         public async Task<IReadOnlyList<ICharacteristic>> GetCharacteristicsAsync()
