@@ -41,7 +41,7 @@ namespace BLE.Client.ViewModels
             }
 
             Descriptors = await _characteristic.GetDescriptorsAsync();
-            RaisePropertyChanged(nameof(Descriptors));
+            await RaisePropertyChanged(nameof(Descriptors));
         }
 
         public IDescriptor SelectedDescriptor

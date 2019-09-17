@@ -24,8 +24,8 @@ namespace MvvmCross.Plugins.BLE.macOS
         public void Load()
         {
             Trace.Message("Loading bluetooth low energy plugin");
-            Mvx.LazyConstructAndRegisterSingleton<IBluetoothLE>(() => CrossBluetoothLE.Current);
-            Mvx.LazyConstructAndRegisterSingleton<IAdapter>(() => Mvx.Resolve<IBluetoothLE>().Adapter);
+            Mvx.LazyConstructAndRegisterSingleton(() => CrossBluetoothLE.Current);
+            Mvx.LazyConstructAndRegisterSingleton(() => Mvx.Resolve<IBluetoothLE>().Adapter);
         }
     }
 }

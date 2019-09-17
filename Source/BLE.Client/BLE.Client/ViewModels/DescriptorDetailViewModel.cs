@@ -61,7 +61,7 @@ namespace BLE.Client.ViewModels
 
                 await Descriptor.ReadAsync();
 
-                RaisePropertyChanged(() => DescriptorValue);
+                await RaisePropertyChanged(() => DescriptorValue);
 
                 Messages.Insert(0, $"Read value {DescriptorValue}");
             }
