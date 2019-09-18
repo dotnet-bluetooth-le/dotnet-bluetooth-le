@@ -8,7 +8,8 @@ namespace Plugin.BLE
 {
     public static class CrazyQueue
     {
-        private const int MinimumDelay = 75;
+        private const int Delay = 100;
+        private const int MaxRetries = 5;
         private static readonly ILogger _logger = LoggerFactory.CreateLogger(nameof(CrazyQueue));
 
         private static readonly object _queueLock = new object();
@@ -21,14 +22,30 @@ namespace Plugin.BLE
 
             var task = new Task(async () =>
             {
-                try
+                var tryAgain = true;
+                var tries = 0;
+                while (tryAgain && tries < MaxRetries)
                 {
-                    await action();
-                    completion.TrySetResult(true);
-                }
-                catch(Exception ex)
-                {
-                    completion.TrySetException(ex);
+                    tries += 1;
+                    try
+                    {
+                        await action();
+                        tryAgain = false;
+                        completion.TrySetResult(true);
+                    }
+                    catch (Exception ex)
+                    {
+                        if (tries >= MaxRetries)
+                        {
+                            _logger.Error(ex, "Failed performing a task. Trying again " + $"({tries}/{MaxRetries})");
+                            completion.TrySetException(ex);
+                        }
+                        else
+                        {
+                            _logger.Warn(ex, "Failed performing a task. Trying again " + $"({tries}/{MaxRetries})");
+                            await Task.Delay(Delay);
+                        }
+                    }
                 }
             });
 
@@ -58,6 +75,7 @@ namespace Plugin.BLE
                 }
 
                 task = _queue.Dequeue();
+                _logger.Debug(() => "Task dequed " + $"({_queue.Count})");
             }
 
             task.Start();
@@ -65,7 +83,6 @@ namespace Plugin.BLE
             _logger.Debug(() => "Running task");
             await task;
             _logger.Debug(() => "Finished task");
-            await Task.Delay(MinimumDelay);
             var _ = InnerRun();
         }
     }
