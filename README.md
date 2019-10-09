@@ -66,8 +66,12 @@ On iOS you must add the following keys to your `Info.plist`
         <string>bluetooth-peripheral</string>
     </array>
     
-    <!--Description of the Bluetooth request message (required on iOS 10)-->
+    <!--Description of the Bluetooth request message (required on iOS 10, deprecated)-->
     <key>NSBluetoothPeripheralUsageDescription</key>
+    <string>YOUR CUSTOM MESSAGE</string>
+    
+    <!--Description of the Bluetooth request message (required on iOS 13)-->
+    <key>NSBluetoothAlwaysUsageDescription</key>
     <string>YOUR CUSTOM MESSAGE</string>
 
 ## Sample app
