@@ -100,19 +100,22 @@ namespace Plugin.BLE.Abstractions
         {
             this.CancelEverythingAndReInitialize();
 
-            foreach (var service in KnownServices)
+            if (KnownServices != null)
             {
-                try
+                foreach (var service in KnownServices)
                 {
-                    service.Dispose();
+                    try
+                    {
+                        service.Dispose();
+                    }
+                    catch (Exception ex)
+                    {
+                        Trace.Message("Exception while cleanup of service: {0}", ex.Message);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    Trace.Message("Exception while cleanup of service: {0}", ex.Message);
-                }
-            }
 
-            KnownServices.Clear();
+                KnownServices.Clear();
+            }
         }
 
         public override bool Equals(object other)
@@ -127,7 +130,7 @@ namespace Plugin.BLE.Abstractions
                 return false;
             }
 
-            var otherDeviceBase = (DeviceBase) other;
+            var otherDeviceBase = (DeviceBase)other;
             return Id == otherDeviceBase.Id;
         }
 
