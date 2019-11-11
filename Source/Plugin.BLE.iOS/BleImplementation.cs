@@ -22,6 +22,7 @@ namespace Plugin.BLE
 
         protected override void InitializeNative()
         {
+            DefaultTrace.DefaultTraceInit();
             var bleQueue = new DispatchQueue("Bang.Olufsen.BleQueue", false);
             _centralManager = new CBCentralManager(null, bleQueue, _cbCentralInitOptions);
             _centralManager.UpdatedState += (s, e) => State = GetState();

@@ -8,7 +8,7 @@ namespace Plugin.BLE
     {
         private static readonly ILogger _logger = LoggerFactory.CreateLogger("Plugin.BLE");
 
-        static DefaultTrace()
+        public static void DefaultTraceInit()
         {
             Trace.TraceDebugImplementation = (parameter, args) =>
             {
@@ -34,5 +34,7 @@ namespace Plugin.BLE
                 }
             };
         }
+
+
     }
 }

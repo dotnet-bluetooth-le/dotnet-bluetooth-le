@@ -17,6 +17,7 @@ namespace Plugin.BLE
 
         protected override void InitializeNative()
         {
+            DefaultTrace.DefaultTraceInit();
             var ctx = Application.Context;
             if (!ctx.PackageManager.HasSystemFeature(PackageManager.FeatureBluetoothLe))
                 return;
