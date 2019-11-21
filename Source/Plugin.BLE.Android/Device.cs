@@ -32,6 +32,8 @@ namespace Plugin.BLE.Android
         /// </summary>
         private readonly GattCallback _gattCallback;
 
+        private static volatile Handler handler;
+
         public Device(Adapter adapter, BluetoothDevice nativeDevice, BluetoothGatt gatt, int rssi, byte[] advertisementData = null) : base(adapter)
         {
             Update(nativeDevice, gatt);
@@ -87,7 +89,12 @@ namespace Plugin.BLE.Android
             else
             {
                 /*_gatt = */
-                BluetoothDevice.ConnectGatt(Application.Context, connectParameters.AutoConnect, _gattCallback);
+                if (handler?.Looper != Looper.MainLooper)
+                {
+                    handler = new Handler(Looper.MainLooper);
+                }
+
+                handler.Post(() => BluetoothDevice.ConnectGatt(Application.Context, connectParameters.AutoConnect, _gattCallback));
             }
         }
 
@@ -113,7 +120,16 @@ namespace Plugin.BLE.Android
             }
             else
             {
-                BluetoothDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback, BluetoothTransports.Le);
+
+                if (handler?.Looper != Looper.MainLooper)
+                {
+                    handler = new Handler(Looper.MainLooper);
+                }
+
+                handler.Post(() =>
+                {
+                    BluetoothDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback, BluetoothTransports.Le);
+                });
             }
 
         }
