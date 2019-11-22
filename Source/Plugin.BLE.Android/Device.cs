@@ -126,10 +126,7 @@ namespace Plugin.BLE.Android
                     handler = new Handler(Looper.MainLooper);
                 }
 
-                handler.Post(() =>
-                {
-                    BluetoothDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback, BluetoothTransports.Le);
-                });
+                handler.Post(() => BluetoothDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback, BluetoothTransports.Le));
             }
 
         }
@@ -144,9 +141,9 @@ namespace Plugin.BLE.Android
             {
                 IsOperationRequested = true;
 
-                ClearServices();
-
                 _gatt.Disconnect();
+
+                CloseGatt();
             }
             else
             {
