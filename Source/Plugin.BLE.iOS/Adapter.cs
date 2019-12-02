@@ -8,6 +8,7 @@ using CoreBluetooth;
 using Foundation;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Abstractions.EventArgs;
 
 namespace Plugin.BLE.iOS
 {
@@ -24,7 +25,6 @@ namespace Plugin.BLE.iOS
         private readonly IDictionary<string, IDevice> _deviceConnectionRegistry = new ConcurrentDictionary<string, IDevice>();
 
         public override IList<IDevice> ConnectedDevices => _deviceConnectionRegistry.Values.ToList();
-
 
         public Adapter(CBCentralManager centralManager)
         {
@@ -224,7 +224,6 @@ namespace Plugin.BLE.iOS
                     throw new Exception($"[Adapter] Device {deviceGuid} not found.");
             }
 
-
             var device = new Device(this, peripherial, peripherial.Name, peripherial.RSSI?.Int32Value ?? 0, new List<AdvertisementRecord>());
 
             await ConnectToDeviceAsync(device, connectParameters, cancellationToken);
@@ -365,6 +364,142 @@ namespace Plugin.BLE.iOS
             }
 
             return records;
+        }
+
+        /// <summary>
+        /// See: https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/Art/ReconnectingToAPeripheral_2x.png for a chart of the flow.
+        /// </summary>
+        protected override async Task<IDevice> ConnectNativeAsync(string friendlyName, Guid uuid, Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken = default)
+        {
+            if (uuid == Guid.Empty)
+            {
+                // If we do not have an uuid scan and connect
+                return await ScanAndConnect(friendlyName, deviceFilter);
+            }
+            else
+            {
+                //FYI attempted to use tobyte array insetead of string but there was a problem with byte ordering Guid->NSUuid
+                var nsuuid = new NSUuid(uuid.ToString());
+
+                // If we have an uuid, check if the system can find the device.
+                var peripheral = TryToRetrieveKnownPeripheral(nsuuid);
+                if (peripheral == null)
+                {
+                    // The device haven't been found. We'll try to scan and connect.
+                    return await ScanAndConnect(friendlyName, deviceFilter);
+                }
+                else
+                {
+                    // Try to connect to the found peripheral
+                    var device = await TryToConnectAsync(peripheral);
+                    if (device == null)
+                    {
+                        // Well, it failed, so we'll try to scan again and see if that can repair
+                        return await ScanAndConnect(friendlyName, deviceFilter);
+                    }
+                    else
+                    {
+                        return device;
+                    }
+                }
+            }
+        }
+
+        private async Task<IDevice> ScanAndConnect(string friendlyName, Func<IDevice, bool> deviceFilter)
+        {
+            var peripheral = await ScanForPeripheralAsync(friendlyName, deviceFilter);
+            return await TryToConnectAsync(peripheral);
+        }
+
+        private async Task<CBPeripheral> ScanForPeripheralAsync(string friendlyName, Func<IDevice, bool> deviceFilter)
+        {
+            var taskCompletionSource = new TaskCompletionSource<CBPeripheral>();
+            var stopToken = new CancellationTokenSource(TimeSpan.FromSeconds(5));
+            EventHandler<DeviceEventArgs> handler = (sender, args) =>
+            {
+                var peripheral = args.Device.NativeDevice as CBPeripheral;
+
+                if(peripheral.Name == friendlyName)
+                {
+                    stopToken.Cancel();
+                    taskCompletionSource.SetResult(peripheral);
+                }
+            };
+
+            try
+            {
+                DeviceDiscovered += handler;
+                await StartScanningForDevicesAsync(
+                    deviceFilter: deviceFilter,
+                    cancellationToken: stopToken.Token);
+                return await taskCompletionSource.Task;
+            }
+            catch(OperationCanceledException)
+            {
+                return null;
+            }
+            finally
+            {
+                DeviceDiscovered -= handler;
+            }
+        }
+
+        /// <summary>
+        /// A known peripheral is either one we can find by uuid or one we're already connected to
+        /// </summary>
+        private CBPeripheral TryToRetrieveKnownPeripheral(NSUuid nsuuid)
+        {
+            var peripherals = _centralManager.RetrievePeripheralsWithIdentifiers(nsuuid);
+            var peripheral = peripherals.SingleOrDefault();
+            if (peripheral == null)
+            {
+                var connectedPeripherals = _centralManager.RetrieveConnectedPeripherals(new CBUUID[0]);
+                var cbuuid = CBUUID.FromNSUuid(nsuuid);
+                peripheral = connectedPeripherals.SingleOrDefault(p => p.UUID.Equals(cbuuid));
+            }
+
+            return peripheral;
+        }
+
+        private async Task<IDevice> TryToConnectAsync(CBPeripheral peripheral)
+        {
+            if(peripheral == null)
+            {
+                return null;
+            }
+
+            var completionSource = new TaskCompletionSource<IDevice>();
+            EventHandler<CBPeripheralEventArgs> connectedEvent = (sender, args) =>
+            {
+                var device = new Device(this, args.Peripheral);
+                completionSource.TrySetResult(device);
+            };
+
+            EventHandler<CBPeripheralErrorEventArgs> errorEvent = (sender, args) =>
+            {
+                completionSource.TrySetResult(null);
+            };
+
+            try
+            {
+                _centralManager.ConnectPeripheral(peripheral, new PeripheralConnectionOptions());
+                _centralManager.ConnectedPeripheral += connectedEvent;
+                _centralManager.FailedToConnectPeripheral += errorEvent;
+
+                async Task<IDevice> WaitAsync()
+                {
+                    await Task.Delay(4000);
+                    return null;
+                }
+
+                var maxWaitTask = WaitAsync();
+                return await await Task.WhenAny(completionSource.Task, maxWaitTask);
+            }
+            finally
+            {
+                _centralManager.ConnectedPeripheral -= connectedEvent;
+                _centralManager.FailedToConnectPeripheral -= errorEvent;
+            }
         }
     }
 }

@@ -87,6 +87,11 @@ namespace Plugin.BLE.Abstractions
             return Task.FromResult(0);
         }
 
+        public Task<IDevice> ConnectAsync(string friendlyName, Guid uuid, Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken = default)
+        {
+            return ConnectNativeAsync(friendlyName, uuid, deviceFilter, cancellationToken);
+        }
+
         public async Task ConnectToDeviceAsync(IDevice device, ConnectParameters connectParameters = default(ConnectParameters), CancellationToken cancellationToken = default(CancellationToken))
         {
             if (device == null)
@@ -231,6 +236,7 @@ namespace Plugin.BLE.Abstractions
         protected abstract void StopScanNative();
         protected abstract Task ConnectToDeviceNativeAsync(IDevice device, ConnectParameters connectParameters, CancellationToken cancellationToken);
         protected abstract void DisconnectDeviceNative(IDevice device);
+        protected abstract Task<IDevice> ConnectNativeAsync(string friendlyName, Guid uuid, Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken = default);
 
         public abstract Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters = default(ConnectParameters), CancellationToken cancellationToken = default(CancellationToken));
         public abstract List<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null);
