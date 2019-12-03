@@ -11,6 +11,9 @@ namespace Plugin.BLE.Abstractions
 {
     public abstract class AdapterBase : IAdapter
     {
+        protected const int MaxConnectionWaitTimeMS = 4_000;
+        protected const int MaxScanTimeMS = 5_000;
+
         private CancellationTokenSource _scanCancellationTokenSource;
         private readonly IList<IDevice> _discoveredDevices;
         private volatile bool _isScanning;

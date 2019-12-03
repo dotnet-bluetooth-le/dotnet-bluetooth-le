@@ -374,38 +374,32 @@ namespace Plugin.BLE.iOS
             if (uuid == Guid.Empty)
             {
                 // If we do not have an uuid scan and connect
-                return await ScanAndConnect(friendlyName, deviceFilter);
+                return await ScanAndConnectAsync(friendlyName, deviceFilter);
             }
-            else
-            {
-                //FYI attempted to use tobyte array insetead of string but there was a problem with byte ordering Guid->NSUuid
-                var nsuuid = new NSUuid(uuid.ToString());
 
-                // If we have an uuid, check if the system can find the device.
-                var peripheral = TryToRetrieveKnownPeripheral(nsuuid);
-                if (peripheral == null)
-                {
-                    // The device haven't been found. We'll try to scan and connect.
-                    return await ScanAndConnect(friendlyName, deviceFilter);
-                }
-                else
-                {
-                    // Try to connect to the found peripheral
-                    var device = await TryToConnectAsync(peripheral);
-                    if (device == null)
-                    {
-                        // Well, it failed, so we'll try to scan again and see if that can repair
-                        return await ScanAndConnect(friendlyName, deviceFilter);
-                    }
-                    else
-                    {
-                        return device;
-                    }
-                }
+            //FYI attempted to use tobyte array instead of string but there was a problem with byte ordering Guid->NSUuid
+            var nsuuid = new NSUuid(uuid.ToString());
+
+            // If we have an uuid, check if the system can find the device.
+            var peripheral = TryToRetrieveKnownPeripheral(nsuuid);
+            if (peripheral == null)
+            {
+                // The device haven't been found. We'll try to scan and connect.
+                return await ScanAndConnectAsync(friendlyName, deviceFilter);
             }
+
+            // Try to connect to the found peripheral
+            var device = await TryToConnectAsync(peripheral);
+            if (device == null)
+            {
+                // Well, it failed, so we'll try to scan again and see if that can repair
+                return await ScanAndConnectAsync(friendlyName, deviceFilter);
+            }
+
+            return device;
         }
 
-        private async Task<IDevice> ScanAndConnect(string friendlyName, Func<IDevice, bool> deviceFilter)
+        private async Task<IDevice> ScanAndConnectAsync(string friendlyName, Func<IDevice, bool> deviceFilter)
         {
             var peripheral = await ScanForPeripheralAsync(friendlyName, deviceFilter);
             return await TryToConnectAsync(peripheral);
@@ -414,7 +408,7 @@ namespace Plugin.BLE.iOS
         private async Task<CBPeripheral> ScanForPeripheralAsync(string friendlyName, Func<IDevice, bool> deviceFilter)
         {
             var taskCompletionSource = new TaskCompletionSource<CBPeripheral>();
-            var stopToken = new CancellationTokenSource(TimeSpan.FromSeconds(5));
+            var stopToken = new CancellationTokenSource(TimeSpan.FromMilliseconds(MaxScanTimeMS));
             EventHandler<DeviceEventArgs> handler = (sender, args) =>
             {
                 var peripheral = args.Device.NativeDevice as CBPeripheral;
@@ -488,7 +482,7 @@ namespace Plugin.BLE.iOS
 
                 async Task<IDevice> WaitAsync()
                 {
-                    await Task.Delay(4000);
+                    await Task.Delay(MaxConnectionWaitTimeMS);
                     return null;
                 }
 

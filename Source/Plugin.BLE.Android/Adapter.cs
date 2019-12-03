@@ -9,11 +9,10 @@ using Android.OS;
 using Java.Util;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Extensions;
 using Object = Java.Lang.Object;
 using Trace = Plugin.BLE.Abstractions.Trace;
-using Android.App;
-using Plugin.BLE.Abstractions.EventArgs;
 
 namespace Plugin.BLE.Android
 {
@@ -195,17 +194,25 @@ namespace Plugin.BLE.Android
                     taskCompletionSource.TrySetResult(args.Device);
                 };
 
-                DeviceDiscovered += handler;
-
-                async Task<IDevice> WaitAsync()
+                try
                 {
-                    await Task.Delay(4000);
-                    return null;
-                }
+                    DeviceDiscovered += handler;
+                    async Task<IDevice> WaitAsync()
+                    {
+                        await Task.Delay(MaxScanTimeMS);
+                        return null;
+                    }
 
-                var device = await await Task.WhenAny(taskCompletionSource.Task, WaitAsync());
-                await ConnectToDeviceAsync(device, new ConnectParameters(false, true), cancellationToken);
-                return device;
+                    await StartScanningForDevicesAsync(deviceFilter: deviceFilter, cancellationToken: cancellationToken);
+
+                    var device = await await Task.WhenAny(taskCompletionSource.Task, WaitAsync());
+                    await ConnectToDeviceAsync(device, new ConnectParameters(false, true), cancellationToken);
+                    return device;
+                }
+                finally
+                {
+                    DeviceDiscovered -= handler;
+                }
             }
             else
             {
