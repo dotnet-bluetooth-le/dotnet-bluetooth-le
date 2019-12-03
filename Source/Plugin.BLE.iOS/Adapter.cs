@@ -369,7 +369,7 @@ namespace Plugin.BLE.iOS
         /// <summary>
         /// See: https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/Art/ReconnectingToAPeripheral_2x.png for a chart of the flow.
         /// </summary>
-        protected override async Task<IDevice> ConnectNativeAsync(string friendlyName, Guid uuid, Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken = default)
+        protected override async Task<IDevice> ConnectNativeAsync(string friendlyName, Guid uuid, Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (uuid == Guid.Empty)
             {
@@ -471,6 +471,7 @@ namespace Plugin.BLE.iOS
 
             EventHandler<CBPeripheralErrorEventArgs> errorEvent = (sender, args) =>
             {
+                Trace.Info($"An error happend while connecting to the device: {args.Error.Code} + {args.Error.LocalizedDescription}");
                 completionSource.TrySetResult(null);
             };
 

@@ -9,10 +9,11 @@ using Android.OS;
 using Java.Util;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
-using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Extensions;
 using Object = Java.Lang.Object;
 using Trace = Plugin.BLE.Abstractions.Trace;
+using Android.App;
+using Plugin.BLE.Abstractions.EventArgs;
 
 namespace Plugin.BLE.Android
 {
@@ -184,7 +185,7 @@ namespace Plugin.BLE.Android
             return connectedDevices.Union(bondedDevices, new DeviceComparer()).Select(d => new Device(this, d, null, 0)).Cast<IDevice>().ToList();
         }
 
-        protected override async Task<IDevice> ConnectNativeAsync(string friendlyName, Guid uuid, Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken = default)
+        protected override async Task<IDevice> ConnectNativeAsync(string friendlyName, Guid uuid, Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (uuid == Guid.Empty)
             {
