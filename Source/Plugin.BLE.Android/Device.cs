@@ -249,7 +249,7 @@ namespace Plugin.BLE.Android
                 }
                 var record = new AdvertisementRecord((AdvertisementRecordType)type, data);
 
-                Trace.Message(record.ToString());
+                //Trace.Message(record.ToString());
 
                 records.Add(record);
 
