@@ -50,7 +50,7 @@ namespace Plugin.BLE.Abstractions.Utils
 
         protected override Task<IDevice> ConnectNativeAsync(string friendlyName, Guid uuid, Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return Task.FromResult<IDevice>(default);
+            return Task.FromResult(default(IDevice));
         }
     }
 }
