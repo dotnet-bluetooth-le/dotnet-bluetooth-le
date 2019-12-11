@@ -69,7 +69,7 @@ namespace Plugin.BLE.Abstractions
                     services = await GetServicesNativeAsync();
                 }
                 
-                if(services != null)
+                if (services != null)
                 {
                     lock (_servicesLock)
                     {
