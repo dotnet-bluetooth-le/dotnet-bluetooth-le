@@ -68,10 +68,13 @@ namespace Plugin.BLE.Abstractions
                 {
                     services = await GetServicesNativeAsync();
                 }
-
-                lock (_servicesLock)
+                
+                if(services != null)
                 {
-                    KnownServices.AddRange(services);
+                    lock (_servicesLock)
+                    {
+                        KnownServices.AddRange(services);
+                    }
                 }
             }
 
