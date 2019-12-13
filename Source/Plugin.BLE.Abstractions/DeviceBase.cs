@@ -21,9 +21,16 @@ namespace Plugin.BLE.Abstractions
 
         public static void CancelEverything(this ICancellationMaster cancellationMaster)
         {
-            cancellationMaster.TokenSource?.Cancel();
-            cancellationMaster.TokenSource?.Dispose();
-            cancellationMaster.TokenSource = null;
+            if (cancellationMaster.TokenSource != null)
+            {
+                //Cleanup can happen from many threads. Avoid disposed exceptions
+                lock (cancellationMaster.TokenSource)
+                {
+                    cancellationMaster.TokenSource?.Cancel();
+                    cancellationMaster.TokenSource?.Dispose();
+                    cancellationMaster.TokenSource = null;
+                }
+            }
         }
 
         public static void CancelEverythingAndReInitialize(this ICancellationMaster cancellationMaster)
@@ -35,6 +42,7 @@ namespace Plugin.BLE.Abstractions
 
     public abstract class DeviceBase : IDevice, ICancellationMaster
     {
+        private object _servicesLock = new object();
         protected readonly IAdapter Adapter;
         protected readonly List<IService> KnownServices = new List<IService>();
         public Guid Id { get; protected set; }
@@ -53,11 +61,20 @@ namespace Plugin.BLE.Abstractions
 
         public async Task<IList<IService>> GetServicesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (!KnownServices.Any())
+            if (KnownServices.Count == 0)
             {
+                IEnumerable<IService> services = null;
                 using (var source = this.GetCombinedSource(cancellationToken))
                 {
-                    KnownServices.AddRange(await GetServicesNativeAsync());
+                    services = await GetServicesNativeAsync();
+                }
+                
+                if (services != null)
+                {
+                    lock (_servicesLock)
+                    {
+                        KnownServices.AddRange(services);
+                    }
                 }
             }
 
@@ -100,21 +117,24 @@ namespace Plugin.BLE.Abstractions
         {
             this.CancelEverythingAndReInitialize();
 
-            if (KnownServices != null)
+            lock (_servicesLock)
             {
-                foreach (var service in KnownServices)
+                if (KnownServices != null)
                 {
-                    try
+                    foreach (var service in KnownServices)
                     {
-                        service.Dispose();
+                        try
+                        {
+                            service.Dispose();
+                        }
+                        catch (Exception ex)
+                        {
+                            Trace.Message("Exception while cleanup of service: {0}", ex.Message);
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        Trace.Message("Exception while cleanup of service: {0}", ex.Message);
-                    }
-                }
 
-                KnownServices.Clear();
+                    KnownServices.Clear();
+                }
             }
         }
 
