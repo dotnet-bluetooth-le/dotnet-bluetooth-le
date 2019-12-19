@@ -126,5 +126,11 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <param name="services">IMPORTANT: Only considered by iOS due to platform limitations. Filters devices by advertised services. SET THIS VALUE FOR ANY RESULTS</param>
         /// <returns>List of IDevices connected to the OS.  In case of no devices the list is empty.</returns>
         List<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null);
+
+        /// <summary>
+        /// Connects to a device, using Apple's recommended flow.
+        /// https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/Art/ReconnectingToAPeripheral_2x.png
+        /// </summary>
+        Task<IDevice> ConnectAsync(string friendlyName, Guid uuid, Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

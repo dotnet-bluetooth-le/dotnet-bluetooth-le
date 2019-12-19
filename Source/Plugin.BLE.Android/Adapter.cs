@@ -13,6 +13,7 @@ using Plugin.BLE.Extensions;
 using Object = Java.Lang.Object;
 using Trace = Plugin.BLE.Abstractions.Trace;
 using Android.App;
+using Plugin.BLE.Abstractions.EventArgs;
 
 namespace Plugin.BLE.Android
 {
@@ -182,6 +183,42 @@ namespace Plugin.BLE.Android
             var bondedDevices = _bluetoothAdapter.BondedDevices.Where(d => d.Type == BluetoothDeviceType.Le || d.Type == BluetoothDeviceType.Dual);
 
             return connectedDevices.Union(bondedDevices, new DeviceComparer()).Select(d => new Device(this, d, null, 0)).Cast<IDevice>().ToList();
+        }
+
+        protected override async Task<IDevice> ConnectNativeAsync(string friendlyName, Guid uuid, Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            if (uuid == Guid.Empty)
+            {
+                var taskCompletionSource = new TaskCompletionSource<IDevice>();
+                EventHandler<DeviceEventArgs> handler = (sender, args) =>
+                {
+                    taskCompletionSource.TrySetResult(args.Device);
+                };
+
+                try
+                {
+                    DeviceDiscovered += handler;
+                    async Task<IDevice> WaitAsync()
+                    {
+                        await Task.Delay(MaxScanTimeMS);
+                        return null;
+                    }
+
+                    await StartScanningForDevicesAsync(deviceFilter: deviceFilter, cancellationToken: cancellationToken);
+
+                    var device = await await Task.WhenAny(taskCompletionSource.Task, WaitAsync());
+                    await ConnectToDeviceAsync(device, new ConnectParameters(false, true), cancellationToken);
+                    return device;
+                }
+                finally
+                {
+                    DeviceDiscovered -= handler;
+                }
+            }
+            else
+            {
+                return await ConnectToKnownDeviceAsync(uuid, new ConnectParameters(false, true), cancellationToken);
+            }
         }
 
         private class DeviceComparer : IEqualityComparer<BluetoothDevice>
