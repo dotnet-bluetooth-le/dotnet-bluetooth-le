@@ -65,14 +65,17 @@ namespace Plugin.BLE.Abstractions
                     await StartScanningForDevicesNativeAsync(serviceUuids, allowDuplicatesKey, _scanCancellationTokenSource.Token);
                     await Task.Delay(ScanTimeout, _scanCancellationTokenSource.Token);
                     Trace.Message("Adapter: Scan timeout has elapsed.");
-                    CleanupScan();
                     ScanTimeoutElapsed(this, new System.EventArgs());
                 }
             }
             catch (TaskCanceledException)
             {
-                CleanupScan();
+                
                 Trace.Message("Adapter: Scan was cancelled.");
+            }
+            finally
+            {
+                CleanupScan();
             }
         }
 
