@@ -148,7 +148,7 @@ namespace Plugin.BLE.iOS
                   },
                 subscribeComplete: handler => _parentDevice.UpdatedNotificationState += handler,
                 unsubscribeComplete: handler => _parentDevice.UpdatedNotificationState -= handler,
-                token);
+                token: token);
         }
 
         protected override Task StopUpdatesNativeAsync()
