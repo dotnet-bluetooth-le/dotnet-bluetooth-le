@@ -45,6 +45,11 @@ namespace Plugin.BLE.Abstractions.Utils
                 subscribeReject(rejectHandler);
                 using (token.Register(() => tcs.TrySetCanceled(), false))
                 {
+                    if(token.IsCancellationRequested)
+                    {
+                        tcs.TrySetCanceled();
+                    }
+
                     execute();
                     return await tcs.Task;
                 }
