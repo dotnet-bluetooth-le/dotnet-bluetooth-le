@@ -126,7 +126,7 @@ namespace Plugin.BLE.Android
             }
         }
 
-        protected override async Task StartUpdatesNativeAsync()
+        protected override async Task StartUpdatesNativeAsync(CancellationToken token = default(CancellationToken))
         {
             // wire up the characteristic value updating on the gattcallback for event forwarding
             _gattCallback.CharacteristicValueUpdated += OnCharacteristicValueChanged;
@@ -145,7 +145,7 @@ namespace Plugin.BLE.Android
 
             if (_nativeCharacteristic.Descriptors.Count > 0)
             {
-                var descriptors = await GetDescriptorsAsync();
+                var descriptors = await GetDescriptorsAsync(token);
                 var descriptor = descriptors.FirstOrDefault(d => d.Id.Equals(ClientCharacteristicConfigurationDescriptorId)) ??
                                             descriptors.FirstOrDefault(); // fallback just in case manufacturer forgot
 

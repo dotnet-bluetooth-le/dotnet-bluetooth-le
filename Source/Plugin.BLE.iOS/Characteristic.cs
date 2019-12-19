@@ -123,15 +123,15 @@ namespace Plugin.BLE.iOS
             return task;
         }
 
-        protected override Task StartUpdatesNativeAsync()
+        protected override Task StartUpdatesNativeAsync(CancellationToken token = default(CancellationToken))
         {
             _parentDevice.UpdatedCharacterteristicValue -= UpdatedNotify;
             _parentDevice.UpdatedCharacterteristicValue += UpdatedNotify;
 
             //https://developer.apple.com/reference/corebluetooth/cbperipheral/1518949-setnotifyvalue
             return TaskBuilder.FromEvent<bool, EventHandler<CBCharacteristicEventArgs>>(
-                  execute: () => _parentDevice.SetNotifyValue(true, _nativeCharacteristic),
-                  getCompleteHandler: (complete, reject) => (sender, args) =>
+                execute: () => _parentDevice.SetNotifyValue(true, _nativeCharacteristic),
+                getCompleteHandler: (complete, reject) => (sender, args) =>
                   {
                       if (args.Characteristic.UUID != _nativeCharacteristic.UUID)
                           return;
@@ -146,8 +146,9 @@ namespace Plugin.BLE.iOS
                           complete(args.Characteristic.IsNotifying);
                       }
                   },
-               subscribeComplete: handler => _parentDevice.UpdatedNotificationState += handler,
-                  unsubscribeComplete: handler => _parentDevice.UpdatedNotificationState -= handler);
+                subscribeComplete: handler => _parentDevice.UpdatedNotificationState += handler,
+                unsubscribeComplete: handler => _parentDevice.UpdatedNotificationState -= handler,
+                token: token);
         }
 
         protected override Task StopUpdatesNativeAsync()
