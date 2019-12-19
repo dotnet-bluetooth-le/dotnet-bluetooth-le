@@ -50,7 +50,7 @@ namespace Plugin.BLE.iOS
         protected override async Task<IService> GetServiceNativeAsync(Guid id)
         {
             var cbuuid = CBUUID.FromString(id.ToString());
-            var nativeService = NativeDevice.Services.FirstOrDefault(service => service.UUID.Equals(cbuuid));
+            var nativeService = NativeDevice.Services?.FirstOrDefault(service => service.UUID.Equals(cbuuid));
             if (nativeService != null)
             {
                 return new Service(nativeService, this, _bleCentralManagerDelegate);
