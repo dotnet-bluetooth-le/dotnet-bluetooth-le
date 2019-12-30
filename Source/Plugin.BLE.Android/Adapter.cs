@@ -189,30 +189,42 @@ namespace Plugin.BLE.Android
         {
             if (uuid == Guid.Empty)
             {
-                var taskCompletionSource = new TaskCompletionSource<IDevice>();
-                EventHandler<DeviceEventArgs> handler = (sender, args) =>
+                CancellationTokenSource connectTokenSource = new CancellationTokenSource();
+                using (cancellationToken.Register(() => connectTokenSource.Cancel()))
                 {
-                    taskCompletionSource.TrySetResult(args.Device);
-                };
-
-                try
-                {
-                    DeviceDiscovered += handler;
-                    async Task<IDevice> WaitAsync()
+                    var taskCompletionSource = new TaskCompletionSource<IDevice>();
+                    EventHandler<DeviceEventArgs> handler = (sender, args) =>
                     {
-                        await Task.Delay(MaxScanTimeMS);
-                        return null;
+                        if (taskCompletionSource.TrySetResult(args.Device))
+                        {
+
+                        }
+                    };
+
+                    try
+                    {
+                        DeviceDiscovered += handler;
+                        async Task<IDevice> WaitAsync()
+                        {
+                            await Task.Delay(MaxScanTimeMS);
+                            return null;
+                        }
+
+                        var scanTask = StartScanningForDevicesAsync(deviceFilter: deviceFilter, cancellationToken: connectTokenSource.Token);
+                        var device = await await Task.WhenAny(taskCompletionSource.Task, WaitAsync());
+
+                        // make sure to wait for the scan to complete before connecting to avoid doing multiple things at once. If a
+                        // device was matched, then it should already have completed through the cancellation, otherwise it is
+                        // controlled by the scan timeout
+                        await scanTask;
+
+                        await ConnectToDeviceAsync(device, new ConnectParameters(false, true), cancellationToken);
+                        return device;
                     }
-
-                    await StartScanningForDevicesAsync(deviceFilter: deviceFilter, cancellationToken: cancellationToken);
-
-                    var device = await await Task.WhenAny(taskCompletionSource.Task, WaitAsync());
-                    await ConnectToDeviceAsync(device, new ConnectParameters(false, true), cancellationToken);
-                    return device;
-                }
-                finally
-                {
-                    DeviceDiscovered -= handler;
+                    finally
+                    {
+                        DeviceDiscovered -= handler;
+                    }
                 }
             }
             else
