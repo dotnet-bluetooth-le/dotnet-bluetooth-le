@@ -12,7 +12,6 @@ using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Extensions;
 using Object = Java.Lang.Object;
 using Trace = Plugin.BLE.Abstractions.Trace;
-using Android.App;
 using Plugin.BLE.Abstractions.EventArgs;
 
 namespace Plugin.BLE.Android
@@ -189,42 +188,40 @@ namespace Plugin.BLE.Android
         {
             if (uuid == Guid.Empty)
             {
-                CancellationTokenSource connectTokenSource = new CancellationTokenSource();
-                using (cancellationToken.Register(() => connectTokenSource.Cancel()))
+                var stopToken = new CancellationTokenSource();
+                var linkedToken = CancellationTokenSource.CreateLinkedTokenSource(stopToken.Token, cancellationToken).Token;
+                var taskCompletionSource = new TaskCompletionSource<IDevice>();
+                EventHandler<DeviceEventArgs> handler = (sender, args) =>
                 {
-                    var taskCompletionSource = new TaskCompletionSource<IDevice>();
-                    EventHandler<DeviceEventArgs> handler = (sender, args) =>
+                    if (taskCompletionSource.TrySetResult(args.Device))
                     {
-                        if (taskCompletionSource.TrySetResult(args.Device))
-                        {
-
-                        }
-                    };
-
-                    try
-                    {
-                        DeviceDiscovered += handler;
-                        async Task<IDevice> WaitAsync()
-                        {
-                            await Task.Delay(MaxScanTimeMS);
-                            return null;
-                        }
-
-                        var scanTask = StartScanningForDevicesAsync(deviceFilter: deviceFilter, cancellationToken: connectTokenSource.Token);
-                        var device = await await Task.WhenAny(taskCompletionSource.Task, WaitAsync());
-
-                        // make sure to wait for the scan to complete before connecting to avoid doing multiple things at once. If a
-                        // device was matched, then it should already have completed through the cancellation, otherwise it is
-                        // controlled by the scan timeout
-                        await scanTask;
-
-                        await ConnectToDeviceAsync(device, new ConnectParameters(false, true), cancellationToken);
-                        return device;
+                        stopToken.Cancel();
                     }
-                    finally
+                };
+
+                try
+                {
+                    DeviceDiscovered += handler;
+                    async Task<IDevice> WaitAsync()
                     {
-                        DeviceDiscovered -= handler;
+                        await Task.Delay(MaxScanTimeMS);
+                        return null;
                     }
+
+                    var scanTask = StartScanningForDevicesAsync(deviceFilter: deviceFilter, cancellationToken: linkedToken);
+                    var device = await await Task.WhenAny(taskCompletionSource.Task, WaitAsync());
+
+                    // make sure to wait for the scan to complete before connecting to avoid doing multiple things at once. If a
+                    // device was matched, then it should already have completed through the cancellation, otherwise it is
+                    // controlled by the scan timeout
+                    await scanTask;
+
+                    await ConnectToDeviceAsync(device, new ConnectParameters(false, true), cancellationToken);
+                    return device;
+                }
+                finally
+                {
+                    DeviceDiscovered -= handler;
                 }
             }
             else
