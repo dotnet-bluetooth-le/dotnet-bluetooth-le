@@ -411,8 +411,10 @@ namespace Plugin.BLE.iOS
 
                 if (peripheral.Name == friendlyName)
                 {
-                    stopToken.Cancel();
-                    taskCompletionSource.TrySetResult(peripheral);
+                    if (taskCompletionSource.TrySetResult(peripheral))
+                    {
+                        stopToken.Cancel();
+                    }
                 }
             };
 
