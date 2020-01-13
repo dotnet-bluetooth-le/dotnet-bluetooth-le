@@ -52,7 +52,6 @@ namespace Plugin.BLE
             lock (_queueLock)
             {
                 _queue.Enqueue(task);
-                _logger.Debug(() => "Task enqued " + $"({_queue.Count})");
             }
 
             if (Interlocked.Exchange(ref _isRunning, 1) == 0)
@@ -75,14 +74,11 @@ namespace Plugin.BLE
                 }
 
                 task = _queue.Dequeue();
-                _logger.Debug(() => "Task dequed " + $"({_queue.Count})");
             }
 
             task.Start();
 
-            _logger.Debug(() => "Running task");
             await task;
-            _logger.Debug(() => "Finished task");
             var _ = InnerRun();
         }
     }

@@ -198,7 +198,7 @@ namespace Plugin.BLE.Android
         {
             base.OnCharacteristicWrite(gatt, characteristic, status);
 
-            Trace.Message("OnCharacteristicWrite: value {0} status {1}", characteristic.GetValue().ToHexString(), status);
+            //Trace.Message("OnCharacteristicWrite: value {0} status {1}", characteristic.GetValue().ToHexString(), status);
 
             CharacteristicValueWritten?.Invoke(this, new CharacteristicWriteCallbackEventArgs(characteristic, GetExceptionFromGattStatus(status)));
         }

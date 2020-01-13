@@ -118,7 +118,7 @@ namespace Plugin.BLE.Android
                 throw new CharacteristicReadException("Gatt characteristic set value FAILED.");
             }
 
-            Trace.Message("Write {0}", Id);
+            //Trace.Message("Write {0}", Id);
 
             if (!_gatt.WriteCharacteristic(_nativeCharacteristic))
             {
