@@ -409,7 +409,7 @@ namespace Plugin.BLE.iOS
             {
                 var peripheral = args.Device.NativeDevice as CBPeripheral;
 
-                if (peripheral.Name == friendlyName)
+                if (peripheral.Name == friendlyName || (peripheral.Name == ("LE-" + friendlyName)))
                 {
                     if (taskCompletionSource.TrySetResult(peripheral))
                     {
