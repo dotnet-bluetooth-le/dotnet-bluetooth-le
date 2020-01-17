@@ -36,7 +36,7 @@ namespace Plugin.BLE.Abstractions
     public abstract class DeviceBase : IDevice, ICancellationMaster
     {
         protected readonly IAdapter Adapter;
-        protected readonly List<IService> KnownServices = new List<IService>();
+        private readonly List<IService> KnownServices = new List<IService>();
         public Guid Id { get; protected set; }
         public string Name { get; protected set; }
         public int Rssi { get; protected set; }
@@ -53,15 +53,24 @@ namespace Plugin.BLE.Abstractions
 
         public async Task<IReadOnlyList<IService>> GetServicesAsync(CancellationToken cancellationToken = default)
         {
-            if (!KnownServices.Any())
+            lock (KnownServices)
             {
-                using (var source = this.GetCombinedSource(cancellationToken))
+                if (KnownServices.Any())
                 {
-                    KnownServices.AddRange(await GetServicesNativeAsync());
+                    return KnownServices.ToArray();
                 }
             }
 
-            return KnownServices;
+            using (var source = this.GetCombinedSource(cancellationToken))
+            {
+                var services = await GetServicesNativeAsync();
+
+                lock (KnownServices)
+                {
+                    KnownServices.AddRange(services);
+                    return KnownServices.ToArray();
+                }
+            }
         }
 
         public async Task<IService> GetServiceAsync(Guid id, CancellationToken cancellationToken = default)
@@ -100,19 +109,22 @@ namespace Plugin.BLE.Abstractions
         {
             this.CancelEverythingAndReInitialize();
 
-            foreach (var service in KnownServices)
+            lock (KnownServices)
             {
-                try
+                foreach (var service in KnownServices)
                 {
-                    service.Dispose();
+                    try
+                    {
+                        service.Dispose();
+                    }
+                    catch (Exception ex)
+                    {
+                        Trace.Message("Exception while cleanup of service: {0}", ex.Message);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    Trace.Message("Exception while cleanup of service: {0}", ex.Message);
-                }
-            }
 
-            KnownServices.Clear();
+                KnownServices.Clear();
+            }
         }
 
         public override bool Equals(object other)
