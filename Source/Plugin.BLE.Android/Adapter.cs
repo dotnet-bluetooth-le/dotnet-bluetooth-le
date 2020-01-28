@@ -226,6 +226,14 @@ namespace Plugin.BLE.Android
             }
             else
             {
+                if (DiscoveredDevices.Count == 0)
+                {
+                    var stopToken = new CancellationTokenSource();
+                    var linkedToken = CancellationTokenSource.CreateLinkedTokenSource(stopToken.Token, cancellationToken).Token;
+                    ScanTimeout = 2000;
+                    await StartScanningForDevicesAsync(null, cancellationToken: linkedToken);
+                }
+
                 return await ConnectToKnownDeviceAsync(uuid, new ConnectParameters(false, true), cancellationToken);
             }
         }
