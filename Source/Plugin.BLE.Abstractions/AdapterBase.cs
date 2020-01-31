@@ -70,7 +70,7 @@ namespace Plugin.BLE.Abstractions
             }
             catch (TaskCanceledException)
             {
-                
+
                 Trace.Message("Adapter: Scan was cancelled.");
             }
             finally
@@ -106,11 +106,16 @@ namespace Plugin.BLE.Abstractions
             if (device.State == DeviceState.Connected)
                 return;
 
-            using (var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken))
+            var tryForAWhile = new CancellationTokenSource(TimeSpan.FromSeconds(20));
+
+            using (var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, tryForAWhile.Token))
             {
                 var foundDevice = false;
+                var tryCount = 0;
                 while (cts.Token.IsCancellationRequested == false && foundDevice == false)
                 {
+                    tryCount++;
+                    Trace.Message("Trying to connect, tries {0}", tryCount);
                     try
                     {
                         foundDevice = await TaskBuilder.FromEvent<bool, EventHandler<DeviceEventArgs>, EventHandler<DeviceErrorEventArgs>>(
@@ -148,11 +153,13 @@ namespace Plugin.BLE.Abstractions
                     {
                         if (cts.Token.IsCancellationRequested)
                         {
+                            Trace.Message("Connecting to {0} {1} timed out after {2} tries", device.Id, device.Name, tryCount);
                             throw;
-
                         }
                     }
                 }
+
+                Trace.Message((foundDevice ? "Succeeded" : "Gave up") + " after {0} tries", tryCount);
             }
         }
 
