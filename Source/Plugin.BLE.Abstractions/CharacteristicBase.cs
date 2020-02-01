@@ -9,23 +9,25 @@ using Plugin.BLE.Abstractions.EventArgs;
 
 namespace Plugin.BLE.Abstractions
 {
-    public abstract class CharacteristicBase : ICharacteristic
+    public abstract class CharacteristicBase<TNativeCharacteristic> : ICharacteristic
     {
-        private IList<IDescriptor> _descriptors;
+        private IReadOnlyList<IDescriptor> _descriptors;
         private CharacteristicWriteType _writeType = CharacteristicWriteType.Default;
+
+        protected TNativeCharacteristic NativeCharacteristic { get; }
 
         public abstract event EventHandler<CharacteristicUpdatedEventArgs> ValueUpdated;
 
         public abstract Guid Id { get; }
         public abstract string Uuid { get; }
         public abstract byte[] Value { get; }
-        public string Name => KnownCharacteristics.Lookup(Id).Name;
+        public virtual string Name => KnownCharacteristics.Lookup(Id).Name;
         public abstract CharacteristicPropertyType Properties { get; }
         public IService Service { get; }
 
         public CharacteristicWriteType WriteType
         {
-            get { return _writeType; }
+            get => _writeType;
             set
             {
                 if (value == CharacteristicWriteType.WithResponse && !Properties.HasFlag(CharacteristicPropertyType.Write) ||
@@ -58,12 +60,13 @@ namespace Plugin.BLE.Abstractions
             }
         }
 
-        protected CharacteristicBase(IService service)
+        protected CharacteristicBase(IService service, TNativeCharacteristic nativeCharacteristic)
         {
             Service = service;
+            NativeCharacteristic = nativeCharacteristic;
         }
 
-        public async Task<byte[]> ReadAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<byte[]> ReadAsync(CancellationToken cancellationToken = default)
         {
             if (!CanRead)
             {
@@ -74,7 +77,7 @@ namespace Plugin.BLE.Abstractions
             return await ReadNativeAsync();
         }
 
-        public async Task<bool> WriteAsync(byte[] data, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<bool> WriteAsync(byte[] data, CancellationToken cancellationToken = default)
         {
             if (data == null)
             {
@@ -123,20 +126,18 @@ namespace Plugin.BLE.Abstractions
             return StopUpdatesNativeAsync();
         }
 
-        public async Task<IList<IDescriptor>> GetDescriptorsAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<IReadOnlyList<IDescriptor>> GetDescriptorsAsync(CancellationToken cancellationToken = default)
         {
-            if (_descriptors == null)
-                _descriptors = await GetDescriptorsNativeAsync();
-            return _descriptors;
+            return _descriptors ?? (_descriptors = await GetDescriptorsNativeAsync());
         }
 
-        public async Task<IDescriptor> GetDescriptorAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<IDescriptor> GetDescriptorAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            var descriptors = await GetDescriptorsAsync().ConfigureAwait(false);
+            var descriptors = await GetDescriptorsAsync(cancellationToken).ConfigureAwait(false);
             return descriptors.FirstOrDefault(d => d.Id == id);
         }
 
-        protected abstract Task<IList<IDescriptor>> GetDescriptorsNativeAsync();
+        protected abstract Task<IReadOnlyList<IDescriptor>> GetDescriptorsNativeAsync();
         protected abstract Task<byte[]> ReadNativeAsync();
         protected abstract Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType);
         protected abstract Task StartUpdatesNativeAsync();

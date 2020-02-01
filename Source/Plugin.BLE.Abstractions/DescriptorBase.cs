@@ -5,9 +5,11 @@ using Plugin.BLE.Abstractions.Contracts;
 
 namespace Plugin.BLE.Abstractions
 {
-    public abstract class DescriptorBase : IDescriptor
+    public abstract class DescriptorBase<TNativeDescriptor> : IDescriptor
     {
         private string _name;
+
+        protected TNativeDescriptor NativeDescriptor { get; }
 
         public abstract Guid Id { get; }
 
@@ -17,19 +19,20 @@ namespace Plugin.BLE.Abstractions
 
         public ICharacteristic Characteristic { get; }
 
-        protected DescriptorBase(ICharacteristic characteristic)
+        protected DescriptorBase(ICharacteristic characteristic, TNativeDescriptor nativeDescriptor)
         {
             Characteristic = characteristic;
+            NativeDescriptor = nativeDescriptor;
         }
 
-        public Task<byte[]> ReadAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public Task<byte[]> ReadAsync(CancellationToken cancellationToken = default)
         {
             return ReadNativeAsync();
         }
 
         protected abstract Task<byte[]> ReadNativeAsync();
 
-        public Task WriteAsync(byte[] data, CancellationToken cancellationToken = default(CancellationToken))
+        public Task WriteAsync(byte[] data, CancellationToken cancellationToken = default)
         {
             if (data == null)
             {
@@ -40,8 +43,5 @@ namespace Plugin.BLE.Abstractions
         }
 
         protected abstract Task WriteNativeAsync(byte[] data);
-
-
-
     }
 }

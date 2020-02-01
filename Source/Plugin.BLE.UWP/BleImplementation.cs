@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.Connectivity;
+﻿using Windows.Devices.Bluetooth;
+using Microsoft.Toolkit.Uwp.Connectivity;
 
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
@@ -8,6 +9,12 @@ namespace Plugin.BLE
 {
     public class BleImplementation : BleImplementationBase
     {
+        public static BluetoothCacheMode CacheModeCharacteristicRead { get; set; } = BluetoothCacheMode.Uncached;
+        public static BluetoothCacheMode CacheModeDescriptorRead { get; set; } = BluetoothCacheMode.Uncached;
+        public static BluetoothCacheMode CacheModeGetDescriptors { get; set; } = BluetoothCacheMode.Cached;
+        public static BluetoothCacheMode CacheModeGetCharacteristics { get; set; } = BluetoothCacheMode.Cached;
+        public static BluetoothCacheMode CacheModeGetServices { get; set; } = BluetoothCacheMode.Cached;
+
         private BluetoothLEHelper _bluetoothHelper;
 
         protected override IAdapter CreateNativeAdapter()

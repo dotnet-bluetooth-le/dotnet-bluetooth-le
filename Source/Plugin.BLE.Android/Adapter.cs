@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -23,19 +24,11 @@ namespace Plugin.BLE.Android
         private readonly Api18BleScanCallback _api18ScanCallback;
         private readonly Api21BleScanCallback _api21ScanCallback;
 
-        public override IList<IDevice> ConnectedDevices => ConnectedDeviceRegistry.Values.ToList();
-
-        /// <summary>
-        /// Used to store all connected devices
-        /// </summary>
-        public Dictionary<string, IDevice> ConnectedDeviceRegistry { get; }
-
         public Adapter(BluetoothManager bluetoothManager)
         {
             _bluetoothManager = bluetoothManager;
             _bluetoothAdapter = bluetoothManager.Adapter;
 
-            ConnectedDeviceRegistry = new Dictionary<string, IDevice>();
 
             // TODO: bonding
             //var bondStatusBroadcastReceiver = new BondStatusBroadcastReceiver();
@@ -60,9 +53,6 @@ namespace Plugin.BLE.Android
 
         protected override Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
         {
-            // clear out the list
-            DiscoveredDevices.Clear();
-
             if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
             {
                 StartScanningOld(serviceUuids);
@@ -143,7 +133,7 @@ namespace Plugin.BLE.Android
         protected override Task ConnectToDeviceNativeAsync(IDevice device, ConnectParameters connectParameters,
             CancellationToken cancellationToken)
         {
-            ((Device)device).Connect(connectParameters);
+            ((Device)device).Connect(connectParameters, cancellationToken);
             return Task.CompletedTask;
         }
 
@@ -164,7 +154,7 @@ namespace Plugin.BLE.Android
             return device;
         }
 
-        public override List<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null)
+        public override IReadOnlyList<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null)
         {
             if (services != null)
             {

@@ -17,7 +17,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// </summary>
         event EventHandler<DeviceEventArgs> DeviceAdvertised;
         /// <summary>
-        /// Occurs when the adapter recaives an advertisement for the first time of the current scan run.
+        /// Occurs when the adapter receives an advertisement for the first time of the current scan run.
         /// This means once per every <see cref="StartScanningForDevicesAsync(Guid[], Func&lt;IDevice, bool&gt;, CancellationToken)"/> call. 
         /// </summary>
         event EventHandler<DeviceEventArgs> DeviceDiscovered;
@@ -58,12 +58,12 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <summary>
         /// List of last discovered devices.
         /// </summary>
-        IList<IDevice> DiscoveredDevices { get; }
+        IReadOnlyList<IDevice> DiscoveredDevices { get; }
 
         /// <summary>
         /// List of currently connected devices.
         /// </summary>
-        IList<IDevice> ConnectedDevices { get; }
+        IReadOnlyList<IDevice> ConnectedDevices { get; }
 
         /// <summary>
         /// Starts scanning for BLE devices that fulfill the <paramref name="deviceFilter"/>.
@@ -78,7 +78,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// For android, key is ignored.</param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
         /// <returns>A task that represents the asynchronous read operation. The Task will finish after the scan has ended.</returns>
-        Task StartScanningForDevicesAsync(Guid[] serviceUuids = null, Func<IDevice, bool> deviceFilter = null, bool allowDuplicatesKey = false, CancellationToken cancellationToken = default(CancellationToken));
+        Task StartScanningForDevicesAsync(Guid[] serviceUuids = null, Func<IDevice, bool> deviceFilter = null, bool allowDuplicatesKey = false, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Stops scanning for BLE devices.
@@ -95,7 +95,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <returns>A task that represents the asynchronous read operation. The Task will finish after the device has been connected successfuly.</returns>
         /// <exception cref="DeviceConnectionException">Thrown if the device connection fails.</exception>
         /// <exception cref="ArgumentNullException">Thrown if the <paramref name="device"/> is null.</exception>
-        Task ConnectToDeviceAsync(IDevice device, ConnectParameters connectParameters = default(ConnectParameters), CancellationToken cancellationToken = default(CancellationToken));
+        Task ConnectToDeviceAsync(IDevice device, ConnectParameters connectParameters = default, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Disconnects from the <paramref name="device"/>.
@@ -105,13 +105,13 @@ namespace Plugin.BLE.Abstractions.Contracts
         Task DisconnectDeviceAsync(IDevice device);
 
         /// <summary>
-        /// Connects to a device whith a known GUID wihtout scanning and if in range. Does not scan for devices.
+        /// Connects to a device with a known GUID without scanning and if in range. Does not scan for devices.
         /// </summary>
         /// <param name="deviceGuid"></param>
         /// <param name="connectParameters">Connection parameters. Contains platform specific parameters needed to achieved connection. The default value is None.</param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
         /// <returns></returns>
-        Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters = default(ConnectParameters), CancellationToken cancellationToken = default(CancellationToken));
+        Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters = default, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Returns all BLE devices connected to the system. For android the implementations uses getConnectedDevices(GATT) & getBondedDevices()
@@ -125,6 +125,6 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// </summary>
         /// <param name="services">IMPORTANT: Only considered by iOS due to platform limitations. Filters devices by advertised services. SET THIS VALUE FOR ANY RESULTS</param>
         /// <returns>List of IDevices connected to the OS.  In case of no devices the list is empty.</returns>
-        List<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null);
+        IReadOnlyList<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null);
     }
 }

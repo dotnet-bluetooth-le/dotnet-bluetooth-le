@@ -1,24 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:pages="clr-namespace:BLE.Client.Pages;assembly=BLE.Client"
-             x:Class="BLE.Client.Pages.ServiceListPage"
-                Title="Services">
-  <ListView ItemsSource="{Binding Services}"
-            SelectedItem="{Binding SelectedService, Mode=TwoWay}"
-            RowHeight="70"
-            SeparatorVisibility="Default"
-            SeparatorColor="Gray"
-            CachingStrategy="RecycleElement">
-    <ListView.ItemTemplate>
-      <DataTemplate>
-        <ViewCell>
-          <StackLayout Orientation="Vertical" VerticalOptions="Center">
-            <Label Text="{Binding Id, StringFormat='{0}'}" FontSize="Medium" />
-            <Label Text="{Binding Name}" TextColor="Gray" FontSize="Small"/>
-          </StackLayout>
-        </ViewCell>
-      </DataTemplate>
-    </ListView.ItemTemplate>
-  </ListView>
-</pages:BasePage>
+<views:MvxContentPage x:TypeArguments="viewModels:ServiceListViewModel"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                      xmlns:viewModels="clr-namespace:BLE.Client.ViewModels;assembly=BLE.Client"
+                      xmlns:abstractions="clr-namespace:Plugin.BLE.Abstractions;assembly=Plugin.BLE.Abstractions"
+                      x:Class="BLE.Client.Pages.ServiceListPage"
+                      Title="Services">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Button Text="Discover all services"
+                Command="{Binding DiscoverAllServicesCommand}" />
+        <StackLayout Grid.Row="1"
+                     Orientation="Horizontal">
+            <Button Text="Discover service by id"
+                    Command="{Binding DiscoverServiceByIdCommand}"
+                    CommandParameter="{Binding Source={x:Reference KnownServicePicker}, Path=SelectedItem}" />
+            <Picker x:Name="KnownServicePicker"
+                    ItemsSource="{x:Static abstractions:KnownServices.Services}"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedIndex="0"
+                    BackgroundColor="#0A000000"
+                    TextColor="DarkRed" 
+                    HorizontalOptions="FillAndExpand"/>
+        </StackLayout>
+
+        <BoxView Grid.Row="2"
+                 HeightRequest="1"
+                 BackgroundColor="Gray" />
+        <ListView Grid.Row="3"
+                  ItemsSource="{Binding Services}"
+                  SelectedItem="{Binding SelectedService, Mode=TwoWay}"
+                  HasUnevenRows="True"
+                  SeparatorVisibility="Default"
+                  SeparatorColor="Gray"
+                  CachingStrategy="RecycleElement">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Vertical"
+                                     VerticalOptions="Center">
+                            <Label Text="{Binding Id, StringFormat='{0}'}"
+                                   FontSize="Medium" />
+                            <Label Text="{Binding Name}"
+                                   TextColor="DarkRed"
+                                   FontSize="Small" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</views:MvxContentPage>

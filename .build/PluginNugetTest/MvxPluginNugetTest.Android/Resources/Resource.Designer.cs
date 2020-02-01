@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("MvxPluginNugetTest.Android.Resource", IsApplication=false)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("MvxPluginNugetTest.Android.Resource", IsApplication=true)]
 
 namespace MvxPluginNugetTest.Android
 {
@@ -24,8 +24,5078 @@ namespace MvxPluginNugetTest.Android
 			global::Android.Runtime.ResourceIdManager.UpdateIdValues();
 		}
 		
+		public static void UpdateIdValues()
+		{
+			global::MvvmCross.Resource.Attribute.MvxBind = global::MvxPluginNugetTest.Android.Resource.Attribute.MvxBind;
+			global::MvvmCross.Resource.Attribute.MvxDropDownItemTemplate = global::MvxPluginNugetTest.Android.Resource.Attribute.MvxDropDownItemTemplate;
+			global::MvvmCross.Resource.Attribute.MvxGroupItemTemplate = global::MvxPluginNugetTest.Android.Resource.Attribute.MvxGroupItemTemplate;
+			global::MvvmCross.Resource.Attribute.MvxItemTemplate = global::MvxPluginNugetTest.Android.Resource.Attribute.MvxItemTemplate;
+			global::MvvmCross.Resource.Attribute.MvxLang = global::MvxPluginNugetTest.Android.Resource.Attribute.MvxLang;
+			global::MvvmCross.Resource.Attribute.MvxTemplate = global::MvxPluginNugetTest.Android.Resource.Attribute.MvxTemplate;
+			global::MvvmCross.Resource.Id.MvvmCrossTagId = global::MvxPluginNugetTest.Android.Resource.Id.MvvmCrossTagId;
+			global::MvvmCross.Resource.Id.MvxBindingTagUnique = global::MvxPluginNugetTest.Android.Resource.Id.MvxBindingTagUnique;
+			global::MvvmCross.Resource.Styleable.MvxBinding = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxBinding;
+			global::MvvmCross.Resource.Styleable.MvxBinding_MvxBind = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxBinding_MvxBind;
+			global::MvvmCross.Resource.Styleable.MvxBinding_MvxLang = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxBinding_MvxLang;
+			global::MvvmCross.Resource.Styleable.MvxControl = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxControl;
+			global::MvvmCross.Resource.Styleable.MvxControl_MvxTemplate = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxControl_MvxTemplate;
+			global::MvvmCross.Resource.Styleable.MvxExpandableListView = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxExpandableListView;
+			global::MvvmCross.Resource.Styleable.MvxExpandableListView_MvxGroupItemTemplate = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxExpandableListView_MvxGroupItemTemplate;
+			global::MvvmCross.Resource.Styleable.MvxListView = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxListView;
+			global::MvvmCross.Resource.Styleable.MvxListView_MvxDropDownItemTemplate = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxListView_MvxDropDownItemTemplate;
+			global::MvvmCross.Resource.Styleable.MvxListView_MvxItemTemplate = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxListView_MvxItemTemplate;
+			global::MvvmCross.Droid.Support.Design.Resource.Animation.abc_fade_in = global::MvxPluginNugetTest.Android.Resource.Animation.abc_fade_in;
+			global::MvvmCross.Droid.Support.Design.Resource.Animation.abc_fade_out = global::MvxPluginNugetTest.Android.Resource.Animation.abc_fade_out;
+			global::MvvmCross.Droid.Support.Design.Resource.Animation.abc_grow_fade_in_from_bottom = global::MvxPluginNugetTest.Android.Resource.Animation.abc_grow_fade_in_from_bottom;
+			global::MvvmCross.Droid.Support.Design.Resource.Animation.abc_popup_enter = global::MvxPluginNugetTest.Android.Resource.Animation.abc_popup_enter;
+			global::MvvmCross.Droid.Support.Design.Resource.Animation.abc_popup_exit = global::MvxPluginNugetTest.Android.Resource.Animation.abc_popup_exit;
+			global::MvvmCross.Droid.Support.Design.Resource.Animation.abc_shrink_fade_out_from_bottom = global::MvxPluginNugetTest.Android.Resource.Animation.abc_shrink_fade_out_from_bottom;
+			global::MvvmCross.Droid.Support.Design.Resource.Animation.abc_slide_in_bottom = global::MvxPluginNugetTest.Android.Resource.Animation.abc_slide_in_bottom;
+			global::MvvmCross.Droid.Support.Design.Resource.Animation.abc_slide_in_top = global::MvxPluginNugetTest.Android.Resource.Animation.abc_slide_in_top;
+			global::MvvmCross.Droid.Support.Design.Resource.Animation.abc_slide_out_bottom = global::MvxPluginNugetTest.Android.Resource.Animation.abc_slide_out_bottom;
+			global::MvvmCross.Droid.Support.Design.Resource.Animation.abc_slide_out_top = global::MvxPluginNugetTest.Android.Resource.Animation.abc_slide_out_top;
+			global::MvvmCross.Droid.Support.Design.Resource.Animation.design_bottom_sheet_slide_in = global::MvxPluginNugetTest.Android.Resource.Animation.design_bottom_sheet_slide_in;
+			global::MvvmCross.Droid.Support.Design.Resource.Animation.design_bottom_sheet_slide_out = global::MvxPluginNugetTest.Android.Resource.Animation.design_bottom_sheet_slide_out;
+			global::MvvmCross.Droid.Support.Design.Resource.Animation.design_snackbar_in = global::MvxPluginNugetTest.Android.Resource.Animation.design_snackbar_in;
+			global::MvvmCross.Droid.Support.Design.Resource.Animation.design_snackbar_out = global::MvxPluginNugetTest.Android.Resource.Animation.design_snackbar_out;
+			global::MvvmCross.Droid.Support.Design.Resource.Animation.tooltip_enter = global::MvxPluginNugetTest.Android.Resource.Animation.tooltip_enter;
+			global::MvvmCross.Droid.Support.Design.Resource.Animation.tooltip_exit = global::MvxPluginNugetTest.Android.Resource.Animation.tooltip_exit;
+			global::MvvmCross.Droid.Support.Design.Resource.Animator.design_appbar_state_list_animator = global::MvxPluginNugetTest.Android.Resource.Animator.design_appbar_state_list_animator;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.MvxBind = global::MvxPluginNugetTest.Android.Resource.Attribute.MvxBind;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.MvxDropDownItemTemplate = global::MvxPluginNugetTest.Android.Resource.Attribute.MvxDropDownItemTemplate;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.MvxGroupItemTemplate = global::MvxPluginNugetTest.Android.Resource.Attribute.MvxGroupItemTemplate;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.MvxItemTemplate = global::MvxPluginNugetTest.Android.Resource.Attribute.MvxItemTemplate;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.MvxLang = global::MvxPluginNugetTest.Android.Resource.Attribute.MvxLang;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.MvxTemplate = global::MvxPluginNugetTest.Android.Resource.Attribute.MvxTemplate;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionBarDivider = global::MvxPluginNugetTest.Android.Resource.Attribute.actionBarDivider;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionBarItemBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.actionBarItemBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionBarPopupTheme = global::MvxPluginNugetTest.Android.Resource.Attribute.actionBarPopupTheme;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionBarSize = global::MvxPluginNugetTest.Android.Resource.Attribute.actionBarSize;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionBarSplitStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.actionBarSplitStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionBarStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.actionBarStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionBarTabBarStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.actionBarTabBarStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionBarTabStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.actionBarTabStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionBarTabTextStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.actionBarTabTextStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionBarTheme = global::MvxPluginNugetTest.Android.Resource.Attribute.actionBarTheme;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionBarWidgetTheme = global::MvxPluginNugetTest.Android.Resource.Attribute.actionBarWidgetTheme;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionButtonStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.actionButtonStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionDropDownStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.actionDropDownStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionLayout = global::MvxPluginNugetTest.Android.Resource.Attribute.actionLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionMenuTextAppearance = global::MvxPluginNugetTest.Android.Resource.Attribute.actionMenuTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionMenuTextColor = global::MvxPluginNugetTest.Android.Resource.Attribute.actionMenuTextColor;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionModeBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModeBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionModeCloseButtonStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModeCloseButtonStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionModeCloseDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModeCloseDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionModeCopyDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModeCopyDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionModeCutDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModeCutDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionModeFindDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModeFindDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionModePasteDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModePasteDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionModePopupWindowStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModePopupWindowStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionModeSelectAllDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModeSelectAllDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionModeShareDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModeShareDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionModeSplitBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModeSplitBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionModeStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModeStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionModeWebSearchDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModeWebSearchDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionOverflowButtonStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.actionOverflowButtonStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionOverflowMenuStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.actionOverflowMenuStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionProviderClass = global::MvxPluginNugetTest.Android.Resource.Attribute.actionProviderClass;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.actionViewClass = global::MvxPluginNugetTest.Android.Resource.Attribute.actionViewClass;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.activityChooserViewStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.activityChooserViewStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.alertDialogButtonGroupStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.alertDialogButtonGroupStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.alertDialogCenterButtons = global::MvxPluginNugetTest.Android.Resource.Attribute.alertDialogCenterButtons;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.alertDialogStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.alertDialogStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.alertDialogTheme = global::MvxPluginNugetTest.Android.Resource.Attribute.alertDialogTheme;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.allowStacking = global::MvxPluginNugetTest.Android.Resource.Attribute.allowStacking;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.alpha = global::MvxPluginNugetTest.Android.Resource.Attribute.alpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.alphabeticModifiers = global::MvxPluginNugetTest.Android.Resource.Attribute.alphabeticModifiers;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.arrowHeadLength = global::MvxPluginNugetTest.Android.Resource.Attribute.arrowHeadLength;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.arrowShaftLength = global::MvxPluginNugetTest.Android.Resource.Attribute.arrowShaftLength;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.autoCompleteTextViewStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.autoCompleteTextViewStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.autoSizeMaxTextSize = global::MvxPluginNugetTest.Android.Resource.Attribute.autoSizeMaxTextSize;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.autoSizeMinTextSize = global::MvxPluginNugetTest.Android.Resource.Attribute.autoSizeMinTextSize;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.autoSizePresetSizes = global::MvxPluginNugetTest.Android.Resource.Attribute.autoSizePresetSizes;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.autoSizeStepGranularity = global::MvxPluginNugetTest.Android.Resource.Attribute.autoSizeStepGranularity;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.autoSizeTextType = global::MvxPluginNugetTest.Android.Resource.Attribute.autoSizeTextType;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.background = global::MvxPluginNugetTest.Android.Resource.Attribute.background;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.backgroundSplit = global::MvxPluginNugetTest.Android.Resource.Attribute.backgroundSplit;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.backgroundStacked = global::MvxPluginNugetTest.Android.Resource.Attribute.backgroundStacked;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.backgroundTint = global::MvxPluginNugetTest.Android.Resource.Attribute.backgroundTint;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.backgroundTintMode = global::MvxPluginNugetTest.Android.Resource.Attribute.backgroundTintMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.barLength = global::MvxPluginNugetTest.Android.Resource.Attribute.barLength;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.behavior_autoHide = global::MvxPluginNugetTest.Android.Resource.Attribute.behavior_autoHide;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.behavior_hideable = global::MvxPluginNugetTest.Android.Resource.Attribute.behavior_hideable;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.behavior_overlapTop = global::MvxPluginNugetTest.Android.Resource.Attribute.behavior_overlapTop;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.behavior_peekHeight = global::MvxPluginNugetTest.Android.Resource.Attribute.behavior_peekHeight;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.behavior_skipCollapsed = global::MvxPluginNugetTest.Android.Resource.Attribute.behavior_skipCollapsed;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.borderWidth = global::MvxPluginNugetTest.Android.Resource.Attribute.borderWidth;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.borderlessButtonStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.borderlessButtonStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.bottomSheetDialogTheme = global::MvxPluginNugetTest.Android.Resource.Attribute.bottomSheetDialogTheme;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.bottomSheetStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.bottomSheetStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.buttonBarButtonStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.buttonBarButtonStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.buttonBarNegativeButtonStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.buttonBarNegativeButtonStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.buttonBarNeutralButtonStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.buttonBarNeutralButtonStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.buttonBarPositiveButtonStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.buttonBarPositiveButtonStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.buttonBarStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.buttonBarStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.buttonGravity = global::MvxPluginNugetTest.Android.Resource.Attribute.buttonGravity;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.buttonPanelSideLayout = global::MvxPluginNugetTest.Android.Resource.Attribute.buttonPanelSideLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.buttonStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.buttonStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.buttonStyleSmall = global::MvxPluginNugetTest.Android.Resource.Attribute.buttonStyleSmall;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.buttonTint = global::MvxPluginNugetTest.Android.Resource.Attribute.buttonTint;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.buttonTintMode = global::MvxPluginNugetTest.Android.Resource.Attribute.buttonTintMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.checkboxStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.checkboxStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.checkedTextViewStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.checkedTextViewStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.closeIcon = global::MvxPluginNugetTest.Android.Resource.Attribute.closeIcon;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.closeItemLayout = global::MvxPluginNugetTest.Android.Resource.Attribute.closeItemLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.collapseContentDescription = global::MvxPluginNugetTest.Android.Resource.Attribute.collapseContentDescription;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.collapseIcon = global::MvxPluginNugetTest.Android.Resource.Attribute.collapseIcon;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.collapsedTitleGravity = global::MvxPluginNugetTest.Android.Resource.Attribute.collapsedTitleGravity;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.collapsedTitleTextAppearance = global::MvxPluginNugetTest.Android.Resource.Attribute.collapsedTitleTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.color = global::MvxPluginNugetTest.Android.Resource.Attribute.color;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.colorAccent = global::MvxPluginNugetTest.Android.Resource.Attribute.colorAccent;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.colorBackgroundFloating = global::MvxPluginNugetTest.Android.Resource.Attribute.colorBackgroundFloating;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.colorButtonNormal = global::MvxPluginNugetTest.Android.Resource.Attribute.colorButtonNormal;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.colorControlActivated = global::MvxPluginNugetTest.Android.Resource.Attribute.colorControlActivated;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.colorControlHighlight = global::MvxPluginNugetTest.Android.Resource.Attribute.colorControlHighlight;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.colorControlNormal = global::MvxPluginNugetTest.Android.Resource.Attribute.colorControlNormal;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.colorError = global::MvxPluginNugetTest.Android.Resource.Attribute.colorError;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.colorPrimary = global::MvxPluginNugetTest.Android.Resource.Attribute.colorPrimary;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.colorPrimaryDark = global::MvxPluginNugetTest.Android.Resource.Attribute.colorPrimaryDark;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.colorSwitchThumbNormal = global::MvxPluginNugetTest.Android.Resource.Attribute.colorSwitchThumbNormal;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.commitIcon = global::MvxPluginNugetTest.Android.Resource.Attribute.commitIcon;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.contentDescription = global::MvxPluginNugetTest.Android.Resource.Attribute.contentDescription;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.contentInsetEnd = global::MvxPluginNugetTest.Android.Resource.Attribute.contentInsetEnd;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.contentInsetEndWithActions = global::MvxPluginNugetTest.Android.Resource.Attribute.contentInsetEndWithActions;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.contentInsetLeft = global::MvxPluginNugetTest.Android.Resource.Attribute.contentInsetLeft;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.contentInsetRight = global::MvxPluginNugetTest.Android.Resource.Attribute.contentInsetRight;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.contentInsetStart = global::MvxPluginNugetTest.Android.Resource.Attribute.contentInsetStart;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.contentInsetStartWithNavigation = global::MvxPluginNugetTest.Android.Resource.Attribute.contentInsetStartWithNavigation;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.contentScrim = global::MvxPluginNugetTest.Android.Resource.Attribute.contentScrim;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.controlBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.controlBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.counterEnabled = global::MvxPluginNugetTest.Android.Resource.Attribute.counterEnabled;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.counterMaxLength = global::MvxPluginNugetTest.Android.Resource.Attribute.counterMaxLength;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.counterOverflowTextAppearance = global::MvxPluginNugetTest.Android.Resource.Attribute.counterOverflowTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.counterTextAppearance = global::MvxPluginNugetTest.Android.Resource.Attribute.counterTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.customNavigationLayout = global::MvxPluginNugetTest.Android.Resource.Attribute.customNavigationLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.defaultQueryHint = global::MvxPluginNugetTest.Android.Resource.Attribute.defaultQueryHint;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.dialogPreferredPadding = global::MvxPluginNugetTest.Android.Resource.Attribute.dialogPreferredPadding;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.dialogTheme = global::MvxPluginNugetTest.Android.Resource.Attribute.dialogTheme;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.displayOptions = global::MvxPluginNugetTest.Android.Resource.Attribute.displayOptions;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.divider = global::MvxPluginNugetTest.Android.Resource.Attribute.divider;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.dividerHorizontal = global::MvxPluginNugetTest.Android.Resource.Attribute.dividerHorizontal;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.dividerPadding = global::MvxPluginNugetTest.Android.Resource.Attribute.dividerPadding;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.dividerVertical = global::MvxPluginNugetTest.Android.Resource.Attribute.dividerVertical;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.drawableSize = global::MvxPluginNugetTest.Android.Resource.Attribute.drawableSize;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.drawerArrowStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.drawerArrowStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.dropDownListViewStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.dropDownListViewStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.dropdownListPreferredItemHeight = global::MvxPluginNugetTest.Android.Resource.Attribute.dropdownListPreferredItemHeight;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.editTextBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.editTextBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.editTextColor = global::MvxPluginNugetTest.Android.Resource.Attribute.editTextColor;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.editTextStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.editTextStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.elevation = global::MvxPluginNugetTest.Android.Resource.Attribute.elevation;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.errorEnabled = global::MvxPluginNugetTest.Android.Resource.Attribute.errorEnabled;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.errorTextAppearance = global::MvxPluginNugetTest.Android.Resource.Attribute.errorTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.expandActivityOverflowButtonDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.expandActivityOverflowButtonDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.expanded = global::MvxPluginNugetTest.Android.Resource.Attribute.expanded;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.expandedTitleGravity = global::MvxPluginNugetTest.Android.Resource.Attribute.expandedTitleGravity;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.expandedTitleMargin = global::MvxPluginNugetTest.Android.Resource.Attribute.expandedTitleMargin;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.expandedTitleMarginBottom = global::MvxPluginNugetTest.Android.Resource.Attribute.expandedTitleMarginBottom;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.expandedTitleMarginEnd = global::MvxPluginNugetTest.Android.Resource.Attribute.expandedTitleMarginEnd;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.expandedTitleMarginStart = global::MvxPluginNugetTest.Android.Resource.Attribute.expandedTitleMarginStart;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.expandedTitleMarginTop = global::MvxPluginNugetTest.Android.Resource.Attribute.expandedTitleMarginTop;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.expandedTitleTextAppearance = global::MvxPluginNugetTest.Android.Resource.Attribute.expandedTitleTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.fabSize = global::MvxPluginNugetTest.Android.Resource.Attribute.fabSize;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.fastScrollEnabled = global::MvxPluginNugetTest.Android.Resource.Attribute.fastScrollEnabled;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.fastScrollHorizontalThumbDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.fastScrollHorizontalThumbDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.fastScrollHorizontalTrackDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.fastScrollHorizontalTrackDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.fastScrollVerticalThumbDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.fastScrollVerticalThumbDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.fastScrollVerticalTrackDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.fastScrollVerticalTrackDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.font = global::MvxPluginNugetTest.Android.Resource.Attribute.font;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.fontFamily = global::MvxPluginNugetTest.Android.Resource.Attribute.fontFamily;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.fontProviderAuthority = global::MvxPluginNugetTest.Android.Resource.Attribute.fontProviderAuthority;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.fontProviderCerts = global::MvxPluginNugetTest.Android.Resource.Attribute.fontProviderCerts;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.fontProviderFetchStrategy = global::MvxPluginNugetTest.Android.Resource.Attribute.fontProviderFetchStrategy;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.fontProviderFetchTimeout = global::MvxPluginNugetTest.Android.Resource.Attribute.fontProviderFetchTimeout;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.fontProviderPackage = global::MvxPluginNugetTest.Android.Resource.Attribute.fontProviderPackage;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.fontProviderQuery = global::MvxPluginNugetTest.Android.Resource.Attribute.fontProviderQuery;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.fontStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.fontStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.fontWeight = global::MvxPluginNugetTest.Android.Resource.Attribute.fontWeight;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.foregroundInsidePadding = global::MvxPluginNugetTest.Android.Resource.Attribute.foregroundInsidePadding;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.gapBetweenBars = global::MvxPluginNugetTest.Android.Resource.Attribute.gapBetweenBars;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.goIcon = global::MvxPluginNugetTest.Android.Resource.Attribute.goIcon;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.headerLayout = global::MvxPluginNugetTest.Android.Resource.Attribute.headerLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.height = global::MvxPluginNugetTest.Android.Resource.Attribute.height;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.hideOnContentScroll = global::MvxPluginNugetTest.Android.Resource.Attribute.hideOnContentScroll;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.hintAnimationEnabled = global::MvxPluginNugetTest.Android.Resource.Attribute.hintAnimationEnabled;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.hintEnabled = global::MvxPluginNugetTest.Android.Resource.Attribute.hintEnabled;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.hintTextAppearance = global::MvxPluginNugetTest.Android.Resource.Attribute.hintTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.homeAsUpIndicator = global::MvxPluginNugetTest.Android.Resource.Attribute.homeAsUpIndicator;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.homeLayout = global::MvxPluginNugetTest.Android.Resource.Attribute.homeLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.icon = global::MvxPluginNugetTest.Android.Resource.Attribute.icon;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.iconTint = global::MvxPluginNugetTest.Android.Resource.Attribute.iconTint;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.iconTintMode = global::MvxPluginNugetTest.Android.Resource.Attribute.iconTintMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.iconifiedByDefault = global::MvxPluginNugetTest.Android.Resource.Attribute.iconifiedByDefault;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.imageButtonStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.imageButtonStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.indeterminateProgressStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.indeterminateProgressStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.initialActivityCount = global::MvxPluginNugetTest.Android.Resource.Attribute.initialActivityCount;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.insetForeground = global::MvxPluginNugetTest.Android.Resource.Attribute.insetForeground;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.isLightTheme = global::MvxPluginNugetTest.Android.Resource.Attribute.isLightTheme;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.itemBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.itemBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.itemIconTint = global::MvxPluginNugetTest.Android.Resource.Attribute.itemIconTint;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.itemPadding = global::MvxPluginNugetTest.Android.Resource.Attribute.itemPadding;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.itemTextAppearance = global::MvxPluginNugetTest.Android.Resource.Attribute.itemTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.itemTextColor = global::MvxPluginNugetTest.Android.Resource.Attribute.itemTextColor;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.keylines = global::MvxPluginNugetTest.Android.Resource.Attribute.keylines;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.layout = global::MvxPluginNugetTest.Android.Resource.Attribute.layout;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.layoutManager = global::MvxPluginNugetTest.Android.Resource.Attribute.layoutManager;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.layout_anchor = global::MvxPluginNugetTest.Android.Resource.Attribute.layout_anchor;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.layout_anchorGravity = global::MvxPluginNugetTest.Android.Resource.Attribute.layout_anchorGravity;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.layout_behavior = global::MvxPluginNugetTest.Android.Resource.Attribute.layout_behavior;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.layout_collapseMode = global::MvxPluginNugetTest.Android.Resource.Attribute.layout_collapseMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.layout_collapseParallaxMultiplier = global::MvxPluginNugetTest.Android.Resource.Attribute.layout_collapseParallaxMultiplier;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.layout_dodgeInsetEdges = global::MvxPluginNugetTest.Android.Resource.Attribute.layout_dodgeInsetEdges;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.layout_insetEdge = global::MvxPluginNugetTest.Android.Resource.Attribute.layout_insetEdge;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.layout_keyline = global::MvxPluginNugetTest.Android.Resource.Attribute.layout_keyline;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.layout_scrollFlags = global::MvxPluginNugetTest.Android.Resource.Attribute.layout_scrollFlags;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.layout_scrollInterpolator = global::MvxPluginNugetTest.Android.Resource.Attribute.layout_scrollInterpolator;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.listChoiceBackgroundIndicator = global::MvxPluginNugetTest.Android.Resource.Attribute.listChoiceBackgroundIndicator;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.listDividerAlertDialog = global::MvxPluginNugetTest.Android.Resource.Attribute.listDividerAlertDialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.listItemLayout = global::MvxPluginNugetTest.Android.Resource.Attribute.listItemLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.listLayout = global::MvxPluginNugetTest.Android.Resource.Attribute.listLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.listMenuViewStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.listMenuViewStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.listPopupWindowStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.listPopupWindowStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.listPreferredItemHeight = global::MvxPluginNugetTest.Android.Resource.Attribute.listPreferredItemHeight;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.listPreferredItemHeightLarge = global::MvxPluginNugetTest.Android.Resource.Attribute.listPreferredItemHeightLarge;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.listPreferredItemHeightSmall = global::MvxPluginNugetTest.Android.Resource.Attribute.listPreferredItemHeightSmall;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.listPreferredItemPaddingLeft = global::MvxPluginNugetTest.Android.Resource.Attribute.listPreferredItemPaddingLeft;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.listPreferredItemPaddingRight = global::MvxPluginNugetTest.Android.Resource.Attribute.listPreferredItemPaddingRight;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.logo = global::MvxPluginNugetTest.Android.Resource.Attribute.logo;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.logoDescription = global::MvxPluginNugetTest.Android.Resource.Attribute.logoDescription;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.maxActionInlineWidth = global::MvxPluginNugetTest.Android.Resource.Attribute.maxActionInlineWidth;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.maxButtonHeight = global::MvxPluginNugetTest.Android.Resource.Attribute.maxButtonHeight;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.measureWithLargestChild = global::MvxPluginNugetTest.Android.Resource.Attribute.measureWithLargestChild;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.menu = global::MvxPluginNugetTest.Android.Resource.Attribute.menu;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.multiChoiceItemLayout = global::MvxPluginNugetTest.Android.Resource.Attribute.multiChoiceItemLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.navigationContentDescription = global::MvxPluginNugetTest.Android.Resource.Attribute.navigationContentDescription;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.navigationIcon = global::MvxPluginNugetTest.Android.Resource.Attribute.navigationIcon;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.navigationMode = global::MvxPluginNugetTest.Android.Resource.Attribute.navigationMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.numericModifiers = global::MvxPluginNugetTest.Android.Resource.Attribute.numericModifiers;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.overlapAnchor = global::MvxPluginNugetTest.Android.Resource.Attribute.overlapAnchor;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.paddingBottomNoButtons = global::MvxPluginNugetTest.Android.Resource.Attribute.paddingBottomNoButtons;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.paddingEnd = global::MvxPluginNugetTest.Android.Resource.Attribute.paddingEnd;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.paddingStart = global::MvxPluginNugetTest.Android.Resource.Attribute.paddingStart;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.paddingTopNoTitle = global::MvxPluginNugetTest.Android.Resource.Attribute.paddingTopNoTitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.panelBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.panelBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.panelMenuListTheme = global::MvxPluginNugetTest.Android.Resource.Attribute.panelMenuListTheme;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.panelMenuListWidth = global::MvxPluginNugetTest.Android.Resource.Attribute.panelMenuListWidth;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.passwordToggleContentDescription = global::MvxPluginNugetTest.Android.Resource.Attribute.passwordToggleContentDescription;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.passwordToggleDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.passwordToggleDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.passwordToggleEnabled = global::MvxPluginNugetTest.Android.Resource.Attribute.passwordToggleEnabled;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.passwordToggleTint = global::MvxPluginNugetTest.Android.Resource.Attribute.passwordToggleTint;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.passwordToggleTintMode = global::MvxPluginNugetTest.Android.Resource.Attribute.passwordToggleTintMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.popupMenuStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.popupMenuStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.popupTheme = global::MvxPluginNugetTest.Android.Resource.Attribute.popupTheme;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.popupWindowStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.popupWindowStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.preserveIconSpacing = global::MvxPluginNugetTest.Android.Resource.Attribute.preserveIconSpacing;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.pressedTranslationZ = global::MvxPluginNugetTest.Android.Resource.Attribute.pressedTranslationZ;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.progressBarPadding = global::MvxPluginNugetTest.Android.Resource.Attribute.progressBarPadding;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.progressBarStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.progressBarStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.queryBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.queryBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.queryHint = global::MvxPluginNugetTest.Android.Resource.Attribute.queryHint;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.radioButtonStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.radioButtonStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.ratingBarStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.ratingBarStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.ratingBarStyleIndicator = global::MvxPluginNugetTest.Android.Resource.Attribute.ratingBarStyleIndicator;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.ratingBarStyleSmall = global::MvxPluginNugetTest.Android.Resource.Attribute.ratingBarStyleSmall;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.reverseLayout = global::MvxPluginNugetTest.Android.Resource.Attribute.reverseLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.rippleColor = global::MvxPluginNugetTest.Android.Resource.Attribute.rippleColor;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.scrimAnimationDuration = global::MvxPluginNugetTest.Android.Resource.Attribute.scrimAnimationDuration;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.scrimVisibleHeightTrigger = global::MvxPluginNugetTest.Android.Resource.Attribute.scrimVisibleHeightTrigger;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.searchHintIcon = global::MvxPluginNugetTest.Android.Resource.Attribute.searchHintIcon;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.searchIcon = global::MvxPluginNugetTest.Android.Resource.Attribute.searchIcon;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.searchViewStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.searchViewStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.seekBarStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.seekBarStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.selectableItemBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.selectableItemBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.selectableItemBackgroundBorderless = global::MvxPluginNugetTest.Android.Resource.Attribute.selectableItemBackgroundBorderless;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.showAsAction = global::MvxPluginNugetTest.Android.Resource.Attribute.showAsAction;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.showDividers = global::MvxPluginNugetTest.Android.Resource.Attribute.showDividers;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.showText = global::MvxPluginNugetTest.Android.Resource.Attribute.showText;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.showTitle = global::MvxPluginNugetTest.Android.Resource.Attribute.showTitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.singleChoiceItemLayout = global::MvxPluginNugetTest.Android.Resource.Attribute.singleChoiceItemLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.spanCount = global::MvxPluginNugetTest.Android.Resource.Attribute.spanCount;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.spinBars = global::MvxPluginNugetTest.Android.Resource.Attribute.spinBars;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.spinnerDropDownItemStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.spinnerDropDownItemStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.spinnerStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.spinnerStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.splitTrack = global::MvxPluginNugetTest.Android.Resource.Attribute.splitTrack;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.srcCompat = global::MvxPluginNugetTest.Android.Resource.Attribute.srcCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.stackFromEnd = global::MvxPluginNugetTest.Android.Resource.Attribute.stackFromEnd;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.state_above_anchor = global::MvxPluginNugetTest.Android.Resource.Attribute.state_above_anchor;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.state_collapsed = global::MvxPluginNugetTest.Android.Resource.Attribute.state_collapsed;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.state_collapsible = global::MvxPluginNugetTest.Android.Resource.Attribute.state_collapsible;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.statusBarBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.statusBarBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.statusBarScrim = global::MvxPluginNugetTest.Android.Resource.Attribute.statusBarScrim;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.subMenuArrow = global::MvxPluginNugetTest.Android.Resource.Attribute.subMenuArrow;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.submitBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.submitBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.subtitle = global::MvxPluginNugetTest.Android.Resource.Attribute.subtitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.subtitleTextAppearance = global::MvxPluginNugetTest.Android.Resource.Attribute.subtitleTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.subtitleTextColor = global::MvxPluginNugetTest.Android.Resource.Attribute.subtitleTextColor;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.subtitleTextStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.subtitleTextStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.suggestionRowLayout = global::MvxPluginNugetTest.Android.Resource.Attribute.suggestionRowLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.switchMinWidth = global::MvxPluginNugetTest.Android.Resource.Attribute.switchMinWidth;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.switchPadding = global::MvxPluginNugetTest.Android.Resource.Attribute.switchPadding;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.switchStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.switchStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.switchTextAppearance = global::MvxPluginNugetTest.Android.Resource.Attribute.switchTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.tabBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.tabBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.tabContentStart = global::MvxPluginNugetTest.Android.Resource.Attribute.tabContentStart;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.tabGravity = global::MvxPluginNugetTest.Android.Resource.Attribute.tabGravity;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.tabIndicatorColor = global::MvxPluginNugetTest.Android.Resource.Attribute.tabIndicatorColor;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.tabIndicatorHeight = global::MvxPluginNugetTest.Android.Resource.Attribute.tabIndicatorHeight;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.tabMaxWidth = global::MvxPluginNugetTest.Android.Resource.Attribute.tabMaxWidth;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.tabMinWidth = global::MvxPluginNugetTest.Android.Resource.Attribute.tabMinWidth;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.tabMode = global::MvxPluginNugetTest.Android.Resource.Attribute.tabMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.tabPadding = global::MvxPluginNugetTest.Android.Resource.Attribute.tabPadding;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.tabPaddingBottom = global::MvxPluginNugetTest.Android.Resource.Attribute.tabPaddingBottom;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.tabPaddingEnd = global::MvxPluginNugetTest.Android.Resource.Attribute.tabPaddingEnd;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.tabPaddingStart = global::MvxPluginNugetTest.Android.Resource.Attribute.tabPaddingStart;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.tabPaddingTop = global::MvxPluginNugetTest.Android.Resource.Attribute.tabPaddingTop;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.tabSelectedTextColor = global::MvxPluginNugetTest.Android.Resource.Attribute.tabSelectedTextColor;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.tabTextAppearance = global::MvxPluginNugetTest.Android.Resource.Attribute.tabTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.tabTextColor = global::MvxPluginNugetTest.Android.Resource.Attribute.tabTextColor;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.textAllCaps = global::MvxPluginNugetTest.Android.Resource.Attribute.textAllCaps;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.textAppearanceLargePopupMenu = global::MvxPluginNugetTest.Android.Resource.Attribute.textAppearanceLargePopupMenu;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.textAppearanceListItem = global::MvxPluginNugetTest.Android.Resource.Attribute.textAppearanceListItem;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.textAppearanceListItemSecondary = global::MvxPluginNugetTest.Android.Resource.Attribute.textAppearanceListItemSecondary;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.textAppearanceListItemSmall = global::MvxPluginNugetTest.Android.Resource.Attribute.textAppearanceListItemSmall;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.textAppearancePopupMenuHeader = global::MvxPluginNugetTest.Android.Resource.Attribute.textAppearancePopupMenuHeader;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.textAppearanceSearchResultSubtitle = global::MvxPluginNugetTest.Android.Resource.Attribute.textAppearanceSearchResultSubtitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.textAppearanceSearchResultTitle = global::MvxPluginNugetTest.Android.Resource.Attribute.textAppearanceSearchResultTitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.textAppearanceSmallPopupMenu = global::MvxPluginNugetTest.Android.Resource.Attribute.textAppearanceSmallPopupMenu;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.textColorAlertDialogListItem = global::MvxPluginNugetTest.Android.Resource.Attribute.textColorAlertDialogListItem;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.textColorError = global::MvxPluginNugetTest.Android.Resource.Attribute.textColorError;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.textColorSearchUrl = global::MvxPluginNugetTest.Android.Resource.Attribute.textColorSearchUrl;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.theme = global::MvxPluginNugetTest.Android.Resource.Attribute.theme;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.thickness = global::MvxPluginNugetTest.Android.Resource.Attribute.thickness;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.thumbTextPadding = global::MvxPluginNugetTest.Android.Resource.Attribute.thumbTextPadding;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.thumbTint = global::MvxPluginNugetTest.Android.Resource.Attribute.thumbTint;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.thumbTintMode = global::MvxPluginNugetTest.Android.Resource.Attribute.thumbTintMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.tickMark = global::MvxPluginNugetTest.Android.Resource.Attribute.tickMark;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.tickMarkTint = global::MvxPluginNugetTest.Android.Resource.Attribute.tickMarkTint;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.tickMarkTintMode = global::MvxPluginNugetTest.Android.Resource.Attribute.tickMarkTintMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.tint = global::MvxPluginNugetTest.Android.Resource.Attribute.tint;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.tintMode = global::MvxPluginNugetTest.Android.Resource.Attribute.tintMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.title = global::MvxPluginNugetTest.Android.Resource.Attribute.title;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.titleEnabled = global::MvxPluginNugetTest.Android.Resource.Attribute.titleEnabled;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.titleMargin = global::MvxPluginNugetTest.Android.Resource.Attribute.titleMargin;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.titleMarginBottom = global::MvxPluginNugetTest.Android.Resource.Attribute.titleMarginBottom;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.titleMarginEnd = global::MvxPluginNugetTest.Android.Resource.Attribute.titleMarginEnd;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.titleMarginStart = global::MvxPluginNugetTest.Android.Resource.Attribute.titleMarginStart;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.titleMarginTop = global::MvxPluginNugetTest.Android.Resource.Attribute.titleMarginTop;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.titleMargins = global::MvxPluginNugetTest.Android.Resource.Attribute.titleMargins;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.titleTextAppearance = global::MvxPluginNugetTest.Android.Resource.Attribute.titleTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.titleTextColor = global::MvxPluginNugetTest.Android.Resource.Attribute.titleTextColor;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.titleTextStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.titleTextStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.toolbarId = global::MvxPluginNugetTest.Android.Resource.Attribute.toolbarId;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.toolbarNavigationButtonStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.toolbarNavigationButtonStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.toolbarStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.toolbarStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.tooltipForegroundColor = global::MvxPluginNugetTest.Android.Resource.Attribute.tooltipForegroundColor;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.tooltipFrameBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.tooltipFrameBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.tooltipText = global::MvxPluginNugetTest.Android.Resource.Attribute.tooltipText;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.track = global::MvxPluginNugetTest.Android.Resource.Attribute.track;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.trackTint = global::MvxPluginNugetTest.Android.Resource.Attribute.trackTint;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.trackTintMode = global::MvxPluginNugetTest.Android.Resource.Attribute.trackTintMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.useCompatPadding = global::MvxPluginNugetTest.Android.Resource.Attribute.useCompatPadding;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.voiceIcon = global::MvxPluginNugetTest.Android.Resource.Attribute.voiceIcon;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.windowActionBar = global::MvxPluginNugetTest.Android.Resource.Attribute.windowActionBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.windowActionBarOverlay = global::MvxPluginNugetTest.Android.Resource.Attribute.windowActionBarOverlay;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.windowActionModeOverlay = global::MvxPluginNugetTest.Android.Resource.Attribute.windowActionModeOverlay;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.windowFixedHeightMajor = global::MvxPluginNugetTest.Android.Resource.Attribute.windowFixedHeightMajor;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.windowFixedHeightMinor = global::MvxPluginNugetTest.Android.Resource.Attribute.windowFixedHeightMinor;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.windowFixedWidthMajor = global::MvxPluginNugetTest.Android.Resource.Attribute.windowFixedWidthMajor;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.windowFixedWidthMinor = global::MvxPluginNugetTest.Android.Resource.Attribute.windowFixedWidthMinor;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.windowMinWidthMajor = global::MvxPluginNugetTest.Android.Resource.Attribute.windowMinWidthMajor;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.windowMinWidthMinor = global::MvxPluginNugetTest.Android.Resource.Attribute.windowMinWidthMinor;
+			global::MvvmCross.Droid.Support.Design.Resource.Attribute.windowNoTitle = global::MvxPluginNugetTest.Android.Resource.Attribute.windowNoTitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Boolean.abc_action_bar_embed_tabs = global::MvxPluginNugetTest.Android.Resource.Boolean.abc_action_bar_embed_tabs;
+			global::MvvmCross.Droid.Support.Design.Resource.Boolean.abc_allow_stacked_button_bar = global::MvxPluginNugetTest.Android.Resource.Boolean.abc_allow_stacked_button_bar;
+			global::MvvmCross.Droid.Support.Design.Resource.Boolean.abc_config_actionMenuItemAllCaps = global::MvxPluginNugetTest.Android.Resource.Boolean.abc_config_actionMenuItemAllCaps;
+			global::MvvmCross.Droid.Support.Design.Resource.Boolean.abc_config_closeDialogWhenTouchOutside = global::MvxPluginNugetTest.Android.Resource.Boolean.abc_config_closeDialogWhenTouchOutside;
+			global::MvvmCross.Droid.Support.Design.Resource.Boolean.abc_config_showMenuShortcutsWhenKeyboardPresent = global::MvxPluginNugetTest.Android.Resource.Boolean.abc_config_showMenuShortcutsWhenKeyboardPresent;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.abc_background_cache_hint_selector_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.abc_background_cache_hint_selector_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.abc_background_cache_hint_selector_material_light = global::MvxPluginNugetTest.Android.Resource.Color.abc_background_cache_hint_selector_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.abc_btn_colored_borderless_text_material = global::MvxPluginNugetTest.Android.Resource.Color.abc_btn_colored_borderless_text_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.abc_btn_colored_text_material = global::MvxPluginNugetTest.Android.Resource.Color.abc_btn_colored_text_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.abc_color_highlight_material = global::MvxPluginNugetTest.Android.Resource.Color.abc_color_highlight_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.abc_hint_foreground_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.abc_hint_foreground_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.abc_hint_foreground_material_light = global::MvxPluginNugetTest.Android.Resource.Color.abc_hint_foreground_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.abc_input_method_navigation_guard = global::MvxPluginNugetTest.Android.Resource.Color.abc_input_method_navigation_guard;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.abc_primary_text_disable_only_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.abc_primary_text_disable_only_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.abc_primary_text_disable_only_material_light = global::MvxPluginNugetTest.Android.Resource.Color.abc_primary_text_disable_only_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.abc_primary_text_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.abc_primary_text_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.abc_primary_text_material_light = global::MvxPluginNugetTest.Android.Resource.Color.abc_primary_text_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.abc_search_url_text = global::MvxPluginNugetTest.Android.Resource.Color.abc_search_url_text;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.abc_search_url_text_normal = global::MvxPluginNugetTest.Android.Resource.Color.abc_search_url_text_normal;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.abc_search_url_text_pressed = global::MvxPluginNugetTest.Android.Resource.Color.abc_search_url_text_pressed;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.abc_search_url_text_selected = global::MvxPluginNugetTest.Android.Resource.Color.abc_search_url_text_selected;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.abc_secondary_text_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.abc_secondary_text_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.abc_secondary_text_material_light = global::MvxPluginNugetTest.Android.Resource.Color.abc_secondary_text_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.abc_tint_btn_checkable = global::MvxPluginNugetTest.Android.Resource.Color.abc_tint_btn_checkable;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.abc_tint_default = global::MvxPluginNugetTest.Android.Resource.Color.abc_tint_default;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.abc_tint_edittext = global::MvxPluginNugetTest.Android.Resource.Color.abc_tint_edittext;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.abc_tint_seek_thumb = global::MvxPluginNugetTest.Android.Resource.Color.abc_tint_seek_thumb;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.abc_tint_spinner = global::MvxPluginNugetTest.Android.Resource.Color.abc_tint_spinner;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.abc_tint_switch_track = global::MvxPluginNugetTest.Android.Resource.Color.abc_tint_switch_track;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.accent_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.accent_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.accent_material_light = global::MvxPluginNugetTest.Android.Resource.Color.accent_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.background_floating_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.background_floating_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.background_floating_material_light = global::MvxPluginNugetTest.Android.Resource.Color.background_floating_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.background_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.background_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.background_material_light = global::MvxPluginNugetTest.Android.Resource.Color.background_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.bright_foreground_disabled_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.bright_foreground_disabled_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.bright_foreground_disabled_material_light = global::MvxPluginNugetTest.Android.Resource.Color.bright_foreground_disabled_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.bright_foreground_inverse_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.bright_foreground_inverse_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.bright_foreground_inverse_material_light = global::MvxPluginNugetTest.Android.Resource.Color.bright_foreground_inverse_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.bright_foreground_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.bright_foreground_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.bright_foreground_material_light = global::MvxPluginNugetTest.Android.Resource.Color.bright_foreground_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.button_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.button_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.button_material_light = global::MvxPluginNugetTest.Android.Resource.Color.button_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.design_bottom_navigation_shadow_color = global::MvxPluginNugetTest.Android.Resource.Color.design_bottom_navigation_shadow_color;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.design_error = global::MvxPluginNugetTest.Android.Resource.Color.design_error;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.design_fab_shadow_end_color = global::MvxPluginNugetTest.Android.Resource.Color.design_fab_shadow_end_color;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.design_fab_shadow_mid_color = global::MvxPluginNugetTest.Android.Resource.Color.design_fab_shadow_mid_color;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.design_fab_shadow_start_color = global::MvxPluginNugetTest.Android.Resource.Color.design_fab_shadow_start_color;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.design_fab_stroke_end_inner_color = global::MvxPluginNugetTest.Android.Resource.Color.design_fab_stroke_end_inner_color;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.design_fab_stroke_end_outer_color = global::MvxPluginNugetTest.Android.Resource.Color.design_fab_stroke_end_outer_color;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.design_fab_stroke_top_inner_color = global::MvxPluginNugetTest.Android.Resource.Color.design_fab_stroke_top_inner_color;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.design_fab_stroke_top_outer_color = global::MvxPluginNugetTest.Android.Resource.Color.design_fab_stroke_top_outer_color;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.design_snackbar_background_color = global::MvxPluginNugetTest.Android.Resource.Color.design_snackbar_background_color;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.design_tint_password_toggle = global::MvxPluginNugetTest.Android.Resource.Color.design_tint_password_toggle;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.dim_foreground_disabled_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.dim_foreground_disabled_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.dim_foreground_disabled_material_light = global::MvxPluginNugetTest.Android.Resource.Color.dim_foreground_disabled_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.dim_foreground_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.dim_foreground_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.dim_foreground_material_light = global::MvxPluginNugetTest.Android.Resource.Color.dim_foreground_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.error_color_material = global::MvxPluginNugetTest.Android.Resource.Color.error_color_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.foreground_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.foreground_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.foreground_material_light = global::MvxPluginNugetTest.Android.Resource.Color.foreground_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.highlighted_text_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.highlighted_text_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.highlighted_text_material_light = global::MvxPluginNugetTest.Android.Resource.Color.highlighted_text_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.material_blue_grey_800 = global::MvxPluginNugetTest.Android.Resource.Color.material_blue_grey_800;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.material_blue_grey_900 = global::MvxPluginNugetTest.Android.Resource.Color.material_blue_grey_900;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.material_blue_grey_950 = global::MvxPluginNugetTest.Android.Resource.Color.material_blue_grey_950;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.material_deep_teal_200 = global::MvxPluginNugetTest.Android.Resource.Color.material_deep_teal_200;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.material_deep_teal_500 = global::MvxPluginNugetTest.Android.Resource.Color.material_deep_teal_500;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.material_grey_100 = global::MvxPluginNugetTest.Android.Resource.Color.material_grey_100;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.material_grey_300 = global::MvxPluginNugetTest.Android.Resource.Color.material_grey_300;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.material_grey_50 = global::MvxPluginNugetTest.Android.Resource.Color.material_grey_50;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.material_grey_600 = global::MvxPluginNugetTest.Android.Resource.Color.material_grey_600;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.material_grey_800 = global::MvxPluginNugetTest.Android.Resource.Color.material_grey_800;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.material_grey_850 = global::MvxPluginNugetTest.Android.Resource.Color.material_grey_850;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.material_grey_900 = global::MvxPluginNugetTest.Android.Resource.Color.material_grey_900;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.notification_action_color_filter = global::MvxPluginNugetTest.Android.Resource.Color.notification_action_color_filter;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.notification_icon_bg_color = global::MvxPluginNugetTest.Android.Resource.Color.notification_icon_bg_color;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.notification_material_background_media_default_color = global::MvxPluginNugetTest.Android.Resource.Color.notification_material_background_media_default_color;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.primary_dark_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.primary_dark_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.primary_dark_material_light = global::MvxPluginNugetTest.Android.Resource.Color.primary_dark_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.primary_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.primary_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.primary_material_light = global::MvxPluginNugetTest.Android.Resource.Color.primary_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.primary_text_default_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.primary_text_default_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.primary_text_default_material_light = global::MvxPluginNugetTest.Android.Resource.Color.primary_text_default_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.primary_text_disabled_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.primary_text_disabled_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.primary_text_disabled_material_light = global::MvxPluginNugetTest.Android.Resource.Color.primary_text_disabled_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.ripple_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.ripple_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.ripple_material_light = global::MvxPluginNugetTest.Android.Resource.Color.ripple_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.secondary_text_default_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.secondary_text_default_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.secondary_text_default_material_light = global::MvxPluginNugetTest.Android.Resource.Color.secondary_text_default_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.secondary_text_disabled_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.secondary_text_disabled_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.secondary_text_disabled_material_light = global::MvxPluginNugetTest.Android.Resource.Color.secondary_text_disabled_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.switch_thumb_disabled_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.switch_thumb_disabled_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.switch_thumb_disabled_material_light = global::MvxPluginNugetTest.Android.Resource.Color.switch_thumb_disabled_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.switch_thumb_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.switch_thumb_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.switch_thumb_material_light = global::MvxPluginNugetTest.Android.Resource.Color.switch_thumb_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.switch_thumb_normal_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.switch_thumb_normal_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.switch_thumb_normal_material_light = global::MvxPluginNugetTest.Android.Resource.Color.switch_thumb_normal_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.tooltip_background_dark = global::MvxPluginNugetTest.Android.Resource.Color.tooltip_background_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Color.tooltip_background_light = global::MvxPluginNugetTest.Android.Resource.Color.tooltip_background_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_action_bar_content_inset_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_content_inset_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_action_bar_content_inset_with_nav = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_content_inset_with_nav;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_action_bar_default_height_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_default_height_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_action_bar_default_padding_end_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_default_padding_end_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_action_bar_default_padding_start_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_default_padding_start_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_action_bar_elevation_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_elevation_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_action_bar_icon_vertical_padding_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_icon_vertical_padding_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_action_bar_overflow_padding_end_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_overflow_padding_end_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_action_bar_overflow_padding_start_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_overflow_padding_start_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_action_bar_progress_bar_size = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_progress_bar_size;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_action_bar_stacked_max_height = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_stacked_max_height;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_action_bar_stacked_tab_max_width = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_stacked_tab_max_width;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_action_bar_subtitle_bottom_margin_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_subtitle_bottom_margin_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_action_bar_subtitle_top_margin_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_subtitle_top_margin_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_action_button_min_height_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_button_min_height_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_action_button_min_width_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_button_min_width_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_action_button_min_width_overflow_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_button_min_width_overflow_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_alert_dialog_button_bar_height = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_alert_dialog_button_bar_height;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_button_inset_horizontal_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_button_inset_horizontal_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_button_inset_vertical_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_button_inset_vertical_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_button_padding_horizontal_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_button_padding_horizontal_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_button_padding_vertical_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_button_padding_vertical_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_cascading_menus_min_smallest_width = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_cascading_menus_min_smallest_width;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_config_prefDialogWidth = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_config_prefDialogWidth;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_control_corner_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_control_corner_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_control_inset_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_control_inset_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_control_padding_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_control_padding_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_dialog_fixed_height_major = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dialog_fixed_height_major;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_dialog_fixed_height_minor = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dialog_fixed_height_minor;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_dialog_fixed_width_major = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dialog_fixed_width_major;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_dialog_fixed_width_minor = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dialog_fixed_width_minor;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_dialog_list_padding_bottom_no_buttons = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dialog_list_padding_bottom_no_buttons;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_dialog_list_padding_top_no_title = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dialog_list_padding_top_no_title;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_dialog_min_width_major = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dialog_min_width_major;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_dialog_min_width_minor = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dialog_min_width_minor;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_dialog_padding_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dialog_padding_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_dialog_padding_top_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dialog_padding_top_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_dialog_title_divider_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dialog_title_divider_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_disabled_alpha_material_dark = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_disabled_alpha_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_disabled_alpha_material_light = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_disabled_alpha_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_dropdownitem_icon_width = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dropdownitem_icon_width;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_dropdownitem_text_padding_left = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dropdownitem_text_padding_left;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_dropdownitem_text_padding_right = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dropdownitem_text_padding_right;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_edit_text_inset_bottom_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_edit_text_inset_bottom_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_edit_text_inset_horizontal_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_edit_text_inset_horizontal_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_edit_text_inset_top_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_edit_text_inset_top_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_floating_window_z = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_floating_window_z;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_list_item_padding_horizontal_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_list_item_padding_horizontal_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_panel_menu_list_width = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_panel_menu_list_width;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_progress_bar_height_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_progress_bar_height_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_search_view_preferred_height = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_search_view_preferred_height;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_search_view_preferred_width = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_search_view_preferred_width;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_seekbar_track_background_height_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_seekbar_track_background_height_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_seekbar_track_progress_height_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_seekbar_track_progress_height_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_select_dialog_padding_start_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_select_dialog_padding_start_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_switch_padding = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_switch_padding;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_text_size_body_1_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_body_1_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_text_size_body_2_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_body_2_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_text_size_button_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_button_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_text_size_caption_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_caption_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_text_size_display_1_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_display_1_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_text_size_display_2_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_display_2_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_text_size_display_3_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_display_3_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_text_size_display_4_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_display_4_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_text_size_headline_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_headline_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_text_size_large_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_large_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_text_size_medium_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_medium_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_text_size_menu_header_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_menu_header_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_text_size_menu_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_menu_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_text_size_small_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_small_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_text_size_subhead_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_subhead_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_text_size_subtitle_material_toolbar = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_subtitle_material_toolbar;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_text_size_title_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_title_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.abc_text_size_title_material_toolbar = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_title_material_toolbar;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.compat_button_inset_horizontal_material = global::MvxPluginNugetTest.Android.Resource.Dimension.compat_button_inset_horizontal_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.compat_button_inset_vertical_material = global::MvxPluginNugetTest.Android.Resource.Dimension.compat_button_inset_vertical_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.compat_button_padding_horizontal_material = global::MvxPluginNugetTest.Android.Resource.Dimension.compat_button_padding_horizontal_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.compat_button_padding_vertical_material = global::MvxPluginNugetTest.Android.Resource.Dimension.compat_button_padding_vertical_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.compat_control_corner_material = global::MvxPluginNugetTest.Android.Resource.Dimension.compat_control_corner_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_appbar_elevation = global::MvxPluginNugetTest.Android.Resource.Dimension.design_appbar_elevation;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_bottom_navigation_active_item_max_width = global::MvxPluginNugetTest.Android.Resource.Dimension.design_bottom_navigation_active_item_max_width;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_bottom_navigation_active_text_size = global::MvxPluginNugetTest.Android.Resource.Dimension.design_bottom_navigation_active_text_size;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_bottom_navigation_elevation = global::MvxPluginNugetTest.Android.Resource.Dimension.design_bottom_navigation_elevation;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_bottom_navigation_height = global::MvxPluginNugetTest.Android.Resource.Dimension.design_bottom_navigation_height;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_bottom_navigation_item_max_width = global::MvxPluginNugetTest.Android.Resource.Dimension.design_bottom_navigation_item_max_width;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_bottom_navigation_item_min_width = global::MvxPluginNugetTest.Android.Resource.Dimension.design_bottom_navigation_item_min_width;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_bottom_navigation_margin = global::MvxPluginNugetTest.Android.Resource.Dimension.design_bottom_navigation_margin;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_bottom_navigation_shadow_height = global::MvxPluginNugetTest.Android.Resource.Dimension.design_bottom_navigation_shadow_height;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_bottom_navigation_text_size = global::MvxPluginNugetTest.Android.Resource.Dimension.design_bottom_navigation_text_size;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_bottom_sheet_modal_elevation = global::MvxPluginNugetTest.Android.Resource.Dimension.design_bottom_sheet_modal_elevation;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_bottom_sheet_peek_height_min = global::MvxPluginNugetTest.Android.Resource.Dimension.design_bottom_sheet_peek_height_min;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_fab_border_width = global::MvxPluginNugetTest.Android.Resource.Dimension.design_fab_border_width;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_fab_elevation = global::MvxPluginNugetTest.Android.Resource.Dimension.design_fab_elevation;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_fab_image_size = global::MvxPluginNugetTest.Android.Resource.Dimension.design_fab_image_size;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_fab_size_mini = global::MvxPluginNugetTest.Android.Resource.Dimension.design_fab_size_mini;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_fab_size_normal = global::MvxPluginNugetTest.Android.Resource.Dimension.design_fab_size_normal;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_fab_translation_z_pressed = global::MvxPluginNugetTest.Android.Resource.Dimension.design_fab_translation_z_pressed;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_navigation_elevation = global::MvxPluginNugetTest.Android.Resource.Dimension.design_navigation_elevation;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_navigation_icon_padding = global::MvxPluginNugetTest.Android.Resource.Dimension.design_navigation_icon_padding;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_navigation_icon_size = global::MvxPluginNugetTest.Android.Resource.Dimension.design_navigation_icon_size;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_navigation_max_width = global::MvxPluginNugetTest.Android.Resource.Dimension.design_navigation_max_width;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_navigation_padding_bottom = global::MvxPluginNugetTest.Android.Resource.Dimension.design_navigation_padding_bottom;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_navigation_separator_vertical_padding = global::MvxPluginNugetTest.Android.Resource.Dimension.design_navigation_separator_vertical_padding;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_snackbar_action_inline_max_width = global::MvxPluginNugetTest.Android.Resource.Dimension.design_snackbar_action_inline_max_width;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_snackbar_background_corner_radius = global::MvxPluginNugetTest.Android.Resource.Dimension.design_snackbar_background_corner_radius;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_snackbar_elevation = global::MvxPluginNugetTest.Android.Resource.Dimension.design_snackbar_elevation;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_snackbar_extra_spacing_horizontal = global::MvxPluginNugetTest.Android.Resource.Dimension.design_snackbar_extra_spacing_horizontal;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_snackbar_max_width = global::MvxPluginNugetTest.Android.Resource.Dimension.design_snackbar_max_width;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_snackbar_min_width = global::MvxPluginNugetTest.Android.Resource.Dimension.design_snackbar_min_width;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_snackbar_padding_horizontal = global::MvxPluginNugetTest.Android.Resource.Dimension.design_snackbar_padding_horizontal;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_snackbar_padding_vertical = global::MvxPluginNugetTest.Android.Resource.Dimension.design_snackbar_padding_vertical;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_snackbar_padding_vertical_2lines = global::MvxPluginNugetTest.Android.Resource.Dimension.design_snackbar_padding_vertical_2lines;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_snackbar_text_size = global::MvxPluginNugetTest.Android.Resource.Dimension.design_snackbar_text_size;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_tab_max_width = global::MvxPluginNugetTest.Android.Resource.Dimension.design_tab_max_width;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_tab_scrollable_min_width = global::MvxPluginNugetTest.Android.Resource.Dimension.design_tab_scrollable_min_width;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_tab_text_size = global::MvxPluginNugetTest.Android.Resource.Dimension.design_tab_text_size;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.design_tab_text_size_2line = global::MvxPluginNugetTest.Android.Resource.Dimension.design_tab_text_size_2line;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.disabled_alpha_material_dark = global::MvxPluginNugetTest.Android.Resource.Dimension.disabled_alpha_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.disabled_alpha_material_light = global::MvxPluginNugetTest.Android.Resource.Dimension.disabled_alpha_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.fastscroll_default_thickness = global::MvxPluginNugetTest.Android.Resource.Dimension.fastscroll_default_thickness;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.fastscroll_margin = global::MvxPluginNugetTest.Android.Resource.Dimension.fastscroll_margin;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.fastscroll_minimum_range = global::MvxPluginNugetTest.Android.Resource.Dimension.fastscroll_minimum_range;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.highlight_alpha_material_colored = global::MvxPluginNugetTest.Android.Resource.Dimension.highlight_alpha_material_colored;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.highlight_alpha_material_dark = global::MvxPluginNugetTest.Android.Resource.Dimension.highlight_alpha_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.highlight_alpha_material_light = global::MvxPluginNugetTest.Android.Resource.Dimension.highlight_alpha_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.hint_alpha_material_dark = global::MvxPluginNugetTest.Android.Resource.Dimension.hint_alpha_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.hint_alpha_material_light = global::MvxPluginNugetTest.Android.Resource.Dimension.hint_alpha_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.hint_pressed_alpha_material_dark = global::MvxPluginNugetTest.Android.Resource.Dimension.hint_pressed_alpha_material_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.hint_pressed_alpha_material_light = global::MvxPluginNugetTest.Android.Resource.Dimension.hint_pressed_alpha_material_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.item_touch_helper_max_drag_scroll_per_frame = global::MvxPluginNugetTest.Android.Resource.Dimension.item_touch_helper_max_drag_scroll_per_frame;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.item_touch_helper_swipe_escape_max_velocity = global::MvxPluginNugetTest.Android.Resource.Dimension.item_touch_helper_swipe_escape_max_velocity;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.item_touch_helper_swipe_escape_velocity = global::MvxPluginNugetTest.Android.Resource.Dimension.item_touch_helper_swipe_escape_velocity;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.notification_action_icon_size = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_action_icon_size;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.notification_action_text_size = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_action_text_size;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.notification_big_circle_margin = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_big_circle_margin;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.notification_content_margin_start = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_content_margin_start;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.notification_large_icon_height = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_large_icon_height;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.notification_large_icon_width = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_large_icon_width;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.notification_main_column_padding_top = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_main_column_padding_top;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.notification_media_narrow_margin = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_media_narrow_margin;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.notification_right_icon_size = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_right_icon_size;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.notification_right_side_padding_top = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_right_side_padding_top;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.notification_small_icon_background_padding = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_small_icon_background_padding;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.notification_small_icon_size_as_large = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_small_icon_size_as_large;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.notification_subtext_size = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_subtext_size;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.notification_top_pad = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_top_pad;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.notification_top_pad_large_text = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_top_pad_large_text;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.tooltip_corner_radius = global::MvxPluginNugetTest.Android.Resource.Dimension.tooltip_corner_radius;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.tooltip_horizontal_padding = global::MvxPluginNugetTest.Android.Resource.Dimension.tooltip_horizontal_padding;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.tooltip_margin = global::MvxPluginNugetTest.Android.Resource.Dimension.tooltip_margin;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.tooltip_precise_anchor_extra_offset = global::MvxPluginNugetTest.Android.Resource.Dimension.tooltip_precise_anchor_extra_offset;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.tooltip_precise_anchor_threshold = global::MvxPluginNugetTest.Android.Resource.Dimension.tooltip_precise_anchor_threshold;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.tooltip_vertical_padding = global::MvxPluginNugetTest.Android.Resource.Dimension.tooltip_vertical_padding;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.tooltip_y_offset_non_touch = global::MvxPluginNugetTest.Android.Resource.Dimension.tooltip_y_offset_non_touch;
+			global::MvvmCross.Droid.Support.Design.Resource.Dimension.tooltip_y_offset_touch = global::MvxPluginNugetTest.Android.Resource.Dimension.tooltip_y_offset_touch;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_ab_share_pack_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ab_share_pack_mtrl_alpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_action_bar_item_background_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_action_bar_item_background_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_btn_borderless_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_btn_borderless_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_btn_check_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_btn_check_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_btn_check_to_on_mtrl_000 = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_btn_check_to_on_mtrl_000;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_btn_check_to_on_mtrl_015 = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_btn_check_to_on_mtrl_015;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_btn_colored_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_btn_colored_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_btn_default_mtrl_shape = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_btn_default_mtrl_shape;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_btn_radio_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_btn_radio_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_btn_radio_to_on_mtrl_000 = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_btn_radio_to_on_mtrl_000;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_btn_radio_to_on_mtrl_015 = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_btn_radio_to_on_mtrl_015;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_btn_switch_to_on_mtrl_00001 = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_btn_switch_to_on_mtrl_00001;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_btn_switch_to_on_mtrl_00012 = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_btn_switch_to_on_mtrl_00012;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_cab_background_internal_bg = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_cab_background_internal_bg;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_cab_background_top_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_cab_background_top_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_cab_background_top_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_cab_background_top_mtrl_alpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_control_background_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_control_background_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_dialog_material_background = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_dialog_material_background;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_edit_text_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_edit_text_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_ic_ab_back_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_ab_back_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_ic_arrow_drop_right_black_24dp = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_arrow_drop_right_black_24dp;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_ic_clear_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_clear_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_ic_commit_search_api_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_commit_search_api_mtrl_alpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_ic_go_search_api_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_go_search_api_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_ic_menu_copy_mtrl_am_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_menu_copy_mtrl_am_alpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_ic_menu_cut_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_menu_cut_mtrl_alpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_ic_menu_overflow_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_menu_overflow_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_ic_menu_paste_mtrl_am_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_menu_paste_mtrl_am_alpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_ic_menu_selectall_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_menu_selectall_mtrl_alpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_ic_menu_share_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_menu_share_mtrl_alpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_ic_search_api_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_search_api_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_ic_star_black_16dp = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_star_black_16dp;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_ic_star_black_36dp = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_star_black_36dp;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_ic_star_black_48dp = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_star_black_48dp;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_ic_star_half_black_16dp = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_star_half_black_16dp;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_ic_star_half_black_36dp = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_star_half_black_36dp;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_ic_star_half_black_48dp = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_star_half_black_48dp;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_ic_voice_search_api_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_voice_search_api_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_item_background_holo_dark = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_item_background_holo_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_item_background_holo_light = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_item_background_holo_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_list_divider_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_list_divider_mtrl_alpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_list_focused_holo = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_list_focused_holo;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_list_longpressed_holo = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_list_longpressed_holo;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_list_pressed_holo_dark = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_list_pressed_holo_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_list_pressed_holo_light = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_list_pressed_holo_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_list_selector_background_transition_holo_dark = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_list_selector_background_transition_holo_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_list_selector_background_transition_holo_light = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_list_selector_background_transition_holo_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_list_selector_disabled_holo_dark = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_list_selector_disabled_holo_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_list_selector_disabled_holo_light = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_list_selector_disabled_holo_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_list_selector_holo_dark = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_list_selector_holo_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_list_selector_holo_light = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_list_selector_holo_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_menu_hardkey_panel_mtrl_mult = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_menu_hardkey_panel_mtrl_mult;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_popup_background_mtrl_mult = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_popup_background_mtrl_mult;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_ratingbar_indicator_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ratingbar_indicator_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_ratingbar_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ratingbar_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_ratingbar_small_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ratingbar_small_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_scrubber_control_off_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_scrubber_control_off_mtrl_alpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_000 = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_000;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_005 = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_005;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_scrubber_primary_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_scrubber_primary_mtrl_alpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_scrubber_track_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_scrubber_track_mtrl_alpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_seekbar_thumb_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_seekbar_thumb_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_seekbar_tick_mark_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_seekbar_tick_mark_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_seekbar_track_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_seekbar_track_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_spinner_mtrl_am_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_spinner_mtrl_am_alpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_spinner_textfield_background_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_spinner_textfield_background_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_switch_thumb_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_switch_thumb_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_switch_track_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_switch_track_mtrl_alpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_tab_indicator_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_tab_indicator_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_tab_indicator_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_tab_indicator_mtrl_alpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_text_cursor_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_text_cursor_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_text_select_handle_left_mtrl_dark = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_text_select_handle_left_mtrl_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_text_select_handle_left_mtrl_light = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_text_select_handle_left_mtrl_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_text_select_handle_middle_mtrl_dark = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_text_select_handle_middle_mtrl_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_text_select_handle_middle_mtrl_light = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_text_select_handle_middle_mtrl_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_text_select_handle_right_mtrl_dark = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_text_select_handle_right_mtrl_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_text_select_handle_right_mtrl_light = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_text_select_handle_right_mtrl_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_textfield_activated_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_textfield_activated_mtrl_alpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_textfield_default_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_textfield_default_mtrl_alpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_textfield_search_activated_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_textfield_search_activated_mtrl_alpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_textfield_search_default_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_textfield_search_default_mtrl_alpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_textfield_search_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_textfield_search_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.abc_vector_test = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_vector_test;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.avd_hide_password = global::MvxPluginNugetTest.Android.Resource.Drawable.avd_hide_password;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.avd_hide_password_1 = global::MvxPluginNugetTest.Android.Resource.Drawable.avd_hide_password_1;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.avd_hide_password_2 = global::MvxPluginNugetTest.Android.Resource.Drawable.avd_hide_password_2;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.avd_hide_password_3 = global::MvxPluginNugetTest.Android.Resource.Drawable.avd_hide_password_3;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.avd_show_password = global::MvxPluginNugetTest.Android.Resource.Drawable.avd_show_password;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.avd_show_password_1 = global::MvxPluginNugetTest.Android.Resource.Drawable.avd_show_password_1;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.avd_show_password_2 = global::MvxPluginNugetTest.Android.Resource.Drawable.avd_show_password_2;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.avd_show_password_3 = global::MvxPluginNugetTest.Android.Resource.Drawable.avd_show_password_3;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.design_bottom_navigation_item_background = global::MvxPluginNugetTest.Android.Resource.Drawable.design_bottom_navigation_item_background;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.design_fab_background = global::MvxPluginNugetTest.Android.Resource.Drawable.design_fab_background;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.design_ic_visibility = global::MvxPluginNugetTest.Android.Resource.Drawable.design_ic_visibility;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.design_ic_visibility_off = global::MvxPluginNugetTest.Android.Resource.Drawable.design_ic_visibility_off;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.design_password_eye = global::MvxPluginNugetTest.Android.Resource.Drawable.design_password_eye;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.design_snackbar_background = global::MvxPluginNugetTest.Android.Resource.Drawable.design_snackbar_background;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.navigation_empty_icon = global::MvxPluginNugetTest.Android.Resource.Drawable.navigation_empty_icon;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.notification_action_background = global::MvxPluginNugetTest.Android.Resource.Drawable.notification_action_background;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.notification_bg = global::MvxPluginNugetTest.Android.Resource.Drawable.notification_bg;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.notification_bg_low = global::MvxPluginNugetTest.Android.Resource.Drawable.notification_bg_low;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.notification_bg_low_normal = global::MvxPluginNugetTest.Android.Resource.Drawable.notification_bg_low_normal;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.notification_bg_low_pressed = global::MvxPluginNugetTest.Android.Resource.Drawable.notification_bg_low_pressed;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.notification_bg_normal = global::MvxPluginNugetTest.Android.Resource.Drawable.notification_bg_normal;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.notification_bg_normal_pressed = global::MvxPluginNugetTest.Android.Resource.Drawable.notification_bg_normal_pressed;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.notification_icon_background = global::MvxPluginNugetTest.Android.Resource.Drawable.notification_icon_background;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.notification_template_icon_bg = global::MvxPluginNugetTest.Android.Resource.Drawable.notification_template_icon_bg;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.notification_template_icon_low_bg = global::MvxPluginNugetTest.Android.Resource.Drawable.notification_template_icon_low_bg;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.notification_tile_bg = global::MvxPluginNugetTest.Android.Resource.Drawable.notification_tile_bg;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.notify_panel_notification_icon_bg = global::MvxPluginNugetTest.Android.Resource.Drawable.notify_panel_notification_icon_bg;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.tooltip_frame_dark = global::MvxPluginNugetTest.Android.Resource.Drawable.tooltip_frame_dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Drawable.tooltip_frame_light = global::MvxPluginNugetTest.Android.Resource.Drawable.tooltip_frame_light;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.ALT = global::MvxPluginNugetTest.Android.Resource.Id.ALT;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.CTRL = global::MvxPluginNugetTest.Android.Resource.Id.CTRL;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.FUNCTION = global::MvxPluginNugetTest.Android.Resource.Id.FUNCTION;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.META = global::MvxPluginNugetTest.Android.Resource.Id.META;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.MvvmCrossTagId = global::MvxPluginNugetTest.Android.Resource.Id.MvvmCrossTagId;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.MvxBindingTagUnique = global::MvxPluginNugetTest.Android.Resource.Id.MvxBindingTagUnique;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.SHIFT = global::MvxPluginNugetTest.Android.Resource.Id.SHIFT;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.SYM = global::MvxPluginNugetTest.Android.Resource.Id.SYM;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.action0 = global::MvxPluginNugetTest.Android.Resource.Id.action0;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.action_bar = global::MvxPluginNugetTest.Android.Resource.Id.action_bar;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.action_bar_activity_content = global::MvxPluginNugetTest.Android.Resource.Id.action_bar_activity_content;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.action_bar_container = global::MvxPluginNugetTest.Android.Resource.Id.action_bar_container;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.action_bar_root = global::MvxPluginNugetTest.Android.Resource.Id.action_bar_root;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.action_bar_spinner = global::MvxPluginNugetTest.Android.Resource.Id.action_bar_spinner;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.action_bar_subtitle = global::MvxPluginNugetTest.Android.Resource.Id.action_bar_subtitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.action_bar_title = global::MvxPluginNugetTest.Android.Resource.Id.action_bar_title;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.action_container = global::MvxPluginNugetTest.Android.Resource.Id.action_container;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.action_context_bar = global::MvxPluginNugetTest.Android.Resource.Id.action_context_bar;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.action_divider = global::MvxPluginNugetTest.Android.Resource.Id.action_divider;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.action_image = global::MvxPluginNugetTest.Android.Resource.Id.action_image;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.action_menu_divider = global::MvxPluginNugetTest.Android.Resource.Id.action_menu_divider;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.action_menu_presenter = global::MvxPluginNugetTest.Android.Resource.Id.action_menu_presenter;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.action_mode_bar = global::MvxPluginNugetTest.Android.Resource.Id.action_mode_bar;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.action_mode_bar_stub = global::MvxPluginNugetTest.Android.Resource.Id.action_mode_bar_stub;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.action_mode_close_button = global::MvxPluginNugetTest.Android.Resource.Id.action_mode_close_button;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.action_text = global::MvxPluginNugetTest.Android.Resource.Id.action_text;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.actions = global::MvxPluginNugetTest.Android.Resource.Id.actions;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.activity_chooser_view_content = global::MvxPluginNugetTest.Android.Resource.Id.activity_chooser_view_content;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.add = global::MvxPluginNugetTest.Android.Resource.Id.add;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.alertTitle = global::MvxPluginNugetTest.Android.Resource.Id.alertTitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.all = global::MvxPluginNugetTest.Android.Resource.Id.all;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.always = global::MvxPluginNugetTest.Android.Resource.Id.always;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.async = global::MvxPluginNugetTest.Android.Resource.Id.async;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.auto = global::MvxPluginNugetTest.Android.Resource.Id.auto;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.beginning = global::MvxPluginNugetTest.Android.Resource.Id.beginning;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.blocking = global::MvxPluginNugetTest.Android.Resource.Id.blocking;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.bottom = global::MvxPluginNugetTest.Android.Resource.Id.bottom;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.buttonPanel = global::MvxPluginNugetTest.Android.Resource.Id.buttonPanel;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.cancel_action = global::MvxPluginNugetTest.Android.Resource.Id.cancel_action;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.center = global::MvxPluginNugetTest.Android.Resource.Id.center;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.center_horizontal = global::MvxPluginNugetTest.Android.Resource.Id.center_horizontal;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.center_vertical = global::MvxPluginNugetTest.Android.Resource.Id.center_vertical;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.checkbox = global::MvxPluginNugetTest.Android.Resource.Id.checkbox;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.chronometer = global::MvxPluginNugetTest.Android.Resource.Id.chronometer;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.clip_horizontal = global::MvxPluginNugetTest.Android.Resource.Id.clip_horizontal;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.clip_vertical = global::MvxPluginNugetTest.Android.Resource.Id.clip_vertical;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.collapseActionView = global::MvxPluginNugetTest.Android.Resource.Id.collapseActionView;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.container = global::MvxPluginNugetTest.Android.Resource.Id.container;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.contentPanel = global::MvxPluginNugetTest.Android.Resource.Id.contentPanel;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.coordinator = global::MvxPluginNugetTest.Android.Resource.Id.coordinator;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.custom = global::MvxPluginNugetTest.Android.Resource.Id.custom;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.customPanel = global::MvxPluginNugetTest.Android.Resource.Id.customPanel;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.decor_content_parent = global::MvxPluginNugetTest.Android.Resource.Id.decor_content_parent;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.default_activity_button = global::MvxPluginNugetTest.Android.Resource.Id.default_activity_button;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.design_bottom_sheet = global::MvxPluginNugetTest.Android.Resource.Id.design_bottom_sheet;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.design_menu_item_action_area = global::MvxPluginNugetTest.Android.Resource.Id.design_menu_item_action_area;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.design_menu_item_action_area_stub = global::MvxPluginNugetTest.Android.Resource.Id.design_menu_item_action_area_stub;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.design_menu_item_text = global::MvxPluginNugetTest.Android.Resource.Id.design_menu_item_text;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.design_navigation_view = global::MvxPluginNugetTest.Android.Resource.Id.design_navigation_view;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.disableHome = global::MvxPluginNugetTest.Android.Resource.Id.disableHome;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.edit_query = global::MvxPluginNugetTest.Android.Resource.Id.edit_query;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.end = global::MvxPluginNugetTest.Android.Resource.Id.end;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.end_padder = global::MvxPluginNugetTest.Android.Resource.Id.end_padder;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.enterAlways = global::MvxPluginNugetTest.Android.Resource.Id.enterAlways;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.enterAlwaysCollapsed = global::MvxPluginNugetTest.Android.Resource.Id.enterAlwaysCollapsed;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.exitUntilCollapsed = global::MvxPluginNugetTest.Android.Resource.Id.exitUntilCollapsed;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.expand_activities_button = global::MvxPluginNugetTest.Android.Resource.Id.expand_activities_button;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.expanded_menu = global::MvxPluginNugetTest.Android.Resource.Id.expanded_menu;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.fill = global::MvxPluginNugetTest.Android.Resource.Id.fill;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.fill_horizontal = global::MvxPluginNugetTest.Android.Resource.Id.fill_horizontal;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.fill_vertical = global::MvxPluginNugetTest.Android.Resource.Id.fill_vertical;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.@fixed = global::MvxPluginNugetTest.Android.Resource.Id.@fixed;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.forever = global::MvxPluginNugetTest.Android.Resource.Id.forever;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.ghost_view = global::MvxPluginNugetTest.Android.Resource.Id.ghost_view;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.home = global::MvxPluginNugetTest.Android.Resource.Id.home;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.homeAsUp = global::MvxPluginNugetTest.Android.Resource.Id.homeAsUp;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.icon = global::MvxPluginNugetTest.Android.Resource.Id.icon;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.icon_group = global::MvxPluginNugetTest.Android.Resource.Id.icon_group;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.ifRoom = global::MvxPluginNugetTest.Android.Resource.Id.ifRoom;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.image = global::MvxPluginNugetTest.Android.Resource.Id.image;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.info = global::MvxPluginNugetTest.Android.Resource.Id.info;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.italic = global::MvxPluginNugetTest.Android.Resource.Id.italic;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.item_touch_helper_previous_elevation = global::MvxPluginNugetTest.Android.Resource.Id.item_touch_helper_previous_elevation;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.largeLabel = global::MvxPluginNugetTest.Android.Resource.Id.largeLabel;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.left = global::MvxPluginNugetTest.Android.Resource.Id.left;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.line1 = global::MvxPluginNugetTest.Android.Resource.Id.line1;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.line3 = global::MvxPluginNugetTest.Android.Resource.Id.line3;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.listMode = global::MvxPluginNugetTest.Android.Resource.Id.listMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.list_item = global::MvxPluginNugetTest.Android.Resource.Id.list_item;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.masked = global::MvxPluginNugetTest.Android.Resource.Id.masked;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.media_actions = global::MvxPluginNugetTest.Android.Resource.Id.media_actions;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.message = global::MvxPluginNugetTest.Android.Resource.Id.message;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.middle = global::MvxPluginNugetTest.Android.Resource.Id.middle;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.mini = global::MvxPluginNugetTest.Android.Resource.Id.mini;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.multiply = global::MvxPluginNugetTest.Android.Resource.Id.multiply;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.navigation_header_container = global::MvxPluginNugetTest.Android.Resource.Id.navigation_header_container;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.never = global::MvxPluginNugetTest.Android.Resource.Id.never;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.none = global::MvxPluginNugetTest.Android.Resource.Id.none;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.normal = global::MvxPluginNugetTest.Android.Resource.Id.normal;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.notification_background = global::MvxPluginNugetTest.Android.Resource.Id.notification_background;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.notification_main_column = global::MvxPluginNugetTest.Android.Resource.Id.notification_main_column;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.notification_main_column_container = global::MvxPluginNugetTest.Android.Resource.Id.notification_main_column_container;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.parallax = global::MvxPluginNugetTest.Android.Resource.Id.parallax;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.parentPanel = global::MvxPluginNugetTest.Android.Resource.Id.parentPanel;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.parent_matrix = global::MvxPluginNugetTest.Android.Resource.Id.parent_matrix;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.pin = global::MvxPluginNugetTest.Android.Resource.Id.pin;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.progress_circular = global::MvxPluginNugetTest.Android.Resource.Id.progress_circular;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.progress_horizontal = global::MvxPluginNugetTest.Android.Resource.Id.progress_horizontal;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.radio = global::MvxPluginNugetTest.Android.Resource.Id.radio;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.right = global::MvxPluginNugetTest.Android.Resource.Id.right;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.right_icon = global::MvxPluginNugetTest.Android.Resource.Id.right_icon;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.right_side = global::MvxPluginNugetTest.Android.Resource.Id.right_side;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.save_image_matrix = global::MvxPluginNugetTest.Android.Resource.Id.save_image_matrix;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.save_non_transition_alpha = global::MvxPluginNugetTest.Android.Resource.Id.save_non_transition_alpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.save_scale_type = global::MvxPluginNugetTest.Android.Resource.Id.save_scale_type;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.screen = global::MvxPluginNugetTest.Android.Resource.Id.screen;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.scroll = global::MvxPluginNugetTest.Android.Resource.Id.scroll;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.scrollIndicatorDown = global::MvxPluginNugetTest.Android.Resource.Id.scrollIndicatorDown;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.scrollIndicatorUp = global::MvxPluginNugetTest.Android.Resource.Id.scrollIndicatorUp;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.scrollView = global::MvxPluginNugetTest.Android.Resource.Id.scrollView;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.scrollable = global::MvxPluginNugetTest.Android.Resource.Id.scrollable;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.search_badge = global::MvxPluginNugetTest.Android.Resource.Id.search_badge;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.search_bar = global::MvxPluginNugetTest.Android.Resource.Id.search_bar;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.search_button = global::MvxPluginNugetTest.Android.Resource.Id.search_button;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.search_close_btn = global::MvxPluginNugetTest.Android.Resource.Id.search_close_btn;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.search_edit_frame = global::MvxPluginNugetTest.Android.Resource.Id.search_edit_frame;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.search_go_btn = global::MvxPluginNugetTest.Android.Resource.Id.search_go_btn;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.search_mag_icon = global::MvxPluginNugetTest.Android.Resource.Id.search_mag_icon;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.search_plate = global::MvxPluginNugetTest.Android.Resource.Id.search_plate;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.search_src_text = global::MvxPluginNugetTest.Android.Resource.Id.search_src_text;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.search_voice_btn = global::MvxPluginNugetTest.Android.Resource.Id.search_voice_btn;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.select_dialog_listview = global::MvxPluginNugetTest.Android.Resource.Id.select_dialog_listview;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.shortcut = global::MvxPluginNugetTest.Android.Resource.Id.shortcut;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.showCustom = global::MvxPluginNugetTest.Android.Resource.Id.showCustom;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.showHome = global::MvxPluginNugetTest.Android.Resource.Id.showHome;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.showTitle = global::MvxPluginNugetTest.Android.Resource.Id.showTitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.smallLabel = global::MvxPluginNugetTest.Android.Resource.Id.smallLabel;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.snackbar_action = global::MvxPluginNugetTest.Android.Resource.Id.snackbar_action;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.snackbar_text = global::MvxPluginNugetTest.Android.Resource.Id.snackbar_text;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.snap = global::MvxPluginNugetTest.Android.Resource.Id.snap;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.spacer = global::MvxPluginNugetTest.Android.Resource.Id.spacer;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.split_action_bar = global::MvxPluginNugetTest.Android.Resource.Id.split_action_bar;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.src_atop = global::MvxPluginNugetTest.Android.Resource.Id.src_atop;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.src_in = global::MvxPluginNugetTest.Android.Resource.Id.src_in;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.src_over = global::MvxPluginNugetTest.Android.Resource.Id.src_over;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.start = global::MvxPluginNugetTest.Android.Resource.Id.start;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.status_bar_latest_event_content = global::MvxPluginNugetTest.Android.Resource.Id.status_bar_latest_event_content;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.submenuarrow = global::MvxPluginNugetTest.Android.Resource.Id.submenuarrow;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.submit_area = global::MvxPluginNugetTest.Android.Resource.Id.submit_area;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.tabMode = global::MvxPluginNugetTest.Android.Resource.Id.tabMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.tag_transition_group = global::MvxPluginNugetTest.Android.Resource.Id.tag_transition_group;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.text = global::MvxPluginNugetTest.Android.Resource.Id.text;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.text2 = global::MvxPluginNugetTest.Android.Resource.Id.text2;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.textSpacerNoButtons = global::MvxPluginNugetTest.Android.Resource.Id.textSpacerNoButtons;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.textSpacerNoTitle = global::MvxPluginNugetTest.Android.Resource.Id.textSpacerNoTitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.text_input_password_toggle = global::MvxPluginNugetTest.Android.Resource.Id.text_input_password_toggle;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.textinput_counter = global::MvxPluginNugetTest.Android.Resource.Id.textinput_counter;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.textinput_error = global::MvxPluginNugetTest.Android.Resource.Id.textinput_error;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.time = global::MvxPluginNugetTest.Android.Resource.Id.time;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.title = global::MvxPluginNugetTest.Android.Resource.Id.title;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.titleDividerNoCustom = global::MvxPluginNugetTest.Android.Resource.Id.titleDividerNoCustom;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.title_template = global::MvxPluginNugetTest.Android.Resource.Id.title_template;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.top = global::MvxPluginNugetTest.Android.Resource.Id.top;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.topPanel = global::MvxPluginNugetTest.Android.Resource.Id.topPanel;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.touch_outside = global::MvxPluginNugetTest.Android.Resource.Id.touch_outside;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.transition_current_scene = global::MvxPluginNugetTest.Android.Resource.Id.transition_current_scene;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.transition_layout_save = global::MvxPluginNugetTest.Android.Resource.Id.transition_layout_save;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.transition_position = global::MvxPluginNugetTest.Android.Resource.Id.transition_position;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.transition_scene_layoutid_cache = global::MvxPluginNugetTest.Android.Resource.Id.transition_scene_layoutid_cache;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.transition_transform = global::MvxPluginNugetTest.Android.Resource.Id.transition_transform;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.uniform = global::MvxPluginNugetTest.Android.Resource.Id.uniform;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.up = global::MvxPluginNugetTest.Android.Resource.Id.up;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.useLogo = global::MvxPluginNugetTest.Android.Resource.Id.useLogo;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.view_offset_helper = global::MvxPluginNugetTest.Android.Resource.Id.view_offset_helper;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.visible = global::MvxPluginNugetTest.Android.Resource.Id.visible;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.withText = global::MvxPluginNugetTest.Android.Resource.Id.withText;
+			global::MvvmCross.Droid.Support.Design.Resource.Id.wrap_content = global::MvxPluginNugetTest.Android.Resource.Id.wrap_content;
+			global::MvvmCross.Droid.Support.Design.Resource.Integer.abc_config_activityDefaultDur = global::MvxPluginNugetTest.Android.Resource.Integer.abc_config_activityDefaultDur;
+			global::MvvmCross.Droid.Support.Design.Resource.Integer.abc_config_activityShortDur = global::MvxPluginNugetTest.Android.Resource.Integer.abc_config_activityShortDur;
+			global::MvvmCross.Droid.Support.Design.Resource.Integer.app_bar_elevation_anim_duration = global::MvxPluginNugetTest.Android.Resource.Integer.app_bar_elevation_anim_duration;
+			global::MvvmCross.Droid.Support.Design.Resource.Integer.bottom_sheet_slide_duration = global::MvxPluginNugetTest.Android.Resource.Integer.bottom_sheet_slide_duration;
+			global::MvvmCross.Droid.Support.Design.Resource.Integer.cancel_button_image_alpha = global::MvxPluginNugetTest.Android.Resource.Integer.cancel_button_image_alpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Integer.config_tooltipAnimTime = global::MvxPluginNugetTest.Android.Resource.Integer.config_tooltipAnimTime;
+			global::MvvmCross.Droid.Support.Design.Resource.Integer.design_snackbar_text_max_lines = global::MvxPluginNugetTest.Android.Resource.Integer.design_snackbar_text_max_lines;
+			global::MvvmCross.Droid.Support.Design.Resource.Integer.hide_password_duration = global::MvxPluginNugetTest.Android.Resource.Integer.hide_password_duration;
+			global::MvvmCross.Droid.Support.Design.Resource.Integer.show_password_duration = global::MvxPluginNugetTest.Android.Resource.Integer.show_password_duration;
+			global::MvvmCross.Droid.Support.Design.Resource.Integer.status_bar_notification_info_maxnum = global::MvxPluginNugetTest.Android.Resource.Integer.status_bar_notification_info_maxnum;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_action_bar_title_item = global::MvxPluginNugetTest.Android.Resource.Layout.abc_action_bar_title_item;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_action_bar_up_container = global::MvxPluginNugetTest.Android.Resource.Layout.abc_action_bar_up_container;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_action_menu_item_layout = global::MvxPluginNugetTest.Android.Resource.Layout.abc_action_menu_item_layout;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_action_menu_layout = global::MvxPluginNugetTest.Android.Resource.Layout.abc_action_menu_layout;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_action_mode_bar = global::MvxPluginNugetTest.Android.Resource.Layout.abc_action_mode_bar;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_action_mode_close_item_material = global::MvxPluginNugetTest.Android.Resource.Layout.abc_action_mode_close_item_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_activity_chooser_view = global::MvxPluginNugetTest.Android.Resource.Layout.abc_activity_chooser_view;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_activity_chooser_view_list_item = global::MvxPluginNugetTest.Android.Resource.Layout.abc_activity_chooser_view_list_item;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_alert_dialog_button_bar_material = global::MvxPluginNugetTest.Android.Resource.Layout.abc_alert_dialog_button_bar_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_alert_dialog_material = global::MvxPluginNugetTest.Android.Resource.Layout.abc_alert_dialog_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_alert_dialog_title_material = global::MvxPluginNugetTest.Android.Resource.Layout.abc_alert_dialog_title_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_dialog_title_material = global::MvxPluginNugetTest.Android.Resource.Layout.abc_dialog_title_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_expanded_menu_layout = global::MvxPluginNugetTest.Android.Resource.Layout.abc_expanded_menu_layout;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_list_menu_item_checkbox = global::MvxPluginNugetTest.Android.Resource.Layout.abc_list_menu_item_checkbox;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_list_menu_item_icon = global::MvxPluginNugetTest.Android.Resource.Layout.abc_list_menu_item_icon;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_list_menu_item_layout = global::MvxPluginNugetTest.Android.Resource.Layout.abc_list_menu_item_layout;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_list_menu_item_radio = global::MvxPluginNugetTest.Android.Resource.Layout.abc_list_menu_item_radio;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_popup_menu_header_item_layout = global::MvxPluginNugetTest.Android.Resource.Layout.abc_popup_menu_header_item_layout;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_popup_menu_item_layout = global::MvxPluginNugetTest.Android.Resource.Layout.abc_popup_menu_item_layout;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_screen_content_include = global::MvxPluginNugetTest.Android.Resource.Layout.abc_screen_content_include;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_screen_simple = global::MvxPluginNugetTest.Android.Resource.Layout.abc_screen_simple;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_screen_simple_overlay_action_mode = global::MvxPluginNugetTest.Android.Resource.Layout.abc_screen_simple_overlay_action_mode;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_screen_toolbar = global::MvxPluginNugetTest.Android.Resource.Layout.abc_screen_toolbar;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_search_dropdown_item_icons_2line = global::MvxPluginNugetTest.Android.Resource.Layout.abc_search_dropdown_item_icons_2line;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_search_view = global::MvxPluginNugetTest.Android.Resource.Layout.abc_search_view;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.abc_select_dialog_material = global::MvxPluginNugetTest.Android.Resource.Layout.abc_select_dialog_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.design_bottom_navigation_item = global::MvxPluginNugetTest.Android.Resource.Layout.design_bottom_navigation_item;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.design_bottom_sheet_dialog = global::MvxPluginNugetTest.Android.Resource.Layout.design_bottom_sheet_dialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.design_layout_snackbar = global::MvxPluginNugetTest.Android.Resource.Layout.design_layout_snackbar;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.design_layout_snackbar_include = global::MvxPluginNugetTest.Android.Resource.Layout.design_layout_snackbar_include;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.design_layout_tab_icon = global::MvxPluginNugetTest.Android.Resource.Layout.design_layout_tab_icon;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.design_layout_tab_text = global::MvxPluginNugetTest.Android.Resource.Layout.design_layout_tab_text;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.design_menu_item_action_area = global::MvxPluginNugetTest.Android.Resource.Layout.design_menu_item_action_area;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.design_navigation_item = global::MvxPluginNugetTest.Android.Resource.Layout.design_navigation_item;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.design_navigation_item_header = global::MvxPluginNugetTest.Android.Resource.Layout.design_navigation_item_header;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.design_navigation_item_separator = global::MvxPluginNugetTest.Android.Resource.Layout.design_navigation_item_separator;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.design_navigation_item_subheader = global::MvxPluginNugetTest.Android.Resource.Layout.design_navigation_item_subheader;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.design_navigation_menu = global::MvxPluginNugetTest.Android.Resource.Layout.design_navigation_menu;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.design_navigation_menu_item = global::MvxPluginNugetTest.Android.Resource.Layout.design_navigation_menu_item;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.design_text_input_password_icon = global::MvxPluginNugetTest.Android.Resource.Layout.design_text_input_password_icon;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.notification_action = global::MvxPluginNugetTest.Android.Resource.Layout.notification_action;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.notification_action_tombstone = global::MvxPluginNugetTest.Android.Resource.Layout.notification_action_tombstone;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.notification_media_action = global::MvxPluginNugetTest.Android.Resource.Layout.notification_media_action;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.notification_media_cancel_action = global::MvxPluginNugetTest.Android.Resource.Layout.notification_media_cancel_action;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.notification_template_big_media = global::MvxPluginNugetTest.Android.Resource.Layout.notification_template_big_media;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.notification_template_big_media_custom = global::MvxPluginNugetTest.Android.Resource.Layout.notification_template_big_media_custom;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.notification_template_big_media_narrow = global::MvxPluginNugetTest.Android.Resource.Layout.notification_template_big_media_narrow;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.notification_template_big_media_narrow_custom = global::MvxPluginNugetTest.Android.Resource.Layout.notification_template_big_media_narrow_custom;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.notification_template_custom_big = global::MvxPluginNugetTest.Android.Resource.Layout.notification_template_custom_big;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.notification_template_icon_group = global::MvxPluginNugetTest.Android.Resource.Layout.notification_template_icon_group;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.notification_template_lines_media = global::MvxPluginNugetTest.Android.Resource.Layout.notification_template_lines_media;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.notification_template_media = global::MvxPluginNugetTest.Android.Resource.Layout.notification_template_media;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.notification_template_media_custom = global::MvxPluginNugetTest.Android.Resource.Layout.notification_template_media_custom;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.notification_template_part_chronometer = global::MvxPluginNugetTest.Android.Resource.Layout.notification_template_part_chronometer;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.notification_template_part_time = global::MvxPluginNugetTest.Android.Resource.Layout.notification_template_part_time;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.select_dialog_item_material = global::MvxPluginNugetTest.Android.Resource.Layout.select_dialog_item_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.select_dialog_multichoice_material = global::MvxPluginNugetTest.Android.Resource.Layout.select_dialog_multichoice_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.select_dialog_singlechoice_material = global::MvxPluginNugetTest.Android.Resource.Layout.select_dialog_singlechoice_material;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.support_simple_spinner_dropdown_item = global::MvxPluginNugetTest.Android.Resource.Layout.support_simple_spinner_dropdown_item;
+			global::MvvmCross.Droid.Support.Design.Resource.Layout.tooltip = global::MvxPluginNugetTest.Android.Resource.Layout.tooltip;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_action_bar_home_description = global::MvxPluginNugetTest.Android.Resource.String.abc_action_bar_home_description;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_action_bar_up_description = global::MvxPluginNugetTest.Android.Resource.String.abc_action_bar_up_description;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_action_menu_overflow_description = global::MvxPluginNugetTest.Android.Resource.String.abc_action_menu_overflow_description;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_action_mode_done = global::MvxPluginNugetTest.Android.Resource.String.abc_action_mode_done;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_activity_chooser_view_see_all = global::MvxPluginNugetTest.Android.Resource.String.abc_activity_chooser_view_see_all;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_activitychooserview_choose_application = global::MvxPluginNugetTest.Android.Resource.String.abc_activitychooserview_choose_application;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_capital_off = global::MvxPluginNugetTest.Android.Resource.String.abc_capital_off;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_capital_on = global::MvxPluginNugetTest.Android.Resource.String.abc_capital_on;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_font_family_body_1_material = global::MvxPluginNugetTest.Android.Resource.String.abc_font_family_body_1_material;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_font_family_body_2_material = global::MvxPluginNugetTest.Android.Resource.String.abc_font_family_body_2_material;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_font_family_button_material = global::MvxPluginNugetTest.Android.Resource.String.abc_font_family_button_material;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_font_family_caption_material = global::MvxPluginNugetTest.Android.Resource.String.abc_font_family_caption_material;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_font_family_display_1_material = global::MvxPluginNugetTest.Android.Resource.String.abc_font_family_display_1_material;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_font_family_display_2_material = global::MvxPluginNugetTest.Android.Resource.String.abc_font_family_display_2_material;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_font_family_display_3_material = global::MvxPluginNugetTest.Android.Resource.String.abc_font_family_display_3_material;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_font_family_display_4_material = global::MvxPluginNugetTest.Android.Resource.String.abc_font_family_display_4_material;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_font_family_headline_material = global::MvxPluginNugetTest.Android.Resource.String.abc_font_family_headline_material;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_font_family_menu_material = global::MvxPluginNugetTest.Android.Resource.String.abc_font_family_menu_material;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_font_family_subhead_material = global::MvxPluginNugetTest.Android.Resource.String.abc_font_family_subhead_material;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_font_family_title_material = global::MvxPluginNugetTest.Android.Resource.String.abc_font_family_title_material;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_search_hint = global::MvxPluginNugetTest.Android.Resource.String.abc_search_hint;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_searchview_description_clear = global::MvxPluginNugetTest.Android.Resource.String.abc_searchview_description_clear;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_searchview_description_query = global::MvxPluginNugetTest.Android.Resource.String.abc_searchview_description_query;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_searchview_description_search = global::MvxPluginNugetTest.Android.Resource.String.abc_searchview_description_search;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_searchview_description_submit = global::MvxPluginNugetTest.Android.Resource.String.abc_searchview_description_submit;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_searchview_description_voice = global::MvxPluginNugetTest.Android.Resource.String.abc_searchview_description_voice;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_shareactionprovider_share_with = global::MvxPluginNugetTest.Android.Resource.String.abc_shareactionprovider_share_with;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_shareactionprovider_share_with_application = global::MvxPluginNugetTest.Android.Resource.String.abc_shareactionprovider_share_with_application;
+			global::MvvmCross.Droid.Support.Design.Resource.String.abc_toolbar_collapse_description = global::MvxPluginNugetTest.Android.Resource.String.abc_toolbar_collapse_description;
+			global::MvvmCross.Droid.Support.Design.Resource.String.appbar_scrolling_view_behavior = global::MvxPluginNugetTest.Android.Resource.String.appbar_scrolling_view_behavior;
+			global::MvvmCross.Droid.Support.Design.Resource.String.bottom_sheet_behavior = global::MvxPluginNugetTest.Android.Resource.String.bottom_sheet_behavior;
+			global::MvvmCross.Droid.Support.Design.Resource.String.character_counter_pattern = global::MvxPluginNugetTest.Android.Resource.String.character_counter_pattern;
+			global::MvvmCross.Droid.Support.Design.Resource.String.fab_scroll_shrink_grow_autohide_behavior = global::MvxPluginNugetTest.Android.Resource.String.fab_scroll_shrink_grow_autohide_behavior;
+			global::MvvmCross.Droid.Support.Design.Resource.String.password_toggle_content_description = global::MvxPluginNugetTest.Android.Resource.String.password_toggle_content_description;
+			global::MvvmCross.Droid.Support.Design.Resource.String.path_password_eye = global::MvxPluginNugetTest.Android.Resource.String.path_password_eye;
+			global::MvvmCross.Droid.Support.Design.Resource.String.path_password_eye_mask_strike_through = global::MvxPluginNugetTest.Android.Resource.String.path_password_eye_mask_strike_through;
+			global::MvvmCross.Droid.Support.Design.Resource.String.path_password_eye_mask_visible = global::MvxPluginNugetTest.Android.Resource.String.path_password_eye_mask_visible;
+			global::MvvmCross.Droid.Support.Design.Resource.String.path_password_strike_through = global::MvxPluginNugetTest.Android.Resource.String.path_password_strike_through;
+			global::MvvmCross.Droid.Support.Design.Resource.String.search_menu_title = global::MvxPluginNugetTest.Android.Resource.String.search_menu_title;
+			global::MvvmCross.Droid.Support.Design.Resource.String.status_bar_notification_info_overflow = global::MvxPluginNugetTest.Android.Resource.String.status_bar_notification_info_overflow;
+			global::MvvmCross.Droid.Support.Design.Resource.String.view_scroll_translation_autohide_behavior = global::MvxPluginNugetTest.Android.Resource.String.view_scroll_translation_autohide_behavior;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.AlertDialog_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.AlertDialog_AppCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.AlertDialog_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.AlertDialog_AppCompat_Light;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Animation_AppCompat_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Animation_AppCompat_Dialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Animation_AppCompat_DropDownUp = global::MvxPluginNugetTest.Android.Resource.Style.Animation_AppCompat_DropDownUp;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Animation_AppCompat_Tooltip = global::MvxPluginNugetTest.Android.Resource.Style.Animation_AppCompat_Tooltip;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Animation_Design_BottomSheetDialog = global::MvxPluginNugetTest.Android.Resource.Style.Animation_Design_BottomSheetDialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_AlertDialog_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Base_AlertDialog_AppCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_AlertDialog_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Base_AlertDialog_AppCompat_Light;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Animation_AppCompat_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_Animation_AppCompat_Dialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Animation_AppCompat_DropDownUp = global::MvxPluginNugetTest.Android.Resource.Style.Base_Animation_AppCompat_DropDownUp;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Animation_AppCompat_Tooltip = global::MvxPluginNugetTest.Android.Resource.Style.Base_Animation_AppCompat_Tooltip;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_DialogWindowTitle_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Base_DialogWindowTitle_AppCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_DialogWindowTitleBackground_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Base_DialogWindowTitleBackground_AppCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Body1 = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Body1;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Body2 = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Body2;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Button = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Button;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Caption = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Caption;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Display1 = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Display1;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Display2 = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Display2;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Display3 = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Display3;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Display4 = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Display4;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Headline = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Headline;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Large = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Large;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Large_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Large_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Large = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Large;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Small = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Small;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Medium = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Medium;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Medium_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Medium_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Menu = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Menu;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_SearchResult = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_SearchResult;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_SearchResult_Subtitle = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_SearchResult_Subtitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_SearchResult_Title = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_SearchResult_Title;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Small = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Small;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Small_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Small_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Subhead = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Subhead;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Subhead_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Subhead_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Title = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Title;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Title_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Title_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Tooltip = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Tooltip;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Menu = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Menu;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Title = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Title;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionMode_Subtitle = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionMode_Subtitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionMode_Title = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionMode_Title;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Borderless_Colored = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Borderless_Colored;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Colored = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Colored;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Widget_DropDownItem = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_DropDownItem;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Header = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Header;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Large = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Large;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Small = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Small;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Widget_Switch = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_Switch;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_AppCompat_Widget_TextView_SpinnerItem = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_TextView_SpinnerItem;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_Widget_AppCompat_ExpandedMenu_Item = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_Widget_AppCompat_ExpandedMenu_Item;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_Widget_AppCompat_Toolbar_Subtitle = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_Widget_AppCompat_Toolbar_Subtitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_TextAppearance_Widget_AppCompat_Toolbar_Title = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_Widget_AppCompat_Toolbar_Title;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Theme_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Theme_AppCompat_CompactMenu = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_CompactMenu;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Theme_AppCompat_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_Dialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Theme_AppCompat_Dialog_Alert = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_Dialog_Alert;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Theme_AppCompat_Dialog_FixedSize = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_Dialog_FixedSize;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Theme_AppCompat_Dialog_MinWidth = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_Dialog_MinWidth;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Theme_AppCompat_DialogWhenLarge = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_DialogWhenLarge;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Theme_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_Light;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Theme_AppCompat_Light_DarkActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_Light_DarkActionBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Theme_AppCompat_Light_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_Light_Dialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Theme_AppCompat_Light_Dialog_Alert = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_Light_Dialog_Alert;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Theme_AppCompat_Light_Dialog_FixedSize = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_Light_Dialog_FixedSize;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Theme_AppCompat_Light_Dialog_MinWidth = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_Light_Dialog_MinWidth;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Theme_AppCompat_Light_DialogWhenLarge = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_Light_DialogWhenLarge;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_ThemeOverlay_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Base_ThemeOverlay_AppCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_ThemeOverlay_AppCompat_ActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Base_ThemeOverlay_AppCompat_ActionBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_ThemeOverlay_AppCompat_Dark = global::MvxPluginNugetTest.Android.Resource.Style.Base_ThemeOverlay_AppCompat_Dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_ThemeOverlay_AppCompat_Dark_ActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Base_ThemeOverlay_AppCompat_Dark_ActionBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_ThemeOverlay_AppCompat_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_ThemeOverlay_AppCompat_Dialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_ThemeOverlay_AppCompat_Dialog_Alert = global::MvxPluginNugetTest.Android.Resource.Style.Base_ThemeOverlay_AppCompat_Dialog_Alert;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_ThemeOverlay_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Base_ThemeOverlay_AppCompat_Light;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V11_Theme_AppCompat_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_V11_Theme_AppCompat_Dialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V11_Theme_AppCompat_Light_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_V11_Theme_AppCompat_Light_Dialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V11_ThemeOverlay_AppCompat_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_V11_ThemeOverlay_AppCompat_Dialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V12_Widget_AppCompat_AutoCompleteTextView = global::MvxPluginNugetTest.Android.Resource.Style.Base_V12_Widget_AppCompat_AutoCompleteTextView;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V12_Widget_AppCompat_EditText = global::MvxPluginNugetTest.Android.Resource.Style.Base_V12_Widget_AppCompat_EditText;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V14_Widget_Design_AppBarLayout = global::MvxPluginNugetTest.Android.Resource.Style.Base_V14_Widget_Design_AppBarLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V21_Theme_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Base_V21_Theme_AppCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V21_Theme_AppCompat_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_V21_Theme_AppCompat_Dialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V21_Theme_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Base_V21_Theme_AppCompat_Light;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V21_Theme_AppCompat_Light_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_V21_Theme_AppCompat_Light_Dialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V21_ThemeOverlay_AppCompat_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_V21_ThemeOverlay_AppCompat_Dialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V21_Widget_Design_AppBarLayout = global::MvxPluginNugetTest.Android.Resource.Style.Base_V21_Widget_Design_AppBarLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V22_Theme_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Base_V22_Theme_AppCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V22_Theme_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Base_V22_Theme_AppCompat_Light;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V23_Theme_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Base_V23_Theme_AppCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V23_Theme_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Base_V23_Theme_AppCompat_Light;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V26_Theme_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Base_V26_Theme_AppCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V26_Theme_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Base_V26_Theme_AppCompat_Light;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V26_Widget_AppCompat_Toolbar = global::MvxPluginNugetTest.Android.Resource.Style.Base_V26_Widget_AppCompat_Toolbar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V26_Widget_Design_AppBarLayout = global::MvxPluginNugetTest.Android.Resource.Style.Base_V26_Widget_Design_AppBarLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V7_Theme_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Base_V7_Theme_AppCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V7_Theme_AppCompat_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_V7_Theme_AppCompat_Dialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V7_Theme_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Base_V7_Theme_AppCompat_Light;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V7_Theme_AppCompat_Light_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_V7_Theme_AppCompat_Light_Dialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V7_ThemeOverlay_AppCompat_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_V7_ThemeOverlay_AppCompat_Dialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V7_Widget_AppCompat_AutoCompleteTextView = global::MvxPluginNugetTest.Android.Resource.Style.Base_V7_Widget_AppCompat_AutoCompleteTextView;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V7_Widget_AppCompat_EditText = global::MvxPluginNugetTest.Android.Resource.Style.Base_V7_Widget_AppCompat_EditText;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_V7_Widget_AppCompat_Toolbar = global::MvxPluginNugetTest.Android.Resource.Style.Base_V7_Widget_AppCompat_Toolbar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_ActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ActionBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_ActionBar_Solid = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ActionBar_Solid;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_ActionBar_TabBar = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ActionBar_TabBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_ActionBar_TabText = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ActionBar_TabText;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_ActionBar_TabView = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ActionBar_TabView;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_ActionButton = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ActionButton;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_ActionButton_CloseMode = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ActionButton_CloseMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_ActionButton_Overflow = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ActionButton_Overflow;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_ActionMode = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ActionMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_ActivityChooserView = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ActivityChooserView;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_AutoCompleteTextView = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_AutoCompleteTextView;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_Button = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Button;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_Button_Borderless = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Button_Borderless;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_Button_Borderless_Colored = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Button_Borderless_Colored;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_Button_ButtonBar_AlertDialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Button_ButtonBar_AlertDialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_Button_Colored = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Button_Colored;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_Button_Small = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Button_Small;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_ButtonBar = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ButtonBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_ButtonBar_AlertDialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ButtonBar_AlertDialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_CompoundButton_CheckBox = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_CompoundButton_CheckBox;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_CompoundButton_RadioButton = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_CompoundButton_RadioButton;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_CompoundButton_Switch = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_CompoundButton_Switch;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle_Common = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle_Common;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_DropDownItem_Spinner = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_DropDownItem_Spinner;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_EditText = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_EditText;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_ImageButton = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ImageButton;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_Light_ActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Light_ActionBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_Solid = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_Solid;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabBar = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabText = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabText;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabText_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabText_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabView = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabView;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_Light_PopupMenu = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Light_PopupMenu;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_Light_PopupMenu_Overflow = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Light_PopupMenu_Overflow;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_ListMenuView = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ListMenuView;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_ListPopupWindow = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ListPopupWindow;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_ListView = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ListView;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_ListView_DropDown = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ListView_DropDown;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_ListView_Menu = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ListView_Menu;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_PopupMenu = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_PopupMenu;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_PopupMenu_Overflow = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_PopupMenu_Overflow;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_PopupWindow = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_PopupWindow;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_ProgressBar = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ProgressBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_ProgressBar_Horizontal = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ProgressBar_Horizontal;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_RatingBar = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_RatingBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_RatingBar_Indicator = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_RatingBar_Indicator;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_RatingBar_Small = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_RatingBar_Small;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_SearchView = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_SearchView;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_SearchView_ActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_SearchView_ActionBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_SeekBar = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_SeekBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_SeekBar_Discrete = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_SeekBar_Discrete;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_Spinner = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Spinner;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_Spinner_Underlined = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Spinner_Underlined;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_TextView_SpinnerItem = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_TextView_SpinnerItem;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_Toolbar = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Toolbar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_AppCompat_Toolbar_Button_Navigation = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Toolbar_Button_Navigation;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_Design_AppBarLayout = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_Design_AppBarLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Base_Widget_Design_TabLayout = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_Design_TabLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Platform_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Platform_AppCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Platform_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Platform_AppCompat_Light;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Platform_ThemeOverlay_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Platform_ThemeOverlay_AppCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Platform_ThemeOverlay_AppCompat_Dark = global::MvxPluginNugetTest.Android.Resource.Style.Platform_ThemeOverlay_AppCompat_Dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Platform_ThemeOverlay_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Platform_ThemeOverlay_AppCompat_Light;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Platform_V11_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Platform_V11_AppCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Platform_V11_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Platform_V11_AppCompat_Light;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Platform_V14_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Platform_V14_AppCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Platform_V14_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Platform_V14_AppCompat_Light;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Platform_V21_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Platform_V21_AppCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Platform_V21_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Platform_V21_AppCompat_Light;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Platform_V25_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Platform_V25_AppCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Platform_V25_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Platform_V25_AppCompat_Light;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Platform_Widget_AppCompat_Spinner = global::MvxPluginNugetTest.Android.Resource.Style.Platform_Widget_AppCompat_Spinner;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.RtlOverlay_DialogWindowTitle_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.RtlOverlay_DialogWindowTitle_AppCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.RtlOverlay_Widget_AppCompat_ActionBar_TitleItem = global::MvxPluginNugetTest.Android.Resource.Style.RtlOverlay_Widget_AppCompat_ActionBar_TitleItem;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.RtlOverlay_Widget_AppCompat_DialogTitle_Icon = global::MvxPluginNugetTest.Android.Resource.Style.RtlOverlay_Widget_AppCompat_DialogTitle_Icon;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem = global::MvxPluginNugetTest.Android.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_InternalGroup = global::MvxPluginNugetTest.Android.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_InternalGroup;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_Text = global::MvxPluginNugetTest.Android.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_Text;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown = global::MvxPluginNugetTest.Android.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Icon1 = global::MvxPluginNugetTest.Android.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Icon1;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Icon2 = global::MvxPluginNugetTest.Android.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Icon2;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Query = global::MvxPluginNugetTest.Android.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Query;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Text = global::MvxPluginNugetTest.Android.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Text;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.RtlOverlay_Widget_AppCompat_SearchView_MagIcon = global::MvxPluginNugetTest.Android.Resource.Style.RtlOverlay_Widget_AppCompat_SearchView_MagIcon;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton = global::MvxPluginNugetTest.Android.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton_Overflow = global::MvxPluginNugetTest.Android.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton_Overflow;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Body1 = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Body1;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Body2 = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Body2;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Button = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Button;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Caption = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Caption;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Display1 = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Display1;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Display2 = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Display2;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Display3 = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Display3;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Display4 = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Display4;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Headline = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Headline;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Large = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Large;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Large_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Large_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Light_SearchResult_Subtitle = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Light_SearchResult_Subtitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Light_SearchResult_Title = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Light_SearchResult_Title;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Large = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Large;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Small = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Small;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Medium = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Medium;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Medium_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Medium_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Menu = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Menu;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_SearchResult_Subtitle = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_SearchResult_Subtitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_SearchResult_Title = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_SearchResult_Title;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Small = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Small;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Small_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Small_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Subhead = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Subhead;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Subhead_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Subhead_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Title = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Title;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Title_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Title_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Tooltip = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Tooltip;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Menu = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Menu;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Title = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Title;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Subtitle = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Subtitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Subtitle_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Subtitle_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Title = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Title;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Title_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Title_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Widget_Button = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_Button;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Widget_Button_Borderless_Colored = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_Button_Borderless_Colored;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Widget_Button_Colored = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_Button_Colored;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Widget_Button_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_Button_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Widget_DropDownItem = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_DropDownItem;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Header = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Header;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Large = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Large;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Small = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Small;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Widget_Switch = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_Switch;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_AppCompat_Widget_TextView_SpinnerItem = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_TextView_SpinnerItem;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_Compat_Notification = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Compat_Notification;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_Compat_Notification_Info = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Compat_Notification_Info;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_Compat_Notification_Info_Media = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Compat_Notification_Info_Media;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_Compat_Notification_Line2 = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Compat_Notification_Line2;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_Compat_Notification_Line2_Media = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Compat_Notification_Line2_Media;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_Compat_Notification_Media = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Compat_Notification_Media;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_Compat_Notification_Time = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Compat_Notification_Time;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_Compat_Notification_Time_Media = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Compat_Notification_Time_Media;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_Compat_Notification_Title = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Compat_Notification_Title;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_Compat_Notification_Title_Media = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Compat_Notification_Title_Media;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_Design_CollapsingToolbar_Expanded = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Design_CollapsingToolbar_Expanded;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_Design_Counter = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Design_Counter;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_Design_Counter_Overflow = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Design_Counter_Overflow;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_Design_Error = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Design_Error;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_Design_Hint = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Design_Hint;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_Design_Snackbar_Message = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Design_Snackbar_Message;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_Design_Tab = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Design_Tab;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_Widget_AppCompat_ExpandedMenu_Item = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Widget_AppCompat_ExpandedMenu_Item;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_Widget_AppCompat_Toolbar_Subtitle = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Widget_AppCompat_Toolbar_Subtitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.TextAppearance_Widget_AppCompat_Toolbar_Title = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Widget_AppCompat_Toolbar_Title;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_AppCompat_CompactMenu = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_CompactMenu;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_AppCompat_DayNight = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_DayNight;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_AppCompat_DayNight_DarkActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_DayNight_DarkActionBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_AppCompat_DayNight_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_DayNight_Dialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_AppCompat_DayNight_Dialog_Alert = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_DayNight_Dialog_Alert;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_AppCompat_DayNight_Dialog_MinWidth = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_DayNight_Dialog_MinWidth;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_AppCompat_DayNight_DialogWhenLarge = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_DayNight_DialogWhenLarge;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_AppCompat_DayNight_NoActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_DayNight_NoActionBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_AppCompat_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_Dialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_AppCompat_Dialog_Alert = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_Dialog_Alert;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_AppCompat_Dialog_MinWidth = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_Dialog_MinWidth;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_AppCompat_DialogWhenLarge = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_DialogWhenLarge;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_Light;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_AppCompat_Light_DarkActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_Light_DarkActionBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_AppCompat_Light_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_Light_Dialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_AppCompat_Light_Dialog_Alert = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_Light_Dialog_Alert;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_AppCompat_Light_Dialog_MinWidth = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_Light_Dialog_MinWidth;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_AppCompat_Light_DialogWhenLarge = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_Light_DialogWhenLarge;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_AppCompat_Light_NoActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_Light_NoActionBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_AppCompat_NoActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_NoActionBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_Design = global::MvxPluginNugetTest.Android.Resource.Style.Theme_Design;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_Design_BottomSheetDialog = global::MvxPluginNugetTest.Android.Resource.Style.Theme_Design_BottomSheetDialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_Design_Light = global::MvxPluginNugetTest.Android.Resource.Style.Theme_Design_Light;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_Design_Light_BottomSheetDialog = global::MvxPluginNugetTest.Android.Resource.Style.Theme_Design_Light_BottomSheetDialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_Design_Light_NoActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Theme_Design_Light_NoActionBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Theme_Design_NoActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Theme_Design_NoActionBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.ThemeOverlay_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.ThemeOverlay_AppCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.ThemeOverlay_AppCompat_ActionBar = global::MvxPluginNugetTest.Android.Resource.Style.ThemeOverlay_AppCompat_ActionBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.ThemeOverlay_AppCompat_Dark = global::MvxPluginNugetTest.Android.Resource.Style.ThemeOverlay_AppCompat_Dark;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.ThemeOverlay_AppCompat_Dark_ActionBar = global::MvxPluginNugetTest.Android.Resource.Style.ThemeOverlay_AppCompat_Dark_ActionBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.ThemeOverlay_AppCompat_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.ThemeOverlay_AppCompat_Dialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.ThemeOverlay_AppCompat_Dialog_Alert = global::MvxPluginNugetTest.Android.Resource.Style.ThemeOverlay_AppCompat_Dialog_Alert;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.ThemeOverlay_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.ThemeOverlay_AppCompat_Light;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_ActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ActionBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_ActionBar_Solid = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ActionBar_Solid;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_ActionBar_TabBar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ActionBar_TabBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_ActionBar_TabText = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ActionBar_TabText;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_ActionBar_TabView = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ActionBar_TabView;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_ActionButton = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ActionButton;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_ActionButton_CloseMode = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ActionButton_CloseMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_ActionButton_Overflow = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ActionButton_Overflow;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_ActionMode = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ActionMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_ActivityChooserView = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ActivityChooserView;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_AutoCompleteTextView = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_AutoCompleteTextView;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Button = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Button;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Button_Borderless = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Button_Borderless;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Button_Borderless_Colored = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Button_Borderless_Colored;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Button_ButtonBar_AlertDialog = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Button_ButtonBar_AlertDialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Button_Colored = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Button_Colored;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Button_Small = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Button_Small;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_ButtonBar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ButtonBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_ButtonBar_AlertDialog = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ButtonBar_AlertDialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_CompoundButton_CheckBox = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_CompoundButton_CheckBox;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_CompoundButton_RadioButton = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_CompoundButton_RadioButton;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_CompoundButton_Switch = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_CompoundButton_Switch;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_DrawerArrowToggle = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_DrawerArrowToggle;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_DropDownItem_Spinner = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_DropDownItem_Spinner;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_EditText = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_EditText;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_ImageButton = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ImageButton;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Light_ActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Light_ActionBar_TabBar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionBar_TabBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Light_ActionBar_TabBar_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionBar_TabBar_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Light_ActionBar_TabText = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionBar_TabText;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Light_ActionBar_TabText_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionBar_TabText_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Light_ActionBar_TabView = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionBar_TabView;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Light_ActionBar_TabView_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionBar_TabView_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Light_ActionButton = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionButton;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Light_ActionButton_CloseMode = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionButton_CloseMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Light_ActionButton_Overflow = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionButton_Overflow;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Light_ActionMode_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionMode_Inverse;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Light_ActivityChooserView = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActivityChooserView;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Light_AutoCompleteTextView = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_AutoCompleteTextView;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Light_DropDownItem_Spinner = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_DropDownItem_Spinner;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Light_ListPopupWindow = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ListPopupWindow;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Light_ListView_DropDown = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ListView_DropDown;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Light_PopupMenu = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_PopupMenu;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Light_PopupMenu_Overflow = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_PopupMenu_Overflow;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Light_SearchView = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_SearchView;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Light_Spinner_DropDown_ActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_Spinner_DropDown_ActionBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_ListMenuView = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ListMenuView;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_ListPopupWindow = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ListPopupWindow;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_ListView = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ListView;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_ListView_DropDown = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ListView_DropDown;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_ListView_Menu = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ListView_Menu;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_PopupMenu = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_PopupMenu;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_PopupMenu_Overflow = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_PopupMenu_Overflow;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_PopupWindow = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_PopupWindow;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_ProgressBar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ProgressBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_ProgressBar_Horizontal = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ProgressBar_Horizontal;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_RatingBar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_RatingBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_RatingBar_Indicator = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_RatingBar_Indicator;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_RatingBar_Small = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_RatingBar_Small;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_SearchView = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_SearchView;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_SearchView_ActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_SearchView_ActionBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_SeekBar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_SeekBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_SeekBar_Discrete = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_SeekBar_Discrete;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Spinner = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Spinner;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Spinner_DropDown = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Spinner_DropDown;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Spinner_DropDown_ActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Spinner_DropDown_ActionBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Spinner_Underlined = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Spinner_Underlined;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_TextView_SpinnerItem = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_TextView_SpinnerItem;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Toolbar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Toolbar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_AppCompat_Toolbar_Button_Navigation = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Toolbar_Button_Navigation;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_Compat_NotificationActionContainer = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Compat_NotificationActionContainer;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_Compat_NotificationActionText = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Compat_NotificationActionText;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_Design_AppBarLayout = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Design_AppBarLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_Design_BottomNavigationView = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Design_BottomNavigationView;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_Design_BottomSheet_Modal = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Design_BottomSheet_Modal;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_Design_CollapsingToolbar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Design_CollapsingToolbar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_Design_CoordinatorLayout = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Design_CoordinatorLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_Design_FloatingActionButton = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Design_FloatingActionButton;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_Design_NavigationView = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Design_NavigationView;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_Design_ScrimInsetsFrameLayout = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Design_ScrimInsetsFrameLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_Design_Snackbar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Design_Snackbar;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_Design_TabLayout = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Design_TabLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Style.Widget_Design_TextInputLayout = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Design_TextInputLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_background = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_background;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_backgroundSplit = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_backgroundSplit;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_backgroundStacked = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_backgroundStacked;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_contentInsetEnd = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_contentInsetEnd;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_contentInsetEndWithActions = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_contentInsetEndWithActions;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_contentInsetLeft = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_contentInsetLeft;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_contentInsetRight = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_contentInsetRight;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_contentInsetStart = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_contentInsetStart;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_contentInsetStartWithNavigation = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_contentInsetStartWithNavigation;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_customNavigationLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_customNavigationLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_displayOptions = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_displayOptions;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_divider = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_divider;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_elevation = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_elevation;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_height = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_height;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_hideOnContentScroll = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_hideOnContentScroll;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_homeAsUpIndicator = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_homeAsUpIndicator;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_homeLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_homeLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_icon = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_icon;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_indeterminateProgressStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_indeterminateProgressStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_itemPadding = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_itemPadding;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_logo = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_logo;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_navigationMode = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_navigationMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_popupTheme = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_popupTheme;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_progressBarPadding = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_progressBarPadding;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_progressBarStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_progressBarStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_subtitle = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_subtitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_subtitleTextStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_subtitleTextStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_title = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_title;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBar_titleTextStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_titleTextStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBarLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBarLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionBarLayout_android_layout_gravity = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBarLayout_android_layout_gravity;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionMenuItemView = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionMenuItemView;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionMenuItemView_android_minWidth = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionMenuItemView_android_minWidth;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionMenuView = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionMenuView;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionMode = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionMode_background = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionMode_background;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionMode_backgroundSplit = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionMode_backgroundSplit;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionMode_closeItemLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionMode_closeItemLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionMode_height = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionMode_height;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionMode_subtitleTextStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionMode_subtitleTextStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActionMode_titleTextStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionMode_titleTextStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActivityChooserView = global::MvxPluginNugetTest.Android.Resource.Styleable.ActivityChooserView;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActivityChooserView_expandActivityOverflowButtonDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.ActivityChooserView_expandActivityOverflowButtonDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ActivityChooserView_initialActivityCount = global::MvxPluginNugetTest.Android.Resource.Styleable.ActivityChooserView_initialActivityCount;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AlertDialog = global::MvxPluginNugetTest.Android.Resource.Styleable.AlertDialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AlertDialog_android_layout = global::MvxPluginNugetTest.Android.Resource.Styleable.AlertDialog_android_layout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AlertDialog_buttonPanelSideLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.AlertDialog_buttonPanelSideLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AlertDialog_listItemLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.AlertDialog_listItemLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AlertDialog_listLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.AlertDialog_listLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AlertDialog_multiChoiceItemLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.AlertDialog_multiChoiceItemLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AlertDialog_showTitle = global::MvxPluginNugetTest.Android.Resource.Styleable.AlertDialog_showTitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AlertDialog_singleChoiceItemLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.AlertDialog_singleChoiceItemLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppBarLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.AppBarLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppBarLayout_android_background = global::MvxPluginNugetTest.Android.Resource.Styleable.AppBarLayout_android_background;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppBarLayout_android_keyboardNavigationCluster = global::MvxPluginNugetTest.Android.Resource.Styleable.AppBarLayout_android_keyboardNavigationCluster;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppBarLayout_android_touchscreenBlocksFocus = global::MvxPluginNugetTest.Android.Resource.Styleable.AppBarLayout_android_touchscreenBlocksFocus;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppBarLayout_elevation = global::MvxPluginNugetTest.Android.Resource.Styleable.AppBarLayout_elevation;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppBarLayout_expanded = global::MvxPluginNugetTest.Android.Resource.Styleable.AppBarLayout_expanded;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppBarLayoutStates = global::MvxPluginNugetTest.Android.Resource.Styleable.AppBarLayoutStates;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppBarLayoutStates_state_collapsed = global::MvxPluginNugetTest.Android.Resource.Styleable.AppBarLayoutStates_state_collapsed;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppBarLayoutStates_state_collapsible = global::MvxPluginNugetTest.Android.Resource.Styleable.AppBarLayoutStates_state_collapsible;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppBarLayout_Layout = global::MvxPluginNugetTest.Android.Resource.Styleable.AppBarLayout_Layout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppBarLayout_Layout_layout_scrollFlags = global::MvxPluginNugetTest.Android.Resource.Styleable.AppBarLayout_Layout_layout_scrollFlags;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppBarLayout_Layout_layout_scrollInterpolator = global::MvxPluginNugetTest.Android.Resource.Styleable.AppBarLayout_Layout_layout_scrollInterpolator;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatImageView = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatImageView;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatImageView_android_src = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatImageView_android_src;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatImageView_srcCompat = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatImageView_srcCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatImageView_tint = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatImageView_tint;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatImageView_tintMode = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatImageView_tintMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatSeekBar = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatSeekBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatSeekBar_android_thumb = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatSeekBar_android_thumb;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatSeekBar_tickMark = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatSeekBar_tickMark;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatSeekBar_tickMarkTint = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatSeekBar_tickMarkTint;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatSeekBar_tickMarkTintMode = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatSeekBar_tickMarkTintMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTextHelper = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextHelper;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTextHelper_android_drawableBottom = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextHelper_android_drawableBottom;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTextHelper_android_drawableEnd = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextHelper_android_drawableEnd;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTextHelper_android_drawableLeft = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextHelper_android_drawableLeft;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTextHelper_android_drawableRight = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextHelper_android_drawableRight;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTextHelper_android_drawableStart = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextHelper_android_drawableStart;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTextHelper_android_drawableTop = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextHelper_android_drawableTop;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTextHelper_android_textAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextHelper_android_textAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTextView = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextView;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTextView_android_textAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextView_android_textAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTextView_autoSizeMaxTextSize = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextView_autoSizeMaxTextSize;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTextView_autoSizeMinTextSize = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextView_autoSizeMinTextSize;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTextView_autoSizePresetSizes = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextView_autoSizePresetSizes;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTextView_autoSizeStepGranularity = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextView_autoSizeStepGranularity;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTextView_autoSizeTextType = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextView_autoSizeTextType;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTextView_fontFamily = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextView_fontFamily;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTextView_textAllCaps = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextView_textAllCaps;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionBarDivider = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionBarDivider;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionBarItemBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionBarItemBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionBarPopupTheme = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionBarPopupTheme;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionBarSize = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionBarSize;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionBarSplitStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionBarSplitStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionBarStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionBarStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionBarTabBarStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionBarTabBarStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionBarTabStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionBarTabStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionBarTabTextStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionBarTabTextStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionBarTheme = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionBarTheme;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionBarWidgetTheme = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionBarWidgetTheme;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionButtonStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionButtonStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionDropDownStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionDropDownStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionMenuTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionMenuTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionMenuTextColor = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionMenuTextColor;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionModeBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModeBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionModeCloseButtonStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModeCloseButtonStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionModeCloseDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModeCloseDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionModeCopyDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModeCopyDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionModeCutDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModeCutDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionModeFindDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModeFindDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionModePasteDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModePasteDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionModePopupWindowStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModePopupWindowStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionModeSelectAllDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModeSelectAllDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionModeShareDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModeShareDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionModeSplitBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModeSplitBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionModeStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModeStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionModeWebSearchDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModeWebSearchDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionOverflowButtonStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionOverflowButtonStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_actionOverflowMenuStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionOverflowMenuStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_activityChooserViewStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_activityChooserViewStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_alertDialogButtonGroupStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_alertDialogButtonGroupStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_alertDialogCenterButtons = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_alertDialogCenterButtons;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_alertDialogStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_alertDialogStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_alertDialogTheme = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_alertDialogTheme;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_android_windowAnimationStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_android_windowAnimationStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_android_windowIsFloating = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_android_windowIsFloating;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_autoCompleteTextViewStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_autoCompleteTextViewStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_borderlessButtonStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_borderlessButtonStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_buttonBarButtonStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_buttonBarButtonStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_buttonBarNegativeButtonStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_buttonBarNegativeButtonStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_buttonBarNeutralButtonStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_buttonBarNeutralButtonStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_buttonBarPositiveButtonStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_buttonBarPositiveButtonStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_buttonBarStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_buttonBarStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_buttonStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_buttonStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_buttonStyleSmall = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_buttonStyleSmall;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_checkboxStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_checkboxStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_checkedTextViewStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_checkedTextViewStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_colorAccent = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_colorAccent;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_colorBackgroundFloating = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_colorBackgroundFloating;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_colorButtonNormal = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_colorButtonNormal;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_colorControlActivated = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_colorControlActivated;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_colorControlHighlight = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_colorControlHighlight;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_colorControlNormal = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_colorControlNormal;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_colorError = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_colorError;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_colorPrimary = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_colorPrimary;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_colorPrimaryDark = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_colorPrimaryDark;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_colorSwitchThumbNormal = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_colorSwitchThumbNormal;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_controlBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_controlBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_dialogPreferredPadding = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_dialogPreferredPadding;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_dialogTheme = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_dialogTheme;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_dividerHorizontal = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_dividerHorizontal;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_dividerVertical = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_dividerVertical;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_dropDownListViewStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_dropDownListViewStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_dropdownListPreferredItemHeight = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_dropdownListPreferredItemHeight;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_editTextBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_editTextBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_editTextColor = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_editTextColor;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_editTextStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_editTextStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_homeAsUpIndicator = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_homeAsUpIndicator;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_imageButtonStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_imageButtonStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_listChoiceBackgroundIndicator = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_listChoiceBackgroundIndicator;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_listDividerAlertDialog = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_listDividerAlertDialog;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_listMenuViewStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_listMenuViewStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_listPopupWindowStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_listPopupWindowStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_listPreferredItemHeight = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_listPreferredItemHeight;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_listPreferredItemHeightLarge = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_listPreferredItemHeightLarge;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_listPreferredItemHeightSmall = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_listPreferredItemHeightSmall;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingLeft = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingLeft;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingRight = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingRight;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_panelBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_panelBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_panelMenuListTheme = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_panelMenuListTheme;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_panelMenuListWidth = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_panelMenuListWidth;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_popupMenuStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_popupMenuStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_popupWindowStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_popupWindowStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_radioButtonStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_radioButtonStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_ratingBarStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_ratingBarStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_ratingBarStyleIndicator = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_ratingBarStyleIndicator;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_ratingBarStyleSmall = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_ratingBarStyleSmall;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_searchViewStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_searchViewStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_seekBarStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_seekBarStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_selectableItemBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_selectableItemBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_selectableItemBackgroundBorderless = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_selectableItemBackgroundBorderless;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_spinnerDropDownItemStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_spinnerDropDownItemStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_spinnerStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_spinnerStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_switchStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_switchStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_textAppearanceLargePopupMenu = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_textAppearanceLargePopupMenu;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_textAppearanceListItem = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_textAppearanceListItem;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_textAppearanceListItemSecondary = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_textAppearanceListItemSecondary;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_textAppearanceListItemSmall = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_textAppearanceListItemSmall;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_textAppearancePopupMenuHeader = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_textAppearancePopupMenuHeader;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_textAppearanceSearchResultSubtitle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_textAppearanceSearchResultSubtitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_textAppearanceSearchResultTitle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_textAppearanceSearchResultTitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_textAppearanceSmallPopupMenu = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_textAppearanceSmallPopupMenu;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_textColorAlertDialogListItem = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_textColorAlertDialogListItem;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_textColorSearchUrl = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_textColorSearchUrl;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_toolbarNavigationButtonStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_toolbarNavigationButtonStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_toolbarStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_toolbarStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_tooltipForegroundColor = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_tooltipForegroundColor;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_tooltipFrameBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_tooltipFrameBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_windowActionBar = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_windowActionBar;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_windowActionBarOverlay = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_windowActionBarOverlay;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_windowActionModeOverlay = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_windowActionModeOverlay;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_windowFixedHeightMajor = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_windowFixedHeightMajor;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_windowFixedHeightMinor = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_windowFixedHeightMinor;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_windowFixedWidthMajor = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_windowFixedWidthMajor;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_windowFixedWidthMinor = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_windowFixedWidthMinor;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_windowMinWidthMajor = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_windowMinWidthMajor;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_windowMinWidthMinor = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_windowMinWidthMinor;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.AppCompatTheme_windowNoTitle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_windowNoTitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.BottomNavigationView = global::MvxPluginNugetTest.Android.Resource.Styleable.BottomNavigationView;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.BottomNavigationView_elevation = global::MvxPluginNugetTest.Android.Resource.Styleable.BottomNavigationView_elevation;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.BottomNavigationView_itemBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.BottomNavigationView_itemBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.BottomNavigationView_itemIconTint = global::MvxPluginNugetTest.Android.Resource.Styleable.BottomNavigationView_itemIconTint;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.BottomNavigationView_itemTextColor = global::MvxPluginNugetTest.Android.Resource.Styleable.BottomNavigationView_itemTextColor;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.BottomNavigationView_menu = global::MvxPluginNugetTest.Android.Resource.Styleable.BottomNavigationView_menu;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.BottomSheetBehavior_Layout = global::MvxPluginNugetTest.Android.Resource.Styleable.BottomSheetBehavior_Layout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.BottomSheetBehavior_Layout_behavior_hideable = global::MvxPluginNugetTest.Android.Resource.Styleable.BottomSheetBehavior_Layout_behavior_hideable;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.BottomSheetBehavior_Layout_behavior_peekHeight = global::MvxPluginNugetTest.Android.Resource.Styleable.BottomSheetBehavior_Layout_behavior_peekHeight;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.BottomSheetBehavior_Layout_behavior_skipCollapsed = global::MvxPluginNugetTest.Android.Resource.Styleable.BottomSheetBehavior_Layout_behavior_skipCollapsed;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ButtonBarLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.ButtonBarLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ButtonBarLayout_allowStacking = global::MvxPluginNugetTest.Android.Resource.Styleable.ButtonBarLayout_allowStacking;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CollapsingToolbarLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CollapsingToolbarLayout_collapsedTitleGravity = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_collapsedTitleGravity;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CollapsingToolbarLayout_collapsedTitleTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_collapsedTitleTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CollapsingToolbarLayout_contentScrim = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_contentScrim;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CollapsingToolbarLayout_expandedTitleGravity = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_expandedTitleGravity;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMargin = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMargin;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginBottom = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginBottom;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginEnd = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginEnd;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginStart = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginStart;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginTop = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginTop;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CollapsingToolbarLayout_expandedTitleTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_expandedTitleTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CollapsingToolbarLayout_scrimAnimationDuration = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_scrimAnimationDuration;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CollapsingToolbarLayout_scrimVisibleHeightTrigger = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_scrimVisibleHeightTrigger;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CollapsingToolbarLayout_statusBarScrim = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_statusBarScrim;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CollapsingToolbarLayout_title = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_title;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CollapsingToolbarLayout_titleEnabled = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_titleEnabled;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CollapsingToolbarLayout_toolbarId = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_toolbarId;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CollapsingToolbarLayout_Layout = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_Layout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CollapsingToolbarLayout_Layout_layout_collapseMode = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_Layout_layout_collapseMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CollapsingToolbarLayout_Layout_layout_collapseParallaxMultiplier = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_Layout_layout_collapseParallaxMultiplier;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ColorStateListItem = global::MvxPluginNugetTest.Android.Resource.Styleable.ColorStateListItem;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ColorStateListItem_alpha = global::MvxPluginNugetTest.Android.Resource.Styleable.ColorStateListItem_alpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ColorStateListItem_android_alpha = global::MvxPluginNugetTest.Android.Resource.Styleable.ColorStateListItem_android_alpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ColorStateListItem_android_color = global::MvxPluginNugetTest.Android.Resource.Styleable.ColorStateListItem_android_color;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CompoundButton = global::MvxPluginNugetTest.Android.Resource.Styleable.CompoundButton;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CompoundButton_android_button = global::MvxPluginNugetTest.Android.Resource.Styleable.CompoundButton_android_button;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CompoundButton_buttonTint = global::MvxPluginNugetTest.Android.Resource.Styleable.CompoundButton_buttonTint;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CompoundButton_buttonTintMode = global::MvxPluginNugetTest.Android.Resource.Styleable.CompoundButton_buttonTintMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CoordinatorLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.CoordinatorLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CoordinatorLayout_keylines = global::MvxPluginNugetTest.Android.Resource.Styleable.CoordinatorLayout_keylines;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CoordinatorLayout_statusBarBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.CoordinatorLayout_statusBarBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CoordinatorLayout_Layout = global::MvxPluginNugetTest.Android.Resource.Styleable.CoordinatorLayout_Layout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity = global::MvxPluginNugetTest.Android.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor = global::MvxPluginNugetTest.Android.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity = global::MvxPluginNugetTest.Android.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior = global::MvxPluginNugetTest.Android.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges = global::MvxPluginNugetTest.Android.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge = global::MvxPluginNugetTest.Android.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline = global::MvxPluginNugetTest.Android.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.DesignTheme = global::MvxPluginNugetTest.Android.Resource.Styleable.DesignTheme;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.DesignTheme_bottomSheetDialogTheme = global::MvxPluginNugetTest.Android.Resource.Styleable.DesignTheme_bottomSheetDialogTheme;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.DesignTheme_bottomSheetStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.DesignTheme_bottomSheetStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.DesignTheme_textColorError = global::MvxPluginNugetTest.Android.Resource.Styleable.DesignTheme_textColorError;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.DrawerArrowToggle = global::MvxPluginNugetTest.Android.Resource.Styleable.DrawerArrowToggle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.DrawerArrowToggle_arrowHeadLength = global::MvxPluginNugetTest.Android.Resource.Styleable.DrawerArrowToggle_arrowHeadLength;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.DrawerArrowToggle_arrowShaftLength = global::MvxPluginNugetTest.Android.Resource.Styleable.DrawerArrowToggle_arrowShaftLength;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.DrawerArrowToggle_barLength = global::MvxPluginNugetTest.Android.Resource.Styleable.DrawerArrowToggle_barLength;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.DrawerArrowToggle_color = global::MvxPluginNugetTest.Android.Resource.Styleable.DrawerArrowToggle_color;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.DrawerArrowToggle_drawableSize = global::MvxPluginNugetTest.Android.Resource.Styleable.DrawerArrowToggle_drawableSize;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.DrawerArrowToggle_gapBetweenBars = global::MvxPluginNugetTest.Android.Resource.Styleable.DrawerArrowToggle_gapBetweenBars;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.DrawerArrowToggle_spinBars = global::MvxPluginNugetTest.Android.Resource.Styleable.DrawerArrowToggle_spinBars;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.DrawerArrowToggle_thickness = global::MvxPluginNugetTest.Android.Resource.Styleable.DrawerArrowToggle_thickness;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FloatingActionButton = global::MvxPluginNugetTest.Android.Resource.Styleable.FloatingActionButton;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FloatingActionButton_backgroundTint = global::MvxPluginNugetTest.Android.Resource.Styleable.FloatingActionButton_backgroundTint;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FloatingActionButton_backgroundTintMode = global::MvxPluginNugetTest.Android.Resource.Styleable.FloatingActionButton_backgroundTintMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FloatingActionButton_borderWidth = global::MvxPluginNugetTest.Android.Resource.Styleable.FloatingActionButton_borderWidth;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FloatingActionButton_elevation = global::MvxPluginNugetTest.Android.Resource.Styleable.FloatingActionButton_elevation;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FloatingActionButton_fabSize = global::MvxPluginNugetTest.Android.Resource.Styleable.FloatingActionButton_fabSize;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FloatingActionButton_pressedTranslationZ = global::MvxPluginNugetTest.Android.Resource.Styleable.FloatingActionButton_pressedTranslationZ;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FloatingActionButton_rippleColor = global::MvxPluginNugetTest.Android.Resource.Styleable.FloatingActionButton_rippleColor;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FloatingActionButton_useCompatPadding = global::MvxPluginNugetTest.Android.Resource.Styleable.FloatingActionButton_useCompatPadding;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FloatingActionButton_Behavior_Layout = global::MvxPluginNugetTest.Android.Resource.Styleable.FloatingActionButton_Behavior_Layout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FloatingActionButton_Behavior_Layout_behavior_autoHide = global::MvxPluginNugetTest.Android.Resource.Styleable.FloatingActionButton_Behavior_Layout_behavior_autoHide;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FontFamily = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamily;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FontFamily_fontProviderAuthority = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamily_fontProviderAuthority;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FontFamily_fontProviderCerts = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamily_fontProviderCerts;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FontFamily_fontProviderFetchStrategy = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamily_fontProviderFetchStrategy;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FontFamily_fontProviderFetchTimeout = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamily_fontProviderFetchTimeout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FontFamily_fontProviderPackage = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamily_fontProviderPackage;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FontFamily_fontProviderQuery = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamily_fontProviderQuery;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FontFamilyFont = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamilyFont;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FontFamilyFont_android_font = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamilyFont_android_font;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FontFamilyFont_android_fontStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamilyFont_android_fontStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FontFamilyFont_android_fontWeight = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamilyFont_android_fontWeight;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FontFamilyFont_font = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamilyFont_font;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FontFamilyFont_fontStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamilyFont_fontStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.FontFamilyFont_fontWeight = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamilyFont_fontWeight;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ForegroundLinearLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.ForegroundLinearLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ForegroundLinearLayout_android_foreground = global::MvxPluginNugetTest.Android.Resource.Styleable.ForegroundLinearLayout_android_foreground;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ForegroundLinearLayout_android_foregroundGravity = global::MvxPluginNugetTest.Android.Resource.Styleable.ForegroundLinearLayout_android_foregroundGravity;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ForegroundLinearLayout_foregroundInsidePadding = global::MvxPluginNugetTest.Android.Resource.Styleable.ForegroundLinearLayout_foregroundInsidePadding;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.LinearLayoutCompat = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.LinearLayoutCompat_android_baselineAligned = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_android_baselineAligned;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.LinearLayoutCompat_android_baselineAlignedChildIndex = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_android_baselineAlignedChildIndex;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.LinearLayoutCompat_android_gravity = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_android_gravity;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.LinearLayoutCompat_android_orientation = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_android_orientation;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.LinearLayoutCompat_android_weightSum = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_android_weightSum;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.LinearLayoutCompat_divider = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_divider;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.LinearLayoutCompat_dividerPadding = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_dividerPadding;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.LinearLayoutCompat_measureWithLargestChild = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_measureWithLargestChild;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.LinearLayoutCompat_showDividers = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_showDividers;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.LinearLayoutCompat_Layout = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_Layout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_gravity = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_gravity;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_height = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_height;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_weight = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_weight;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_width = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_width;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ListPopupWindow = global::MvxPluginNugetTest.Android.Resource.Styleable.ListPopupWindow;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ListPopupWindow_android_dropDownHorizontalOffset = global::MvxPluginNugetTest.Android.Resource.Styleable.ListPopupWindow_android_dropDownHorizontalOffset;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ListPopupWindow_android_dropDownVerticalOffset = global::MvxPluginNugetTest.Android.Resource.Styleable.ListPopupWindow_android_dropDownVerticalOffset;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuGroup = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuGroup;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuGroup_android_checkableBehavior = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuGroup_android_checkableBehavior;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuGroup_android_enabled = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuGroup_android_enabled;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuGroup_android_id = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuGroup_android_id;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuGroup_android_menuCategory = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuGroup_android_menuCategory;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuGroup_android_orderInCategory = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuGroup_android_orderInCategory;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuGroup_android_visible = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuGroup_android_visible;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuItem = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuItem_actionLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_actionLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuItem_actionProviderClass = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_actionProviderClass;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuItem_actionViewClass = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_actionViewClass;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuItem_alphabeticModifiers = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_alphabeticModifiers;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuItem_android_alphabeticShortcut = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_alphabeticShortcut;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuItem_android_checkable = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_checkable;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuItem_android_checked = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_checked;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuItem_android_enabled = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_enabled;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuItem_android_icon = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_icon;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuItem_android_id = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_id;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuItem_android_menuCategory = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_menuCategory;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuItem_android_numericShortcut = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_numericShortcut;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuItem_android_onClick = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_onClick;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuItem_android_orderInCategory = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_orderInCategory;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuItem_android_title = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_title;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuItem_android_titleCondensed = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_titleCondensed;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuItem_android_visible = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_visible;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuItem_contentDescription = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_contentDescription;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuItem_iconTint = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_iconTint;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuItem_iconTintMode = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_iconTintMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuItem_numericModifiers = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_numericModifiers;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuItem_showAsAction = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_showAsAction;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuItem_tooltipText = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_tooltipText;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuView = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuView;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuView_android_headerBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuView_android_headerBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuView_android_horizontalDivider = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuView_android_horizontalDivider;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuView_android_itemBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuView_android_itemBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuView_android_itemIconDisabledAlpha = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuView_android_itemIconDisabledAlpha;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuView_android_itemTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuView_android_itemTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuView_android_verticalDivider = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuView_android_verticalDivider;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuView_android_windowAnimationStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuView_android_windowAnimationStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuView_preserveIconSpacing = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuView_preserveIconSpacing;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MenuView_subMenuArrow = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuView_subMenuArrow;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MvxBinding = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxBinding;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MvxBinding_MvxBind = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxBinding_MvxBind;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MvxBinding_MvxLang = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxBinding_MvxLang;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MvxControl = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxControl;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MvxControl_MvxTemplate = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxControl_MvxTemplate;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MvxExpandableListView = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxExpandableListView;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MvxExpandableListView_MvxGroupItemTemplate = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxExpandableListView_MvxGroupItemTemplate;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MvxListView = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxListView;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MvxListView_MvxDropDownItemTemplate = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxListView_MvxDropDownItemTemplate;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.MvxListView_MvxItemTemplate = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxListView_MvxItemTemplate;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.NavigationView = global::MvxPluginNugetTest.Android.Resource.Styleable.NavigationView;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.NavigationView_android_background = global::MvxPluginNugetTest.Android.Resource.Styleable.NavigationView_android_background;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.NavigationView_android_fitsSystemWindows = global::MvxPluginNugetTest.Android.Resource.Styleable.NavigationView_android_fitsSystemWindows;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.NavigationView_android_maxWidth = global::MvxPluginNugetTest.Android.Resource.Styleable.NavigationView_android_maxWidth;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.NavigationView_elevation = global::MvxPluginNugetTest.Android.Resource.Styleable.NavigationView_elevation;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.NavigationView_headerLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.NavigationView_headerLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.NavigationView_itemBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.NavigationView_itemBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.NavigationView_itemIconTint = global::MvxPluginNugetTest.Android.Resource.Styleable.NavigationView_itemIconTint;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.NavigationView_itemTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.NavigationView_itemTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.NavigationView_itemTextColor = global::MvxPluginNugetTest.Android.Resource.Styleable.NavigationView_itemTextColor;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.NavigationView_menu = global::MvxPluginNugetTest.Android.Resource.Styleable.NavigationView_menu;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.PopupWindow = global::MvxPluginNugetTest.Android.Resource.Styleable.PopupWindow;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.PopupWindow_android_popupAnimationStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.PopupWindow_android_popupAnimationStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.PopupWindow_android_popupBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.PopupWindow_android_popupBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.PopupWindow_overlapAnchor = global::MvxPluginNugetTest.Android.Resource.Styleable.PopupWindow_overlapAnchor;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.PopupWindowBackgroundState = global::MvxPluginNugetTest.Android.Resource.Styleable.PopupWindowBackgroundState;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.PopupWindowBackgroundState_state_above_anchor = global::MvxPluginNugetTest.Android.Resource.Styleable.PopupWindowBackgroundState_state_above_anchor;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.RecycleListView = global::MvxPluginNugetTest.Android.Resource.Styleable.RecycleListView;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.RecycleListView_paddingBottomNoButtons = global::MvxPluginNugetTest.Android.Resource.Styleable.RecycleListView_paddingBottomNoButtons;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.RecycleListView_paddingTopNoTitle = global::MvxPluginNugetTest.Android.Resource.Styleable.RecycleListView_paddingTopNoTitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.RecyclerView = global::MvxPluginNugetTest.Android.Resource.Styleable.RecyclerView;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.RecyclerView_android_descendantFocusability = global::MvxPluginNugetTest.Android.Resource.Styleable.RecyclerView_android_descendantFocusability;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.RecyclerView_android_orientation = global::MvxPluginNugetTest.Android.Resource.Styleable.RecyclerView_android_orientation;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.RecyclerView_fastScrollEnabled = global::MvxPluginNugetTest.Android.Resource.Styleable.RecyclerView_fastScrollEnabled;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.RecyclerView_fastScrollHorizontalThumbDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.RecyclerView_fastScrollHorizontalThumbDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.RecyclerView_fastScrollHorizontalTrackDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.RecyclerView_fastScrollHorizontalTrackDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.RecyclerView_fastScrollVerticalThumbDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.RecyclerView_fastScrollVerticalThumbDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.RecyclerView_fastScrollVerticalTrackDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.RecyclerView_fastScrollVerticalTrackDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.RecyclerView_layoutManager = global::MvxPluginNugetTest.Android.Resource.Styleable.RecyclerView_layoutManager;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.RecyclerView_reverseLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.RecyclerView_reverseLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.RecyclerView_spanCount = global::MvxPluginNugetTest.Android.Resource.Styleable.RecyclerView_spanCount;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.RecyclerView_stackFromEnd = global::MvxPluginNugetTest.Android.Resource.Styleable.RecyclerView_stackFromEnd;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ScrimInsetsFrameLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.ScrimInsetsFrameLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ScrimInsetsFrameLayout_insetForeground = global::MvxPluginNugetTest.Android.Resource.Styleable.ScrimInsetsFrameLayout_insetForeground;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ScrollingViewBehavior_Layout = global::MvxPluginNugetTest.Android.Resource.Styleable.ScrollingViewBehavior_Layout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ScrollingViewBehavior_Layout_behavior_overlapTop = global::MvxPluginNugetTest.Android.Resource.Styleable.ScrollingViewBehavior_Layout_behavior_overlapTop;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SearchView = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SearchView_android_focusable = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_android_focusable;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SearchView_android_imeOptions = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_android_imeOptions;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SearchView_android_inputType = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_android_inputType;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SearchView_android_maxWidth = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_android_maxWidth;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SearchView_closeIcon = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_closeIcon;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SearchView_commitIcon = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_commitIcon;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SearchView_defaultQueryHint = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_defaultQueryHint;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SearchView_goIcon = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_goIcon;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SearchView_iconifiedByDefault = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_iconifiedByDefault;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SearchView_layout = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_layout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SearchView_queryBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_queryBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SearchView_queryHint = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_queryHint;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SearchView_searchHintIcon = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_searchHintIcon;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SearchView_searchIcon = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_searchIcon;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SearchView_submitBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_submitBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SearchView_suggestionRowLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_suggestionRowLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SearchView_voiceIcon = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_voiceIcon;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SnackbarLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.SnackbarLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SnackbarLayout_android_maxWidth = global::MvxPluginNugetTest.Android.Resource.Styleable.SnackbarLayout_android_maxWidth;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SnackbarLayout_elevation = global::MvxPluginNugetTest.Android.Resource.Styleable.SnackbarLayout_elevation;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SnackbarLayout_maxActionInlineWidth = global::MvxPluginNugetTest.Android.Resource.Styleable.SnackbarLayout_maxActionInlineWidth;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Spinner = global::MvxPluginNugetTest.Android.Resource.Styleable.Spinner;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Spinner_android_dropDownWidth = global::MvxPluginNugetTest.Android.Resource.Styleable.Spinner_android_dropDownWidth;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Spinner_android_entries = global::MvxPluginNugetTest.Android.Resource.Styleable.Spinner_android_entries;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Spinner_android_popupBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.Spinner_android_popupBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Spinner_android_prompt = global::MvxPluginNugetTest.Android.Resource.Styleable.Spinner_android_prompt;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Spinner_popupTheme = global::MvxPluginNugetTest.Android.Resource.Styleable.Spinner_popupTheme;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SwitchCompat = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SwitchCompat_android_textOff = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_android_textOff;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SwitchCompat_android_textOn = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_android_textOn;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SwitchCompat_android_thumb = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_android_thumb;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SwitchCompat_showText = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_showText;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SwitchCompat_splitTrack = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_splitTrack;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SwitchCompat_switchMinWidth = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_switchMinWidth;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SwitchCompat_switchPadding = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_switchPadding;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SwitchCompat_switchTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_switchTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SwitchCompat_thumbTextPadding = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_thumbTextPadding;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SwitchCompat_thumbTint = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_thumbTint;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SwitchCompat_thumbTintMode = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_thumbTintMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SwitchCompat_track = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_track;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SwitchCompat_trackTint = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_trackTint;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.SwitchCompat_trackTintMode = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_trackTintMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TabItem = global::MvxPluginNugetTest.Android.Resource.Styleable.TabItem;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TabItem_android_icon = global::MvxPluginNugetTest.Android.Resource.Styleable.TabItem_android_icon;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TabItem_android_layout = global::MvxPluginNugetTest.Android.Resource.Styleable.TabItem_android_layout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TabItem_android_text = global::MvxPluginNugetTest.Android.Resource.Styleable.TabItem_android_text;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TabLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TabLayout_tabBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabBackground;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TabLayout_tabContentStart = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabContentStart;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TabLayout_tabGravity = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabGravity;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TabLayout_tabIndicatorColor = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabIndicatorColor;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TabLayout_tabIndicatorHeight = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabIndicatorHeight;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TabLayout_tabMaxWidth = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabMaxWidth;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TabLayout_tabMinWidth = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabMinWidth;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TabLayout_tabMode = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TabLayout_tabPadding = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabPadding;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TabLayout_tabPaddingBottom = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabPaddingBottom;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TabLayout_tabPaddingEnd = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabPaddingEnd;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TabLayout_tabPaddingStart = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabPaddingStart;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TabLayout_tabPaddingTop = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabPaddingTop;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TabLayout_tabSelectedTextColor = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabSelectedTextColor;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TabLayout_tabTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TabLayout_tabTextColor = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabTextColor;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextAppearance_android_fontFamily = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_android_fontFamily;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextAppearance_android_shadowColor = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_android_shadowColor;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextAppearance_android_shadowDx = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_android_shadowDx;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextAppearance_android_shadowDy = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_android_shadowDy;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextAppearance_android_shadowRadius = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_android_shadowRadius;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextAppearance_android_textColor = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_android_textColor;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextAppearance_android_textColorHint = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_android_textColorHint;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextAppearance_android_textColorLink = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_android_textColorLink;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextAppearance_android_textSize = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_android_textSize;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextAppearance_android_textStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_android_textStyle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextAppearance_android_typeface = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_android_typeface;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextAppearance_fontFamily = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_fontFamily;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextAppearance_textAllCaps = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_textAllCaps;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextInputLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextInputLayout_android_hint = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_android_hint;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextInputLayout_android_textColorHint = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_android_textColorHint;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextInputLayout_counterEnabled = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_counterEnabled;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextInputLayout_counterMaxLength = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_counterMaxLength;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextInputLayout_counterOverflowTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_counterOverflowTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextInputLayout_counterTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_counterTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextInputLayout_errorEnabled = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_errorEnabled;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextInputLayout_errorTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_errorTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextInputLayout_hintAnimationEnabled = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_hintAnimationEnabled;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextInputLayout_hintEnabled = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_hintEnabled;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextInputLayout_hintTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_hintTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextInputLayout_passwordToggleContentDescription = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_passwordToggleContentDescription;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextInputLayout_passwordToggleDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_passwordToggleDrawable;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextInputLayout_passwordToggleEnabled = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_passwordToggleEnabled;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextInputLayout_passwordToggleTint = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_passwordToggleTint;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.TextInputLayout_passwordToggleTintMode = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_passwordToggleTintMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_android_gravity = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_android_gravity;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_android_minHeight = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_android_minHeight;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_buttonGravity = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_buttonGravity;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_collapseContentDescription = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_collapseContentDescription;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_collapseIcon = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_collapseIcon;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_contentInsetEnd = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_contentInsetEnd;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_contentInsetEndWithActions = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_contentInsetEndWithActions;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_contentInsetLeft = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_contentInsetLeft;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_contentInsetRight = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_contentInsetRight;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_contentInsetStart = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_contentInsetStart;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_contentInsetStartWithNavigation = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_contentInsetStartWithNavigation;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_logo = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_logo;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_logoDescription = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_logoDescription;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_maxButtonHeight = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_maxButtonHeight;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_navigationContentDescription = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_navigationContentDescription;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_navigationIcon = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_navigationIcon;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_popupTheme = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_popupTheme;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_subtitle = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_subtitle;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_subtitleTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_subtitleTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_subtitleTextColor = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_subtitleTextColor;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_title = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_title;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_titleMargin = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_titleMargin;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_titleMarginBottom = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_titleMarginBottom;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_titleMarginEnd = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_titleMarginEnd;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_titleMarginStart = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_titleMarginStart;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_titleMarginTop = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_titleMarginTop;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_titleMargins = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_titleMargins;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_titleTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_titleTextAppearance;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.Toolbar_titleTextColor = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_titleTextColor;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.View = global::MvxPluginNugetTest.Android.Resource.Styleable.View;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.View_android_focusable = global::MvxPluginNugetTest.Android.Resource.Styleable.View_android_focusable;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.View_android_theme = global::MvxPluginNugetTest.Android.Resource.Styleable.View_android_theme;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.View_paddingEnd = global::MvxPluginNugetTest.Android.Resource.Styleable.View_paddingEnd;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.View_paddingStart = global::MvxPluginNugetTest.Android.Resource.Styleable.View_paddingStart;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.View_theme = global::MvxPluginNugetTest.Android.Resource.Styleable.View_theme;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ViewBackgroundHelper = global::MvxPluginNugetTest.Android.Resource.Styleable.ViewBackgroundHelper;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ViewBackgroundHelper_android_background = global::MvxPluginNugetTest.Android.Resource.Styleable.ViewBackgroundHelper_android_background;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ViewBackgroundHelper_backgroundTint = global::MvxPluginNugetTest.Android.Resource.Styleable.ViewBackgroundHelper_backgroundTint;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ViewBackgroundHelper_backgroundTintMode = global::MvxPluginNugetTest.Android.Resource.Styleable.ViewBackgroundHelper_backgroundTintMode;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ViewStubCompat = global::MvxPluginNugetTest.Android.Resource.Styleable.ViewStubCompat;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ViewStubCompat_android_id = global::MvxPluginNugetTest.Android.Resource.Styleable.ViewStubCompat_android_id;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ViewStubCompat_android_inflatedId = global::MvxPluginNugetTest.Android.Resource.Styleable.ViewStubCompat_android_inflatedId;
+			global::MvvmCross.Droid.Support.Design.Resource.Styleable.ViewStubCompat_android_layout = global::MvxPluginNugetTest.Android.Resource.Styleable.ViewStubCompat_android_layout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Animation.abc_fade_in = global::MvxPluginNugetTest.Android.Resource.Animation.abc_fade_in;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Animation.abc_fade_out = global::MvxPluginNugetTest.Android.Resource.Animation.abc_fade_out;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Animation.abc_grow_fade_in_from_bottom = global::MvxPluginNugetTest.Android.Resource.Animation.abc_grow_fade_in_from_bottom;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Animation.abc_popup_enter = global::MvxPluginNugetTest.Android.Resource.Animation.abc_popup_enter;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Animation.abc_popup_exit = global::MvxPluginNugetTest.Android.Resource.Animation.abc_popup_exit;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Animation.abc_shrink_fade_out_from_bottom = global::MvxPluginNugetTest.Android.Resource.Animation.abc_shrink_fade_out_from_bottom;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Animation.abc_slide_in_bottom = global::MvxPluginNugetTest.Android.Resource.Animation.abc_slide_in_bottom;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Animation.abc_slide_in_top = global::MvxPluginNugetTest.Android.Resource.Animation.abc_slide_in_top;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Animation.abc_slide_out_bottom = global::MvxPluginNugetTest.Android.Resource.Animation.abc_slide_out_bottom;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Animation.abc_slide_out_top = global::MvxPluginNugetTest.Android.Resource.Animation.abc_slide_out_top;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Animation.design_bottom_sheet_slide_in = global::MvxPluginNugetTest.Android.Resource.Animation.design_bottom_sheet_slide_in;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Animation.design_bottom_sheet_slide_out = global::MvxPluginNugetTest.Android.Resource.Animation.design_bottom_sheet_slide_out;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Animation.design_snackbar_in = global::MvxPluginNugetTest.Android.Resource.Animation.design_snackbar_in;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Animation.design_snackbar_out = global::MvxPluginNugetTest.Android.Resource.Animation.design_snackbar_out;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Animation.tooltip_enter = global::MvxPluginNugetTest.Android.Resource.Animation.tooltip_enter;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Animation.tooltip_exit = global::MvxPluginNugetTest.Android.Resource.Animation.tooltip_exit;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Animator.design_appbar_state_list_animator = global::MvxPluginNugetTest.Android.Resource.Animator.design_appbar_state_list_animator;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.MvxBind = global::MvxPluginNugetTest.Android.Resource.Attribute.MvxBind;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.MvxDropDownItemTemplate = global::MvxPluginNugetTest.Android.Resource.Attribute.MvxDropDownItemTemplate;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.MvxGroupItemTemplate = global::MvxPluginNugetTest.Android.Resource.Attribute.MvxGroupItemTemplate;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.MvxItemTemplate = global::MvxPluginNugetTest.Android.Resource.Attribute.MvxItemTemplate;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.MvxLang = global::MvxPluginNugetTest.Android.Resource.Attribute.MvxLang;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.MvxTemplate = global::MvxPluginNugetTest.Android.Resource.Attribute.MvxTemplate;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionBarDivider = global::MvxPluginNugetTest.Android.Resource.Attribute.actionBarDivider;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionBarItemBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.actionBarItemBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionBarPopupTheme = global::MvxPluginNugetTest.Android.Resource.Attribute.actionBarPopupTheme;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionBarSize = global::MvxPluginNugetTest.Android.Resource.Attribute.actionBarSize;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionBarSplitStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.actionBarSplitStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionBarStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.actionBarStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionBarTabBarStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.actionBarTabBarStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionBarTabStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.actionBarTabStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionBarTabTextStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.actionBarTabTextStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionBarTheme = global::MvxPluginNugetTest.Android.Resource.Attribute.actionBarTheme;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionBarWidgetTheme = global::MvxPluginNugetTest.Android.Resource.Attribute.actionBarWidgetTheme;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionButtonStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.actionButtonStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionDropDownStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.actionDropDownStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionLayout = global::MvxPluginNugetTest.Android.Resource.Attribute.actionLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionMenuTextAppearance = global::MvxPluginNugetTest.Android.Resource.Attribute.actionMenuTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionMenuTextColor = global::MvxPluginNugetTest.Android.Resource.Attribute.actionMenuTextColor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionModeBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModeBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionModeCloseButtonStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModeCloseButtonStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionModeCloseDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModeCloseDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionModeCopyDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModeCopyDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionModeCutDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModeCutDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionModeFindDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModeFindDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionModePasteDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModePasteDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionModePopupWindowStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModePopupWindowStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionModeSelectAllDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModeSelectAllDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionModeShareDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModeShareDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionModeSplitBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModeSplitBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionModeStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModeStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionModeWebSearchDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.actionModeWebSearchDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionOverflowButtonStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.actionOverflowButtonStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionOverflowMenuStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.actionOverflowMenuStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionProviderClass = global::MvxPluginNugetTest.Android.Resource.Attribute.actionProviderClass;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.actionViewClass = global::MvxPluginNugetTest.Android.Resource.Attribute.actionViewClass;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.activityChooserViewStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.activityChooserViewStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.alertDialogButtonGroupStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.alertDialogButtonGroupStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.alertDialogCenterButtons = global::MvxPluginNugetTest.Android.Resource.Attribute.alertDialogCenterButtons;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.alertDialogStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.alertDialogStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.alertDialogTheme = global::MvxPluginNugetTest.Android.Resource.Attribute.alertDialogTheme;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.allowStacking = global::MvxPluginNugetTest.Android.Resource.Attribute.allowStacking;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.alpha = global::MvxPluginNugetTest.Android.Resource.Attribute.alpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.alphabeticModifiers = global::MvxPluginNugetTest.Android.Resource.Attribute.alphabeticModifiers;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.arrowHeadLength = global::MvxPluginNugetTest.Android.Resource.Attribute.arrowHeadLength;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.arrowShaftLength = global::MvxPluginNugetTest.Android.Resource.Attribute.arrowShaftLength;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.autoCompleteTextViewStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.autoCompleteTextViewStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.autoSizeMaxTextSize = global::MvxPluginNugetTest.Android.Resource.Attribute.autoSizeMaxTextSize;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.autoSizeMinTextSize = global::MvxPluginNugetTest.Android.Resource.Attribute.autoSizeMinTextSize;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.autoSizePresetSizes = global::MvxPluginNugetTest.Android.Resource.Attribute.autoSizePresetSizes;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.autoSizeStepGranularity = global::MvxPluginNugetTest.Android.Resource.Attribute.autoSizeStepGranularity;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.autoSizeTextType = global::MvxPluginNugetTest.Android.Resource.Attribute.autoSizeTextType;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.background = global::MvxPluginNugetTest.Android.Resource.Attribute.background;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.backgroundSplit = global::MvxPluginNugetTest.Android.Resource.Attribute.backgroundSplit;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.backgroundStacked = global::MvxPluginNugetTest.Android.Resource.Attribute.backgroundStacked;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.backgroundTint = global::MvxPluginNugetTest.Android.Resource.Attribute.backgroundTint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.backgroundTintMode = global::MvxPluginNugetTest.Android.Resource.Attribute.backgroundTintMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.barLength = global::MvxPluginNugetTest.Android.Resource.Attribute.barLength;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.behavior_autoHide = global::MvxPluginNugetTest.Android.Resource.Attribute.behavior_autoHide;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.behavior_hideable = global::MvxPluginNugetTest.Android.Resource.Attribute.behavior_hideable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.behavior_overlapTop = global::MvxPluginNugetTest.Android.Resource.Attribute.behavior_overlapTop;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.behavior_peekHeight = global::MvxPluginNugetTest.Android.Resource.Attribute.behavior_peekHeight;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.behavior_skipCollapsed = global::MvxPluginNugetTest.Android.Resource.Attribute.behavior_skipCollapsed;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.borderWidth = global::MvxPluginNugetTest.Android.Resource.Attribute.borderWidth;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.borderlessButtonStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.borderlessButtonStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.bottomSheetDialogTheme = global::MvxPluginNugetTest.Android.Resource.Attribute.bottomSheetDialogTheme;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.bottomSheetStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.bottomSheetStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.buttonBarButtonStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.buttonBarButtonStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.buttonBarNegativeButtonStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.buttonBarNegativeButtonStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.buttonBarNeutralButtonStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.buttonBarNeutralButtonStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.buttonBarPositiveButtonStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.buttonBarPositiveButtonStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.buttonBarStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.buttonBarStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.buttonGravity = global::MvxPluginNugetTest.Android.Resource.Attribute.buttonGravity;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.buttonPanelSideLayout = global::MvxPluginNugetTest.Android.Resource.Attribute.buttonPanelSideLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.buttonStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.buttonStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.buttonStyleSmall = global::MvxPluginNugetTest.Android.Resource.Attribute.buttonStyleSmall;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.buttonTint = global::MvxPluginNugetTest.Android.Resource.Attribute.buttonTint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.buttonTintMode = global::MvxPluginNugetTest.Android.Resource.Attribute.buttonTintMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.checkboxStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.checkboxStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.checkedTextViewStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.checkedTextViewStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.closeIcon = global::MvxPluginNugetTest.Android.Resource.Attribute.closeIcon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.closeItemLayout = global::MvxPluginNugetTest.Android.Resource.Attribute.closeItemLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.collapseContentDescription = global::MvxPluginNugetTest.Android.Resource.Attribute.collapseContentDescription;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.collapseIcon = global::MvxPluginNugetTest.Android.Resource.Attribute.collapseIcon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.collapsedTitleGravity = global::MvxPluginNugetTest.Android.Resource.Attribute.collapsedTitleGravity;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.collapsedTitleTextAppearance = global::MvxPluginNugetTest.Android.Resource.Attribute.collapsedTitleTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.color = global::MvxPluginNugetTest.Android.Resource.Attribute.color;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.colorAccent = global::MvxPluginNugetTest.Android.Resource.Attribute.colorAccent;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.colorBackgroundFloating = global::MvxPluginNugetTest.Android.Resource.Attribute.colorBackgroundFloating;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.colorButtonNormal = global::MvxPluginNugetTest.Android.Resource.Attribute.colorButtonNormal;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.colorControlActivated = global::MvxPluginNugetTest.Android.Resource.Attribute.colorControlActivated;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.colorControlHighlight = global::MvxPluginNugetTest.Android.Resource.Attribute.colorControlHighlight;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.colorControlNormal = global::MvxPluginNugetTest.Android.Resource.Attribute.colorControlNormal;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.colorError = global::MvxPluginNugetTest.Android.Resource.Attribute.colorError;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.colorPrimary = global::MvxPluginNugetTest.Android.Resource.Attribute.colorPrimary;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.colorPrimaryDark = global::MvxPluginNugetTest.Android.Resource.Attribute.colorPrimaryDark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.colorSwitchThumbNormal = global::MvxPluginNugetTest.Android.Resource.Attribute.colorSwitchThumbNormal;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.commitIcon = global::MvxPluginNugetTest.Android.Resource.Attribute.commitIcon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.contentDescription = global::MvxPluginNugetTest.Android.Resource.Attribute.contentDescription;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.contentInsetEnd = global::MvxPluginNugetTest.Android.Resource.Attribute.contentInsetEnd;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.contentInsetEndWithActions = global::MvxPluginNugetTest.Android.Resource.Attribute.contentInsetEndWithActions;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.contentInsetLeft = global::MvxPluginNugetTest.Android.Resource.Attribute.contentInsetLeft;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.contentInsetRight = global::MvxPluginNugetTest.Android.Resource.Attribute.contentInsetRight;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.contentInsetStart = global::MvxPluginNugetTest.Android.Resource.Attribute.contentInsetStart;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.contentInsetStartWithNavigation = global::MvxPluginNugetTest.Android.Resource.Attribute.contentInsetStartWithNavigation;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.contentScrim = global::MvxPluginNugetTest.Android.Resource.Attribute.contentScrim;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.controlBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.controlBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.counterEnabled = global::MvxPluginNugetTest.Android.Resource.Attribute.counterEnabled;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.counterMaxLength = global::MvxPluginNugetTest.Android.Resource.Attribute.counterMaxLength;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.counterOverflowTextAppearance = global::MvxPluginNugetTest.Android.Resource.Attribute.counterOverflowTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.counterTextAppearance = global::MvxPluginNugetTest.Android.Resource.Attribute.counterTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.customNavigationLayout = global::MvxPluginNugetTest.Android.Resource.Attribute.customNavigationLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.defaultQueryHint = global::MvxPluginNugetTest.Android.Resource.Attribute.defaultQueryHint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.dialogPreferredPadding = global::MvxPluginNugetTest.Android.Resource.Attribute.dialogPreferredPadding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.dialogTheme = global::MvxPluginNugetTest.Android.Resource.Attribute.dialogTheme;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.displayOptions = global::MvxPluginNugetTest.Android.Resource.Attribute.displayOptions;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.divider = global::MvxPluginNugetTest.Android.Resource.Attribute.divider;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.dividerHorizontal = global::MvxPluginNugetTest.Android.Resource.Attribute.dividerHorizontal;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.dividerPadding = global::MvxPluginNugetTest.Android.Resource.Attribute.dividerPadding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.dividerVertical = global::MvxPluginNugetTest.Android.Resource.Attribute.dividerVertical;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.drawableSize = global::MvxPluginNugetTest.Android.Resource.Attribute.drawableSize;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.drawerArrowStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.drawerArrowStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.dropDownListViewStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.dropDownListViewStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.dropdownListPreferredItemHeight = global::MvxPluginNugetTest.Android.Resource.Attribute.dropdownListPreferredItemHeight;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.editTextBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.editTextBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.editTextColor = global::MvxPluginNugetTest.Android.Resource.Attribute.editTextColor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.editTextStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.editTextStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.elevation = global::MvxPluginNugetTest.Android.Resource.Attribute.elevation;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.errorEnabled = global::MvxPluginNugetTest.Android.Resource.Attribute.errorEnabled;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.errorTextAppearance = global::MvxPluginNugetTest.Android.Resource.Attribute.errorTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.expandActivityOverflowButtonDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.expandActivityOverflowButtonDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.expanded = global::MvxPluginNugetTest.Android.Resource.Attribute.expanded;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.expandedTitleGravity = global::MvxPluginNugetTest.Android.Resource.Attribute.expandedTitleGravity;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.expandedTitleMargin = global::MvxPluginNugetTest.Android.Resource.Attribute.expandedTitleMargin;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.expandedTitleMarginBottom = global::MvxPluginNugetTest.Android.Resource.Attribute.expandedTitleMarginBottom;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.expandedTitleMarginEnd = global::MvxPluginNugetTest.Android.Resource.Attribute.expandedTitleMarginEnd;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.expandedTitleMarginStart = global::MvxPluginNugetTest.Android.Resource.Attribute.expandedTitleMarginStart;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.expandedTitleMarginTop = global::MvxPluginNugetTest.Android.Resource.Attribute.expandedTitleMarginTop;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.expandedTitleTextAppearance = global::MvxPluginNugetTest.Android.Resource.Attribute.expandedTitleTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.fabSize = global::MvxPluginNugetTest.Android.Resource.Attribute.fabSize;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.fastScrollEnabled = global::MvxPluginNugetTest.Android.Resource.Attribute.fastScrollEnabled;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.fastScrollHorizontalThumbDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.fastScrollHorizontalThumbDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.fastScrollHorizontalTrackDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.fastScrollHorizontalTrackDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.fastScrollVerticalThumbDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.fastScrollVerticalThumbDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.fastScrollVerticalTrackDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.fastScrollVerticalTrackDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.font = global::MvxPluginNugetTest.Android.Resource.Attribute.font;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.fontFamily = global::MvxPluginNugetTest.Android.Resource.Attribute.fontFamily;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.fontProviderAuthority = global::MvxPluginNugetTest.Android.Resource.Attribute.fontProviderAuthority;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.fontProviderCerts = global::MvxPluginNugetTest.Android.Resource.Attribute.fontProviderCerts;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.fontProviderFetchStrategy = global::MvxPluginNugetTest.Android.Resource.Attribute.fontProviderFetchStrategy;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.fontProviderFetchTimeout = global::MvxPluginNugetTest.Android.Resource.Attribute.fontProviderFetchTimeout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.fontProviderPackage = global::MvxPluginNugetTest.Android.Resource.Attribute.fontProviderPackage;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.fontProviderQuery = global::MvxPluginNugetTest.Android.Resource.Attribute.fontProviderQuery;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.fontStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.fontStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.fontWeight = global::MvxPluginNugetTest.Android.Resource.Attribute.fontWeight;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.foregroundInsidePadding = global::MvxPluginNugetTest.Android.Resource.Attribute.foregroundInsidePadding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.gapBetweenBars = global::MvxPluginNugetTest.Android.Resource.Attribute.gapBetweenBars;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.goIcon = global::MvxPluginNugetTest.Android.Resource.Attribute.goIcon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.headerLayout = global::MvxPluginNugetTest.Android.Resource.Attribute.headerLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.height = global::MvxPluginNugetTest.Android.Resource.Attribute.height;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.hideOnContentScroll = global::MvxPluginNugetTest.Android.Resource.Attribute.hideOnContentScroll;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.hintAnimationEnabled = global::MvxPluginNugetTest.Android.Resource.Attribute.hintAnimationEnabled;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.hintEnabled = global::MvxPluginNugetTest.Android.Resource.Attribute.hintEnabled;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.hintTextAppearance = global::MvxPluginNugetTest.Android.Resource.Attribute.hintTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.homeAsUpIndicator = global::MvxPluginNugetTest.Android.Resource.Attribute.homeAsUpIndicator;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.homeLayout = global::MvxPluginNugetTest.Android.Resource.Attribute.homeLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.icon = global::MvxPluginNugetTest.Android.Resource.Attribute.icon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.iconTint = global::MvxPluginNugetTest.Android.Resource.Attribute.iconTint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.iconTintMode = global::MvxPluginNugetTest.Android.Resource.Attribute.iconTintMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.iconifiedByDefault = global::MvxPluginNugetTest.Android.Resource.Attribute.iconifiedByDefault;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.imageButtonStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.imageButtonStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.indeterminateProgressStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.indeterminateProgressStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.initialActivityCount = global::MvxPluginNugetTest.Android.Resource.Attribute.initialActivityCount;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.insetForeground = global::MvxPluginNugetTest.Android.Resource.Attribute.insetForeground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.isLightTheme = global::MvxPluginNugetTest.Android.Resource.Attribute.isLightTheme;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.itemBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.itemBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.itemIconTint = global::MvxPluginNugetTest.Android.Resource.Attribute.itemIconTint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.itemPadding = global::MvxPluginNugetTest.Android.Resource.Attribute.itemPadding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.itemTextAppearance = global::MvxPluginNugetTest.Android.Resource.Attribute.itemTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.itemTextColor = global::MvxPluginNugetTest.Android.Resource.Attribute.itemTextColor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.keylines = global::MvxPluginNugetTest.Android.Resource.Attribute.keylines;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.layout = global::MvxPluginNugetTest.Android.Resource.Attribute.layout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.layoutManager = global::MvxPluginNugetTest.Android.Resource.Attribute.layoutManager;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.layout_anchor = global::MvxPluginNugetTest.Android.Resource.Attribute.layout_anchor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.layout_anchorGravity = global::MvxPluginNugetTest.Android.Resource.Attribute.layout_anchorGravity;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.layout_behavior = global::MvxPluginNugetTest.Android.Resource.Attribute.layout_behavior;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.layout_collapseMode = global::MvxPluginNugetTest.Android.Resource.Attribute.layout_collapseMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.layout_collapseParallaxMultiplier = global::MvxPluginNugetTest.Android.Resource.Attribute.layout_collapseParallaxMultiplier;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.layout_dodgeInsetEdges = global::MvxPluginNugetTest.Android.Resource.Attribute.layout_dodgeInsetEdges;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.layout_insetEdge = global::MvxPluginNugetTest.Android.Resource.Attribute.layout_insetEdge;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.layout_keyline = global::MvxPluginNugetTest.Android.Resource.Attribute.layout_keyline;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.layout_scrollFlags = global::MvxPluginNugetTest.Android.Resource.Attribute.layout_scrollFlags;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.layout_scrollInterpolator = global::MvxPluginNugetTest.Android.Resource.Attribute.layout_scrollInterpolator;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.listChoiceBackgroundIndicator = global::MvxPluginNugetTest.Android.Resource.Attribute.listChoiceBackgroundIndicator;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.listDividerAlertDialog = global::MvxPluginNugetTest.Android.Resource.Attribute.listDividerAlertDialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.listItemLayout = global::MvxPluginNugetTest.Android.Resource.Attribute.listItemLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.listLayout = global::MvxPluginNugetTest.Android.Resource.Attribute.listLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.listMenuViewStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.listMenuViewStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.listPopupWindowStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.listPopupWindowStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.listPreferredItemHeight = global::MvxPluginNugetTest.Android.Resource.Attribute.listPreferredItemHeight;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.listPreferredItemHeightLarge = global::MvxPluginNugetTest.Android.Resource.Attribute.listPreferredItemHeightLarge;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.listPreferredItemHeightSmall = global::MvxPluginNugetTest.Android.Resource.Attribute.listPreferredItemHeightSmall;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.listPreferredItemPaddingLeft = global::MvxPluginNugetTest.Android.Resource.Attribute.listPreferredItemPaddingLeft;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.listPreferredItemPaddingRight = global::MvxPluginNugetTest.Android.Resource.Attribute.listPreferredItemPaddingRight;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.logo = global::MvxPluginNugetTest.Android.Resource.Attribute.logo;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.logoDescription = global::MvxPluginNugetTest.Android.Resource.Attribute.logoDescription;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.maxActionInlineWidth = global::MvxPluginNugetTest.Android.Resource.Attribute.maxActionInlineWidth;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.maxButtonHeight = global::MvxPluginNugetTest.Android.Resource.Attribute.maxButtonHeight;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.measureWithLargestChild = global::MvxPluginNugetTest.Android.Resource.Attribute.measureWithLargestChild;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.menu = global::MvxPluginNugetTest.Android.Resource.Attribute.menu;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.multiChoiceItemLayout = global::MvxPluginNugetTest.Android.Resource.Attribute.multiChoiceItemLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.navigationContentDescription = global::MvxPluginNugetTest.Android.Resource.Attribute.navigationContentDescription;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.navigationIcon = global::MvxPluginNugetTest.Android.Resource.Attribute.navigationIcon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.navigationMode = global::MvxPluginNugetTest.Android.Resource.Attribute.navigationMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.numericModifiers = global::MvxPluginNugetTest.Android.Resource.Attribute.numericModifiers;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.overlapAnchor = global::MvxPluginNugetTest.Android.Resource.Attribute.overlapAnchor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.paddingBottomNoButtons = global::MvxPluginNugetTest.Android.Resource.Attribute.paddingBottomNoButtons;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.paddingEnd = global::MvxPluginNugetTest.Android.Resource.Attribute.paddingEnd;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.paddingStart = global::MvxPluginNugetTest.Android.Resource.Attribute.paddingStart;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.paddingTopNoTitle = global::MvxPluginNugetTest.Android.Resource.Attribute.paddingTopNoTitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.panelBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.panelBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.panelMenuListTheme = global::MvxPluginNugetTest.Android.Resource.Attribute.panelMenuListTheme;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.panelMenuListWidth = global::MvxPluginNugetTest.Android.Resource.Attribute.panelMenuListWidth;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.passwordToggleContentDescription = global::MvxPluginNugetTest.Android.Resource.Attribute.passwordToggleContentDescription;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.passwordToggleDrawable = global::MvxPluginNugetTest.Android.Resource.Attribute.passwordToggleDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.passwordToggleEnabled = global::MvxPluginNugetTest.Android.Resource.Attribute.passwordToggleEnabled;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.passwordToggleTint = global::MvxPluginNugetTest.Android.Resource.Attribute.passwordToggleTint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.passwordToggleTintMode = global::MvxPluginNugetTest.Android.Resource.Attribute.passwordToggleTintMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.popupMenuStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.popupMenuStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.popupTheme = global::MvxPluginNugetTest.Android.Resource.Attribute.popupTheme;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.popupWindowStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.popupWindowStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.preserveIconSpacing = global::MvxPluginNugetTest.Android.Resource.Attribute.preserveIconSpacing;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.pressedTranslationZ = global::MvxPluginNugetTest.Android.Resource.Attribute.pressedTranslationZ;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.progressBarPadding = global::MvxPluginNugetTest.Android.Resource.Attribute.progressBarPadding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.progressBarStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.progressBarStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.queryBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.queryBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.queryHint = global::MvxPluginNugetTest.Android.Resource.Attribute.queryHint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.radioButtonStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.radioButtonStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.ratingBarStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.ratingBarStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.ratingBarStyleIndicator = global::MvxPluginNugetTest.Android.Resource.Attribute.ratingBarStyleIndicator;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.ratingBarStyleSmall = global::MvxPluginNugetTest.Android.Resource.Attribute.ratingBarStyleSmall;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.reverseLayout = global::MvxPluginNugetTest.Android.Resource.Attribute.reverseLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.rippleColor = global::MvxPluginNugetTest.Android.Resource.Attribute.rippleColor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.scrimAnimationDuration = global::MvxPluginNugetTest.Android.Resource.Attribute.scrimAnimationDuration;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.scrimVisibleHeightTrigger = global::MvxPluginNugetTest.Android.Resource.Attribute.scrimVisibleHeightTrigger;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.searchHintIcon = global::MvxPluginNugetTest.Android.Resource.Attribute.searchHintIcon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.searchIcon = global::MvxPluginNugetTest.Android.Resource.Attribute.searchIcon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.searchViewStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.searchViewStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.seekBarStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.seekBarStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.selectableItemBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.selectableItemBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.selectableItemBackgroundBorderless = global::MvxPluginNugetTest.Android.Resource.Attribute.selectableItemBackgroundBorderless;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.showAsAction = global::MvxPluginNugetTest.Android.Resource.Attribute.showAsAction;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.showDividers = global::MvxPluginNugetTest.Android.Resource.Attribute.showDividers;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.showText = global::MvxPluginNugetTest.Android.Resource.Attribute.showText;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.showTitle = global::MvxPluginNugetTest.Android.Resource.Attribute.showTitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.singleChoiceItemLayout = global::MvxPluginNugetTest.Android.Resource.Attribute.singleChoiceItemLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.spanCount = global::MvxPluginNugetTest.Android.Resource.Attribute.spanCount;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.spinBars = global::MvxPluginNugetTest.Android.Resource.Attribute.spinBars;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.spinnerDropDownItemStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.spinnerDropDownItemStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.spinnerStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.spinnerStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.splitTrack = global::MvxPluginNugetTest.Android.Resource.Attribute.splitTrack;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.srcCompat = global::MvxPluginNugetTest.Android.Resource.Attribute.srcCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.stackFromEnd = global::MvxPluginNugetTest.Android.Resource.Attribute.stackFromEnd;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.state_above_anchor = global::MvxPluginNugetTest.Android.Resource.Attribute.state_above_anchor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.state_collapsed = global::MvxPluginNugetTest.Android.Resource.Attribute.state_collapsed;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.state_collapsible = global::MvxPluginNugetTest.Android.Resource.Attribute.state_collapsible;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.statusBarBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.statusBarBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.statusBarScrim = global::MvxPluginNugetTest.Android.Resource.Attribute.statusBarScrim;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.subMenuArrow = global::MvxPluginNugetTest.Android.Resource.Attribute.subMenuArrow;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.submitBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.submitBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.subtitle = global::MvxPluginNugetTest.Android.Resource.Attribute.subtitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.subtitleTextAppearance = global::MvxPluginNugetTest.Android.Resource.Attribute.subtitleTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.subtitleTextColor = global::MvxPluginNugetTest.Android.Resource.Attribute.subtitleTextColor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.subtitleTextStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.subtitleTextStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.suggestionRowLayout = global::MvxPluginNugetTest.Android.Resource.Attribute.suggestionRowLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.switchMinWidth = global::MvxPluginNugetTest.Android.Resource.Attribute.switchMinWidth;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.switchPadding = global::MvxPluginNugetTest.Android.Resource.Attribute.switchPadding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.switchStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.switchStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.switchTextAppearance = global::MvxPluginNugetTest.Android.Resource.Attribute.switchTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.tabBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.tabBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.tabContentStart = global::MvxPluginNugetTest.Android.Resource.Attribute.tabContentStart;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.tabGravity = global::MvxPluginNugetTest.Android.Resource.Attribute.tabGravity;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.tabIndicatorColor = global::MvxPluginNugetTest.Android.Resource.Attribute.tabIndicatorColor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.tabIndicatorHeight = global::MvxPluginNugetTest.Android.Resource.Attribute.tabIndicatorHeight;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.tabMaxWidth = global::MvxPluginNugetTest.Android.Resource.Attribute.tabMaxWidth;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.tabMinWidth = global::MvxPluginNugetTest.Android.Resource.Attribute.tabMinWidth;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.tabMode = global::MvxPluginNugetTest.Android.Resource.Attribute.tabMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.tabPadding = global::MvxPluginNugetTest.Android.Resource.Attribute.tabPadding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.tabPaddingBottom = global::MvxPluginNugetTest.Android.Resource.Attribute.tabPaddingBottom;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.tabPaddingEnd = global::MvxPluginNugetTest.Android.Resource.Attribute.tabPaddingEnd;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.tabPaddingStart = global::MvxPluginNugetTest.Android.Resource.Attribute.tabPaddingStart;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.tabPaddingTop = global::MvxPluginNugetTest.Android.Resource.Attribute.tabPaddingTop;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.tabSelectedTextColor = global::MvxPluginNugetTest.Android.Resource.Attribute.tabSelectedTextColor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.tabTextAppearance = global::MvxPluginNugetTest.Android.Resource.Attribute.tabTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.tabTextColor = global::MvxPluginNugetTest.Android.Resource.Attribute.tabTextColor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.textAllCaps = global::MvxPluginNugetTest.Android.Resource.Attribute.textAllCaps;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.textAppearanceLargePopupMenu = global::MvxPluginNugetTest.Android.Resource.Attribute.textAppearanceLargePopupMenu;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.textAppearanceListItem = global::MvxPluginNugetTest.Android.Resource.Attribute.textAppearanceListItem;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.textAppearanceListItemSecondary = global::MvxPluginNugetTest.Android.Resource.Attribute.textAppearanceListItemSecondary;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.textAppearanceListItemSmall = global::MvxPluginNugetTest.Android.Resource.Attribute.textAppearanceListItemSmall;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.textAppearancePopupMenuHeader = global::MvxPluginNugetTest.Android.Resource.Attribute.textAppearancePopupMenuHeader;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.textAppearanceSearchResultSubtitle = global::MvxPluginNugetTest.Android.Resource.Attribute.textAppearanceSearchResultSubtitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.textAppearanceSearchResultTitle = global::MvxPluginNugetTest.Android.Resource.Attribute.textAppearanceSearchResultTitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.textAppearanceSmallPopupMenu = global::MvxPluginNugetTest.Android.Resource.Attribute.textAppearanceSmallPopupMenu;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.textColorAlertDialogListItem = global::MvxPluginNugetTest.Android.Resource.Attribute.textColorAlertDialogListItem;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.textColorError = global::MvxPluginNugetTest.Android.Resource.Attribute.textColorError;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.textColorSearchUrl = global::MvxPluginNugetTest.Android.Resource.Attribute.textColorSearchUrl;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.theme = global::MvxPluginNugetTest.Android.Resource.Attribute.theme;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.thickness = global::MvxPluginNugetTest.Android.Resource.Attribute.thickness;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.thumbTextPadding = global::MvxPluginNugetTest.Android.Resource.Attribute.thumbTextPadding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.thumbTint = global::MvxPluginNugetTest.Android.Resource.Attribute.thumbTint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.thumbTintMode = global::MvxPluginNugetTest.Android.Resource.Attribute.thumbTintMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.tickMark = global::MvxPluginNugetTest.Android.Resource.Attribute.tickMark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.tickMarkTint = global::MvxPluginNugetTest.Android.Resource.Attribute.tickMarkTint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.tickMarkTintMode = global::MvxPluginNugetTest.Android.Resource.Attribute.tickMarkTintMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.tint = global::MvxPluginNugetTest.Android.Resource.Attribute.tint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.tintMode = global::MvxPluginNugetTest.Android.Resource.Attribute.tintMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.title = global::MvxPluginNugetTest.Android.Resource.Attribute.title;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.titleEnabled = global::MvxPluginNugetTest.Android.Resource.Attribute.titleEnabled;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.titleMargin = global::MvxPluginNugetTest.Android.Resource.Attribute.titleMargin;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.titleMarginBottom = global::MvxPluginNugetTest.Android.Resource.Attribute.titleMarginBottom;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.titleMarginEnd = global::MvxPluginNugetTest.Android.Resource.Attribute.titleMarginEnd;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.titleMarginStart = global::MvxPluginNugetTest.Android.Resource.Attribute.titleMarginStart;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.titleMarginTop = global::MvxPluginNugetTest.Android.Resource.Attribute.titleMarginTop;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.titleMargins = global::MvxPluginNugetTest.Android.Resource.Attribute.titleMargins;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.titleTextAppearance = global::MvxPluginNugetTest.Android.Resource.Attribute.titleTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.titleTextColor = global::MvxPluginNugetTest.Android.Resource.Attribute.titleTextColor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.titleTextStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.titleTextStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.toolbarId = global::MvxPluginNugetTest.Android.Resource.Attribute.toolbarId;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.toolbarNavigationButtonStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.toolbarNavigationButtonStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.toolbarStyle = global::MvxPluginNugetTest.Android.Resource.Attribute.toolbarStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.tooltipForegroundColor = global::MvxPluginNugetTest.Android.Resource.Attribute.tooltipForegroundColor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.tooltipFrameBackground = global::MvxPluginNugetTest.Android.Resource.Attribute.tooltipFrameBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.tooltipText = global::MvxPluginNugetTest.Android.Resource.Attribute.tooltipText;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.track = global::MvxPluginNugetTest.Android.Resource.Attribute.track;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.trackTint = global::MvxPluginNugetTest.Android.Resource.Attribute.trackTint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.trackTintMode = global::MvxPluginNugetTest.Android.Resource.Attribute.trackTintMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.useCompatPadding = global::MvxPluginNugetTest.Android.Resource.Attribute.useCompatPadding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.voiceIcon = global::MvxPluginNugetTest.Android.Resource.Attribute.voiceIcon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.windowActionBar = global::MvxPluginNugetTest.Android.Resource.Attribute.windowActionBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.windowActionBarOverlay = global::MvxPluginNugetTest.Android.Resource.Attribute.windowActionBarOverlay;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.windowActionModeOverlay = global::MvxPluginNugetTest.Android.Resource.Attribute.windowActionModeOverlay;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.windowFixedHeightMajor = global::MvxPluginNugetTest.Android.Resource.Attribute.windowFixedHeightMajor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.windowFixedHeightMinor = global::MvxPluginNugetTest.Android.Resource.Attribute.windowFixedHeightMinor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.windowFixedWidthMajor = global::MvxPluginNugetTest.Android.Resource.Attribute.windowFixedWidthMajor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.windowFixedWidthMinor = global::MvxPluginNugetTest.Android.Resource.Attribute.windowFixedWidthMinor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.windowMinWidthMajor = global::MvxPluginNugetTest.Android.Resource.Attribute.windowMinWidthMajor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.windowMinWidthMinor = global::MvxPluginNugetTest.Android.Resource.Attribute.windowMinWidthMinor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Attribute.windowNoTitle = global::MvxPluginNugetTest.Android.Resource.Attribute.windowNoTitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Boolean.abc_action_bar_embed_tabs = global::MvxPluginNugetTest.Android.Resource.Boolean.abc_action_bar_embed_tabs;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Boolean.abc_allow_stacked_button_bar = global::MvxPluginNugetTest.Android.Resource.Boolean.abc_allow_stacked_button_bar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Boolean.abc_config_actionMenuItemAllCaps = global::MvxPluginNugetTest.Android.Resource.Boolean.abc_config_actionMenuItemAllCaps;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Boolean.abc_config_closeDialogWhenTouchOutside = global::MvxPluginNugetTest.Android.Resource.Boolean.abc_config_closeDialogWhenTouchOutside;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Boolean.abc_config_showMenuShortcutsWhenKeyboardPresent = global::MvxPluginNugetTest.Android.Resource.Boolean.abc_config_showMenuShortcutsWhenKeyboardPresent;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.abc_background_cache_hint_selector_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.abc_background_cache_hint_selector_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.abc_background_cache_hint_selector_material_light = global::MvxPluginNugetTest.Android.Resource.Color.abc_background_cache_hint_selector_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.abc_btn_colored_borderless_text_material = global::MvxPluginNugetTest.Android.Resource.Color.abc_btn_colored_borderless_text_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.abc_btn_colored_text_material = global::MvxPluginNugetTest.Android.Resource.Color.abc_btn_colored_text_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.abc_color_highlight_material = global::MvxPluginNugetTest.Android.Resource.Color.abc_color_highlight_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.abc_hint_foreground_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.abc_hint_foreground_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.abc_hint_foreground_material_light = global::MvxPluginNugetTest.Android.Resource.Color.abc_hint_foreground_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.abc_input_method_navigation_guard = global::MvxPluginNugetTest.Android.Resource.Color.abc_input_method_navigation_guard;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.abc_primary_text_disable_only_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.abc_primary_text_disable_only_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.abc_primary_text_disable_only_material_light = global::MvxPluginNugetTest.Android.Resource.Color.abc_primary_text_disable_only_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.abc_primary_text_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.abc_primary_text_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.abc_primary_text_material_light = global::MvxPluginNugetTest.Android.Resource.Color.abc_primary_text_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.abc_search_url_text = global::MvxPluginNugetTest.Android.Resource.Color.abc_search_url_text;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.abc_search_url_text_normal = global::MvxPluginNugetTest.Android.Resource.Color.abc_search_url_text_normal;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.abc_search_url_text_pressed = global::MvxPluginNugetTest.Android.Resource.Color.abc_search_url_text_pressed;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.abc_search_url_text_selected = global::MvxPluginNugetTest.Android.Resource.Color.abc_search_url_text_selected;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.abc_secondary_text_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.abc_secondary_text_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.abc_secondary_text_material_light = global::MvxPluginNugetTest.Android.Resource.Color.abc_secondary_text_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.abc_tint_btn_checkable = global::MvxPluginNugetTest.Android.Resource.Color.abc_tint_btn_checkable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.abc_tint_default = global::MvxPluginNugetTest.Android.Resource.Color.abc_tint_default;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.abc_tint_edittext = global::MvxPluginNugetTest.Android.Resource.Color.abc_tint_edittext;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.abc_tint_seek_thumb = global::MvxPluginNugetTest.Android.Resource.Color.abc_tint_seek_thumb;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.abc_tint_spinner = global::MvxPluginNugetTest.Android.Resource.Color.abc_tint_spinner;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.abc_tint_switch_track = global::MvxPluginNugetTest.Android.Resource.Color.abc_tint_switch_track;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.accent_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.accent_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.accent_material_light = global::MvxPluginNugetTest.Android.Resource.Color.accent_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.background_floating_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.background_floating_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.background_floating_material_light = global::MvxPluginNugetTest.Android.Resource.Color.background_floating_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.background_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.background_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.background_material_light = global::MvxPluginNugetTest.Android.Resource.Color.background_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.bright_foreground_disabled_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.bright_foreground_disabled_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.bright_foreground_disabled_material_light = global::MvxPluginNugetTest.Android.Resource.Color.bright_foreground_disabled_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.bright_foreground_inverse_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.bright_foreground_inverse_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.bright_foreground_inverse_material_light = global::MvxPluginNugetTest.Android.Resource.Color.bright_foreground_inverse_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.bright_foreground_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.bright_foreground_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.bright_foreground_material_light = global::MvxPluginNugetTest.Android.Resource.Color.bright_foreground_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.button_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.button_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.button_material_light = global::MvxPluginNugetTest.Android.Resource.Color.button_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.design_bottom_navigation_shadow_color = global::MvxPluginNugetTest.Android.Resource.Color.design_bottom_navigation_shadow_color;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.design_error = global::MvxPluginNugetTest.Android.Resource.Color.design_error;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.design_fab_shadow_end_color = global::MvxPluginNugetTest.Android.Resource.Color.design_fab_shadow_end_color;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.design_fab_shadow_mid_color = global::MvxPluginNugetTest.Android.Resource.Color.design_fab_shadow_mid_color;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.design_fab_shadow_start_color = global::MvxPluginNugetTest.Android.Resource.Color.design_fab_shadow_start_color;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.design_fab_stroke_end_inner_color = global::MvxPluginNugetTest.Android.Resource.Color.design_fab_stroke_end_inner_color;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.design_fab_stroke_end_outer_color = global::MvxPluginNugetTest.Android.Resource.Color.design_fab_stroke_end_outer_color;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.design_fab_stroke_top_inner_color = global::MvxPluginNugetTest.Android.Resource.Color.design_fab_stroke_top_inner_color;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.design_fab_stroke_top_outer_color = global::MvxPluginNugetTest.Android.Resource.Color.design_fab_stroke_top_outer_color;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.design_snackbar_background_color = global::MvxPluginNugetTest.Android.Resource.Color.design_snackbar_background_color;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.design_tint_password_toggle = global::MvxPluginNugetTest.Android.Resource.Color.design_tint_password_toggle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.dim_foreground_disabled_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.dim_foreground_disabled_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.dim_foreground_disabled_material_light = global::MvxPluginNugetTest.Android.Resource.Color.dim_foreground_disabled_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.dim_foreground_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.dim_foreground_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.dim_foreground_material_light = global::MvxPluginNugetTest.Android.Resource.Color.dim_foreground_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.error_color_material = global::MvxPluginNugetTest.Android.Resource.Color.error_color_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.foreground_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.foreground_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.foreground_material_light = global::MvxPluginNugetTest.Android.Resource.Color.foreground_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.highlighted_text_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.highlighted_text_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.highlighted_text_material_light = global::MvxPluginNugetTest.Android.Resource.Color.highlighted_text_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.material_blue_grey_800 = global::MvxPluginNugetTest.Android.Resource.Color.material_blue_grey_800;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.material_blue_grey_900 = global::MvxPluginNugetTest.Android.Resource.Color.material_blue_grey_900;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.material_blue_grey_950 = global::MvxPluginNugetTest.Android.Resource.Color.material_blue_grey_950;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.material_deep_teal_200 = global::MvxPluginNugetTest.Android.Resource.Color.material_deep_teal_200;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.material_deep_teal_500 = global::MvxPluginNugetTest.Android.Resource.Color.material_deep_teal_500;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.material_grey_100 = global::MvxPluginNugetTest.Android.Resource.Color.material_grey_100;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.material_grey_300 = global::MvxPluginNugetTest.Android.Resource.Color.material_grey_300;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.material_grey_50 = global::MvxPluginNugetTest.Android.Resource.Color.material_grey_50;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.material_grey_600 = global::MvxPluginNugetTest.Android.Resource.Color.material_grey_600;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.material_grey_800 = global::MvxPluginNugetTest.Android.Resource.Color.material_grey_800;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.material_grey_850 = global::MvxPluginNugetTest.Android.Resource.Color.material_grey_850;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.material_grey_900 = global::MvxPluginNugetTest.Android.Resource.Color.material_grey_900;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.notification_action_color_filter = global::MvxPluginNugetTest.Android.Resource.Color.notification_action_color_filter;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.notification_icon_bg_color = global::MvxPluginNugetTest.Android.Resource.Color.notification_icon_bg_color;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.notification_material_background_media_default_color = global::MvxPluginNugetTest.Android.Resource.Color.notification_material_background_media_default_color;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.primary_dark_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.primary_dark_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.primary_dark_material_light = global::MvxPluginNugetTest.Android.Resource.Color.primary_dark_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.primary_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.primary_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.primary_material_light = global::MvxPluginNugetTest.Android.Resource.Color.primary_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.primary_text_default_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.primary_text_default_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.primary_text_default_material_light = global::MvxPluginNugetTest.Android.Resource.Color.primary_text_default_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.primary_text_disabled_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.primary_text_disabled_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.primary_text_disabled_material_light = global::MvxPluginNugetTest.Android.Resource.Color.primary_text_disabled_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.ripple_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.ripple_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.ripple_material_light = global::MvxPluginNugetTest.Android.Resource.Color.ripple_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.secondary_text_default_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.secondary_text_default_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.secondary_text_default_material_light = global::MvxPluginNugetTest.Android.Resource.Color.secondary_text_default_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.secondary_text_disabled_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.secondary_text_disabled_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.secondary_text_disabled_material_light = global::MvxPluginNugetTest.Android.Resource.Color.secondary_text_disabled_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.switch_thumb_disabled_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.switch_thumb_disabled_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.switch_thumb_disabled_material_light = global::MvxPluginNugetTest.Android.Resource.Color.switch_thumb_disabled_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.switch_thumb_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.switch_thumb_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.switch_thumb_material_light = global::MvxPluginNugetTest.Android.Resource.Color.switch_thumb_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.switch_thumb_normal_material_dark = global::MvxPluginNugetTest.Android.Resource.Color.switch_thumb_normal_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.switch_thumb_normal_material_light = global::MvxPluginNugetTest.Android.Resource.Color.switch_thumb_normal_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.tooltip_background_dark = global::MvxPluginNugetTest.Android.Resource.Color.tooltip_background_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Color.tooltip_background_light = global::MvxPluginNugetTest.Android.Resource.Color.tooltip_background_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_action_bar_content_inset_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_content_inset_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_action_bar_content_inset_with_nav = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_content_inset_with_nav;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_action_bar_default_height_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_default_height_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_action_bar_default_padding_end_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_default_padding_end_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_action_bar_default_padding_start_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_default_padding_start_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_action_bar_elevation_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_elevation_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_action_bar_icon_vertical_padding_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_icon_vertical_padding_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_action_bar_overflow_padding_end_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_overflow_padding_end_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_action_bar_overflow_padding_start_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_overflow_padding_start_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_action_bar_progress_bar_size = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_progress_bar_size;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_action_bar_stacked_max_height = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_stacked_max_height;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_action_bar_stacked_tab_max_width = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_stacked_tab_max_width;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_action_bar_subtitle_bottom_margin_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_subtitle_bottom_margin_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_action_bar_subtitle_top_margin_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_bar_subtitle_top_margin_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_action_button_min_height_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_button_min_height_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_action_button_min_width_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_button_min_width_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_action_button_min_width_overflow_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_action_button_min_width_overflow_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_alert_dialog_button_bar_height = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_alert_dialog_button_bar_height;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_button_inset_horizontal_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_button_inset_horizontal_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_button_inset_vertical_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_button_inset_vertical_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_button_padding_horizontal_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_button_padding_horizontal_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_button_padding_vertical_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_button_padding_vertical_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_cascading_menus_min_smallest_width = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_cascading_menus_min_smallest_width;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_config_prefDialogWidth = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_config_prefDialogWidth;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_control_corner_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_control_corner_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_control_inset_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_control_inset_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_control_padding_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_control_padding_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_dialog_fixed_height_major = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dialog_fixed_height_major;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_dialog_fixed_height_minor = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dialog_fixed_height_minor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_dialog_fixed_width_major = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dialog_fixed_width_major;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_dialog_fixed_width_minor = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dialog_fixed_width_minor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_dialog_list_padding_bottom_no_buttons = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dialog_list_padding_bottom_no_buttons;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_dialog_list_padding_top_no_title = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dialog_list_padding_top_no_title;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_dialog_min_width_major = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dialog_min_width_major;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_dialog_min_width_minor = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dialog_min_width_minor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_dialog_padding_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dialog_padding_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_dialog_padding_top_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dialog_padding_top_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_dialog_title_divider_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dialog_title_divider_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_disabled_alpha_material_dark = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_disabled_alpha_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_disabled_alpha_material_light = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_disabled_alpha_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_dropdownitem_icon_width = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dropdownitem_icon_width;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_dropdownitem_text_padding_left = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dropdownitem_text_padding_left;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_dropdownitem_text_padding_right = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_dropdownitem_text_padding_right;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_edit_text_inset_bottom_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_edit_text_inset_bottom_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_edit_text_inset_horizontal_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_edit_text_inset_horizontal_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_edit_text_inset_top_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_edit_text_inset_top_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_floating_window_z = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_floating_window_z;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_list_item_padding_horizontal_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_list_item_padding_horizontal_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_panel_menu_list_width = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_panel_menu_list_width;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_progress_bar_height_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_progress_bar_height_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_search_view_preferred_height = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_search_view_preferred_height;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_search_view_preferred_width = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_search_view_preferred_width;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_seekbar_track_background_height_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_seekbar_track_background_height_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_seekbar_track_progress_height_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_seekbar_track_progress_height_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_select_dialog_padding_start_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_select_dialog_padding_start_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_switch_padding = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_switch_padding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_text_size_body_1_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_body_1_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_text_size_body_2_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_body_2_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_text_size_button_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_button_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_text_size_caption_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_caption_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_text_size_display_1_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_display_1_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_text_size_display_2_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_display_2_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_text_size_display_3_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_display_3_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_text_size_display_4_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_display_4_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_text_size_headline_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_headline_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_text_size_large_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_large_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_text_size_medium_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_medium_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_text_size_menu_header_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_menu_header_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_text_size_menu_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_menu_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_text_size_small_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_small_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_text_size_subhead_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_subhead_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_text_size_subtitle_material_toolbar = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_subtitle_material_toolbar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_text_size_title_material = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_title_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.abc_text_size_title_material_toolbar = global::MvxPluginNugetTest.Android.Resource.Dimension.abc_text_size_title_material_toolbar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.compat_button_inset_horizontal_material = global::MvxPluginNugetTest.Android.Resource.Dimension.compat_button_inset_horizontal_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.compat_button_inset_vertical_material = global::MvxPluginNugetTest.Android.Resource.Dimension.compat_button_inset_vertical_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.compat_button_padding_horizontal_material = global::MvxPluginNugetTest.Android.Resource.Dimension.compat_button_padding_horizontal_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.compat_button_padding_vertical_material = global::MvxPluginNugetTest.Android.Resource.Dimension.compat_button_padding_vertical_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.compat_control_corner_material = global::MvxPluginNugetTest.Android.Resource.Dimension.compat_control_corner_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_appbar_elevation = global::MvxPluginNugetTest.Android.Resource.Dimension.design_appbar_elevation;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_bottom_navigation_active_item_max_width = global::MvxPluginNugetTest.Android.Resource.Dimension.design_bottom_navigation_active_item_max_width;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_bottom_navigation_active_text_size = global::MvxPluginNugetTest.Android.Resource.Dimension.design_bottom_navigation_active_text_size;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_bottom_navigation_elevation = global::MvxPluginNugetTest.Android.Resource.Dimension.design_bottom_navigation_elevation;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_bottom_navigation_height = global::MvxPluginNugetTest.Android.Resource.Dimension.design_bottom_navigation_height;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_bottom_navigation_item_max_width = global::MvxPluginNugetTest.Android.Resource.Dimension.design_bottom_navigation_item_max_width;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_bottom_navigation_item_min_width = global::MvxPluginNugetTest.Android.Resource.Dimension.design_bottom_navigation_item_min_width;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_bottom_navigation_margin = global::MvxPluginNugetTest.Android.Resource.Dimension.design_bottom_navigation_margin;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_bottom_navigation_shadow_height = global::MvxPluginNugetTest.Android.Resource.Dimension.design_bottom_navigation_shadow_height;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_bottom_navigation_text_size = global::MvxPluginNugetTest.Android.Resource.Dimension.design_bottom_navigation_text_size;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_bottom_sheet_modal_elevation = global::MvxPluginNugetTest.Android.Resource.Dimension.design_bottom_sheet_modal_elevation;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_bottom_sheet_peek_height_min = global::MvxPluginNugetTest.Android.Resource.Dimension.design_bottom_sheet_peek_height_min;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_fab_border_width = global::MvxPluginNugetTest.Android.Resource.Dimension.design_fab_border_width;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_fab_elevation = global::MvxPluginNugetTest.Android.Resource.Dimension.design_fab_elevation;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_fab_image_size = global::MvxPluginNugetTest.Android.Resource.Dimension.design_fab_image_size;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_fab_size_mini = global::MvxPluginNugetTest.Android.Resource.Dimension.design_fab_size_mini;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_fab_size_normal = global::MvxPluginNugetTest.Android.Resource.Dimension.design_fab_size_normal;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_fab_translation_z_pressed = global::MvxPluginNugetTest.Android.Resource.Dimension.design_fab_translation_z_pressed;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_navigation_elevation = global::MvxPluginNugetTest.Android.Resource.Dimension.design_navigation_elevation;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_navigation_icon_padding = global::MvxPluginNugetTest.Android.Resource.Dimension.design_navigation_icon_padding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_navigation_icon_size = global::MvxPluginNugetTest.Android.Resource.Dimension.design_navigation_icon_size;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_navigation_max_width = global::MvxPluginNugetTest.Android.Resource.Dimension.design_navigation_max_width;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_navigation_padding_bottom = global::MvxPluginNugetTest.Android.Resource.Dimension.design_navigation_padding_bottom;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_navigation_separator_vertical_padding = global::MvxPluginNugetTest.Android.Resource.Dimension.design_navigation_separator_vertical_padding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_snackbar_action_inline_max_width = global::MvxPluginNugetTest.Android.Resource.Dimension.design_snackbar_action_inline_max_width;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_snackbar_background_corner_radius = global::MvxPluginNugetTest.Android.Resource.Dimension.design_snackbar_background_corner_radius;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_snackbar_elevation = global::MvxPluginNugetTest.Android.Resource.Dimension.design_snackbar_elevation;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_snackbar_extra_spacing_horizontal = global::MvxPluginNugetTest.Android.Resource.Dimension.design_snackbar_extra_spacing_horizontal;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_snackbar_max_width = global::MvxPluginNugetTest.Android.Resource.Dimension.design_snackbar_max_width;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_snackbar_min_width = global::MvxPluginNugetTest.Android.Resource.Dimension.design_snackbar_min_width;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_snackbar_padding_horizontal = global::MvxPluginNugetTest.Android.Resource.Dimension.design_snackbar_padding_horizontal;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_snackbar_padding_vertical = global::MvxPluginNugetTest.Android.Resource.Dimension.design_snackbar_padding_vertical;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_snackbar_padding_vertical_2lines = global::MvxPluginNugetTest.Android.Resource.Dimension.design_snackbar_padding_vertical_2lines;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_snackbar_text_size = global::MvxPluginNugetTest.Android.Resource.Dimension.design_snackbar_text_size;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_tab_max_width = global::MvxPluginNugetTest.Android.Resource.Dimension.design_tab_max_width;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_tab_scrollable_min_width = global::MvxPluginNugetTest.Android.Resource.Dimension.design_tab_scrollable_min_width;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_tab_text_size = global::MvxPluginNugetTest.Android.Resource.Dimension.design_tab_text_size;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.design_tab_text_size_2line = global::MvxPluginNugetTest.Android.Resource.Dimension.design_tab_text_size_2line;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.disabled_alpha_material_dark = global::MvxPluginNugetTest.Android.Resource.Dimension.disabled_alpha_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.disabled_alpha_material_light = global::MvxPluginNugetTest.Android.Resource.Dimension.disabled_alpha_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.fastscroll_default_thickness = global::MvxPluginNugetTest.Android.Resource.Dimension.fastscroll_default_thickness;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.fastscroll_margin = global::MvxPluginNugetTest.Android.Resource.Dimension.fastscroll_margin;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.fastscroll_minimum_range = global::MvxPluginNugetTest.Android.Resource.Dimension.fastscroll_minimum_range;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.highlight_alpha_material_colored = global::MvxPluginNugetTest.Android.Resource.Dimension.highlight_alpha_material_colored;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.highlight_alpha_material_dark = global::MvxPluginNugetTest.Android.Resource.Dimension.highlight_alpha_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.highlight_alpha_material_light = global::MvxPluginNugetTest.Android.Resource.Dimension.highlight_alpha_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.hint_alpha_material_dark = global::MvxPluginNugetTest.Android.Resource.Dimension.hint_alpha_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.hint_alpha_material_light = global::MvxPluginNugetTest.Android.Resource.Dimension.hint_alpha_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.hint_pressed_alpha_material_dark = global::MvxPluginNugetTest.Android.Resource.Dimension.hint_pressed_alpha_material_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.hint_pressed_alpha_material_light = global::MvxPluginNugetTest.Android.Resource.Dimension.hint_pressed_alpha_material_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.item_touch_helper_max_drag_scroll_per_frame = global::MvxPluginNugetTest.Android.Resource.Dimension.item_touch_helper_max_drag_scroll_per_frame;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.item_touch_helper_swipe_escape_max_velocity = global::MvxPluginNugetTest.Android.Resource.Dimension.item_touch_helper_swipe_escape_max_velocity;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.item_touch_helper_swipe_escape_velocity = global::MvxPluginNugetTest.Android.Resource.Dimension.item_touch_helper_swipe_escape_velocity;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.notification_action_icon_size = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_action_icon_size;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.notification_action_text_size = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_action_text_size;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.notification_big_circle_margin = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_big_circle_margin;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.notification_content_margin_start = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_content_margin_start;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.notification_large_icon_height = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_large_icon_height;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.notification_large_icon_width = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_large_icon_width;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.notification_main_column_padding_top = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_main_column_padding_top;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.notification_media_narrow_margin = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_media_narrow_margin;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.notification_right_icon_size = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_right_icon_size;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.notification_right_side_padding_top = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_right_side_padding_top;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.notification_small_icon_background_padding = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_small_icon_background_padding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.notification_small_icon_size_as_large = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_small_icon_size_as_large;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.notification_subtext_size = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_subtext_size;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.notification_top_pad = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_top_pad;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.notification_top_pad_large_text = global::MvxPluginNugetTest.Android.Resource.Dimension.notification_top_pad_large_text;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.tooltip_corner_radius = global::MvxPluginNugetTest.Android.Resource.Dimension.tooltip_corner_radius;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.tooltip_horizontal_padding = global::MvxPluginNugetTest.Android.Resource.Dimension.tooltip_horizontal_padding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.tooltip_margin = global::MvxPluginNugetTest.Android.Resource.Dimension.tooltip_margin;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.tooltip_precise_anchor_extra_offset = global::MvxPluginNugetTest.Android.Resource.Dimension.tooltip_precise_anchor_extra_offset;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.tooltip_precise_anchor_threshold = global::MvxPluginNugetTest.Android.Resource.Dimension.tooltip_precise_anchor_threshold;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.tooltip_vertical_padding = global::MvxPluginNugetTest.Android.Resource.Dimension.tooltip_vertical_padding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.tooltip_y_offset_non_touch = global::MvxPluginNugetTest.Android.Resource.Dimension.tooltip_y_offset_non_touch;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Dimension.tooltip_y_offset_touch = global::MvxPluginNugetTest.Android.Resource.Dimension.tooltip_y_offset_touch;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_ab_share_pack_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ab_share_pack_mtrl_alpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_action_bar_item_background_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_action_bar_item_background_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_btn_borderless_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_btn_borderless_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_btn_check_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_btn_check_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_btn_check_to_on_mtrl_000 = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_btn_check_to_on_mtrl_000;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_btn_check_to_on_mtrl_015 = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_btn_check_to_on_mtrl_015;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_btn_colored_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_btn_colored_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_btn_default_mtrl_shape = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_btn_default_mtrl_shape;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_btn_radio_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_btn_radio_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_btn_radio_to_on_mtrl_000 = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_btn_radio_to_on_mtrl_000;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_btn_radio_to_on_mtrl_015 = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_btn_radio_to_on_mtrl_015;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_btn_switch_to_on_mtrl_00001 = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_btn_switch_to_on_mtrl_00001;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_btn_switch_to_on_mtrl_00012 = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_btn_switch_to_on_mtrl_00012;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_cab_background_internal_bg = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_cab_background_internal_bg;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_cab_background_top_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_cab_background_top_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_cab_background_top_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_cab_background_top_mtrl_alpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_control_background_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_control_background_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_dialog_material_background = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_dialog_material_background;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_edit_text_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_edit_text_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_ic_ab_back_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_ab_back_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_ic_arrow_drop_right_black_24dp = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_arrow_drop_right_black_24dp;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_ic_clear_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_clear_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_ic_commit_search_api_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_commit_search_api_mtrl_alpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_ic_go_search_api_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_go_search_api_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_ic_menu_copy_mtrl_am_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_menu_copy_mtrl_am_alpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_ic_menu_cut_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_menu_cut_mtrl_alpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_ic_menu_overflow_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_menu_overflow_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_ic_menu_paste_mtrl_am_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_menu_paste_mtrl_am_alpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_ic_menu_selectall_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_menu_selectall_mtrl_alpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_ic_menu_share_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_menu_share_mtrl_alpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_ic_search_api_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_search_api_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_ic_star_black_16dp = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_star_black_16dp;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_ic_star_black_36dp = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_star_black_36dp;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_ic_star_black_48dp = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_star_black_48dp;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_ic_star_half_black_16dp = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_star_half_black_16dp;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_ic_star_half_black_36dp = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_star_half_black_36dp;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_ic_star_half_black_48dp = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_star_half_black_48dp;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_ic_voice_search_api_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ic_voice_search_api_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_item_background_holo_dark = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_item_background_holo_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_item_background_holo_light = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_item_background_holo_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_list_divider_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_list_divider_mtrl_alpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_list_focused_holo = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_list_focused_holo;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_list_longpressed_holo = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_list_longpressed_holo;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_list_pressed_holo_dark = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_list_pressed_holo_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_list_pressed_holo_light = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_list_pressed_holo_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_list_selector_background_transition_holo_dark = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_list_selector_background_transition_holo_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_list_selector_background_transition_holo_light = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_list_selector_background_transition_holo_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_list_selector_disabled_holo_dark = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_list_selector_disabled_holo_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_list_selector_disabled_holo_light = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_list_selector_disabled_holo_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_list_selector_holo_dark = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_list_selector_holo_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_list_selector_holo_light = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_list_selector_holo_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_menu_hardkey_panel_mtrl_mult = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_menu_hardkey_panel_mtrl_mult;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_popup_background_mtrl_mult = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_popup_background_mtrl_mult;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_ratingbar_indicator_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ratingbar_indicator_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_ratingbar_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ratingbar_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_ratingbar_small_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_ratingbar_small_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_scrubber_control_off_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_scrubber_control_off_mtrl_alpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_000 = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_000;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_005 = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_005;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_scrubber_primary_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_scrubber_primary_mtrl_alpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_scrubber_track_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_scrubber_track_mtrl_alpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_seekbar_thumb_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_seekbar_thumb_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_seekbar_tick_mark_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_seekbar_tick_mark_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_seekbar_track_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_seekbar_track_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_spinner_mtrl_am_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_spinner_mtrl_am_alpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_spinner_textfield_background_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_spinner_textfield_background_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_switch_thumb_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_switch_thumb_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_switch_track_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_switch_track_mtrl_alpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_tab_indicator_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_tab_indicator_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_tab_indicator_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_tab_indicator_mtrl_alpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_text_cursor_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_text_cursor_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_text_select_handle_left_mtrl_dark = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_text_select_handle_left_mtrl_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_text_select_handle_left_mtrl_light = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_text_select_handle_left_mtrl_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_text_select_handle_middle_mtrl_dark = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_text_select_handle_middle_mtrl_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_text_select_handle_middle_mtrl_light = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_text_select_handle_middle_mtrl_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_text_select_handle_right_mtrl_dark = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_text_select_handle_right_mtrl_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_text_select_handle_right_mtrl_light = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_text_select_handle_right_mtrl_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_textfield_activated_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_textfield_activated_mtrl_alpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_textfield_default_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_textfield_default_mtrl_alpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_textfield_search_activated_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_textfield_search_activated_mtrl_alpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_textfield_search_default_mtrl_alpha = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_textfield_search_default_mtrl_alpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_textfield_search_material = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_textfield_search_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.abc_vector_test = global::MvxPluginNugetTest.Android.Resource.Drawable.abc_vector_test;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.avd_hide_password = global::MvxPluginNugetTest.Android.Resource.Drawable.avd_hide_password;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.avd_hide_password_1 = global::MvxPluginNugetTest.Android.Resource.Drawable.avd_hide_password_1;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.avd_hide_password_2 = global::MvxPluginNugetTest.Android.Resource.Drawable.avd_hide_password_2;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.avd_hide_password_3 = global::MvxPluginNugetTest.Android.Resource.Drawable.avd_hide_password_3;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.avd_show_password = global::MvxPluginNugetTest.Android.Resource.Drawable.avd_show_password;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.avd_show_password_1 = global::MvxPluginNugetTest.Android.Resource.Drawable.avd_show_password_1;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.avd_show_password_2 = global::MvxPluginNugetTest.Android.Resource.Drawable.avd_show_password_2;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.avd_show_password_3 = global::MvxPluginNugetTest.Android.Resource.Drawable.avd_show_password_3;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.design_bottom_navigation_item_background = global::MvxPluginNugetTest.Android.Resource.Drawable.design_bottom_navigation_item_background;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.design_fab_background = global::MvxPluginNugetTest.Android.Resource.Drawable.design_fab_background;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.design_ic_visibility = global::MvxPluginNugetTest.Android.Resource.Drawable.design_ic_visibility;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.design_ic_visibility_off = global::MvxPluginNugetTest.Android.Resource.Drawable.design_ic_visibility_off;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.design_password_eye = global::MvxPluginNugetTest.Android.Resource.Drawable.design_password_eye;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.design_snackbar_background = global::MvxPluginNugetTest.Android.Resource.Drawable.design_snackbar_background;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.navigation_empty_icon = global::MvxPluginNugetTest.Android.Resource.Drawable.navigation_empty_icon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.notification_action_background = global::MvxPluginNugetTest.Android.Resource.Drawable.notification_action_background;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.notification_bg = global::MvxPluginNugetTest.Android.Resource.Drawable.notification_bg;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.notification_bg_low = global::MvxPluginNugetTest.Android.Resource.Drawable.notification_bg_low;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.notification_bg_low_normal = global::MvxPluginNugetTest.Android.Resource.Drawable.notification_bg_low_normal;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.notification_bg_low_pressed = global::MvxPluginNugetTest.Android.Resource.Drawable.notification_bg_low_pressed;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.notification_bg_normal = global::MvxPluginNugetTest.Android.Resource.Drawable.notification_bg_normal;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.notification_bg_normal_pressed = global::MvxPluginNugetTest.Android.Resource.Drawable.notification_bg_normal_pressed;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.notification_icon_background = global::MvxPluginNugetTest.Android.Resource.Drawable.notification_icon_background;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.notification_template_icon_bg = global::MvxPluginNugetTest.Android.Resource.Drawable.notification_template_icon_bg;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.notification_template_icon_low_bg = global::MvxPluginNugetTest.Android.Resource.Drawable.notification_template_icon_low_bg;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.notification_tile_bg = global::MvxPluginNugetTest.Android.Resource.Drawable.notification_tile_bg;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.notify_panel_notification_icon_bg = global::MvxPluginNugetTest.Android.Resource.Drawable.notify_panel_notification_icon_bg;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.tooltip_frame_dark = global::MvxPluginNugetTest.Android.Resource.Drawable.tooltip_frame_dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Drawable.tooltip_frame_light = global::MvxPluginNugetTest.Android.Resource.Drawable.tooltip_frame_light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.ALT = global::MvxPluginNugetTest.Android.Resource.Id.ALT;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.CTRL = global::MvxPluginNugetTest.Android.Resource.Id.CTRL;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.FUNCTION = global::MvxPluginNugetTest.Android.Resource.Id.FUNCTION;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.META = global::MvxPluginNugetTest.Android.Resource.Id.META;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.MvvmCrossTagId = global::MvxPluginNugetTest.Android.Resource.Id.MvvmCrossTagId;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.MvxBindingTagUnique = global::MvxPluginNugetTest.Android.Resource.Id.MvxBindingTagUnique;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.SHIFT = global::MvxPluginNugetTest.Android.Resource.Id.SHIFT;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.SYM = global::MvxPluginNugetTest.Android.Resource.Id.SYM;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.action0 = global::MvxPluginNugetTest.Android.Resource.Id.action0;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.action_bar = global::MvxPluginNugetTest.Android.Resource.Id.action_bar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.action_bar_activity_content = global::MvxPluginNugetTest.Android.Resource.Id.action_bar_activity_content;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.action_bar_container = global::MvxPluginNugetTest.Android.Resource.Id.action_bar_container;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.action_bar_root = global::MvxPluginNugetTest.Android.Resource.Id.action_bar_root;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.action_bar_spinner = global::MvxPluginNugetTest.Android.Resource.Id.action_bar_spinner;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.action_bar_subtitle = global::MvxPluginNugetTest.Android.Resource.Id.action_bar_subtitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.action_bar_title = global::MvxPluginNugetTest.Android.Resource.Id.action_bar_title;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.action_container = global::MvxPluginNugetTest.Android.Resource.Id.action_container;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.action_context_bar = global::MvxPluginNugetTest.Android.Resource.Id.action_context_bar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.action_divider = global::MvxPluginNugetTest.Android.Resource.Id.action_divider;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.action_image = global::MvxPluginNugetTest.Android.Resource.Id.action_image;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.action_menu_divider = global::MvxPluginNugetTest.Android.Resource.Id.action_menu_divider;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.action_menu_presenter = global::MvxPluginNugetTest.Android.Resource.Id.action_menu_presenter;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.action_mode_bar = global::MvxPluginNugetTest.Android.Resource.Id.action_mode_bar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.action_mode_bar_stub = global::MvxPluginNugetTest.Android.Resource.Id.action_mode_bar_stub;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.action_mode_close_button = global::MvxPluginNugetTest.Android.Resource.Id.action_mode_close_button;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.action_text = global::MvxPluginNugetTest.Android.Resource.Id.action_text;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.actions = global::MvxPluginNugetTest.Android.Resource.Id.actions;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.activity_chooser_view_content = global::MvxPluginNugetTest.Android.Resource.Id.activity_chooser_view_content;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.add = global::MvxPluginNugetTest.Android.Resource.Id.add;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.alertTitle = global::MvxPluginNugetTest.Android.Resource.Id.alertTitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.all = global::MvxPluginNugetTest.Android.Resource.Id.all;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.always = global::MvxPluginNugetTest.Android.Resource.Id.always;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.async = global::MvxPluginNugetTest.Android.Resource.Id.async;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.auto = global::MvxPluginNugetTest.Android.Resource.Id.auto;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.beginning = global::MvxPluginNugetTest.Android.Resource.Id.beginning;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.blocking = global::MvxPluginNugetTest.Android.Resource.Id.blocking;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.bottom = global::MvxPluginNugetTest.Android.Resource.Id.bottom;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.buttonPanel = global::MvxPluginNugetTest.Android.Resource.Id.buttonPanel;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.cancel_action = global::MvxPluginNugetTest.Android.Resource.Id.cancel_action;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.center = global::MvxPluginNugetTest.Android.Resource.Id.center;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.center_horizontal = global::MvxPluginNugetTest.Android.Resource.Id.center_horizontal;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.center_vertical = global::MvxPluginNugetTest.Android.Resource.Id.center_vertical;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.checkbox = global::MvxPluginNugetTest.Android.Resource.Id.checkbox;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.chronometer = global::MvxPluginNugetTest.Android.Resource.Id.chronometer;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.clip_horizontal = global::MvxPluginNugetTest.Android.Resource.Id.clip_horizontal;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.clip_vertical = global::MvxPluginNugetTest.Android.Resource.Id.clip_vertical;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.collapseActionView = global::MvxPluginNugetTest.Android.Resource.Id.collapseActionView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.container = global::MvxPluginNugetTest.Android.Resource.Id.container;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.contentPanel = global::MvxPluginNugetTest.Android.Resource.Id.contentPanel;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.coordinator = global::MvxPluginNugetTest.Android.Resource.Id.coordinator;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.custom = global::MvxPluginNugetTest.Android.Resource.Id.custom;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.customPanel = global::MvxPluginNugetTest.Android.Resource.Id.customPanel;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.decor_content_parent = global::MvxPluginNugetTest.Android.Resource.Id.decor_content_parent;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.default_activity_button = global::MvxPluginNugetTest.Android.Resource.Id.default_activity_button;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.design_bottom_sheet = global::MvxPluginNugetTest.Android.Resource.Id.design_bottom_sheet;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.design_menu_item_action_area = global::MvxPluginNugetTest.Android.Resource.Id.design_menu_item_action_area;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.design_menu_item_action_area_stub = global::MvxPluginNugetTest.Android.Resource.Id.design_menu_item_action_area_stub;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.design_menu_item_text = global::MvxPluginNugetTest.Android.Resource.Id.design_menu_item_text;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.design_navigation_view = global::MvxPluginNugetTest.Android.Resource.Id.design_navigation_view;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.disableHome = global::MvxPluginNugetTest.Android.Resource.Id.disableHome;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.edit_query = global::MvxPluginNugetTest.Android.Resource.Id.edit_query;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.end = global::MvxPluginNugetTest.Android.Resource.Id.end;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.end_padder = global::MvxPluginNugetTest.Android.Resource.Id.end_padder;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.enterAlways = global::MvxPluginNugetTest.Android.Resource.Id.enterAlways;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.enterAlwaysCollapsed = global::MvxPluginNugetTest.Android.Resource.Id.enterAlwaysCollapsed;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.exitUntilCollapsed = global::MvxPluginNugetTest.Android.Resource.Id.exitUntilCollapsed;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.expand_activities_button = global::MvxPluginNugetTest.Android.Resource.Id.expand_activities_button;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.expanded_menu = global::MvxPluginNugetTest.Android.Resource.Id.expanded_menu;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.fill = global::MvxPluginNugetTest.Android.Resource.Id.fill;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.fill_horizontal = global::MvxPluginNugetTest.Android.Resource.Id.fill_horizontal;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.fill_vertical = global::MvxPluginNugetTest.Android.Resource.Id.fill_vertical;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.@fixed = global::MvxPluginNugetTest.Android.Resource.Id.@fixed;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.forever = global::MvxPluginNugetTest.Android.Resource.Id.forever;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.ghost_view = global::MvxPluginNugetTest.Android.Resource.Id.ghost_view;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.home = global::MvxPluginNugetTest.Android.Resource.Id.home;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.homeAsUp = global::MvxPluginNugetTest.Android.Resource.Id.homeAsUp;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.icon = global::MvxPluginNugetTest.Android.Resource.Id.icon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.icon_group = global::MvxPluginNugetTest.Android.Resource.Id.icon_group;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.ifRoom = global::MvxPluginNugetTest.Android.Resource.Id.ifRoom;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.image = global::MvxPluginNugetTest.Android.Resource.Id.image;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.info = global::MvxPluginNugetTest.Android.Resource.Id.info;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.italic = global::MvxPluginNugetTest.Android.Resource.Id.italic;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.item_touch_helper_previous_elevation = global::MvxPluginNugetTest.Android.Resource.Id.item_touch_helper_previous_elevation;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.largeLabel = global::MvxPluginNugetTest.Android.Resource.Id.largeLabel;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.left = global::MvxPluginNugetTest.Android.Resource.Id.left;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.line1 = global::MvxPluginNugetTest.Android.Resource.Id.line1;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.line3 = global::MvxPluginNugetTest.Android.Resource.Id.line3;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.listMode = global::MvxPluginNugetTest.Android.Resource.Id.listMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.list_item = global::MvxPluginNugetTest.Android.Resource.Id.list_item;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.masked = global::MvxPluginNugetTest.Android.Resource.Id.masked;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.media_actions = global::MvxPluginNugetTest.Android.Resource.Id.media_actions;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.message = global::MvxPluginNugetTest.Android.Resource.Id.message;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.middle = global::MvxPluginNugetTest.Android.Resource.Id.middle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.mini = global::MvxPluginNugetTest.Android.Resource.Id.mini;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.multiply = global::MvxPluginNugetTest.Android.Resource.Id.multiply;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.navigation_header_container = global::MvxPluginNugetTest.Android.Resource.Id.navigation_header_container;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.never = global::MvxPluginNugetTest.Android.Resource.Id.never;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.none = global::MvxPluginNugetTest.Android.Resource.Id.none;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.normal = global::MvxPluginNugetTest.Android.Resource.Id.normal;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.notification_background = global::MvxPluginNugetTest.Android.Resource.Id.notification_background;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.notification_main_column = global::MvxPluginNugetTest.Android.Resource.Id.notification_main_column;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.notification_main_column_container = global::MvxPluginNugetTest.Android.Resource.Id.notification_main_column_container;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.parallax = global::MvxPluginNugetTest.Android.Resource.Id.parallax;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.parentPanel = global::MvxPluginNugetTest.Android.Resource.Id.parentPanel;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.parent_matrix = global::MvxPluginNugetTest.Android.Resource.Id.parent_matrix;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.pin = global::MvxPluginNugetTest.Android.Resource.Id.pin;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.progress_circular = global::MvxPluginNugetTest.Android.Resource.Id.progress_circular;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.progress_horizontal = global::MvxPluginNugetTest.Android.Resource.Id.progress_horizontal;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.radio = global::MvxPluginNugetTest.Android.Resource.Id.radio;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.right = global::MvxPluginNugetTest.Android.Resource.Id.right;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.right_icon = global::MvxPluginNugetTest.Android.Resource.Id.right_icon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.right_side = global::MvxPluginNugetTest.Android.Resource.Id.right_side;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.save_image_matrix = global::MvxPluginNugetTest.Android.Resource.Id.save_image_matrix;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.save_non_transition_alpha = global::MvxPluginNugetTest.Android.Resource.Id.save_non_transition_alpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.save_scale_type = global::MvxPluginNugetTest.Android.Resource.Id.save_scale_type;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.screen = global::MvxPluginNugetTest.Android.Resource.Id.screen;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.scroll = global::MvxPluginNugetTest.Android.Resource.Id.scroll;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.scrollIndicatorDown = global::MvxPluginNugetTest.Android.Resource.Id.scrollIndicatorDown;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.scrollIndicatorUp = global::MvxPluginNugetTest.Android.Resource.Id.scrollIndicatorUp;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.scrollView = global::MvxPluginNugetTest.Android.Resource.Id.scrollView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.scrollable = global::MvxPluginNugetTest.Android.Resource.Id.scrollable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.search_badge = global::MvxPluginNugetTest.Android.Resource.Id.search_badge;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.search_bar = global::MvxPluginNugetTest.Android.Resource.Id.search_bar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.search_button = global::MvxPluginNugetTest.Android.Resource.Id.search_button;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.search_close_btn = global::MvxPluginNugetTest.Android.Resource.Id.search_close_btn;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.search_edit_frame = global::MvxPluginNugetTest.Android.Resource.Id.search_edit_frame;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.search_go_btn = global::MvxPluginNugetTest.Android.Resource.Id.search_go_btn;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.search_mag_icon = global::MvxPluginNugetTest.Android.Resource.Id.search_mag_icon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.search_plate = global::MvxPluginNugetTest.Android.Resource.Id.search_plate;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.search_src_text = global::MvxPluginNugetTest.Android.Resource.Id.search_src_text;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.search_voice_btn = global::MvxPluginNugetTest.Android.Resource.Id.search_voice_btn;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.select_dialog_listview = global::MvxPluginNugetTest.Android.Resource.Id.select_dialog_listview;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.shortcut = global::MvxPluginNugetTest.Android.Resource.Id.shortcut;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.showCustom = global::MvxPluginNugetTest.Android.Resource.Id.showCustom;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.showHome = global::MvxPluginNugetTest.Android.Resource.Id.showHome;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.showTitle = global::MvxPluginNugetTest.Android.Resource.Id.showTitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.smallLabel = global::MvxPluginNugetTest.Android.Resource.Id.smallLabel;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.snackbar_action = global::MvxPluginNugetTest.Android.Resource.Id.snackbar_action;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.snackbar_text = global::MvxPluginNugetTest.Android.Resource.Id.snackbar_text;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.snap = global::MvxPluginNugetTest.Android.Resource.Id.snap;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.spacer = global::MvxPluginNugetTest.Android.Resource.Id.spacer;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.split_action_bar = global::MvxPluginNugetTest.Android.Resource.Id.split_action_bar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.src_atop = global::MvxPluginNugetTest.Android.Resource.Id.src_atop;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.src_in = global::MvxPluginNugetTest.Android.Resource.Id.src_in;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.src_over = global::MvxPluginNugetTest.Android.Resource.Id.src_over;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.start = global::MvxPluginNugetTest.Android.Resource.Id.start;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.status_bar_latest_event_content = global::MvxPluginNugetTest.Android.Resource.Id.status_bar_latest_event_content;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.submenuarrow = global::MvxPluginNugetTest.Android.Resource.Id.submenuarrow;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.submit_area = global::MvxPluginNugetTest.Android.Resource.Id.submit_area;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.tabMode = global::MvxPluginNugetTest.Android.Resource.Id.tabMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.tag_transition_group = global::MvxPluginNugetTest.Android.Resource.Id.tag_transition_group;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.text = global::MvxPluginNugetTest.Android.Resource.Id.text;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.text2 = global::MvxPluginNugetTest.Android.Resource.Id.text2;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.textSpacerNoButtons = global::MvxPluginNugetTest.Android.Resource.Id.textSpacerNoButtons;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.textSpacerNoTitle = global::MvxPluginNugetTest.Android.Resource.Id.textSpacerNoTitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.text_input_password_toggle = global::MvxPluginNugetTest.Android.Resource.Id.text_input_password_toggle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.textinput_counter = global::MvxPluginNugetTest.Android.Resource.Id.textinput_counter;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.textinput_error = global::MvxPluginNugetTest.Android.Resource.Id.textinput_error;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.time = global::MvxPluginNugetTest.Android.Resource.Id.time;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.title = global::MvxPluginNugetTest.Android.Resource.Id.title;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.titleDividerNoCustom = global::MvxPluginNugetTest.Android.Resource.Id.titleDividerNoCustom;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.title_template = global::MvxPluginNugetTest.Android.Resource.Id.title_template;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.top = global::MvxPluginNugetTest.Android.Resource.Id.top;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.topPanel = global::MvxPluginNugetTest.Android.Resource.Id.topPanel;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.touch_outside = global::MvxPluginNugetTest.Android.Resource.Id.touch_outside;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.transition_current_scene = global::MvxPluginNugetTest.Android.Resource.Id.transition_current_scene;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.transition_layout_save = global::MvxPluginNugetTest.Android.Resource.Id.transition_layout_save;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.transition_position = global::MvxPluginNugetTest.Android.Resource.Id.transition_position;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.transition_scene_layoutid_cache = global::MvxPluginNugetTest.Android.Resource.Id.transition_scene_layoutid_cache;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.transition_transform = global::MvxPluginNugetTest.Android.Resource.Id.transition_transform;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.uniform = global::MvxPluginNugetTest.Android.Resource.Id.uniform;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.up = global::MvxPluginNugetTest.Android.Resource.Id.up;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.useLogo = global::MvxPluginNugetTest.Android.Resource.Id.useLogo;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.view_offset_helper = global::MvxPluginNugetTest.Android.Resource.Id.view_offset_helper;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.visible = global::MvxPluginNugetTest.Android.Resource.Id.visible;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.withText = global::MvxPluginNugetTest.Android.Resource.Id.withText;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Id.wrap_content = global::MvxPluginNugetTest.Android.Resource.Id.wrap_content;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Integer.abc_config_activityDefaultDur = global::MvxPluginNugetTest.Android.Resource.Integer.abc_config_activityDefaultDur;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Integer.abc_config_activityShortDur = global::MvxPluginNugetTest.Android.Resource.Integer.abc_config_activityShortDur;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Integer.app_bar_elevation_anim_duration = global::MvxPluginNugetTest.Android.Resource.Integer.app_bar_elevation_anim_duration;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Integer.bottom_sheet_slide_duration = global::MvxPluginNugetTest.Android.Resource.Integer.bottom_sheet_slide_duration;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Integer.cancel_button_image_alpha = global::MvxPluginNugetTest.Android.Resource.Integer.cancel_button_image_alpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Integer.config_tooltipAnimTime = global::MvxPluginNugetTest.Android.Resource.Integer.config_tooltipAnimTime;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Integer.design_snackbar_text_max_lines = global::MvxPluginNugetTest.Android.Resource.Integer.design_snackbar_text_max_lines;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Integer.hide_password_duration = global::MvxPluginNugetTest.Android.Resource.Integer.hide_password_duration;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Integer.show_password_duration = global::MvxPluginNugetTest.Android.Resource.Integer.show_password_duration;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Integer.status_bar_notification_info_maxnum = global::MvxPluginNugetTest.Android.Resource.Integer.status_bar_notification_info_maxnum;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_action_bar_title_item = global::MvxPluginNugetTest.Android.Resource.Layout.abc_action_bar_title_item;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_action_bar_up_container = global::MvxPluginNugetTest.Android.Resource.Layout.abc_action_bar_up_container;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_action_menu_item_layout = global::MvxPluginNugetTest.Android.Resource.Layout.abc_action_menu_item_layout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_action_menu_layout = global::MvxPluginNugetTest.Android.Resource.Layout.abc_action_menu_layout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_action_mode_bar = global::MvxPluginNugetTest.Android.Resource.Layout.abc_action_mode_bar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_action_mode_close_item_material = global::MvxPluginNugetTest.Android.Resource.Layout.abc_action_mode_close_item_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_activity_chooser_view = global::MvxPluginNugetTest.Android.Resource.Layout.abc_activity_chooser_view;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_activity_chooser_view_list_item = global::MvxPluginNugetTest.Android.Resource.Layout.abc_activity_chooser_view_list_item;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_alert_dialog_button_bar_material = global::MvxPluginNugetTest.Android.Resource.Layout.abc_alert_dialog_button_bar_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_alert_dialog_material = global::MvxPluginNugetTest.Android.Resource.Layout.abc_alert_dialog_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_alert_dialog_title_material = global::MvxPluginNugetTest.Android.Resource.Layout.abc_alert_dialog_title_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_dialog_title_material = global::MvxPluginNugetTest.Android.Resource.Layout.abc_dialog_title_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_expanded_menu_layout = global::MvxPluginNugetTest.Android.Resource.Layout.abc_expanded_menu_layout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_list_menu_item_checkbox = global::MvxPluginNugetTest.Android.Resource.Layout.abc_list_menu_item_checkbox;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_list_menu_item_icon = global::MvxPluginNugetTest.Android.Resource.Layout.abc_list_menu_item_icon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_list_menu_item_layout = global::MvxPluginNugetTest.Android.Resource.Layout.abc_list_menu_item_layout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_list_menu_item_radio = global::MvxPluginNugetTest.Android.Resource.Layout.abc_list_menu_item_radio;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_popup_menu_header_item_layout = global::MvxPluginNugetTest.Android.Resource.Layout.abc_popup_menu_header_item_layout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_popup_menu_item_layout = global::MvxPluginNugetTest.Android.Resource.Layout.abc_popup_menu_item_layout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_screen_content_include = global::MvxPluginNugetTest.Android.Resource.Layout.abc_screen_content_include;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_screen_simple = global::MvxPluginNugetTest.Android.Resource.Layout.abc_screen_simple;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_screen_simple_overlay_action_mode = global::MvxPluginNugetTest.Android.Resource.Layout.abc_screen_simple_overlay_action_mode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_screen_toolbar = global::MvxPluginNugetTest.Android.Resource.Layout.abc_screen_toolbar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_search_dropdown_item_icons_2line = global::MvxPluginNugetTest.Android.Resource.Layout.abc_search_dropdown_item_icons_2line;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_search_view = global::MvxPluginNugetTest.Android.Resource.Layout.abc_search_view;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.abc_select_dialog_material = global::MvxPluginNugetTest.Android.Resource.Layout.abc_select_dialog_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.design_bottom_navigation_item = global::MvxPluginNugetTest.Android.Resource.Layout.design_bottom_navigation_item;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.design_bottom_sheet_dialog = global::MvxPluginNugetTest.Android.Resource.Layout.design_bottom_sheet_dialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.design_layout_snackbar = global::MvxPluginNugetTest.Android.Resource.Layout.design_layout_snackbar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.design_layout_snackbar_include = global::MvxPluginNugetTest.Android.Resource.Layout.design_layout_snackbar_include;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.design_layout_tab_icon = global::MvxPluginNugetTest.Android.Resource.Layout.design_layout_tab_icon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.design_layout_tab_text = global::MvxPluginNugetTest.Android.Resource.Layout.design_layout_tab_text;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.design_menu_item_action_area = global::MvxPluginNugetTest.Android.Resource.Layout.design_menu_item_action_area;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.design_navigation_item = global::MvxPluginNugetTest.Android.Resource.Layout.design_navigation_item;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.design_navigation_item_header = global::MvxPluginNugetTest.Android.Resource.Layout.design_navigation_item_header;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.design_navigation_item_separator = global::MvxPluginNugetTest.Android.Resource.Layout.design_navigation_item_separator;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.design_navigation_item_subheader = global::MvxPluginNugetTest.Android.Resource.Layout.design_navigation_item_subheader;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.design_navigation_menu = global::MvxPluginNugetTest.Android.Resource.Layout.design_navigation_menu;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.design_navigation_menu_item = global::MvxPluginNugetTest.Android.Resource.Layout.design_navigation_menu_item;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.design_text_input_password_icon = global::MvxPluginNugetTest.Android.Resource.Layout.design_text_input_password_icon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.notification_action = global::MvxPluginNugetTest.Android.Resource.Layout.notification_action;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.notification_action_tombstone = global::MvxPluginNugetTest.Android.Resource.Layout.notification_action_tombstone;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.notification_media_action = global::MvxPluginNugetTest.Android.Resource.Layout.notification_media_action;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.notification_media_cancel_action = global::MvxPluginNugetTest.Android.Resource.Layout.notification_media_cancel_action;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.notification_template_big_media = global::MvxPluginNugetTest.Android.Resource.Layout.notification_template_big_media;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.notification_template_big_media_custom = global::MvxPluginNugetTest.Android.Resource.Layout.notification_template_big_media_custom;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.notification_template_big_media_narrow = global::MvxPluginNugetTest.Android.Resource.Layout.notification_template_big_media_narrow;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.notification_template_big_media_narrow_custom = global::MvxPluginNugetTest.Android.Resource.Layout.notification_template_big_media_narrow_custom;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.notification_template_custom_big = global::MvxPluginNugetTest.Android.Resource.Layout.notification_template_custom_big;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.notification_template_icon_group = global::MvxPluginNugetTest.Android.Resource.Layout.notification_template_icon_group;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.notification_template_lines_media = global::MvxPluginNugetTest.Android.Resource.Layout.notification_template_lines_media;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.notification_template_media = global::MvxPluginNugetTest.Android.Resource.Layout.notification_template_media;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.notification_template_media_custom = global::MvxPluginNugetTest.Android.Resource.Layout.notification_template_media_custom;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.notification_template_part_chronometer = global::MvxPluginNugetTest.Android.Resource.Layout.notification_template_part_chronometer;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.notification_template_part_time = global::MvxPluginNugetTest.Android.Resource.Layout.notification_template_part_time;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.select_dialog_item_material = global::MvxPluginNugetTest.Android.Resource.Layout.select_dialog_item_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.select_dialog_multichoice_material = global::MvxPluginNugetTest.Android.Resource.Layout.select_dialog_multichoice_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.select_dialog_singlechoice_material = global::MvxPluginNugetTest.Android.Resource.Layout.select_dialog_singlechoice_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.support_simple_spinner_dropdown_item = global::MvxPluginNugetTest.Android.Resource.Layout.support_simple_spinner_dropdown_item;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Layout.tooltip = global::MvxPluginNugetTest.Android.Resource.Layout.tooltip;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_action_bar_home_description = global::MvxPluginNugetTest.Android.Resource.String.abc_action_bar_home_description;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_action_bar_up_description = global::MvxPluginNugetTest.Android.Resource.String.abc_action_bar_up_description;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_action_menu_overflow_description = global::MvxPluginNugetTest.Android.Resource.String.abc_action_menu_overflow_description;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_action_mode_done = global::MvxPluginNugetTest.Android.Resource.String.abc_action_mode_done;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_activity_chooser_view_see_all = global::MvxPluginNugetTest.Android.Resource.String.abc_activity_chooser_view_see_all;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_activitychooserview_choose_application = global::MvxPluginNugetTest.Android.Resource.String.abc_activitychooserview_choose_application;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_capital_off = global::MvxPluginNugetTest.Android.Resource.String.abc_capital_off;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_capital_on = global::MvxPluginNugetTest.Android.Resource.String.abc_capital_on;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_font_family_body_1_material = global::MvxPluginNugetTest.Android.Resource.String.abc_font_family_body_1_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_font_family_body_2_material = global::MvxPluginNugetTest.Android.Resource.String.abc_font_family_body_2_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_font_family_button_material = global::MvxPluginNugetTest.Android.Resource.String.abc_font_family_button_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_font_family_caption_material = global::MvxPluginNugetTest.Android.Resource.String.abc_font_family_caption_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_font_family_display_1_material = global::MvxPluginNugetTest.Android.Resource.String.abc_font_family_display_1_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_font_family_display_2_material = global::MvxPluginNugetTest.Android.Resource.String.abc_font_family_display_2_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_font_family_display_3_material = global::MvxPluginNugetTest.Android.Resource.String.abc_font_family_display_3_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_font_family_display_4_material = global::MvxPluginNugetTest.Android.Resource.String.abc_font_family_display_4_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_font_family_headline_material = global::MvxPluginNugetTest.Android.Resource.String.abc_font_family_headline_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_font_family_menu_material = global::MvxPluginNugetTest.Android.Resource.String.abc_font_family_menu_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_font_family_subhead_material = global::MvxPluginNugetTest.Android.Resource.String.abc_font_family_subhead_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_font_family_title_material = global::MvxPluginNugetTest.Android.Resource.String.abc_font_family_title_material;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_search_hint = global::MvxPluginNugetTest.Android.Resource.String.abc_search_hint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_searchview_description_clear = global::MvxPluginNugetTest.Android.Resource.String.abc_searchview_description_clear;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_searchview_description_query = global::MvxPluginNugetTest.Android.Resource.String.abc_searchview_description_query;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_searchview_description_search = global::MvxPluginNugetTest.Android.Resource.String.abc_searchview_description_search;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_searchview_description_submit = global::MvxPluginNugetTest.Android.Resource.String.abc_searchview_description_submit;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_searchview_description_voice = global::MvxPluginNugetTest.Android.Resource.String.abc_searchview_description_voice;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_shareactionprovider_share_with = global::MvxPluginNugetTest.Android.Resource.String.abc_shareactionprovider_share_with;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_shareactionprovider_share_with_application = global::MvxPluginNugetTest.Android.Resource.String.abc_shareactionprovider_share_with_application;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.abc_toolbar_collapse_description = global::MvxPluginNugetTest.Android.Resource.String.abc_toolbar_collapse_description;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.appbar_scrolling_view_behavior = global::MvxPluginNugetTest.Android.Resource.String.appbar_scrolling_view_behavior;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.bottom_sheet_behavior = global::MvxPluginNugetTest.Android.Resource.String.bottom_sheet_behavior;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.character_counter_pattern = global::MvxPluginNugetTest.Android.Resource.String.character_counter_pattern;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.fab_scroll_shrink_grow_autohide_behavior = global::MvxPluginNugetTest.Android.Resource.String.fab_scroll_shrink_grow_autohide_behavior;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.password_toggle_content_description = global::MvxPluginNugetTest.Android.Resource.String.password_toggle_content_description;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.path_password_eye = global::MvxPluginNugetTest.Android.Resource.String.path_password_eye;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.path_password_eye_mask_strike_through = global::MvxPluginNugetTest.Android.Resource.String.path_password_eye_mask_strike_through;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.path_password_eye_mask_visible = global::MvxPluginNugetTest.Android.Resource.String.path_password_eye_mask_visible;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.path_password_strike_through = global::MvxPluginNugetTest.Android.Resource.String.path_password_strike_through;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.search_menu_title = global::MvxPluginNugetTest.Android.Resource.String.search_menu_title;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.status_bar_notification_info_overflow = global::MvxPluginNugetTest.Android.Resource.String.status_bar_notification_info_overflow;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.String.view_scroll_translation_autohide_behavior = global::MvxPluginNugetTest.Android.Resource.String.view_scroll_translation_autohide_behavior;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.AlertDialog_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.AlertDialog_AppCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.AlertDialog_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.AlertDialog_AppCompat_Light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Animation_AppCompat_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Animation_AppCompat_Dialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Animation_AppCompat_DropDownUp = global::MvxPluginNugetTest.Android.Resource.Style.Animation_AppCompat_DropDownUp;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Animation_AppCompat_Tooltip = global::MvxPluginNugetTest.Android.Resource.Style.Animation_AppCompat_Tooltip;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Animation_Design_BottomSheetDialog = global::MvxPluginNugetTest.Android.Resource.Style.Animation_Design_BottomSheetDialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_AlertDialog_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Base_AlertDialog_AppCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_AlertDialog_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Base_AlertDialog_AppCompat_Light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Animation_AppCompat_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_Animation_AppCompat_Dialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Animation_AppCompat_DropDownUp = global::MvxPluginNugetTest.Android.Resource.Style.Base_Animation_AppCompat_DropDownUp;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Animation_AppCompat_Tooltip = global::MvxPluginNugetTest.Android.Resource.Style.Base_Animation_AppCompat_Tooltip;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_DialogWindowTitle_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Base_DialogWindowTitle_AppCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_DialogWindowTitleBackground_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Base_DialogWindowTitleBackground_AppCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Body1 = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Body1;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Body2 = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Body2;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Button = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Button;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Caption = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Caption;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Display1 = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Display1;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Display2 = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Display2;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Display3 = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Display3;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Display4 = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Display4;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Headline = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Headline;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Large = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Large;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Large_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Large_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Large = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Large;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Small = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Small;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Medium = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Medium;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Medium_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Medium_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Menu = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Menu;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_SearchResult = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_SearchResult;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_SearchResult_Subtitle = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_SearchResult_Subtitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_SearchResult_Title = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_SearchResult_Title;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Small = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Small;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Small_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Small_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Subhead = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Subhead;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Subhead_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Subhead_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Title = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Title;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Title_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Title_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Tooltip = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Tooltip;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Menu = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Menu;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Title = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Title;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionMode_Subtitle = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionMode_Subtitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionMode_Title = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionMode_Title;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Borderless_Colored = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Borderless_Colored;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Colored = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Colored;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Widget_DropDownItem = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_DropDownItem;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Header = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Header;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Large = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Large;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Small = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Small;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Widget_Switch = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_Switch;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_AppCompat_Widget_TextView_SpinnerItem = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_AppCompat_Widget_TextView_SpinnerItem;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_Widget_AppCompat_ExpandedMenu_Item = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_Widget_AppCompat_ExpandedMenu_Item;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_Widget_AppCompat_Toolbar_Subtitle = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_Widget_AppCompat_Toolbar_Subtitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_TextAppearance_Widget_AppCompat_Toolbar_Title = global::MvxPluginNugetTest.Android.Resource.Style.Base_TextAppearance_Widget_AppCompat_Toolbar_Title;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Theme_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Theme_AppCompat_CompactMenu = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_CompactMenu;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Theme_AppCompat_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_Dialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Theme_AppCompat_Dialog_Alert = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_Dialog_Alert;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Theme_AppCompat_Dialog_FixedSize = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_Dialog_FixedSize;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Theme_AppCompat_Dialog_MinWidth = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_Dialog_MinWidth;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Theme_AppCompat_DialogWhenLarge = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_DialogWhenLarge;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Theme_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_Light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Theme_AppCompat_Light_DarkActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_Light_DarkActionBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Theme_AppCompat_Light_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_Light_Dialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Theme_AppCompat_Light_Dialog_Alert = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_Light_Dialog_Alert;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Theme_AppCompat_Light_Dialog_FixedSize = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_Light_Dialog_FixedSize;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Theme_AppCompat_Light_Dialog_MinWidth = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_Light_Dialog_MinWidth;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Theme_AppCompat_Light_DialogWhenLarge = global::MvxPluginNugetTest.Android.Resource.Style.Base_Theme_AppCompat_Light_DialogWhenLarge;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_ThemeOverlay_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Base_ThemeOverlay_AppCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_ThemeOverlay_AppCompat_ActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Base_ThemeOverlay_AppCompat_ActionBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_ThemeOverlay_AppCompat_Dark = global::MvxPluginNugetTest.Android.Resource.Style.Base_ThemeOverlay_AppCompat_Dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_ThemeOverlay_AppCompat_Dark_ActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Base_ThemeOverlay_AppCompat_Dark_ActionBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_ThemeOverlay_AppCompat_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_ThemeOverlay_AppCompat_Dialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_ThemeOverlay_AppCompat_Dialog_Alert = global::MvxPluginNugetTest.Android.Resource.Style.Base_ThemeOverlay_AppCompat_Dialog_Alert;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_ThemeOverlay_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Base_ThemeOverlay_AppCompat_Light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V11_Theme_AppCompat_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_V11_Theme_AppCompat_Dialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V11_Theme_AppCompat_Light_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_V11_Theme_AppCompat_Light_Dialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V11_ThemeOverlay_AppCompat_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_V11_ThemeOverlay_AppCompat_Dialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V12_Widget_AppCompat_AutoCompleteTextView = global::MvxPluginNugetTest.Android.Resource.Style.Base_V12_Widget_AppCompat_AutoCompleteTextView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V12_Widget_AppCompat_EditText = global::MvxPluginNugetTest.Android.Resource.Style.Base_V12_Widget_AppCompat_EditText;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V14_Widget_Design_AppBarLayout = global::MvxPluginNugetTest.Android.Resource.Style.Base_V14_Widget_Design_AppBarLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V21_Theme_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Base_V21_Theme_AppCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V21_Theme_AppCompat_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_V21_Theme_AppCompat_Dialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V21_Theme_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Base_V21_Theme_AppCompat_Light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V21_Theme_AppCompat_Light_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_V21_Theme_AppCompat_Light_Dialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V21_ThemeOverlay_AppCompat_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_V21_ThemeOverlay_AppCompat_Dialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V21_Widget_Design_AppBarLayout = global::MvxPluginNugetTest.Android.Resource.Style.Base_V21_Widget_Design_AppBarLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V22_Theme_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Base_V22_Theme_AppCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V22_Theme_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Base_V22_Theme_AppCompat_Light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V23_Theme_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Base_V23_Theme_AppCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V23_Theme_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Base_V23_Theme_AppCompat_Light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V26_Theme_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Base_V26_Theme_AppCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V26_Theme_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Base_V26_Theme_AppCompat_Light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V26_Widget_AppCompat_Toolbar = global::MvxPluginNugetTest.Android.Resource.Style.Base_V26_Widget_AppCompat_Toolbar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V26_Widget_Design_AppBarLayout = global::MvxPluginNugetTest.Android.Resource.Style.Base_V26_Widget_Design_AppBarLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V7_Theme_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Base_V7_Theme_AppCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V7_Theme_AppCompat_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_V7_Theme_AppCompat_Dialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V7_Theme_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Base_V7_Theme_AppCompat_Light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V7_Theme_AppCompat_Light_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_V7_Theme_AppCompat_Light_Dialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V7_ThemeOverlay_AppCompat_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_V7_ThemeOverlay_AppCompat_Dialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V7_Widget_AppCompat_AutoCompleteTextView = global::MvxPluginNugetTest.Android.Resource.Style.Base_V7_Widget_AppCompat_AutoCompleteTextView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V7_Widget_AppCompat_EditText = global::MvxPluginNugetTest.Android.Resource.Style.Base_V7_Widget_AppCompat_EditText;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_V7_Widget_AppCompat_Toolbar = global::MvxPluginNugetTest.Android.Resource.Style.Base_V7_Widget_AppCompat_Toolbar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_ActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ActionBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_ActionBar_Solid = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ActionBar_Solid;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_ActionBar_TabBar = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ActionBar_TabBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_ActionBar_TabText = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ActionBar_TabText;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_ActionBar_TabView = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ActionBar_TabView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_ActionButton = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ActionButton;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_ActionButton_CloseMode = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ActionButton_CloseMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_ActionButton_Overflow = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ActionButton_Overflow;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_ActionMode = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ActionMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_ActivityChooserView = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ActivityChooserView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_AutoCompleteTextView = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_AutoCompleteTextView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_Button = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Button;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_Button_Borderless = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Button_Borderless;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_Button_Borderless_Colored = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Button_Borderless_Colored;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_Button_ButtonBar_AlertDialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Button_ButtonBar_AlertDialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_Button_Colored = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Button_Colored;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_Button_Small = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Button_Small;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_ButtonBar = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ButtonBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_ButtonBar_AlertDialog = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ButtonBar_AlertDialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_CompoundButton_CheckBox = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_CompoundButton_CheckBox;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_CompoundButton_RadioButton = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_CompoundButton_RadioButton;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_CompoundButton_Switch = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_CompoundButton_Switch;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle_Common = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle_Common;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_DropDownItem_Spinner = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_DropDownItem_Spinner;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_EditText = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_EditText;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_ImageButton = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ImageButton;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_Light_ActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Light_ActionBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_Solid = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_Solid;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabBar = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabText = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabText;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabText_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabText_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabView = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_Light_PopupMenu = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Light_PopupMenu;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_Light_PopupMenu_Overflow = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Light_PopupMenu_Overflow;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_ListMenuView = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ListMenuView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_ListPopupWindow = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ListPopupWindow;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_ListView = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ListView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_ListView_DropDown = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ListView_DropDown;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_ListView_Menu = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ListView_Menu;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_PopupMenu = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_PopupMenu;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_PopupMenu_Overflow = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_PopupMenu_Overflow;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_PopupWindow = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_PopupWindow;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_ProgressBar = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ProgressBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_ProgressBar_Horizontal = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_ProgressBar_Horizontal;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_RatingBar = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_RatingBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_RatingBar_Indicator = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_RatingBar_Indicator;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_RatingBar_Small = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_RatingBar_Small;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_SearchView = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_SearchView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_SearchView_ActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_SearchView_ActionBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_SeekBar = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_SeekBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_SeekBar_Discrete = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_SeekBar_Discrete;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_Spinner = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Spinner;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_Spinner_Underlined = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Spinner_Underlined;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_TextView_SpinnerItem = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_TextView_SpinnerItem;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_Toolbar = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Toolbar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_AppCompat_Toolbar_Button_Navigation = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_AppCompat_Toolbar_Button_Navigation;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_Design_AppBarLayout = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_Design_AppBarLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Base_Widget_Design_TabLayout = global::MvxPluginNugetTest.Android.Resource.Style.Base_Widget_Design_TabLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Platform_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Platform_AppCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Platform_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Platform_AppCompat_Light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Platform_ThemeOverlay_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Platform_ThemeOverlay_AppCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Platform_ThemeOverlay_AppCompat_Dark = global::MvxPluginNugetTest.Android.Resource.Style.Platform_ThemeOverlay_AppCompat_Dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Platform_ThemeOverlay_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Platform_ThemeOverlay_AppCompat_Light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Platform_V11_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Platform_V11_AppCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Platform_V11_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Platform_V11_AppCompat_Light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Platform_V14_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Platform_V14_AppCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Platform_V14_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Platform_V14_AppCompat_Light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Platform_V21_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Platform_V21_AppCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Platform_V21_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Platform_V21_AppCompat_Light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Platform_V25_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Platform_V25_AppCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Platform_V25_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Platform_V25_AppCompat_Light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Platform_Widget_AppCompat_Spinner = global::MvxPluginNugetTest.Android.Resource.Style.Platform_Widget_AppCompat_Spinner;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.RtlOverlay_DialogWindowTitle_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.RtlOverlay_DialogWindowTitle_AppCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.RtlOverlay_Widget_AppCompat_ActionBar_TitleItem = global::MvxPluginNugetTest.Android.Resource.Style.RtlOverlay_Widget_AppCompat_ActionBar_TitleItem;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.RtlOverlay_Widget_AppCompat_DialogTitle_Icon = global::MvxPluginNugetTest.Android.Resource.Style.RtlOverlay_Widget_AppCompat_DialogTitle_Icon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem = global::MvxPluginNugetTest.Android.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_InternalGroup = global::MvxPluginNugetTest.Android.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_InternalGroup;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_Text = global::MvxPluginNugetTest.Android.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_Text;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown = global::MvxPluginNugetTest.Android.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Icon1 = global::MvxPluginNugetTest.Android.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Icon1;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Icon2 = global::MvxPluginNugetTest.Android.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Icon2;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Query = global::MvxPluginNugetTest.Android.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Query;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Text = global::MvxPluginNugetTest.Android.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Text;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.RtlOverlay_Widget_AppCompat_SearchView_MagIcon = global::MvxPluginNugetTest.Android.Resource.Style.RtlOverlay_Widget_AppCompat_SearchView_MagIcon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton = global::MvxPluginNugetTest.Android.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton_Overflow = global::MvxPluginNugetTest.Android.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton_Overflow;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Body1 = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Body1;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Body2 = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Body2;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Button = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Button;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Caption = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Caption;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Display1 = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Display1;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Display2 = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Display2;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Display3 = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Display3;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Display4 = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Display4;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Headline = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Headline;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Large = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Large;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Large_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Large_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Light_SearchResult_Subtitle = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Light_SearchResult_Subtitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Light_SearchResult_Title = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Light_SearchResult_Title;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Large = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Large;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Small = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Small;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Medium = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Medium;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Medium_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Medium_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Menu = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Menu;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_SearchResult_Subtitle = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_SearchResult_Subtitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_SearchResult_Title = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_SearchResult_Title;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Small = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Small;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Small_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Small_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Subhead = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Subhead;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Subhead_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Subhead_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Title = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Title;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Title_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Title_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Tooltip = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Tooltip;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Menu = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Menu;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Title = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Title;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Subtitle = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Subtitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Subtitle_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Subtitle_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Title = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Title;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Title_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Title_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Widget_Button = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_Button;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Widget_Button_Borderless_Colored = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_Button_Borderless_Colored;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Widget_Button_Colored = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_Button_Colored;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Widget_Button_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_Button_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Widget_DropDownItem = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_DropDownItem;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Header = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Header;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Large = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Large;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Small = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Small;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Widget_Switch = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_Switch;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_AppCompat_Widget_TextView_SpinnerItem = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_AppCompat_Widget_TextView_SpinnerItem;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_Compat_Notification = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Compat_Notification;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_Compat_Notification_Info = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Compat_Notification_Info;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_Compat_Notification_Info_Media = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Compat_Notification_Info_Media;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_Compat_Notification_Line2 = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Compat_Notification_Line2;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_Compat_Notification_Line2_Media = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Compat_Notification_Line2_Media;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_Compat_Notification_Media = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Compat_Notification_Media;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_Compat_Notification_Time = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Compat_Notification_Time;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_Compat_Notification_Time_Media = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Compat_Notification_Time_Media;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_Compat_Notification_Title = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Compat_Notification_Title;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_Compat_Notification_Title_Media = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Compat_Notification_Title_Media;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_Design_CollapsingToolbar_Expanded = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Design_CollapsingToolbar_Expanded;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_Design_Counter = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Design_Counter;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_Design_Counter_Overflow = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Design_Counter_Overflow;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_Design_Error = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Design_Error;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_Design_Hint = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Design_Hint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_Design_Snackbar_Message = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Design_Snackbar_Message;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_Design_Tab = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Design_Tab;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_Widget_AppCompat_ExpandedMenu_Item = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Widget_AppCompat_ExpandedMenu_Item;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_Widget_AppCompat_Toolbar_Subtitle = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Widget_AppCompat_Toolbar_Subtitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.TextAppearance_Widget_AppCompat_Toolbar_Title = global::MvxPluginNugetTest.Android.Resource.Style.TextAppearance_Widget_AppCompat_Toolbar_Title;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_AppCompat_CompactMenu = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_CompactMenu;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_AppCompat_DayNight = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_DayNight;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_AppCompat_DayNight_DarkActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_DayNight_DarkActionBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_AppCompat_DayNight_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_DayNight_Dialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_AppCompat_DayNight_Dialog_Alert = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_DayNight_Dialog_Alert;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_AppCompat_DayNight_Dialog_MinWidth = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_DayNight_Dialog_MinWidth;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_AppCompat_DayNight_DialogWhenLarge = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_DayNight_DialogWhenLarge;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_AppCompat_DayNight_NoActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_DayNight_NoActionBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_AppCompat_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_Dialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_AppCompat_Dialog_Alert = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_Dialog_Alert;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_AppCompat_Dialog_MinWidth = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_Dialog_MinWidth;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_AppCompat_DialogWhenLarge = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_DialogWhenLarge;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_Light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_AppCompat_Light_DarkActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_Light_DarkActionBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_AppCompat_Light_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_Light_Dialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_AppCompat_Light_Dialog_Alert = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_Light_Dialog_Alert;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_AppCompat_Light_Dialog_MinWidth = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_Light_Dialog_MinWidth;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_AppCompat_Light_DialogWhenLarge = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_Light_DialogWhenLarge;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_AppCompat_Light_NoActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_Light_NoActionBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_AppCompat_NoActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Theme_AppCompat_NoActionBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_Design = global::MvxPluginNugetTest.Android.Resource.Style.Theme_Design;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_Design_BottomSheetDialog = global::MvxPluginNugetTest.Android.Resource.Style.Theme_Design_BottomSheetDialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_Design_Light = global::MvxPluginNugetTest.Android.Resource.Style.Theme_Design_Light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_Design_Light_BottomSheetDialog = global::MvxPluginNugetTest.Android.Resource.Style.Theme_Design_Light_BottomSheetDialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_Design_Light_NoActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Theme_Design_Light_NoActionBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Theme_Design_NoActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Theme_Design_NoActionBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.ThemeOverlay_AppCompat = global::MvxPluginNugetTest.Android.Resource.Style.ThemeOverlay_AppCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.ThemeOverlay_AppCompat_ActionBar = global::MvxPluginNugetTest.Android.Resource.Style.ThemeOverlay_AppCompat_ActionBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.ThemeOverlay_AppCompat_Dark = global::MvxPluginNugetTest.Android.Resource.Style.ThemeOverlay_AppCompat_Dark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.ThemeOverlay_AppCompat_Dark_ActionBar = global::MvxPluginNugetTest.Android.Resource.Style.ThemeOverlay_AppCompat_Dark_ActionBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.ThemeOverlay_AppCompat_Dialog = global::MvxPluginNugetTest.Android.Resource.Style.ThemeOverlay_AppCompat_Dialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.ThemeOverlay_AppCompat_Dialog_Alert = global::MvxPluginNugetTest.Android.Resource.Style.ThemeOverlay_AppCompat_Dialog_Alert;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.ThemeOverlay_AppCompat_Light = global::MvxPluginNugetTest.Android.Resource.Style.ThemeOverlay_AppCompat_Light;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_ActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ActionBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_ActionBar_Solid = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ActionBar_Solid;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_ActionBar_TabBar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ActionBar_TabBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_ActionBar_TabText = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ActionBar_TabText;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_ActionBar_TabView = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ActionBar_TabView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_ActionButton = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ActionButton;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_ActionButton_CloseMode = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ActionButton_CloseMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_ActionButton_Overflow = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ActionButton_Overflow;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_ActionMode = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ActionMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_ActivityChooserView = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ActivityChooserView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_AutoCompleteTextView = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_AutoCompleteTextView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Button = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Button;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Button_Borderless = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Button_Borderless;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Button_Borderless_Colored = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Button_Borderless_Colored;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Button_ButtonBar_AlertDialog = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Button_ButtonBar_AlertDialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Button_Colored = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Button_Colored;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Button_Small = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Button_Small;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_ButtonBar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ButtonBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_ButtonBar_AlertDialog = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ButtonBar_AlertDialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_CompoundButton_CheckBox = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_CompoundButton_CheckBox;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_CompoundButton_RadioButton = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_CompoundButton_RadioButton;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_CompoundButton_Switch = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_CompoundButton_Switch;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_DrawerArrowToggle = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_DrawerArrowToggle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_DropDownItem_Spinner = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_DropDownItem_Spinner;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_EditText = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_EditText;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_ImageButton = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ImageButton;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Light_ActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Light_ActionBar_TabBar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionBar_TabBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Light_ActionBar_TabBar_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionBar_TabBar_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Light_ActionBar_TabText = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionBar_TabText;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Light_ActionBar_TabText_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionBar_TabText_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Light_ActionBar_TabView = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionBar_TabView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Light_ActionBar_TabView_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionBar_TabView_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Light_ActionButton = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionButton;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Light_ActionButton_CloseMode = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionButton_CloseMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Light_ActionButton_Overflow = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionButton_Overflow;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Light_ActionMode_Inverse = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActionMode_Inverse;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Light_ActivityChooserView = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ActivityChooserView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Light_AutoCompleteTextView = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_AutoCompleteTextView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Light_DropDownItem_Spinner = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_DropDownItem_Spinner;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Light_ListPopupWindow = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ListPopupWindow;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Light_ListView_DropDown = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_ListView_DropDown;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Light_PopupMenu = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_PopupMenu;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Light_PopupMenu_Overflow = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_PopupMenu_Overflow;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Light_SearchView = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_SearchView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Light_Spinner_DropDown_ActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Light_Spinner_DropDown_ActionBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_ListMenuView = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ListMenuView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_ListPopupWindow = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ListPopupWindow;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_ListView = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ListView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_ListView_DropDown = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ListView_DropDown;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_ListView_Menu = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ListView_Menu;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_PopupMenu = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_PopupMenu;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_PopupMenu_Overflow = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_PopupMenu_Overflow;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_PopupWindow = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_PopupWindow;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_ProgressBar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ProgressBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_ProgressBar_Horizontal = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_ProgressBar_Horizontal;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_RatingBar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_RatingBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_RatingBar_Indicator = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_RatingBar_Indicator;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_RatingBar_Small = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_RatingBar_Small;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_SearchView = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_SearchView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_SearchView_ActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_SearchView_ActionBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_SeekBar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_SeekBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_SeekBar_Discrete = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_SeekBar_Discrete;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Spinner = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Spinner;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Spinner_DropDown = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Spinner_DropDown;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Spinner_DropDown_ActionBar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Spinner_DropDown_ActionBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Spinner_Underlined = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Spinner_Underlined;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_TextView_SpinnerItem = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_TextView_SpinnerItem;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Toolbar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Toolbar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_AppCompat_Toolbar_Button_Navigation = global::MvxPluginNugetTest.Android.Resource.Style.Widget_AppCompat_Toolbar_Button_Navigation;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_Compat_NotificationActionContainer = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Compat_NotificationActionContainer;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_Compat_NotificationActionText = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Compat_NotificationActionText;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_Design_AppBarLayout = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Design_AppBarLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_Design_BottomNavigationView = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Design_BottomNavigationView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_Design_BottomSheet_Modal = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Design_BottomSheet_Modal;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_Design_CollapsingToolbar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Design_CollapsingToolbar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_Design_CoordinatorLayout = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Design_CoordinatorLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_Design_FloatingActionButton = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Design_FloatingActionButton;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_Design_NavigationView = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Design_NavigationView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_Design_ScrimInsetsFrameLayout = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Design_ScrimInsetsFrameLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_Design_Snackbar = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Design_Snackbar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_Design_TabLayout = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Design_TabLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Style.Widget_Design_TextInputLayout = global::MvxPluginNugetTest.Android.Resource.Style.Widget_Design_TextInputLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Xml.Empty = global::MvxPluginNugetTest.Android.Resource.Xml.Empty;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_background = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_background;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_backgroundSplit = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_backgroundSplit;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_backgroundStacked = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_backgroundStacked;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_contentInsetEnd = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_contentInsetEnd;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_contentInsetEndWithActions = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_contentInsetEndWithActions;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_contentInsetLeft = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_contentInsetLeft;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_contentInsetRight = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_contentInsetRight;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_contentInsetStart = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_contentInsetStart;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_contentInsetStartWithNavigation = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_contentInsetStartWithNavigation;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_customNavigationLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_customNavigationLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_displayOptions = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_displayOptions;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_divider = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_divider;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_elevation = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_elevation;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_height = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_height;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_hideOnContentScroll = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_hideOnContentScroll;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_homeAsUpIndicator = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_homeAsUpIndicator;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_homeLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_homeLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_icon = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_icon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_indeterminateProgressStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_indeterminateProgressStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_itemPadding = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_itemPadding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_logo = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_logo;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_navigationMode = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_navigationMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_popupTheme = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_popupTheme;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_progressBarPadding = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_progressBarPadding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_progressBarStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_progressBarStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_subtitle = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_subtitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_subtitleTextStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_subtitleTextStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_title = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_title;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBar_titleTextStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBar_titleTextStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBarLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBarLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionBarLayout_android_layout_gravity = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionBarLayout_android_layout_gravity;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionMenuItemView = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionMenuItemView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionMenuItemView_android_minWidth = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionMenuItemView_android_minWidth;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionMenuView = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionMenuView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionMode = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionMode_background = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionMode_background;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionMode_backgroundSplit = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionMode_backgroundSplit;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionMode_closeItemLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionMode_closeItemLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionMode_height = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionMode_height;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionMode_subtitleTextStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionMode_subtitleTextStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActionMode_titleTextStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.ActionMode_titleTextStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActivityChooserView = global::MvxPluginNugetTest.Android.Resource.Styleable.ActivityChooserView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActivityChooserView_expandActivityOverflowButtonDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.ActivityChooserView_expandActivityOverflowButtonDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ActivityChooserView_initialActivityCount = global::MvxPluginNugetTest.Android.Resource.Styleable.ActivityChooserView_initialActivityCount;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AlertDialog = global::MvxPluginNugetTest.Android.Resource.Styleable.AlertDialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AlertDialog_android_layout = global::MvxPluginNugetTest.Android.Resource.Styleable.AlertDialog_android_layout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AlertDialog_buttonPanelSideLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.AlertDialog_buttonPanelSideLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AlertDialog_listItemLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.AlertDialog_listItemLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AlertDialog_listLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.AlertDialog_listLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AlertDialog_multiChoiceItemLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.AlertDialog_multiChoiceItemLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AlertDialog_showTitle = global::MvxPluginNugetTest.Android.Resource.Styleable.AlertDialog_showTitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AlertDialog_singleChoiceItemLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.AlertDialog_singleChoiceItemLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppBarLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.AppBarLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppBarLayout_android_background = global::MvxPluginNugetTest.Android.Resource.Styleable.AppBarLayout_android_background;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppBarLayout_android_keyboardNavigationCluster = global::MvxPluginNugetTest.Android.Resource.Styleable.AppBarLayout_android_keyboardNavigationCluster;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppBarLayout_android_touchscreenBlocksFocus = global::MvxPluginNugetTest.Android.Resource.Styleable.AppBarLayout_android_touchscreenBlocksFocus;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppBarLayout_elevation = global::MvxPluginNugetTest.Android.Resource.Styleable.AppBarLayout_elevation;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppBarLayout_expanded = global::MvxPluginNugetTest.Android.Resource.Styleable.AppBarLayout_expanded;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppBarLayoutStates = global::MvxPluginNugetTest.Android.Resource.Styleable.AppBarLayoutStates;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppBarLayoutStates_state_collapsed = global::MvxPluginNugetTest.Android.Resource.Styleable.AppBarLayoutStates_state_collapsed;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppBarLayoutStates_state_collapsible = global::MvxPluginNugetTest.Android.Resource.Styleable.AppBarLayoutStates_state_collapsible;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppBarLayout_Layout = global::MvxPluginNugetTest.Android.Resource.Styleable.AppBarLayout_Layout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppBarLayout_Layout_layout_scrollFlags = global::MvxPluginNugetTest.Android.Resource.Styleable.AppBarLayout_Layout_layout_scrollFlags;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppBarLayout_Layout_layout_scrollInterpolator = global::MvxPluginNugetTest.Android.Resource.Styleable.AppBarLayout_Layout_layout_scrollInterpolator;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatImageView = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatImageView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatImageView_android_src = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatImageView_android_src;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatImageView_srcCompat = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatImageView_srcCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatImageView_tint = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatImageView_tint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatImageView_tintMode = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatImageView_tintMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatSeekBar = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatSeekBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatSeekBar_android_thumb = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatSeekBar_android_thumb;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatSeekBar_tickMark = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatSeekBar_tickMark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatSeekBar_tickMarkTint = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatSeekBar_tickMarkTint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatSeekBar_tickMarkTintMode = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatSeekBar_tickMarkTintMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTextHelper = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextHelper;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTextHelper_android_drawableBottom = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextHelper_android_drawableBottom;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTextHelper_android_drawableEnd = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextHelper_android_drawableEnd;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTextHelper_android_drawableLeft = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextHelper_android_drawableLeft;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTextHelper_android_drawableRight = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextHelper_android_drawableRight;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTextHelper_android_drawableStart = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextHelper_android_drawableStart;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTextHelper_android_drawableTop = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextHelper_android_drawableTop;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTextHelper_android_textAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextHelper_android_textAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTextView = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTextView_android_textAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextView_android_textAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTextView_autoSizeMaxTextSize = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextView_autoSizeMaxTextSize;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTextView_autoSizeMinTextSize = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextView_autoSizeMinTextSize;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTextView_autoSizePresetSizes = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextView_autoSizePresetSizes;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTextView_autoSizeStepGranularity = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextView_autoSizeStepGranularity;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTextView_autoSizeTextType = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextView_autoSizeTextType;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTextView_fontFamily = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextView_fontFamily;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTextView_textAllCaps = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTextView_textAllCaps;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionBarDivider = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionBarDivider;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionBarItemBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionBarItemBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionBarPopupTheme = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionBarPopupTheme;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionBarSize = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionBarSize;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionBarSplitStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionBarSplitStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionBarStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionBarStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionBarTabBarStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionBarTabBarStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionBarTabStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionBarTabStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionBarTabTextStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionBarTabTextStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionBarTheme = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionBarTheme;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionBarWidgetTheme = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionBarWidgetTheme;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionButtonStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionButtonStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionDropDownStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionDropDownStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionMenuTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionMenuTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionMenuTextColor = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionMenuTextColor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionModeBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModeBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionModeCloseButtonStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModeCloseButtonStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionModeCloseDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModeCloseDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionModeCopyDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModeCopyDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionModeCutDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModeCutDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionModeFindDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModeFindDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionModePasteDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModePasteDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionModePopupWindowStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModePopupWindowStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionModeSelectAllDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModeSelectAllDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionModeShareDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModeShareDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionModeSplitBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModeSplitBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionModeStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModeStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionModeWebSearchDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionModeWebSearchDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionOverflowButtonStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionOverflowButtonStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_actionOverflowMenuStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_actionOverflowMenuStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_activityChooserViewStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_activityChooserViewStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_alertDialogButtonGroupStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_alertDialogButtonGroupStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_alertDialogCenterButtons = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_alertDialogCenterButtons;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_alertDialogStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_alertDialogStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_alertDialogTheme = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_alertDialogTheme;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_android_windowAnimationStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_android_windowAnimationStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_android_windowIsFloating = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_android_windowIsFloating;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_autoCompleteTextViewStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_autoCompleteTextViewStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_borderlessButtonStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_borderlessButtonStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_buttonBarButtonStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_buttonBarButtonStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_buttonBarNegativeButtonStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_buttonBarNegativeButtonStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_buttonBarNeutralButtonStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_buttonBarNeutralButtonStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_buttonBarPositiveButtonStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_buttonBarPositiveButtonStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_buttonBarStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_buttonBarStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_buttonStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_buttonStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_buttonStyleSmall = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_buttonStyleSmall;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_checkboxStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_checkboxStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_checkedTextViewStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_checkedTextViewStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_colorAccent = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_colorAccent;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_colorBackgroundFloating = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_colorBackgroundFloating;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_colorButtonNormal = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_colorButtonNormal;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_colorControlActivated = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_colorControlActivated;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_colorControlHighlight = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_colorControlHighlight;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_colorControlNormal = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_colorControlNormal;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_colorError = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_colorError;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_colorPrimary = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_colorPrimary;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_colorPrimaryDark = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_colorPrimaryDark;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_colorSwitchThumbNormal = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_colorSwitchThumbNormal;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_controlBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_controlBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_dialogPreferredPadding = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_dialogPreferredPadding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_dialogTheme = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_dialogTheme;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_dividerHorizontal = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_dividerHorizontal;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_dividerVertical = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_dividerVertical;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_dropDownListViewStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_dropDownListViewStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_dropdownListPreferredItemHeight = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_dropdownListPreferredItemHeight;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_editTextBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_editTextBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_editTextColor = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_editTextColor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_editTextStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_editTextStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_homeAsUpIndicator = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_homeAsUpIndicator;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_imageButtonStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_imageButtonStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_listChoiceBackgroundIndicator = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_listChoiceBackgroundIndicator;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_listDividerAlertDialog = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_listDividerAlertDialog;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_listMenuViewStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_listMenuViewStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_listPopupWindowStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_listPopupWindowStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_listPreferredItemHeight = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_listPreferredItemHeight;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_listPreferredItemHeightLarge = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_listPreferredItemHeightLarge;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_listPreferredItemHeightSmall = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_listPreferredItemHeightSmall;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingLeft = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingLeft;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingRight = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingRight;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_panelBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_panelBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_panelMenuListTheme = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_panelMenuListTheme;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_panelMenuListWidth = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_panelMenuListWidth;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_popupMenuStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_popupMenuStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_popupWindowStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_popupWindowStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_radioButtonStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_radioButtonStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_ratingBarStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_ratingBarStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_ratingBarStyleIndicator = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_ratingBarStyleIndicator;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_ratingBarStyleSmall = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_ratingBarStyleSmall;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_searchViewStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_searchViewStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_seekBarStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_seekBarStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_selectableItemBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_selectableItemBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_selectableItemBackgroundBorderless = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_selectableItemBackgroundBorderless;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_spinnerDropDownItemStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_spinnerDropDownItemStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_spinnerStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_spinnerStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_switchStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_switchStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_textAppearanceLargePopupMenu = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_textAppearanceLargePopupMenu;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_textAppearanceListItem = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_textAppearanceListItem;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_textAppearanceListItemSecondary = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_textAppearanceListItemSecondary;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_textAppearanceListItemSmall = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_textAppearanceListItemSmall;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_textAppearancePopupMenuHeader = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_textAppearancePopupMenuHeader;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_textAppearanceSearchResultSubtitle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_textAppearanceSearchResultSubtitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_textAppearanceSearchResultTitle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_textAppearanceSearchResultTitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_textAppearanceSmallPopupMenu = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_textAppearanceSmallPopupMenu;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_textColorAlertDialogListItem = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_textColorAlertDialogListItem;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_textColorSearchUrl = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_textColorSearchUrl;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_toolbarNavigationButtonStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_toolbarNavigationButtonStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_toolbarStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_toolbarStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_tooltipForegroundColor = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_tooltipForegroundColor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_tooltipFrameBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_tooltipFrameBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_windowActionBar = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_windowActionBar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_windowActionBarOverlay = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_windowActionBarOverlay;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_windowActionModeOverlay = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_windowActionModeOverlay;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_windowFixedHeightMajor = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_windowFixedHeightMajor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_windowFixedHeightMinor = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_windowFixedHeightMinor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_windowFixedWidthMajor = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_windowFixedWidthMajor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_windowFixedWidthMinor = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_windowFixedWidthMinor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_windowMinWidthMajor = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_windowMinWidthMajor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_windowMinWidthMinor = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_windowMinWidthMinor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.AppCompatTheme_windowNoTitle = global::MvxPluginNugetTest.Android.Resource.Styleable.AppCompatTheme_windowNoTitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.BottomNavigationView = global::MvxPluginNugetTest.Android.Resource.Styleable.BottomNavigationView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.BottomNavigationView_elevation = global::MvxPluginNugetTest.Android.Resource.Styleable.BottomNavigationView_elevation;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.BottomNavigationView_itemBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.BottomNavigationView_itemBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.BottomNavigationView_itemIconTint = global::MvxPluginNugetTest.Android.Resource.Styleable.BottomNavigationView_itemIconTint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.BottomNavigationView_itemTextColor = global::MvxPluginNugetTest.Android.Resource.Styleable.BottomNavigationView_itemTextColor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.BottomNavigationView_menu = global::MvxPluginNugetTest.Android.Resource.Styleable.BottomNavigationView_menu;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.BottomSheetBehavior_Layout = global::MvxPluginNugetTest.Android.Resource.Styleable.BottomSheetBehavior_Layout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.BottomSheetBehavior_Layout_behavior_hideable = global::MvxPluginNugetTest.Android.Resource.Styleable.BottomSheetBehavior_Layout_behavior_hideable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.BottomSheetBehavior_Layout_behavior_peekHeight = global::MvxPluginNugetTest.Android.Resource.Styleable.BottomSheetBehavior_Layout_behavior_peekHeight;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.BottomSheetBehavior_Layout_behavior_skipCollapsed = global::MvxPluginNugetTest.Android.Resource.Styleable.BottomSheetBehavior_Layout_behavior_skipCollapsed;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ButtonBarLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.ButtonBarLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ButtonBarLayout_allowStacking = global::MvxPluginNugetTest.Android.Resource.Styleable.ButtonBarLayout_allowStacking;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CollapsingToolbarLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CollapsingToolbarLayout_collapsedTitleGravity = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_collapsedTitleGravity;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CollapsingToolbarLayout_collapsedTitleTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_collapsedTitleTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CollapsingToolbarLayout_contentScrim = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_contentScrim;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CollapsingToolbarLayout_expandedTitleGravity = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_expandedTitleGravity;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMargin = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMargin;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginBottom = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginBottom;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginEnd = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginEnd;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginStart = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginStart;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginTop = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginTop;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CollapsingToolbarLayout_expandedTitleTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_expandedTitleTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CollapsingToolbarLayout_scrimAnimationDuration = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_scrimAnimationDuration;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CollapsingToolbarLayout_scrimVisibleHeightTrigger = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_scrimVisibleHeightTrigger;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CollapsingToolbarLayout_statusBarScrim = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_statusBarScrim;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CollapsingToolbarLayout_title = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_title;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CollapsingToolbarLayout_titleEnabled = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_titleEnabled;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CollapsingToolbarLayout_toolbarId = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_toolbarId;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CollapsingToolbarLayout_Layout = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_Layout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CollapsingToolbarLayout_Layout_layout_collapseMode = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_Layout_layout_collapseMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CollapsingToolbarLayout_Layout_layout_collapseParallaxMultiplier = global::MvxPluginNugetTest.Android.Resource.Styleable.CollapsingToolbarLayout_Layout_layout_collapseParallaxMultiplier;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ColorStateListItem = global::MvxPluginNugetTest.Android.Resource.Styleable.ColorStateListItem;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ColorStateListItem_alpha = global::MvxPluginNugetTest.Android.Resource.Styleable.ColorStateListItem_alpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ColorStateListItem_android_alpha = global::MvxPluginNugetTest.Android.Resource.Styleable.ColorStateListItem_android_alpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ColorStateListItem_android_color = global::MvxPluginNugetTest.Android.Resource.Styleable.ColorStateListItem_android_color;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CompoundButton = global::MvxPluginNugetTest.Android.Resource.Styleable.CompoundButton;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CompoundButton_android_button = global::MvxPluginNugetTest.Android.Resource.Styleable.CompoundButton_android_button;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CompoundButton_buttonTint = global::MvxPluginNugetTest.Android.Resource.Styleable.CompoundButton_buttonTint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CompoundButton_buttonTintMode = global::MvxPluginNugetTest.Android.Resource.Styleable.CompoundButton_buttonTintMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CoordinatorLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.CoordinatorLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CoordinatorLayout_keylines = global::MvxPluginNugetTest.Android.Resource.Styleable.CoordinatorLayout_keylines;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CoordinatorLayout_statusBarBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.CoordinatorLayout_statusBarBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CoordinatorLayout_Layout = global::MvxPluginNugetTest.Android.Resource.Styleable.CoordinatorLayout_Layout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity = global::MvxPluginNugetTest.Android.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor = global::MvxPluginNugetTest.Android.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity = global::MvxPluginNugetTest.Android.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior = global::MvxPluginNugetTest.Android.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges = global::MvxPluginNugetTest.Android.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge = global::MvxPluginNugetTest.Android.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline = global::MvxPluginNugetTest.Android.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.DesignTheme = global::MvxPluginNugetTest.Android.Resource.Styleable.DesignTheme;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.DesignTheme_bottomSheetDialogTheme = global::MvxPluginNugetTest.Android.Resource.Styleable.DesignTheme_bottomSheetDialogTheme;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.DesignTheme_bottomSheetStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.DesignTheme_bottomSheetStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.DesignTheme_textColorError = global::MvxPluginNugetTest.Android.Resource.Styleable.DesignTheme_textColorError;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.DrawerArrowToggle = global::MvxPluginNugetTest.Android.Resource.Styleable.DrawerArrowToggle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.DrawerArrowToggle_arrowHeadLength = global::MvxPluginNugetTest.Android.Resource.Styleable.DrawerArrowToggle_arrowHeadLength;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.DrawerArrowToggle_arrowShaftLength = global::MvxPluginNugetTest.Android.Resource.Styleable.DrawerArrowToggle_arrowShaftLength;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.DrawerArrowToggle_barLength = global::MvxPluginNugetTest.Android.Resource.Styleable.DrawerArrowToggle_barLength;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.DrawerArrowToggle_color = global::MvxPluginNugetTest.Android.Resource.Styleable.DrawerArrowToggle_color;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.DrawerArrowToggle_drawableSize = global::MvxPluginNugetTest.Android.Resource.Styleable.DrawerArrowToggle_drawableSize;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.DrawerArrowToggle_gapBetweenBars = global::MvxPluginNugetTest.Android.Resource.Styleable.DrawerArrowToggle_gapBetweenBars;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.DrawerArrowToggle_spinBars = global::MvxPluginNugetTest.Android.Resource.Styleable.DrawerArrowToggle_spinBars;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.DrawerArrowToggle_thickness = global::MvxPluginNugetTest.Android.Resource.Styleable.DrawerArrowToggle_thickness;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FloatingActionButton = global::MvxPluginNugetTest.Android.Resource.Styleable.FloatingActionButton;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FloatingActionButton_backgroundTint = global::MvxPluginNugetTest.Android.Resource.Styleable.FloatingActionButton_backgroundTint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FloatingActionButton_backgroundTintMode = global::MvxPluginNugetTest.Android.Resource.Styleable.FloatingActionButton_backgroundTintMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FloatingActionButton_borderWidth = global::MvxPluginNugetTest.Android.Resource.Styleable.FloatingActionButton_borderWidth;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FloatingActionButton_elevation = global::MvxPluginNugetTest.Android.Resource.Styleable.FloatingActionButton_elevation;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FloatingActionButton_fabSize = global::MvxPluginNugetTest.Android.Resource.Styleable.FloatingActionButton_fabSize;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FloatingActionButton_pressedTranslationZ = global::MvxPluginNugetTest.Android.Resource.Styleable.FloatingActionButton_pressedTranslationZ;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FloatingActionButton_rippleColor = global::MvxPluginNugetTest.Android.Resource.Styleable.FloatingActionButton_rippleColor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FloatingActionButton_useCompatPadding = global::MvxPluginNugetTest.Android.Resource.Styleable.FloatingActionButton_useCompatPadding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FloatingActionButton_Behavior_Layout = global::MvxPluginNugetTest.Android.Resource.Styleable.FloatingActionButton_Behavior_Layout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FloatingActionButton_Behavior_Layout_behavior_autoHide = global::MvxPluginNugetTest.Android.Resource.Styleable.FloatingActionButton_Behavior_Layout_behavior_autoHide;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FontFamily = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamily;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FontFamily_fontProviderAuthority = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamily_fontProviderAuthority;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FontFamily_fontProviderCerts = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamily_fontProviderCerts;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FontFamily_fontProviderFetchStrategy = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamily_fontProviderFetchStrategy;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FontFamily_fontProviderFetchTimeout = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamily_fontProviderFetchTimeout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FontFamily_fontProviderPackage = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamily_fontProviderPackage;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FontFamily_fontProviderQuery = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamily_fontProviderQuery;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FontFamilyFont = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamilyFont;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FontFamilyFont_android_font = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamilyFont_android_font;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FontFamilyFont_android_fontStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamilyFont_android_fontStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FontFamilyFont_android_fontWeight = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamilyFont_android_fontWeight;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FontFamilyFont_font = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamilyFont_font;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FontFamilyFont_fontStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamilyFont_fontStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.FontFamilyFont_fontWeight = global::MvxPluginNugetTest.Android.Resource.Styleable.FontFamilyFont_fontWeight;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ForegroundLinearLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.ForegroundLinearLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ForegroundLinearLayout_android_foreground = global::MvxPluginNugetTest.Android.Resource.Styleable.ForegroundLinearLayout_android_foreground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ForegroundLinearLayout_android_foregroundGravity = global::MvxPluginNugetTest.Android.Resource.Styleable.ForegroundLinearLayout_android_foregroundGravity;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ForegroundLinearLayout_foregroundInsidePadding = global::MvxPluginNugetTest.Android.Resource.Styleable.ForegroundLinearLayout_foregroundInsidePadding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.LinearLayoutCompat = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.LinearLayoutCompat_android_baselineAligned = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_android_baselineAligned;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.LinearLayoutCompat_android_baselineAlignedChildIndex = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_android_baselineAlignedChildIndex;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.LinearLayoutCompat_android_gravity = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_android_gravity;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.LinearLayoutCompat_android_orientation = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_android_orientation;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.LinearLayoutCompat_android_weightSum = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_android_weightSum;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.LinearLayoutCompat_divider = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_divider;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.LinearLayoutCompat_dividerPadding = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_dividerPadding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.LinearLayoutCompat_measureWithLargestChild = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_measureWithLargestChild;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.LinearLayoutCompat_showDividers = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_showDividers;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.LinearLayoutCompat_Layout = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_Layout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_gravity = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_gravity;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_height = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_height;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_weight = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_weight;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_width = global::MvxPluginNugetTest.Android.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_width;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ListPopupWindow = global::MvxPluginNugetTest.Android.Resource.Styleable.ListPopupWindow;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ListPopupWindow_android_dropDownHorizontalOffset = global::MvxPluginNugetTest.Android.Resource.Styleable.ListPopupWindow_android_dropDownHorizontalOffset;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ListPopupWindow_android_dropDownVerticalOffset = global::MvxPluginNugetTest.Android.Resource.Styleable.ListPopupWindow_android_dropDownVerticalOffset;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuGroup = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuGroup;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuGroup_android_checkableBehavior = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuGroup_android_checkableBehavior;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuGroup_android_enabled = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuGroup_android_enabled;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuGroup_android_id = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuGroup_android_id;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuGroup_android_menuCategory = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuGroup_android_menuCategory;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuGroup_android_orderInCategory = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuGroup_android_orderInCategory;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuGroup_android_visible = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuGroup_android_visible;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuItem = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuItem_actionLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_actionLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuItem_actionProviderClass = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_actionProviderClass;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuItem_actionViewClass = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_actionViewClass;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuItem_alphabeticModifiers = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_alphabeticModifiers;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuItem_android_alphabeticShortcut = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_alphabeticShortcut;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuItem_android_checkable = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_checkable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuItem_android_checked = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_checked;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuItem_android_enabled = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_enabled;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuItem_android_icon = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_icon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuItem_android_id = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_id;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuItem_android_menuCategory = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_menuCategory;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuItem_android_numericShortcut = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_numericShortcut;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuItem_android_onClick = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_onClick;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuItem_android_orderInCategory = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_orderInCategory;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuItem_android_title = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_title;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuItem_android_titleCondensed = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_titleCondensed;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuItem_android_visible = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_android_visible;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuItem_contentDescription = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_contentDescription;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuItem_iconTint = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_iconTint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuItem_iconTintMode = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_iconTintMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuItem_numericModifiers = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_numericModifiers;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuItem_showAsAction = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_showAsAction;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuItem_tooltipText = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuItem_tooltipText;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuView = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuView_android_headerBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuView_android_headerBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuView_android_horizontalDivider = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuView_android_horizontalDivider;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuView_android_itemBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuView_android_itemBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuView_android_itemIconDisabledAlpha = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuView_android_itemIconDisabledAlpha;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuView_android_itemTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuView_android_itemTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuView_android_verticalDivider = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuView_android_verticalDivider;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuView_android_windowAnimationStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuView_android_windowAnimationStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuView_preserveIconSpacing = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuView_preserveIconSpacing;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MenuView_subMenuArrow = global::MvxPluginNugetTest.Android.Resource.Styleable.MenuView_subMenuArrow;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MvxBinding = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxBinding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MvxBinding_MvxBind = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxBinding_MvxBind;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MvxBinding_MvxLang = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxBinding_MvxLang;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MvxControl = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxControl;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MvxControl_MvxTemplate = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxControl_MvxTemplate;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MvxExpandableListView = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxExpandableListView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MvxExpandableListView_MvxGroupItemTemplate = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxExpandableListView_MvxGroupItemTemplate;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MvxListView = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxListView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MvxListView_MvxDropDownItemTemplate = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxListView_MvxDropDownItemTemplate;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.MvxListView_MvxItemTemplate = global::MvxPluginNugetTest.Android.Resource.Styleable.MvxListView_MvxItemTemplate;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.NavigationView = global::MvxPluginNugetTest.Android.Resource.Styleable.NavigationView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.NavigationView_android_background = global::MvxPluginNugetTest.Android.Resource.Styleable.NavigationView_android_background;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.NavigationView_android_fitsSystemWindows = global::MvxPluginNugetTest.Android.Resource.Styleable.NavigationView_android_fitsSystemWindows;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.NavigationView_android_maxWidth = global::MvxPluginNugetTest.Android.Resource.Styleable.NavigationView_android_maxWidth;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.NavigationView_elevation = global::MvxPluginNugetTest.Android.Resource.Styleable.NavigationView_elevation;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.NavigationView_headerLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.NavigationView_headerLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.NavigationView_itemBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.NavigationView_itemBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.NavigationView_itemIconTint = global::MvxPluginNugetTest.Android.Resource.Styleable.NavigationView_itemIconTint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.NavigationView_itemTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.NavigationView_itemTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.NavigationView_itemTextColor = global::MvxPluginNugetTest.Android.Resource.Styleable.NavigationView_itemTextColor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.NavigationView_menu = global::MvxPluginNugetTest.Android.Resource.Styleable.NavigationView_menu;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.PopupWindow = global::MvxPluginNugetTest.Android.Resource.Styleable.PopupWindow;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.PopupWindow_android_popupAnimationStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.PopupWindow_android_popupAnimationStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.PopupWindow_android_popupBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.PopupWindow_android_popupBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.PopupWindow_overlapAnchor = global::MvxPluginNugetTest.Android.Resource.Styleable.PopupWindow_overlapAnchor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.PopupWindowBackgroundState = global::MvxPluginNugetTest.Android.Resource.Styleable.PopupWindowBackgroundState;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.PopupWindowBackgroundState_state_above_anchor = global::MvxPluginNugetTest.Android.Resource.Styleable.PopupWindowBackgroundState_state_above_anchor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.RecycleListView = global::MvxPluginNugetTest.Android.Resource.Styleable.RecycleListView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.RecycleListView_paddingBottomNoButtons = global::MvxPluginNugetTest.Android.Resource.Styleable.RecycleListView_paddingBottomNoButtons;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.RecycleListView_paddingTopNoTitle = global::MvxPluginNugetTest.Android.Resource.Styleable.RecycleListView_paddingTopNoTitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.RecyclerView = global::MvxPluginNugetTest.Android.Resource.Styleable.RecyclerView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.RecyclerView_android_descendantFocusability = global::MvxPluginNugetTest.Android.Resource.Styleable.RecyclerView_android_descendantFocusability;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.RecyclerView_android_orientation = global::MvxPluginNugetTest.Android.Resource.Styleable.RecyclerView_android_orientation;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.RecyclerView_fastScrollEnabled = global::MvxPluginNugetTest.Android.Resource.Styleable.RecyclerView_fastScrollEnabled;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.RecyclerView_fastScrollHorizontalThumbDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.RecyclerView_fastScrollHorizontalThumbDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.RecyclerView_fastScrollHorizontalTrackDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.RecyclerView_fastScrollHorizontalTrackDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.RecyclerView_fastScrollVerticalThumbDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.RecyclerView_fastScrollVerticalThumbDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.RecyclerView_fastScrollVerticalTrackDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.RecyclerView_fastScrollVerticalTrackDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.RecyclerView_layoutManager = global::MvxPluginNugetTest.Android.Resource.Styleable.RecyclerView_layoutManager;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.RecyclerView_reverseLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.RecyclerView_reverseLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.RecyclerView_spanCount = global::MvxPluginNugetTest.Android.Resource.Styleable.RecyclerView_spanCount;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.RecyclerView_stackFromEnd = global::MvxPluginNugetTest.Android.Resource.Styleable.RecyclerView_stackFromEnd;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ScrimInsetsFrameLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.ScrimInsetsFrameLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ScrimInsetsFrameLayout_insetForeground = global::MvxPluginNugetTest.Android.Resource.Styleable.ScrimInsetsFrameLayout_insetForeground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ScrollingViewBehavior_Layout = global::MvxPluginNugetTest.Android.Resource.Styleable.ScrollingViewBehavior_Layout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ScrollingViewBehavior_Layout_behavior_overlapTop = global::MvxPluginNugetTest.Android.Resource.Styleable.ScrollingViewBehavior_Layout_behavior_overlapTop;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SearchView = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SearchView_android_focusable = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_android_focusable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SearchView_android_imeOptions = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_android_imeOptions;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SearchView_android_inputType = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_android_inputType;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SearchView_android_maxWidth = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_android_maxWidth;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SearchView_closeIcon = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_closeIcon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SearchView_commitIcon = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_commitIcon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SearchView_defaultQueryHint = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_defaultQueryHint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SearchView_goIcon = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_goIcon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SearchView_iconifiedByDefault = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_iconifiedByDefault;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SearchView_layout = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_layout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SearchView_queryBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_queryBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SearchView_queryHint = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_queryHint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SearchView_searchHintIcon = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_searchHintIcon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SearchView_searchIcon = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_searchIcon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SearchView_submitBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_submitBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SearchView_suggestionRowLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_suggestionRowLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SearchView_voiceIcon = global::MvxPluginNugetTest.Android.Resource.Styleable.SearchView_voiceIcon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SnackbarLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.SnackbarLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SnackbarLayout_android_maxWidth = global::MvxPluginNugetTest.Android.Resource.Styleable.SnackbarLayout_android_maxWidth;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SnackbarLayout_elevation = global::MvxPluginNugetTest.Android.Resource.Styleable.SnackbarLayout_elevation;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SnackbarLayout_maxActionInlineWidth = global::MvxPluginNugetTest.Android.Resource.Styleable.SnackbarLayout_maxActionInlineWidth;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Spinner = global::MvxPluginNugetTest.Android.Resource.Styleable.Spinner;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Spinner_android_dropDownWidth = global::MvxPluginNugetTest.Android.Resource.Styleable.Spinner_android_dropDownWidth;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Spinner_android_entries = global::MvxPluginNugetTest.Android.Resource.Styleable.Spinner_android_entries;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Spinner_android_popupBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.Spinner_android_popupBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Spinner_android_prompt = global::MvxPluginNugetTest.Android.Resource.Styleable.Spinner_android_prompt;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Spinner_popupTheme = global::MvxPluginNugetTest.Android.Resource.Styleable.Spinner_popupTheme;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SwitchCompat = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SwitchCompat_android_textOff = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_android_textOff;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SwitchCompat_android_textOn = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_android_textOn;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SwitchCompat_android_thumb = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_android_thumb;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SwitchCompat_showText = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_showText;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SwitchCompat_splitTrack = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_splitTrack;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SwitchCompat_switchMinWidth = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_switchMinWidth;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SwitchCompat_switchPadding = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_switchPadding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SwitchCompat_switchTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_switchTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SwitchCompat_thumbTextPadding = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_thumbTextPadding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SwitchCompat_thumbTint = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_thumbTint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SwitchCompat_thumbTintMode = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_thumbTintMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SwitchCompat_track = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_track;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SwitchCompat_trackTint = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_trackTint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.SwitchCompat_trackTintMode = global::MvxPluginNugetTest.Android.Resource.Styleable.SwitchCompat_trackTintMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TabItem = global::MvxPluginNugetTest.Android.Resource.Styleable.TabItem;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TabItem_android_icon = global::MvxPluginNugetTest.Android.Resource.Styleable.TabItem_android_icon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TabItem_android_layout = global::MvxPluginNugetTest.Android.Resource.Styleable.TabItem_android_layout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TabItem_android_text = global::MvxPluginNugetTest.Android.Resource.Styleable.TabItem_android_text;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TabLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TabLayout_tabBackground = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabBackground;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TabLayout_tabContentStart = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabContentStart;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TabLayout_tabGravity = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabGravity;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TabLayout_tabIndicatorColor = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabIndicatorColor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TabLayout_tabIndicatorHeight = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabIndicatorHeight;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TabLayout_tabMaxWidth = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabMaxWidth;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TabLayout_tabMinWidth = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabMinWidth;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TabLayout_tabMode = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TabLayout_tabPadding = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabPadding;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TabLayout_tabPaddingBottom = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabPaddingBottom;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TabLayout_tabPaddingEnd = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabPaddingEnd;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TabLayout_tabPaddingStart = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabPaddingStart;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TabLayout_tabPaddingTop = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabPaddingTop;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TabLayout_tabSelectedTextColor = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabSelectedTextColor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TabLayout_tabTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TabLayout_tabTextColor = global::MvxPluginNugetTest.Android.Resource.Styleable.TabLayout_tabTextColor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextAppearance_android_fontFamily = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_android_fontFamily;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextAppearance_android_shadowColor = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_android_shadowColor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextAppearance_android_shadowDx = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_android_shadowDx;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextAppearance_android_shadowDy = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_android_shadowDy;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextAppearance_android_shadowRadius = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_android_shadowRadius;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextAppearance_android_textColor = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_android_textColor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextAppearance_android_textColorHint = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_android_textColorHint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextAppearance_android_textColorLink = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_android_textColorLink;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextAppearance_android_textSize = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_android_textSize;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextAppearance_android_textStyle = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_android_textStyle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextAppearance_android_typeface = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_android_typeface;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextAppearance_fontFamily = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_fontFamily;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextAppearance_textAllCaps = global::MvxPluginNugetTest.Android.Resource.Styleable.TextAppearance_textAllCaps;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextInputLayout = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextInputLayout_android_hint = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_android_hint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextInputLayout_android_textColorHint = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_android_textColorHint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextInputLayout_counterEnabled = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_counterEnabled;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextInputLayout_counterMaxLength = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_counterMaxLength;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextInputLayout_counterOverflowTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_counterOverflowTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextInputLayout_counterTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_counterTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextInputLayout_errorEnabled = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_errorEnabled;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextInputLayout_errorTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_errorTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextInputLayout_hintAnimationEnabled = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_hintAnimationEnabled;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextInputLayout_hintEnabled = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_hintEnabled;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextInputLayout_hintTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_hintTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextInputLayout_passwordToggleContentDescription = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_passwordToggleContentDescription;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextInputLayout_passwordToggleDrawable = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_passwordToggleDrawable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextInputLayout_passwordToggleEnabled = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_passwordToggleEnabled;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextInputLayout_passwordToggleTint = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_passwordToggleTint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.TextInputLayout_passwordToggleTintMode = global::MvxPluginNugetTest.Android.Resource.Styleable.TextInputLayout_passwordToggleTintMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_android_gravity = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_android_gravity;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_android_minHeight = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_android_minHeight;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_buttonGravity = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_buttonGravity;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_collapseContentDescription = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_collapseContentDescription;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_collapseIcon = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_collapseIcon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_contentInsetEnd = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_contentInsetEnd;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_contentInsetEndWithActions = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_contentInsetEndWithActions;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_contentInsetLeft = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_contentInsetLeft;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_contentInsetRight = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_contentInsetRight;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_contentInsetStart = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_contentInsetStart;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_contentInsetStartWithNavigation = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_contentInsetStartWithNavigation;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_logo = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_logo;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_logoDescription = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_logoDescription;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_maxButtonHeight = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_maxButtonHeight;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_navigationContentDescription = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_navigationContentDescription;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_navigationIcon = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_navigationIcon;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_popupTheme = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_popupTheme;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_subtitle = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_subtitle;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_subtitleTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_subtitleTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_subtitleTextColor = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_subtitleTextColor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_title = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_title;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_titleMargin = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_titleMargin;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_titleMarginBottom = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_titleMarginBottom;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_titleMarginEnd = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_titleMarginEnd;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_titleMarginStart = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_titleMarginStart;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_titleMarginTop = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_titleMarginTop;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_titleMargins = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_titleMargins;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_titleTextAppearance = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_titleTextAppearance;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.Toolbar_titleTextColor = global::MvxPluginNugetTest.Android.Resource.Styleable.Toolbar_titleTextColor;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.View = global::MvxPluginNugetTest.Android.Resource.Styleable.View;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.View_android_focusable = global::MvxPluginNugetTest.Android.Resource.Styleable.View_android_focusable;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.View_android_theme = global::MvxPluginNugetTest.Android.Resource.Styleable.View_android_theme;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.View_paddingEnd = global::MvxPluginNugetTest.Android.Resource.Styleable.View_paddingEnd;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.View_paddingStart = global::MvxPluginNugetTest.Android.Resource.Styleable.View_paddingStart;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.View_theme = global::MvxPluginNugetTest.Android.Resource.Styleable.View_theme;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ViewBackgroundHelper = global::MvxPluginNugetTest.Android.Resource.Styleable.ViewBackgroundHelper;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ViewBackgroundHelper_android_background = global::MvxPluginNugetTest.Android.Resource.Styleable.ViewBackgroundHelper_android_background;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ViewBackgroundHelper_backgroundTint = global::MvxPluginNugetTest.Android.Resource.Styleable.ViewBackgroundHelper_backgroundTint;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ViewBackgroundHelper_backgroundTintMode = global::MvxPluginNugetTest.Android.Resource.Styleable.ViewBackgroundHelper_backgroundTintMode;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ViewStubCompat = global::MvxPluginNugetTest.Android.Resource.Styleable.ViewStubCompat;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ViewStubCompat_android_id = global::MvxPluginNugetTest.Android.Resource.Styleable.ViewStubCompat_android_id;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ViewStubCompat_android_inflatedId = global::MvxPluginNugetTest.Android.Resource.Styleable.ViewStubCompat_android_inflatedId;
+			global::MvvmCross.Droid.Support.V7.AppCompat.Resource.Styleable.ViewStubCompat_android_layout = global::MvxPluginNugetTest.Android.Resource.Styleable.ViewStubCompat_android_layout;
+		}
+		
+		public partial class Animation
+		{
+			
+			// aapt resource value: 0x7f050000
+			public const int abc_fade_in = 2131034112;
+			
+			// aapt resource value: 0x7f050001
+			public const int abc_fade_out = 2131034113;
+			
+			// aapt resource value: 0x7f050002
+			public const int abc_grow_fade_in_from_bottom = 2131034114;
+			
+			// aapt resource value: 0x7f050003
+			public const int abc_popup_enter = 2131034115;
+			
+			// aapt resource value: 0x7f050004
+			public const int abc_popup_exit = 2131034116;
+			
+			// aapt resource value: 0x7f050005
+			public const int abc_shrink_fade_out_from_bottom = 2131034117;
+			
+			// aapt resource value: 0x7f050006
+			public const int abc_slide_in_bottom = 2131034118;
+			
+			// aapt resource value: 0x7f050007
+			public const int abc_slide_in_top = 2131034119;
+			
+			// aapt resource value: 0x7f050008
+			public const int abc_slide_out_bottom = 2131034120;
+			
+			// aapt resource value: 0x7f050009
+			public const int abc_slide_out_top = 2131034121;
+			
+			// aapt resource value: 0x7f05000a
+			public const int design_bottom_sheet_slide_in = 2131034122;
+			
+			// aapt resource value: 0x7f05000b
+			public const int design_bottom_sheet_slide_out = 2131034123;
+			
+			// aapt resource value: 0x7f05000c
+			public const int design_snackbar_in = 2131034124;
+			
+			// aapt resource value: 0x7f05000d
+			public const int design_snackbar_out = 2131034125;
+			
+			// aapt resource value: 0x7f05000e
+			public const int tooltip_enter = 2131034126;
+			
+			// aapt resource value: 0x7f05000f
+			public const int tooltip_exit = 2131034127;
+			
+			static Animation()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Animation()
+			{
+			}
+		}
+		
+		public partial class Animator
+		{
+			
+			// aapt resource value: 0x7f060000
+			public const int design_appbar_state_list_animator = 2131099648;
+			
+			static Animator()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Animator()
+			{
+			}
+		}
+		
 		public partial class Attribute
 		{
+			
+			// aapt resource value: 0x7f01015a
+			public const int MvxBind = 2130772314;
+			
+			// aapt resource value: 0x7f01015e
+			public const int MvxDropDownItemTemplate = 2130772318;
+			
+			// aapt resource value: 0x7f01015f
+			public const int MvxGroupItemTemplate = 2130772319;
+			
+			// aapt resource value: 0x7f01015d
+			public const int MvxItemTemplate = 2130772317;
+			
+			// aapt resource value: 0x7f01015b
+			public const int MvxLang = 2130772315;
+			
+			// aapt resource value: 0x7f01015c
+			public const int MvxTemplate = 2130772316;
+			
+			// aapt resource value: 0x7f010052
+			public const int actionBarDivider = 2130772050;
+			
+			// aapt resource value: 0x7f010053
+			public const int actionBarItemBackground = 2130772051;
+			
+			// aapt resource value: 0x7f01004c
+			public const int actionBarPopupTheme = 2130772044;
+			
+			// aapt resource value: 0x7f010051
+			public const int actionBarSize = 2130772049;
+			
+			// aapt resource value: 0x7f01004e
+			public const int actionBarSplitStyle = 2130772046;
+			
+			// aapt resource value: 0x7f01004d
+			public const int actionBarStyle = 2130772045;
+			
+			// aapt resource value: 0x7f010048
+			public const int actionBarTabBarStyle = 2130772040;
+			
+			// aapt resource value: 0x7f010047
+			public const int actionBarTabStyle = 2130772039;
+			
+			// aapt resource value: 0x7f010049
+			public const int actionBarTabTextStyle = 2130772041;
+			
+			// aapt resource value: 0x7f01004f
+			public const int actionBarTheme = 2130772047;
+			
+			// aapt resource value: 0x7f010050
+			public const int actionBarWidgetTheme = 2130772048;
+			
+			// aapt resource value: 0x7f01006d
+			public const int actionButtonStyle = 2130772077;
+			
+			// aapt resource value: 0x7f010069
+			public const int actionDropDownStyle = 2130772073;
+			
+			// aapt resource value: 0x7f0100c4
+			public const int actionLayout = 2130772164;
+			
+			// aapt resource value: 0x7f010054
+			public const int actionMenuTextAppearance = 2130772052;
+			
+			// aapt resource value: 0x7f010055
+			public const int actionMenuTextColor = 2130772053;
+			
+			// aapt resource value: 0x7f010058
+			public const int actionModeBackground = 2130772056;
+			
+			// aapt resource value: 0x7f010057
+			public const int actionModeCloseButtonStyle = 2130772055;
+			
+			// aapt resource value: 0x7f01005a
+			public const int actionModeCloseDrawable = 2130772058;
+			
+			// aapt resource value: 0x7f01005c
+			public const int actionModeCopyDrawable = 2130772060;
+			
+			// aapt resource value: 0x7f01005b
+			public const int actionModeCutDrawable = 2130772059;
+			
+			// aapt resource value: 0x7f010060
+			public const int actionModeFindDrawable = 2130772064;
+			
+			// aapt resource value: 0x7f01005d
+			public const int actionModePasteDrawable = 2130772061;
+			
+			// aapt resource value: 0x7f010062
+			public const int actionModePopupWindowStyle = 2130772066;
+			
+			// aapt resource value: 0x7f01005e
+			public const int actionModeSelectAllDrawable = 2130772062;
+			
+			// aapt resource value: 0x7f01005f
+			public const int actionModeShareDrawable = 2130772063;
+			
+			// aapt resource value: 0x7f010059
+			public const int actionModeSplitBackground = 2130772057;
+			
+			// aapt resource value: 0x7f010056
+			public const int actionModeStyle = 2130772054;
+			
+			// aapt resource value: 0x7f010061
+			public const int actionModeWebSearchDrawable = 2130772065;
+			
+			// aapt resource value: 0x7f01004a
+			public const int actionOverflowButtonStyle = 2130772042;
+			
+			// aapt resource value: 0x7f01004b
+			public const int actionOverflowMenuStyle = 2130772043;
+			
+			// aapt resource value: 0x7f0100c6
+			public const int actionProviderClass = 2130772166;
+			
+			// aapt resource value: 0x7f0100c5
+			public const int actionViewClass = 2130772165;
+			
+			// aapt resource value: 0x7f010075
+			public const int activityChooserViewStyle = 2130772085;
+			
+			// aapt resource value: 0x7f01009a
+			public const int alertDialogButtonGroupStyle = 2130772122;
+			
+			// aapt resource value: 0x7f01009b
+			public const int alertDialogCenterButtons = 2130772123;
+			
+			// aapt resource value: 0x7f010099
+			public const int alertDialogStyle = 2130772121;
+			
+			// aapt resource value: 0x7f01009c
+			public const int alertDialogTheme = 2130772124;
+			
+			// aapt resource value: 0x7f0100b2
+			public const int allowStacking = 2130772146;
+			
+			// aapt resource value: 0x7f0100b3
+			public const int alpha = 2130772147;
+			
+			// aapt resource value: 0x7f0100c1
+			public const int alphabeticModifiers = 2130772161;
+			
+			// aapt resource value: 0x7f0100ba
+			public const int arrowHeadLength = 2130772154;
+			
+			// aapt resource value: 0x7f0100bb
+			public const int arrowShaftLength = 2130772155;
+			
+			// aapt resource value: 0x7f0100a1
+			public const int autoCompleteTextViewStyle = 2130772129;
+			
+			// aapt resource value: 0x7f01003b
+			public const int autoSizeMaxTextSize = 2130772027;
+			
+			// aapt resource value: 0x7f01003a
+			public const int autoSizeMinTextSize = 2130772026;
+			
+			// aapt resource value: 0x7f010039
+			public const int autoSizePresetSizes = 2130772025;
+			
+			// aapt resource value: 0x7f010038
+			public const int autoSizeStepGranularity = 2130772024;
+			
+			// aapt resource value: 0x7f010037
+			public const int autoSizeTextType = 2130772023;
+			
+			// aapt resource value: 0x7f010015
+			public const int background = 2130771989;
+			
+			// aapt resource value: 0x7f010017
+			public const int backgroundSplit = 2130771991;
+			
+			// aapt resource value: 0x7f010016
+			public const int backgroundStacked = 2130771990;
+			
+			// aapt resource value: 0x7f0100fd
+			public const int backgroundTint = 2130772221;
+			
+			// aapt resource value: 0x7f0100fe
+			public const int backgroundTintMode = 2130772222;
+			
+			// aapt resource value: 0x7f0100bc
+			public const int barLength = 2130772156;
+			
+			// aapt resource value: 0x7f010128
+			public const int behavior_autoHide = 2130772264;
+			
+			// aapt resource value: 0x7f010105
+			public const int behavior_hideable = 2130772229;
+			
+			// aapt resource value: 0x7f010131
+			public const int behavior_overlapTop = 2130772273;
+			
+			// aapt resource value: 0x7f010104
+			public const int behavior_peekHeight = 2130772228;
+			
+			// aapt resource value: 0x7f010106
+			public const int behavior_skipCollapsed = 2130772230;
+			
+			// aapt resource value: 0x7f010126
+			public const int borderWidth = 2130772262;
+			
+			// aapt resource value: 0x7f010072
+			public const int borderlessButtonStyle = 2130772082;
+			
+			// aapt resource value: 0x7f010120
+			public const int bottomSheetDialogTheme = 2130772256;
+			
+			// aapt resource value: 0x7f010121
+			public const int bottomSheetStyle = 2130772257;
+			
+			// aapt resource value: 0x7f01006f
+			public const int buttonBarButtonStyle = 2130772079;
+			
+			// aapt resource value: 0x7f01009f
+			public const int buttonBarNegativeButtonStyle = 2130772127;
+			
+			// aapt resource value: 0x7f0100a0
+			public const int buttonBarNeutralButtonStyle = 2130772128;
+			
+			// aapt resource value: 0x7f01009e
+			public const int buttonBarPositiveButtonStyle = 2130772126;
+			
+			// aapt resource value: 0x7f01006e
+			public const int buttonBarStyle = 2130772078;
+			
+			// aapt resource value: 0x7f0100f2
+			public const int buttonGravity = 2130772210;
+			
+			// aapt resource value: 0x7f01002a
+			public const int buttonPanelSideLayout = 2130772010;
+			
+			// aapt resource value: 0x7f0100a2
+			public const int buttonStyle = 2130772130;
+			
+			// aapt resource value: 0x7f0100a3
+			public const int buttonStyleSmall = 2130772131;
+			
+			// aapt resource value: 0x7f0100b4
+			public const int buttonTint = 2130772148;
+			
+			// aapt resource value: 0x7f0100b5
+			public const int buttonTintMode = 2130772149;
+			
+			// aapt resource value: 0x7f0100a4
+			public const int checkboxStyle = 2130772132;
+			
+			// aapt resource value: 0x7f0100a5
+			public const int checkedTextViewStyle = 2130772133;
+			
+			// aapt resource value: 0x7f0100d5
+			public const int closeIcon = 2130772181;
+			
+			// aapt resource value: 0x7f010027
+			public const int closeItemLayout = 2130772007;
+			
+			// aapt resource value: 0x7f0100f4
+			public const int collapseContentDescription = 2130772212;
+			
+			// aapt resource value: 0x7f0100f3
+			public const int collapseIcon = 2130772211;
+			
+			// aapt resource value: 0x7f010113
+			public const int collapsedTitleGravity = 2130772243;
+			
+			// aapt resource value: 0x7f01010d
+			public const int collapsedTitleTextAppearance = 2130772237;
+			
+			// aapt resource value: 0x7f0100b6
+			public const int color = 2130772150;
+			
+			// aapt resource value: 0x7f010091
+			public const int colorAccent = 2130772113;
+			
+			// aapt resource value: 0x7f010098
+			public const int colorBackgroundFloating = 2130772120;
+			
+			// aapt resource value: 0x7f010095
+			public const int colorButtonNormal = 2130772117;
+			
+			// aapt resource value: 0x7f010093
+			public const int colorControlActivated = 2130772115;
+			
+			// aapt resource value: 0x7f010094
+			public const int colorControlHighlight = 2130772116;
+			
+			// aapt resource value: 0x7f010092
+			public const int colorControlNormal = 2130772114;
+			
+			// aapt resource value: 0x7f0100b1
+			public const int colorError = 2130772145;
+			
+			// aapt resource value: 0x7f01008f
+			public const int colorPrimary = 2130772111;
+			
+			// aapt resource value: 0x7f010090
+			public const int colorPrimaryDark = 2130772112;
+			
+			// aapt resource value: 0x7f010096
+			public const int colorSwitchThumbNormal = 2130772118;
+			
+			// aapt resource value: 0x7f0100da
+			public const int commitIcon = 2130772186;
+			
+			// aapt resource value: 0x7f0100c7
+			public const int contentDescription = 2130772167;
+			
+			// aapt resource value: 0x7f010020
+			public const int contentInsetEnd = 2130772000;
+			
+			// aapt resource value: 0x7f010024
+			public const int contentInsetEndWithActions = 2130772004;
+			
+			// aapt resource value: 0x7f010021
+			public const int contentInsetLeft = 2130772001;
+			
+			// aapt resource value: 0x7f010022
+			public const int contentInsetRight = 2130772002;
+			
+			// aapt resource value: 0x7f01001f
+			public const int contentInsetStart = 2130771999;
+			
+			// aapt resource value: 0x7f010023
+			public const int contentInsetStartWithNavigation = 2130772003;
+			
+			// aapt resource value: 0x7f01010e
+			public const int contentScrim = 2130772238;
+			
+			// aapt resource value: 0x7f010097
+			public const int controlBackground = 2130772119;
+			
+			// aapt resource value: 0x7f010147
+			public const int counterEnabled = 2130772295;
+			
+			// aapt resource value: 0x7f010148
+			public const int counterMaxLength = 2130772296;
+			
+			// aapt resource value: 0x7f01014a
+			public const int counterOverflowTextAppearance = 2130772298;
+			
+			// aapt resource value: 0x7f010149
+			public const int counterTextAppearance = 2130772297;
+			
+			// aapt resource value: 0x7f010018
+			public const int customNavigationLayout = 2130771992;
+			
+			// aapt resource value: 0x7f0100d4
+			public const int defaultQueryHint = 2130772180;
+			
+			// aapt resource value: 0x7f010067
+			public const int dialogPreferredPadding = 2130772071;
+			
+			// aapt resource value: 0x7f010066
+			public const int dialogTheme = 2130772070;
+			
+			// aapt resource value: 0x7f01000e
+			public const int displayOptions = 2130771982;
+			
+			// aapt resource value: 0x7f010014
+			public const int divider = 2130771988;
+			
+			// aapt resource value: 0x7f010074
+			public const int dividerHorizontal = 2130772084;
+			
+			// aapt resource value: 0x7f0100c0
+			public const int dividerPadding = 2130772160;
+			
+			// aapt resource value: 0x7f010073
+			public const int dividerVertical = 2130772083;
+			
+			// aapt resource value: 0x7f0100b8
+			public const int drawableSize = 2130772152;
+			
+			// aapt resource value: 0x7f010009
+			public const int drawerArrowStyle = 2130771977;
+			
+			// aapt resource value: 0x7f010086
+			public const int dropDownListViewStyle = 2130772102;
+			
+			// aapt resource value: 0x7f01006a
+			public const int dropdownListPreferredItemHeight = 2130772074;
+			
+			// aapt resource value: 0x7f01007b
+			public const int editTextBackground = 2130772091;
+			
+			// aapt resource value: 0x7f01007a
+			public const int editTextColor = 2130772090;
+			
+			// aapt resource value: 0x7f0100a6
+			public const int editTextStyle = 2130772134;
+			
+			// aapt resource value: 0x7f010025
+			public const int elevation = 2130772005;
+			
+			// aapt resource value: 0x7f010145
+			public const int errorEnabled = 2130772293;
+			
+			// aapt resource value: 0x7f010146
+			public const int errorTextAppearance = 2130772294;
+			
+			// aapt resource value: 0x7f010029
+			public const int expandActivityOverflowButtonDrawable = 2130772009;
+			
+			// aapt resource value: 0x7f0100ff
+			public const int expanded = 2130772223;
+			
+			// aapt resource value: 0x7f010114
+			public const int expandedTitleGravity = 2130772244;
+			
+			// aapt resource value: 0x7f010107
+			public const int expandedTitleMargin = 2130772231;
+			
+			// aapt resource value: 0x7f01010b
+			public const int expandedTitleMarginBottom = 2130772235;
+			
+			// aapt resource value: 0x7f01010a
+			public const int expandedTitleMarginEnd = 2130772234;
+			
+			// aapt resource value: 0x7f010108
+			public const int expandedTitleMarginStart = 2130772232;
+			
+			// aapt resource value: 0x7f010109
+			public const int expandedTitleMarginTop = 2130772233;
+			
+			// aapt resource value: 0x7f01010c
+			public const int expandedTitleTextAppearance = 2130772236;
+			
+			// aapt resource value: 0x7f010124
+			public const int fabSize = 2130772260;
+			
+			// aapt resource value: 0x7f010004
+			public const int fastScrollEnabled = 2130771972;
+			
+			// aapt resource value: 0x7f010007
+			public const int fastScrollHorizontalThumbDrawable = 2130771975;
+			
+			// aapt resource value: 0x7f010008
+			public const int fastScrollHorizontalTrackDrawable = 2130771976;
+			
+			// aapt resource value: 0x7f010005
+			public const int fastScrollVerticalThumbDrawable = 2130771973;
+			
+			// aapt resource value: 0x7f010006
+			public const int fastScrollVerticalTrackDrawable = 2130771974;
+			
+			// aapt resource value: 0x7f010158
+			public const int font = 2130772312;
+			
+			// aapt resource value: 0x7f01003c
+			public const int fontFamily = 2130772028;
+			
+			// aapt resource value: 0x7f010151
+			public const int fontProviderAuthority = 2130772305;
+			
+			// aapt resource value: 0x7f010154
+			public const int fontProviderCerts = 2130772308;
+			
+			// aapt resource value: 0x7f010155
+			public const int fontProviderFetchStrategy = 2130772309;
+			
+			// aapt resource value: 0x7f010156
+			public const int fontProviderFetchTimeout = 2130772310;
+			
+			// aapt resource value: 0x7f010152
+			public const int fontProviderPackage = 2130772306;
+			
+			// aapt resource value: 0x7f010153
+			public const int fontProviderQuery = 2130772307;
+			
+			// aapt resource value: 0x7f010157
+			public const int fontStyle = 2130772311;
+			
+			// aapt resource value: 0x7f010159
+			public const int fontWeight = 2130772313;
+			
+			// aapt resource value: 0x7f010129
+			public const int foregroundInsidePadding = 2130772265;
+			
+			// aapt resource value: 0x7f0100b9
+			public const int gapBetweenBars = 2130772153;
+			
+			// aapt resource value: 0x7f0100d6
+			public const int goIcon = 2130772182;
+			
+			// aapt resource value: 0x7f01012f
+			public const int headerLayout = 2130772271;
+			
+			// aapt resource value: 0x7f01000a
+			public const int height = 2130771978;
+			
+			// aapt resource value: 0x7f01001e
+			public const int hideOnContentScroll = 2130771998;
+			
+			// aapt resource value: 0x7f01014b
+			public const int hintAnimationEnabled = 2130772299;
+			
+			// aapt resource value: 0x7f010144
+			public const int hintEnabled = 2130772292;
+			
+			// aapt resource value: 0x7f010143
+			public const int hintTextAppearance = 2130772291;
+			
+			// aapt resource value: 0x7f01006c
+			public const int homeAsUpIndicator = 2130772076;
+			
+			// aapt resource value: 0x7f010019
+			public const int homeLayout = 2130771993;
+			
+			// aapt resource value: 0x7f010012
+			public const int icon = 2130771986;
+			
+			// aapt resource value: 0x7f0100c9
+			public const int iconTint = 2130772169;
+			
+			// aapt resource value: 0x7f0100ca
+			public const int iconTintMode = 2130772170;
+			
+			// aapt resource value: 0x7f0100d2
+			public const int iconifiedByDefault = 2130772178;
+			
+			// aapt resource value: 0x7f01007c
+			public const int imageButtonStyle = 2130772092;
+			
+			// aapt resource value: 0x7f01001b
+			public const int indeterminateProgressStyle = 2130771995;
+			
+			// aapt resource value: 0x7f010028
+			public const int initialActivityCount = 2130772008;
+			
+			// aapt resource value: 0x7f010130
+			public const int insetForeground = 2130772272;
+			
+			// aapt resource value: 0x7f01000b
+			public const int isLightTheme = 2130771979;
+			
+			// aapt resource value: 0x7f01012d
+			public const int itemBackground = 2130772269;
+			
+			// aapt resource value: 0x7f01012b
+			public const int itemIconTint = 2130772267;
+			
+			// aapt resource value: 0x7f01001d
+			public const int itemPadding = 2130771997;
+			
+			// aapt resource value: 0x7f01012e
+			public const int itemTextAppearance = 2130772270;
+			
+			// aapt resource value: 0x7f01012c
+			public const int itemTextColor = 2130772268;
+			
+			// aapt resource value: 0x7f010118
+			public const int keylines = 2130772248;
+			
+			// aapt resource value: 0x7f0100d1
+			public const int layout = 2130772177;
+			
+			// aapt resource value: 0x7f010000
+			public const int layoutManager = 2130771968;
+			
+			// aapt resource value: 0x7f01011b
+			public const int layout_anchor = 2130772251;
+			
+			// aapt resource value: 0x7f01011d
+			public const int layout_anchorGravity = 2130772253;
+			
+			// aapt resource value: 0x7f01011a
+			public const int layout_behavior = 2130772250;
+			
+			// aapt resource value: 0x7f010116
+			public const int layout_collapseMode = 2130772246;
+			
+			// aapt resource value: 0x7f010117
+			public const int layout_collapseParallaxMultiplier = 2130772247;
+			
+			// aapt resource value: 0x7f01011f
+			public const int layout_dodgeInsetEdges = 2130772255;
+			
+			// aapt resource value: 0x7f01011e
+			public const int layout_insetEdge = 2130772254;
+			
+			// aapt resource value: 0x7f01011c
+			public const int layout_keyline = 2130772252;
+			
+			// aapt resource value: 0x7f010102
+			public const int layout_scrollFlags = 2130772226;
+			
+			// aapt resource value: 0x7f010103
+			public const int layout_scrollInterpolator = 2130772227;
+			
+			// aapt resource value: 0x7f01008e
+			public const int listChoiceBackgroundIndicator = 2130772110;
+			
+			// aapt resource value: 0x7f010068
+			public const int listDividerAlertDialog = 2130772072;
+			
+			// aapt resource value: 0x7f01002e
+			public const int listItemLayout = 2130772014;
+			
+			// aapt resource value: 0x7f01002b
+			public const int listLayout = 2130772011;
+			
+			// aapt resource value: 0x7f0100ae
+			public const int listMenuViewStyle = 2130772142;
+			
+			// aapt resource value: 0x7f010087
+			public const int listPopupWindowStyle = 2130772103;
+			
+			// aapt resource value: 0x7f010081
+			public const int listPreferredItemHeight = 2130772097;
+			
+			// aapt resource value: 0x7f010083
+			public const int listPreferredItemHeightLarge = 2130772099;
+			
+			// aapt resource value: 0x7f010082
+			public const int listPreferredItemHeightSmall = 2130772098;
+			
+			// aapt resource value: 0x7f010084
+			public const int listPreferredItemPaddingLeft = 2130772100;
+			
+			// aapt resource value: 0x7f010085
+			public const int listPreferredItemPaddingRight = 2130772101;
+			
+			// aapt resource value: 0x7f010013
+			public const int logo = 2130771987;
+			
+			// aapt resource value: 0x7f0100f7
+			public const int logoDescription = 2130772215;
+			
+			// aapt resource value: 0x7f010132
+			public const int maxActionInlineWidth = 2130772274;
+			
+			// aapt resource value: 0x7f0100f1
+			public const int maxButtonHeight = 2130772209;
+			
+			// aapt resource value: 0x7f0100be
+			public const int measureWithLargestChild = 2130772158;
+			
+			// aapt resource value: 0x7f01012a
+			public const int menu = 2130772266;
+			
+			// aapt resource value: 0x7f01002c
+			public const int multiChoiceItemLayout = 2130772012;
+			
+			// aapt resource value: 0x7f0100f6
+			public const int navigationContentDescription = 2130772214;
+			
+			// aapt resource value: 0x7f0100f5
+			public const int navigationIcon = 2130772213;
+			
+			// aapt resource value: 0x7f01000d
+			public const int navigationMode = 2130771981;
+			
+			// aapt resource value: 0x7f0100c2
+			public const int numericModifiers = 2130772162;
+			
+			// aapt resource value: 0x7f0100cd
+			public const int overlapAnchor = 2130772173;
+			
+			// aapt resource value: 0x7f0100cf
+			public const int paddingBottomNoButtons = 2130772175;
+			
+			// aapt resource value: 0x7f0100fb
+			public const int paddingEnd = 2130772219;
+			
+			// aapt resource value: 0x7f0100fa
+			public const int paddingStart = 2130772218;
+			
+			// aapt resource value: 0x7f0100d0
+			public const int paddingTopNoTitle = 2130772176;
+			
+			// aapt resource value: 0x7f01008b
+			public const int panelBackground = 2130772107;
+			
+			// aapt resource value: 0x7f01008d
+			public const int panelMenuListTheme = 2130772109;
+			
+			// aapt resource value: 0x7f01008c
+			public const int panelMenuListWidth = 2130772108;
+			
+			// aapt resource value: 0x7f01014e
+			public const int passwordToggleContentDescription = 2130772302;
+			
+			// aapt resource value: 0x7f01014d
+			public const int passwordToggleDrawable = 2130772301;
+			
+			// aapt resource value: 0x7f01014c
+			public const int passwordToggleEnabled = 2130772300;
+			
+			// aapt resource value: 0x7f01014f
+			public const int passwordToggleTint = 2130772303;
+			
+			// aapt resource value: 0x7f010150
+			public const int passwordToggleTintMode = 2130772304;
+			
+			// aapt resource value: 0x7f010078
+			public const int popupMenuStyle = 2130772088;
+			
+			// aapt resource value: 0x7f010026
+			public const int popupTheme = 2130772006;
+			
+			// aapt resource value: 0x7f010079
+			public const int popupWindowStyle = 2130772089;
+			
+			// aapt resource value: 0x7f0100cb
+			public const int preserveIconSpacing = 2130772171;
+			
+			// aapt resource value: 0x7f010125
+			public const int pressedTranslationZ = 2130772261;
+			
+			// aapt resource value: 0x7f01001c
+			public const int progressBarPadding = 2130771996;
+			
+			// aapt resource value: 0x7f01001a
+			public const int progressBarStyle = 2130771994;
+			
+			// aapt resource value: 0x7f0100dc
+			public const int queryBackground = 2130772188;
+			
+			// aapt resource value: 0x7f0100d3
+			public const int queryHint = 2130772179;
+			
+			// aapt resource value: 0x7f0100a7
+			public const int radioButtonStyle = 2130772135;
+			
+			// aapt resource value: 0x7f0100a8
+			public const int ratingBarStyle = 2130772136;
+			
+			// aapt resource value: 0x7f0100a9
+			public const int ratingBarStyleIndicator = 2130772137;
+			
+			// aapt resource value: 0x7f0100aa
+			public const int ratingBarStyleSmall = 2130772138;
+			
+			// aapt resource value: 0x7f010002
+			public const int reverseLayout = 2130771970;
+			
+			// aapt resource value: 0x7f010123
+			public const int rippleColor = 2130772259;
+			
+			// aapt resource value: 0x7f010112
+			public const int scrimAnimationDuration = 2130772242;
+			
+			// aapt resource value: 0x7f010111
+			public const int scrimVisibleHeightTrigger = 2130772241;
+			
+			// aapt resource value: 0x7f0100d8
+			public const int searchHintIcon = 2130772184;
+			
+			// aapt resource value: 0x7f0100d7
+			public const int searchIcon = 2130772183;
+			
+			// aapt resource value: 0x7f010080
+			public const int searchViewStyle = 2130772096;
+			
+			// aapt resource value: 0x7f0100ab
+			public const int seekBarStyle = 2130772139;
+			
+			// aapt resource value: 0x7f010070
+			public const int selectableItemBackground = 2130772080;
+			
+			// aapt resource value: 0x7f010071
+			public const int selectableItemBackgroundBorderless = 2130772081;
+			
+			// aapt resource value: 0x7f0100c3
+			public const int showAsAction = 2130772163;
+			
+			// aapt resource value: 0x7f0100bf
+			public const int showDividers = 2130772159;
+			
+			// aapt resource value: 0x7f0100e8
+			public const int showText = 2130772200;
+			
+			// aapt resource value: 0x7f01002f
+			public const int showTitle = 2130772015;
+			
+			// aapt resource value: 0x7f01002d
+			public const int singleChoiceItemLayout = 2130772013;
+			
+			// aapt resource value: 0x7f010001
+			public const int spanCount = 2130771969;
+			
+			// aapt resource value: 0x7f0100b7
+			public const int spinBars = 2130772151;
+			
+			// aapt resource value: 0x7f01006b
+			public const int spinnerDropDownItemStyle = 2130772075;
+			
+			// aapt resource value: 0x7f0100ac
+			public const int spinnerStyle = 2130772140;
+			
+			// aapt resource value: 0x7f0100e7
+			public const int splitTrack = 2130772199;
+			
+			// aapt resource value: 0x7f010030
+			public const int srcCompat = 2130772016;
+			
+			// aapt resource value: 0x7f010003
+			public const int stackFromEnd = 2130771971;
+			
+			// aapt resource value: 0x7f0100ce
+			public const int state_above_anchor = 2130772174;
+			
+			// aapt resource value: 0x7f010100
+			public const int state_collapsed = 2130772224;
+			
+			// aapt resource value: 0x7f010101
+			public const int state_collapsible = 2130772225;
+			
+			// aapt resource value: 0x7f010119
+			public const int statusBarBackground = 2130772249;
+			
+			// aapt resource value: 0x7f01010f
+			public const int statusBarScrim = 2130772239;
+			
+			// aapt resource value: 0x7f0100cc
+			public const int subMenuArrow = 2130772172;
+			
+			// aapt resource value: 0x7f0100dd
+			public const int submitBackground = 2130772189;
+			
+			// aapt resource value: 0x7f01000f
+			public const int subtitle = 2130771983;
+			
+			// aapt resource value: 0x7f0100ea
+			public const int subtitleTextAppearance = 2130772202;
+			
+			// aapt resource value: 0x7f0100f9
+			public const int subtitleTextColor = 2130772217;
+			
+			// aapt resource value: 0x7f010011
+			public const int subtitleTextStyle = 2130771985;
+			
+			// aapt resource value: 0x7f0100db
+			public const int suggestionRowLayout = 2130772187;
+			
+			// aapt resource value: 0x7f0100e5
+			public const int switchMinWidth = 2130772197;
+			
+			// aapt resource value: 0x7f0100e6
+			public const int switchPadding = 2130772198;
+			
+			// aapt resource value: 0x7f0100ad
+			public const int switchStyle = 2130772141;
+			
+			// aapt resource value: 0x7f0100e4
+			public const int switchTextAppearance = 2130772196;
+			
+			// aapt resource value: 0x7f010136
+			public const int tabBackground = 2130772278;
+			
+			// aapt resource value: 0x7f010135
+			public const int tabContentStart = 2130772277;
+			
+			// aapt resource value: 0x7f010138
+			public const int tabGravity = 2130772280;
+			
+			// aapt resource value: 0x7f010133
+			public const int tabIndicatorColor = 2130772275;
+			
+			// aapt resource value: 0x7f010134
+			public const int tabIndicatorHeight = 2130772276;
+			
+			// aapt resource value: 0x7f01013a
+			public const int tabMaxWidth = 2130772282;
+			
+			// aapt resource value: 0x7f010139
+			public const int tabMinWidth = 2130772281;
+			
+			// aapt resource value: 0x7f010137
+			public const int tabMode = 2130772279;
+			
+			// aapt resource value: 0x7f010142
+			public const int tabPadding = 2130772290;
+			
+			// aapt resource value: 0x7f010141
+			public const int tabPaddingBottom = 2130772289;
+			
+			// aapt resource value: 0x7f010140
+			public const int tabPaddingEnd = 2130772288;
+			
+			// aapt resource value: 0x7f01013e
+			public const int tabPaddingStart = 2130772286;
+			
+			// aapt resource value: 0x7f01013f
+			public const int tabPaddingTop = 2130772287;
+			
+			// aapt resource value: 0x7f01013d
+			public const int tabSelectedTextColor = 2130772285;
+			
+			// aapt resource value: 0x7f01013b
+			public const int tabTextAppearance = 2130772283;
+			
+			// aapt resource value: 0x7f01013c
+			public const int tabTextColor = 2130772284;
+			
+			// aapt resource value: 0x7f010036
+			public const int textAllCaps = 2130772022;
+			
+			// aapt resource value: 0x7f010063
+			public const int textAppearanceLargePopupMenu = 2130772067;
+			
+			// aapt resource value: 0x7f010088
+			public const int textAppearanceListItem = 2130772104;
+			
+			// aapt resource value: 0x7f010089
+			public const int textAppearanceListItemSecondary = 2130772105;
+			
+			// aapt resource value: 0x7f01008a
+			public const int textAppearanceListItemSmall = 2130772106;
+			
+			// aapt resource value: 0x7f010065
+			public const int textAppearancePopupMenuHeader = 2130772069;
+			
+			// aapt resource value: 0x7f01007e
+			public const int textAppearanceSearchResultSubtitle = 2130772094;
+			
+			// aapt resource value: 0x7f01007d
+			public const int textAppearanceSearchResultTitle = 2130772093;
+			
+			// aapt resource value: 0x7f010064
+			public const int textAppearanceSmallPopupMenu = 2130772068;
+			
+			// aapt resource value: 0x7f01009d
+			public const int textColorAlertDialogListItem = 2130772125;
+			
+			// aapt resource value: 0x7f010122
+			public const int textColorError = 2130772258;
+			
+			// aapt resource value: 0x7f01007f
+			public const int textColorSearchUrl = 2130772095;
+			
+			// aapt resource value: 0x7f0100fc
+			public const int theme = 2130772220;
+			
+			// aapt resource value: 0x7f0100bd
+			public const int thickness = 2130772157;
+			
+			// aapt resource value: 0x7f0100e3
+			public const int thumbTextPadding = 2130772195;
+			
+			// aapt resource value: 0x7f0100de
+			public const int thumbTint = 2130772190;
+			
+			// aapt resource value: 0x7f0100df
+			public const int thumbTintMode = 2130772191;
+			
+			// aapt resource value: 0x7f010033
+			public const int tickMark = 2130772019;
+			
+			// aapt resource value: 0x7f010034
+			public const int tickMarkTint = 2130772020;
+			
+			// aapt resource value: 0x7f010035
+			public const int tickMarkTintMode = 2130772021;
+			
+			// aapt resource value: 0x7f010031
+			public const int tint = 2130772017;
+			
+			// aapt resource value: 0x7f010032
+			public const int tintMode = 2130772018;
+			
+			// aapt resource value: 0x7f01000c
+			public const int title = 2130771980;
+			
+			// aapt resource value: 0x7f010115
+			public const int titleEnabled = 2130772245;
+			
+			// aapt resource value: 0x7f0100eb
+			public const int titleMargin = 2130772203;
+			
+			// aapt resource value: 0x7f0100ef
+			public const int titleMarginBottom = 2130772207;
+			
+			// aapt resource value: 0x7f0100ed
+			public const int titleMarginEnd = 2130772205;
+			
+			// aapt resource value: 0x7f0100ec
+			public const int titleMarginStart = 2130772204;
+			
+			// aapt resource value: 0x7f0100ee
+			public const int titleMarginTop = 2130772206;
+			
+			// aapt resource value: 0x7f0100f0
+			public const int titleMargins = 2130772208;
+			
+			// aapt resource value: 0x7f0100e9
+			public const int titleTextAppearance = 2130772201;
+			
+			// aapt resource value: 0x7f0100f8
+			public const int titleTextColor = 2130772216;
+			
+			// aapt resource value: 0x7f010010
+			public const int titleTextStyle = 2130771984;
+			
+			// aapt resource value: 0x7f010110
+			public const int toolbarId = 2130772240;
+			
+			// aapt resource value: 0x7f010077
+			public const int toolbarNavigationButtonStyle = 2130772087;
+			
+			// aapt resource value: 0x7f010076
+			public const int toolbarStyle = 2130772086;
+			
+			// aapt resource value: 0x7f0100b0
+			public const int tooltipForegroundColor = 2130772144;
+			
+			// aapt resource value: 0x7f0100af
+			public const int tooltipFrameBackground = 2130772143;
+			
+			// aapt resource value: 0x7f0100c8
+			public const int tooltipText = 2130772168;
+			
+			// aapt resource value: 0x7f0100e0
+			public const int track = 2130772192;
+			
+			// aapt resource value: 0x7f0100e1
+			public const int trackTint = 2130772193;
+			
+			// aapt resource value: 0x7f0100e2
+			public const int trackTintMode = 2130772194;
+			
+			// aapt resource value: 0x7f010127
+			public const int useCompatPadding = 2130772263;
+			
+			// aapt resource value: 0x7f0100d9
+			public const int voiceIcon = 2130772185;
+			
+			// aapt resource value: 0x7f01003d
+			public const int windowActionBar = 2130772029;
+			
+			// aapt resource value: 0x7f01003f
+			public const int windowActionBarOverlay = 2130772031;
+			
+			// aapt resource value: 0x7f010040
+			public const int windowActionModeOverlay = 2130772032;
+			
+			// aapt resource value: 0x7f010044
+			public const int windowFixedHeightMajor = 2130772036;
+			
+			// aapt resource value: 0x7f010042
+			public const int windowFixedHeightMinor = 2130772034;
+			
+			// aapt resource value: 0x7f010041
+			public const int windowFixedWidthMajor = 2130772033;
+			
+			// aapt resource value: 0x7f010043
+			public const int windowFixedWidthMinor = 2130772035;
+			
+			// aapt resource value: 0x7f010045
+			public const int windowMinWidthMajor = 2130772037;
+			
+			// aapt resource value: 0x7f010046
+			public const int windowMinWidthMinor = 2130772038;
+			
+			// aapt resource value: 0x7f01003e
+			public const int windowNoTitle = 2130772030;
 			
 			static Attribute()
 			{
@@ -37,14 +5107,2110 @@ namespace MvxPluginNugetTest.Android
 			}
 		}
 		
+		public partial class Boolean
+		{
+			
+			// aapt resource value: 0x7f0c0000
+			public const int abc_action_bar_embed_tabs = 2131492864;
+			
+			// aapt resource value: 0x7f0c0001
+			public const int abc_allow_stacked_button_bar = 2131492865;
+			
+			// aapt resource value: 0x7f0c0002
+			public const int abc_config_actionMenuItemAllCaps = 2131492866;
+			
+			// aapt resource value: 0x7f0c0003
+			public const int abc_config_closeDialogWhenTouchOutside = 2131492867;
+			
+			// aapt resource value: 0x7f0c0004
+			public const int abc_config_showMenuShortcutsWhenKeyboardPresent = 2131492868;
+			
+			static Boolean()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Boolean()
+			{
+			}
+		}
+		
+		public partial class Color
+		{
+			
+			// aapt resource value: 0x7f0d004b
+			public const int abc_background_cache_hint_selector_material_dark = 2131558475;
+			
+			// aapt resource value: 0x7f0d004c
+			public const int abc_background_cache_hint_selector_material_light = 2131558476;
+			
+			// aapt resource value: 0x7f0d004d
+			public const int abc_btn_colored_borderless_text_material = 2131558477;
+			
+			// aapt resource value: 0x7f0d004e
+			public const int abc_btn_colored_text_material = 2131558478;
+			
+			// aapt resource value: 0x7f0d004f
+			public const int abc_color_highlight_material = 2131558479;
+			
+			// aapt resource value: 0x7f0d0050
+			public const int abc_hint_foreground_material_dark = 2131558480;
+			
+			// aapt resource value: 0x7f0d0051
+			public const int abc_hint_foreground_material_light = 2131558481;
+			
+			// aapt resource value: 0x7f0d0000
+			public const int abc_input_method_navigation_guard = 2131558400;
+			
+			// aapt resource value: 0x7f0d0052
+			public const int abc_primary_text_disable_only_material_dark = 2131558482;
+			
+			// aapt resource value: 0x7f0d0053
+			public const int abc_primary_text_disable_only_material_light = 2131558483;
+			
+			// aapt resource value: 0x7f0d0054
+			public const int abc_primary_text_material_dark = 2131558484;
+			
+			// aapt resource value: 0x7f0d0055
+			public const int abc_primary_text_material_light = 2131558485;
+			
+			// aapt resource value: 0x7f0d0056
+			public const int abc_search_url_text = 2131558486;
+			
+			// aapt resource value: 0x7f0d0001
+			public const int abc_search_url_text_normal = 2131558401;
+			
+			// aapt resource value: 0x7f0d0002
+			public const int abc_search_url_text_pressed = 2131558402;
+			
+			// aapt resource value: 0x7f0d0003
+			public const int abc_search_url_text_selected = 2131558403;
+			
+			// aapt resource value: 0x7f0d0057
+			public const int abc_secondary_text_material_dark = 2131558487;
+			
+			// aapt resource value: 0x7f0d0058
+			public const int abc_secondary_text_material_light = 2131558488;
+			
+			// aapt resource value: 0x7f0d0059
+			public const int abc_tint_btn_checkable = 2131558489;
+			
+			// aapt resource value: 0x7f0d005a
+			public const int abc_tint_default = 2131558490;
+			
+			// aapt resource value: 0x7f0d005b
+			public const int abc_tint_edittext = 2131558491;
+			
+			// aapt resource value: 0x7f0d005c
+			public const int abc_tint_seek_thumb = 2131558492;
+			
+			// aapt resource value: 0x7f0d005d
+			public const int abc_tint_spinner = 2131558493;
+			
+			// aapt resource value: 0x7f0d005e
+			public const int abc_tint_switch_track = 2131558494;
+			
+			// aapt resource value: 0x7f0d0004
+			public const int accent_material_dark = 2131558404;
+			
+			// aapt resource value: 0x7f0d0005
+			public const int accent_material_light = 2131558405;
+			
+			// aapt resource value: 0x7f0d0006
+			public const int background_floating_material_dark = 2131558406;
+			
+			// aapt resource value: 0x7f0d0007
+			public const int background_floating_material_light = 2131558407;
+			
+			// aapt resource value: 0x7f0d0008
+			public const int background_material_dark = 2131558408;
+			
+			// aapt resource value: 0x7f0d0009
+			public const int background_material_light = 2131558409;
+			
+			// aapt resource value: 0x7f0d000a
+			public const int bright_foreground_disabled_material_dark = 2131558410;
+			
+			// aapt resource value: 0x7f0d000b
+			public const int bright_foreground_disabled_material_light = 2131558411;
+			
+			// aapt resource value: 0x7f0d000c
+			public const int bright_foreground_inverse_material_dark = 2131558412;
+			
+			// aapt resource value: 0x7f0d000d
+			public const int bright_foreground_inverse_material_light = 2131558413;
+			
+			// aapt resource value: 0x7f0d000e
+			public const int bright_foreground_material_dark = 2131558414;
+			
+			// aapt resource value: 0x7f0d000f
+			public const int bright_foreground_material_light = 2131558415;
+			
+			// aapt resource value: 0x7f0d0010
+			public const int button_material_dark = 2131558416;
+			
+			// aapt resource value: 0x7f0d0011
+			public const int button_material_light = 2131558417;
+			
+			// aapt resource value: 0x7f0d0049
+			public const int colorAccent = 2131558473;
+			
+			// aapt resource value: 0x7f0d0047
+			public const int colorPrimary = 2131558471;
+			
+			// aapt resource value: 0x7f0d0048
+			public const int colorPrimaryDark = 2131558472;
+			
+			// aapt resource value: 0x7f0d003c
+			public const int design_bottom_navigation_shadow_color = 2131558460;
+			
+			// aapt resource value: 0x7f0d005f
+			public const int design_error = 2131558495;
+			
+			// aapt resource value: 0x7f0d003d
+			public const int design_fab_shadow_end_color = 2131558461;
+			
+			// aapt resource value: 0x7f0d003e
+			public const int design_fab_shadow_mid_color = 2131558462;
+			
+			// aapt resource value: 0x7f0d003f
+			public const int design_fab_shadow_start_color = 2131558463;
+			
+			// aapt resource value: 0x7f0d0040
+			public const int design_fab_stroke_end_inner_color = 2131558464;
+			
+			// aapt resource value: 0x7f0d0041
+			public const int design_fab_stroke_end_outer_color = 2131558465;
+			
+			// aapt resource value: 0x7f0d0042
+			public const int design_fab_stroke_top_inner_color = 2131558466;
+			
+			// aapt resource value: 0x7f0d0043
+			public const int design_fab_stroke_top_outer_color = 2131558467;
+			
+			// aapt resource value: 0x7f0d0044
+			public const int design_snackbar_background_color = 2131558468;
+			
+			// aapt resource value: 0x7f0d0060
+			public const int design_tint_password_toggle = 2131558496;
+			
+			// aapt resource value: 0x7f0d0012
+			public const int dim_foreground_disabled_material_dark = 2131558418;
+			
+			// aapt resource value: 0x7f0d0013
+			public const int dim_foreground_disabled_material_light = 2131558419;
+			
+			// aapt resource value: 0x7f0d0014
+			public const int dim_foreground_material_dark = 2131558420;
+			
+			// aapt resource value: 0x7f0d0015
+			public const int dim_foreground_material_light = 2131558421;
+			
+			// aapt resource value: 0x7f0d0016
+			public const int error_color_material = 2131558422;
+			
+			// aapt resource value: 0x7f0d0017
+			public const int foreground_material_dark = 2131558423;
+			
+			// aapt resource value: 0x7f0d0018
+			public const int foreground_material_light = 2131558424;
+			
+			// aapt resource value: 0x7f0d0019
+			public const int highlighted_text_material_dark = 2131558425;
+			
+			// aapt resource value: 0x7f0d001a
+			public const int highlighted_text_material_light = 2131558426;
+			
+			// aapt resource value: 0x7f0d004a
+			public const int ic_launcher_background = 2131558474;
+			
+			// aapt resource value: 0x7f0d001b
+			public const int material_blue_grey_800 = 2131558427;
+			
+			// aapt resource value: 0x7f0d001c
+			public const int material_blue_grey_900 = 2131558428;
+			
+			// aapt resource value: 0x7f0d001d
+			public const int material_blue_grey_950 = 2131558429;
+			
+			// aapt resource value: 0x7f0d001e
+			public const int material_deep_teal_200 = 2131558430;
+			
+			// aapt resource value: 0x7f0d001f
+			public const int material_deep_teal_500 = 2131558431;
+			
+			// aapt resource value: 0x7f0d0020
+			public const int material_grey_100 = 2131558432;
+			
+			// aapt resource value: 0x7f0d0021
+			public const int material_grey_300 = 2131558433;
+			
+			// aapt resource value: 0x7f0d0022
+			public const int material_grey_50 = 2131558434;
+			
+			// aapt resource value: 0x7f0d0023
+			public const int material_grey_600 = 2131558435;
+			
+			// aapt resource value: 0x7f0d0024
+			public const int material_grey_800 = 2131558436;
+			
+			// aapt resource value: 0x7f0d0025
+			public const int material_grey_850 = 2131558437;
+			
+			// aapt resource value: 0x7f0d0026
+			public const int material_grey_900 = 2131558438;
+			
+			// aapt resource value: 0x7f0d0045
+			public const int notification_action_color_filter = 2131558469;
+			
+			// aapt resource value: 0x7f0d0046
+			public const int notification_icon_bg_color = 2131558470;
+			
+			// aapt resource value: 0x7f0d003b
+			public const int notification_material_background_media_default_color = 2131558459;
+			
+			// aapt resource value: 0x7f0d0027
+			public const int primary_dark_material_dark = 2131558439;
+			
+			// aapt resource value: 0x7f0d0028
+			public const int primary_dark_material_light = 2131558440;
+			
+			// aapt resource value: 0x7f0d0029
+			public const int primary_material_dark = 2131558441;
+			
+			// aapt resource value: 0x7f0d002a
+			public const int primary_material_light = 2131558442;
+			
+			// aapt resource value: 0x7f0d002b
+			public const int primary_text_default_material_dark = 2131558443;
+			
+			// aapt resource value: 0x7f0d002c
+			public const int primary_text_default_material_light = 2131558444;
+			
+			// aapt resource value: 0x7f0d002d
+			public const int primary_text_disabled_material_dark = 2131558445;
+			
+			// aapt resource value: 0x7f0d002e
+			public const int primary_text_disabled_material_light = 2131558446;
+			
+			// aapt resource value: 0x7f0d002f
+			public const int ripple_material_dark = 2131558447;
+			
+			// aapt resource value: 0x7f0d0030
+			public const int ripple_material_light = 2131558448;
+			
+			// aapt resource value: 0x7f0d0031
+			public const int secondary_text_default_material_dark = 2131558449;
+			
+			// aapt resource value: 0x7f0d0032
+			public const int secondary_text_default_material_light = 2131558450;
+			
+			// aapt resource value: 0x7f0d0033
+			public const int secondary_text_disabled_material_dark = 2131558451;
+			
+			// aapt resource value: 0x7f0d0034
+			public const int secondary_text_disabled_material_light = 2131558452;
+			
+			// aapt resource value: 0x7f0d0035
+			public const int switch_thumb_disabled_material_dark = 2131558453;
+			
+			// aapt resource value: 0x7f0d0036
+			public const int switch_thumb_disabled_material_light = 2131558454;
+			
+			// aapt resource value: 0x7f0d0061
+			public const int switch_thumb_material_dark = 2131558497;
+			
+			// aapt resource value: 0x7f0d0062
+			public const int switch_thumb_material_light = 2131558498;
+			
+			// aapt resource value: 0x7f0d0037
+			public const int switch_thumb_normal_material_dark = 2131558455;
+			
+			// aapt resource value: 0x7f0d0038
+			public const int switch_thumb_normal_material_light = 2131558456;
+			
+			// aapt resource value: 0x7f0d0039
+			public const int tooltip_background_dark = 2131558457;
+			
+			// aapt resource value: 0x7f0d003a
+			public const int tooltip_background_light = 2131558458;
+			
+			static Color()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Color()
+			{
+			}
+		}
+		
+		public partial class Dimension
+		{
+			
+			// aapt resource value: 0x7f080012
+			public const int abc_action_bar_content_inset_material = 2131230738;
+			
+			// aapt resource value: 0x7f080013
+			public const int abc_action_bar_content_inset_with_nav = 2131230739;
+			
+			// aapt resource value: 0x7f080007
+			public const int abc_action_bar_default_height_material = 2131230727;
+			
+			// aapt resource value: 0x7f080014
+			public const int abc_action_bar_default_padding_end_material = 2131230740;
+			
+			// aapt resource value: 0x7f080015
+			public const int abc_action_bar_default_padding_start_material = 2131230741;
+			
+			// aapt resource value: 0x7f080017
+			public const int abc_action_bar_elevation_material = 2131230743;
+			
+			// aapt resource value: 0x7f080018
+			public const int abc_action_bar_icon_vertical_padding_material = 2131230744;
+			
+			// aapt resource value: 0x7f080019
+			public const int abc_action_bar_overflow_padding_end_material = 2131230745;
+			
+			// aapt resource value: 0x7f08001a
+			public const int abc_action_bar_overflow_padding_start_material = 2131230746;
+			
+			// aapt resource value: 0x7f080008
+			public const int abc_action_bar_progress_bar_size = 2131230728;
+			
+			// aapt resource value: 0x7f08001b
+			public const int abc_action_bar_stacked_max_height = 2131230747;
+			
+			// aapt resource value: 0x7f08001c
+			public const int abc_action_bar_stacked_tab_max_width = 2131230748;
+			
+			// aapt resource value: 0x7f08001d
+			public const int abc_action_bar_subtitle_bottom_margin_material = 2131230749;
+			
+			// aapt resource value: 0x7f08001e
+			public const int abc_action_bar_subtitle_top_margin_material = 2131230750;
+			
+			// aapt resource value: 0x7f08001f
+			public const int abc_action_button_min_height_material = 2131230751;
+			
+			// aapt resource value: 0x7f080020
+			public const int abc_action_button_min_width_material = 2131230752;
+			
+			// aapt resource value: 0x7f080021
+			public const int abc_action_button_min_width_overflow_material = 2131230753;
+			
+			// aapt resource value: 0x7f080006
+			public const int abc_alert_dialog_button_bar_height = 2131230726;
+			
+			// aapt resource value: 0x7f080022
+			public const int abc_button_inset_horizontal_material = 2131230754;
+			
+			// aapt resource value: 0x7f080023
+			public const int abc_button_inset_vertical_material = 2131230755;
+			
+			// aapt resource value: 0x7f080024
+			public const int abc_button_padding_horizontal_material = 2131230756;
+			
+			// aapt resource value: 0x7f080025
+			public const int abc_button_padding_vertical_material = 2131230757;
+			
+			// aapt resource value: 0x7f080026
+			public const int abc_cascading_menus_min_smallest_width = 2131230758;
+			
+			// aapt resource value: 0x7f08000b
+			public const int abc_config_prefDialogWidth = 2131230731;
+			
+			// aapt resource value: 0x7f080027
+			public const int abc_control_corner_material = 2131230759;
+			
+			// aapt resource value: 0x7f080028
+			public const int abc_control_inset_material = 2131230760;
+			
+			// aapt resource value: 0x7f080029
+			public const int abc_control_padding_material = 2131230761;
+			
+			// aapt resource value: 0x7f08000c
+			public const int abc_dialog_fixed_height_major = 2131230732;
+			
+			// aapt resource value: 0x7f08000d
+			public const int abc_dialog_fixed_height_minor = 2131230733;
+			
+			// aapt resource value: 0x7f08000e
+			public const int abc_dialog_fixed_width_major = 2131230734;
+			
+			// aapt resource value: 0x7f08000f
+			public const int abc_dialog_fixed_width_minor = 2131230735;
+			
+			// aapt resource value: 0x7f08002a
+			public const int abc_dialog_list_padding_bottom_no_buttons = 2131230762;
+			
+			// aapt resource value: 0x7f08002b
+			public const int abc_dialog_list_padding_top_no_title = 2131230763;
+			
+			// aapt resource value: 0x7f080010
+			public const int abc_dialog_min_width_major = 2131230736;
+			
+			// aapt resource value: 0x7f080011
+			public const int abc_dialog_min_width_minor = 2131230737;
+			
+			// aapt resource value: 0x7f08002c
+			public const int abc_dialog_padding_material = 2131230764;
+			
+			// aapt resource value: 0x7f08002d
+			public const int abc_dialog_padding_top_material = 2131230765;
+			
+			// aapt resource value: 0x7f08002e
+			public const int abc_dialog_title_divider_material = 2131230766;
+			
+			// aapt resource value: 0x7f08002f
+			public const int abc_disabled_alpha_material_dark = 2131230767;
+			
+			// aapt resource value: 0x7f080030
+			public const int abc_disabled_alpha_material_light = 2131230768;
+			
+			// aapt resource value: 0x7f080031
+			public const int abc_dropdownitem_icon_width = 2131230769;
+			
+			// aapt resource value: 0x7f080032
+			public const int abc_dropdownitem_text_padding_left = 2131230770;
+			
+			// aapt resource value: 0x7f080033
+			public const int abc_dropdownitem_text_padding_right = 2131230771;
+			
+			// aapt resource value: 0x7f080034
+			public const int abc_edit_text_inset_bottom_material = 2131230772;
+			
+			// aapt resource value: 0x7f080035
+			public const int abc_edit_text_inset_horizontal_material = 2131230773;
+			
+			// aapt resource value: 0x7f080036
+			public const int abc_edit_text_inset_top_material = 2131230774;
+			
+			// aapt resource value: 0x7f080037
+			public const int abc_floating_window_z = 2131230775;
+			
+			// aapt resource value: 0x7f080038
+			public const int abc_list_item_padding_horizontal_material = 2131230776;
+			
+			// aapt resource value: 0x7f080039
+			public const int abc_panel_menu_list_width = 2131230777;
+			
+			// aapt resource value: 0x7f08003a
+			public const int abc_progress_bar_height_material = 2131230778;
+			
+			// aapt resource value: 0x7f08003b
+			public const int abc_search_view_preferred_height = 2131230779;
+			
+			// aapt resource value: 0x7f08003c
+			public const int abc_search_view_preferred_width = 2131230780;
+			
+			// aapt resource value: 0x7f08003d
+			public const int abc_seekbar_track_background_height_material = 2131230781;
+			
+			// aapt resource value: 0x7f08003e
+			public const int abc_seekbar_track_progress_height_material = 2131230782;
+			
+			// aapt resource value: 0x7f08003f
+			public const int abc_select_dialog_padding_start_material = 2131230783;
+			
+			// aapt resource value: 0x7f080016
+			public const int abc_switch_padding = 2131230742;
+			
+			// aapt resource value: 0x7f080040
+			public const int abc_text_size_body_1_material = 2131230784;
+			
+			// aapt resource value: 0x7f080041
+			public const int abc_text_size_body_2_material = 2131230785;
+			
+			// aapt resource value: 0x7f080042
+			public const int abc_text_size_button_material = 2131230786;
+			
+			// aapt resource value: 0x7f080043
+			public const int abc_text_size_caption_material = 2131230787;
+			
+			// aapt resource value: 0x7f080044
+			public const int abc_text_size_display_1_material = 2131230788;
+			
+			// aapt resource value: 0x7f080045
+			public const int abc_text_size_display_2_material = 2131230789;
+			
+			// aapt resource value: 0x7f080046
+			public const int abc_text_size_display_3_material = 2131230790;
+			
+			// aapt resource value: 0x7f080047
+			public const int abc_text_size_display_4_material = 2131230791;
+			
+			// aapt resource value: 0x7f080048
+			public const int abc_text_size_headline_material = 2131230792;
+			
+			// aapt resource value: 0x7f080049
+			public const int abc_text_size_large_material = 2131230793;
+			
+			// aapt resource value: 0x7f08004a
+			public const int abc_text_size_medium_material = 2131230794;
+			
+			// aapt resource value: 0x7f08004b
+			public const int abc_text_size_menu_header_material = 2131230795;
+			
+			// aapt resource value: 0x7f08004c
+			public const int abc_text_size_menu_material = 2131230796;
+			
+			// aapt resource value: 0x7f08004d
+			public const int abc_text_size_small_material = 2131230797;
+			
+			// aapt resource value: 0x7f08004e
+			public const int abc_text_size_subhead_material = 2131230798;
+			
+			// aapt resource value: 0x7f080009
+			public const int abc_text_size_subtitle_material_toolbar = 2131230729;
+			
+			// aapt resource value: 0x7f08004f
+			public const int abc_text_size_title_material = 2131230799;
+			
+			// aapt resource value: 0x7f08000a
+			public const int abc_text_size_title_material_toolbar = 2131230730;
+			
+			// aapt resource value: 0x7f08008b
+			public const int compat_button_inset_horizontal_material = 2131230859;
+			
+			// aapt resource value: 0x7f08008c
+			public const int compat_button_inset_vertical_material = 2131230860;
+			
+			// aapt resource value: 0x7f08008d
+			public const int compat_button_padding_horizontal_material = 2131230861;
+			
+			// aapt resource value: 0x7f08008e
+			public const int compat_button_padding_vertical_material = 2131230862;
+			
+			// aapt resource value: 0x7f08008f
+			public const int compat_control_corner_material = 2131230863;
+			
+			// aapt resource value: 0x7f080069
+			public const int design_appbar_elevation = 2131230825;
+			
+			// aapt resource value: 0x7f08006a
+			public const int design_bottom_navigation_active_item_max_width = 2131230826;
+			
+			// aapt resource value: 0x7f08006b
+			public const int design_bottom_navigation_active_text_size = 2131230827;
+			
+			// aapt resource value: 0x7f08006c
+			public const int design_bottom_navigation_elevation = 2131230828;
+			
+			// aapt resource value: 0x7f08006d
+			public const int design_bottom_navigation_height = 2131230829;
+			
+			// aapt resource value: 0x7f08006e
+			public const int design_bottom_navigation_item_max_width = 2131230830;
+			
+			// aapt resource value: 0x7f08006f
+			public const int design_bottom_navigation_item_min_width = 2131230831;
+			
+			// aapt resource value: 0x7f080070
+			public const int design_bottom_navigation_margin = 2131230832;
+			
+			// aapt resource value: 0x7f080071
+			public const int design_bottom_navigation_shadow_height = 2131230833;
+			
+			// aapt resource value: 0x7f080072
+			public const int design_bottom_navigation_text_size = 2131230834;
+			
+			// aapt resource value: 0x7f080073
+			public const int design_bottom_sheet_modal_elevation = 2131230835;
+			
+			// aapt resource value: 0x7f080074
+			public const int design_bottom_sheet_peek_height_min = 2131230836;
+			
+			// aapt resource value: 0x7f080075
+			public const int design_fab_border_width = 2131230837;
+			
+			// aapt resource value: 0x7f080076
+			public const int design_fab_elevation = 2131230838;
+			
+			// aapt resource value: 0x7f080077
+			public const int design_fab_image_size = 2131230839;
+			
+			// aapt resource value: 0x7f080078
+			public const int design_fab_size_mini = 2131230840;
+			
+			// aapt resource value: 0x7f080079
+			public const int design_fab_size_normal = 2131230841;
+			
+			// aapt resource value: 0x7f08007a
+			public const int design_fab_translation_z_pressed = 2131230842;
+			
+			// aapt resource value: 0x7f08007b
+			public const int design_navigation_elevation = 2131230843;
+			
+			// aapt resource value: 0x7f08007c
+			public const int design_navigation_icon_padding = 2131230844;
+			
+			// aapt resource value: 0x7f08007d
+			public const int design_navigation_icon_size = 2131230845;
+			
+			// aapt resource value: 0x7f080061
+			public const int design_navigation_max_width = 2131230817;
+			
+			// aapt resource value: 0x7f08007e
+			public const int design_navigation_padding_bottom = 2131230846;
+			
+			// aapt resource value: 0x7f08007f
+			public const int design_navigation_separator_vertical_padding = 2131230847;
+			
+			// aapt resource value: 0x7f080062
+			public const int design_snackbar_action_inline_max_width = 2131230818;
+			
+			// aapt resource value: 0x7f080063
+			public const int design_snackbar_background_corner_radius = 2131230819;
+			
+			// aapt resource value: 0x7f080080
+			public const int design_snackbar_elevation = 2131230848;
+			
+			// aapt resource value: 0x7f080064
+			public const int design_snackbar_extra_spacing_horizontal = 2131230820;
+			
+			// aapt resource value: 0x7f080065
+			public const int design_snackbar_max_width = 2131230821;
+			
+			// aapt resource value: 0x7f080066
+			public const int design_snackbar_min_width = 2131230822;
+			
+			// aapt resource value: 0x7f080081
+			public const int design_snackbar_padding_horizontal = 2131230849;
+			
+			// aapt resource value: 0x7f080082
+			public const int design_snackbar_padding_vertical = 2131230850;
+			
+			// aapt resource value: 0x7f080067
+			public const int design_snackbar_padding_vertical_2lines = 2131230823;
+			
+			// aapt resource value: 0x7f080083
+			public const int design_snackbar_text_size = 2131230851;
+			
+			// aapt resource value: 0x7f080084
+			public const int design_tab_max_width = 2131230852;
+			
+			// aapt resource value: 0x7f080068
+			public const int design_tab_scrollable_min_width = 2131230824;
+			
+			// aapt resource value: 0x7f080085
+			public const int design_tab_text_size = 2131230853;
+			
+			// aapt resource value: 0x7f080086
+			public const int design_tab_text_size_2line = 2131230854;
+			
+			// aapt resource value: 0x7f080050
+			public const int disabled_alpha_material_dark = 2131230800;
+			
+			// aapt resource value: 0x7f080051
+			public const int disabled_alpha_material_light = 2131230801;
+			
+			// aapt resource value: 0x7f080000
+			public const int fastscroll_default_thickness = 2131230720;
+			
+			// aapt resource value: 0x7f080001
+			public const int fastscroll_margin = 2131230721;
+			
+			// aapt resource value: 0x7f080002
+			public const int fastscroll_minimum_range = 2131230722;
+			
+			// aapt resource value: 0x7f080052
+			public const int highlight_alpha_material_colored = 2131230802;
+			
+			// aapt resource value: 0x7f080053
+			public const int highlight_alpha_material_dark = 2131230803;
+			
+			// aapt resource value: 0x7f080054
+			public const int highlight_alpha_material_light = 2131230804;
+			
+			// aapt resource value: 0x7f080055
+			public const int hint_alpha_material_dark = 2131230805;
+			
+			// aapt resource value: 0x7f080056
+			public const int hint_alpha_material_light = 2131230806;
+			
+			// aapt resource value: 0x7f080057
+			public const int hint_pressed_alpha_material_dark = 2131230807;
+			
+			// aapt resource value: 0x7f080058
+			public const int hint_pressed_alpha_material_light = 2131230808;
+			
+			// aapt resource value: 0x7f080003
+			public const int item_touch_helper_max_drag_scroll_per_frame = 2131230723;
+			
+			// aapt resource value: 0x7f080004
+			public const int item_touch_helper_swipe_escape_max_velocity = 2131230724;
+			
+			// aapt resource value: 0x7f080005
+			public const int item_touch_helper_swipe_escape_velocity = 2131230725;
+			
+			// aapt resource value: 0x7f080090
+			public const int notification_action_icon_size = 2131230864;
+			
+			// aapt resource value: 0x7f080091
+			public const int notification_action_text_size = 2131230865;
+			
+			// aapt resource value: 0x7f080092
+			public const int notification_big_circle_margin = 2131230866;
+			
+			// aapt resource value: 0x7f080088
+			public const int notification_content_margin_start = 2131230856;
+			
+			// aapt resource value: 0x7f080093
+			public const int notification_large_icon_height = 2131230867;
+			
+			// aapt resource value: 0x7f080094
+			public const int notification_large_icon_width = 2131230868;
+			
+			// aapt resource value: 0x7f080089
+			public const int notification_main_column_padding_top = 2131230857;
+			
+			// aapt resource value: 0x7f08008a
+			public const int notification_media_narrow_margin = 2131230858;
+			
+			// aapt resource value: 0x7f080095
+			public const int notification_right_icon_size = 2131230869;
+			
+			// aapt resource value: 0x7f080087
+			public const int notification_right_side_padding_top = 2131230855;
+			
+			// aapt resource value: 0x7f080096
+			public const int notification_small_icon_background_padding = 2131230870;
+			
+			// aapt resource value: 0x7f080097
+			public const int notification_small_icon_size_as_large = 2131230871;
+			
+			// aapt resource value: 0x7f080098
+			public const int notification_subtext_size = 2131230872;
+			
+			// aapt resource value: 0x7f080099
+			public const int notification_top_pad = 2131230873;
+			
+			// aapt resource value: 0x7f08009a
+			public const int notification_top_pad_large_text = 2131230874;
+			
+			// aapt resource value: 0x7f080059
+			public const int tooltip_corner_radius = 2131230809;
+			
+			// aapt resource value: 0x7f08005a
+			public const int tooltip_horizontal_padding = 2131230810;
+			
+			// aapt resource value: 0x7f08005b
+			public const int tooltip_margin = 2131230811;
+			
+			// aapt resource value: 0x7f08005c
+			public const int tooltip_precise_anchor_extra_offset = 2131230812;
+			
+			// aapt resource value: 0x7f08005d
+			public const int tooltip_precise_anchor_threshold = 2131230813;
+			
+			// aapt resource value: 0x7f08005e
+			public const int tooltip_vertical_padding = 2131230814;
+			
+			// aapt resource value: 0x7f08005f
+			public const int tooltip_y_offset_non_touch = 2131230815;
+			
+			// aapt resource value: 0x7f080060
+			public const int tooltip_y_offset_touch = 2131230816;
+			
+			static Dimension()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Dimension()
+			{
+			}
+		}
+		
+		public partial class Drawable
+		{
+			
+			// aapt resource value: 0x7f020000
+			public const int abc_ab_share_pack_mtrl_alpha = 2130837504;
+			
+			// aapt resource value: 0x7f020001
+			public const int abc_action_bar_item_background_material = 2130837505;
+			
+			// aapt resource value: 0x7f020002
+			public const int abc_btn_borderless_material = 2130837506;
+			
+			// aapt resource value: 0x7f020003
+			public const int abc_btn_check_material = 2130837507;
+			
+			// aapt resource value: 0x7f020004
+			public const int abc_btn_check_to_on_mtrl_000 = 2130837508;
+			
+			// aapt resource value: 0x7f020005
+			public const int abc_btn_check_to_on_mtrl_015 = 2130837509;
+			
+			// aapt resource value: 0x7f020006
+			public const int abc_btn_colored_material = 2130837510;
+			
+			// aapt resource value: 0x7f020007
+			public const int abc_btn_default_mtrl_shape = 2130837511;
+			
+			// aapt resource value: 0x7f020008
+			public const int abc_btn_radio_material = 2130837512;
+			
+			// aapt resource value: 0x7f020009
+			public const int abc_btn_radio_to_on_mtrl_000 = 2130837513;
+			
+			// aapt resource value: 0x7f02000a
+			public const int abc_btn_radio_to_on_mtrl_015 = 2130837514;
+			
+			// aapt resource value: 0x7f02000b
+			public const int abc_btn_switch_to_on_mtrl_00001 = 2130837515;
+			
+			// aapt resource value: 0x7f02000c
+			public const int abc_btn_switch_to_on_mtrl_00012 = 2130837516;
+			
+			// aapt resource value: 0x7f02000d
+			public const int abc_cab_background_internal_bg = 2130837517;
+			
+			// aapt resource value: 0x7f02000e
+			public const int abc_cab_background_top_material = 2130837518;
+			
+			// aapt resource value: 0x7f02000f
+			public const int abc_cab_background_top_mtrl_alpha = 2130837519;
+			
+			// aapt resource value: 0x7f020010
+			public const int abc_control_background_material = 2130837520;
+			
+			// aapt resource value: 0x7f020011
+			public const int abc_dialog_material_background = 2130837521;
+			
+			// aapt resource value: 0x7f020012
+			public const int abc_edit_text_material = 2130837522;
+			
+			// aapt resource value: 0x7f020013
+			public const int abc_ic_ab_back_material = 2130837523;
+			
+			// aapt resource value: 0x7f020014
+			public const int abc_ic_arrow_drop_right_black_24dp = 2130837524;
+			
+			// aapt resource value: 0x7f020015
+			public const int abc_ic_clear_material = 2130837525;
+			
+			// aapt resource value: 0x7f020016
+			public const int abc_ic_commit_search_api_mtrl_alpha = 2130837526;
+			
+			// aapt resource value: 0x7f020017
+			public const int abc_ic_go_search_api_material = 2130837527;
+			
+			// aapt resource value: 0x7f020018
+			public const int abc_ic_menu_copy_mtrl_am_alpha = 2130837528;
+			
+			// aapt resource value: 0x7f020019
+			public const int abc_ic_menu_cut_mtrl_alpha = 2130837529;
+			
+			// aapt resource value: 0x7f02001a
+			public const int abc_ic_menu_overflow_material = 2130837530;
+			
+			// aapt resource value: 0x7f02001b
+			public const int abc_ic_menu_paste_mtrl_am_alpha = 2130837531;
+			
+			// aapt resource value: 0x7f02001c
+			public const int abc_ic_menu_selectall_mtrl_alpha = 2130837532;
+			
+			// aapt resource value: 0x7f02001d
+			public const int abc_ic_menu_share_mtrl_alpha = 2130837533;
+			
+			// aapt resource value: 0x7f02001e
+			public const int abc_ic_search_api_material = 2130837534;
+			
+			// aapt resource value: 0x7f02001f
+			public const int abc_ic_star_black_16dp = 2130837535;
+			
+			// aapt resource value: 0x7f020020
+			public const int abc_ic_star_black_36dp = 2130837536;
+			
+			// aapt resource value: 0x7f020021
+			public const int abc_ic_star_black_48dp = 2130837537;
+			
+			// aapt resource value: 0x7f020022
+			public const int abc_ic_star_half_black_16dp = 2130837538;
+			
+			// aapt resource value: 0x7f020023
+			public const int abc_ic_star_half_black_36dp = 2130837539;
+			
+			// aapt resource value: 0x7f020024
+			public const int abc_ic_star_half_black_48dp = 2130837540;
+			
+			// aapt resource value: 0x7f020025
+			public const int abc_ic_voice_search_api_material = 2130837541;
+			
+			// aapt resource value: 0x7f020026
+			public const int abc_item_background_holo_dark = 2130837542;
+			
+			// aapt resource value: 0x7f020027
+			public const int abc_item_background_holo_light = 2130837543;
+			
+			// aapt resource value: 0x7f020028
+			public const int abc_list_divider_mtrl_alpha = 2130837544;
+			
+			// aapt resource value: 0x7f020029
+			public const int abc_list_focused_holo = 2130837545;
+			
+			// aapt resource value: 0x7f02002a
+			public const int abc_list_longpressed_holo = 2130837546;
+			
+			// aapt resource value: 0x7f02002b
+			public const int abc_list_pressed_holo_dark = 2130837547;
+			
+			// aapt resource value: 0x7f02002c
+			public const int abc_list_pressed_holo_light = 2130837548;
+			
+			// aapt resource value: 0x7f02002d
+			public const int abc_list_selector_background_transition_holo_dark = 2130837549;
+			
+			// aapt resource value: 0x7f02002e
+			public const int abc_list_selector_background_transition_holo_light = 2130837550;
+			
+			// aapt resource value: 0x7f02002f
+			public const int abc_list_selector_disabled_holo_dark = 2130837551;
+			
+			// aapt resource value: 0x7f020030
+			public const int abc_list_selector_disabled_holo_light = 2130837552;
+			
+			// aapt resource value: 0x7f020031
+			public const int abc_list_selector_holo_dark = 2130837553;
+			
+			// aapt resource value: 0x7f020032
+			public const int abc_list_selector_holo_light = 2130837554;
+			
+			// aapt resource value: 0x7f020033
+			public const int abc_menu_hardkey_panel_mtrl_mult = 2130837555;
+			
+			// aapt resource value: 0x7f020034
+			public const int abc_popup_background_mtrl_mult = 2130837556;
+			
+			// aapt resource value: 0x7f020035
+			public const int abc_ratingbar_indicator_material = 2130837557;
+			
+			// aapt resource value: 0x7f020036
+			public const int abc_ratingbar_material = 2130837558;
+			
+			// aapt resource value: 0x7f020037
+			public const int abc_ratingbar_small_material = 2130837559;
+			
+			// aapt resource value: 0x7f020038
+			public const int abc_scrubber_control_off_mtrl_alpha = 2130837560;
+			
+			// aapt resource value: 0x7f020039
+			public const int abc_scrubber_control_to_pressed_mtrl_000 = 2130837561;
+			
+			// aapt resource value: 0x7f02003a
+			public const int abc_scrubber_control_to_pressed_mtrl_005 = 2130837562;
+			
+			// aapt resource value: 0x7f02003b
+			public const int abc_scrubber_primary_mtrl_alpha = 2130837563;
+			
+			// aapt resource value: 0x7f02003c
+			public const int abc_scrubber_track_mtrl_alpha = 2130837564;
+			
+			// aapt resource value: 0x7f02003d
+			public const int abc_seekbar_thumb_material = 2130837565;
+			
+			// aapt resource value: 0x7f02003e
+			public const int abc_seekbar_tick_mark_material = 2130837566;
+			
+			// aapt resource value: 0x7f02003f
+			public const int abc_seekbar_track_material = 2130837567;
+			
+			// aapt resource value: 0x7f020040
+			public const int abc_spinner_mtrl_am_alpha = 2130837568;
+			
+			// aapt resource value: 0x7f020041
+			public const int abc_spinner_textfield_background_material = 2130837569;
+			
+			// aapt resource value: 0x7f020042
+			public const int abc_switch_thumb_material = 2130837570;
+			
+			// aapt resource value: 0x7f020043
+			public const int abc_switch_track_mtrl_alpha = 2130837571;
+			
+			// aapt resource value: 0x7f020044
+			public const int abc_tab_indicator_material = 2130837572;
+			
+			// aapt resource value: 0x7f020045
+			public const int abc_tab_indicator_mtrl_alpha = 2130837573;
+			
+			// aapt resource value: 0x7f020046
+			public const int abc_text_cursor_material = 2130837574;
+			
+			// aapt resource value: 0x7f020047
+			public const int abc_text_select_handle_left_mtrl_dark = 2130837575;
+			
+			// aapt resource value: 0x7f020048
+			public const int abc_text_select_handle_left_mtrl_light = 2130837576;
+			
+			// aapt resource value: 0x7f020049
+			public const int abc_text_select_handle_middle_mtrl_dark = 2130837577;
+			
+			// aapt resource value: 0x7f02004a
+			public const int abc_text_select_handle_middle_mtrl_light = 2130837578;
+			
+			// aapt resource value: 0x7f02004b
+			public const int abc_text_select_handle_right_mtrl_dark = 2130837579;
+			
+			// aapt resource value: 0x7f02004c
+			public const int abc_text_select_handle_right_mtrl_light = 2130837580;
+			
+			// aapt resource value: 0x7f02004d
+			public const int abc_textfield_activated_mtrl_alpha = 2130837581;
+			
+			// aapt resource value: 0x7f02004e
+			public const int abc_textfield_default_mtrl_alpha = 2130837582;
+			
+			// aapt resource value: 0x7f02004f
+			public const int abc_textfield_search_activated_mtrl_alpha = 2130837583;
+			
+			// aapt resource value: 0x7f020050
+			public const int abc_textfield_search_default_mtrl_alpha = 2130837584;
+			
+			// aapt resource value: 0x7f020051
+			public const int abc_textfield_search_material = 2130837585;
+			
+			// aapt resource value: 0x7f020052
+			public const int abc_vector_test = 2130837586;
+			
+			// aapt resource value: 0x7f020053
+			public const int avd_hide_password = 2130837587;
+			
+			// aapt resource value: 0x7f02006a
+			public const int avd_hide_password_1 = 2130837610;
+			
+			// aapt resource value: 0x7f02006b
+			public const int avd_hide_password_2 = 2130837611;
+			
+			// aapt resource value: 0x7f02006c
+			public const int avd_hide_password_3 = 2130837612;
+			
+			// aapt resource value: 0x7f020054
+			public const int avd_show_password = 2130837588;
+			
+			// aapt resource value: 0x7f02006d
+			public const int avd_show_password_1 = 2130837613;
+			
+			// aapt resource value: 0x7f02006e
+			public const int avd_show_password_2 = 2130837614;
+			
+			// aapt resource value: 0x7f02006f
+			public const int avd_show_password_3 = 2130837615;
+			
+			// aapt resource value: 0x7f020055
+			public const int design_bottom_navigation_item_background = 2130837589;
+			
+			// aapt resource value: 0x7f020056
+			public const int design_fab_background = 2130837590;
+			
+			// aapt resource value: 0x7f020057
+			public const int design_ic_visibility = 2130837591;
+			
+			// aapt resource value: 0x7f020058
+			public const int design_ic_visibility_off = 2130837592;
+			
+			// aapt resource value: 0x7f020059
+			public const int design_password_eye = 2130837593;
+			
+			// aapt resource value: 0x7f02005a
+			public const int design_snackbar_background = 2130837594;
+			
+			// aapt resource value: 0x7f02005b
+			public const int navigation_empty_icon = 2130837595;
+			
+			// aapt resource value: 0x7f02005c
+			public const int notification_action_background = 2130837596;
+			
+			// aapt resource value: 0x7f02005d
+			public const int notification_bg = 2130837597;
+			
+			// aapt resource value: 0x7f02005e
+			public const int notification_bg_low = 2130837598;
+			
+			// aapt resource value: 0x7f02005f
+			public const int notification_bg_low_normal = 2130837599;
+			
+			// aapt resource value: 0x7f020060
+			public const int notification_bg_low_pressed = 2130837600;
+			
+			// aapt resource value: 0x7f020061
+			public const int notification_bg_normal = 2130837601;
+			
+			// aapt resource value: 0x7f020062
+			public const int notification_bg_normal_pressed = 2130837602;
+			
+			// aapt resource value: 0x7f020063
+			public const int notification_icon_background = 2130837603;
+			
+			// aapt resource value: 0x7f020068
+			public const int notification_template_icon_bg = 2130837608;
+			
+			// aapt resource value: 0x7f020069
+			public const int notification_template_icon_low_bg = 2130837609;
+			
+			// aapt resource value: 0x7f020064
+			public const int notification_tile_bg = 2130837604;
+			
+			// aapt resource value: 0x7f020065
+			public const int notify_panel_notification_icon_bg = 2130837605;
+			
+			// aapt resource value: 0x7f020066
+			public const int tooltip_frame_dark = 2130837606;
+			
+			// aapt resource value: 0x7f020067
+			public const int tooltip_frame_light = 2130837607;
+			
+			static Drawable()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Drawable()
+			{
+			}
+		}
+		
+		public partial class Id
+		{
+			
+			// aapt resource value: 0x7f090034
+			public const int ALT = 2131296308;
+			
+			// aapt resource value: 0x7f090035
+			public const int CTRL = 2131296309;
+			
+			// aapt resource value: 0x7f090036
+			public const int FUNCTION = 2131296310;
+			
+			// aapt resource value: 0x7f090037
+			public const int META = 2131296311;
+			
+			// aapt resource value: 0x7f09001d
+			public const int MvvmCrossTagId = 2131296285;
+			
+			// aapt resource value: 0x7f09001e
+			public const int MvxBindingTagUnique = 2131296286;
+			
+			// aapt resource value: 0x7f090038
+			public const int SHIFT = 2131296312;
+			
+			// aapt resource value: 0x7f090039
+			public const int SYM = 2131296313;
+			
+			// aapt resource value: 0x7f09009e
+			public const int action0 = 2131296414;
+			
+			// aapt resource value: 0x7f09007e
+			public const int action_bar = 2131296382;
+			
+			// aapt resource value: 0x7f090001
+			public const int action_bar_activity_content = 2131296257;
+			
+			// aapt resource value: 0x7f09007d
+			public const int action_bar_container = 2131296381;
+			
+			// aapt resource value: 0x7f090079
+			public const int action_bar_root = 2131296377;
+			
+			// aapt resource value: 0x7f090002
+			public const int action_bar_spinner = 2131296258;
+			
+			// aapt resource value: 0x7f09005d
+			public const int action_bar_subtitle = 2131296349;
+			
+			// aapt resource value: 0x7f09005c
+			public const int action_bar_title = 2131296348;
+			
+			// aapt resource value: 0x7f09009b
+			public const int action_container = 2131296411;
+			
+			// aapt resource value: 0x7f09007f
+			public const int action_context_bar = 2131296383;
+			
+			// aapt resource value: 0x7f0900a2
+			public const int action_divider = 2131296418;
+			
+			// aapt resource value: 0x7f09009c
+			public const int action_image = 2131296412;
+			
+			// aapt resource value: 0x7f090003
+			public const int action_menu_divider = 2131296259;
+			
+			// aapt resource value: 0x7f090004
+			public const int action_menu_presenter = 2131296260;
+			
+			// aapt resource value: 0x7f09007b
+			public const int action_mode_bar = 2131296379;
+			
+			// aapt resource value: 0x7f09007a
+			public const int action_mode_bar_stub = 2131296378;
+			
+			// aapt resource value: 0x7f09005e
+			public const int action_mode_close_button = 2131296350;
+			
+			// aapt resource value: 0x7f09009d
+			public const int action_text = 2131296413;
+			
+			// aapt resource value: 0x7f0900ab
+			public const int actions = 2131296427;
+			
+			// aapt resource value: 0x7f09005f
+			public const int activity_chooser_view_content = 2131296351;
+			
+			// aapt resource value: 0x7f090029
+			public const int add = 2131296297;
+			
+			// aapt resource value: 0x7f090072
+			public const int alertTitle = 2131296370;
+			
+			// aapt resource value: 0x7f090054
+			public const int all = 2131296340;
+			
+			// aapt resource value: 0x7f09003a
+			public const int always = 2131296314;
+			
+			// aapt resource value: 0x7f090058
+			public const int async = 2131296344;
+			
+			// aapt resource value: 0x7f090046
+			public const int auto = 2131296326;
+			
+			// aapt resource value: 0x7f090031
+			public const int beginning = 2131296305;
+			
+			// aapt resource value: 0x7f090059
+			public const int blocking = 2131296345;
+			
+			// aapt resource value: 0x7f09003f
+			public const int bottom = 2131296319;
+			
+			// aapt resource value: 0x7f090065
+			public const int buttonPanel = 2131296357;
+			
+			// aapt resource value: 0x7f09009f
+			public const int cancel_action = 2131296415;
+			
+			// aapt resource value: 0x7f090047
+			public const int center = 2131296327;
+			
+			// aapt resource value: 0x7f090048
+			public const int center_horizontal = 2131296328;
+			
+			// aapt resource value: 0x7f090049
+			public const int center_vertical = 2131296329;
+			
+			// aapt resource value: 0x7f090075
+			public const int checkbox = 2131296373;
+			
+			// aapt resource value: 0x7f0900a7
+			public const int chronometer = 2131296423;
+			
+			// aapt resource value: 0x7f090050
+			public const int clip_horizontal = 2131296336;
+			
+			// aapt resource value: 0x7f090051
+			public const int clip_vertical = 2131296337;
+			
+			// aapt resource value: 0x7f09003b
+			public const int collapseActionView = 2131296315;
+			
+			// aapt resource value: 0x7f09008f
+			public const int container = 2131296399;
+			
+			// aapt resource value: 0x7f090068
+			public const int contentPanel = 2131296360;
+			
+			// aapt resource value: 0x7f090090
+			public const int coordinator = 2131296400;
+			
+			// aapt resource value: 0x7f09006f
+			public const int custom = 2131296367;
+			
+			// aapt resource value: 0x7f09006e
+			public const int customPanel = 2131296366;
+			
+			// aapt resource value: 0x7f09007c
+			public const int decor_content_parent = 2131296380;
+			
+			// aapt resource value: 0x7f090062
+			public const int default_activity_button = 2131296354;
+			
+			// aapt resource value: 0x7f090092
+			public const int design_bottom_sheet = 2131296402;
+			
+			// aapt resource value: 0x7f090099
+			public const int design_menu_item_action_area = 2131296409;
+			
+			// aapt resource value: 0x7f090098
+			public const int design_menu_item_action_area_stub = 2131296408;
+			
+			// aapt resource value: 0x7f090097
+			public const int design_menu_item_text = 2131296407;
+			
+			// aapt resource value: 0x7f090096
+			public const int design_navigation_view = 2131296406;
+			
+			// aapt resource value: 0x7f090022
+			public const int disableHome = 2131296290;
+			
+			// aapt resource value: 0x7f090080
+			public const int edit_query = 2131296384;
+			
+			// aapt resource value: 0x7f090032
+			public const int end = 2131296306;
+			
+			// aapt resource value: 0x7f0900ad
+			public const int end_padder = 2131296429;
+			
+			// aapt resource value: 0x7f090041
+			public const int enterAlways = 2131296321;
+			
+			// aapt resource value: 0x7f090042
+			public const int enterAlwaysCollapsed = 2131296322;
+			
+			// aapt resource value: 0x7f090043
+			public const int exitUntilCollapsed = 2131296323;
+			
+			// aapt resource value: 0x7f090060
+			public const int expand_activities_button = 2131296352;
+			
+			// aapt resource value: 0x7f090074
+			public const int expanded_menu = 2131296372;
+			
+			// aapt resource value: 0x7f090052
+			public const int fill = 2131296338;
+			
+			// aapt resource value: 0x7f090053
+			public const int fill_horizontal = 2131296339;
+			
+			// aapt resource value: 0x7f09004a
+			public const int fill_vertical = 2131296330;
+			
+			// aapt resource value: 0x7f090056
+			public const int @fixed = 2131296342;
+			
+			// aapt resource value: 0x7f09005a
+			public const int forever = 2131296346;
+			
+			// aapt resource value: 0x7f09000a
+			public const int ghost_view = 2131296266;
+			
+			// aapt resource value: 0x7f090005
+			public const int home = 2131296261;
+			
+			// aapt resource value: 0x7f090023
+			public const int homeAsUp = 2131296291;
+			
+			// aapt resource value: 0x7f090064
+			public const int icon = 2131296356;
+			
+			// aapt resource value: 0x7f0900ac
+			public const int icon_group = 2131296428;
+			
+			// aapt resource value: 0x7f09003c
+			public const int ifRoom = 2131296316;
+			
+			// aapt resource value: 0x7f090061
+			public const int image = 2131296353;
+			
+			// aapt resource value: 0x7f0900a8
+			public const int info = 2131296424;
+			
+			// aapt resource value: 0x7f09005b
+			public const int italic = 2131296347;
+			
+			// aapt resource value: 0x7f090000
+			public const int item_touch_helper_previous_elevation = 2131296256;
+			
+			// aapt resource value: 0x7f09008e
+			public const int largeLabel = 2131296398;
+			
+			// aapt resource value: 0x7f09004b
+			public const int left = 2131296331;
+			
+			// aapt resource value: 0x7f090017
+			public const int line1 = 2131296279;
+			
+			// aapt resource value: 0x7f090018
+			public const int line3 = 2131296280;
+			
+			// aapt resource value: 0x7f09001f
+			public const int listMode = 2131296287;
+			
+			// aapt resource value: 0x7f090063
+			public const int list_item = 2131296355;
+			
+			// aapt resource value: 0x7f0900b0
+			public const int masked = 2131296432;
+			
+			// aapt resource value: 0x7f0900a1
+			public const int media_actions = 2131296417;
+			
+			// aapt resource value: 0x7f0900ae
+			public const int message = 2131296430;
+			
+			// aapt resource value: 0x7f090033
+			public const int middle = 2131296307;
+			
+			// aapt resource value: 0x7f090055
+			public const int mini = 2131296341;
+			
+			// aapt resource value: 0x7f09002a
+			public const int multiply = 2131296298;
+			
+			// aapt resource value: 0x7f090095
+			public const int navigation_header_container = 2131296405;
+			
+			// aapt resource value: 0x7f09003d
+			public const int never = 2131296317;
+			
+			// aapt resource value: 0x7f090024
+			public const int none = 2131296292;
+			
+			// aapt resource value: 0x7f090020
+			public const int normal = 2131296288;
+			
+			// aapt resource value: 0x7f0900aa
+			public const int notification_background = 2131296426;
+			
+			// aapt resource value: 0x7f0900a4
+			public const int notification_main_column = 2131296420;
+			
+			// aapt resource value: 0x7f0900a3
+			public const int notification_main_column_container = 2131296419;
+			
+			// aapt resource value: 0x7f09004e
+			public const int parallax = 2131296334;
+			
+			// aapt resource value: 0x7f090067
+			public const int parentPanel = 2131296359;
+			
+			// aapt resource value: 0x7f09000b
+			public const int parent_matrix = 2131296267;
+			
+			// aapt resource value: 0x7f09004f
+			public const int pin = 2131296335;
+			
+			// aapt resource value: 0x7f090006
+			public const int progress_circular = 2131296262;
+			
+			// aapt resource value: 0x7f090007
+			public const int progress_horizontal = 2131296263;
+			
+			// aapt resource value: 0x7f090077
+			public const int radio = 2131296375;
+			
+			// aapt resource value: 0x7f09004c
+			public const int right = 2131296332;
+			
+			// aapt resource value: 0x7f0900a9
+			public const int right_icon = 2131296425;
+			
+			// aapt resource value: 0x7f0900a5
+			public const int right_side = 2131296421;
+			
+			// aapt resource value: 0x7f09000c
+			public const int save_image_matrix = 2131296268;
+			
+			// aapt resource value: 0x7f09000d
+			public const int save_non_transition_alpha = 2131296269;
+			
+			// aapt resource value: 0x7f09000e
+			public const int save_scale_type = 2131296270;
+			
+			// aapt resource value: 0x7f09002b
+			public const int screen = 2131296299;
+			
+			// aapt resource value: 0x7f090044
+			public const int scroll = 2131296324;
+			
+			// aapt resource value: 0x7f09006d
+			public const int scrollIndicatorDown = 2131296365;
+			
+			// aapt resource value: 0x7f090069
+			public const int scrollIndicatorUp = 2131296361;
+			
+			// aapt resource value: 0x7f09006a
+			public const int scrollView = 2131296362;
+			
+			// aapt resource value: 0x7f090057
+			public const int scrollable = 2131296343;
+			
+			// aapt resource value: 0x7f090082
+			public const int search_badge = 2131296386;
+			
+			// aapt resource value: 0x7f090081
+			public const int search_bar = 2131296385;
+			
+			// aapt resource value: 0x7f090083
+			public const int search_button = 2131296387;
+			
+			// aapt resource value: 0x7f090088
+			public const int search_close_btn = 2131296392;
+			
+			// aapt resource value: 0x7f090084
+			public const int search_edit_frame = 2131296388;
+			
+			// aapt resource value: 0x7f09008a
+			public const int search_go_btn = 2131296394;
+			
+			// aapt resource value: 0x7f090085
+			public const int search_mag_icon = 2131296389;
+			
+			// aapt resource value: 0x7f090086
+			public const int search_plate = 2131296390;
+			
+			// aapt resource value: 0x7f090087
+			public const int search_src_text = 2131296391;
+			
+			// aapt resource value: 0x7f09008b
+			public const int search_voice_btn = 2131296395;
+			
+			// aapt resource value: 0x7f09008c
+			public const int select_dialog_listview = 2131296396;
+			
+			// aapt resource value: 0x7f090076
+			public const int shortcut = 2131296374;
+			
+			// aapt resource value: 0x7f090025
+			public const int showCustom = 2131296293;
+			
+			// aapt resource value: 0x7f090026
+			public const int showHome = 2131296294;
+			
+			// aapt resource value: 0x7f090027
+			public const int showTitle = 2131296295;
+			
+			// aapt resource value: 0x7f09008d
+			public const int smallLabel = 2131296397;
+			
+			// aapt resource value: 0x7f090094
+			public const int snackbar_action = 2131296404;
+			
+			// aapt resource value: 0x7f090093
+			public const int snackbar_text = 2131296403;
+			
+			// aapt resource value: 0x7f090045
+			public const int snap = 2131296325;
+			
+			// aapt resource value: 0x7f090066
+			public const int spacer = 2131296358;
+			
+			// aapt resource value: 0x7f090008
+			public const int split_action_bar = 2131296264;
+			
+			// aapt resource value: 0x7f09002c
+			public const int src_atop = 2131296300;
+			
+			// aapt resource value: 0x7f09002d
+			public const int src_in = 2131296301;
+			
+			// aapt resource value: 0x7f09002e
+			public const int src_over = 2131296302;
+			
+			// aapt resource value: 0x7f09004d
+			public const int start = 2131296333;
+			
+			// aapt resource value: 0x7f0900a0
+			public const int status_bar_latest_event_content = 2131296416;
+			
+			// aapt resource value: 0x7f090078
+			public const int submenuarrow = 2131296376;
+			
+			// aapt resource value: 0x7f090089
+			public const int submit_area = 2131296393;
+			
+			// aapt resource value: 0x7f090021
+			public const int tabMode = 2131296289;
+			
+			// aapt resource value: 0x7f090019
+			public const int tag_transition_group = 2131296281;
+			
+			// aapt resource value: 0x7f09001a
+			public const int text = 2131296282;
+			
+			// aapt resource value: 0x7f09001b
+			public const int text2 = 2131296283;
+			
+			// aapt resource value: 0x7f09006c
+			public const int textSpacerNoButtons = 2131296364;
+			
+			// aapt resource value: 0x7f09006b
+			public const int textSpacerNoTitle = 2131296363;
+			
+			// aapt resource value: 0x7f09009a
+			public const int text_input_password_toggle = 2131296410;
+			
+			// aapt resource value: 0x7f090014
+			public const int textinput_counter = 2131296276;
+			
+			// aapt resource value: 0x7f090015
+			public const int textinput_error = 2131296277;
+			
+			// aapt resource value: 0x7f0900a6
+			public const int time = 2131296422;
+			
+			// aapt resource value: 0x7f09001c
+			public const int title = 2131296284;
+			
+			// aapt resource value: 0x7f090073
+			public const int titleDividerNoCustom = 2131296371;
+			
+			// aapt resource value: 0x7f090071
+			public const int title_template = 2131296369;
+			
+			// aapt resource value: 0x7f090040
+			public const int top = 2131296320;
+			
+			// aapt resource value: 0x7f090070
+			public const int topPanel = 2131296368;
+			
+			// aapt resource value: 0x7f090091
+			public const int touch_outside = 2131296401;
+			
+			// aapt resource value: 0x7f09000f
+			public const int transition_current_scene = 2131296271;
+			
+			// aapt resource value: 0x7f090010
+			public const int transition_layout_save = 2131296272;
+			
+			// aapt resource value: 0x7f090011
+			public const int transition_position = 2131296273;
+			
+			// aapt resource value: 0x7f090012
+			public const int transition_scene_layoutid_cache = 2131296274;
+			
+			// aapt resource value: 0x7f090013
+			public const int transition_transform = 2131296275;
+			
+			// aapt resource value: 0x7f09002f
+			public const int uniform = 2131296303;
+			
+			// aapt resource value: 0x7f090009
+			public const int up = 2131296265;
+			
+			// aapt resource value: 0x7f090028
+			public const int useLogo = 2131296296;
+			
+			// aapt resource value: 0x7f090016
+			public const int view_offset_helper = 2131296278;
+			
+			// aapt resource value: 0x7f0900af
+			public const int visible = 2131296431;
+			
+			// aapt resource value: 0x7f09003e
+			public const int withText = 2131296318;
+			
+			// aapt resource value: 0x7f090030
+			public const int wrap_content = 2131296304;
+			
+			static Id()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Id()
+			{
+			}
+		}
+		
+		public partial class Integer
+		{
+			
+			// aapt resource value: 0x7f0e0000
+			public const int abc_config_activityDefaultDur = 2131623936;
+			
+			// aapt resource value: 0x7f0e0001
+			public const int abc_config_activityShortDur = 2131623937;
+			
+			// aapt resource value: 0x7f0e0005
+			public const int app_bar_elevation_anim_duration = 2131623941;
+			
+			// aapt resource value: 0x7f0e0006
+			public const int bottom_sheet_slide_duration = 2131623942;
+			
+			// aapt resource value: 0x7f0e0002
+			public const int cancel_button_image_alpha = 2131623938;
+			
+			// aapt resource value: 0x7f0e0003
+			public const int config_tooltipAnimTime = 2131623939;
+			
+			// aapt resource value: 0x7f0e0004
+			public const int design_snackbar_text_max_lines = 2131623940;
+			
+			// aapt resource value: 0x7f0e0007
+			public const int hide_password_duration = 2131623943;
+			
+			// aapt resource value: 0x7f0e0008
+			public const int show_password_duration = 2131623944;
+			
+			// aapt resource value: 0x7f0e0009
+			public const int status_bar_notification_info_maxnum = 2131623945;
+			
+			static Integer()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Integer()
+			{
+			}
+		}
+		
+		public partial class Layout
+		{
+			
+			// aapt resource value: 0x7f040000
+			public const int abc_action_bar_title_item = 2130968576;
+			
+			// aapt resource value: 0x7f040001
+			public const int abc_action_bar_up_container = 2130968577;
+			
+			// aapt resource value: 0x7f040002
+			public const int abc_action_menu_item_layout = 2130968578;
+			
+			// aapt resource value: 0x7f040003
+			public const int abc_action_menu_layout = 2130968579;
+			
+			// aapt resource value: 0x7f040004
+			public const int abc_action_mode_bar = 2130968580;
+			
+			// aapt resource value: 0x7f040005
+			public const int abc_action_mode_close_item_material = 2130968581;
+			
+			// aapt resource value: 0x7f040006
+			public const int abc_activity_chooser_view = 2130968582;
+			
+			// aapt resource value: 0x7f040007
+			public const int abc_activity_chooser_view_list_item = 2130968583;
+			
+			// aapt resource value: 0x7f040008
+			public const int abc_alert_dialog_button_bar_material = 2130968584;
+			
+			// aapt resource value: 0x7f040009
+			public const int abc_alert_dialog_material = 2130968585;
+			
+			// aapt resource value: 0x7f04000a
+			public const int abc_alert_dialog_title_material = 2130968586;
+			
+			// aapt resource value: 0x7f04000b
+			public const int abc_dialog_title_material = 2130968587;
+			
+			// aapt resource value: 0x7f04000c
+			public const int abc_expanded_menu_layout = 2130968588;
+			
+			// aapt resource value: 0x7f04000d
+			public const int abc_list_menu_item_checkbox = 2130968589;
+			
+			// aapt resource value: 0x7f04000e
+			public const int abc_list_menu_item_icon = 2130968590;
+			
+			// aapt resource value: 0x7f04000f
+			public const int abc_list_menu_item_layout = 2130968591;
+			
+			// aapt resource value: 0x7f040010
+			public const int abc_list_menu_item_radio = 2130968592;
+			
+			// aapt resource value: 0x7f040011
+			public const int abc_popup_menu_header_item_layout = 2130968593;
+			
+			// aapt resource value: 0x7f040012
+			public const int abc_popup_menu_item_layout = 2130968594;
+			
+			// aapt resource value: 0x7f040013
+			public const int abc_screen_content_include = 2130968595;
+			
+			// aapt resource value: 0x7f040014
+			public const int abc_screen_simple = 2130968596;
+			
+			// aapt resource value: 0x7f040015
+			public const int abc_screen_simple_overlay_action_mode = 2130968597;
+			
+			// aapt resource value: 0x7f040016
+			public const int abc_screen_toolbar = 2130968598;
+			
+			// aapt resource value: 0x7f040017
+			public const int abc_search_dropdown_item_icons_2line = 2130968599;
+			
+			// aapt resource value: 0x7f040018
+			public const int abc_search_view = 2130968600;
+			
+			// aapt resource value: 0x7f040019
+			public const int abc_select_dialog_material = 2130968601;
+			
+			// aapt resource value: 0x7f04001a
+			public const int activity_main = 2130968602;
+			
+			// aapt resource value: 0x7f04001b
+			public const int design_bottom_navigation_item = 2130968603;
+			
+			// aapt resource value: 0x7f04001c
+			public const int design_bottom_sheet_dialog = 2130968604;
+			
+			// aapt resource value: 0x7f04001d
+			public const int design_layout_snackbar = 2130968605;
+			
+			// aapt resource value: 0x7f04001e
+			public const int design_layout_snackbar_include = 2130968606;
+			
+			// aapt resource value: 0x7f04001f
+			public const int design_layout_tab_icon = 2130968607;
+			
+			// aapt resource value: 0x7f040020
+			public const int design_layout_tab_text = 2130968608;
+			
+			// aapt resource value: 0x7f040021
+			public const int design_menu_item_action_area = 2130968609;
+			
+			// aapt resource value: 0x7f040022
+			public const int design_navigation_item = 2130968610;
+			
+			// aapt resource value: 0x7f040023
+			public const int design_navigation_item_header = 2130968611;
+			
+			// aapt resource value: 0x7f040024
+			public const int design_navigation_item_separator = 2130968612;
+			
+			// aapt resource value: 0x7f040025
+			public const int design_navigation_item_subheader = 2130968613;
+			
+			// aapt resource value: 0x7f040026
+			public const int design_navigation_menu = 2130968614;
+			
+			// aapt resource value: 0x7f040027
+			public const int design_navigation_menu_item = 2130968615;
+			
+			// aapt resource value: 0x7f040028
+			public const int design_text_input_password_icon = 2130968616;
+			
+			// aapt resource value: 0x7f040029
+			public const int notification_action = 2130968617;
+			
+			// aapt resource value: 0x7f04002a
+			public const int notification_action_tombstone = 2130968618;
+			
+			// aapt resource value: 0x7f04002b
+			public const int notification_media_action = 2130968619;
+			
+			// aapt resource value: 0x7f04002c
+			public const int notification_media_cancel_action = 2130968620;
+			
+			// aapt resource value: 0x7f04002d
+			public const int notification_template_big_media = 2130968621;
+			
+			// aapt resource value: 0x7f04002e
+			public const int notification_template_big_media_custom = 2130968622;
+			
+			// aapt resource value: 0x7f04002f
+			public const int notification_template_big_media_narrow = 2130968623;
+			
+			// aapt resource value: 0x7f040030
+			public const int notification_template_big_media_narrow_custom = 2130968624;
+			
+			// aapt resource value: 0x7f040031
+			public const int notification_template_custom_big = 2130968625;
+			
+			// aapt resource value: 0x7f040032
+			public const int notification_template_icon_group = 2130968626;
+			
+			// aapt resource value: 0x7f040033
+			public const int notification_template_lines_media = 2130968627;
+			
+			// aapt resource value: 0x7f040034
+			public const int notification_template_media = 2130968628;
+			
+			// aapt resource value: 0x7f040035
+			public const int notification_template_media_custom = 2130968629;
+			
+			// aapt resource value: 0x7f040036
+			public const int notification_template_part_chronometer = 2130968630;
+			
+			// aapt resource value: 0x7f040037
+			public const int notification_template_part_time = 2130968631;
+			
+			// aapt resource value: 0x7f040038
+			public const int select_dialog_item_material = 2130968632;
+			
+			// aapt resource value: 0x7f040039
+			public const int select_dialog_multichoice_material = 2130968633;
+			
+			// aapt resource value: 0x7f04003a
+			public const int select_dialog_singlechoice_material = 2130968634;
+			
+			// aapt resource value: 0x7f04003b
+			public const int SplashScreen = 2130968635;
+			
+			// aapt resource value: 0x7f04003c
+			public const int support_simple_spinner_dropdown_item = 2130968636;
+			
+			// aapt resource value: 0x7f04003d
+			public const int tooltip = 2130968637;
+			
+			static Layout()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Layout()
+			{
+			}
+		}
+		
+		public partial class Mipmap
+		{
+			
+			// aapt resource value: 0x7f030000
+			public const int ic_launcher = 2130903040;
+			
+			// aapt resource value: 0x7f030001
+			public const int ic_launcher_foreground = 2130903041;
+			
+			// aapt resource value: 0x7f030002
+			public const int ic_launcher_round = 2130903042;
+			
+			static Mipmap()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Mipmap()
+			{
+			}
+		}
+		
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f020001
-			public static int ApplicationName = 2130837505;
+			// aapt resource value: 0x7f0a0000
+			public const int abc_action_bar_home_description = 2131361792;
 			
-			// aapt resource value: 0x7f020000
-			public static int Hello = 2130837504;
+			// aapt resource value: 0x7f0a0001
+			public const int abc_action_bar_up_description = 2131361793;
+			
+			// aapt resource value: 0x7f0a0002
+			public const int abc_action_menu_overflow_description = 2131361794;
+			
+			// aapt resource value: 0x7f0a0003
+			public const int abc_action_mode_done = 2131361795;
+			
+			// aapt resource value: 0x7f0a0004
+			public const int abc_activity_chooser_view_see_all = 2131361796;
+			
+			// aapt resource value: 0x7f0a0005
+			public const int abc_activitychooserview_choose_application = 2131361797;
+			
+			// aapt resource value: 0x7f0a0006
+			public const int abc_capital_off = 2131361798;
+			
+			// aapt resource value: 0x7f0a0007
+			public const int abc_capital_on = 2131361799;
+			
+			// aapt resource value: 0x7f0a0012
+			public const int abc_font_family_body_1_material = 2131361810;
+			
+			// aapt resource value: 0x7f0a0013
+			public const int abc_font_family_body_2_material = 2131361811;
+			
+			// aapt resource value: 0x7f0a0014
+			public const int abc_font_family_button_material = 2131361812;
+			
+			// aapt resource value: 0x7f0a0015
+			public const int abc_font_family_caption_material = 2131361813;
+			
+			// aapt resource value: 0x7f0a0016
+			public const int abc_font_family_display_1_material = 2131361814;
+			
+			// aapt resource value: 0x7f0a0017
+			public const int abc_font_family_display_2_material = 2131361815;
+			
+			// aapt resource value: 0x7f0a0018
+			public const int abc_font_family_display_3_material = 2131361816;
+			
+			// aapt resource value: 0x7f0a0019
+			public const int abc_font_family_display_4_material = 2131361817;
+			
+			// aapt resource value: 0x7f0a001a
+			public const int abc_font_family_headline_material = 2131361818;
+			
+			// aapt resource value: 0x7f0a001b
+			public const int abc_font_family_menu_material = 2131361819;
+			
+			// aapt resource value: 0x7f0a001c
+			public const int abc_font_family_subhead_material = 2131361820;
+			
+			// aapt resource value: 0x7f0a001d
+			public const int abc_font_family_title_material = 2131361821;
+			
+			// aapt resource value: 0x7f0a0008
+			public const int abc_search_hint = 2131361800;
+			
+			// aapt resource value: 0x7f0a0009
+			public const int abc_searchview_description_clear = 2131361801;
+			
+			// aapt resource value: 0x7f0a000a
+			public const int abc_searchview_description_query = 2131361802;
+			
+			// aapt resource value: 0x7f0a000b
+			public const int abc_searchview_description_search = 2131361803;
+			
+			// aapt resource value: 0x7f0a000c
+			public const int abc_searchview_description_submit = 2131361804;
+			
+			// aapt resource value: 0x7f0a000d
+			public const int abc_searchview_description_voice = 2131361805;
+			
+			// aapt resource value: 0x7f0a000e
+			public const int abc_shareactionprovider_share_with = 2131361806;
+			
+			// aapt resource value: 0x7f0a000f
+			public const int abc_shareactionprovider_share_with_application = 2131361807;
+			
+			// aapt resource value: 0x7f0a0010
+			public const int abc_toolbar_collapse_description = 2131361808;
+			
+			// aapt resource value: 0x7f0a002a
+			public const int action_settings = 2131361834;
+			
+			// aapt resource value: 0x7f0a0029
+			public const int app_name = 2131361833;
+			
+			// aapt resource value: 0x7f0a001e
+			public const int appbar_scrolling_view_behavior = 2131361822;
+			
+			// aapt resource value: 0x7f0a001f
+			public const int bottom_sheet_behavior = 2131361823;
+			
+			// aapt resource value: 0x7f0a0020
+			public const int character_counter_pattern = 2131361824;
+			
+			// aapt resource value: 0x7f0a0027
+			public const int fab_scroll_shrink_grow_autohide_behavior = 2131361831;
+			
+			// aapt resource value: 0x7f0a0021
+			public const int password_toggle_content_description = 2131361825;
+			
+			// aapt resource value: 0x7f0a0022
+			public const int path_password_eye = 2131361826;
+			
+			// aapt resource value: 0x7f0a0023
+			public const int path_password_eye_mask_strike_through = 2131361827;
+			
+			// aapt resource value: 0x7f0a0024
+			public const int path_password_eye_mask_visible = 2131361828;
+			
+			// aapt resource value: 0x7f0a0025
+			public const int path_password_strike_through = 2131361829;
+			
+			// aapt resource value: 0x7f0a0011
+			public const int search_menu_title = 2131361809;
+			
+			// aapt resource value: 0x7f0a0026
+			public const int status_bar_notification_info_overflow = 2131361830;
+			
+			// aapt resource value: 0x7f0a0028
+			public const int view_scroll_translation_autohide_behavior = 2131361832;
 			
 			static String()
 			{
@@ -52,6 +7218,3279 @@ namespace MvxPluginNugetTest.Android
 			}
 			
 			private String()
+			{
+			}
+		}
+		
+		public partial class Style
+		{
+			
+			// aapt resource value: 0x7f0b0095
+			public const int AlertDialog_AppCompat = 2131427477;
+			
+			// aapt resource value: 0x7f0b0096
+			public const int AlertDialog_AppCompat_Light = 2131427478;
+			
+			// aapt resource value: 0x7f0b0097
+			public const int Animation_AppCompat_Dialog = 2131427479;
+			
+			// aapt resource value: 0x7f0b0098
+			public const int Animation_AppCompat_DropDownUp = 2131427480;
+			
+			// aapt resource value: 0x7f0b0099
+			public const int Animation_AppCompat_Tooltip = 2131427481;
+			
+			// aapt resource value: 0x7f0b015f
+			public const int Animation_Design_BottomSheetDialog = 2131427679;
+			
+			// aapt resource value: 0x7f0b0180
+			public const int AppTheme = 2131427712;
+			
+			// aapt resource value: 0x7f0b009a
+			public const int Base_AlertDialog_AppCompat = 2131427482;
+			
+			// aapt resource value: 0x7f0b009b
+			public const int Base_AlertDialog_AppCompat_Light = 2131427483;
+			
+			// aapt resource value: 0x7f0b009c
+			public const int Base_Animation_AppCompat_Dialog = 2131427484;
+			
+			// aapt resource value: 0x7f0b009d
+			public const int Base_Animation_AppCompat_DropDownUp = 2131427485;
+			
+			// aapt resource value: 0x7f0b009e
+			public const int Base_Animation_AppCompat_Tooltip = 2131427486;
+			
+			// aapt resource value: 0x7f0b009f
+			public const int Base_DialogWindowTitle_AppCompat = 2131427487;
+			
+			// aapt resource value: 0x7f0b00a0
+			public const int Base_DialogWindowTitleBackground_AppCompat = 2131427488;
+			
+			// aapt resource value: 0x7f0b0039
+			public const int Base_TextAppearance_AppCompat = 2131427385;
+			
+			// aapt resource value: 0x7f0b003a
+			public const int Base_TextAppearance_AppCompat_Body1 = 2131427386;
+			
+			// aapt resource value: 0x7f0b003b
+			public const int Base_TextAppearance_AppCompat_Body2 = 2131427387;
+			
+			// aapt resource value: 0x7f0b0027
+			public const int Base_TextAppearance_AppCompat_Button = 2131427367;
+			
+			// aapt resource value: 0x7f0b003c
+			public const int Base_TextAppearance_AppCompat_Caption = 2131427388;
+			
+			// aapt resource value: 0x7f0b003d
+			public const int Base_TextAppearance_AppCompat_Display1 = 2131427389;
+			
+			// aapt resource value: 0x7f0b003e
+			public const int Base_TextAppearance_AppCompat_Display2 = 2131427390;
+			
+			// aapt resource value: 0x7f0b003f
+			public const int Base_TextAppearance_AppCompat_Display3 = 2131427391;
+			
+			// aapt resource value: 0x7f0b0040
+			public const int Base_TextAppearance_AppCompat_Display4 = 2131427392;
+			
+			// aapt resource value: 0x7f0b0041
+			public const int Base_TextAppearance_AppCompat_Headline = 2131427393;
+			
+			// aapt resource value: 0x7f0b000b
+			public const int Base_TextAppearance_AppCompat_Inverse = 2131427339;
+			
+			// aapt resource value: 0x7f0b0042
+			public const int Base_TextAppearance_AppCompat_Large = 2131427394;
+			
+			// aapt resource value: 0x7f0b000c
+			public const int Base_TextAppearance_AppCompat_Large_Inverse = 2131427340;
+			
+			// aapt resource value: 0x7f0b0043
+			public const int Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Large = 2131427395;
+			
+			// aapt resource value: 0x7f0b0044
+			public const int Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Small = 2131427396;
+			
+			// aapt resource value: 0x7f0b0045
+			public const int Base_TextAppearance_AppCompat_Medium = 2131427397;
+			
+			// aapt resource value: 0x7f0b000d
+			public const int Base_TextAppearance_AppCompat_Medium_Inverse = 2131427341;
+			
+			// aapt resource value: 0x7f0b0046
+			public const int Base_TextAppearance_AppCompat_Menu = 2131427398;
+			
+			// aapt resource value: 0x7f0b00a1
+			public const int Base_TextAppearance_AppCompat_SearchResult = 2131427489;
+			
+			// aapt resource value: 0x7f0b0047
+			public const int Base_TextAppearance_AppCompat_SearchResult_Subtitle = 2131427399;
+			
+			// aapt resource value: 0x7f0b0048
+			public const int Base_TextAppearance_AppCompat_SearchResult_Title = 2131427400;
+			
+			// aapt resource value: 0x7f0b0049
+			public const int Base_TextAppearance_AppCompat_Small = 2131427401;
+			
+			// aapt resource value: 0x7f0b000e
+			public const int Base_TextAppearance_AppCompat_Small_Inverse = 2131427342;
+			
+			// aapt resource value: 0x7f0b004a
+			public const int Base_TextAppearance_AppCompat_Subhead = 2131427402;
+			
+			// aapt resource value: 0x7f0b000f
+			public const int Base_TextAppearance_AppCompat_Subhead_Inverse = 2131427343;
+			
+			// aapt resource value: 0x7f0b004b
+			public const int Base_TextAppearance_AppCompat_Title = 2131427403;
+			
+			// aapt resource value: 0x7f0b0010
+			public const int Base_TextAppearance_AppCompat_Title_Inverse = 2131427344;
+			
+			// aapt resource value: 0x7f0b00a2
+			public const int Base_TextAppearance_AppCompat_Tooltip = 2131427490;
+			
+			// aapt resource value: 0x7f0b0086
+			public const int Base_TextAppearance_AppCompat_Widget_ActionBar_Menu = 2131427462;
+			
+			// aapt resource value: 0x7f0b004c
+			public const int Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle = 2131427404;
+			
+			// aapt resource value: 0x7f0b004d
+			public const int Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse = 2131427405;
+			
+			// aapt resource value: 0x7f0b004e
+			public const int Base_TextAppearance_AppCompat_Widget_ActionBar_Title = 2131427406;
+			
+			// aapt resource value: 0x7f0b004f
+			public const int Base_TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse = 2131427407;
+			
+			// aapt resource value: 0x7f0b0050
+			public const int Base_TextAppearance_AppCompat_Widget_ActionMode_Subtitle = 2131427408;
+			
+			// aapt resource value: 0x7f0b0051
+			public const int Base_TextAppearance_AppCompat_Widget_ActionMode_Title = 2131427409;
+			
+			// aapt resource value: 0x7f0b0052
+			public const int Base_TextAppearance_AppCompat_Widget_Button = 2131427410;
+			
+			// aapt resource value: 0x7f0b008d
+			public const int Base_TextAppearance_AppCompat_Widget_Button_Borderless_Colored = 2131427469;
+			
+			// aapt resource value: 0x7f0b008e
+			public const int Base_TextAppearance_AppCompat_Widget_Button_Colored = 2131427470;
+			
+			// aapt resource value: 0x7f0b0087
+			public const int Base_TextAppearance_AppCompat_Widget_Button_Inverse = 2131427463;
+			
+			// aapt resource value: 0x7f0b00a3
+			public const int Base_TextAppearance_AppCompat_Widget_DropDownItem = 2131427491;
+			
+			// aapt resource value: 0x7f0b0053
+			public const int Base_TextAppearance_AppCompat_Widget_PopupMenu_Header = 2131427411;
+			
+			// aapt resource value: 0x7f0b0054
+			public const int Base_TextAppearance_AppCompat_Widget_PopupMenu_Large = 2131427412;
+			
+			// aapt resource value: 0x7f0b0055
+			public const int Base_TextAppearance_AppCompat_Widget_PopupMenu_Small = 2131427413;
+			
+			// aapt resource value: 0x7f0b0056
+			public const int Base_TextAppearance_AppCompat_Widget_Switch = 2131427414;
+			
+			// aapt resource value: 0x7f0b0057
+			public const int Base_TextAppearance_AppCompat_Widget_TextView_SpinnerItem = 2131427415;
+			
+			// aapt resource value: 0x7f0b00a4
+			public const int Base_TextAppearance_Widget_AppCompat_ExpandedMenu_Item = 2131427492;
+			
+			// aapt resource value: 0x7f0b0058
+			public const int Base_TextAppearance_Widget_AppCompat_Toolbar_Subtitle = 2131427416;
+			
+			// aapt resource value: 0x7f0b0059
+			public const int Base_TextAppearance_Widget_AppCompat_Toolbar_Title = 2131427417;
+			
+			// aapt resource value: 0x7f0b005a
+			public const int Base_Theme_AppCompat = 2131427418;
+			
+			// aapt resource value: 0x7f0b00a5
+			public const int Base_Theme_AppCompat_CompactMenu = 2131427493;
+			
+			// aapt resource value: 0x7f0b0011
+			public const int Base_Theme_AppCompat_Dialog = 2131427345;
+			
+			// aapt resource value: 0x7f0b0012
+			public const int Base_Theme_AppCompat_Dialog_Alert = 2131427346;
+			
+			// aapt resource value: 0x7f0b00a6
+			public const int Base_Theme_AppCompat_Dialog_FixedSize = 2131427494;
+			
+			// aapt resource value: 0x7f0b0013
+			public const int Base_Theme_AppCompat_Dialog_MinWidth = 2131427347;
+			
+			// aapt resource value: 0x7f0b0001
+			public const int Base_Theme_AppCompat_DialogWhenLarge = 2131427329;
+			
+			// aapt resource value: 0x7f0b005b
+			public const int Base_Theme_AppCompat_Light = 2131427419;
+			
+			// aapt resource value: 0x7f0b00a7
+			public const int Base_Theme_AppCompat_Light_DarkActionBar = 2131427495;
+			
+			// aapt resource value: 0x7f0b0014
+			public const int Base_Theme_AppCompat_Light_Dialog = 2131427348;
+			
+			// aapt resource value: 0x7f0b0015
+			public const int Base_Theme_AppCompat_Light_Dialog_Alert = 2131427349;
+			
+			// aapt resource value: 0x7f0b00a8
+			public const int Base_Theme_AppCompat_Light_Dialog_FixedSize = 2131427496;
+			
+			// aapt resource value: 0x7f0b0016
+			public const int Base_Theme_AppCompat_Light_Dialog_MinWidth = 2131427350;
+			
+			// aapt resource value: 0x7f0b0002
+			public const int Base_Theme_AppCompat_Light_DialogWhenLarge = 2131427330;
+			
+			// aapt resource value: 0x7f0b00a9
+			public const int Base_ThemeOverlay_AppCompat = 2131427497;
+			
+			// aapt resource value: 0x7f0b00aa
+			public const int Base_ThemeOverlay_AppCompat_ActionBar = 2131427498;
+			
+			// aapt resource value: 0x7f0b00ab
+			public const int Base_ThemeOverlay_AppCompat_Dark = 2131427499;
+			
+			// aapt resource value: 0x7f0b00ac
+			public const int Base_ThemeOverlay_AppCompat_Dark_ActionBar = 2131427500;
+			
+			// aapt resource value: 0x7f0b0017
+			public const int Base_ThemeOverlay_AppCompat_Dialog = 2131427351;
+			
+			// aapt resource value: 0x7f0b0018
+			public const int Base_ThemeOverlay_AppCompat_Dialog_Alert = 2131427352;
+			
+			// aapt resource value: 0x7f0b00ad
+			public const int Base_ThemeOverlay_AppCompat_Light = 2131427501;
+			
+			// aapt resource value: 0x7f0b0019
+			public const int Base_V11_Theme_AppCompat_Dialog = 2131427353;
+			
+			// aapt resource value: 0x7f0b001a
+			public const int Base_V11_Theme_AppCompat_Light_Dialog = 2131427354;
+			
+			// aapt resource value: 0x7f0b001b
+			public const int Base_V11_ThemeOverlay_AppCompat_Dialog = 2131427355;
+			
+			// aapt resource value: 0x7f0b0023
+			public const int Base_V12_Widget_AppCompat_AutoCompleteTextView = 2131427363;
+			
+			// aapt resource value: 0x7f0b0024
+			public const int Base_V12_Widget_AppCompat_EditText = 2131427364;
+			
+			// aapt resource value: 0x7f0b0160
+			public const int Base_V14_Widget_Design_AppBarLayout = 2131427680;
+			
+			// aapt resource value: 0x7f0b005c
+			public const int Base_V21_Theme_AppCompat = 2131427420;
+			
+			// aapt resource value: 0x7f0b005d
+			public const int Base_V21_Theme_AppCompat_Dialog = 2131427421;
+			
+			// aapt resource value: 0x7f0b005e
+			public const int Base_V21_Theme_AppCompat_Light = 2131427422;
+			
+			// aapt resource value: 0x7f0b005f
+			public const int Base_V21_Theme_AppCompat_Light_Dialog = 2131427423;
+			
+			// aapt resource value: 0x7f0b0060
+			public const int Base_V21_ThemeOverlay_AppCompat_Dialog = 2131427424;
+			
+			// aapt resource value: 0x7f0b015c
+			public const int Base_V21_Widget_Design_AppBarLayout = 2131427676;
+			
+			// aapt resource value: 0x7f0b0084
+			public const int Base_V22_Theme_AppCompat = 2131427460;
+			
+			// aapt resource value: 0x7f0b0085
+			public const int Base_V22_Theme_AppCompat_Light = 2131427461;
+			
+			// aapt resource value: 0x7f0b0088
+			public const int Base_V23_Theme_AppCompat = 2131427464;
+			
+			// aapt resource value: 0x7f0b0089
+			public const int Base_V23_Theme_AppCompat_Light = 2131427465;
+			
+			// aapt resource value: 0x7f0b0091
+			public const int Base_V26_Theme_AppCompat = 2131427473;
+			
+			// aapt resource value: 0x7f0b0092
+			public const int Base_V26_Theme_AppCompat_Light = 2131427474;
+			
+			// aapt resource value: 0x7f0b0093
+			public const int Base_V26_Widget_AppCompat_Toolbar = 2131427475;
+			
+			// aapt resource value: 0x7f0b015e
+			public const int Base_V26_Widget_Design_AppBarLayout = 2131427678;
+			
+			// aapt resource value: 0x7f0b00ae
+			public const int Base_V7_Theme_AppCompat = 2131427502;
+			
+			// aapt resource value: 0x7f0b00af
+			public const int Base_V7_Theme_AppCompat_Dialog = 2131427503;
+			
+			// aapt resource value: 0x7f0b00b0
+			public const int Base_V7_Theme_AppCompat_Light = 2131427504;
+			
+			// aapt resource value: 0x7f0b00b1
+			public const int Base_V7_Theme_AppCompat_Light_Dialog = 2131427505;
+			
+			// aapt resource value: 0x7f0b00b2
+			public const int Base_V7_ThemeOverlay_AppCompat_Dialog = 2131427506;
+			
+			// aapt resource value: 0x7f0b00b3
+			public const int Base_V7_Widget_AppCompat_AutoCompleteTextView = 2131427507;
+			
+			// aapt resource value: 0x7f0b00b4
+			public const int Base_V7_Widget_AppCompat_EditText = 2131427508;
+			
+			// aapt resource value: 0x7f0b00b5
+			public const int Base_V7_Widget_AppCompat_Toolbar = 2131427509;
+			
+			// aapt resource value: 0x7f0b00b6
+			public const int Base_Widget_AppCompat_ActionBar = 2131427510;
+			
+			// aapt resource value: 0x7f0b00b7
+			public const int Base_Widget_AppCompat_ActionBar_Solid = 2131427511;
+			
+			// aapt resource value: 0x7f0b00b8
+			public const int Base_Widget_AppCompat_ActionBar_TabBar = 2131427512;
+			
+			// aapt resource value: 0x7f0b0061
+			public const int Base_Widget_AppCompat_ActionBar_TabText = 2131427425;
+			
+			// aapt resource value: 0x7f0b0062
+			public const int Base_Widget_AppCompat_ActionBar_TabView = 2131427426;
+			
+			// aapt resource value: 0x7f0b0063
+			public const int Base_Widget_AppCompat_ActionButton = 2131427427;
+			
+			// aapt resource value: 0x7f0b0064
+			public const int Base_Widget_AppCompat_ActionButton_CloseMode = 2131427428;
+			
+			// aapt resource value: 0x7f0b0065
+			public const int Base_Widget_AppCompat_ActionButton_Overflow = 2131427429;
+			
+			// aapt resource value: 0x7f0b00b9
+			public const int Base_Widget_AppCompat_ActionMode = 2131427513;
+			
+			// aapt resource value: 0x7f0b00ba
+			public const int Base_Widget_AppCompat_ActivityChooserView = 2131427514;
+			
+			// aapt resource value: 0x7f0b0025
+			public const int Base_Widget_AppCompat_AutoCompleteTextView = 2131427365;
+			
+			// aapt resource value: 0x7f0b0066
+			public const int Base_Widget_AppCompat_Button = 2131427430;
+			
+			// aapt resource value: 0x7f0b0067
+			public const int Base_Widget_AppCompat_Button_Borderless = 2131427431;
+			
+			// aapt resource value: 0x7f0b0068
+			public const int Base_Widget_AppCompat_Button_Borderless_Colored = 2131427432;
+			
+			// aapt resource value: 0x7f0b00bb
+			public const int Base_Widget_AppCompat_Button_ButtonBar_AlertDialog = 2131427515;
+			
+			// aapt resource value: 0x7f0b008a
+			public const int Base_Widget_AppCompat_Button_Colored = 2131427466;
+			
+			// aapt resource value: 0x7f0b0069
+			public const int Base_Widget_AppCompat_Button_Small = 2131427433;
+			
+			// aapt resource value: 0x7f0b006a
+			public const int Base_Widget_AppCompat_ButtonBar = 2131427434;
+			
+			// aapt resource value: 0x7f0b00bc
+			public const int Base_Widget_AppCompat_ButtonBar_AlertDialog = 2131427516;
+			
+			// aapt resource value: 0x7f0b006b
+			public const int Base_Widget_AppCompat_CompoundButton_CheckBox = 2131427435;
+			
+			// aapt resource value: 0x7f0b006c
+			public const int Base_Widget_AppCompat_CompoundButton_RadioButton = 2131427436;
+			
+			// aapt resource value: 0x7f0b00bd
+			public const int Base_Widget_AppCompat_CompoundButton_Switch = 2131427517;
+			
+			// aapt resource value: 0x7f0b0000
+			public const int Base_Widget_AppCompat_DrawerArrowToggle = 2131427328;
+			
+			// aapt resource value: 0x7f0b00be
+			public const int Base_Widget_AppCompat_DrawerArrowToggle_Common = 2131427518;
+			
+			// aapt resource value: 0x7f0b006d
+			public const int Base_Widget_AppCompat_DropDownItem_Spinner = 2131427437;
+			
+			// aapt resource value: 0x7f0b0026
+			public const int Base_Widget_AppCompat_EditText = 2131427366;
+			
+			// aapt resource value: 0x7f0b006e
+			public const int Base_Widget_AppCompat_ImageButton = 2131427438;
+			
+			// aapt resource value: 0x7f0b00bf
+			public const int Base_Widget_AppCompat_Light_ActionBar = 2131427519;
+			
+			// aapt resource value: 0x7f0b00c0
+			public const int Base_Widget_AppCompat_Light_ActionBar_Solid = 2131427520;
+			
+			// aapt resource value: 0x7f0b00c1
+			public const int Base_Widget_AppCompat_Light_ActionBar_TabBar = 2131427521;
+			
+			// aapt resource value: 0x7f0b006f
+			public const int Base_Widget_AppCompat_Light_ActionBar_TabText = 2131427439;
+			
+			// aapt resource value: 0x7f0b0070
+			public const int Base_Widget_AppCompat_Light_ActionBar_TabText_Inverse = 2131427440;
+			
+			// aapt resource value: 0x7f0b0071
+			public const int Base_Widget_AppCompat_Light_ActionBar_TabView = 2131427441;
+			
+			// aapt resource value: 0x7f0b0072
+			public const int Base_Widget_AppCompat_Light_PopupMenu = 2131427442;
+			
+			// aapt resource value: 0x7f0b0073
+			public const int Base_Widget_AppCompat_Light_PopupMenu_Overflow = 2131427443;
+			
+			// aapt resource value: 0x7f0b00c2
+			public const int Base_Widget_AppCompat_ListMenuView = 2131427522;
+			
+			// aapt resource value: 0x7f0b0074
+			public const int Base_Widget_AppCompat_ListPopupWindow = 2131427444;
+			
+			// aapt resource value: 0x7f0b0075
+			public const int Base_Widget_AppCompat_ListView = 2131427445;
+			
+			// aapt resource value: 0x7f0b0076
+			public const int Base_Widget_AppCompat_ListView_DropDown = 2131427446;
+			
+			// aapt resource value: 0x7f0b0077
+			public const int Base_Widget_AppCompat_ListView_Menu = 2131427447;
+			
+			// aapt resource value: 0x7f0b0078
+			public const int Base_Widget_AppCompat_PopupMenu = 2131427448;
+			
+			// aapt resource value: 0x7f0b0079
+			public const int Base_Widget_AppCompat_PopupMenu_Overflow = 2131427449;
+			
+			// aapt resource value: 0x7f0b00c3
+			public const int Base_Widget_AppCompat_PopupWindow = 2131427523;
+			
+			// aapt resource value: 0x7f0b001c
+			public const int Base_Widget_AppCompat_ProgressBar = 2131427356;
+			
+			// aapt resource value: 0x7f0b001d
+			public const int Base_Widget_AppCompat_ProgressBar_Horizontal = 2131427357;
+			
+			// aapt resource value: 0x7f0b007a
+			public const int Base_Widget_AppCompat_RatingBar = 2131427450;
+			
+			// aapt resource value: 0x7f0b008b
+			public const int Base_Widget_AppCompat_RatingBar_Indicator = 2131427467;
+			
+			// aapt resource value: 0x7f0b008c
+			public const int Base_Widget_AppCompat_RatingBar_Small = 2131427468;
+			
+			// aapt resource value: 0x7f0b00c4
+			public const int Base_Widget_AppCompat_SearchView = 2131427524;
+			
+			// aapt resource value: 0x7f0b00c5
+			public const int Base_Widget_AppCompat_SearchView_ActionBar = 2131427525;
+			
+			// aapt resource value: 0x7f0b007b
+			public const int Base_Widget_AppCompat_SeekBar = 2131427451;
+			
+			// aapt resource value: 0x7f0b00c6
+			public const int Base_Widget_AppCompat_SeekBar_Discrete = 2131427526;
+			
+			// aapt resource value: 0x7f0b007c
+			public const int Base_Widget_AppCompat_Spinner = 2131427452;
+			
+			// aapt resource value: 0x7f0b0003
+			public const int Base_Widget_AppCompat_Spinner_Underlined = 2131427331;
+			
+			// aapt resource value: 0x7f0b007d
+			public const int Base_Widget_AppCompat_TextView_SpinnerItem = 2131427453;
+			
+			// aapt resource value: 0x7f0b0094
+			public const int Base_Widget_AppCompat_Toolbar = 2131427476;
+			
+			// aapt resource value: 0x7f0b007e
+			public const int Base_Widget_AppCompat_Toolbar_Button_Navigation = 2131427454;
+			
+			// aapt resource value: 0x7f0b015d
+			public const int Base_Widget_Design_AppBarLayout = 2131427677;
+			
+			// aapt resource value: 0x7f0b0161
+			public const int Base_Widget_Design_TabLayout = 2131427681;
+			
+			// aapt resource value: 0x7f0b001e
+			public const int Platform_AppCompat = 2131427358;
+			
+			// aapt resource value: 0x7f0b001f
+			public const int Platform_AppCompat_Light = 2131427359;
+			
+			// aapt resource value: 0x7f0b007f
+			public const int Platform_ThemeOverlay_AppCompat = 2131427455;
+			
+			// aapt resource value: 0x7f0b0080
+			public const int Platform_ThemeOverlay_AppCompat_Dark = 2131427456;
+			
+			// aapt resource value: 0x7f0b0081
+			public const int Platform_ThemeOverlay_AppCompat_Light = 2131427457;
+			
+			// aapt resource value: 0x7f0b0020
+			public const int Platform_V11_AppCompat = 2131427360;
+			
+			// aapt resource value: 0x7f0b0021
+			public const int Platform_V11_AppCompat_Light = 2131427361;
+			
+			// aapt resource value: 0x7f0b0028
+			public const int Platform_V14_AppCompat = 2131427368;
+			
+			// aapt resource value: 0x7f0b0029
+			public const int Platform_V14_AppCompat_Light = 2131427369;
+			
+			// aapt resource value: 0x7f0b0082
+			public const int Platform_V21_AppCompat = 2131427458;
+			
+			// aapt resource value: 0x7f0b0083
+			public const int Platform_V21_AppCompat_Light = 2131427459;
+			
+			// aapt resource value: 0x7f0b008f
+			public const int Platform_V25_AppCompat = 2131427471;
+			
+			// aapt resource value: 0x7f0b0090
+			public const int Platform_V25_AppCompat_Light = 2131427472;
+			
+			// aapt resource value: 0x7f0b0022
+			public const int Platform_Widget_AppCompat_Spinner = 2131427362;
+			
+			// aapt resource value: 0x7f0b002b
+			public const int RtlOverlay_DialogWindowTitle_AppCompat = 2131427371;
+			
+			// aapt resource value: 0x7f0b002c
+			public const int RtlOverlay_Widget_AppCompat_ActionBar_TitleItem = 2131427372;
+			
+			// aapt resource value: 0x7f0b002d
+			public const int RtlOverlay_Widget_AppCompat_DialogTitle_Icon = 2131427373;
+			
+			// aapt resource value: 0x7f0b002e
+			public const int RtlOverlay_Widget_AppCompat_PopupMenuItem = 2131427374;
+			
+			// aapt resource value: 0x7f0b002f
+			public const int RtlOverlay_Widget_AppCompat_PopupMenuItem_InternalGroup = 2131427375;
+			
+			// aapt resource value: 0x7f0b0030
+			public const int RtlOverlay_Widget_AppCompat_PopupMenuItem_Text = 2131427376;
+			
+			// aapt resource value: 0x7f0b0031
+			public const int RtlOverlay_Widget_AppCompat_Search_DropDown = 2131427377;
+			
+			// aapt resource value: 0x7f0b0032
+			public const int RtlOverlay_Widget_AppCompat_Search_DropDown_Icon1 = 2131427378;
+			
+			// aapt resource value: 0x7f0b0033
+			public const int RtlOverlay_Widget_AppCompat_Search_DropDown_Icon2 = 2131427379;
+			
+			// aapt resource value: 0x7f0b0034
+			public const int RtlOverlay_Widget_AppCompat_Search_DropDown_Query = 2131427380;
+			
+			// aapt resource value: 0x7f0b0035
+			public const int RtlOverlay_Widget_AppCompat_Search_DropDown_Text = 2131427381;
+			
+			// aapt resource value: 0x7f0b0036
+			public const int RtlOverlay_Widget_AppCompat_SearchView_MagIcon = 2131427382;
+			
+			// aapt resource value: 0x7f0b0037
+			public const int RtlUnderlay_Widget_AppCompat_ActionButton = 2131427383;
+			
+			// aapt resource value: 0x7f0b0038
+			public const int RtlUnderlay_Widget_AppCompat_ActionButton_Overflow = 2131427384;
+			
+			// aapt resource value: 0x7f0b00c7
+			public const int TextAppearance_AppCompat = 2131427527;
+			
+			// aapt resource value: 0x7f0b00c8
+			public const int TextAppearance_AppCompat_Body1 = 2131427528;
+			
+			// aapt resource value: 0x7f0b00c9
+			public const int TextAppearance_AppCompat_Body2 = 2131427529;
+			
+			// aapt resource value: 0x7f0b00ca
+			public const int TextAppearance_AppCompat_Button = 2131427530;
+			
+			// aapt resource value: 0x7f0b00cb
+			public const int TextAppearance_AppCompat_Caption = 2131427531;
+			
+			// aapt resource value: 0x7f0b00cc
+			public const int TextAppearance_AppCompat_Display1 = 2131427532;
+			
+			// aapt resource value: 0x7f0b00cd
+			public const int TextAppearance_AppCompat_Display2 = 2131427533;
+			
+			// aapt resource value: 0x7f0b00ce
+			public const int TextAppearance_AppCompat_Display3 = 2131427534;
+			
+			// aapt resource value: 0x7f0b00cf
+			public const int TextAppearance_AppCompat_Display4 = 2131427535;
+			
+			// aapt resource value: 0x7f0b00d0
+			public const int TextAppearance_AppCompat_Headline = 2131427536;
+			
+			// aapt resource value: 0x7f0b00d1
+			public const int TextAppearance_AppCompat_Inverse = 2131427537;
+			
+			// aapt resource value: 0x7f0b00d2
+			public const int TextAppearance_AppCompat_Large = 2131427538;
+			
+			// aapt resource value: 0x7f0b00d3
+			public const int TextAppearance_AppCompat_Large_Inverse = 2131427539;
+			
+			// aapt resource value: 0x7f0b00d4
+			public const int TextAppearance_AppCompat_Light_SearchResult_Subtitle = 2131427540;
+			
+			// aapt resource value: 0x7f0b00d5
+			public const int TextAppearance_AppCompat_Light_SearchResult_Title = 2131427541;
+			
+			// aapt resource value: 0x7f0b00d6
+			public const int TextAppearance_AppCompat_Light_Widget_PopupMenu_Large = 2131427542;
+			
+			// aapt resource value: 0x7f0b00d7
+			public const int TextAppearance_AppCompat_Light_Widget_PopupMenu_Small = 2131427543;
+			
+			// aapt resource value: 0x7f0b00d8
+			public const int TextAppearance_AppCompat_Medium = 2131427544;
+			
+			// aapt resource value: 0x7f0b00d9
+			public const int TextAppearance_AppCompat_Medium_Inverse = 2131427545;
+			
+			// aapt resource value: 0x7f0b00da
+			public const int TextAppearance_AppCompat_Menu = 2131427546;
+			
+			// aapt resource value: 0x7f0b00db
+			public const int TextAppearance_AppCompat_SearchResult_Subtitle = 2131427547;
+			
+			// aapt resource value: 0x7f0b00dc
+			public const int TextAppearance_AppCompat_SearchResult_Title = 2131427548;
+			
+			// aapt resource value: 0x7f0b00dd
+			public const int TextAppearance_AppCompat_Small = 2131427549;
+			
+			// aapt resource value: 0x7f0b00de
+			public const int TextAppearance_AppCompat_Small_Inverse = 2131427550;
+			
+			// aapt resource value: 0x7f0b00df
+			public const int TextAppearance_AppCompat_Subhead = 2131427551;
+			
+			// aapt resource value: 0x7f0b00e0
+			public const int TextAppearance_AppCompat_Subhead_Inverse = 2131427552;
+			
+			// aapt resource value: 0x7f0b00e1
+			public const int TextAppearance_AppCompat_Title = 2131427553;
+			
+			// aapt resource value: 0x7f0b00e2
+			public const int TextAppearance_AppCompat_Title_Inverse = 2131427554;
+			
+			// aapt resource value: 0x7f0b002a
+			public const int TextAppearance_AppCompat_Tooltip = 2131427370;
+			
+			// aapt resource value: 0x7f0b00e3
+			public const int TextAppearance_AppCompat_Widget_ActionBar_Menu = 2131427555;
+			
+			// aapt resource value: 0x7f0b00e4
+			public const int TextAppearance_AppCompat_Widget_ActionBar_Subtitle = 2131427556;
+			
+			// aapt resource value: 0x7f0b00e5
+			public const int TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse = 2131427557;
+			
+			// aapt resource value: 0x7f0b00e6
+			public const int TextAppearance_AppCompat_Widget_ActionBar_Title = 2131427558;
+			
+			// aapt resource value: 0x7f0b00e7
+			public const int TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse = 2131427559;
+			
+			// aapt resource value: 0x7f0b00e8
+			public const int TextAppearance_AppCompat_Widget_ActionMode_Subtitle = 2131427560;
+			
+			// aapt resource value: 0x7f0b00e9
+			public const int TextAppearance_AppCompat_Widget_ActionMode_Subtitle_Inverse = 2131427561;
+			
+			// aapt resource value: 0x7f0b00ea
+			public const int TextAppearance_AppCompat_Widget_ActionMode_Title = 2131427562;
+			
+			// aapt resource value: 0x7f0b00eb
+			public const int TextAppearance_AppCompat_Widget_ActionMode_Title_Inverse = 2131427563;
+			
+			// aapt resource value: 0x7f0b00ec
+			public const int TextAppearance_AppCompat_Widget_Button = 2131427564;
+			
+			// aapt resource value: 0x7f0b00ed
+			public const int TextAppearance_AppCompat_Widget_Button_Borderless_Colored = 2131427565;
+			
+			// aapt resource value: 0x7f0b00ee
+			public const int TextAppearance_AppCompat_Widget_Button_Colored = 2131427566;
+			
+			// aapt resource value: 0x7f0b00ef
+			public const int TextAppearance_AppCompat_Widget_Button_Inverse = 2131427567;
+			
+			// aapt resource value: 0x7f0b00f0
+			public const int TextAppearance_AppCompat_Widget_DropDownItem = 2131427568;
+			
+			// aapt resource value: 0x7f0b00f1
+			public const int TextAppearance_AppCompat_Widget_PopupMenu_Header = 2131427569;
+			
+			// aapt resource value: 0x7f0b00f2
+			public const int TextAppearance_AppCompat_Widget_PopupMenu_Large = 2131427570;
+			
+			// aapt resource value: 0x7f0b00f3
+			public const int TextAppearance_AppCompat_Widget_PopupMenu_Small = 2131427571;
+			
+			// aapt resource value: 0x7f0b00f4
+			public const int TextAppearance_AppCompat_Widget_Switch = 2131427572;
+			
+			// aapt resource value: 0x7f0b00f5
+			public const int TextAppearance_AppCompat_Widget_TextView_SpinnerItem = 2131427573;
+			
+			// aapt resource value: 0x7f0b0179
+			public const int TextAppearance_Compat_Notification = 2131427705;
+			
+			// aapt resource value: 0x7f0b017a
+			public const int TextAppearance_Compat_Notification_Info = 2131427706;
+			
+			// aapt resource value: 0x7f0b0156
+			public const int TextAppearance_Compat_Notification_Info_Media = 2131427670;
+			
+			// aapt resource value: 0x7f0b017f
+			public const int TextAppearance_Compat_Notification_Line2 = 2131427711;
+			
+			// aapt resource value: 0x7f0b015a
+			public const int TextAppearance_Compat_Notification_Line2_Media = 2131427674;
+			
+			// aapt resource value: 0x7f0b0157
+			public const int TextAppearance_Compat_Notification_Media = 2131427671;
+			
+			// aapt resource value: 0x7f0b017b
+			public const int TextAppearance_Compat_Notification_Time = 2131427707;
+			
+			// aapt resource value: 0x7f0b0158
+			public const int TextAppearance_Compat_Notification_Time_Media = 2131427672;
+			
+			// aapt resource value: 0x7f0b017c
+			public const int TextAppearance_Compat_Notification_Title = 2131427708;
+			
+			// aapt resource value: 0x7f0b0159
+			public const int TextAppearance_Compat_Notification_Title_Media = 2131427673;
+			
+			// aapt resource value: 0x7f0b0162
+			public const int TextAppearance_Design_CollapsingToolbar_Expanded = 2131427682;
+			
+			// aapt resource value: 0x7f0b0163
+			public const int TextAppearance_Design_Counter = 2131427683;
+			
+			// aapt resource value: 0x7f0b0164
+			public const int TextAppearance_Design_Counter_Overflow = 2131427684;
+			
+			// aapt resource value: 0x7f0b0165
+			public const int TextAppearance_Design_Error = 2131427685;
+			
+			// aapt resource value: 0x7f0b0166
+			public const int TextAppearance_Design_Hint = 2131427686;
+			
+			// aapt resource value: 0x7f0b0167
+			public const int TextAppearance_Design_Snackbar_Message = 2131427687;
+			
+			// aapt resource value: 0x7f0b0168
+			public const int TextAppearance_Design_Tab = 2131427688;
+			
+			// aapt resource value: 0x7f0b00f6
+			public const int TextAppearance_Widget_AppCompat_ExpandedMenu_Item = 2131427574;
+			
+			// aapt resource value: 0x7f0b00f7
+			public const int TextAppearance_Widget_AppCompat_Toolbar_Subtitle = 2131427575;
+			
+			// aapt resource value: 0x7f0b00f8
+			public const int TextAppearance_Widget_AppCompat_Toolbar_Title = 2131427576;
+			
+			// aapt resource value: 0x7f0b00f9
+			public const int Theme_AppCompat = 2131427577;
+			
+			// aapt resource value: 0x7f0b00fa
+			public const int Theme_AppCompat_CompactMenu = 2131427578;
+			
+			// aapt resource value: 0x7f0b0004
+			public const int Theme_AppCompat_DayNight = 2131427332;
+			
+			// aapt resource value: 0x7f0b0005
+			public const int Theme_AppCompat_DayNight_DarkActionBar = 2131427333;
+			
+			// aapt resource value: 0x7f0b0006
+			public const int Theme_AppCompat_DayNight_Dialog = 2131427334;
+			
+			// aapt resource value: 0x7f0b0007
+			public const int Theme_AppCompat_DayNight_Dialog_Alert = 2131427335;
+			
+			// aapt resource value: 0x7f0b0008
+			public const int Theme_AppCompat_DayNight_Dialog_MinWidth = 2131427336;
+			
+			// aapt resource value: 0x7f0b0009
+			public const int Theme_AppCompat_DayNight_DialogWhenLarge = 2131427337;
+			
+			// aapt resource value: 0x7f0b000a
+			public const int Theme_AppCompat_DayNight_NoActionBar = 2131427338;
+			
+			// aapt resource value: 0x7f0b00fb
+			public const int Theme_AppCompat_Dialog = 2131427579;
+			
+			// aapt resource value: 0x7f0b00fc
+			public const int Theme_AppCompat_Dialog_Alert = 2131427580;
+			
+			// aapt resource value: 0x7f0b00fd
+			public const int Theme_AppCompat_Dialog_MinWidth = 2131427581;
+			
+			// aapt resource value: 0x7f0b00fe
+			public const int Theme_AppCompat_DialogWhenLarge = 2131427582;
+			
+			// aapt resource value: 0x7f0b00ff
+			public const int Theme_AppCompat_Light = 2131427583;
+			
+			// aapt resource value: 0x7f0b0100
+			public const int Theme_AppCompat_Light_DarkActionBar = 2131427584;
+			
+			// aapt resource value: 0x7f0b0101
+			public const int Theme_AppCompat_Light_Dialog = 2131427585;
+			
+			// aapt resource value: 0x7f0b0102
+			public const int Theme_AppCompat_Light_Dialog_Alert = 2131427586;
+			
+			// aapt resource value: 0x7f0b0103
+			public const int Theme_AppCompat_Light_Dialog_MinWidth = 2131427587;
+			
+			// aapt resource value: 0x7f0b0104
+			public const int Theme_AppCompat_Light_DialogWhenLarge = 2131427588;
+			
+			// aapt resource value: 0x7f0b0105
+			public const int Theme_AppCompat_Light_NoActionBar = 2131427589;
+			
+			// aapt resource value: 0x7f0b0106
+			public const int Theme_AppCompat_NoActionBar = 2131427590;
+			
+			// aapt resource value: 0x7f0b0169
+			public const int Theme_Design = 2131427689;
+			
+			// aapt resource value: 0x7f0b016a
+			public const int Theme_Design_BottomSheetDialog = 2131427690;
+			
+			// aapt resource value: 0x7f0b016b
+			public const int Theme_Design_Light = 2131427691;
+			
+			// aapt resource value: 0x7f0b016c
+			public const int Theme_Design_Light_BottomSheetDialog = 2131427692;
+			
+			// aapt resource value: 0x7f0b016d
+			public const int Theme_Design_Light_NoActionBar = 2131427693;
+			
+			// aapt resource value: 0x7f0b016e
+			public const int Theme_Design_NoActionBar = 2131427694;
+			
+			// aapt resource value: 0x7f0b0107
+			public const int ThemeOverlay_AppCompat = 2131427591;
+			
+			// aapt resource value: 0x7f0b0108
+			public const int ThemeOverlay_AppCompat_ActionBar = 2131427592;
+			
+			// aapt resource value: 0x7f0b0109
+			public const int ThemeOverlay_AppCompat_Dark = 2131427593;
+			
+			// aapt resource value: 0x7f0b010a
+			public const int ThemeOverlay_AppCompat_Dark_ActionBar = 2131427594;
+			
+			// aapt resource value: 0x7f0b010b
+			public const int ThemeOverlay_AppCompat_Dialog = 2131427595;
+			
+			// aapt resource value: 0x7f0b010c
+			public const int ThemeOverlay_AppCompat_Dialog_Alert = 2131427596;
+			
+			// aapt resource value: 0x7f0b010d
+			public const int ThemeOverlay_AppCompat_Light = 2131427597;
+			
+			// aapt resource value: 0x7f0b010e
+			public const int Widget_AppCompat_ActionBar = 2131427598;
+			
+			// aapt resource value: 0x7f0b010f
+			public const int Widget_AppCompat_ActionBar_Solid = 2131427599;
+			
+			// aapt resource value: 0x7f0b0110
+			public const int Widget_AppCompat_ActionBar_TabBar = 2131427600;
+			
+			// aapt resource value: 0x7f0b0111
+			public const int Widget_AppCompat_ActionBar_TabText = 2131427601;
+			
+			// aapt resource value: 0x7f0b0112
+			public const int Widget_AppCompat_ActionBar_TabView = 2131427602;
+			
+			// aapt resource value: 0x7f0b0113
+			public const int Widget_AppCompat_ActionButton = 2131427603;
+			
+			// aapt resource value: 0x7f0b0114
+			public const int Widget_AppCompat_ActionButton_CloseMode = 2131427604;
+			
+			// aapt resource value: 0x7f0b0115
+			public const int Widget_AppCompat_ActionButton_Overflow = 2131427605;
+			
+			// aapt resource value: 0x7f0b0116
+			public const int Widget_AppCompat_ActionMode = 2131427606;
+			
+			// aapt resource value: 0x7f0b0117
+			public const int Widget_AppCompat_ActivityChooserView = 2131427607;
+			
+			// aapt resource value: 0x7f0b0118
+			public const int Widget_AppCompat_AutoCompleteTextView = 2131427608;
+			
+			// aapt resource value: 0x7f0b0119
+			public const int Widget_AppCompat_Button = 2131427609;
+			
+			// aapt resource value: 0x7f0b011a
+			public const int Widget_AppCompat_Button_Borderless = 2131427610;
+			
+			// aapt resource value: 0x7f0b011b
+			public const int Widget_AppCompat_Button_Borderless_Colored = 2131427611;
+			
+			// aapt resource value: 0x7f0b011c
+			public const int Widget_AppCompat_Button_ButtonBar_AlertDialog = 2131427612;
+			
+			// aapt resource value: 0x7f0b011d
+			public const int Widget_AppCompat_Button_Colored = 2131427613;
+			
+			// aapt resource value: 0x7f0b011e
+			public const int Widget_AppCompat_Button_Small = 2131427614;
+			
+			// aapt resource value: 0x7f0b011f
+			public const int Widget_AppCompat_ButtonBar = 2131427615;
+			
+			// aapt resource value: 0x7f0b0120
+			public const int Widget_AppCompat_ButtonBar_AlertDialog = 2131427616;
+			
+			// aapt resource value: 0x7f0b0121
+			public const int Widget_AppCompat_CompoundButton_CheckBox = 2131427617;
+			
+			// aapt resource value: 0x7f0b0122
+			public const int Widget_AppCompat_CompoundButton_RadioButton = 2131427618;
+			
+			// aapt resource value: 0x7f0b0123
+			public const int Widget_AppCompat_CompoundButton_Switch = 2131427619;
+			
+			// aapt resource value: 0x7f0b0124
+			public const int Widget_AppCompat_DrawerArrowToggle = 2131427620;
+			
+			// aapt resource value: 0x7f0b0125
+			public const int Widget_AppCompat_DropDownItem_Spinner = 2131427621;
+			
+			// aapt resource value: 0x7f0b0126
+			public const int Widget_AppCompat_EditText = 2131427622;
+			
+			// aapt resource value: 0x7f0b0127
+			public const int Widget_AppCompat_ImageButton = 2131427623;
+			
+			// aapt resource value: 0x7f0b0128
+			public const int Widget_AppCompat_Light_ActionBar = 2131427624;
+			
+			// aapt resource value: 0x7f0b0129
+			public const int Widget_AppCompat_Light_ActionBar_Solid = 2131427625;
+			
+			// aapt resource value: 0x7f0b012a
+			public const int Widget_AppCompat_Light_ActionBar_Solid_Inverse = 2131427626;
+			
+			// aapt resource value: 0x7f0b012b
+			public const int Widget_AppCompat_Light_ActionBar_TabBar = 2131427627;
+			
+			// aapt resource value: 0x7f0b012c
+			public const int Widget_AppCompat_Light_ActionBar_TabBar_Inverse = 2131427628;
+			
+			// aapt resource value: 0x7f0b012d
+			public const int Widget_AppCompat_Light_ActionBar_TabText = 2131427629;
+			
+			// aapt resource value: 0x7f0b012e
+			public const int Widget_AppCompat_Light_ActionBar_TabText_Inverse = 2131427630;
+			
+			// aapt resource value: 0x7f0b012f
+			public const int Widget_AppCompat_Light_ActionBar_TabView = 2131427631;
+			
+			// aapt resource value: 0x7f0b0130
+			public const int Widget_AppCompat_Light_ActionBar_TabView_Inverse = 2131427632;
+			
+			// aapt resource value: 0x7f0b0131
+			public const int Widget_AppCompat_Light_ActionButton = 2131427633;
+			
+			// aapt resource value: 0x7f0b0132
+			public const int Widget_AppCompat_Light_ActionButton_CloseMode = 2131427634;
+			
+			// aapt resource value: 0x7f0b0133
+			public const int Widget_AppCompat_Light_ActionButton_Overflow = 2131427635;
+			
+			// aapt resource value: 0x7f0b0134
+			public const int Widget_AppCompat_Light_ActionMode_Inverse = 2131427636;
+			
+			// aapt resource value: 0x7f0b0135
+			public const int Widget_AppCompat_Light_ActivityChooserView = 2131427637;
+			
+			// aapt resource value: 0x7f0b0136
+			public const int Widget_AppCompat_Light_AutoCompleteTextView = 2131427638;
+			
+			// aapt resource value: 0x7f0b0137
+			public const int Widget_AppCompat_Light_DropDownItem_Spinner = 2131427639;
+			
+			// aapt resource value: 0x7f0b0138
+			public const int Widget_AppCompat_Light_ListPopupWindow = 2131427640;
+			
+			// aapt resource value: 0x7f0b0139
+			public const int Widget_AppCompat_Light_ListView_DropDown = 2131427641;
+			
+			// aapt resource value: 0x7f0b013a
+			public const int Widget_AppCompat_Light_PopupMenu = 2131427642;
+			
+			// aapt resource value: 0x7f0b013b
+			public const int Widget_AppCompat_Light_PopupMenu_Overflow = 2131427643;
+			
+			// aapt resource value: 0x7f0b013c
+			public const int Widget_AppCompat_Light_SearchView = 2131427644;
+			
+			// aapt resource value: 0x7f0b013d
+			public const int Widget_AppCompat_Light_Spinner_DropDown_ActionBar = 2131427645;
+			
+			// aapt resource value: 0x7f0b013e
+			public const int Widget_AppCompat_ListMenuView = 2131427646;
+			
+			// aapt resource value: 0x7f0b013f
+			public const int Widget_AppCompat_ListPopupWindow = 2131427647;
+			
+			// aapt resource value: 0x7f0b0140
+			public const int Widget_AppCompat_ListView = 2131427648;
+			
+			// aapt resource value: 0x7f0b0141
+			public const int Widget_AppCompat_ListView_DropDown = 2131427649;
+			
+			// aapt resource value: 0x7f0b0142
+			public const int Widget_AppCompat_ListView_Menu = 2131427650;
+			
+			// aapt resource value: 0x7f0b0143
+			public const int Widget_AppCompat_PopupMenu = 2131427651;
+			
+			// aapt resource value: 0x7f0b0144
+			public const int Widget_AppCompat_PopupMenu_Overflow = 2131427652;
+			
+			// aapt resource value: 0x7f0b0145
+			public const int Widget_AppCompat_PopupWindow = 2131427653;
+			
+			// aapt resource value: 0x7f0b0146
+			public const int Widget_AppCompat_ProgressBar = 2131427654;
+			
+			// aapt resource value: 0x7f0b0147
+			public const int Widget_AppCompat_ProgressBar_Horizontal = 2131427655;
+			
+			// aapt resource value: 0x7f0b0148
+			public const int Widget_AppCompat_RatingBar = 2131427656;
+			
+			// aapt resource value: 0x7f0b0149
+			public const int Widget_AppCompat_RatingBar_Indicator = 2131427657;
+			
+			// aapt resource value: 0x7f0b014a
+			public const int Widget_AppCompat_RatingBar_Small = 2131427658;
+			
+			// aapt resource value: 0x7f0b014b
+			public const int Widget_AppCompat_SearchView = 2131427659;
+			
+			// aapt resource value: 0x7f0b014c
+			public const int Widget_AppCompat_SearchView_ActionBar = 2131427660;
+			
+			// aapt resource value: 0x7f0b014d
+			public const int Widget_AppCompat_SeekBar = 2131427661;
+			
+			// aapt resource value: 0x7f0b014e
+			public const int Widget_AppCompat_SeekBar_Discrete = 2131427662;
+			
+			// aapt resource value: 0x7f0b014f
+			public const int Widget_AppCompat_Spinner = 2131427663;
+			
+			// aapt resource value: 0x7f0b0150
+			public const int Widget_AppCompat_Spinner_DropDown = 2131427664;
+			
+			// aapt resource value: 0x7f0b0151
+			public const int Widget_AppCompat_Spinner_DropDown_ActionBar = 2131427665;
+			
+			// aapt resource value: 0x7f0b0152
+			public const int Widget_AppCompat_Spinner_Underlined = 2131427666;
+			
+			// aapt resource value: 0x7f0b0153
+			public const int Widget_AppCompat_TextView_SpinnerItem = 2131427667;
+			
+			// aapt resource value: 0x7f0b0154
+			public const int Widget_AppCompat_Toolbar = 2131427668;
+			
+			// aapt resource value: 0x7f0b0155
+			public const int Widget_AppCompat_Toolbar_Button_Navigation = 2131427669;
+			
+			// aapt resource value: 0x7f0b017d
+			public const int Widget_Compat_NotificationActionContainer = 2131427709;
+			
+			// aapt resource value: 0x7f0b017e
+			public const int Widget_Compat_NotificationActionText = 2131427710;
+			
+			// aapt resource value: 0x7f0b016f
+			public const int Widget_Design_AppBarLayout = 2131427695;
+			
+			// aapt resource value: 0x7f0b0170
+			public const int Widget_Design_BottomNavigationView = 2131427696;
+			
+			// aapt resource value: 0x7f0b0171
+			public const int Widget_Design_BottomSheet_Modal = 2131427697;
+			
+			// aapt resource value: 0x7f0b0172
+			public const int Widget_Design_CollapsingToolbar = 2131427698;
+			
+			// aapt resource value: 0x7f0b0173
+			public const int Widget_Design_CoordinatorLayout = 2131427699;
+			
+			// aapt resource value: 0x7f0b0174
+			public const int Widget_Design_FloatingActionButton = 2131427700;
+			
+			// aapt resource value: 0x7f0b0175
+			public const int Widget_Design_NavigationView = 2131427701;
+			
+			// aapt resource value: 0x7f0b0176
+			public const int Widget_Design_ScrimInsetsFrameLayout = 2131427702;
+			
+			// aapt resource value: 0x7f0b0177
+			public const int Widget_Design_Snackbar = 2131427703;
+			
+			// aapt resource value: 0x7f0b015b
+			public const int Widget_Design_TabLayout = 2131427675;
+			
+			// aapt resource value: 0x7f0b0178
+			public const int Widget_Design_TextInputLayout = 2131427704;
+			
+			static Style()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Style()
+			{
+			}
+		}
+		
+		public partial class Xml
+		{
+			
+			// aapt resource value: 0x7f070000
+			public const int Empty = 2131165184;
+			
+			static Xml()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Xml()
+			{
+			}
+		}
+		
+		public partial class Styleable
+		{
+			
+			public static int[] ActionBar = new int[] {
+					2130771978,
+					2130771980,
+					2130771981,
+					2130771982,
+					2130771983,
+					2130771984,
+					2130771985,
+					2130771986,
+					2130771987,
+					2130771988,
+					2130771989,
+					2130771990,
+					2130771991,
+					2130771992,
+					2130771993,
+					2130771994,
+					2130771995,
+					2130771996,
+					2130771997,
+					2130771998,
+					2130771999,
+					2130772000,
+					2130772001,
+					2130772002,
+					2130772003,
+					2130772004,
+					2130772005,
+					2130772006,
+					2130772076};
+			
+			// aapt resource value: 10
+			public const int ActionBar_background = 10;
+			
+			// aapt resource value: 12
+			public const int ActionBar_backgroundSplit = 12;
+			
+			// aapt resource value: 11
+			public const int ActionBar_backgroundStacked = 11;
+			
+			// aapt resource value: 21
+			public const int ActionBar_contentInsetEnd = 21;
+			
+			// aapt resource value: 25
+			public const int ActionBar_contentInsetEndWithActions = 25;
+			
+			// aapt resource value: 22
+			public const int ActionBar_contentInsetLeft = 22;
+			
+			// aapt resource value: 23
+			public const int ActionBar_contentInsetRight = 23;
+			
+			// aapt resource value: 20
+			public const int ActionBar_contentInsetStart = 20;
+			
+			// aapt resource value: 24
+			public const int ActionBar_contentInsetStartWithNavigation = 24;
+			
+			// aapt resource value: 13
+			public const int ActionBar_customNavigationLayout = 13;
+			
+			// aapt resource value: 3
+			public const int ActionBar_displayOptions = 3;
+			
+			// aapt resource value: 9
+			public const int ActionBar_divider = 9;
+			
+			// aapt resource value: 26
+			public const int ActionBar_elevation = 26;
+			
+			// aapt resource value: 0
+			public const int ActionBar_height = 0;
+			
+			// aapt resource value: 19
+			public const int ActionBar_hideOnContentScroll = 19;
+			
+			// aapt resource value: 28
+			public const int ActionBar_homeAsUpIndicator = 28;
+			
+			// aapt resource value: 14
+			public const int ActionBar_homeLayout = 14;
+			
+			// aapt resource value: 7
+			public const int ActionBar_icon = 7;
+			
+			// aapt resource value: 16
+			public const int ActionBar_indeterminateProgressStyle = 16;
+			
+			// aapt resource value: 18
+			public const int ActionBar_itemPadding = 18;
+			
+			// aapt resource value: 8
+			public const int ActionBar_logo = 8;
+			
+			// aapt resource value: 2
+			public const int ActionBar_navigationMode = 2;
+			
+			// aapt resource value: 27
+			public const int ActionBar_popupTheme = 27;
+			
+			// aapt resource value: 17
+			public const int ActionBar_progressBarPadding = 17;
+			
+			// aapt resource value: 15
+			public const int ActionBar_progressBarStyle = 15;
+			
+			// aapt resource value: 4
+			public const int ActionBar_subtitle = 4;
+			
+			// aapt resource value: 6
+			public const int ActionBar_subtitleTextStyle = 6;
+			
+			// aapt resource value: 1
+			public const int ActionBar_title = 1;
+			
+			// aapt resource value: 5
+			public const int ActionBar_titleTextStyle = 5;
+			
+			public static int[] ActionBarLayout = new int[] {
+					16842931};
+			
+			// aapt resource value: 0
+			public const int ActionBarLayout_android_layout_gravity = 0;
+			
+			public static int[] ActionMenuItemView = new int[] {
+					16843071};
+			
+			// aapt resource value: 0
+			public const int ActionMenuItemView_android_minWidth = 0;
+			
+			public static int[] ActionMenuView;
+			
+			public static int[] ActionMode = new int[] {
+					2130771978,
+					2130771984,
+					2130771985,
+					2130771989,
+					2130771991,
+					2130772007};
+			
+			// aapt resource value: 3
+			public const int ActionMode_background = 3;
+			
+			// aapt resource value: 4
+			public const int ActionMode_backgroundSplit = 4;
+			
+			// aapt resource value: 5
+			public const int ActionMode_closeItemLayout = 5;
+			
+			// aapt resource value: 0
+			public const int ActionMode_height = 0;
+			
+			// aapt resource value: 2
+			public const int ActionMode_subtitleTextStyle = 2;
+			
+			// aapt resource value: 1
+			public const int ActionMode_titleTextStyle = 1;
+			
+			public static int[] ActivityChooserView = new int[] {
+					2130772008,
+					2130772009};
+			
+			// aapt resource value: 1
+			public const int ActivityChooserView_expandActivityOverflowButtonDrawable = 1;
+			
+			// aapt resource value: 0
+			public const int ActivityChooserView_initialActivityCount = 0;
+			
+			public static int[] AlertDialog = new int[] {
+					16842994,
+					2130772010,
+					2130772011,
+					2130772012,
+					2130772013,
+					2130772014,
+					2130772015};
+			
+			// aapt resource value: 0
+			public const int AlertDialog_android_layout = 0;
+			
+			// aapt resource value: 1
+			public const int AlertDialog_buttonPanelSideLayout = 1;
+			
+			// aapt resource value: 5
+			public const int AlertDialog_listItemLayout = 5;
+			
+			// aapt resource value: 2
+			public const int AlertDialog_listLayout = 2;
+			
+			// aapt resource value: 3
+			public const int AlertDialog_multiChoiceItemLayout = 3;
+			
+			// aapt resource value: 6
+			public const int AlertDialog_showTitle = 6;
+			
+			// aapt resource value: 4
+			public const int AlertDialog_singleChoiceItemLayout = 4;
+			
+			public static int[] AppBarLayout = new int[] {
+					16842964,
+					16843919,
+					16844096,
+					2130772005,
+					2130772223};
+			
+			// aapt resource value: 0
+			public const int AppBarLayout_android_background = 0;
+			
+			// aapt resource value: 2
+			public const int AppBarLayout_android_keyboardNavigationCluster = 2;
+			
+			// aapt resource value: 1
+			public const int AppBarLayout_android_touchscreenBlocksFocus = 1;
+			
+			// aapt resource value: 3
+			public const int AppBarLayout_elevation = 3;
+			
+			// aapt resource value: 4
+			public const int AppBarLayout_expanded = 4;
+			
+			public static int[] AppBarLayoutStates = new int[] {
+					2130772224,
+					2130772225};
+			
+			// aapt resource value: 0
+			public const int AppBarLayoutStates_state_collapsed = 0;
+			
+			// aapt resource value: 1
+			public const int AppBarLayoutStates_state_collapsible = 1;
+			
+			public static int[] AppBarLayout_Layout = new int[] {
+					2130772226,
+					2130772227};
+			
+			// aapt resource value: 0
+			public const int AppBarLayout_Layout_layout_scrollFlags = 0;
+			
+			// aapt resource value: 1
+			public const int AppBarLayout_Layout_layout_scrollInterpolator = 1;
+			
+			public static int[] AppCompatImageView = new int[] {
+					16843033,
+					2130772016,
+					2130772017,
+					2130772018};
+			
+			// aapt resource value: 0
+			public const int AppCompatImageView_android_src = 0;
+			
+			// aapt resource value: 1
+			public const int AppCompatImageView_srcCompat = 1;
+			
+			// aapt resource value: 2
+			public const int AppCompatImageView_tint = 2;
+			
+			// aapt resource value: 3
+			public const int AppCompatImageView_tintMode = 3;
+			
+			public static int[] AppCompatSeekBar = new int[] {
+					16843074,
+					2130772019,
+					2130772020,
+					2130772021};
+			
+			// aapt resource value: 0
+			public const int AppCompatSeekBar_android_thumb = 0;
+			
+			// aapt resource value: 1
+			public const int AppCompatSeekBar_tickMark = 1;
+			
+			// aapt resource value: 2
+			public const int AppCompatSeekBar_tickMarkTint = 2;
+			
+			// aapt resource value: 3
+			public const int AppCompatSeekBar_tickMarkTintMode = 3;
+			
+			public static int[] AppCompatTextHelper = new int[] {
+					16842804,
+					16843117,
+					16843118,
+					16843119,
+					16843120,
+					16843666,
+					16843667};
+			
+			// aapt resource value: 2
+			public const int AppCompatTextHelper_android_drawableBottom = 2;
+			
+			// aapt resource value: 6
+			public const int AppCompatTextHelper_android_drawableEnd = 6;
+			
+			// aapt resource value: 3
+			public const int AppCompatTextHelper_android_drawableLeft = 3;
+			
+			// aapt resource value: 4
+			public const int AppCompatTextHelper_android_drawableRight = 4;
+			
+			// aapt resource value: 5
+			public const int AppCompatTextHelper_android_drawableStart = 5;
+			
+			// aapt resource value: 1
+			public const int AppCompatTextHelper_android_drawableTop = 1;
+			
+			// aapt resource value: 0
+			public const int AppCompatTextHelper_android_textAppearance = 0;
+			
+			public static int[] AppCompatTextView = new int[] {
+					16842804,
+					2130772022,
+					2130772023,
+					2130772024,
+					2130772025,
+					2130772026,
+					2130772027,
+					2130772028};
+			
+			// aapt resource value: 0
+			public const int AppCompatTextView_android_textAppearance = 0;
+			
+			// aapt resource value: 6
+			public const int AppCompatTextView_autoSizeMaxTextSize = 6;
+			
+			// aapt resource value: 5
+			public const int AppCompatTextView_autoSizeMinTextSize = 5;
+			
+			// aapt resource value: 4
+			public const int AppCompatTextView_autoSizePresetSizes = 4;
+			
+			// aapt resource value: 3
+			public const int AppCompatTextView_autoSizeStepGranularity = 3;
+			
+			// aapt resource value: 2
+			public const int AppCompatTextView_autoSizeTextType = 2;
+			
+			// aapt resource value: 7
+			public const int AppCompatTextView_fontFamily = 7;
+			
+			// aapt resource value: 1
+			public const int AppCompatTextView_textAllCaps = 1;
+			
+			public static int[] AppCompatTheme = new int[] {
+					16842839,
+					16842926,
+					2130772029,
+					2130772030,
+					2130772031,
+					2130772032,
+					2130772033,
+					2130772034,
+					2130772035,
+					2130772036,
+					2130772037,
+					2130772038,
+					2130772039,
+					2130772040,
+					2130772041,
+					2130772042,
+					2130772043,
+					2130772044,
+					2130772045,
+					2130772046,
+					2130772047,
+					2130772048,
+					2130772049,
+					2130772050,
+					2130772051,
+					2130772052,
+					2130772053,
+					2130772054,
+					2130772055,
+					2130772056,
+					2130772057,
+					2130772058,
+					2130772059,
+					2130772060,
+					2130772061,
+					2130772062,
+					2130772063,
+					2130772064,
+					2130772065,
+					2130772066,
+					2130772067,
+					2130772068,
+					2130772069,
+					2130772070,
+					2130772071,
+					2130772072,
+					2130772073,
+					2130772074,
+					2130772075,
+					2130772076,
+					2130772077,
+					2130772078,
+					2130772079,
+					2130772080,
+					2130772081,
+					2130772082,
+					2130772083,
+					2130772084,
+					2130772085,
+					2130772086,
+					2130772087,
+					2130772088,
+					2130772089,
+					2130772090,
+					2130772091,
+					2130772092,
+					2130772093,
+					2130772094,
+					2130772095,
+					2130772096,
+					2130772097,
+					2130772098,
+					2130772099,
+					2130772100,
+					2130772101,
+					2130772102,
+					2130772103,
+					2130772104,
+					2130772105,
+					2130772106,
+					2130772107,
+					2130772108,
+					2130772109,
+					2130772110,
+					2130772111,
+					2130772112,
+					2130772113,
+					2130772114,
+					2130772115,
+					2130772116,
+					2130772117,
+					2130772118,
+					2130772119,
+					2130772120,
+					2130772121,
+					2130772122,
+					2130772123,
+					2130772124,
+					2130772125,
+					2130772126,
+					2130772127,
+					2130772128,
+					2130772129,
+					2130772130,
+					2130772131,
+					2130772132,
+					2130772133,
+					2130772134,
+					2130772135,
+					2130772136,
+					2130772137,
+					2130772138,
+					2130772139,
+					2130772140,
+					2130772141,
+					2130772142,
+					2130772143,
+					2130772144,
+					2130772145};
+			
+			// aapt resource value: 23
+			public const int AppCompatTheme_actionBarDivider = 23;
+			
+			// aapt resource value: 24
+			public const int AppCompatTheme_actionBarItemBackground = 24;
+			
+			// aapt resource value: 17
+			public const int AppCompatTheme_actionBarPopupTheme = 17;
+			
+			// aapt resource value: 22
+			public const int AppCompatTheme_actionBarSize = 22;
+			
+			// aapt resource value: 19
+			public const int AppCompatTheme_actionBarSplitStyle = 19;
+			
+			// aapt resource value: 18
+			public const int AppCompatTheme_actionBarStyle = 18;
+			
+			// aapt resource value: 13
+			public const int AppCompatTheme_actionBarTabBarStyle = 13;
+			
+			// aapt resource value: 12
+			public const int AppCompatTheme_actionBarTabStyle = 12;
+			
+			// aapt resource value: 14
+			public const int AppCompatTheme_actionBarTabTextStyle = 14;
+			
+			// aapt resource value: 20
+			public const int AppCompatTheme_actionBarTheme = 20;
+			
+			// aapt resource value: 21
+			public const int AppCompatTheme_actionBarWidgetTheme = 21;
+			
+			// aapt resource value: 50
+			public const int AppCompatTheme_actionButtonStyle = 50;
+			
+			// aapt resource value: 46
+			public const int AppCompatTheme_actionDropDownStyle = 46;
+			
+			// aapt resource value: 25
+			public const int AppCompatTheme_actionMenuTextAppearance = 25;
+			
+			// aapt resource value: 26
+			public const int AppCompatTheme_actionMenuTextColor = 26;
+			
+			// aapt resource value: 29
+			public const int AppCompatTheme_actionModeBackground = 29;
+			
+			// aapt resource value: 28
+			public const int AppCompatTheme_actionModeCloseButtonStyle = 28;
+			
+			// aapt resource value: 31
+			public const int AppCompatTheme_actionModeCloseDrawable = 31;
+			
+			// aapt resource value: 33
+			public const int AppCompatTheme_actionModeCopyDrawable = 33;
+			
+			// aapt resource value: 32
+			public const int AppCompatTheme_actionModeCutDrawable = 32;
+			
+			// aapt resource value: 37
+			public const int AppCompatTheme_actionModeFindDrawable = 37;
+			
+			// aapt resource value: 34
+			public const int AppCompatTheme_actionModePasteDrawable = 34;
+			
+			// aapt resource value: 39
+			public const int AppCompatTheme_actionModePopupWindowStyle = 39;
+			
+			// aapt resource value: 35
+			public const int AppCompatTheme_actionModeSelectAllDrawable = 35;
+			
+			// aapt resource value: 36
+			public const int AppCompatTheme_actionModeShareDrawable = 36;
+			
+			// aapt resource value: 30
+			public const int AppCompatTheme_actionModeSplitBackground = 30;
+			
+			// aapt resource value: 27
+			public const int AppCompatTheme_actionModeStyle = 27;
+			
+			// aapt resource value: 38
+			public const int AppCompatTheme_actionModeWebSearchDrawable = 38;
+			
+			// aapt resource value: 15
+			public const int AppCompatTheme_actionOverflowButtonStyle = 15;
+			
+			// aapt resource value: 16
+			public const int AppCompatTheme_actionOverflowMenuStyle = 16;
+			
+			// aapt resource value: 58
+			public const int AppCompatTheme_activityChooserViewStyle = 58;
+			
+			// aapt resource value: 95
+			public const int AppCompatTheme_alertDialogButtonGroupStyle = 95;
+			
+			// aapt resource value: 96
+			public const int AppCompatTheme_alertDialogCenterButtons = 96;
+			
+			// aapt resource value: 94
+			public const int AppCompatTheme_alertDialogStyle = 94;
+			
+			// aapt resource value: 97
+			public const int AppCompatTheme_alertDialogTheme = 97;
+			
+			// aapt resource value: 1
+			public const int AppCompatTheme_android_windowAnimationStyle = 1;
+			
+			// aapt resource value: 0
+			public const int AppCompatTheme_android_windowIsFloating = 0;
+			
+			// aapt resource value: 102
+			public const int AppCompatTheme_autoCompleteTextViewStyle = 102;
+			
+			// aapt resource value: 55
+			public const int AppCompatTheme_borderlessButtonStyle = 55;
+			
+			// aapt resource value: 52
+			public const int AppCompatTheme_buttonBarButtonStyle = 52;
+			
+			// aapt resource value: 100
+			public const int AppCompatTheme_buttonBarNegativeButtonStyle = 100;
+			
+			// aapt resource value: 101
+			public const int AppCompatTheme_buttonBarNeutralButtonStyle = 101;
+			
+			// aapt resource value: 99
+			public const int AppCompatTheme_buttonBarPositiveButtonStyle = 99;
+			
+			// aapt resource value: 51
+			public const int AppCompatTheme_buttonBarStyle = 51;
+			
+			// aapt resource value: 103
+			public const int AppCompatTheme_buttonStyle = 103;
+			
+			// aapt resource value: 104
+			public const int AppCompatTheme_buttonStyleSmall = 104;
+			
+			// aapt resource value: 105
+			public const int AppCompatTheme_checkboxStyle = 105;
+			
+			// aapt resource value: 106
+			public const int AppCompatTheme_checkedTextViewStyle = 106;
+			
+			// aapt resource value: 86
+			public const int AppCompatTheme_colorAccent = 86;
+			
+			// aapt resource value: 93
+			public const int AppCompatTheme_colorBackgroundFloating = 93;
+			
+			// aapt resource value: 90
+			public const int AppCompatTheme_colorButtonNormal = 90;
+			
+			// aapt resource value: 88
+			public const int AppCompatTheme_colorControlActivated = 88;
+			
+			// aapt resource value: 89
+			public const int AppCompatTheme_colorControlHighlight = 89;
+			
+			// aapt resource value: 87
+			public const int AppCompatTheme_colorControlNormal = 87;
+			
+			// aapt resource value: 118
+			public const int AppCompatTheme_colorError = 118;
+			
+			// aapt resource value: 84
+			public const int AppCompatTheme_colorPrimary = 84;
+			
+			// aapt resource value: 85
+			public const int AppCompatTheme_colorPrimaryDark = 85;
+			
+			// aapt resource value: 91
+			public const int AppCompatTheme_colorSwitchThumbNormal = 91;
+			
+			// aapt resource value: 92
+			public const int AppCompatTheme_controlBackground = 92;
+			
+			// aapt resource value: 44
+			public const int AppCompatTheme_dialogPreferredPadding = 44;
+			
+			// aapt resource value: 43
+			public const int AppCompatTheme_dialogTheme = 43;
+			
+			// aapt resource value: 57
+			public const int AppCompatTheme_dividerHorizontal = 57;
+			
+			// aapt resource value: 56
+			public const int AppCompatTheme_dividerVertical = 56;
+			
+			// aapt resource value: 75
+			public const int AppCompatTheme_dropDownListViewStyle = 75;
+			
+			// aapt resource value: 47
+			public const int AppCompatTheme_dropdownListPreferredItemHeight = 47;
+			
+			// aapt resource value: 64
+			public const int AppCompatTheme_editTextBackground = 64;
+			
+			// aapt resource value: 63
+			public const int AppCompatTheme_editTextColor = 63;
+			
+			// aapt resource value: 107
+			public const int AppCompatTheme_editTextStyle = 107;
+			
+			// aapt resource value: 49
+			public const int AppCompatTheme_homeAsUpIndicator = 49;
+			
+			// aapt resource value: 65
+			public const int AppCompatTheme_imageButtonStyle = 65;
+			
+			// aapt resource value: 83
+			public const int AppCompatTheme_listChoiceBackgroundIndicator = 83;
+			
+			// aapt resource value: 45
+			public const int AppCompatTheme_listDividerAlertDialog = 45;
+			
+			// aapt resource value: 115
+			public const int AppCompatTheme_listMenuViewStyle = 115;
+			
+			// aapt resource value: 76
+			public const int AppCompatTheme_listPopupWindowStyle = 76;
+			
+			// aapt resource value: 70
+			public const int AppCompatTheme_listPreferredItemHeight = 70;
+			
+			// aapt resource value: 72
+			public const int AppCompatTheme_listPreferredItemHeightLarge = 72;
+			
+			// aapt resource value: 71
+			public const int AppCompatTheme_listPreferredItemHeightSmall = 71;
+			
+			// aapt resource value: 73
+			public const int AppCompatTheme_listPreferredItemPaddingLeft = 73;
+			
+			// aapt resource value: 74
+			public const int AppCompatTheme_listPreferredItemPaddingRight = 74;
+			
+			// aapt resource value: 80
+			public const int AppCompatTheme_panelBackground = 80;
+			
+			// aapt resource value: 82
+			public const int AppCompatTheme_panelMenuListTheme = 82;
+			
+			// aapt resource value: 81
+			public const int AppCompatTheme_panelMenuListWidth = 81;
+			
+			// aapt resource value: 61
+			public const int AppCompatTheme_popupMenuStyle = 61;
+			
+			// aapt resource value: 62
+			public const int AppCompatTheme_popupWindowStyle = 62;
+			
+			// aapt resource value: 108
+			public const int AppCompatTheme_radioButtonStyle = 108;
+			
+			// aapt resource value: 109
+			public const int AppCompatTheme_ratingBarStyle = 109;
+			
+			// aapt resource value: 110
+			public const int AppCompatTheme_ratingBarStyleIndicator = 110;
+			
+			// aapt resource value: 111
+			public const int AppCompatTheme_ratingBarStyleSmall = 111;
+			
+			// aapt resource value: 69
+			public const int AppCompatTheme_searchViewStyle = 69;
+			
+			// aapt resource value: 112
+			public const int AppCompatTheme_seekBarStyle = 112;
+			
+			// aapt resource value: 53
+			public const int AppCompatTheme_selectableItemBackground = 53;
+			
+			// aapt resource value: 54
+			public const int AppCompatTheme_selectableItemBackgroundBorderless = 54;
+			
+			// aapt resource value: 48
+			public const int AppCompatTheme_spinnerDropDownItemStyle = 48;
+			
+			// aapt resource value: 113
+			public const int AppCompatTheme_spinnerStyle = 113;
+			
+			// aapt resource value: 114
+			public const int AppCompatTheme_switchStyle = 114;
+			
+			// aapt resource value: 40
+			public const int AppCompatTheme_textAppearanceLargePopupMenu = 40;
+			
+			// aapt resource value: 77
+			public const int AppCompatTheme_textAppearanceListItem = 77;
+			
+			// aapt resource value: 78
+			public const int AppCompatTheme_textAppearanceListItemSecondary = 78;
+			
+			// aapt resource value: 79
+			public const int AppCompatTheme_textAppearanceListItemSmall = 79;
+			
+			// aapt resource value: 42
+			public const int AppCompatTheme_textAppearancePopupMenuHeader = 42;
+			
+			// aapt resource value: 67
+			public const int AppCompatTheme_textAppearanceSearchResultSubtitle = 67;
+			
+			// aapt resource value: 66
+			public const int AppCompatTheme_textAppearanceSearchResultTitle = 66;
+			
+			// aapt resource value: 41
+			public const int AppCompatTheme_textAppearanceSmallPopupMenu = 41;
+			
+			// aapt resource value: 98
+			public const int AppCompatTheme_textColorAlertDialogListItem = 98;
+			
+			// aapt resource value: 68
+			public const int AppCompatTheme_textColorSearchUrl = 68;
+			
+			// aapt resource value: 60
+			public const int AppCompatTheme_toolbarNavigationButtonStyle = 60;
+			
+			// aapt resource value: 59
+			public const int AppCompatTheme_toolbarStyle = 59;
+			
+			// aapt resource value: 117
+			public const int AppCompatTheme_tooltipForegroundColor = 117;
+			
+			// aapt resource value: 116
+			public const int AppCompatTheme_tooltipFrameBackground = 116;
+			
+			// aapt resource value: 2
+			public const int AppCompatTheme_windowActionBar = 2;
+			
+			// aapt resource value: 4
+			public const int AppCompatTheme_windowActionBarOverlay = 4;
+			
+			// aapt resource value: 5
+			public const int AppCompatTheme_windowActionModeOverlay = 5;
+			
+			// aapt resource value: 9
+			public const int AppCompatTheme_windowFixedHeightMajor = 9;
+			
+			// aapt resource value: 7
+			public const int AppCompatTheme_windowFixedHeightMinor = 7;
+			
+			// aapt resource value: 6
+			public const int AppCompatTheme_windowFixedWidthMajor = 6;
+			
+			// aapt resource value: 8
+			public const int AppCompatTheme_windowFixedWidthMinor = 8;
+			
+			// aapt resource value: 10
+			public const int AppCompatTheme_windowMinWidthMajor = 10;
+			
+			// aapt resource value: 11
+			public const int AppCompatTheme_windowMinWidthMinor = 11;
+			
+			// aapt resource value: 3
+			public const int AppCompatTheme_windowNoTitle = 3;
+			
+			public static int[] BottomNavigationView = new int[] {
+					2130772005,
+					2130772266,
+					2130772267,
+					2130772268,
+					2130772269};
+			
+			// aapt resource value: 0
+			public const int BottomNavigationView_elevation = 0;
+			
+			// aapt resource value: 4
+			public const int BottomNavigationView_itemBackground = 4;
+			
+			// aapt resource value: 2
+			public const int BottomNavigationView_itemIconTint = 2;
+			
+			// aapt resource value: 3
+			public const int BottomNavigationView_itemTextColor = 3;
+			
+			// aapt resource value: 1
+			public const int BottomNavigationView_menu = 1;
+			
+			public static int[] BottomSheetBehavior_Layout = new int[] {
+					2130772228,
+					2130772229,
+					2130772230};
+			
+			// aapt resource value: 1
+			public const int BottomSheetBehavior_Layout_behavior_hideable = 1;
+			
+			// aapt resource value: 0
+			public const int BottomSheetBehavior_Layout_behavior_peekHeight = 0;
+			
+			// aapt resource value: 2
+			public const int BottomSheetBehavior_Layout_behavior_skipCollapsed = 2;
+			
+			public static int[] ButtonBarLayout = new int[] {
+					2130772146};
+			
+			// aapt resource value: 0
+			public const int ButtonBarLayout_allowStacking = 0;
+			
+			public static int[] CollapsingToolbarLayout = new int[] {
+					2130771980,
+					2130772231,
+					2130772232,
+					2130772233,
+					2130772234,
+					2130772235,
+					2130772236,
+					2130772237,
+					2130772238,
+					2130772239,
+					2130772240,
+					2130772241,
+					2130772242,
+					2130772243,
+					2130772244,
+					2130772245};
+			
+			// aapt resource value: 13
+			public const int CollapsingToolbarLayout_collapsedTitleGravity = 13;
+			
+			// aapt resource value: 7
+			public const int CollapsingToolbarLayout_collapsedTitleTextAppearance = 7;
+			
+			// aapt resource value: 8
+			public const int CollapsingToolbarLayout_contentScrim = 8;
+			
+			// aapt resource value: 14
+			public const int CollapsingToolbarLayout_expandedTitleGravity = 14;
+			
+			// aapt resource value: 1
+			public const int CollapsingToolbarLayout_expandedTitleMargin = 1;
+			
+			// aapt resource value: 5
+			public const int CollapsingToolbarLayout_expandedTitleMarginBottom = 5;
+			
+			// aapt resource value: 4
+			public const int CollapsingToolbarLayout_expandedTitleMarginEnd = 4;
+			
+			// aapt resource value: 2
+			public const int CollapsingToolbarLayout_expandedTitleMarginStart = 2;
+			
+			// aapt resource value: 3
+			public const int CollapsingToolbarLayout_expandedTitleMarginTop = 3;
+			
+			// aapt resource value: 6
+			public const int CollapsingToolbarLayout_expandedTitleTextAppearance = 6;
+			
+			// aapt resource value: 12
+			public const int CollapsingToolbarLayout_scrimAnimationDuration = 12;
+			
+			// aapt resource value: 11
+			public const int CollapsingToolbarLayout_scrimVisibleHeightTrigger = 11;
+			
+			// aapt resource value: 9
+			public const int CollapsingToolbarLayout_statusBarScrim = 9;
+			
+			// aapt resource value: 0
+			public const int CollapsingToolbarLayout_title = 0;
+			
+			// aapt resource value: 15
+			public const int CollapsingToolbarLayout_titleEnabled = 15;
+			
+			// aapt resource value: 10
+			public const int CollapsingToolbarLayout_toolbarId = 10;
+			
+			public static int[] CollapsingToolbarLayout_Layout = new int[] {
+					2130772246,
+					2130772247};
+			
+			// aapt resource value: 0
+			public const int CollapsingToolbarLayout_Layout_layout_collapseMode = 0;
+			
+			// aapt resource value: 1
+			public const int CollapsingToolbarLayout_Layout_layout_collapseParallaxMultiplier = 1;
+			
+			public static int[] ColorStateListItem = new int[] {
+					16843173,
+					16843551,
+					2130772147};
+			
+			// aapt resource value: 2
+			public const int ColorStateListItem_alpha = 2;
+			
+			// aapt resource value: 1
+			public const int ColorStateListItem_android_alpha = 1;
+			
+			// aapt resource value: 0
+			public const int ColorStateListItem_android_color = 0;
+			
+			public static int[] CompoundButton = new int[] {
+					16843015,
+					2130772148,
+					2130772149};
+			
+			// aapt resource value: 0
+			public const int CompoundButton_android_button = 0;
+			
+			// aapt resource value: 1
+			public const int CompoundButton_buttonTint = 1;
+			
+			// aapt resource value: 2
+			public const int CompoundButton_buttonTintMode = 2;
+			
+			public static int[] CoordinatorLayout = new int[] {
+					2130772248,
+					2130772249};
+			
+			// aapt resource value: 0
+			public const int CoordinatorLayout_keylines = 0;
+			
+			// aapt resource value: 1
+			public const int CoordinatorLayout_statusBarBackground = 1;
+			
+			public static int[] CoordinatorLayout_Layout = new int[] {
+					16842931,
+					2130772250,
+					2130772251,
+					2130772252,
+					2130772253,
+					2130772254,
+					2130772255};
+			
+			// aapt resource value: 0
+			public const int CoordinatorLayout_Layout_android_layout_gravity = 0;
+			
+			// aapt resource value: 2
+			public const int CoordinatorLayout_Layout_layout_anchor = 2;
+			
+			// aapt resource value: 4
+			public const int CoordinatorLayout_Layout_layout_anchorGravity = 4;
+			
+			// aapt resource value: 1
+			public const int CoordinatorLayout_Layout_layout_behavior = 1;
+			
+			// aapt resource value: 6
+			public const int CoordinatorLayout_Layout_layout_dodgeInsetEdges = 6;
+			
+			// aapt resource value: 5
+			public const int CoordinatorLayout_Layout_layout_insetEdge = 5;
+			
+			// aapt resource value: 3
+			public const int CoordinatorLayout_Layout_layout_keyline = 3;
+			
+			public static int[] DesignTheme = new int[] {
+					2130772256,
+					2130772257,
+					2130772258};
+			
+			// aapt resource value: 0
+			public const int DesignTheme_bottomSheetDialogTheme = 0;
+			
+			// aapt resource value: 1
+			public const int DesignTheme_bottomSheetStyle = 1;
+			
+			// aapt resource value: 2
+			public const int DesignTheme_textColorError = 2;
+			
+			public static int[] DrawerArrowToggle = new int[] {
+					2130772150,
+					2130772151,
+					2130772152,
+					2130772153,
+					2130772154,
+					2130772155,
+					2130772156,
+					2130772157};
+			
+			// aapt resource value: 4
+			public const int DrawerArrowToggle_arrowHeadLength = 4;
+			
+			// aapt resource value: 5
+			public const int DrawerArrowToggle_arrowShaftLength = 5;
+			
+			// aapt resource value: 6
+			public const int DrawerArrowToggle_barLength = 6;
+			
+			// aapt resource value: 0
+			public const int DrawerArrowToggle_color = 0;
+			
+			// aapt resource value: 2
+			public const int DrawerArrowToggle_drawableSize = 2;
+			
+			// aapt resource value: 3
+			public const int DrawerArrowToggle_gapBetweenBars = 3;
+			
+			// aapt resource value: 1
+			public const int DrawerArrowToggle_spinBars = 1;
+			
+			// aapt resource value: 7
+			public const int DrawerArrowToggle_thickness = 7;
+			
+			public static int[] FloatingActionButton = new int[] {
+					2130772005,
+					2130772221,
+					2130772222,
+					2130772259,
+					2130772260,
+					2130772261,
+					2130772262,
+					2130772263};
+			
+			// aapt resource value: 1
+			public const int FloatingActionButton_backgroundTint = 1;
+			
+			// aapt resource value: 2
+			public const int FloatingActionButton_backgroundTintMode = 2;
+			
+			// aapt resource value: 6
+			public const int FloatingActionButton_borderWidth = 6;
+			
+			// aapt resource value: 0
+			public const int FloatingActionButton_elevation = 0;
+			
+			// aapt resource value: 4
+			public const int FloatingActionButton_fabSize = 4;
+			
+			// aapt resource value: 5
+			public const int FloatingActionButton_pressedTranslationZ = 5;
+			
+			// aapt resource value: 3
+			public const int FloatingActionButton_rippleColor = 3;
+			
+			// aapt resource value: 7
+			public const int FloatingActionButton_useCompatPadding = 7;
+			
+			public static int[] FloatingActionButton_Behavior_Layout = new int[] {
+					2130772264};
+			
+			// aapt resource value: 0
+			public const int FloatingActionButton_Behavior_Layout_behavior_autoHide = 0;
+			
+			public static int[] FontFamily = new int[] {
+					2130772305,
+					2130772306,
+					2130772307,
+					2130772308,
+					2130772309,
+					2130772310};
+			
+			// aapt resource value: 0
+			public const int FontFamily_fontProviderAuthority = 0;
+			
+			// aapt resource value: 3
+			public const int FontFamily_fontProviderCerts = 3;
+			
+			// aapt resource value: 4
+			public const int FontFamily_fontProviderFetchStrategy = 4;
+			
+			// aapt resource value: 5
+			public const int FontFamily_fontProviderFetchTimeout = 5;
+			
+			// aapt resource value: 1
+			public const int FontFamily_fontProviderPackage = 1;
+			
+			// aapt resource value: 2
+			public const int FontFamily_fontProviderQuery = 2;
+			
+			public static int[] FontFamilyFont = new int[] {
+					16844082,
+					16844083,
+					16844095,
+					2130772311,
+					2130772312,
+					2130772313};
+			
+			// aapt resource value: 0
+			public const int FontFamilyFont_android_font = 0;
+			
+			// aapt resource value: 2
+			public const int FontFamilyFont_android_fontStyle = 2;
+			
+			// aapt resource value: 1
+			public const int FontFamilyFont_android_fontWeight = 1;
+			
+			// aapt resource value: 4
+			public const int FontFamilyFont_font = 4;
+			
+			// aapt resource value: 3
+			public const int FontFamilyFont_fontStyle = 3;
+			
+			// aapt resource value: 5
+			public const int FontFamilyFont_fontWeight = 5;
+			
+			public static int[] ForegroundLinearLayout = new int[] {
+					16843017,
+					16843264,
+					2130772265};
+			
+			// aapt resource value: 0
+			public const int ForegroundLinearLayout_android_foreground = 0;
+			
+			// aapt resource value: 1
+			public const int ForegroundLinearLayout_android_foregroundGravity = 1;
+			
+			// aapt resource value: 2
+			public const int ForegroundLinearLayout_foregroundInsidePadding = 2;
+			
+			public static int[] LinearLayoutCompat = new int[] {
+					16842927,
+					16842948,
+					16843046,
+					16843047,
+					16843048,
+					2130771988,
+					2130772158,
+					2130772159,
+					2130772160};
+			
+			// aapt resource value: 2
+			public const int LinearLayoutCompat_android_baselineAligned = 2;
+			
+			// aapt resource value: 3
+			public const int LinearLayoutCompat_android_baselineAlignedChildIndex = 3;
+			
+			// aapt resource value: 0
+			public const int LinearLayoutCompat_android_gravity = 0;
+			
+			// aapt resource value: 1
+			public const int LinearLayoutCompat_android_orientation = 1;
+			
+			// aapt resource value: 4
+			public const int LinearLayoutCompat_android_weightSum = 4;
+			
+			// aapt resource value: 5
+			public const int LinearLayoutCompat_divider = 5;
+			
+			// aapt resource value: 8
+			public const int LinearLayoutCompat_dividerPadding = 8;
+			
+			// aapt resource value: 6
+			public const int LinearLayoutCompat_measureWithLargestChild = 6;
+			
+			// aapt resource value: 7
+			public const int LinearLayoutCompat_showDividers = 7;
+			
+			public static int[] LinearLayoutCompat_Layout = new int[] {
+					16842931,
+					16842996,
+					16842997,
+					16843137};
+			
+			// aapt resource value: 0
+			public const int LinearLayoutCompat_Layout_android_layout_gravity = 0;
+			
+			// aapt resource value: 2
+			public const int LinearLayoutCompat_Layout_android_layout_height = 2;
+			
+			// aapt resource value: 3
+			public const int LinearLayoutCompat_Layout_android_layout_weight = 3;
+			
+			// aapt resource value: 1
+			public const int LinearLayoutCompat_Layout_android_layout_width = 1;
+			
+			public static int[] ListPopupWindow = new int[] {
+					16843436,
+					16843437};
+			
+			// aapt resource value: 0
+			public const int ListPopupWindow_android_dropDownHorizontalOffset = 0;
+			
+			// aapt resource value: 1
+			public const int ListPopupWindow_android_dropDownVerticalOffset = 1;
+			
+			public static int[] MenuGroup = new int[] {
+					16842766,
+					16842960,
+					16843156,
+					16843230,
+					16843231,
+					16843232};
+			
+			// aapt resource value: 5
+			public const int MenuGroup_android_checkableBehavior = 5;
+			
+			// aapt resource value: 0
+			public const int MenuGroup_android_enabled = 0;
+			
+			// aapt resource value: 1
+			public const int MenuGroup_android_id = 1;
+			
+			// aapt resource value: 3
+			public const int MenuGroup_android_menuCategory = 3;
+			
+			// aapt resource value: 4
+			public const int MenuGroup_android_orderInCategory = 4;
+			
+			// aapt resource value: 2
+			public const int MenuGroup_android_visible = 2;
+			
+			public static int[] MenuItem = new int[] {
+					16842754,
+					16842766,
+					16842960,
+					16843014,
+					16843156,
+					16843230,
+					16843231,
+					16843233,
+					16843234,
+					16843235,
+					16843236,
+					16843237,
+					16843375,
+					2130772161,
+					2130772162,
+					2130772163,
+					2130772164,
+					2130772165,
+					2130772166,
+					2130772167,
+					2130772168,
+					2130772169,
+					2130772170};
+			
+			// aapt resource value: 16
+			public const int MenuItem_actionLayout = 16;
+			
+			// aapt resource value: 18
+			public const int MenuItem_actionProviderClass = 18;
+			
+			// aapt resource value: 17
+			public const int MenuItem_actionViewClass = 17;
+			
+			// aapt resource value: 13
+			public const int MenuItem_alphabeticModifiers = 13;
+			
+			// aapt resource value: 9
+			public const int MenuItem_android_alphabeticShortcut = 9;
+			
+			// aapt resource value: 11
+			public const int MenuItem_android_checkable = 11;
+			
+			// aapt resource value: 3
+			public const int MenuItem_android_checked = 3;
+			
+			// aapt resource value: 1
+			public const int MenuItem_android_enabled = 1;
+			
+			// aapt resource value: 0
+			public const int MenuItem_android_icon = 0;
+			
+			// aapt resource value: 2
+			public const int MenuItem_android_id = 2;
+			
+			// aapt resource value: 5
+			public const int MenuItem_android_menuCategory = 5;
+			
+			// aapt resource value: 10
+			public const int MenuItem_android_numericShortcut = 10;
+			
+			// aapt resource value: 12
+			public const int MenuItem_android_onClick = 12;
+			
+			// aapt resource value: 6
+			public const int MenuItem_android_orderInCategory = 6;
+			
+			// aapt resource value: 7
+			public const int MenuItem_android_title = 7;
+			
+			// aapt resource value: 8
+			public const int MenuItem_android_titleCondensed = 8;
+			
+			// aapt resource value: 4
+			public const int MenuItem_android_visible = 4;
+			
+			// aapt resource value: 19
+			public const int MenuItem_contentDescription = 19;
+			
+			// aapt resource value: 21
+			public const int MenuItem_iconTint = 21;
+			
+			// aapt resource value: 22
+			public const int MenuItem_iconTintMode = 22;
+			
+			// aapt resource value: 14
+			public const int MenuItem_numericModifiers = 14;
+			
+			// aapt resource value: 15
+			public const int MenuItem_showAsAction = 15;
+			
+			// aapt resource value: 20
+			public const int MenuItem_tooltipText = 20;
+			
+			public static int[] MenuView = new int[] {
+					16842926,
+					16843052,
+					16843053,
+					16843054,
+					16843055,
+					16843056,
+					16843057,
+					2130772171,
+					2130772172};
+			
+			// aapt resource value: 4
+			public const int MenuView_android_headerBackground = 4;
+			
+			// aapt resource value: 2
+			public const int MenuView_android_horizontalDivider = 2;
+			
+			// aapt resource value: 5
+			public const int MenuView_android_itemBackground = 5;
+			
+			// aapt resource value: 6
+			public const int MenuView_android_itemIconDisabledAlpha = 6;
+			
+			// aapt resource value: 1
+			public const int MenuView_android_itemTextAppearance = 1;
+			
+			// aapt resource value: 3
+			public const int MenuView_android_verticalDivider = 3;
+			
+			// aapt resource value: 0
+			public const int MenuView_android_windowAnimationStyle = 0;
+			
+			// aapt resource value: 7
+			public const int MenuView_preserveIconSpacing = 7;
+			
+			// aapt resource value: 8
+			public const int MenuView_subMenuArrow = 8;
+			
+			public static int[] MvxBinding = new int[] {
+					2130772314,
+					2130772315};
+			
+			// aapt resource value: 0
+			public const int MvxBinding_MvxBind = 0;
+			
+			// aapt resource value: 1
+			public const int MvxBinding_MvxLang = 1;
+			
+			public static int[] MvxControl = new int[] {
+					2130772316};
+			
+			// aapt resource value: 0
+			public const int MvxControl_MvxTemplate = 0;
+			
+			public static int[] MvxExpandableListView = new int[] {
+					2130772319};
+			
+			// aapt resource value: 0
+			public const int MvxExpandableListView_MvxGroupItemTemplate = 0;
+			
+			public static int[] MvxListView = new int[] {
+					2130772317,
+					2130772318};
+			
+			// aapt resource value: 1
+			public const int MvxListView_MvxDropDownItemTemplate = 1;
+			
+			// aapt resource value: 0
+			public const int MvxListView_MvxItemTemplate = 0;
+			
+			public static int[] NavigationView = new int[] {
+					16842964,
+					16842973,
+					16843039,
+					2130772005,
+					2130772266,
+					2130772267,
+					2130772268,
+					2130772269,
+					2130772270,
+					2130772271};
+			
+			// aapt resource value: 0
+			public const int NavigationView_android_background = 0;
+			
+			// aapt resource value: 1
+			public const int NavigationView_android_fitsSystemWindows = 1;
+			
+			// aapt resource value: 2
+			public const int NavigationView_android_maxWidth = 2;
+			
+			// aapt resource value: 3
+			public const int NavigationView_elevation = 3;
+			
+			// aapt resource value: 9
+			public const int NavigationView_headerLayout = 9;
+			
+			// aapt resource value: 7
+			public const int NavigationView_itemBackground = 7;
+			
+			// aapt resource value: 5
+			public const int NavigationView_itemIconTint = 5;
+			
+			// aapt resource value: 8
+			public const int NavigationView_itemTextAppearance = 8;
+			
+			// aapt resource value: 6
+			public const int NavigationView_itemTextColor = 6;
+			
+			// aapt resource value: 4
+			public const int NavigationView_menu = 4;
+			
+			public static int[] PopupWindow = new int[] {
+					16843126,
+					16843465,
+					2130772173};
+			
+			// aapt resource value: 1
+			public const int PopupWindow_android_popupAnimationStyle = 1;
+			
+			// aapt resource value: 0
+			public const int PopupWindow_android_popupBackground = 0;
+			
+			// aapt resource value: 2
+			public const int PopupWindow_overlapAnchor = 2;
+			
+			public static int[] PopupWindowBackgroundState = new int[] {
+					2130772174};
+			
+			// aapt resource value: 0
+			public const int PopupWindowBackgroundState_state_above_anchor = 0;
+			
+			public static int[] RecycleListView = new int[] {
+					2130772175,
+					2130772176};
+			
+			// aapt resource value: 0
+			public const int RecycleListView_paddingBottomNoButtons = 0;
+			
+			// aapt resource value: 1
+			public const int RecycleListView_paddingTopNoTitle = 1;
+			
+			public static int[] RecyclerView = new int[] {
+					16842948,
+					16842993,
+					2130771968,
+					2130771969,
+					2130771970,
+					2130771971,
+					2130771972,
+					2130771973,
+					2130771974,
+					2130771975,
+					2130771976};
+			
+			// aapt resource value: 1
+			public const int RecyclerView_android_descendantFocusability = 1;
+			
+			// aapt resource value: 0
+			public const int RecyclerView_android_orientation = 0;
+			
+			// aapt resource value: 6
+			public const int RecyclerView_fastScrollEnabled = 6;
+			
+			// aapt resource value: 9
+			public const int RecyclerView_fastScrollHorizontalThumbDrawable = 9;
+			
+			// aapt resource value: 10
+			public const int RecyclerView_fastScrollHorizontalTrackDrawable = 10;
+			
+			// aapt resource value: 7
+			public const int RecyclerView_fastScrollVerticalThumbDrawable = 7;
+			
+			// aapt resource value: 8
+			public const int RecyclerView_fastScrollVerticalTrackDrawable = 8;
+			
+			// aapt resource value: 2
+			public const int RecyclerView_layoutManager = 2;
+			
+			// aapt resource value: 4
+			public const int RecyclerView_reverseLayout = 4;
+			
+			// aapt resource value: 3
+			public const int RecyclerView_spanCount = 3;
+			
+			// aapt resource value: 5
+			public const int RecyclerView_stackFromEnd = 5;
+			
+			public static int[] ScrimInsetsFrameLayout = new int[] {
+					2130772272};
+			
+			// aapt resource value: 0
+			public const int ScrimInsetsFrameLayout_insetForeground = 0;
+			
+			public static int[] ScrollingViewBehavior_Layout = new int[] {
+					2130772273};
+			
+			// aapt resource value: 0
+			public const int ScrollingViewBehavior_Layout_behavior_overlapTop = 0;
+			
+			public static int[] SearchView = new int[] {
+					16842970,
+					16843039,
+					16843296,
+					16843364,
+					2130772177,
+					2130772178,
+					2130772179,
+					2130772180,
+					2130772181,
+					2130772182,
+					2130772183,
+					2130772184,
+					2130772185,
+					2130772186,
+					2130772187,
+					2130772188,
+					2130772189};
+			
+			// aapt resource value: 0
+			public const int SearchView_android_focusable = 0;
+			
+			// aapt resource value: 3
+			public const int SearchView_android_imeOptions = 3;
+			
+			// aapt resource value: 2
+			public const int SearchView_android_inputType = 2;
+			
+			// aapt resource value: 1
+			public const int SearchView_android_maxWidth = 1;
+			
+			// aapt resource value: 8
+			public const int SearchView_closeIcon = 8;
+			
+			// aapt resource value: 13
+			public const int SearchView_commitIcon = 13;
+			
+			// aapt resource value: 7
+			public const int SearchView_defaultQueryHint = 7;
+			
+			// aapt resource value: 9
+			public const int SearchView_goIcon = 9;
+			
+			// aapt resource value: 5
+			public const int SearchView_iconifiedByDefault = 5;
+			
+			// aapt resource value: 4
+			public const int SearchView_layout = 4;
+			
+			// aapt resource value: 15
+			public const int SearchView_queryBackground = 15;
+			
+			// aapt resource value: 6
+			public const int SearchView_queryHint = 6;
+			
+			// aapt resource value: 11
+			public const int SearchView_searchHintIcon = 11;
+			
+			// aapt resource value: 10
+			public const int SearchView_searchIcon = 10;
+			
+			// aapt resource value: 16
+			public const int SearchView_submitBackground = 16;
+			
+			// aapt resource value: 14
+			public const int SearchView_suggestionRowLayout = 14;
+			
+			// aapt resource value: 12
+			public const int SearchView_voiceIcon = 12;
+			
+			public static int[] SnackbarLayout = new int[] {
+					16843039,
+					2130772005,
+					2130772274};
+			
+			// aapt resource value: 0
+			public const int SnackbarLayout_android_maxWidth = 0;
+			
+			// aapt resource value: 1
+			public const int SnackbarLayout_elevation = 1;
+			
+			// aapt resource value: 2
+			public const int SnackbarLayout_maxActionInlineWidth = 2;
+			
+			public static int[] Spinner = new int[] {
+					16842930,
+					16843126,
+					16843131,
+					16843362,
+					2130772006};
+			
+			// aapt resource value: 3
+			public const int Spinner_android_dropDownWidth = 3;
+			
+			// aapt resource value: 0
+			public const int Spinner_android_entries = 0;
+			
+			// aapt resource value: 1
+			public const int Spinner_android_popupBackground = 1;
+			
+			// aapt resource value: 2
+			public const int Spinner_android_prompt = 2;
+			
+			// aapt resource value: 4
+			public const int Spinner_popupTheme = 4;
+			
+			public static int[] SwitchCompat = new int[] {
+					16843044,
+					16843045,
+					16843074,
+					2130772190,
+					2130772191,
+					2130772192,
+					2130772193,
+					2130772194,
+					2130772195,
+					2130772196,
+					2130772197,
+					2130772198,
+					2130772199,
+					2130772200};
+			
+			// aapt resource value: 1
+			public const int SwitchCompat_android_textOff = 1;
+			
+			// aapt resource value: 0
+			public const int SwitchCompat_android_textOn = 0;
+			
+			// aapt resource value: 2
+			public const int SwitchCompat_android_thumb = 2;
+			
+			// aapt resource value: 13
+			public const int SwitchCompat_showText = 13;
+			
+			// aapt resource value: 12
+			public const int SwitchCompat_splitTrack = 12;
+			
+			// aapt resource value: 10
+			public const int SwitchCompat_switchMinWidth = 10;
+			
+			// aapt resource value: 11
+			public const int SwitchCompat_switchPadding = 11;
+			
+			// aapt resource value: 9
+			public const int SwitchCompat_switchTextAppearance = 9;
+			
+			// aapt resource value: 8
+			public const int SwitchCompat_thumbTextPadding = 8;
+			
+			// aapt resource value: 3
+			public const int SwitchCompat_thumbTint = 3;
+			
+			// aapt resource value: 4
+			public const int SwitchCompat_thumbTintMode = 4;
+			
+			// aapt resource value: 5
+			public const int SwitchCompat_track = 5;
+			
+			// aapt resource value: 6
+			public const int SwitchCompat_trackTint = 6;
+			
+			// aapt resource value: 7
+			public const int SwitchCompat_trackTintMode = 7;
+			
+			public static int[] TabItem = new int[] {
+					16842754,
+					16842994,
+					16843087};
+			
+			// aapt resource value: 0
+			public const int TabItem_android_icon = 0;
+			
+			// aapt resource value: 1
+			public const int TabItem_android_layout = 1;
+			
+			// aapt resource value: 2
+			public const int TabItem_android_text = 2;
+			
+			public static int[] TabLayout = new int[] {
+					2130772275,
+					2130772276,
+					2130772277,
+					2130772278,
+					2130772279,
+					2130772280,
+					2130772281,
+					2130772282,
+					2130772283,
+					2130772284,
+					2130772285,
+					2130772286,
+					2130772287,
+					2130772288,
+					2130772289,
+					2130772290};
+			
+			// aapt resource value: 3
+			public const int TabLayout_tabBackground = 3;
+			
+			// aapt resource value: 2
+			public const int TabLayout_tabContentStart = 2;
+			
+			// aapt resource value: 5
+			public const int TabLayout_tabGravity = 5;
+			
+			// aapt resource value: 0
+			public const int TabLayout_tabIndicatorColor = 0;
+			
+			// aapt resource value: 1
+			public const int TabLayout_tabIndicatorHeight = 1;
+			
+			// aapt resource value: 7
+			public const int TabLayout_tabMaxWidth = 7;
+			
+			// aapt resource value: 6
+			public const int TabLayout_tabMinWidth = 6;
+			
+			// aapt resource value: 4
+			public const int TabLayout_tabMode = 4;
+			
+			// aapt resource value: 15
+			public const int TabLayout_tabPadding = 15;
+			
+			// aapt resource value: 14
+			public const int TabLayout_tabPaddingBottom = 14;
+			
+			// aapt resource value: 13
+			public const int TabLayout_tabPaddingEnd = 13;
+			
+			// aapt resource value: 11
+			public const int TabLayout_tabPaddingStart = 11;
+			
+			// aapt resource value: 12
+			public const int TabLayout_tabPaddingTop = 12;
+			
+			// aapt resource value: 10
+			public const int TabLayout_tabSelectedTextColor = 10;
+			
+			// aapt resource value: 8
+			public const int TabLayout_tabTextAppearance = 8;
+			
+			// aapt resource value: 9
+			public const int TabLayout_tabTextColor = 9;
+			
+			public static int[] TextAppearance = new int[] {
+					16842901,
+					16842902,
+					16842903,
+					16842904,
+					16842906,
+					16842907,
+					16843105,
+					16843106,
+					16843107,
+					16843108,
+					16843692,
+					2130772022,
+					2130772028};
+			
+			// aapt resource value: 10
+			public const int TextAppearance_android_fontFamily = 10;
+			
+			// aapt resource value: 6
+			public const int TextAppearance_android_shadowColor = 6;
+			
+			// aapt resource value: 7
+			public const int TextAppearance_android_shadowDx = 7;
+			
+			// aapt resource value: 8
+			public const int TextAppearance_android_shadowDy = 8;
+			
+			// aapt resource value: 9
+			public const int TextAppearance_android_shadowRadius = 9;
+			
+			// aapt resource value: 3
+			public const int TextAppearance_android_textColor = 3;
+			
+			// aapt resource value: 4
+			public const int TextAppearance_android_textColorHint = 4;
+			
+			// aapt resource value: 5
+			public const int TextAppearance_android_textColorLink = 5;
+			
+			// aapt resource value: 0
+			public const int TextAppearance_android_textSize = 0;
+			
+			// aapt resource value: 2
+			public const int TextAppearance_android_textStyle = 2;
+			
+			// aapt resource value: 1
+			public const int TextAppearance_android_typeface = 1;
+			
+			// aapt resource value: 12
+			public const int TextAppearance_fontFamily = 12;
+			
+			// aapt resource value: 11
+			public const int TextAppearance_textAllCaps = 11;
+			
+			public static int[] TextInputLayout = new int[] {
+					16842906,
+					16843088,
+					2130772291,
+					2130772292,
+					2130772293,
+					2130772294,
+					2130772295,
+					2130772296,
+					2130772297,
+					2130772298,
+					2130772299,
+					2130772300,
+					2130772301,
+					2130772302,
+					2130772303,
+					2130772304};
+			
+			// aapt resource value: 1
+			public const int TextInputLayout_android_hint = 1;
+			
+			// aapt resource value: 0
+			public const int TextInputLayout_android_textColorHint = 0;
+			
+			// aapt resource value: 6
+			public const int TextInputLayout_counterEnabled = 6;
+			
+			// aapt resource value: 7
+			public const int TextInputLayout_counterMaxLength = 7;
+			
+			// aapt resource value: 9
+			public const int TextInputLayout_counterOverflowTextAppearance = 9;
+			
+			// aapt resource value: 8
+			public const int TextInputLayout_counterTextAppearance = 8;
+			
+			// aapt resource value: 4
+			public const int TextInputLayout_errorEnabled = 4;
+			
+			// aapt resource value: 5
+			public const int TextInputLayout_errorTextAppearance = 5;
+			
+			// aapt resource value: 10
+			public const int TextInputLayout_hintAnimationEnabled = 10;
+			
+			// aapt resource value: 3
+			public const int TextInputLayout_hintEnabled = 3;
+			
+			// aapt resource value: 2
+			public const int TextInputLayout_hintTextAppearance = 2;
+			
+			// aapt resource value: 13
+			public const int TextInputLayout_passwordToggleContentDescription = 13;
+			
+			// aapt resource value: 12
+			public const int TextInputLayout_passwordToggleDrawable = 12;
+			
+			// aapt resource value: 11
+			public const int TextInputLayout_passwordToggleEnabled = 11;
+			
+			// aapt resource value: 14
+			public const int TextInputLayout_passwordToggleTint = 14;
+			
+			// aapt resource value: 15
+			public const int TextInputLayout_passwordToggleTintMode = 15;
+			
+			public static int[] Toolbar = new int[] {
+					16842927,
+					16843072,
+					2130771980,
+					2130771983,
+					2130771987,
+					2130771999,
+					2130772000,
+					2130772001,
+					2130772002,
+					2130772003,
+					2130772004,
+					2130772006,
+					2130772201,
+					2130772202,
+					2130772203,
+					2130772204,
+					2130772205,
+					2130772206,
+					2130772207,
+					2130772208,
+					2130772209,
+					2130772210,
+					2130772211,
+					2130772212,
+					2130772213,
+					2130772214,
+					2130772215,
+					2130772216,
+					2130772217};
+			
+			// aapt resource value: 0
+			public const int Toolbar_android_gravity = 0;
+			
+			// aapt resource value: 1
+			public const int Toolbar_android_minHeight = 1;
+			
+			// aapt resource value: 21
+			public const int Toolbar_buttonGravity = 21;
+			
+			// aapt resource value: 23
+			public const int Toolbar_collapseContentDescription = 23;
+			
+			// aapt resource value: 22
+			public const int Toolbar_collapseIcon = 22;
+			
+			// aapt resource value: 6
+			public const int Toolbar_contentInsetEnd = 6;
+			
+			// aapt resource value: 10
+			public const int Toolbar_contentInsetEndWithActions = 10;
+			
+			// aapt resource value: 7
+			public const int Toolbar_contentInsetLeft = 7;
+			
+			// aapt resource value: 8
+			public const int Toolbar_contentInsetRight = 8;
+			
+			// aapt resource value: 5
+			public const int Toolbar_contentInsetStart = 5;
+			
+			// aapt resource value: 9
+			public const int Toolbar_contentInsetStartWithNavigation = 9;
+			
+			// aapt resource value: 4
+			public const int Toolbar_logo = 4;
+			
+			// aapt resource value: 26
+			public const int Toolbar_logoDescription = 26;
+			
+			// aapt resource value: 20
+			public const int Toolbar_maxButtonHeight = 20;
+			
+			// aapt resource value: 25
+			public const int Toolbar_navigationContentDescription = 25;
+			
+			// aapt resource value: 24
+			public const int Toolbar_navigationIcon = 24;
+			
+			// aapt resource value: 11
+			public const int Toolbar_popupTheme = 11;
+			
+			// aapt resource value: 3
+			public const int Toolbar_subtitle = 3;
+			
+			// aapt resource value: 13
+			public const int Toolbar_subtitleTextAppearance = 13;
+			
+			// aapt resource value: 28
+			public const int Toolbar_subtitleTextColor = 28;
+			
+			// aapt resource value: 2
+			public const int Toolbar_title = 2;
+			
+			// aapt resource value: 14
+			public const int Toolbar_titleMargin = 14;
+			
+			// aapt resource value: 18
+			public const int Toolbar_titleMarginBottom = 18;
+			
+			// aapt resource value: 16
+			public const int Toolbar_titleMarginEnd = 16;
+			
+			// aapt resource value: 15
+			public const int Toolbar_titleMarginStart = 15;
+			
+			// aapt resource value: 17
+			public const int Toolbar_titleMarginTop = 17;
+			
+			// aapt resource value: 19
+			public const int Toolbar_titleMargins = 19;
+			
+			// aapt resource value: 12
+			public const int Toolbar_titleTextAppearance = 12;
+			
+			// aapt resource value: 27
+			public const int Toolbar_titleTextColor = 27;
+			
+			public static int[] View = new int[] {
+					16842752,
+					16842970,
+					2130772218,
+					2130772219,
+					2130772220};
+			
+			// aapt resource value: 1
+			public const int View_android_focusable = 1;
+			
+			// aapt resource value: 0
+			public const int View_android_theme = 0;
+			
+			// aapt resource value: 3
+			public const int View_paddingEnd = 3;
+			
+			// aapt resource value: 2
+			public const int View_paddingStart = 2;
+			
+			// aapt resource value: 4
+			public const int View_theme = 4;
+			
+			public static int[] ViewBackgroundHelper = new int[] {
+					16842964,
+					2130772221,
+					2130772222};
+			
+			// aapt resource value: 0
+			public const int ViewBackgroundHelper_android_background = 0;
+			
+			// aapt resource value: 1
+			public const int ViewBackgroundHelper_backgroundTint = 1;
+			
+			// aapt resource value: 2
+			public const int ViewBackgroundHelper_backgroundTintMode = 2;
+			
+			public static int[] ViewStubCompat = new int[] {
+					16842960,
+					16842994,
+					16842995};
+			
+			// aapt resource value: 0
+			public const int ViewStubCompat_android_id = 0;
+			
+			// aapt resource value: 2
+			public const int ViewStubCompat_android_inflatedId = 2;
+			
+			// aapt resource value: 1
+			public const int ViewStubCompat_android_layout = 1;
+			
+			static Styleable()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Styleable()
 			{
 			}
 		}

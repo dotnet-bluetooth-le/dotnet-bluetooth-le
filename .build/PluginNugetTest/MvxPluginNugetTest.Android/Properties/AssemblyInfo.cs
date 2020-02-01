@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Android.App;
@@ -9,9 +9,9 @@ using Android.App;
 [assembly: AssemblyTitle("MvxPluginNugetTest.Android")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Zuehlke Engineering")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("MvxPluginNugetTest.Android")]
-[assembly: AssemblyCopyright("Copyright � Zuehlke Engineering 2016")]
+[assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
@@ -25,6 +25,6 @@ using Android.App;
 //
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.3.0")]
-[assembly: AssemblyVersion("1.3.0")]
-[assembly: AssemblyFileVersion("1.3.0")]
+// [assembly: AssemblyVersion("2.2.0-pre2")]
+[assembly: AssemblyVersion("2.2.0-pre2")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

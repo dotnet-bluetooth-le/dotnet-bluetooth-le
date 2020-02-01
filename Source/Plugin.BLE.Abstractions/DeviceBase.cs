@@ -33,41 +33,52 @@ namespace Plugin.BLE.Abstractions
         }
     }
 
-    public abstract class DeviceBase : IDevice, ICancellationMaster
+    public abstract class DeviceBase<TNativeDevice> : IDevice, ICancellationMaster
     {
         protected readonly IAdapter Adapter;
-        protected readonly List<IService> KnownServices = new List<IService>();
+        protected readonly Dictionary<Guid, IService> KnownServices = new Dictionary<Guid, IService>();
         public Guid Id { get; protected set; }
         public string Name { get; protected set; }
         public int Rssi { get; protected set; }
         public DeviceState State => GetState();
-        public IList<AdvertisementRecord> AdvertisementRecords { get; protected set; }
-        public abstract object NativeDevice { get; }
-
+        public IReadOnlyList<AdvertisementRecord> AdvertisementRecords { get; protected set; }
+        public TNativeDevice NativeDevice { get; protected set; }
         CancellationTokenSource ICancellationMaster.TokenSource { get; set; } = new CancellationTokenSource();
+        object IDevice.NativeDevice => NativeDevice;
 
-        protected DeviceBase(IAdapter adapter)
+        protected DeviceBase(IAdapter adapter, TNativeDevice nativeDevice)
         {
             Adapter = adapter;
+            NativeDevice = nativeDevice;
         }
 
-        public async Task<IList<IService>> GetServicesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<IReadOnlyList<IService>> GetServicesAsync(CancellationToken cancellationToken = default)
         {
-            if (!KnownServices.Any())
+            using (var source = this.GetCombinedSource(cancellationToken))
             {
-                using (var source = this.GetCombinedSource(cancellationToken))
+                foreach (var service in await GetServicesNativeAsync())
                 {
-                    KnownServices.AddRange(await GetServicesNativeAsync());
+                    KnownServices[service.Id] = service;
                 }
             }
 
-            return KnownServices;
+            return KnownServices.Values.ToList();
         }
 
-        public async Task<IService> GetServiceAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<IService> GetServiceAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            var services = await GetServicesAsync(cancellationToken);
-            return services.FirstOrDefault(x => x.Id == id);
+            if (KnownServices.ContainsKey(id))
+            {
+                return KnownServices[id];
+            }
+
+            var service = await GetServiceNativeAsync(id);
+            if (service == null)
+            {
+                return null;
+            }
+
+            return KnownServices[id] = service;
         }
 
         public async Task<int> RequestMtuAsync(int requestValue)
@@ -82,7 +93,8 @@ namespace Plugin.BLE.Abstractions
 
         public abstract Task<bool> UpdateRssiAsync();
         protected abstract DeviceState GetState();
-        protected abstract Task<IEnumerable<IService>> GetServicesNativeAsync();
+        protected abstract Task<IReadOnlyList<IService>> GetServicesNativeAsync();
+        protected abstract Task<IService> GetServiceNativeAsync(Guid id);
         protected abstract Task<int> RequestMtuNativeAsync(int requestValue);
         protected abstract bool UpdateConnectionIntervalNative(ConnectionInterval interval);
 
@@ -91,16 +103,16 @@ namespace Plugin.BLE.Abstractions
             return Name;
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             Adapter.DisconnectDeviceAsync(this);
         }
 
-        public void ClearServices()
+        public void DisposeServices()
         {
             this.CancelEverythingAndReInitialize();
 
-            foreach (var service in KnownServices)
+            foreach (var service in KnownServices.Values)
             {
                 try
                 {
@@ -127,7 +139,7 @@ namespace Plugin.BLE.Abstractions
                 return false;
             }
 
-            var otherDeviceBase = (DeviceBase) other;
+            var otherDeviceBase = (DeviceBase<TNativeDevice>)other;
             return Id == otherDeviceBase.Id;
         }
 

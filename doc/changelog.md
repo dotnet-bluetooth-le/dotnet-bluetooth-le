@@ -1,4 +1,42 @@
 # Changelog
+
+## 2.2.0 UWP
+
+#### 2.2.0-pre2 Experimental main thread queue for Android
+    - #376 Android: Main thread queue experimental
+    - #336 Get service by GUID
+    - #381 Merged PR
+    - Merged fixes from 2.1.1
+
+#### 2.2.0-pre.1 UWP
+    - UWP support pre-release
+
+## 2.1.0 MacOS  
+
+### 2.1.1 Service Release for 2.1.0
+- [iOS] #373, #377 Fixed trace ouptut that caused NRE. 
+
+### 2.1.0 Stable Release MacOS
+- Use IReadOnlyLists for Services/Charactersitics/Descriptors and concurrent collections for DiscoveredDevices/ConnectedDevices
+Should prevent crashes like: #320
+
+#### 2.1.0-pre.1
+- #54 macOS support
+
+## 2.0.0 .NETStanard
+
+#### 2.0.1
+- Fix #367
+
+#### 2.0.0
+- .NETStandard 2.0
+- Merge PR #365 (NRE), #358, #359, #341, #314, #332, #331, #329, #307
+- Update to package references/ update sample apps/ update libraries
+
+#### 2.0.0-pre1
+- .NETStandard 1.0 support
+- Merge PR #298, #289, #290, #263
+
 ## 1.3.0
 - Stable release including all the 1.3.0-beta.x previous releases.
 - Merge pull request #229 and #224 which fixed #227 set descriptor for android characteristic stop notify. 

@@ -1,40 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-
-using Microsoft.Toolkit.Uwp.Connectivity;
 using Windows.Devices.Bluetooth.GenericAttributeProfile;
-
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Extensions;
 
 namespace Plugin.BLE.UWP
 {
-    class Service : ServiceBase
+    public class Service : ServiceBase<GattDeviceService>
     {
-        private readonly GattDeviceService _nativeService;
-        private readonly ObservableBluetoothLEDevice _nativeDevice;
-        public override Guid Id => _nativeService.Uuid;
-        //method to get parent devices to check if primary is obselete
+        public override Guid Id => NativeService.Uuid;
+
+        //method to get parent devices to check if primary is obsolete
         //return true as a placeholder
         public override bool IsPrimary => true;
 
-        public Service(GattDeviceService service, IDevice device) : base(device)
+        public Service(GattDeviceService nativeService, IDevice device) : base(device, nativeService)
         {
-            _nativeDevice = (ObservableBluetoothLEDevice) device.NativeDevice;
-            _nativeService = service;
         }
 
-        protected async override Task<IList<ICharacteristic>> GetCharacteristicsNativeAsync()
+        protected override async Task<IList<ICharacteristic>> GetCharacteristicsNativeAsync()
         {
-            var nativeChars = (await _nativeService.GetCharacteristicsAsync()).Characteristics;
-            var charList = new List<ICharacteristic>();
-            foreach (var nativeChar in nativeChars)
-            {
-                var characteristic = new Characteristic(nativeChar, this);
-                charList.Add(characteristic);
-            }
-            return charList;
+            var result = await NativeService.GetCharacteristicsAsync(BleImplementation.CacheModeGetCharacteristics);
+            result.ThrowIfError();
+
+            return result.Characteristics?
+                .Select(nativeChar => new Characteristic(nativeChar, this))
+                .Cast<ICharacteristic>()
+                .ToList();
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            NativeService?.Dispose();
         }
     }
 }

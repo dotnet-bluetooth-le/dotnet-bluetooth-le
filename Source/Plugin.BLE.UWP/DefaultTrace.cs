@@ -1,5 +1,5 @@
-﻿using System.Diagnostics;
-using Plugin.BLE.Abstractions;
+﻿using System;
+using System.Diagnostics;
 
 namespace Plugin.BLE
 {
@@ -8,7 +8,7 @@ namespace Plugin.BLE
         static DefaultTrace()
         {
             //uses WriteLine for trace
-            Trace.TraceImplementation = (s, o) => { Debug.WriteLine(s, o); } ;
+            Abstractions.Trace.TraceImplementation = (s, objects) => Debug.WriteLine(s, objects);
         }
     }
 }

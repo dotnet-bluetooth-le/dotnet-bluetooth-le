@@ -41,14 +41,14 @@ namespace Plugin.BLE.Android
         {
             base.OnConnectionStateChange(gatt, status, newState);
 
-            if (!gatt.Device.Address.Equals(_device.BluetoothDevice.Address))
+            if (!gatt.Device.Address.Equals(_device.NativeDevice.Address))
             {
-                Trace.Message($"Gatt callback for device {_device.BluetoothDevice.Address} was called for device with address {gatt.Device.Address}. This shoud not happen. Please log an issue.");
+                Trace.Message($"Gatt callback for device {_device.NativeDevice.Address} was called for device with address {gatt.Device.Address}. This shoud not happen. Please log an issue.");
                 return;
             }
 
             //ToDo ignore just for me
-            Trace.Message($"References of parent device and gatt callback device equal? {ReferenceEquals(_device.BluetoothDevice, gatt.Device).ToString().ToUpper()}");
+            Trace.Message($"References of parent device and gatt callback device equal? {ReferenceEquals(_device.NativeDevice, gatt.Device).ToString().ToUpper()}");
 
             Trace.Message($"OnConnectionStateChange: GattStatus: {status}");
 
@@ -60,15 +60,16 @@ namespace Plugin.BLE.Android
                     // Close GATT regardless, else we can accumulate zombie gatts.
                     CloseGattInstances(gatt);
 
-                    if (_device.IsOperationRequested)
+                    // If status == 19, then connection was closed by the peripheral device (clean disconnect), consider this as a DeviceDisconnected
+                    if (_device.IsOperationRequested || (int)status == 19)
                     {
                         Trace.Message("Disconnected by user");
 
                         //Found so we can remove it
                         _device.IsOperationRequested = false;
-                        _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
+                        _adapter.ConnectedDeviceRegistry.TryRemove(gatt.Device.Address, out _);
 
-                        if (status != GattStatus.Success)
+                        if (status != GattStatus.Success && (int)status != 19)
                         {
                             // The above error event handles the case where the error happened during a Connect call, which will close out any waiting asyncs.
                             // Android > 5.0 uses this switch branch when an error occurs during connect
@@ -86,7 +87,7 @@ namespace Plugin.BLE.Android
                     //connection must have been lost, because the callback was not triggered by calling disconnect
                     Trace.Message($"Disconnected '{_device.Name}' by lost connection");
 
-                    _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
+                    _adapter.ConnectedDeviceRegistry.TryRemove(gatt.Device.Address, out _);
                     _adapter.HandleDisconnectedDevice(false, _device);
 
                     // inform pending tasks
@@ -100,7 +101,7 @@ namespace Plugin.BLE.Android
                 case ProfileState.Connected:
                     Trace.Message("Connected");
 
-                    //Check if the operation was requested by the user                    
+                    //Check if the operation was requested by the user
                     if (_device.IsOperationRequested)
                     {
                         _device.Update(gatt.Device, gatt);
@@ -141,7 +142,7 @@ namespace Plugin.BLE.Android
         private void CloseGattInstances(BluetoothGatt gatt)
         {
             //ToDO just for me
-            Trace.Message($"References of parnet device gatt and callback gatt equal? {ReferenceEquals(_device._gatt, gatt).ToString().ToUpper()}");
+            Trace.Message($"References of parent device gatt and callback gatt equal? {ReferenceEquals(_device._gatt, gatt).ToString().ToUpper()}");
 
             if (!ReferenceEquals(gatt, _device._gatt))
             {
@@ -173,6 +174,8 @@ namespace Plugin.BLE.Android
         public override void OnCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic)
         {
             base.OnCharacteristicChanged(gatt, characteristic);
+
+            Trace.Message("OnCharacteristicChanged: value {0}", characteristic.GetValue().ToHexString());
 
             CharacteristicValueUpdated?.Invoke(this, new CharacteristicReadCallbackEventArgs(characteristic));
         }
@@ -242,7 +245,7 @@ namespace Plugin.BLE.Android
                 case GattStatus.ReadNotPermitted:
                 case GattStatus.RequestNotSupported:
                 case GattStatus.WriteNotPermitted:
-                    exception = new Exception(status.ToString());
+                    exception = new Exception($"GattStatus: {(int)status} - {status.ToString()}");
                     break;
                 case GattStatus.Success:
                     break;
