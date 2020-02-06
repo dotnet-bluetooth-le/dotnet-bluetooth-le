@@ -131,6 +131,6 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Connects to a device, using Apple's recommended flow.
         /// https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/Art/ReconnectingToAPeripheral_2x.png
         /// </summary>
-        Task<IDevice> ConnectAsync(string friendlyName, Guid uuid, Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken = default(CancellationToken));
+        Task<IDevice> ConnectAsync(Guid uuid, Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

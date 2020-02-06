@@ -364,12 +364,12 @@ namespace Plugin.BLE.iOS
         /// <summary>
         /// See: https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/Art/ReconnectingToAPeripheral_2x.png for a chart of the flow.
         /// </summary>
-        protected override async Task<IDevice> ConnectNativeAsync(string friendlyName, Guid uuid, Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken = default(CancellationToken))
+        protected override async Task<IDevice> ConnectNativeAsync(Guid uuid, Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (uuid == Guid.Empty)
             {
                 // If we do not have an uuid scan and connect
-                return await ScanAndConnectAsync(friendlyName, deviceFilter, cancellationToken);
+                return await ScanAndConnectAsync(deviceFilter, cancellationToken);
             }
 
             //FYI attempted to use tobyte array instead of string but there was a problem with byte ordering Guid->NSUuid
@@ -380,7 +380,7 @@ namespace Plugin.BLE.iOS
             if (peripheral == null)
             {
                 // The device haven't been found. We'll try to scan and connect.
-                return await ScanAndConnectAsync(friendlyName, deviceFilter, cancellationToken);
+                return await ScanAndConnectAsync(deviceFilter, cancellationToken);
             }
 
             // Try to connect to the found peripheral
@@ -388,19 +388,19 @@ namespace Plugin.BLE.iOS
             if (device == null)
             {
                 // Well, it failed, so we'll try to scan again and see if that can repair
-                return await ScanAndConnectAsync(friendlyName, deviceFilter, cancellationToken);
+                return await ScanAndConnectAsync(deviceFilter, cancellationToken);
             }
 
             return device;
         }
 
-        private async Task<IDevice> ScanAndConnectAsync(string friendlyName, Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken = default(CancellationToken))
+        private async Task<IDevice> ScanAndConnectAsync(Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var peripheral = await ScanForPeripheralAsync(friendlyName, deviceFilter, cancellationToken);
+            var peripheral = await ScanForPeripheralAsync(deviceFilter, cancellationToken);
             return await TryToConnectAsync(peripheral, cancellationToken);
         }
 
-        private async Task<CBPeripheral> ScanForPeripheralAsync(string friendlyName, Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken = default(CancellationToken))
+        private async Task<CBPeripheral> ScanForPeripheralAsync(Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken = default(CancellationToken))
         {
             var taskCompletionSource = new TaskCompletionSource<CBPeripheral>();
             var stopToken = new CancellationTokenSource(TimeSpan.FromMilliseconds(MaxScanTimeMS));
@@ -409,12 +409,9 @@ namespace Plugin.BLE.iOS
             {
                 var peripheral = args.Device.NativeDevice as CBPeripheral;
 
-                if (peripheral.Name == friendlyName || (peripheral.Name == ("LE-" + friendlyName)))
+                if (taskCompletionSource.TrySetResult(peripheral))
                 {
-                    if (taskCompletionSource.TrySetResult(peripheral))
-                    {
-                        stopToken.Cancel();
-                    }
+                    stopToken.Cancel();
                 }
             };
 
