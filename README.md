@@ -140,7 +140,7 @@ ble.StateChanged += (s, e) =>
 ### IAdapter
 #### Scan for devices
 ```csharp
-adapter.DeviceDiscovered += (s,a) => deviceList.Add(a.Device);
+adapter.DeviceDiscovered += async (s,a) => deviceList.Add(a.Device);
 await adapter.StartScanningForDevicesAsync();
 ```
 
