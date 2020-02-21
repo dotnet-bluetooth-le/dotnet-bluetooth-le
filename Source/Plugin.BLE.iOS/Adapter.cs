@@ -420,6 +420,19 @@ namespace Plugin.BLE.iOS
                 linkedToken.Register(() => taskCompletionSource.TrySetCanceled());
 
                 DeviceDiscovered += handler;
+
+                // We could already be scanning, if that's the case, check if we have found any devices that matches
+                if (IsScanning)
+                {
+                    var foundDevice = DiscoveredDevices.FirstOrDefault(x => deviceFilter(x));
+                    if (foundDevice != null)
+                    {
+                        return foundDevice.NativeDevice as CBPeripheral;
+                    }
+                }
+
+                await StopScanningForDevicesAsync();
+
                 await StartScanningForDevicesAsync(
                     deviceFilter: deviceFilter,
                     cancellationToken: linkedToken);
