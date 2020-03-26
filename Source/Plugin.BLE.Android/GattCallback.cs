@@ -30,6 +30,7 @@ namespace Plugin.BLE.Android
         public event EventHandler<DescriptorCallbackEventArgs> DescriptorValueWritten;
         public event EventHandler<DescriptorCallbackEventArgs> DescriptorValueRead;
         public event EventHandler<MtuRequestCallbackEventArgs> MtuRequested;
+        public event EventHandler OnDisconnected;
 
         public GattCallback(Adapter adapter, Device device)
         {
@@ -82,7 +83,9 @@ namespace Plugin.BLE.Android
                         {
                             //we already hadled device error so no need th raise disconnect event(happens when device not in range)
                             _adapter.HandleDisconnectedDevice(true, _device);
+                            OnDisconnected?.Invoke(this, EventArgs.Empty);
                         }
+
                         _device.Dispose();
                         break;
                     }
@@ -94,7 +97,9 @@ namespace Plugin.BLE.Android
                     {
                         _adapter.ConnectedDeviceRegistry.Remove(gatt.Device.Address);
                     }
+
                     _adapter.HandleDisconnectedDevice(false, _device);
+                    OnDisconnected?.Invoke(this, EventArgs.Empty);
 
                     // inform pending tasks
                     ConnectionInterrupted?.Invoke(this, EventArgs.Empty);
