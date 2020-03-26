@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Android.App;
-using Android.OS;
 using Android.Bluetooth;
 using Android.Content;
+using Android.OS;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
-using Plugin.BLE.Abstractions.EventArgs;
-using Plugin.BLE.Abstractions.Exceptions;
 using Plugin.BLE.Abstractions.Utils;
 using Plugin.BLE.Android.CallbackEventArgs;
 using Trace = Plugin.BLE.Abstractions.Trace;
@@ -141,9 +140,25 @@ namespace Plugin.BLE.Android
             {
                 IsOperationRequested = true;
 
-                _gatt.Disconnect();
+                var resetEvent = new ManualResetEvent(false);
+                EventHandler disconnectWaitHandler = (se, ev) =>
+                {
+                    resetEvent.Set();
+                };
 
-                CloseGatt();
+                try
+                {
+                    _gattCallback.OnDisconnected += disconnectWaitHandler;
+                    _gatt.Disconnect();
+
+                    // Wait closing untill the disconnect event has happend - otherwise it might never be triggered
+                    resetEvent.WaitOne();
+                    CloseGatt();
+                }
+                finally
+                {
+                    _gattCallback.OnDisconnected -= disconnectWaitHandler;
+                }
             }
             else
             {
