@@ -54,6 +54,7 @@
     <Compile Include="BroadcastReceivers\BondStatusBroadcastReceiver.cs" />
     <Compile Include="CallbackEventArgs\CharacteristicReadCallbackEventArgs.cs" />
     <Compile Include="CallbackEventArgs\CharacteristicWriteCallbackEventArgs.cs" />
+    <Compile Include="CallbackEventArgs\ReliableWriteCallbackEventArgs.cs" />
     <Compile Include="CallbackEventArgs\RssiReadCallbackEventArgs.cs" />
     <Compile Include="CallbackEventArgs\ServicesDiscoveredCallbackEventArgs.cs" />
     <Compile Include="Characteristic.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Service.cs" />
     <Compile Include="CallbackEventArgs\DescriptorCallbackEventArgs.cs" />
     <Compile Include="CallbackEventArgs\MtuRequestCallbackEventArgs.cs" />
+    <Compile Include="WriteTransaction.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Plugin.BLE.Abstractions\Plugin.BLE.Abstractions.csproj">

@@ -13,7 +13,7 @@ namespace Plugin.BLE
 {
     internal class BleImplementation : BleImplementationBase
     {
-        private BluetoothManager _bluetoothManager;
+        private BluetoothManager bluetoothManager;
 
         protected override void InitializeNative()
         {
@@ -24,20 +24,22 @@ namespace Plugin.BLE
              var statusChangeReceiver = new BluetoothStatusBroadcastReceiver(UpdateState);
              ctx.RegisterReceiver(statusChangeReceiver, new IntentFilter(BluetoothAdapter.ActionStateChanged));
 
-            _bluetoothManager = (BluetoothManager)ctx.GetSystemService(Context.BluetoothService);
+            bluetoothManager = (BluetoothManager)ctx.GetSystemService(Context.BluetoothService);
         }
 
         protected override BluetoothState GetInitialStateNative()
         {
-            if(_bluetoothManager == null)
+            if(bluetoothManager == null)
+            {
                 return BluetoothState.Unavailable;
+            }
 
-            return _bluetoothManager.Adapter.State.ToBluetoothState();
+            return bluetoothManager.Adapter.State.ToBluetoothState();
         }
 
         protected override IAdapter CreateNativeAdapter()
         {
-            return new Adapter(_bluetoothManager);
+            return new Adapter(bluetoothManager);
         }
 
         private void UpdateState(BluetoothState state)
