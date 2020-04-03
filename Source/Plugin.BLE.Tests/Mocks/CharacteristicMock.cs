@@ -62,5 +62,10 @@ namespace Plugin.BLE.Tests.Mocks
         {
             throw new NotImplementedException();
         }
+
+        public override IWriteTransaction InitiateReliableWrite()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

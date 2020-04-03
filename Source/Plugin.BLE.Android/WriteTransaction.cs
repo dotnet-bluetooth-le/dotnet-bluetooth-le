@@ -6,10 +6,11 @@ using Plugin.BLE.Abstractions.Exceptions;
 using Plugin.BLE.Android.CallbackEventArgs;
 using Plugin.BLE.Extensions;
 using Plugin.BLE.Abstractions.Utils;
+using Plugin.BLE.Abstractions.Contracts;
 
 namespace Plugin.BLE.Android
 {
-    public class WriteTransaction
+    public class WriteTransaction: IWriteTransaction
     {
         private readonly BluetoothGattCharacteristic nativeCharacteristic;
         private readonly BluetoothGatt gatt;
@@ -45,15 +46,32 @@ namespace Plugin.BLE.Android
             }
         }
 
-        public void Write(byte[] data, CharacteristicWriteType writeType)
+        public async Task<bool> Write(byte[] data)
+        {
+            return await WriteNativeAsync(data, CharacteristicWriteType.WithResponse);
+        }
+
+        protected async Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType)
         {
             nativeCharacteristic.WriteType = writeType.ToNative();
-            InternalWrite(data);
-        }
-        
-        public void Rollback()
-        {
-            gatt.AbortReliableWrite();
+
+            return await TaskBuilder.FromEvent<bool, EventHandler<CharacteristicWriteCallbackEventArgs>, EventHandler>(
+                execute: () => InternalWrite(data),
+                getCompleteHandler: (complete, reject) => ((sender, args) =>
+                {
+                    if (args.Characteristic.Uuid == nativeCharacteristic.Uuid)
+                    {
+                        complete(args.Exception == null);
+                    }
+                }),
+               subscribeComplete: handler => gattCallback.CharacteristicValueWritten += handler,
+               unsubscribeComplete: handler => gattCallback.CharacteristicValueWritten -= handler,
+               getRejectHandler: reject => ((sender, args) =>
+               {
+                   reject(new Exception($"Device disconnected while writing characteristic with {Id}."));
+               }),
+               subscribeReject: handler => gattCallback.ConnectionInterrupted += handler,
+               unsubscribeReject: handler => gattCallback.ConnectionInterrupted -= handler);
         }
 
         public async Task<bool> Commit()
@@ -72,6 +90,12 @@ namespace Plugin.BLE.Android
                }),
                subscribeReject: handler => gattCallback.ConnectionInterrupted += handler,
                unsubscribeReject: handler => gattCallback.ConnectionInterrupted -= handler);
+        }
+
+
+        public void RollBack()
+        {
+            gatt.AbortReliableWrite();
         }
     }
 

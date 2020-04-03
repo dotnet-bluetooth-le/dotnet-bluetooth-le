@@ -1,21 +1,18 @@
-<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Plugin.BLE</id>
-    <version>2.1.1</version>
+    <version>2.2.1-pre4</version>
     <title>Bluetooth LE Plugin for Xamarin</title>
-    <authors>Adrian Seceleanu, Sven-Michael Stübe</authors>
-    <owners>Adrian Seceleanu, Sven-Michael Stübe</owners>
+    <authors>Adrian Seceleanu,Sven-Michael Stübe</authors>
+    <owners>Adrian Seceleanu,Sven-Michael Stübe</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
     <projectUrl>https://github.com/xabre/xamarin-bluetooth-le</projectUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>
-      Xamarin plugin to access Bluetooth Low Energy functionality on Android and iOS.
-      Read the full documentation on the projects page.
-    </description>
-    <tags>xamarin monodroid Xamarin.iOS bluetooth BLE LE BTLE Smart xamarin.forms ios android forms xamarinforms</tags>
     <iconUrl>https://raw.githubusercontent.com/xabre/xamarin-bluetooth-le/master/icon_small.png</iconUrl>
-    <releaseNotes>
-      [2.1.1]
+    <description>Xamarin plugin to access Bluetooth Low Energy functionality on Android and iOS.
+      Read the full documentation on the projects page.</description>
+    <releaseNotes>[2.1.1]
       - iOS #373, #377 Fixed trace ouptut that caused NRE. 
       [2.1.0]
       - Use IReadOnlyLists for Services/ Charactersitics/ Descriptors and concurrent collections for DiscoveredDevices/ConnectedDevices
@@ -54,29 +51,17 @@ Should prevent crashes like: #320
       [1.2.0]
       - #150 iOS: No disconnect when the connect CancelationToken is cancelled after a successful connect.
 
-      for older releases: https://github.com/xabre/xamarin-bluetooth-le/blob/master/doc/changelog.md
-    </releaseNotes>
+      for older releases: https://github.com/xabre/xamarin-bluetooth-le/blob/master/doc/changelog.md</releaseNotes>
+    <tags>xamarin monodroid Xamarin.iOS bluetooth BLE LE BTLE Smart xamarin.forms ios android forms xamarinforms</tags>
     <dependencies>
-      <group targetFramework="netstandard2.0">
-      </group>
-      <group targetFramework="MonoAndroid">
-      </group>
-      <group targetFramework="Xamarin.iOS10">
-      </group>
-      <group targetFramework="xamarinmac20">
-      </group>
-      <group targetFramework="uap">
-      </group>
+      <group targetFramework="MonoAndroid0.0" />
     </dependencies>
   </metadata>
   <files>
-    <!-- .netstandard -->
-    <file src="out\lib\netstandard2.0\Plugin.BLE.*" target="lib\netstandard2.0" />
-    <!-- droid -->
-    <file src="out\lib\android\Plugin.BLE.*" target="lib\MonoAndroid" />
-    <!-- iOS -->
-    <file src="out\lib\ios\Plugin.BLE.*" target="lib\Xamarin.iOS10" />
-    <!-- macOS -->
-    <file src="out\lib\macOS\Plugin.BLE.*" target="lib\xamarinmac20" />
+    <file src="lib\MonoAndroid\Plugin.BLE.Abstractions.deps.json" target="lib\MonoAndroid\Plugin.BLE.Abstractions.deps.json" />
+    <file src="lib\MonoAndroid\Plugin.BLE.Abstractions.dll" target="lib\MonoAndroid\Plugin.BLE.Abstractions.dll" />
+    <file src="lib\MonoAndroid\Plugin.BLE.Abstractions.pdb" target="lib\MonoAndroid\Plugin.BLE.Abstractions.pdb" />
+    <file src="lib\MonoAndroid\Plugin.BLE.dll" target="lib\MonoAndroid\Plugin.BLE.dll" />
+    <file src="lib\MonoAndroid\Plugin.BLE.pdb" target="lib\MonoAndroid\Plugin.BLE.pdb" />
   </files>
 </package>

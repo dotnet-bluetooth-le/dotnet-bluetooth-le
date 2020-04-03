@@ -130,6 +130,9 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// If the descriptor doesn't exist, the Result will be null.
         /// </returns>
         Task<IDescriptor> GetDescriptorAsync(Guid id, CancellationToken cancellationToken = default);
+
+
+       IWriteTransaction InitiateReliableWrite();
     }
 }
 

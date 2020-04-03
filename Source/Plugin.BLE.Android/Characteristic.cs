@@ -189,7 +189,7 @@ namespace Plugin.BLE.Android
             }
         }
 
-        public WriteTransaction InitiateReliableWrite()
+        public override IWriteTransaction InitiateReliableWrite()
         {
             return new WriteTransaction(nativeCharacteristic, gatt, gattCallback);
         }

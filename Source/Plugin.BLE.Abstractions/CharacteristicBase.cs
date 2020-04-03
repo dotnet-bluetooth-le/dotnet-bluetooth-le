@@ -139,5 +139,7 @@ namespace Plugin.BLE.Abstractions
         protected abstract Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType);
         protected abstract Task StartUpdatesNativeAsync();
         protected abstract Task StopUpdatesNativeAsync();
+
+        public abstract IWriteTransaction InitiateReliableWrite();
     }
 }
