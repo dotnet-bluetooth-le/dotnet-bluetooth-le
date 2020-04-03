@@ -93,14 +93,6 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MvvmCross.Plugins.BLE.Droid\MvvmCross.Plugins.BLE.Droid.csproj">
-      <Project>{6cf7d1d9-fdd9-4158-9e0f-f102027291f0}</Project>
-      <Name>MvvmCross.Plugins.BLE.Droid</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\MvvmCross.Plugins.BLE\MvvmCross.Plugins.BLE.csproj">
-      <Project>{83f1dffb-a653-45dd-be81-c02374c6db07}</Project>
-      <Name>MvvmCross.Plugins.BLE</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Plugin.BLE.Android\Plugin.BLE.Android.csproj">
       <Project>{80c10c11-6fcb-4038-b029-a700039e8f99}</Project>
       <Name>Plugin.BLE.Android</Name>
