@@ -10,26 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{7127700F-3FDC-482C-9359-404A9364E4D6}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugin.BLE", "Plugin.BLE\Plugin.BLE.csproj", "{951ED11D-D026-449C-90DC-5027BC41FB3B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.BLE.Android", "Plugin.BLE.Android\Plugin.BLE.Android.csproj", "{80C10C11-6FCB-4038-B029-A700039E8F99}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{BF30732D-F8EA-4DDE-B892-81D51D02A5D4}"
-	ProjectSection(SolutionItems) = preProject
-		..\.build\build.bat = ..\.build\build.bat
-		..\.build\build.cake = ..\.build\build.cake
-		..\.build\build.fsx = ..\.build\build.fsx
-		..\doc\changelog.md = ..\doc\changelog.md
-		..\.build\MvvmCross.Plugin.BLE.nuspec = ..\.build\MvvmCross.Plugin.BLE.nuspec
-		..\.build\Plugin.BLE.nuspec = ..\.build\Plugin.BLE.nuspec
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugin.BLE.Tests", "Plugin.BLE.Tests\Plugin.BLE.Tests.csproj", "{F8374603-78C8-4CB8-A622-EC9226424474}"
 EndProject
