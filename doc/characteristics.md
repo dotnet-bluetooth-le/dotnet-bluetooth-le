@@ -1,4 +1,4 @@
-### Comparsion of property values
+### Comparison of property values
 
 <table>
   <tr>
