@@ -9,7 +9,7 @@ namespace Plugin.BLE
     public static class CrazyQueue
     {
         private const int Delay = 100;
-        private const int MaxRetries = 20;
+        private const int MaxRetries = 25;
         private static readonly ILogger _logger = LoggerFactory.CreateLogger(nameof(CrazyQueue));
 
         private static readonly object _queueLock = new object();
