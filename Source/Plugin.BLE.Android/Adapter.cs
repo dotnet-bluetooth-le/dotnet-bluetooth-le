@@ -208,15 +208,6 @@ namespace Plugin.BLE.Android
                         return null;
                     }
 
-                    if (IsScanning)
-                    {
-                        var foundDevice = DiscoveredDevices.FirstOrDefault(x => deviceFilter(x));
-                        if (foundDevice != null)
-                        {
-                            return foundDevice;
-                        }
-                    }
-
                     var scanTask = StartScanningForDevicesAsync(deviceFilter: deviceFilter, cancellationToken: linkedToken);
                     var device = await await Task.WhenAny(taskCompletionSource.Task, WaitAsync());
 
