@@ -49,8 +49,11 @@ namespace Plugin.BLE.Abstractions
         {
             if (IsScanning)
             {
-                Trace.Message("Adapter: Already scanning!");
-                return;
+                Trace.Message("Adapter: Already scanning! Restarting...");
+                _scanCancellationTokenSource.Cancel();
+                
+                //Wait a bit for the previous scan to stop
+                await Task.Delay(1000, cancellationToken);
             }
 
             IsScanning = true;
