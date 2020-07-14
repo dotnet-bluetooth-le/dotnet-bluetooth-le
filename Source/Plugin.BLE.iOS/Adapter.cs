@@ -309,18 +309,33 @@ namespace Plugin.BLE.iOS
                     var arr = ((NSData)advertisementData.ObjectForKey(key)).ToArray();
                     records.Add(new AdvertisementRecord(AdvertisementRecordType.ManufacturerSpecificData, arr));
                 }
-                else if (key == CBAdvertisement.DataServiceUUIDsKey)
+                else if (key == CBAdvertisement.DataServiceUUIDsKey || key == CBAdvertisement.DataOverflowServiceUUIDsKey)
                 {
                     var array = (NSArray)advertisementData.ObjectForKey(key);
 
-                    var dataList = new List<NSData>();
                     for (nuint i = 0; i < array.Count; i++)
                     {
                         var cbuuid = array.GetItem<CBUUID>(i);
-                        dataList.Add(cbuuid.Data);
+
+                        switch (cbuuid.Data.Length)
+                        {
+                            case 16:
+                                // 128-bit UUID
+                                records.Add(new AdvertisementRecord(AdvertisementRecordType.UuidsComplete128Bit, cbuuid.Data.ToArray()));
+                                break;
+                            case 8:
+                                // 32-bit UUID
+                                records.Add(new AdvertisementRecord(AdvertisementRecordType.UuidCom32Bit, cbuuid.Data.ToArray()));
+                                break;
+                            case 2:
+                                // 16-bit UUID
+                                records.Add(new AdvertisementRecord(AdvertisementRecordType.UuidsComplete16Bit, cbuuid.Data.ToArray()));
+                                break;
+                            default:
+                                // Invalid data length for UUID
+                                break;
+                        }
                     }
-                    records.Add(new AdvertisementRecord(AdvertisementRecordType.UuidsComplete128Bit,
-                        dataList.SelectMany(d => d.ToArray()).ToArray()));
                 }
                 else if (key == CBAdvertisement.DataTxPowerLevelKey)
                 {
