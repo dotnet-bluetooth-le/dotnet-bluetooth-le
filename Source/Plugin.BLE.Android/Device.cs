@@ -152,7 +152,7 @@ namespace Plugin.BLE.Android
                     _gatt.Disconnect();
 
                     // Wait closing untill the disconnect event has happend - otherwise it might never be triggered
-                    resetEvent.WaitOne();
+                    resetEvent.WaitOne(TimeSpan.FromSeconds(2));
                     CloseGatt();
                 }
                 finally
