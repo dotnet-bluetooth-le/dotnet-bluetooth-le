@@ -112,6 +112,10 @@ namespace Plugin.BLE.Android
 
             var ssb = new ScanSettings.Builder();
             ssb.SetScanMode(ScanMode.ToNative());
+            //reports everything even devices with low signal strength
+            ssb.SetMatchMode(BluetoothScanMatchMode.Aggressive);
+            //return a hit with only 1 match
+            ssb.SetNumOfMatches(1);
             //ssb.SetCallbackType(ScanCallbackType.AllMatches);
 
             if (_bluetoothAdapter.BluetoothLeScanner != null)
@@ -204,12 +208,15 @@ namespace Plugin.BLE.Android
                     DeviceDiscovered += handler;
                     async Task<IDevice> WaitAsync()
                     {
-                        await Task.Delay(MaxScanTimeMS);
+                        await Task.Delay(ScanTimeout);
                         return null;
                     }
 
                     var scanTask = StartScanningForDevicesAsync(deviceFilter: deviceFilter, cancellationToken: linkedToken);
                     var device = await await Task.WhenAny(taskCompletionSource.Task, WaitAsync());
+
+                    //Stop scanning when we timeout on waiting for an result
+                    stopToken.Cancel();
 
                     // make sure to wait for the scan to complete before connecting to avoid doing multiple things at once. If a
                     // device was matched, then it should already have completed through the cancellation, otherwise it is
