@@ -287,51 +287,19 @@ namespace Plugin.BLE.Android
             {
                 base.OnScanResult(callbackType, result);
 
-                /* Might want to transition to parsing the API21+ ScanResult, but sort of a pain for now 
-                List<AdvertisementRecord> records = new List<AdvertisementRecord>();
-                records.Add(new AdvertisementRecord(AdvertisementRecordType.Flags, BitConverter.GetBytes(result.ScanRecord.AdvertiseFlags)));
-                if (!string.IsNullOrEmpty(result.ScanRecord.DeviceName))
+                try
                 {
-                    records.Add(new AdvertisementRecord(AdvertisementRecordType.CompleteLocalName, Encoding.UTF8.GetBytes(result.ScanRecord.DeviceName)));
+                    var device = new Device(_adapter, result.Device, null, result.Rssi, result.ScanRecord.GetBytes());
+                    _adapter.HandleDiscoveredDevice(device);
                 }
-                for (int i = 0; i < result.ScanRecord.ManufacturerSpecificData.Size(); i++)
+                catch (ArgumentException)
                 {
-                    int key = result.ScanRecord.ManufacturerSpecificData.KeyAt(i);
-                    var arr = result.ScanRecord.GetManufacturerSpecificData(key);
-                    byte[] data = new byte[arr.Length + 2];
-                    BitConverter.GetBytes((ushort)key).CopyTo(data,0);
-                    arr.CopyTo(data, 2);
-                    records.Add(new AdvertisementRecord(AdvertisementRecordType.ManufacturerSpecificData, data));
+                    Trace.Message("Failed to parse scan result and create device");
                 }
-
-                foreach(var uuid in result.ScanRecord.ServiceUuids)
+                catch (Exception e)
                 {
-                    records.Add(new AdvertisementRecord(AdvertisementRecordType.UuidsIncomplete128Bit, uuid.Uuid.));
+                    Trace.Message("Unkown error when creating device based on scan result. Message: " + e.Message);
                 }
-
-                foreach(var key in result.ScanRecord.ServiceData.Keys)
-                {
-                    records.Add(new AdvertisementRecord(AdvertisementRecordType.ServiceData, result.ScanRecord.ServiceData));
-                }*/
-
-                var device = new Device(_adapter, result.Device, null, result.Rssi, result.ScanRecord.GetBytes());
-
-                //Device device;
-                //if (result.ScanRecord.ManufacturerSpecificData.Size() > 0)
-                //{
-                //    int key = result.ScanRecord.ManufacturerSpecificData.KeyAt(0);
-                //    byte[] mdata = result.ScanRecord.GetManufacturerSpecificData(key);
-                //    byte[] mdataWithKey = new byte[mdata.Length + 2];
-                //    BitConverter.GetBytes((ushort)key).CopyTo(mdataWithKey, 0);
-                //    mdata.CopyTo(mdataWithKey, 2);
-                //    device = new Device(result.Device, null, null, result.Rssi, mdataWithKey);
-                //}
-                //else
-                //{
-                //    device = new Device(result.Device, null, null, result.Rssi, new byte[0]);
-                //}
-
-                _adapter.HandleDiscoveredDevice(device);
 
             }
         }
