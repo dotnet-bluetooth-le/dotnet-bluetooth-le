@@ -112,6 +112,10 @@ namespace Plugin.BLE.Android
 
             var ssb = new ScanSettings.Builder();
             ssb.SetScanMode(ScanMode.ToNative());
+            //reports everything even devices with low signal strength
+            ssb.SetMatchMode(BluetoothScanMatchMode.Aggressive);
+            //return a hit with only 1 match
+            ssb.SetNumOfMatches(1);
             //ssb.SetCallbackType(ScanCallbackType.AllMatches);
 
             if (_bluetoothAdapter.BluetoothLeScanner != null)
@@ -204,12 +208,15 @@ namespace Plugin.BLE.Android
                     DeviceDiscovered += handler;
                     async Task<IDevice> WaitAsync()
                     {
-                        await Task.Delay(MaxScanTimeMS);
+                        await Task.Delay(ScanTimeout);
                         return null;
                     }
 
                     var scanTask = StartScanningForDevicesAsync(deviceFilter: deviceFilter, cancellationToken: linkedToken);
                     var device = await await Task.WhenAny(taskCompletionSource.Task, WaitAsync());
+
+                    //Stop scanning when we timeout on waiting for an result
+                    stopToken.Cancel();
 
                     // make sure to wait for the scan to complete before connecting to avoid doing multiple things at once. If a
                     // device was matched, then it should already have completed through the cancellation, otherwise it is
@@ -280,51 +287,19 @@ namespace Plugin.BLE.Android
             {
                 base.OnScanResult(callbackType, result);
 
-                /* Might want to transition to parsing the API21+ ScanResult, but sort of a pain for now 
-                List<AdvertisementRecord> records = new List<AdvertisementRecord>();
-                records.Add(new AdvertisementRecord(AdvertisementRecordType.Flags, BitConverter.GetBytes(result.ScanRecord.AdvertiseFlags)));
-                if (!string.IsNullOrEmpty(result.ScanRecord.DeviceName))
+                try
                 {
-                    records.Add(new AdvertisementRecord(AdvertisementRecordType.CompleteLocalName, Encoding.UTF8.GetBytes(result.ScanRecord.DeviceName)));
+                    var device = new Device(_adapter, result.Device, null, result.Rssi, result.ScanRecord.GetBytes());
+                    _adapter.HandleDiscoveredDevice(device);
                 }
-                for (int i = 0; i < result.ScanRecord.ManufacturerSpecificData.Size(); i++)
+                catch (ArgumentException)
                 {
-                    int key = result.ScanRecord.ManufacturerSpecificData.KeyAt(i);
-                    var arr = result.ScanRecord.GetManufacturerSpecificData(key);
-                    byte[] data = new byte[arr.Length + 2];
-                    BitConverter.GetBytes((ushort)key).CopyTo(data,0);
-                    arr.CopyTo(data, 2);
-                    records.Add(new AdvertisementRecord(AdvertisementRecordType.ManufacturerSpecificData, data));
+                    Trace.Message("Failed to parse scan result and create device");
                 }
-
-                foreach(var uuid in result.ScanRecord.ServiceUuids)
+                catch (Exception e)
                 {
-                    records.Add(new AdvertisementRecord(AdvertisementRecordType.UuidsIncomplete128Bit, uuid.Uuid.));
+                    Trace.Message("Unkown error when creating device based on scan result. Message: " + e.Message);
                 }
-
-                foreach(var key in result.ScanRecord.ServiceData.Keys)
-                {
-                    records.Add(new AdvertisementRecord(AdvertisementRecordType.ServiceData, result.ScanRecord.ServiceData));
-                }*/
-
-                var device = new Device(_adapter, result.Device, null, result.Rssi, result.ScanRecord.GetBytes());
-
-                //Device device;
-                //if (result.ScanRecord.ManufacturerSpecificData.Size() > 0)
-                //{
-                //    int key = result.ScanRecord.ManufacturerSpecificData.KeyAt(0);
-                //    byte[] mdata = result.ScanRecord.GetManufacturerSpecificData(key);
-                //    byte[] mdataWithKey = new byte[mdata.Length + 2];
-                //    BitConverter.GetBytes((ushort)key).CopyTo(mdataWithKey, 0);
-                //    mdata.CopyTo(mdataWithKey, 2);
-                //    device = new Device(result.Device, null, null, result.Rssi, mdataWithKey);
-                //}
-                //else
-                //{
-                //    device = new Device(result.Device, null, null, result.Rssi, new byte[0]);
-                //}
-
-                _adapter.HandleDiscoveredDevice(device);
 
             }
         }

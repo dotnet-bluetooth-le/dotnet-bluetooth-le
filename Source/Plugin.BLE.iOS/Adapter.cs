@@ -403,7 +403,7 @@ namespace Plugin.BLE.iOS
         private async Task<CBPeripheral> ScanForPeripheralAsync(Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken = default(CancellationToken))
         {
             var taskCompletionSource = new TaskCompletionSource<CBPeripheral>();
-            var stopToken = new CancellationTokenSource(TimeSpan.FromMilliseconds(MaxScanTimeMS));
+            var stopToken = new CancellationTokenSource(TimeSpan.FromMilliseconds(ScanTimeout));
             var linkedToken = CancellationTokenSource.CreateLinkedTokenSource(stopToken.Token, cancellationToken).Token;
             EventHandler<DeviceEventArgs> handler = (sender, args) =>
             {
