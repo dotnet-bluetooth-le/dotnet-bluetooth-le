@@ -39,7 +39,7 @@ Install-Package MvvmCross.Plugin.BLE -Pre
 
 **Android**
 
-Add these permissions to AndroidManifest.xml. For Marshmallow and above, please follow [Requesting Runtime Permissions in Android Marshmallow](https://blog.xamarin.com/requesting-runtime-permissions-in-android-marshmallow/) and don't forget to prompt the user for the location permission.
+Add these permissions to AndroidManifest.xml. For Marshmallow and above, please follow [Requesting Runtime Permissions in Android Marshmallow](https://devblogs.microsoft.com/xamarin/requesting-runtime-permissions-in-android-marshmallow/) and don't forget to prompt the user for the location permission.
 
 ```xml
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
