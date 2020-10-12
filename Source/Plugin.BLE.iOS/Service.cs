@@ -44,10 +44,19 @@ namespace Plugin.BLE.iOS
                     }
                     else
                     {
-                        var characteristics = args.Service.Characteristics
-                                                  .Select(characteristic => new Characteristic(characteristic, _device, this))
-                                                  .Cast<ICharacteristic>().ToList();
-                        complete(characteristics);
+                        try
+                        {
+                            var characteristics = args.Service.Characteristics
+                                .Select(characteristic => new Characteristic(characteristic, _device, this))
+                                .Cast<ICharacteristic>().ToList();
+                            complete(characteristics);
+                        }
+                        catch (Exception)
+                        {
+                            //For unknown reasons this sometimes gives us a cast exception, apparently there are CBservice's in the list as well.
+                            //In the logs it figures as an AppDomain exception hence the catch all
+                            complete(new List<ICharacteristic>());
+                        }
                     }
                 },
                 subscribeComplete: handler => _device.DiscoveredCharacteristic += handler,
