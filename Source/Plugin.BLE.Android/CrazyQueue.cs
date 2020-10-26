@@ -42,7 +42,7 @@ namespace Plugin.BLE
                         }
                         else
                         {
-                            _logger.Warn(ex, "Failed performing a task. Trying again " + $"({tries}/{MaxRetries})");
+                            _logger.Warn("Failed performing a task. Trying again " + $"({tries}/{MaxRetries})");
                             await Task.Delay(Delay);
                         }
                     }
