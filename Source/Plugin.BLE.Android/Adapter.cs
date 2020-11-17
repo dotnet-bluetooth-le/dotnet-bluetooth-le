@@ -110,13 +110,12 @@ namespace Plugin.BLE.Android
                 }
             }
 
-            var ssb = new ScanSettings.Builder();
-            ssb.SetScanMode(ScanMode.ToNative());
-            //reports everything even devices with low signal strength
-            ssb.SetMatchMode(BluetoothScanMatchMode.Aggressive);
-            //return a hit with only 1 match
-            ssb.SetNumOfMatches(1);
-            //ssb.SetCallbackType(ScanCallbackType.AllMatches);
+            var ssb = new ScanSettings.Builder()
+                .SetScanMode(ScanMode.ToNative())
+                .SetCallbackType(ScanCallbackType.AllMatches)
+                .SetMatchMode(BluetoothScanMatchMode.Aggressive)
+                .SetNumOfMatches((int)BluetoothScanMatchNumber.FewAdvertisement)
+                .SetReportDelay(0);
 
             if (_bluetoothAdapter.BluetoothLeScanner != null)
             {
