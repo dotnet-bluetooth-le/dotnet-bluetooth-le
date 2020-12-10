@@ -196,7 +196,14 @@ namespace Plugin.BLE.Android
                 var taskCompletionSource = new TaskCompletionSource<IDevice>();
                 EventHandler<DeviceEventArgs> handler = (sender, args) =>
                 {
-                    if (taskCompletionSource.TrySetResult(args.Device))
+                    var device = args.Device;
+
+                    if (deviceFilter(device) == false)
+                    {
+                        return;
+                    }
+
+                    if (taskCompletionSource.TrySetResult(device))
                     {
                         stopToken.Cancel();
                     }
