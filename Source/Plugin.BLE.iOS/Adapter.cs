@@ -346,11 +346,6 @@ namespace Plugin.BLE.iOS
                         records.Add(new AdvertisementRecord(AdvertisementRecordType.IsConnectable,
                             new byte[] { ((NSNumber)advertisementData.ObjectForKey(key)).ByteValue }));
                     }
-                    else
-                    {
-                        Trace.Message("Parsing Advertisement: Ignoring Advertisement entry for key {0}, since we don't know how to parse it yet. Maybe you can open a Pull Request and implement it ;)",
-                            key.ToString());
-                    }
                 }
                 catch (Exception)
                 {
