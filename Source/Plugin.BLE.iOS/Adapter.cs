@@ -402,17 +402,20 @@ namespace Plugin.BLE.iOS
             var linkedToken = CancellationTokenSource.CreateLinkedTokenSource(stopToken.Token, cancellationToken).Token;
             EventHandler<DeviceEventArgs> handler = (sender, args) =>
             {
-                var device = args.Device;
-                if (deviceFilter(device) == false)
+                if (args.Device != null)
                 {
-                    return;
-                }
+                    var device = args.Device;
+                    if (deviceFilter(device) == false)
+                    {
+                        return;
+                    }
 
-                var peripheral = device.NativeDevice as CBPeripheral;
+                    var peripheral = device.NativeDevice as CBPeripheral;
 
-                if (taskCompletionSource.TrySetResult(peripheral))
-                {
-                    stopToken.Cancel();
+                    if (taskCompletionSource.TrySetResult(peripheral))
+                    {
+                        stopToken.Cancel();
+                    }
                 }
             };
 
