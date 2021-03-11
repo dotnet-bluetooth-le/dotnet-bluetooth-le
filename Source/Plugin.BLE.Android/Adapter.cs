@@ -114,7 +114,7 @@ namespace Plugin.BLE.Android
                 .SetScanMode(ScanMode.ToNative())
                 .SetCallbackType(ScanCallbackType.AllMatches)
                 .SetMatchMode(BluetoothScanMatchMode.Aggressive)
-                .SetNumOfMatches((int)BluetoothScanMatchNumber.FewAdvertisement)
+                .SetNumOfMatches((int)BluetoothScanMatchNumber.OneAdvertisement)
                 .SetReportDelay(0);
 
             if (_bluetoothAdapter.BluetoothLeScanner != null)
