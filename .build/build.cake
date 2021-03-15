@@ -1,5 +1,5 @@
-#addin nuget:?package=Cake.Git&version=0.21
-#addin nuget:?package=Cake.FileHelpers&version=3.2.0
+#addin nuget:?package=Cake.Git&version=1.0.1
+#addin nuget:?package=Cake.FileHelpers&version=4.0.0
 
 using Path = System.IO.Path;
 using System.Xml.Linq;
