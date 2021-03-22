@@ -97,6 +97,11 @@ namespace Plugin.BLE.Android
 
             var ssb = new ScanSettings.Builder();
             ssb.SetScanMode(ScanMode.ToNative());
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+            {
+                // enable Bluetooth 5 Advertisement Extensions on Android 8.0 and above
+                ssb.SetLegacy(false);
+            }
             //ssb.SetCallbackType(ScanCallbackType.AllMatches);
 
             if (_bluetoothAdapter.BluetoothLeScanner != null)
