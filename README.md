@@ -78,9 +78,9 @@ On iOS you must add the following keys to your `Info.plist`
 
 On MacOS (version 11 and above) you must add the following keys to your `Info.plist`:
 
-<!--Description of the Bluetooth request message-->
-<key>NSBluetoothAlwaysUsageDescription</key>
-<string>YOUR CUSTOM MESSAGE</string>
+    <!--Description of the Bluetooth request message-->
+    <key>NSBluetoothAlwaysUsageDescription</key>
+    <string>YOUR CUSTOM MESSAGE</string>
 
 ## Sample app
 
