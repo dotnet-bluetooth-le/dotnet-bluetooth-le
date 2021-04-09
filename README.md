@@ -10,7 +10,7 @@ Xamarin and MvvMCross plugin for accessing the bluetooth functionality. The plug
 | ------------- | ----------- | ----------- |
 | Xamarin.Android | 4.3 |  |
 | Xamarin.iOS     | 7.0 |  |
-| Xamarin.Mac     | 10.9 (Maveriks) |  >= v2.1.0 |
+| Xamarin.Mac     | 10.9 (Mavericks) |  >= v2.1.0 |
 | UWP             | 1709 - 10.0.16299 (Fall Creators Update) | TBA |
 
 [Changelog](doc/changelog.md)
@@ -73,6 +73,14 @@ On iOS you must add the following keys to your `Info.plist`
     <!--Description of the Bluetooth request message (required on iOS 13)-->
     <key>NSBluetoothAlwaysUsageDescription</key>
     <string>YOUR CUSTOM MESSAGE</string>
+
+**MacOS**
+
+On MacOS (version 11 and above) you must add the following keys to your `Info.plist`:
+
+<!--Description of the Bluetooth request message-->
+<key>NSBluetoothAlwaysUsageDescription</key>
+<string>YOUR CUSTOM MESSAGE</string>
 
 ## Sample app
 
