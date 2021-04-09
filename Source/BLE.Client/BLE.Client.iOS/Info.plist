@@ -36,5 +36,7 @@
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>XSLaunchImageAssets</key>
 	<string>Assets.xcassets/LaunchImage.launchimage</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Need bluetooth permission.</string>
 </dict>
 </plist>
