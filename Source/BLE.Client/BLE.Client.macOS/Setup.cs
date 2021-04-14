@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 using Acr.UserDialogs;
 using MvvmCross;
 using MvvmCross.Forms.Platforms.Mac.Core;
-using MvvmCross.ViewModels;
-using Plugin.Permissions;
+using MvvmCross.IoC;
 using Plugin.Permissions.Abstractions;
 using Plugin.Settings;
 using Xamarin.Forms;
@@ -17,15 +16,17 @@ namespace BLE.Client.macOS
 {
     public class Setup : MvxFormsMacSetup<BleMvxApplication, BleMvxFormsApp>
     {
-        protected override void InitializeIoC()
+        protected override IMvxIoCProvider InitializeIoC()
         {
-            base.InitializeIoC();
+            var result = base.InitializeIoC();
 
             // Mvx.IoCProvider.RegisterSingleton(() => CrossBluetoothLE.Current);
             // Mvx.IoCProvider.RegisterSingleton(() => CrossBluetoothLE.Current.Adapter);
             Mvx.IoCProvider.RegisterSingleton(() => CrossSettings.Current);
             Mvx.IoCProvider.RegisterSingleton<IPermissions>(() => new PermissionMac());
             Mvx.IoCProvider.RegisterSingleton<IUserDialogs>(() => new UserDialogsMac());
+
+            return result;
         }
 
         public override IEnumerable<Assembly> GetPluginAssemblies()
