@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Acr.UserDialogs" Version="7.0.4" />
-    <PackageReference Include="MvvmCross" Version="6.3.1" />
+    <PackageReference Include="MvvmCross" Version="7.1.2" />
     <PackageReference Include="MvvmCross.Forms" Version="6.3.1" />
     <PackageReference Include="Plugin.Permissions" Version="3.0.0.12" />
     <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
