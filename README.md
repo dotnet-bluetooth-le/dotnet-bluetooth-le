@@ -1,7 +1,7 @@
 # <img src="icon_small.png" width="71" height="71"/> Bluetooth LE plugin for Xamarin 
 [Bitrise build status:](https://app.bitrise.io/app/3fe54d0a5f43c2bf) ![Build Status](https://app.bitrise.io/app/3fe54d0a5f43c2bf/status.svg?token=i9LUY4rIecZWd_3j7hwXgw) 
 
-Xamarin and MvvMCross plugin for accessing the bluetooth functionality. The plugin is loosely based on the BLE implementation of [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics). 
+Xamarin and MvvMCross plugin for accessing the bluetooth functionality. The plugin is loosely based on the BLE implementation of [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics).
 
 **Important Note:** With the term *"vanilla"* we mean the non MvvmCross/pure Xamarin version. You **can** use it without MvvmCross, if you download the vanilla package.
 
@@ -11,8 +11,8 @@ Xamarin and MvvMCross plugin for accessing the bluetooth functionality. The plug
 | ------------- | ----------- | ----------- |
 | Xamarin.Android | 4.3 |  |
 | Xamarin.iOS     | 7.0 |  |
-| Xamarin.Mac     | 10.9 |  >= v2.1.0 |
-| UWP             | 1709 - 10.0.16299 | >=2.2.0 | 
+| Xamarin.Mac     | 10.9 (Mavericks) |  >= v2.1.0 |
+| UWP             | 1709 - 10.0.16299 (Fall Creators Update) | TBA |
 
 [Changelog](doc/changelog.md)
 
@@ -32,7 +32,7 @@ Install-Package Plugin.BLE -Pre
 
 ```
 Install-Package MvvmCross.Plugin.BLE
-// or 
+// or
 Install-Package MvvmCross.Plugin.BLE -Pre
 ```
 
@@ -40,7 +40,7 @@ Install-Package MvvmCross.Plugin.BLE -Pre
 
 **Android**
 
-Add these permissions to AndroidManifest.xml. For Marshmallow and above, please follow [Requesting Runtime Permissions in Android Marshmallow](https://blog.xamarin.com/requesting-runtime-permissions-in-android-marshmallow/) and don't forget to prompt the user for the location permission.
+Add these permissions to AndroidManifest.xml. For Marshmallow and above, please follow [Requesting Runtime Permissions in Android Marshmallow](https://devblogs.microsoft.com/xamarin/requesting-runtime-permissions-in-android-marshmallow/) and don't forget to prompt the user for the location permission.
 
 ```xml
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -62,13 +62,25 @@ On iOS you must add the following keys to your `Info.plist`
     <array>
         <!--for connecting to devices (client)-->
         <string>bluetooth-central</string>
-    
+
         <!--for server configurations if needed-->
         <string>bluetooth-peripheral</string>
     </array>
-    
-    <!--Description of the Bluetooth request message (required on iOS 10)-->
+
+    <!--Description of the Bluetooth request message (required on iOS 10, deprecated)-->
     <key>NSBluetoothPeripheralUsageDescription</key>
+    <string>YOUR CUSTOM MESSAGE</string>
+
+    <!--Description of the Bluetooth request message (required on iOS 13)-->
+    <key>NSBluetoothAlwaysUsageDescription</key>
+    <string>YOUR CUSTOM MESSAGE</string>
+
+**MacOS**
+
+On MacOS (version 11 and above) you must add the following keys to your `Info.plist`:
+
+    <!--Description of the Bluetooth request message-->
+    <key>NSBluetoothAlwaysUsageDescription</key>
     <string>YOUR CUSTOM MESSAGE</string>
 
 **UWP**
@@ -81,7 +93,7 @@ Add this line to the Package Manifest (.appxmanifest):
 
 ## Sample app
 
-We provide a sample Xamarin.Forms app, that is a basic bluetooth LE scanner. With this app, it's possible to 
+We provide a sample Xamarin.Forms app, that is a basic bluetooth LE scanner. With this app, it's possible to
 
 - check the ble status
 - discover devices
@@ -135,7 +147,7 @@ var state = ble.State;
 ```
 You can also listen for State changes. So you can react if the user turns on/off bluetooth on your smartphone.
 ```csharp
-ble.StateChanged += (s, e) => 
+ble.StateChanged += (s, e) =>
 {
     Debug.WriteLine($"The bluetooth state changed to {e.NewState}");
 };
@@ -159,7 +171,7 @@ Set `adapter.ScanMode` to specify scan mode. It must be set **before** calling `
 `ConnectToDeviceAsync` returns a Task that finishes if the device has been connected successful. Otherwise a `DeviceConnectionException` gets thrown.
 
 ```csharp
-try 
+try
 {
     await _adapter.ConnectToDeviceAsync(device);
 }
@@ -171,12 +183,12 @@ catch(DeviceConnectionException e)
 
 #### Connect to known Device
 `ConnectToKnownDeviceAsync` can connect to a device with a given GUID. This means that if the device GUID is known, no scan is necessary to connect to a device. This can be very useful for a fast background reconnect.
-Always use a cancellation token with this method. 
+Always use a cancellation token with this method.
 - On **iOS** it will attempt to connect indefinitely, even if out of range, so the only way to cancel it is with the token.
 - On **Android** this will throw a GATT ERROR in a couple of seconds if the device is out of range.
 
 ```csharp
-try 
+try
 {
     await _adapter.ConnectToKnownDeviceAsync(guid, cancellationToken);
 }
@@ -241,21 +253,21 @@ await descriptor.WriteAsync(bytes);
 ```
 
 #### Get System Devices
-        
+
 Returns all BLE devices connected or bonded (only Android) to the system. In order to use the device in the app you have to first call ConnectAsync.
 - For iOS the implementation uses get [retrieveConnectedPeripherals(services)](https://developer.apple.com/reference/corebluetooth/cbcentralmanager/1518924-retrieveconnectedperipherals)
 - For Android this function merges the functionality of the following API calls:
     - [getConnectedDevices](https://developer.android.com/reference/android/bluetooth/BluetoothManager.html#getConnectedDevices(int))
-    - [getBondedDevices()](https://developer.android.com/reference/android/bluetooth/BluetoothAdapter.html#getBondedDevices()) 
+    - [getBondedDevices()](https://developer.android.com/reference/android/bluetooth/BluetoothAdapter.html#getBondedDevices())
 
-  
+
 ```csharp
 
 var systemDevices = adapter.GetSystemConnectedOrPairedDevices();
 
 foreach(var device in systemDevices)
 {
-    await _adapter.ConnectToDeviceAsync(device); 
+    await _adapter.ConnectToDeviceAsync(device);
 }
 
 ```
@@ -285,8 +297,9 @@ The BLE API implementation (especially on **Android**) has the following limitat
         //generic
     }
 ```
+
 - **Avoid caching of Characteristic or Service instances between connection sessions**. This includes saving a reference to them in your class between connection sessions etc. After a device has been disconnected all Service & Characteristic instances become **invalid**. Allways **use GetServiceAsync and GetCharacteristicAsync to get a valid instance**.
- 
+
 ### General BLE iOS, Android
 
 - Scanning: Avoid performing ble device operations like Connect, Read, Write etc while scanning for devices. Scanning is battery-intensive.
@@ -295,16 +308,16 @@ The BLE API implementation (especially on **Android**) has the following limitat
     - never scan on a loop, and set a time limit on your scan
 
 ## How to build the nuget package
-### On Windows
+
 1) Build
 
-    Open a cmd console windows and cd to the folder of "xamarin-bluetooth-le\\.build", then run `build.bat`.
+    Open a console, change to the folder "xamarin-bluetooth-le/.build" and run `cake`.
 
 2) pack the nuget
 
-    `nuget pack Plugin.BLE.nuspec -BasePath out\lib\`
-    
-    `nuget pack MvvmCross.Plugin.BLE.nuspec -BasePath out\lib\`
+    `nuget pack Plugin.BLE.nuspec`
+
+    `nuget pack MvvmCross.Plugin.BLE.nuspec`
 
 
 
@@ -331,7 +344,3 @@ We usually do our development work on a branch with the name of the milestone. S
 ## Licence
 
 [Apache 2.0](https://github.com/xabre/MvvmCross-BluetoothLE/blob/master/LICENSE)
-
-
-
-

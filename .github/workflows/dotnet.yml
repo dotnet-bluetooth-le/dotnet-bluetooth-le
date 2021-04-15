@@ -1,0 +1,35 @@
+name: ci/github-actions
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - uses: nuget/setup-nuget@v1
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Build
+      uses: cake-build/cake-action@v1
+      with:
+        script-path: .build/build.cake
+    - name: Generate nuget package (Vanilla)
+      run: nuget pack .build/Plugin.BLE.nuspec -Version $(git describe)
+    - name: Generate nuget package (MvvmCross)
+      run: nuget pack .build/MvvmCross.Plugin.BLE.nuspec -Version $(git describe)
+    - name: Upload packages
+      uses: actions/upload-artifact@v2
+      with:
+        name: nupkg
+        path: ./*Plugin.BLE*.nupkg

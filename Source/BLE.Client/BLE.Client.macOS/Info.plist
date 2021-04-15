@@ -28,6 +28,7 @@
 	<string>Main</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
-	
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Need bluetooth permission.</string>
 </dict>
 </plist>

@@ -131,7 +131,7 @@ namespace Plugin.BLE.Android
             {
                 var connectGatt = NativeDevice.ConnectGatt(Application.Context, connectParameters.AutoConnect, _gattCallback);
                 _connectCancellationTokenRegistration.Dispose();
-                _connectCancellationTokenRegistration = cancellationToken.Register(() => connectGatt.Disconnect());
+                _connectCancellationTokenRegistration = cancellationToken.Register(() => DisconnectAndClose(connectGatt));
             }
         }
 
@@ -144,7 +144,7 @@ namespace Plugin.BLE.Android
                 //no transport mode before lollipop, it will probably not work... gattCallBackError 133 again alas
                 var connectGatt = NativeDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback);
                 _connectCancellationTokenRegistration.Dispose();
-                _connectCancellationTokenRegistration = cancellationToken.Register(() => connectGatt.Disconnect());
+                _connectCancellationTokenRegistration = cancellationToken.Register(() => DisconnectAndClose(connectGatt));
             }
             else if (Build.VERSION.SdkInt < BuildVersionCodes.M)
             {
@@ -161,9 +161,14 @@ namespace Plugin.BLE.Android
             {
                 var connectGatt = NativeDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback, BluetoothTransports.Le);
                 _connectCancellationTokenRegistration.Dispose();
-                _connectCancellationTokenRegistration = cancellationToken.Register(() => connectGatt.Disconnect());
+                _connectCancellationTokenRegistration = cancellationToken.Register(() => DisconnectAndClose(connectGatt));
             }
+        }
 
+        private void DisconnectAndClose(BluetoothGatt gatt)
+        {
+            gatt.Disconnect();
+            gatt.Close();
         }
 
         /// <summary>
@@ -176,7 +181,7 @@ namespace Plugin.BLE.Android
             {
                 IsOperationRequested = true;
 
-                DisposeServices();
+                ClearServices();
 
                 _gatt.Disconnect();
             }
@@ -197,7 +202,7 @@ namespace Plugin.BLE.Android
 
             // ClossGatt might will get called on signal loss without Disconnect being called we have to make sure we clear the services
             // Clear services & characteristics otherwise we will get gatt operation return FALSE when connecting to the same IDevice instace at a later time
-            DisposeServices();
+            ClearServices();
         }
 
         protected override DeviceState GetState()

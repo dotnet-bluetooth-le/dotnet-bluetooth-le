@@ -36,7 +36,7 @@ namespace Plugin.BLE.Abstractions
     public abstract class DeviceBase<TNativeDevice> : IDevice, ICancellationMaster
     {
         protected readonly IAdapter Adapter;
-        protected readonly Dictionary<Guid, IService> KnownServices = new Dictionary<Guid, IService>();
+        private readonly List<IService> KnownServices = new List<IService>();
         public Guid Id { get; protected set; }
         public string Name { get; protected set; }
         public int Rssi { get; protected set; }
@@ -54,31 +54,30 @@ namespace Plugin.BLE.Abstractions
 
         public async Task<IReadOnlyList<IService>> GetServicesAsync(CancellationToken cancellationToken = default)
         {
-            using (var source = this.GetCombinedSource(cancellationToken))
+            lock (KnownServices)
             {
-                foreach (var service in await GetServicesNativeAsync())
+                if (KnownServices.Any())
                 {
-                    KnownServices[service.Id] = service;
+                    return KnownServices.ToArray();
                 }
             }
 
-            return KnownServices.Values.ToList();
+            using (var source = this.GetCombinedSource(cancellationToken))
+            {
+                var services = await GetServicesNativeAsync();
+
+                lock (KnownServices)
+                {
+                    KnownServices.AddRange(services);
+                    return KnownServices.ToArray();
+                }
+            }
         }
 
         public async Task<IService> GetServiceAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            if (KnownServices.ContainsKey(id))
-            {
-                return KnownServices[id];
-            }
-
-            var service = await GetServiceNativeAsync(id);
-            if (service == null)
-            {
-                return null;
-            }
-
-            return KnownServices[id] = service;
+            var services = await GetServicesAsync(cancellationToken);
+            return services.ToList().FirstOrDefault(x => x.Id == id);
         }
 
         public async Task<int> RequestMtuAsync(int requestValue)
@@ -108,23 +107,27 @@ namespace Plugin.BLE.Abstractions
             Adapter.DisconnectDeviceAsync(this);
         }
 
-        public void DisposeServices()
+        public void ClearServices()
         {
             this.CancelEverythingAndReInitialize();
 
-            foreach (var service in KnownServices.Values)
-            {
-                try
-                {
-                    service.Dispose();
-                }
-                catch (Exception ex)
-                {
-                    Trace.Message("Exception while cleanup of service: {0}", ex.Message);
-                }
-            }
 
-            KnownServices.Clear();
+            lock (KnownServices)
+            {
+                foreach (var service in KnownServices)
+                {
+                    try
+                    {
+                        service.Dispose();
+                    }
+                    catch (Exception ex)
+                    {
+                        Trace.Message("Exception while cleanup of service: {0}", ex.Message);
+                    }
+                }
+
+                KnownServices.Clear();
+            }
         }
 
         public override bool Equals(object other)
