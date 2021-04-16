@@ -19,9 +19,9 @@ namespace BLE.Client.iOS
         {
             var result = base.InitializeIoC();
 
-            Mvx.RegisterSingleton(() => UserDialogs.Instance);
-            Mvx.RegisterSingleton(() => CrossSettings.Current);
-            Mvx.RegisterSingleton(() => CrossPermissions.Current);
+            Mvx.IoCProvider.RegisterSingleton(() => UserDialogs.Instance);
+            Mvx.IoCProvider.RegisterSingleton(() => CrossSettings.Current);
+            Mvx.IoCProvider.RegisterSingleton(() => CrossPermissions.Current);
 
             return result;
         }
