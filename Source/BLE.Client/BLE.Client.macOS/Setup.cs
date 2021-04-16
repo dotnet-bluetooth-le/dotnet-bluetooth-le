@@ -48,6 +48,11 @@ namespace BLE.Client.macOS
                 return Task.FromResult(PermissionStatus.Granted);
             }
 
+            public Task<PermissionStatus> CheckPermissionStatusAsync<T>() where T : Plugin.Permissions.BasePermission, new()
+            {
+                return Task.FromResult(PermissionStatus.Granted);
+            }
+
             public bool OpenAppSettings()
             {
                 return true;
@@ -56,6 +61,11 @@ namespace BLE.Client.macOS
             public Task<Dictionary<Permission, PermissionStatus>> RequestPermissionsAsync(params Permission[] permissions)
             {
                 return Task.FromResult(permissions.ToDictionary(p => p, p => PermissionStatus.Granted));
+            }
+
+            public Task<PermissionStatus> RequestPermissionAsync<T>() where T : Plugin.Permissions.BasePermission, new()
+            {
+                return Task.FromResult(PermissionStatus.Granted);
             }
 
             public Task<bool> ShouldShowRequestPermissionRationaleAsync(Permission permission)
