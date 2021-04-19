@@ -12,15 +12,15 @@ var BuildTargetDir = MakeAbsolute(Directory("./out/lib"));
 var ProjectSources = MakeAbsolute(Directory("../Source"));
 var NuspecFiles = new [] { "Plugin.BLE.nuspec", "MvvmCross.Plugin.BLE.nuspec" };
 
-string GetProjectDir(string projectName)
+string GetProjectPath(string pathPrefix, string projectName)
 {
-    return ProjectSources.Combine(projectName).CombineWithFilePath(projectName + ".csproj").FullPath;
+    return ProjectSources.Combine(pathPrefix).Combine(projectName).CombineWithFilePath(projectName + ".csproj").FullPath;
 }
 
-void BuildProject(string projectName, string targetSubDir)
+void BuildProject(string pathPrefix, string projectName, string targetSubDir)
 {
     Information("Building {0} ...", projectName);
-    var project = GetProjectDir(projectName);
+    var project = GetProjectPath(pathPrefix, projectName);
     var outputDir = BuildTargetDir.Combine(targetSubDir);
     MSBuild(project, settings => settings
             .SetConfiguration("Release")
@@ -59,30 +59,43 @@ Task("Restore")
     }
 });
 
+Task("BuildLibs")
+    .Does(() =>
+{
+    BuildProject(".", "Plugin.BLE.Abstractions", "netstandard2.0");
+    BuildProject(".", "Plugin.BLE", "netstandard2.0");
+    BuildProject(".", "Plugin.BLE.Android", "android");
+    BuildProject(".", "Plugin.BLE.iOS", "ios");
+    BuildProject(".", "Plugin.BLE.macOS", "macOS");
+
+    BuildProject(".", "MvvmCross.Plugins.BLE", Path.Combine("mvx","netstandard2.0"));
+    BuildProject(".", "MvvmCross.Plugins.BLE.Droid", Path.Combine("mvx", "android"));
+    BuildProject(".", "MvvmCross.Plugins.BLE.iOS", Path.Combine("mvx","ios"));
+    BuildProject(".", "MvvmCross.Plugins.BLE.macOS", Path.Combine("mvx","macOS"));
+});
+
+Task("BuildClients")
+    .Does(() =>
+{
+  BuildProject("BLE.Client", "BLE.Client", Path.Combine("clients", "netstandard2.0"));
+  BuildProject("BLE.Client", "BLE.Client.Droid", Path.Combine("clients", "android"));
+  BuildProject("BLE.Client", "BLE.Client.iOS", Path.Combine("clients", "ios"));
+  BuildProject("BLE.Client", "BLE.Client.macOS", Path.Combine("clients", "macOS"));
+});
+
 Task("Build")
     .IsDependentOn("Clean")
     .IsDependentOn("Restore")
-    .Does(() =>
-{
-    BuildProject("Plugin.BLE.Abstractions", "netstandard2.0");
-    BuildProject("Plugin.BLE", "netstandard2.0");
-    BuildProject("Plugin.BLE.Android", "android");
-    BuildProject("Plugin.BLE.iOS", "ios");
-    BuildProject("Plugin.BLE.macOS", "macOS");
-
-    BuildProject("MvvmCross.Plugins.BLE", Path.Combine("mvx","netstandard2.0"));
-    BuildProject("MvvmCross.Plugins.BLE.Droid", Path.Combine("mvx", "android"));
-    BuildProject("MvvmCross.Plugins.BLE.iOS", Path.Combine("mvx","ios"));
-    BuildProject("MvvmCross.Plugins.BLE.macOS", Path.Combine("mvx","macOS"));
-});
+    .IsDependentOn("BuildLibs")
+    .Does(() => {});
 
 Task("Clean").Does (() =>
 {
     if (DirectoryExists (BuildTargetDir))
         DeleteDirectory (BuildTargetDir, new DeleteDirectorySettings {Recursive = true});
 
-    CleanDirectories ("./**/bin");
-    CleanDirectories ("./**/obj");
+    CleanDirectories ("../**/bin");
+    CleanDirectories ("../**/obj");
 });
 
 // ./build.ps1 -Target UpdateVersion -newVersion="2.0.1"
