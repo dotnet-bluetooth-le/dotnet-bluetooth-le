@@ -185,22 +185,22 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Acr.UserDialogs">
-      <Version>7.0.4</Version>
+      <Version>7.1.0.483</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross">
-      <Version>6.3.1</Version>
+      <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross.Forms">
-      <Version>6.3.1</Version>
+      <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="Plugin.Permissions">
-      <Version>3.0.0.12</Version>
+      <Version>6.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xam.Plugins.Settings">
-      <Version>3.1.1</Version>
+      <Version>4.1.0-beta</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>4.2.0.709249</Version>
+      <Version>5.0.0.2012</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
