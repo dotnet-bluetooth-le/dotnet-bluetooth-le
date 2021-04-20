@@ -20,10 +20,26 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - name: Build
+    - name: Clean
       uses: cake-build/cake-action@v1
       with:
         script-path: .build/build.cake
+        target: Clean
+    - name: Restore
+      uses: cake-build/cake-action@v1
+      with:
+        script-path: .build/build.cake
+        target: Restore
+    - name: Build Libs
+      uses: cake-build/cake-action@v1
+      with:
+        script-path: .build/build.cake
+        target: BuildLibs
+    - name: Build Clients
+      uses: cake-build/cake-action@v1
+      with:
+        script-path: .build/build.cake
+        target: BuildClients
     - name: Generate nuget package (Vanilla)
       run: nuget pack .build/Plugin.BLE.nuspec -Version $(git describe)
     - name: Generate nuget package (MvvmCross)
