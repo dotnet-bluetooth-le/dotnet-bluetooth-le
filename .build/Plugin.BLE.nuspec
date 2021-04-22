@@ -1,7 +1,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Plugin.BLE</id>
-    <version>2.1.1</version>
+    <version>2.1.2</version>
     <title>Bluetooth LE Plugin for Xamarin</title>
     <authors>Adrian Seceleanu, Sven-Michael Stübe</authors>
     <owners>Adrian Seceleanu, Sven-Michael Stübe</owners>
@@ -16,6 +16,14 @@
     <iconUrl>https://raw.githubusercontent.com/xabre/xamarin-bluetooth-le/master/icon_small.png</iconUrl>
     <icon>icon_small.png</icon>
     <releaseNotes>
+      [2.1.2]
+      - Correctly close a gatt when a connection attempt is cancelled (fixes #484)
+      - Use NSBluetoothAlwaysUsageDescription in iOS and macOS samples (fixes #455, #498)
+      - Android: enable BT5 advertising extensions (fixes #495)
+      - Fixed cake build and updated build instructions (fixes #492)
+      - Added locking to DeviceBase.KnownServices (fixes #406)
+      - Updated Mac project to output the same filename as the other platforms (fixes #430, #491)
+      - Added iOS/Mac support for 32-bit and 16-bit Service UUIDs (fixes #445)
       [2.1.1]
       - iOS #373, #377 Fixed trace ouptut that caused NRE.
       [2.1.0]
