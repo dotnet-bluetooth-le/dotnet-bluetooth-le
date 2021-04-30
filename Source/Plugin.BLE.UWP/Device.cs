@@ -14,7 +14,7 @@ namespace Plugin.BLE.UWP
     public class Device : DeviceBase<ObservableBluetoothLEDevice>
     {
         public Device(Adapter adapter, BluetoothLEDevice nativeDevice, int rssi, Guid id, IReadOnlyList<AdvertisementRecord> advertisementRecords = null) 
-            : base(adapter, new ObservableBluetoothLEDevice(nativeDevice.DeviceInformation))
+            : base(adapter, new ObservableBluetoothLEDevice(nativeDevice.DeviceInformation)) 
         {
             Rssi = rssi;
             Id = id;
@@ -78,6 +78,18 @@ namespace Plugin.BLE.UWP
         {
             Trace.Message("Update Connection Interval not supported in UWP");
             return false;
+        }
+
+        public override void Dispose()
+        {
+            NativeDevice.Services.ToList().ForEach(s => 
+            {
+                s?.Service?.Session?.Dispose();
+                s?.Service?.Dispose();
+            });
+
+            NativeDevice.BluetoothLEDevice?.Dispose();            
+            GC.Collect();
         }
     }
 }

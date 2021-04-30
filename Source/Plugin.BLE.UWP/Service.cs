@@ -35,6 +35,7 @@ namespace Plugin.BLE.UWP
         public override void Dispose()
         {
             base.Dispose();
+            NativeService?.Session?.Dispose();
             NativeService?.Dispose();
         }
     }
