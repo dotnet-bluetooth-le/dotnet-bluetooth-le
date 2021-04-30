@@ -97,22 +97,20 @@ namespace Plugin.BLE.UWP
 
             if (!nativeDevice.IsConnected && ConnectedDeviceRegistry.TryRemove(address, out var disconnectedDevice))
             {
-                HandleDisconnectedDevice(false, disconnectedDevice);
+                HandleDisconnectedDevice(true, disconnectedDevice);
             }
         }
 
         protected override void DisconnectDeviceNative(IDevice device)
         {
             // Windows doesn't support disconnecting, so currently just dispose of the device
-            Trace.Message($"Disconnected from device with ID:  {device.Id.ToString()}");
-
-            ((Device)device).ClearServices();
-            if (device.NativeDevice is ObservableBluetoothLEDevice nativeDevice)
+            Trace.Message($"Disconnected from device with ID:  {device.Id}");
+            
+            if (device.NativeDevice is ObservableBluetoothLEDevice)
             {
-                nativeDevice.BluetoothLEDevice.Dispose();
-                ConnectedDeviceRegistry.TryRemove(device.Id.ToString(), out _);
+                ((Device)device).ClearServices();
+                device.Dispose();                
             }
-
         }
 
         public override async Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters = default, CancellationToken cancellationToken = default)
