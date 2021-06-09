@@ -58,7 +58,7 @@ namespace Plugin.BLE.Android
                 case ProfileState.Disconnected:
 
                     // Close GATT if autoConnect is disabled, else we can accumulate zombie gatts.
-                    if (!_adapter.GetConnectParameters.AutoConnect)
+                    if (!_device.GetConnectParameters.AutoConnect)
                     {
                         CloseGattInstances(gatt);
                     }

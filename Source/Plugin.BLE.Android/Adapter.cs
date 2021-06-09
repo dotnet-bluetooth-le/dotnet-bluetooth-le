@@ -19,7 +19,6 @@ namespace Plugin.BLE.Android
 {
     public class Adapter : AdapterBase
     {
-        private ConnectParameters connectParameters;
         private readonly BluetoothManager _bluetoothManager;
         private readonly BluetoothAdapter _bluetoothAdapter;
         private readonly Api18BleScanCallback _api18ScanCallback;
@@ -139,7 +138,6 @@ namespace Plugin.BLE.Android
         protected override Task ConnectToDeviceNativeAsync(IDevice device, ConnectParameters connectParameters,
             CancellationToken cancellationToken)
         {
-            this.connectParameters = connectParameters;
             ((Device)device).Connect(connectParameters, cancellationToken);
             return Task.CompletedTask;
         }
@@ -157,7 +155,6 @@ namespace Plugin.BLE.Android
 
             var device = new Device(this, nativeDevice, null, 0, new byte[] { });
 
-            this.connectParameters = connectParameters;
             await ConnectToDeviceAsync(device, connectParameters, cancellationToken);
             return device;
         }
@@ -187,14 +184,6 @@ namespace Plugin.BLE.Android
             public int GetHashCode(BluetoothDevice obj)
             {
                 return obj.GetHashCode();
-            }
-        }
-
-        public ConnectParameters GetConnectParameters
-        {
-            get
-            {
-                return connectParameters;
             }
         }
 

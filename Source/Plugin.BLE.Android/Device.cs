@@ -38,6 +38,11 @@ namespace Plugin.BLE.Android
         /// </summary>
         private CancellationTokenRegistration _connectCancellationTokenRegistration;
 
+        /// <summary>
+        /// the connect paramaters used when connecting to this device
+        /// </summary>
+        private ConnectParameters connectParameters;
+
         public Device(Adapter adapter, BluetoothDevice nativeDevice, BluetoothGatt gatt, int rssi, byte[] advertisementData = null) : base(adapter)
         {
             Update(nativeDevice, gatt);
@@ -88,6 +93,7 @@ namespace Plugin.BLE.Android
         public void Connect(ConnectParameters connectParameters, CancellationToken cancellationToken)
         {
             IsOperationRequested = true;
+            this.connectParameters = connectParameters;
 
             if (connectParameters.ForceBleTransport)
             {
@@ -169,6 +175,14 @@ namespace Plugin.BLE.Android
             // ClossGatt might will get called on signal loss without Disconnect being called we have to make sure we clear the services
             // Clear services & characteristics otherwise we will get gatt operation return FALSE when connecting to the same IDevice instace at a later time
             ClearServices();
+        }
+
+        public ConnectParameters GetConnectParameters
+        {
+            get
+            {
+                return connectParameters;
+            }
         }
 
         protected override DeviceState GetState()
