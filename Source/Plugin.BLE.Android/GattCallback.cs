@@ -57,8 +57,11 @@ namespace Plugin.BLE.Android
                 // disconnected
                 case ProfileState.Disconnected:
 
-                    // Close GATT regardless, else we can accumulate zombie gatts.
-                    CloseGattInstances(gatt);
+                    // Close GATT if autoConnect is disabled, else we can accumulate zombie gatts.
+                    if (!_adapter.GetConnectParameters.AutoConnect)
+                    {
+                        CloseGattInstances(gatt);
+                    }
 
                     // If status == 19, then connection was closed by the peripheral device (clean disconnect), consider this as a DeviceDisconnected
                     if (_device.IsOperationRequested || (int)status == 19)
