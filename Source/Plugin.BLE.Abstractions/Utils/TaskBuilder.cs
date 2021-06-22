@@ -50,7 +50,14 @@ namespace Plugin.BLE.Abstractions.Utils
                         tcs.TrySetCanceled();
                     }
 
-                    execute();
+                    try
+                    {
+                        execute();
+                    }
+                    catch (Exception e)
+                    {
+                        completeException(e);
+                    }
                     return await tcs.Task;
                 }
             }
