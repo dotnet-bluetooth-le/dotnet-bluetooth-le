@@ -10,8 +10,8 @@
 
   <ItemGroup>
     <PackageReference Include="Acr.UserDialogs" Version="7.1.0.483" />
-    <PackageReference Include="MvvmCross" Version="7.1.2" />
-    <PackageReference Include="MvvmCross.Forms" Version="7.1.2" />
+    <PackageReference Include="MvvmCross" Version="8.0.1" />
+    <PackageReference Include="MvvmCross.Forms" Version="8.0.1" />
     <PackageReference Include="Plugin.Permissions" Version="6.0.1" />
     <PackageReference Include="Xam.Plugins.Settings" Version="4.1.0-beta" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />

@@ -188,10 +188,10 @@
       <Version>7.1.0.483</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross">
-      <Version>7.1.2</Version>
+      <Version>8.0.1</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross.Forms">
-      <Version>7.1.2</Version>
+      <Version>8.0.1</Version>
     </PackageReference>
     <PackageReference Include="Plugin.Permissions">
       <Version>6.0.1</Version>

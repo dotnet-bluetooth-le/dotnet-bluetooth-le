@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -115,10 +115,10 @@
       <Version>7.1.0.483</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross">
-      <Version>7.1.2</Version>
+      <Version>8.0.1</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross.Forms">
-      <Version>7.1.2</Version>
+      <Version>8.0.1</Version>
     </PackageReference>
     <PackageReference Include="Plugin.Permissions">
       <Version>6.0.1</Version>
@@ -130,7 +130,7 @@
       <Version>5.0.0.2012</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.MediaRouter">
-      <Version>1.2.2.1</Version>
+      <Version>1.2.4</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Palette">
       <Version>1.0.0.7</Version>

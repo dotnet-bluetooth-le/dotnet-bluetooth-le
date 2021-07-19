@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Acr.UserDialogs;
+using Microsoft.Extensions.Logging;
 using MvvmCross;
 using MvvmCross.Forms.Platforms.Android.Core;
 using MvvmCross.IoC;
@@ -15,6 +16,18 @@ namespace BLE.Client.Droid
         public override IEnumerable<Assembly> GetViewAssemblies()
         {
             return new List<Assembly>(base.GetViewAssemblies().Union(new[] { typeof(BleMvxFormsApp).GetTypeInfo().Assembly }));
+        }
+
+        /// <inheritdoc/>
+        protected override ILoggerProvider CreateLogProvider()
+        {
+            return null;
+        }
+
+        /// <inheritdoc/>
+        protected override ILoggerFactory CreateLogFactory()
+        {
+            return null;
         }
 
         protected override IMvxIoCProvider InitializeIoC()

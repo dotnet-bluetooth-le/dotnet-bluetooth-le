@@ -1,4 +1,5 @@
 using Acr.UserDialogs;
+using Microsoft.Extensions.Logging;
 using MvvmCross;
 using MvvmCross.Forms.Platforms.Ios.Core;
 using MvvmCross.IoC;
@@ -10,11 +11,6 @@ namespace BLE.Client.iOS
 {
     public class Setup : MvxFormsIosSetup
     {
-        protected override IMvxApplication CreateApp()
-        {
-            return new BleMvxApplication();
-        }
-
         protected override IMvxIoCProvider InitializeIoC()
         {
             var result = base.InitializeIoC();
@@ -29,6 +25,21 @@ namespace BLE.Client.iOS
         protected override Xamarin.Forms.Application CreateFormsApplication()
         {
             return new BleMvxFormsApp();
+        }
+
+        protected override IMvxApplication CreateApp(IMvxIoCProvider iocProvider)
+        {
+            return new BleMvxApplication();
+        }
+
+        protected override ILoggerProvider CreateLogProvider()
+        {
+            return null;
+        }
+
+        protected override ILoggerFactory CreateLogFactory()
+        {
+            return null;
         }
 
         /*
