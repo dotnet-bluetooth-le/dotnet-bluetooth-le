@@ -18,9 +18,9 @@ namespace Plugin.BLE.Abstractions.Utils
 
         }
 
-        public Task<T> EnqueueAsync<T>(Func<Task<T>> bleCommand, int timeoutInMiliseconds = 10000)
+        public Task<T> EnqueueAsync<T>(Func<Task<T>> bleCommand, int timeoutInMilliseconds = 10000)
         {
-            var command = new BleCommand<T>(bleCommand, timeoutInMiliseconds);
+            var command = new BleCommand<T>(bleCommand, timeoutInMilliseconds);
             lock (_lock)
             {
                 CommandQueue.Enqueue(command);
@@ -72,7 +72,7 @@ namespace Plugin.BLE.Abstractions.Utils
         Task ExecuteAsync();
         void Cancel();
         bool IsExecuting { get; }
-        int TimeoutInMiliseconds { get; }
+        int TimeoutInMilliseconds { get; }
     }
 
     public class BleCommand<T> : IBleCommand
@@ -80,12 +80,12 @@ namespace Plugin.BLE.Abstractions.Utils
         private Func<Task<T>> _taskSource;
         private TaskCompletionSource<T> _taskCompletionSource;
 
-        public int TimeoutInMiliseconds { get; }
+        public int TimeoutInMilliseconds { get; }
 
-        public BleCommand(Func<Task<T>> taskSource, int timeoutInMiliseconds)
+        public BleCommand(Func<Task<T>> taskSource, int timeoutInMilliseconds)
         {
             _taskSource = taskSource;
-            TimeoutInMiliseconds = timeoutInMiliseconds;
+            TimeoutInMilliseconds = timeoutInMilliseconds;
             _taskCompletionSource = new TaskCompletionSource<T>();
         }
 
