@@ -18,9 +18,9 @@ namespace Plugin.BLE.Abstractions.Utils
 
         }
 
-        public Task<T> EnqueueAsync<T>(Func<Task<T>> bleCommand, int timeoutInMiliSeconds = 10000)
+        public Task<T> EnqueueAsync<T>(Func<Task<T>> bleCommand, int timeoutInMiliseconds = 10000)
         {
-            var command = new BleCommand<T>(bleCommand, timeoutInMiliSeconds);
+            var command = new BleCommand<T>(bleCommand, timeoutInMiliseconds);
             lock (_lock)
             {
                 CommandQueue.Enqueue(command);
@@ -72,7 +72,7 @@ namespace Plugin.BLE.Abstractions.Utils
         Task ExecuteAsync();
         void Cancel();
         bool IsExecuting { get; }
-        int TimeoutInMiliSeconds { get; }
+        int TimeoutInMiliseconds { get; }
     }
 
     public class BleCommand<T> : IBleCommand
@@ -80,12 +80,12 @@ namespace Plugin.BLE.Abstractions.Utils
         private Func<Task<T>> _taskSource;
         private TaskCompletionSource<T> _taskCompletionSource;
 
-        public int TimeoutInMiliSeconds { get; }
+        public int TimeoutInMiliseconds { get; }
 
-        public BleCommand(Func<Task<T>> taskSource, int timeoutInMiliSeconds)
+        public BleCommand(Func<Task<T>> taskSource, int timeoutInMiliseconds)
         {
             _taskSource = taskSource;
-            TimeoutInMiliSeconds = timeoutInMiliSeconds;
+            TimeoutInMiliseconds = timeoutInMiliseconds;
             _taskCompletionSource = new TaskCompletionSource<T>();
         }
 
@@ -99,7 +99,7 @@ namespace Plugin.BLE.Abstractions.Utils
             {
                 IsExecuting = true;
                 var source = _taskSource();
-                if (source != await Task.WhenAny(source, Task.Delay(TimeoutInMiliSeconds)))
+                if (source != await Task.WhenAny(source, Task.Delay(TimeoutInMiliseconds)))
                 {
                     throw new TimeoutException("Timed out while executing ble task.");
                 }
