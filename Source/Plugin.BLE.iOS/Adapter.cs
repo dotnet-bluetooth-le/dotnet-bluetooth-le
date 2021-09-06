@@ -266,6 +266,19 @@ namespace Plugin.BLE.iOS
             return nativeDevices.Select(d => new Device(this, d, _bleCentralManagerDelegate)).Cast<IDevice>().ToList();
         }
 
+        public override IReadOnlyList<IDevice> GetKnownDevicesByIds(Guid[] ids)
+        {
+            if (ids == null)
+            {
+                throw new ArgumentNullException(nameof(ids));
+            }
+
+            var nativeDevices = _centralManager.RetrievePeripheralsWithIdentifiers(
+                ids.Select(guid => new NSUuid(guid.ToString())).ToArray());
+
+            return nativeDevices.Select(d => new Device(this, d, _bleCentralManagerDelegate)).Cast<IDevice>().ToList();
+        }
+
         private async Task WaitForState(CBCentralManagerState state, CancellationToken cancellationToken, bool configureAwait = false)
         {
             Trace.Message("Adapter: Waiting for state: " + state);

@@ -174,6 +174,12 @@ namespace Plugin.BLE.Android
             return connectedDevices.Union(bondedDevices, new DeviceComparer()).Select(d => new Device(this, d, null, 0)).Cast<IDevice>().ToList();
         }
 
+        public override IReadOnlyList<IDevice> GetKnownDevicesByIds(Guid[] ids)
+        {
+            var devices = GetSystemConnectedOrPairedDevices();
+            return devices.Where(item => ids.Contains(item.Id)).ToList();
+        }
+
         private class DeviceComparer : IEqualityComparer<BluetoothDevice>
         {
             public bool Equals(BluetoothDevice x, BluetoothDevice y)
