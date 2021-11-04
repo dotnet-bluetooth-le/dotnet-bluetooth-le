@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using CoreBluetooth;
 using Foundation;
@@ -165,7 +166,7 @@ namespace Plugin.BLE.iOS
             return task;
         }
 
-        protected override Task StartUpdatesNativeAsync()
+        protected override Task StartUpdatesNativeAsync(CancellationToken cancellationToken = default)
         {
             var exception = new Exception($"Device {Service.Device.Id} disconnected while starting updates for characteristic with {Id}.");
 
@@ -204,10 +205,11 @@ namespace Plugin.BLE.iOS
                           reject(new Exception($"Device {Service.Device.Id} disconnected while starting updates for characteristic with {Id}."));
                   }),
                   subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
-                  unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
+                  unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler, 
+                  token: cancellationToken);
         }
 
-        protected override Task StopUpdatesNativeAsync()
+        protected override Task StopUpdatesNativeAsync(CancellationToken cancellationToken = default)
         {
             var exception = new Exception($"Device {Service.Device.Id} disconnected while stopping updates for characteristic with {Id}.");
 
@@ -244,7 +246,8 @@ namespace Plugin.BLE.iOS
                         reject(exception);
                 }),
                 subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
-                unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
+                unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler,
+                token: cancellationToken);
         }
 
         private void UpdatedNotify(object sender, CBCharacteristicEventArgs e)

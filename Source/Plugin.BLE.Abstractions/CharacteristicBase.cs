@@ -102,7 +102,7 @@ namespace Plugin.BLE.Abstractions
                 CharacteristicWriteType.WithoutResponse;
         }
 
-        public Task StartUpdatesAsync()
+        public Task StartUpdatesAsync(CancellationToken cancellationToken = default)
         {
             if (!CanUpdate)
             {
@@ -110,10 +110,10 @@ namespace Plugin.BLE.Abstractions
             }
 
             Trace.Message("Characteristic.StartUpdates");
-            return StartUpdatesNativeAsync();
+            return StartUpdatesNativeAsync(cancellationToken);
         }
 
-        public Task StopUpdatesAsync()
+        public Task StopUpdatesAsync(CancellationToken cancellationToken = default)
         {
             if (!CanUpdate)
             {
@@ -137,7 +137,7 @@ namespace Plugin.BLE.Abstractions
         protected abstract Task<IReadOnlyList<IDescriptor>> GetDescriptorsNativeAsync();
         protected abstract Task<byte[]> ReadNativeAsync();
         protected abstract Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType);
-        protected abstract Task StartUpdatesNativeAsync();
-        protected abstract Task StopUpdatesNativeAsync();
+        protected abstract Task StartUpdatesNativeAsync(CancellationToken cancellationToken = default);
+        protected abstract Task StopUpdatesNativeAsync(CancellationToken cancellationToken = default);
     }
 }

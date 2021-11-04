@@ -10,6 +10,7 @@ using Plugin.BLE.Abstractions.Exceptions;
 using Plugin.BLE.Android.CallbackEventArgs;
 using Plugin.BLE.Extensions;
 using Plugin.BLE.Abstractions.Utils;
+using System.Threading;
 
 namespace Plugin.BLE.Android
 {
@@ -111,7 +112,7 @@ namespace Plugin.BLE.Android
             }
         }
 
-        protected override async Task StartUpdatesNativeAsync()
+        protected override async Task StartUpdatesNativeAsync(CancellationToken cancellationToken = default)
         {
             // wire up the characteristic value updating on the gattcallback for event forwarding
             _gattCallback.CharacteristicValueUpdated -= OnCharacteristicValueChanged;
@@ -127,20 +128,20 @@ namespace Plugin.BLE.Android
 
             if (_nativeCharacteristic.Descriptors.Count > 0)
             {
-                var descriptors = await GetDescriptorsAsync();
+                var descriptors = await GetDescriptorsAsync(cancellationToken);
                 var descriptor = descriptors.FirstOrDefault(d => d.Id.Equals(ClientCharacteristicConfigurationDescriptorId)) ??
                                             descriptors.FirstOrDefault(); // fallback just in case manufacturer forgot
 
                 // has to have one of these (either indicate or notify)
                 if (descriptor != null && Properties.HasFlag(CharacteristicPropertyType.Indicate))
                 {
-                    await descriptor.WriteAsync(BluetoothGattDescriptor.EnableIndicationValue.ToArray());
+                    await descriptor.WriteAsync(BluetoothGattDescriptor.EnableIndicationValue.ToArray(), cancellationToken);
                     Trace.Message("Descriptor set value: INDICATE");
                 }
 
                 if (descriptor != null && Properties.HasFlag(CharacteristicPropertyType.Notify))
                 {
-                    await descriptor.WriteAsync(BluetoothGattDescriptor.EnableNotificationValue.ToArray());
+                    await descriptor.WriteAsync(BluetoothGattDescriptor.EnableNotificationValue.ToArray(), cancellationToken);
                     Trace.Message("Descriptor set value: NOTIFY");
                 }
             }
@@ -152,7 +153,7 @@ namespace Plugin.BLE.Android
             Trace.Message("Characteristic.StartUpdates, successful!");
         }
 
-        protected override async Task StopUpdatesNativeAsync()
+        protected override async Task StopUpdatesNativeAsync(CancellationToken cancellationToken = default)
         {
             _gattCallback.CharacteristicValueUpdated -= OnCharacteristicValueChanged;
 
@@ -165,13 +166,13 @@ namespace Plugin.BLE.Android
 
             if (_nativeCharacteristic.Descriptors.Count > 0)
             {
-                var descriptors = await GetDescriptorsAsync();
+                var descriptors = await GetDescriptorsAsync(cancellationToken);
                 var descriptor = descriptors.FirstOrDefault(d => d.Id.Equals(ClientCharacteristicConfigurationDescriptorId)) ??
                                             descriptors.FirstOrDefault(); // fallback just in case manufacturer forgot
 
                 if (Properties.HasFlag(CharacteristicPropertyType.Notify) || Properties.HasFlag(CharacteristicPropertyType.Indicate))
                 {
-                    await descriptor.WriteAsync(BluetoothGattDescriptor.DisableNotificationValue.ToArray());
+                    await descriptor.WriteAsync(BluetoothGattDescriptor.DisableNotificationValue.ToArray(), cancellationToken);
                     Trace.Message("Descriptor set value: DISABLE_NOTIFY");
                 }
             }
