@@ -154,9 +154,36 @@ namespace Plugin.BLE.iOS
                     subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
                     unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
             }
+
+            // CBCharacteristicWriteType is an Enum; so else path is alweay WithoutResponse.
             else
             {
-                task = Task.FromResult(true);
+                if (_parentDevice.CanSendWriteWithoutResponse)
+                {
+                    task = TaskBuilder.FromEvent<bool, EventHandler, EventHandler<CBPeripheralErrorEventArgs>>(
+                    execute: () =>
+                    {
+                        if (_parentDevice.State != CBPeripheralState.Connected)
+                            throw exception;
+                    },
+                    getCompleteHandler: (complete, reject) => (sender, args) =>
+                    {
+                        complete(true);
+                    },
+                    subscribeComplete: handler => _parentDevice.IsReadyToSendWriteWithoutResponse += handler,
+                    unsubscribeComplete: handler => _parentDevice.IsReadyToSendWriteWithoutResponse -= handler,
+                    getRejectHandler: reject => ((sender, args) =>
+                    {
+                        if (args.Peripheral.Identifier == _parentDevice.Identifier)
+                            reject(exception);
+                    }),
+                    subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
+                    unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
+
+                }
+                else {
+                    task = Task.FromResult(true);
+                }
             }
 
             var nsdata = NSData.FromArray(data);
