@@ -25,7 +25,7 @@ void BuildProject(string pathPrefix, string projectName, string targetSubDir)
     MSBuild(project, settings => settings
             .SetConfiguration("Release")
             .WithTarget("Build")
-            .UseToolVersion(MSBuildToolVersion.VS2019)
+            .UseToolVersion(MSBuildToolVersion.VS2022)
             .SetMSBuildPlatform(MSBuildPlatform.x86)
             .WithProperty("OutDir", outputDir.FullPath));
 }
