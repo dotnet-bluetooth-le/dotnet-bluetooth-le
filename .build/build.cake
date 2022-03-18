@@ -1,5 +1,5 @@
-#addin nuget:?package=Cake.Git&version=1.0.1
-#addin nuget:?package=Cake.FileHelpers&version=4.0.0
+#addin nuget:?package=Cake.Git&version=2.0.0
+#addin nuget:?package=Cake.FileHelpers&version=5.0.0
 
 using Path = System.IO.Path;
 using System.Xml.Linq;
@@ -25,7 +25,7 @@ void BuildProject(string pathPrefix, string projectName, string targetSubDir)
     MSBuild(project, settings => settings
             .SetConfiguration("Release")
             .WithTarget("Build")
-            .UseToolVersion(MSBuildToolVersion.VS2019)
+            .UseToolVersion(MSBuildToolVersion.VS2022)
             .SetMSBuildPlatform(MSBuildPlatform.x86)
             .WithProperty("OutDir", outputDir.FullPath));
 }
