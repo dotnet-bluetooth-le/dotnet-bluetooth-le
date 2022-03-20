@@ -120,7 +120,7 @@ namespace Plugin.BLE.Abstractions
                 throw new InvalidOperationException("Characteristic does not support update.");
             }
 
-            return StopUpdatesNativeAsync();
+            return StopUpdatesNativeAsync(cancellationToken);
         }
 
         public async Task<IReadOnlyList<IDescriptor>> GetDescriptorsAsync(CancellationToken cancellationToken = default)
