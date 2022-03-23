@@ -5,7 +5,6 @@ using Acr.UserDialogs;
 using MvvmCross;
 using MvvmCross.Forms.Platforms.Android.Core;
 using MvvmCross.IoC;
-using Plugin.Permissions;
 using Plugin.Settings;
 
 namespace BLE.Client.Droid
@@ -23,7 +22,6 @@ namespace BLE.Client.Droid
 
             Mvx.IoCProvider.RegisterSingleton(() => UserDialogs.Instance);
             Mvx.IoCProvider.RegisterSingleton(() => CrossSettings.Current);
-            Mvx.IoCProvider.RegisterSingleton(() => CrossPermissions.Current);
 
             return result;
         }
