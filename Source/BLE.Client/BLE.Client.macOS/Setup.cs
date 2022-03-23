@@ -8,7 +8,6 @@ using Acr.UserDialogs;
 using MvvmCross;
 using MvvmCross.Forms.Platforms.Mac.Core;
 using MvvmCross.IoC;
-using Plugin.Permissions.Abstractions;
 using Plugin.Settings;
 using Xamarin.Forms;
 
@@ -23,7 +22,6 @@ namespace BLE.Client.macOS
             // Mvx.IoCProvider.RegisterSingleton(() => CrossBluetoothLE.Current);
             // Mvx.IoCProvider.RegisterSingleton(() => CrossBluetoothLE.Current.Adapter);
             Mvx.IoCProvider.RegisterSingleton(() => CrossSettings.Current);
-            Mvx.IoCProvider.RegisterSingleton<IPermissions>(() => new PermissionMac());
             Mvx.IoCProvider.RegisterSingleton<IUserDialogs>(() => new UserDialogsMac());
 
             return result;
@@ -40,39 +38,6 @@ namespace BLE.Client.macOS
             return new List<Assembly>(base.GetViewAssemblies().Union(new[] { typeof(MvvmCross.Plugins.BLE.iOS.Plugin).GetTypeInfo().Assembly }));
         }
         */
-
-        private class PermissionMac : IPermissions
-        {
-            public Task<PermissionStatus> CheckPermissionStatusAsync(Permission permission)
-            {
-                return Task.FromResult(PermissionStatus.Granted);
-            }
-
-            public Task<PermissionStatus> CheckPermissionStatusAsync<T>() where T : Plugin.Permissions.BasePermission, new()
-            {
-                return Task.FromResult(PermissionStatus.Granted);
-            }
-
-            public bool OpenAppSettings()
-            {
-                return true;
-            }
-
-            public Task<Dictionary<Permission, PermissionStatus>> RequestPermissionsAsync(params Permission[] permissions)
-            {
-                return Task.FromResult(permissions.ToDictionary(p => p, p => PermissionStatus.Granted));
-            }
-
-            public Task<PermissionStatus> RequestPermissionAsync<T>() where T : Plugin.Permissions.BasePermission, new()
-            {
-                return Task.FromResult(PermissionStatus.Granted);
-            }
-
-            public Task<bool> ShouldShowRequestPermissionRationaleAsync(Permission permission)
-            {
-                return Task.FromResult(true);
-            }
-        }
 
         private class UserDialogsMac : IUserDialogs
         {

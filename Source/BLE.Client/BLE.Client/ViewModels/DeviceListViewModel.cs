@@ -11,11 +11,11 @@ using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Extensions;
-using Plugin.Permissions.Abstractions;
 using Plugin.Settings.Abstractions;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace BLE.Client.ViewModels
@@ -85,11 +85,8 @@ namespace BLE.Client.ViewModels
             RaisePropertyChanged(() => IsRefreshing);
         }, () => _cancellationTokenSource != null);
 
-        readonly IPermissions _permissions;
-
-        public DeviceListViewModel(IBluetoothLE bluetoothLe, IAdapter adapter, IUserDialogs userDialogs, ISettings settings, IPermissions permissions) : base(adapter)
+        public DeviceListViewModel(IBluetoothLE bluetoothLe, IAdapter adapter, IUserDialogs userDialogs, ISettings settings) : base(adapter)
         {
-            _permissions = permissions;
             _bluetoothLe = bluetoothLe;
             _userDialogs = userDialogs;
             _settings = settings;
@@ -225,15 +222,15 @@ namespace BLE.Client.ViewModels
         {
             if (Xamarin.Forms.Device.RuntimePlatform == Device.Android)
             {
-                var status = await _permissions.CheckPermissionStatusAsync<Plugin.Permissions.LocationPermission>();
+                var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
                 if (status != PermissionStatus.Granted)
                 {
-                    var permissionResult = await _permissions.RequestPermissionAsync<Plugin.Permissions.LocationPermission>();
+                    var permissionResult = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
 
                     if (permissionResult != PermissionStatus.Granted)
                     {
                         await _userDialogs.AlertAsync("Permission denied. Not scanning.");
-                        _permissions.OpenAppSettings();
+                        AppInfo.ShowSettingsUI();
                         return;
                     }
                 }
