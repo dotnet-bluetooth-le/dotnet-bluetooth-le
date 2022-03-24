@@ -8,7 +8,6 @@ using Acr.UserDialogs;
 using MvvmCross;
 using MvvmCross.Forms.Platforms.Mac.Core;
 using MvvmCross.IoC;
-using Plugin.Settings;
 using Xamarin.Forms;
 
 namespace BLE.Client.macOS
@@ -21,7 +20,6 @@ namespace BLE.Client.macOS
 
             // Mvx.IoCProvider.RegisterSingleton(() => CrossBluetoothLE.Current);
             // Mvx.IoCProvider.RegisterSingleton(() => CrossBluetoothLE.Current.Adapter);
-            Mvx.IoCProvider.RegisterSingleton(() => CrossSettings.Current);
             Mvx.IoCProvider.RegisterSingleton<IUserDialogs>(() => new UserDialogsMac());
 
             return result;

@@ -11,7 +11,6 @@ using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Extensions;
-using Plugin.Settings.Abstractions;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross;
@@ -24,7 +23,6 @@ namespace BLE.Client.ViewModels
     {
         private readonly IBluetoothLE _bluetoothLe;
         private readonly IUserDialogs _userDialogs;
-        private readonly ISettings _settings;
         private Guid _previousGuid;
         private CancellationTokenSource _cancellationTokenSource;
 
@@ -34,7 +32,7 @@ namespace BLE.Client.ViewModels
             set
             {
                 _previousGuid = value;
-                _settings.AddOrUpdateValue("lastguid", _previousGuid.ToString());
+                Preferences.Set("lastguid", _previousGuid.ToString());
                 RaisePropertyChanged();
                 RaisePropertyChanged(() => ConnectToPreviousCommand);
             }
@@ -85,11 +83,10 @@ namespace BLE.Client.ViewModels
             RaisePropertyChanged(() => IsRefreshing);
         }, () => _cancellationTokenSource != null);
 
-        public DeviceListViewModel(IBluetoothLE bluetoothLe, IAdapter adapter, IUserDialogs userDialogs, ISettings settings) : base(adapter)
+        public DeviceListViewModel(IBluetoothLE bluetoothLe, IAdapter adapter, IUserDialogs userDialogs) : base(adapter)
         {
             _bluetoothLe = bluetoothLe;
             _userDialogs = userDialogs;
-            _settings = settings;
             // quick and dirty :>
             _bluetoothLe.StateChanged += OnStateChanged;
             Adapter.DeviceDiscovered += OnDeviceDiscovered;
@@ -104,7 +101,7 @@ namespace BLE.Client.ViewModels
         {
             return Task.Run(() =>
             {
-                var guidString = _settings.GetValueOrDefault("lastguid", string.Empty);
+                var guidString = Preferences.Get("lastguid", string.Empty);
                 PreviousGuid = !string.IsNullOrEmpty(guidString) ? Guid.Parse(guidString) : Guid.Empty;
             });
         }
