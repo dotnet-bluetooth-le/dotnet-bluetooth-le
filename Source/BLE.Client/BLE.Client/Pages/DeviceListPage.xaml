@@ -97,11 +97,11 @@
         <Button Grid.Row="0" Text="Filtered Scan" Command="{Binding RefreshFilteredScanCommand}" />
         
         <Grid VerticalOptions="Center" Grid.Row="1" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
-            <Label VerticalTextAlignment="End" Text="Manufacturer Ids (Comma Separate)" Grid.Row="0"/>
+            <Label VerticalTextAlignment="End" Text="Manufacturer Ids (Comma Separated)" Grid.Row="0"/>
             <Entry BackgroundColor="Beige" Text="{Binding ManufacturerIds}" Grid.Row="1"/>
-            <Label VerticalTextAlignment="End" Text="Device Addresses (Comma Separate)" Grid.Row="2"/>
+            <Label VerticalTextAlignment="End" Text="Device Addresses (Comma Separated, format 01:02:03:AB:CD:EF)" Grid.Row="2"/>
             <Entry BackgroundColor="Beige" Text="{Binding DeviceAddresses}" Grid.Row="3"/>
-            <Label VerticalTextAlignment="End" Text="Service UUIDs (Comma Separate)" Grid.Row="4"/>
+            <Label VerticalTextAlignment="End" Text="Service UUIDs (Comma Separated)" Grid.Row="4"/>
             <Entry BackgroundColor="Beige" Text="{Binding ServiceUUIDs}" Grid.Row="5"/>
         </Grid>
         <Label Text="Scan Results" FontAttributes="Bold" Grid.Row="2"/>

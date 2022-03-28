@@ -86,9 +86,9 @@ namespace Plugin.BLE.Android
 
             if (hasFilter)
             {
+                scanFilters = new List<ScanFilter>();
                 if (scanFilterOptions.HasServiceIds)
                 {
-                    scanFilters = new List<ScanFilter>();
                     foreach (var serviceUuid in scanFilterOptions.ServiceUuids)
                     {
                         var sfb = new ScanFilter.Builder();
@@ -98,7 +98,6 @@ namespace Plugin.BLE.Android
                 }
                 if (scanFilterOptions.HasManufacturerIds)
                 {
-                    scanFilters = new List<ScanFilter>();
                     foreach (var manufacturerId in scanFilterOptions.ManufacturerIds)
                     {
                         var sfb = new ScanFilter.Builder();
@@ -108,12 +107,19 @@ namespace Plugin.BLE.Android
                 }
                 if (scanFilterOptions.HasDeviceAddresses)
                 {
-                    scanFilters = new List<ScanFilter>();
                     foreach (var deviceAddress in scanFilterOptions.DeviceAddresses)
                     {
-                        var sfb = new ScanFilter.Builder();
-                        sfb.SetDeviceAddress(deviceAddress);
-                        scanFilters.Add(sfb.Build());
+                        if (BluetoothAdapter.CheckBluetoothAddress(deviceAddress))
+                        {
+                            var sfb = new ScanFilter.Builder();
+                            sfb.SetDeviceAddress(deviceAddress);
+                            scanFilters.Add(sfb.Build());
+                        }
+                        else
+                        {
+                            Trace.Message($"Device address {deviceAddress} is invalid. The correct format is \"01:02:03:AB:CD:EF\"");
+                        }
+               
                     }
                 }
                

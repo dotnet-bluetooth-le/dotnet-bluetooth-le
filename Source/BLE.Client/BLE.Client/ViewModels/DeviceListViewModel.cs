@@ -326,7 +326,7 @@ namespace BLE.Client.ViewModels
 
             var scanFilterOptions = new ScanFilterOptions();
 
-            if (ManufacturerIds != null)
+            if (!string.IsNullOrWhiteSpace(ManufacturerIds))
             {
                 var manuIds = ManufacturerIds.Split(',');
                 var list = new List<int>();
@@ -340,12 +340,12 @@ namespace BLE.Client.ViewModels
 
                 scanFilterOptions.ManufacturerIds = list.ToArray();
             }
-            if (DeviceAddresses != null)
+            if (!string.IsNullOrWhiteSpace(DeviceAddresses))
             {
                 var ids = DeviceAddresses.Split(',');
                 scanFilterOptions.DeviceAddresses = ids.ToArray();
             }
-            if (ServiceUUIDs != null)
+            if (!string.IsNullOrWhiteSpace(ServiceUUIDs))
             {
                 var ids = ServiceUUIDs.Split(',');
                 var list = new List<Guid>();
@@ -354,7 +354,7 @@ namespace BLE.Client.ViewModels
                     if (Guid.TryParse(id, out var serviceUUID))
                     {
                         list.Add(serviceUUID);
-                    }   
+                    } 
                 }
                 scanFilterOptions.ServiceUuids = list.ToArray();
             }
