@@ -144,7 +144,7 @@ namespace Plugin.BLE.iOS
                 };
         }
 
-        protected override async Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
+        protected override async Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
         {
             // Wait for the PoweredOn state
             await WaitForState(CBCentralManagerState.PoweredOn, scanCancellationToken).ConfigureAwait(false);
@@ -155,9 +155,9 @@ namespace Plugin.BLE.iOS
             Trace.Message("Adapter: Starting a scan for devices.");
 
             CBUUID[] serviceCbuuids = null;
-            if (serviceUuids != null && serviceUuids.Any())
+            if (scanFilterOptions != null && scanFilterOptions.HasServiceIds)
             {
-                serviceCbuuids = serviceUuids.Select(u => CBUUID.FromString(u.ToString())).ToArray();
+                serviceCbuuids = scanFilterOptions.ServiceUuids.Select(u => CBUUID.FromString(u.ToString())).ToArray();
                 Trace.Message("Adapter: Scanning for " + serviceCbuuids.First());
             }
 

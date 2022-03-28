@@ -38,7 +38,14 @@ namespace BLE.Client.ViewModels
             }
         }
 
-        public MvxCommand RefreshCommand => new MvxCommand(() => TryStartScanning(true));
+        public MvxCommand RefreshCommand => new MvxCommand(() => TryStartScanning(refresh:true,filter:false));
+        public MvxCommand RefreshFilteredScanCommand => new MvxCommand(() => TryStartScanning(refresh:true,filter:true));
+
+        public MvxCommand EmptyDevicesCommand => new MvxCommand(() =>
+        {
+            Devices.Clear();
+        });
+
         public MvxCommand<DeviceListItemViewModel> DisconnectCommand => new MvxCommand<DeviceListItemViewModel>(DisconnectDevice);
 
         public MvxCommand<DeviceListItemViewModel> ConnectDisposeCommand => new MvxCommand<DeviceListItemViewModel>(ConnectAndDisposeDevice);
@@ -62,6 +69,10 @@ namespace BLE.Client.ViewModels
         }
 
         bool _useAutoConnect;
+        private string _manufacturerIds;
+        private string _serviceUUIDs;
+        private string _deviceAddresses;
+
         public bool UseAutoConnect
         {
             get => _useAutoConnect;
@@ -76,11 +87,51 @@ namespace BLE.Client.ViewModels
             }
         }
 
-        public MvxCommand StopScanCommand => new MvxCommand(() =>
+        public string ManufacturerIds
+        {
+            get => _manufacturerIds;
+            set
+            {
+                if (_manufacturerIds == value)
+                    return;
+
+                _manufacturerIds = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string ServiceUUIDs
+        {
+            get => _serviceUUIDs;
+            set
+            {
+                if (_serviceUUIDs == value)
+                    return;
+
+                _serviceUUIDs = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string DeviceAddresses
+        {
+            get => _deviceAddresses;
+            set
+            {
+                if (_deviceAddresses == value)
+                    return;
+
+                _deviceAddresses = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public MvxAsyncCommand StopScanCommand => new MvxAsyncCommand(async () =>
         {
             _cancellationTokenSource.Cancel();
             CleanupCancellationToken();
-            RaisePropertyChanged(() => IsRefreshing);
+            await Task.Delay(50); // Give time for "IsRefreshing" to update, otherwise the loading indicator gets stuck
+            await RaisePropertyChanged(() => IsRefreshing);
         }, () => _cancellationTokenSource != null);
 
         public DeviceListViewModel(IBluetoothLE bluetoothLe, IAdapter adapter, IUserDialogs userDialogs) : base(adapter)
@@ -215,7 +266,11 @@ namespace BLE.Client.ViewModels
             RaisePropertyChanged(() => IsRefreshing);
         }
 
-        private async void  TryStartScanning(bool refresh = false)
+        /// <summary>
+        /// todo - Android 12 needs specific bluetooth scanning permissions, and not necessarily location
+        /// </summary>
+        /// <returns></returns>
+        private async Task<bool> HasCorrectPermissions()
         {
             if (Xamarin.Forms.Device.RuntimePlatform == Device.Android)
             {
@@ -228,24 +283,90 @@ namespace BLE.Client.ViewModels
                     {
                         await _userDialogs.AlertAsync("Permission denied. Not scanning.");
                         AppInfo.ShowSettingsUI();
-                        return;
+                        return false;
                     }
                 }
             }
 
+            return true;
+        }
+
+        private async void TryStartScanning(bool filter = false, bool refresh = false)
+        {
+            if (!await HasCorrectPermissions())
+            {
+                return;
+            }
+
             if (IsStateOn && (refresh || !Devices.Any()) && !IsRefreshing)
             {
-                ScanForDevices();
+                if (filter)
+                {
+                    await ScanForDevicesFiltered();
+                }
+                else
+                {
+                    await ScanForDevices();
+                }
+
             }
         }
 
-        private async void ScanForDevices()
+        private async Task ScanForDevicesFiltered()
         {
             Devices.Clear();
 
+            await UpdateConnectedDevices();
+
+            _cancellationTokenSource = new CancellationTokenSource();
+            await RaisePropertyChanged(() => StopScanCommand);
+
+            await RaisePropertyChanged(() => IsRefreshing);
+            Adapter.ScanMode = ScanMode.LowLatency;
+
+            var scanFilterOptions = new ScanFilterOptions();
+
+            if (ManufacturerIds != null)
+            {
+                var manuIds = ManufacturerIds.Split(',');
+                var list = new List<int>();
+                foreach (var id in manuIds)
+                {
+                    if (int.TryParse(id, out var manuId))
+                    {
+                        list.Add(manuId);
+                    }   
+                }
+
+                scanFilterOptions.ManufacturerIds = list.ToArray();
+            }
+            if (DeviceAddresses != null)
+            {
+                var ids = DeviceAddresses.Split(',');
+                scanFilterOptions.DeviceAddresses = ids.ToArray();
+            }
+            if (ServiceUUIDs != null)
+            {
+                var ids = ServiceUUIDs.Split(',');
+                var list = new List<Guid>();
+                foreach (var id in ids)
+                {
+                    if (Guid.TryParse(id, out var serviceUUID))
+                    {
+                        list.Add(serviceUUID);
+                    }   
+                }
+                scanFilterOptions.ServiceUuids = list.ToArray();
+            }
+
+            await Adapter.StartScanningForDevicesAsync(scanFilterOptions,_cancellationTokenSource.Token);
+        }
+
+        private async Task UpdateConnectedDevices()
+        {
             foreach (var connectedDevice in Adapter.ConnectedDevices)
             {
-                //update rssi for already connected evices (so tha 0 is not shown in the list)
+                //update rssi for already connected devices (so tha 0 is not shown in the list)
                 try
                 {
                     await connectedDevice.UpdateRssiAsync();
@@ -258,6 +379,13 @@ namespace BLE.Client.ViewModels
 
                 AddOrUpdateDevice(connectedDevice);
             }
+        }
+
+        private async Task ScanForDevices()
+        {
+            Devices.Clear();
+
+            await UpdateConnectedDevices();
 
             _cancellationTokenSource = new CancellationTokenSource();
             await RaisePropertyChanged(() => StopScanCommand);

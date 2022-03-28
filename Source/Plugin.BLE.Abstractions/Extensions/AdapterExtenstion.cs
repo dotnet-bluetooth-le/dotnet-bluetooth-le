@@ -31,7 +31,19 @@ namespace Plugin.BLE.Abstractions.Extensions
         /// <returns>A task that represents the asynchronous read operation. The Task will finish after the scan has ended.</returns>
         public static Task StartScanningForDevicesAsync(this IAdapter adapter, Guid[] serviceUuids, CancellationToken cancellationToken = default)
         {
-            return adapter.StartScanningForDevicesAsync(serviceUuids, null, cancellationToken: cancellationToken);
+            return adapter.StartScanningForDevicesAsync(new ScanFilterOptions(){ServiceUuids = serviceUuids}, null, cancellationToken: cancellationToken);
+        }
+
+        /// <summary>
+        /// Starts scanning for BLE devices that match the provided <paramref name="scanFilterOptions"/>.
+        /// </summary>
+        /// <param name="adapter">Target adapter.</param>
+        /// <param name="scanFilterOptions">Scan Filter Options for native level filtering. Some options are platform specific, see comments.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
+        /// <returns>A task that represents the asynchronous read operation. The Task will finish after the scan has ended.</returns>
+        public static Task StartScanningForDevicesAsync(this IAdapter adapter, ScanFilterOptions scanFilterOptions, CancellationToken cancellationToken = default)
+        {
+            return adapter.StartScanningForDevicesAsync(scanFilterOptions, null, cancellationToken: cancellationToken);
         }
 
         /// <summary>

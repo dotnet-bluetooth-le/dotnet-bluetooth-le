@@ -69,8 +69,8 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Starts scanning for BLE devices that fulfill the <paramref name="deviceFilter"/>.
         /// DeviceDiscovered will only be called, if <paramref name="deviceFilter"/> returns <c>true</c> for the discovered device.
         /// </summary>
-        /// <param name="serviceUuids">Requested service Ids. The default is null.</param>
-        /// <param name="deviceFilter">Function that filters the devices. The default is a function that returns true.</param>
+        /// <param name="scanFilterOptions">Options to pass to the native BLE scan filter, which can improve scan performance.</param>
+        /// <param name="deviceFilter">Function that filters the devices returned by the scan. The default is a function that returns true.</param>
         /// <param name="allowDuplicatesKey"> iOS only: If true, filtering is disabled and a discovery event is generated each time the central receives an advertising packet from the peripheral. 
         /// Disabling this filtering can have an adverse effect on battery life and should be used only if necessary.
         /// If false, multiple discoveries of the same peripheral are coalesced into a single discovery event. 
@@ -78,7 +78,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// For android, key is ignored.</param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
         /// <returns>A task that represents the asynchronous read operation. The Task will finish after the scan has ended.</returns>
-        Task StartScanningForDevicesAsync(Guid[] serviceUuids = null, Func<IDevice, bool> deviceFilter = null, bool allowDuplicatesKey = false, CancellationToken cancellationToken = default);
+        Task StartScanningForDevicesAsync(ScanFilterOptions scanFilterOptions = null, Func<IDevice, bool> deviceFilter = null, bool allowDuplicatesKey = false, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Stops scanning for BLE devices.

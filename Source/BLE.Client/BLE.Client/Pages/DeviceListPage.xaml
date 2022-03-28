@@ -87,7 +87,56 @@
 
       </Grid>
     </ContentPage>
-    <ContentPage Title="System devices">
+        <ContentPage Title="Filtered Scan">
+ <Grid RowDefinitions="Auto,Auto,*,Auto,Auto,Auto,Auto">
+
+        <StackLayout BackgroundColor="#FF6969" Padding="10" IsVisible="{Binding IsStateOn, Converter={StaticResource InverseBoolean}}">
+          <Label Text="{Binding StateText}" FontSize="18" HorizontalTextAlignment="Center"></Label>
+        </StackLayout>
+
+        <Button Grid.Row="0" Text="Filtered Scan" Command="{Binding RefreshFilteredScanCommand}" />
+        
+        <Grid VerticalOptions="Center" Grid.Row="1" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
+            <Label VerticalTextAlignment="End" Text="Manufacturer Ids (Comma Separate)" Grid.Row="0"/>
+            <Entry BackgroundColor="Beige" Text="{Binding ManufacturerIds}" Grid.Row="1"/>
+            <Label VerticalTextAlignment="End" Text="Device Addresses (Comma Separate)" Grid.Row="2"/>
+            <Entry BackgroundColor="Beige" Text="{Binding DeviceAddresses}" Grid.Row="3"/>
+            <Label VerticalTextAlignment="End" Text="Service UUIDs (Comma Separate)" Grid.Row="4"/>
+            <Entry BackgroundColor="Beige" Text="{Binding ServiceUUIDs}" Grid.Row="5"/>
+        </Grid>
+        <Label Text="Scan Results" FontAttributes="Bold" Grid.Row="2"/>
+        <ListView Grid.Row="2" ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
+                 IsPullToRefreshEnabled="True"
+                 RefreshCommand="{Binding RefreshCommand}"
+                 IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+                 RowHeight="80"
+                 ItemTemplate="{StaticResource DeviceItemTemplate}">
+        </ListView>
+
+        <Label Grid.Row="3" Text="{Binding PreviousGuid, StringFormat='GUID {0}'}" FontSize="Small" TextColor="Gray" VerticalTextAlignment="End"/>
+        <StackLayout Grid.Row="4" Orientation="Horizontal" HorizontalOptions="Fill">
+            <StackLayout.IsVisible>
+                <OnPlatform x:TypeArguments="x:Boolean" iOS="false" Android="true" />
+            </StackLayout.IsVisible>
+            <Label Text="Use Android AutoConnect" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+            <Switch IsToggled="{Binding UseAutoConnect}" HorizontalOptions="End"></Switch>
+        </StackLayout>
+       
+        <StackLayout Grid.Row="6" Orientation="Horizontal">
+          <Button Text="Connect to previous" Command="{Binding ConnectToPreviousCommand}" HorizontalOptions="FillAndExpand"/>
+          <Button Text="Stop Scan" Command="{Binding StopScanCommand}" HorizontalOptions="End"/>
+          <Button Text="Reset" Command="{Binding EmptyDevicesCommand}" HorizontalOptions="End"/>
+          <ActivityIndicator IsRunning="{Binding IsRefreshing}"
+                             IsVisible="{Binding IsRefreshing}"
+                             HeightRequest="24"
+                             WidthRequest="24"
+                             VerticalOptions="Center"
+                             HorizontalOptions="End"/>
+        </StackLayout>
+
+      </Grid>
+        </ContentPage>
+        <ContentPage Title="System devices">
        <ListView ItemsSource="{Binding SystemDevices}" SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
                  RowHeight="80"
                  ItemTemplate="{StaticResource DeviceItemTemplate}"/>
