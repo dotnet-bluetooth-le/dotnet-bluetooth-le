@@ -266,26 +266,14 @@ namespace BLE.Client.ViewModels
             RaisePropertyChanged(() => IsRefreshing);
         }
 
-        /// <summary>
-        /// todo - Android 12 needs specific bluetooth scanning permissions, and not necessarily location
-        /// </summary>
-        /// <returns></returns>
         private async Task<bool> HasCorrectPermissions()
         {
-            if (Xamarin.Forms.Device.RuntimePlatform == Device.Android)
+            var permissionResult = await DependencyService.Get<Helpers.IPlatformHelpers>().CheckAndRequestBluetoothPermissions();
+            if (permissionResult != PermissionStatus.Granted)
             {
-                var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
-                if (status != PermissionStatus.Granted)
-                {
-                    var permissionResult = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
-
-                    if (permissionResult != PermissionStatus.Granted)
-                    {
-                        await _userDialogs.AlertAsync("Permission denied. Not scanning.");
-                        AppInfo.ShowSettingsUI();
-                        return false;
-                    }
-                }
+                await _userDialogs.AlertAsync("Permission denied. Not scanning.");
+                AppInfo.ShowSettingsUI();
+                return false;
             }
 
             return true;
