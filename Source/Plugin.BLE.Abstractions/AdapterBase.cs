@@ -80,6 +80,12 @@ namespace Plugin.BLE.Abstractions
             }
         }
 
+        public async Task StartScanningForDevicesAsync(Guid[] serviceUuids = null, Func<IDevice, bool> deviceFilter = null, bool allowDuplicatesKey = false,
+            CancellationToken cancellationToken = default)
+        {
+            await StartScanningForDevicesAsync(new ScanFilterOptions { ServiceUuids = serviceUuids }, deviceFilter, allowDuplicatesKey, cancellationToken);
+        }
+
         public Task StopScanningForDevicesAsync()
         {
             if (_scanCancellationTokenSource != null && !_scanCancellationTokenSource.IsCancellationRequested)

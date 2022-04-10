@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -13,7 +12,6 @@ using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Extensions;
 using Object = Java.Lang.Object;
 using Trace = Plugin.BLE.Abstractions.Trace;
-using Android.App;
 
 namespace Plugin.BLE.Android
 {
