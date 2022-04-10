@@ -94,6 +94,15 @@ namespace Plugin.BLE.Android
                         scanFilters.Add(sfb.Build());
                     }
                 }
+                if (scanFilterOptions.HasServiceData)
+                {
+                    foreach (var serviceDataFilter in scanFilterOptions.ServiceDataFilters)
+                    {
+                        var sfb = new ScanFilter.Builder();
+                        sfb.SetServiceData(ParcelUuid.FromString(serviceDataFilter.ServiceDataUuid.ToString()), serviceDataFilter.ServiceData);
+                        scanFilters.Add(sfb.Build());
+                    }
+                }
                 if (scanFilterOptions.HasManufacturerIds)
                 {
                     foreach (var manufacturerId in scanFilterOptions.ManufacturerIds)
@@ -140,6 +149,10 @@ namespace Plugin.BLE.Android
                     if (scanFilterOptions.HasServiceIds)
                     {
                         Trace.Message($"Service UUID Scan Filters: {string.Join(", ", scanFilterOptions.ServiceUuids)}");
+                    }
+                    if (scanFilterOptions.HasServiceData)
+                    {
+                        Trace.Message($"Service Data Scan Filters: {string.Join(", ", scanFilterOptions.ServiceDataFilters.ToString())}");
                     }
                     if (scanFilterOptions.HasManufacturerIds)
                     {
