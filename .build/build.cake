@@ -83,12 +83,6 @@ Task("BuildClients")
   BuildProject("BLE.Client", "BLE.Client.macOS", Path.Combine("clients", "macOS"));
 });
 
-Task("Build")
-    .IsDependentOn("Clean")
-    .IsDependentOn("Restore")
-    .IsDependentOn("BuildLibs")
-    .Does(() => {});
-
 Task("Clean").Does (() =>
 {
     if (DirectoryExists (BuildTargetDir))
@@ -96,6 +90,46 @@ Task("Clean").Does (() =>
 
     CleanDirectories ("../**/bin");
     CleanDirectories ("../**/obj");
+});
+
+Task("Build")
+    .IsDependentOn("Clean")
+    .IsDependentOn("Restore")
+    .IsDependentOn("BuildLibs")
+    .Does(() => {});
+
+Task("BuildTests")
+    .Does(() =>
+{
+    var projects = GetFiles("../Source/Plugin.BLE.Tests/Plugin.BLE.Tests.csproj");
+    foreach(var project in projects)
+    {
+        DotNetBuild(
+            project.FullPath,
+            new DotNetBuildSettings()
+            {
+                Configuration = "Release",
+                NoRestore = true
+            });
+    }
+});
+
+Task("RunTests")
+    .IsDependentOn("BuildTests")
+    .Does(() =>
+{
+    var projects = GetFiles("../Source/Plugin.BLE.Tests/Plugin.BLE.Tests.csproj");
+    foreach(var project in projects)
+    {
+        DotNetTest(
+            project.FullPath,
+            new DotNetTestSettings()
+            {
+                Configuration = "Release",
+                NoBuild = true,
+                Loggers = { "console;verbosity=detailed" }
+            });
+    }
 });
 
 // ./build.ps1 -Target UpdateVersion -newVersion="2.0.1"
