@@ -14,6 +14,7 @@ namespace Plugin.BLE.Abstractions
         /// <summary>
         /// Android and iOS. Filter the scan by advertised service ids(s)
         /// </summary>
+        //todo add service data filtering as well as UUID
         public Guid[] ServiceUuids { get; set; } = null;
 
         /// <summary>
