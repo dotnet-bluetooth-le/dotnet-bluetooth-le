@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -13,7 +12,6 @@ using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Extensions;
 using Object = Java.Lang.Object;
 using Trace = Plugin.BLE.Abstractions.Trace;
-using Android.App;
 
 namespace Plugin.BLE.Android
 {
@@ -51,15 +49,15 @@ namespace Plugin.BLE.Android
             }
         }
 
-        protected override Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
+        protected override Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
         {
             if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
             {
-                StartScanningOld(serviceUuids);
+                StartScanningOld(scanFilterOptions?.ServiceUuids);
             }
             else
             {
-                StartScanningNew(serviceUuids);
+                StartScanningNew(scanFilterOptions);
             }
 
             return Task.FromResult(true);
@@ -79,20 +77,50 @@ namespace Plugin.BLE.Android
 #pragma warning restore 618
         }
 
-        private void StartScanningNew(Guid[] serviceUuids)
+        private void StartScanningNew(ScanFilterOptions scanFilterOptions)
         {
-            var hasFilter = serviceUuids?.Any() ?? false;
+            var hasFilter = scanFilterOptions?.HasFilter == true;
             List<ScanFilter> scanFilters = null;
 
             if (hasFilter)
             {
                 scanFilters = new List<ScanFilter>();
-                foreach (var serviceUuid in serviceUuids)
+                if (scanFilterOptions.HasServiceIds)
                 {
-                    var sfb = new ScanFilter.Builder();
-                    sfb.SetServiceUuid(ParcelUuid.FromString(serviceUuid.ToString()));
-                    scanFilters.Add(sfb.Build());
+                    foreach (var serviceUuid in scanFilterOptions.ServiceUuids)
+                    {
+                        var sfb = new ScanFilter.Builder();
+                        sfb.SetServiceUuid(ParcelUuid.FromString(serviceUuid.ToString()));
+                        scanFilters.Add(sfb.Build());
+                    }
                 }
+                if (scanFilterOptions.HasManufacturerIds)
+                {
+                    foreach (var manufacturerId in scanFilterOptions.ManufacturerIds)
+                    {
+                        var sfb = new ScanFilter.Builder();
+                        sfb.SetManufacturerData(manufacturerId,Array.Empty<byte>()); // future enhancement, add manufacturer byte data to filter
+                        scanFilters.Add(sfb.Build());
+                    }
+                }
+                if (scanFilterOptions.HasDeviceAddresses)
+                {
+                    foreach (var deviceAddress in scanFilterOptions.DeviceAddresses)
+                    {
+                        if (BluetoothAdapter.CheckBluetoothAddress(deviceAddress))
+                        {
+                            var sfb = new ScanFilter.Builder();
+                            sfb.SetDeviceAddress(deviceAddress);
+                            scanFilters.Add(sfb.Build());
+                        }
+                        else
+                        {
+                            Trace.Message($"Device address {deviceAddress} is invalid. The correct format is \"01:02:03:AB:CD:EF\"");
+                        }
+               
+                    }
+                }
+               
             }
 
             var ssb = new ScanSettings.Builder();
@@ -109,7 +137,19 @@ namespace Plugin.BLE.Android
                 Trace.Message($"Adapter >=21: Starting a scan for devices. ScanMode: {ScanMode}");
                 if (hasFilter)
                 {
-                    Trace.Message($"ScanFilters: {string.Join(", ", serviceUuids)}");
+                    if (scanFilterOptions.HasServiceIds)
+                    {
+                        Trace.Message($"Service UUID Scan Filters: {string.Join(", ", scanFilterOptions.ServiceUuids)}");
+                    }
+                    if (scanFilterOptions.HasManufacturerIds)
+                    {
+                        Trace.Message($"Manufacturer Id Scan Filters: {string.Join(", ", scanFilterOptions.ManufacturerIds)}");
+                    }
+                    if (scanFilterOptions.HasDeviceAddresses)
+                    {
+                        Trace.Message($"Device Address Scan Filters: {string.Join(", ", scanFilterOptions.DeviceAddresses)}");
+                    }
+                    
                 }
                 _bluetoothAdapter.BluetoothLeScanner.StartScan(scanFilters, ssb.Build(), _api21ScanCallback);
             }
