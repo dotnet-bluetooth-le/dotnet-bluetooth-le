@@ -42,6 +42,16 @@ jobs:
       with:
         script-path: .build/build.cake
         target: BuildClients
+    - name: Builds Tests
+      uses: cake-build/cake-action@v1
+      with:
+        script-path: .build/build.cake
+        target: BuildTests
+    - name: Run Tests
+      uses: cake-build/cake-action@v1
+      with:
+        script-path: .build/build.cake
+        target: RunTests
     - name: Generate nuget package (Vanilla)
       run: nuget pack .build/Plugin.BLE.nuspec -Version $(git describe)
     - name: Generate nuget package (MvvmCross)
