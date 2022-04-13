@@ -9,7 +9,7 @@ using Plugin.BLE.Abstractions.Utils;
 
 namespace Plugin.BLE.Abstractions.Extensions
 {
-    public static class AdapterExtenstion
+    public static class AdapterExtension
     {
         /// <summary>
         /// Starts scanning for BLE devices.
