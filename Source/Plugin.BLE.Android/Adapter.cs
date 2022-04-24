@@ -105,10 +105,10 @@ namespace Plugin.BLE.Android
                 }
                 if (scanFilterOptions.HasManufacturerIds)
                 {
-                    foreach (var manufacturerId in scanFilterOptions.ManufacturerIds)
+                    foreach (var manufacturerDataFilter in scanFilterOptions.ManufacturerDataFilters)
                     {
                         var sfb = new ScanFilter.Builder();
-                        sfb.SetManufacturerData(manufacturerId,Array.Empty<byte>()); // future enhancement, add manufacturer byte data to filter
+                        sfb.SetManufacturerData(manufacturerDataFilter.ManufacturerId, manufacturerDataFilter.ManufacturerData);
                         scanFilters.Add(sfb.Build());
                     }
                 }
@@ -156,7 +156,7 @@ namespace Plugin.BLE.Android
                     }
                     if (scanFilterOptions.HasManufacturerIds)
                     {
-                        Trace.Message($"Manufacturer Id Scan Filters: {string.Join(", ", scanFilterOptions.ManufacturerIds)}");
+                        Trace.Message($"Manufacturer Id Scan Filters: {string.Join(", ", scanFilterOptions.ManufacturerDataFilters.ToString())}");
                     }
                     if (scanFilterOptions.HasDeviceAddresses)
                     {
