@@ -5,36 +5,43 @@ namespace Plugin.BLE.Abstractions
 {
     /// <summary>
     /// A scan filter for service data (including UUID and actual data).
+    /// Android only.
     /// </summary>
     public class ServiceDataFilter
     {
         public Guid ServiceDataUuid { get; set; }
         public byte[] ServiceData { get; set; } = null;
+        public byte[] ServiceDataMask { get; set; } = null;
 
-        public ServiceDataFilter(Guid guid, byte[] data = null)
+        public ServiceDataFilter(Guid guid, byte[] data = null, byte[] mask = null)
         {
             ServiceDataUuid = guid;
             ServiceData = data;
+            ServiceDataMask = mask;
         }
-        public ServiceDataFilter(string uuid, byte[] data = null)
+        public ServiceDataFilter(string uuid, byte[] data = null, byte[] mask = null)
         {
             ServiceDataUuid = new Guid(uuid);
             ServiceData = data;
+            ServiceDataMask = mask;
         }
     }
 
     /// <summary>
     /// A scan filter for manufacturer data (including maufacturer ID and actual data).
+    /// Android only.
     /// </summary>
     public class ManufacturerDataFilter
     {
         public int ManufacturerId { get; set; }
         public byte[] ManufacturerData { get; set; } = null;
+        public byte[] ManufacturerDataMask { get; set; } = null;
 
-        public ManufacturerDataFilter(int mid, byte[] data = null)
+        public ManufacturerDataFilter(int mid, byte[] data = null, byte[] mask = null)
         {
             ManufacturerId = mid;
             ManufacturerData = data;
+            ManufacturerDataMask = mask;
         }
     }
 
