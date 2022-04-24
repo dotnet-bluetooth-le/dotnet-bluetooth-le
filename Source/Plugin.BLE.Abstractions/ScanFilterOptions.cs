@@ -71,12 +71,17 @@ namespace Plugin.BLE.Abstractions
         /// </summary>
         public ManufacturerDataFilter[] ManufacturerDataFilters { get; set; } = null;
 
-        //todo string [] DeviceNames {get; set;} = null
+        /// <summary>
+        /// Android only. Filter the scan by device name(s).
+        /// </summary>
+        public string[] DeviceNames { get; set; } = null;
 
-        public bool HasFilter => HasServiceIds || HasServiceData || HasDeviceAddresses || HasManufacturerIds;
+        public bool HasFilter => HasServiceIds || HasServiceData || HasDeviceAddresses || HasManufacturerIds || HasDeviceNames;
+
         public bool HasServiceIds => ServiceUuids?.Any() == true;
         public bool HasServiceData => ServiceDataFilters?.Any() == true;
         public bool HasDeviceAddresses => DeviceAddresses?.Any() == true;
         public bool HasManufacturerIds => ManufacturerDataFilters?.Any() == true;
+        public bool HasDeviceNames => DeviceNames?.Any() == true;
     }
 }

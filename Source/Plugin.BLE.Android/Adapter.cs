@@ -129,6 +129,15 @@ namespace Plugin.BLE.Android
                
                     }
                 }
+                if (scanFilterOptions.HasDeviceNames)
+                {
+                    foreach (var deviceName in scanFilterOptions.DeviceNames)
+                    {
+                        var sfb = new ScanFilter.Builder();
+                        sfb.SetDeviceName(deviceName);
+                        scanFilters.Add(sfb.Build());
+                    }
+                }
                
             }
 
@@ -162,7 +171,10 @@ namespace Plugin.BLE.Android
                     {
                         Trace.Message($"Device Address Scan Filters: {string.Join(", ", scanFilterOptions.DeviceAddresses)}");
                     }
-                    
+                    if (scanFilterOptions.HasDeviceNames)
+                    {
+                        Trace.Message($"Device Name Scan Filters: {string.Join(", ", scanFilterOptions.DeviceNames)}");
+                    }
                 }
                 _bluetoothAdapter.BluetoothLeScanner.StartScan(scanFilters, ssb.Build(), _api21ScanCallback);
             }
