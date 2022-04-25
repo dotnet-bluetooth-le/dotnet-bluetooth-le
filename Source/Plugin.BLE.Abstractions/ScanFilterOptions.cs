@@ -16,14 +16,11 @@ namespace Plugin.BLE.Abstractions
         public ServiceDataFilter(Guid guid, byte[] data = null, byte[] mask = null)
         {
             ServiceDataUuid = guid;
-            ServiceData = data;
+            ServiceData = data ?? Array.Empty<byte>();
             ServiceDataMask = mask;
         }
-        public ServiceDataFilter(string uuid, byte[] data = null, byte[] mask = null)
+        public ServiceDataFilter(string uuid, byte[] data = null, byte[] mask = null) : this(new Guid(uuid), data, mask)
         {
-            ServiceDataUuid = new Guid(uuid);
-            ServiceData = data;
-            ServiceDataMask = mask;
         }
     }
 
@@ -40,7 +37,7 @@ namespace Plugin.BLE.Abstractions
         public ManufacturerDataFilter(int mid, byte[] data = null, byte[] mask = null)
         {
             ManufacturerId = mid;
-            ManufacturerData = data;
+            ManufacturerData = data ?? Array.Empty<byte>();
             ManufacturerDataMask = mask;
         }
     }

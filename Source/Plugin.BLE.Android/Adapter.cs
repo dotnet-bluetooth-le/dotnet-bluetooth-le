@@ -99,7 +99,10 @@ namespace Plugin.BLE.Android
                     foreach (var serviceDataFilter in scanFilterOptions.ServiceDataFilters)
                     {
                         var sfb = new ScanFilter.Builder();
-                        sfb.SetServiceData(ParcelUuid.FromString(serviceDataFilter.ServiceDataUuid.ToString()), serviceDataFilter.ServiceData, serviceDataFilter.ServiceDataMask);
+                        if (serviceDataFilter.ServiceDataMask == null)
+                            sfb.SetServiceData(ParcelUuid.FromString(serviceDataFilter.ServiceDataUuid.ToString()), serviceDataFilter.ServiceData);
+                        else
+                            sfb.SetServiceData(ParcelUuid.FromString(serviceDataFilter.ServiceDataUuid.ToString()), serviceDataFilter.ServiceData, serviceDataFilter.ServiceDataMask);
                         scanFilters.Add(sfb.Build());
                     }
                 }
@@ -108,7 +111,10 @@ namespace Plugin.BLE.Android
                     foreach (var manufacturerDataFilter in scanFilterOptions.ManufacturerDataFilters)
                     {
                         var sfb = new ScanFilter.Builder();
-                        sfb.SetManufacturerData(manufacturerDataFilter.ManufacturerId, manufacturerDataFilter.ManufacturerData, manufacturerDataFilter.ManufacturerDataMask);
+                        if (manufacturerDataFilter.ManufacturerDataMask != null)
+                            sfb.SetManufacturerData(manufacturerDataFilter.ManufacturerId, manufacturerDataFilter.ManufacturerData);
+                        else
+                            sfb.SetManufacturerData(manufacturerDataFilter.ManufacturerId, manufacturerDataFilter.ManufacturerData, manufacturerDataFilter.ManufacturerDataMask);
                         scanFilters.Add(sfb.Build());
                     }
                 }
