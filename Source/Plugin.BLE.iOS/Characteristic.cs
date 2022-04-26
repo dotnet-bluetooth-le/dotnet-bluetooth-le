@@ -155,7 +155,7 @@ namespace Plugin.BLE.iOS
                     unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
             }
 
-            // CBCharacteristicWriteType is an Enum; so else path is alweay WithoutResponse.
+            // CBCharacteristicWriteType is an Enum; so else path is always WithoutResponse.
             else
             {
                 if (_parentDevice.CanSendWriteWithoutResponse)
