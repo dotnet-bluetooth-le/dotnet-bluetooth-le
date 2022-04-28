@@ -49,7 +49,7 @@ namespace Plugin.BLE.Abstractions
     public class ScanFilterOptions
     {
         /// <summary>
-        /// Android and iOS. Filter the scan by advertised service ids(s)
+        /// Android/iOS/MacOS. Filter the scan by advertised service ID(s).
         /// </summary>
         public Guid[] ServiceUuids { get; set; } = null;
 
