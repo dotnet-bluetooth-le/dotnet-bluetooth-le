@@ -317,16 +317,16 @@ namespace BLE.Client.ViewModels
             if (!string.IsNullOrWhiteSpace(ManufacturerIds))
             {
                 var manuIds = ManufacturerIds.Split(',');
-                var list = new List<int>();
+                var list = new List<ManufacturerDataFilter>();
                 foreach (var id in manuIds)
                 {
                     if (int.TryParse(id, out var manuId))
                     {
-                        list.Add(manuId);
+                        list.Add(new ManufacturerDataFilter(manuId));
                     }   
                 }
 
-                scanFilterOptions.ManufacturerIds = list.ToArray();
+                scanFilterOptions.ManufacturerDataFilters = list.ToArray();
             }
             if (!string.IsNullOrWhiteSpace(DeviceAddresses))
             {

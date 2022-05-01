@@ -9,7 +9,7 @@ using Plugin.BLE.Abstractions.Utils;
 
 namespace Plugin.BLE.Abstractions.Extensions
 {
-    public static class AdapterExtenstion
+    public static class AdapterExtension
     {
         /// <summary>
         /// Starts scanning for BLE devices.
@@ -19,7 +19,7 @@ namespace Plugin.BLE.Abstractions.Extensions
         /// <returns>A task that represents the asynchronous read operation. The Task will finish after the scan has ended.</returns>
         public static Task StartScanningForDevicesAsync(this IAdapter adapter, CancellationToken cancellationToken)
         {
-            return adapter.StartScanningForDevicesAsync(serviceUuids:null,cancellationToken: cancellationToken);
+            return adapter.StartScanningForDevicesAsync(scanFilterOptions: null, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Plugin.BLE.Abstractions.Extensions
         /// <returns>A task that represents the asynchronous read operation. The Task will finish after the scan has ended.</returns>
         public static Task StartScanningForDevicesAsync(this IAdapter adapter, Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken = default)
         {
-            return adapter.StartScanningForDevicesAsync(serviceUuids:null,deviceFilter: deviceFilter, cancellationToken: cancellationToken);
+            return adapter.StartScanningForDevicesAsync(scanFilterOptions: null, deviceFilter: deviceFilter, cancellationToken: cancellationToken);
         }
 
         public static Task<IDevice> DiscoverDeviceAsync(this IAdapter adapter, Guid deviceId, CancellationToken cancellationToken = default)

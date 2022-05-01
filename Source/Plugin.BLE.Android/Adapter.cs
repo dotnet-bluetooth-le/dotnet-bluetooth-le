@@ -94,12 +94,27 @@ namespace Plugin.BLE.Android
                         scanFilters.Add(sfb.Build());
                     }
                 }
-                if (scanFilterOptions.HasManufacturerIds)
+                if (scanFilterOptions.HasServiceData)
                 {
-                    foreach (var manufacturerId in scanFilterOptions.ManufacturerIds)
+                    foreach (var serviceDataFilter in scanFilterOptions.ServiceDataFilters)
                     {
                         var sfb = new ScanFilter.Builder();
-                        sfb.SetManufacturerData(manufacturerId,Array.Empty<byte>()); // future enhancement, add manufacturer byte data to filter
+                        if (serviceDataFilter.ServiceDataMask == null)
+                            sfb.SetServiceData(ParcelUuid.FromString(serviceDataFilter.ServiceDataUuid.ToString()), serviceDataFilter.ServiceData);
+                        else
+                            sfb.SetServiceData(ParcelUuid.FromString(serviceDataFilter.ServiceDataUuid.ToString()), serviceDataFilter.ServiceData, serviceDataFilter.ServiceDataMask);
+                        scanFilters.Add(sfb.Build());
+                    }
+                }
+                if (scanFilterOptions.HasManufacturerIds)
+                {
+                    foreach (var manufacturerDataFilter in scanFilterOptions.ManufacturerDataFilters)
+                    {
+                        var sfb = new ScanFilter.Builder();
+                        if (manufacturerDataFilter.ManufacturerDataMask != null)
+                            sfb.SetManufacturerData(manufacturerDataFilter.ManufacturerId, manufacturerDataFilter.ManufacturerData);
+                        else
+                            sfb.SetManufacturerData(manufacturerDataFilter.ManufacturerId, manufacturerDataFilter.ManufacturerData, manufacturerDataFilter.ManufacturerDataMask);
                         scanFilters.Add(sfb.Build());
                     }
                 }
@@ -118,6 +133,15 @@ namespace Plugin.BLE.Android
                             Trace.Message($"Device address {deviceAddress} is invalid. The correct format is \"01:02:03:AB:CD:EF\"");
                         }
                
+                    }
+                }
+                if (scanFilterOptions.HasDeviceNames)
+                {
+                    foreach (var deviceName in scanFilterOptions.DeviceNames)
+                    {
+                        var sfb = new ScanFilter.Builder();
+                        sfb.SetDeviceName(deviceName);
+                        scanFilters.Add(sfb.Build());
                     }
                 }
                
@@ -141,15 +165,22 @@ namespace Plugin.BLE.Android
                     {
                         Trace.Message($"Service UUID Scan Filters: {string.Join(", ", scanFilterOptions.ServiceUuids)}");
                     }
+                    if (scanFilterOptions.HasServiceData)
+                    {
+                        Trace.Message($"Service Data Scan Filters: {string.Join(", ", scanFilterOptions.ServiceDataFilters.ToString())}");
+                    }
                     if (scanFilterOptions.HasManufacturerIds)
                     {
-                        Trace.Message($"Manufacturer Id Scan Filters: {string.Join(", ", scanFilterOptions.ManufacturerIds)}");
+                        Trace.Message($"Manufacturer Id Scan Filters: {string.Join(", ", scanFilterOptions.ManufacturerDataFilters.ToString())}");
                     }
                     if (scanFilterOptions.HasDeviceAddresses)
                     {
                         Trace.Message($"Device Address Scan Filters: {string.Join(", ", scanFilterOptions.DeviceAddresses)}");
                     }
-                    
+                    if (scanFilterOptions.HasDeviceNames)
+                    {
+                        Trace.Message($"Device Name Scan Filters: {string.Join(", ", scanFilterOptions.DeviceNames)}");
+                    }
                 }
                 _bluetoothAdapter.BluetoothLeScanner.StartScan(scanFilters, ssb.Build(), _api21ScanCallback);
             }
