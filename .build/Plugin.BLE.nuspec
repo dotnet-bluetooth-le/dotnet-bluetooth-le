@@ -23,10 +23,25 @@
       - Merged fixes from 2.1.1
       [2.2.0-pre1]
       - UWP support
+      [2.1.3]
+      - Feature: additional scan filtering on Android, for manufacturer data, service data, device adress or device name (fixes #515)
+      - Adding unacknowledged writes to iOS (fixes #473)
+      - Add GetKnownDevicesByIds methods to get paired devices without the need of connecting to them
+      - Added cancellation token support in Characteristic.StartUpdatesAsync and StopUpdatesAsync
+      - Fix Android autoConnect flag
+      - Update sample client to Android 12 (fixes #568)
+      [2.1.2]
+      - Correctly close a gatt when a connection attempt is cancelled (fixes #484)
+      - Use NSBluetoothAlwaysUsageDescription in iOS and macOS samples (fixes #455, #498)
+      - Android: enable BT5 advertising extensions (fixes #495)
+      - Fixed cake build and updated build instructions (fixes #492)
+      - Added locking to DeviceBase.KnownServices (fixes #406)
+      - Updated Mac project to output the same filename as the other platforms (fixes #430, #491)
+      - Added iOS/Mac support for 32-bit and 16-bit Service UUIDs (fixes #445)
       [2.1.1]
-      - iOS #373, #377 Fixed trace ouptut that caused NRE.
+      - iOS #373, #377 Fixed trace output that caused NRE.
       [2.1.0]
-      - Use IReadOnlyLists for Services/ Charactersitics/ Descriptors and concurrent collections for DiscoveredDevices/ConnectedDevices
+      - Use IReadOnlyLists for Services/ Characteristics/ Descriptors and concurrent collections for DiscoveredDevices/ConnectedDevices
 Should prevent crashes like: #320
       - #54 MacOS support
       [2.1.0-pre1]

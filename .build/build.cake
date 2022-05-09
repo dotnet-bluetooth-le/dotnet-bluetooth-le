@@ -1,5 +1,5 @@
-#addin nuget:?package=Cake.Git&version=1.0.1
-#addin nuget:?package=Cake.FileHelpers&version=4.0.0
+#addin nuget:?package=Cake.Git&version=2.0.0
+#addin nuget:?package=Cake.FileHelpers&version=5.0.0
 
 using Path = System.IO.Path;
 using System.Xml.Linq;
@@ -12,20 +12,20 @@ var BuildTargetDir = MakeAbsolute(Directory("./out/lib"));
 var ProjectSources = MakeAbsolute(Directory("../Source"));
 var NuspecFiles = new [] { "Plugin.BLE.nuspec", "MvvmCross.Plugin.BLE.nuspec" };
 
-string GetProjectDir(string projectName)
+string GetProjectPath(string pathPrefix, string projectName)
 {
-    return ProjectSources.Combine(projectName).CombineWithFilePath(projectName + ".csproj").FullPath;
+    return ProjectSources.Combine(pathPrefix).Combine(projectName).CombineWithFilePath(projectName + ".csproj").FullPath;
 }
 
-void BuildProject(string projectName, string targetSubDir)
+void BuildProject(string pathPrefix, string projectName, string targetSubDir)
 {
     Information("Building {0} ...", projectName);
-    var project = GetProjectDir(projectName);
+    var project = GetProjectPath(pathPrefix, projectName);
     var outputDir = BuildTargetDir.Combine(targetSubDir);
     MSBuild(project, settings => settings
             .SetConfiguration("Release")
             .WithTarget("Build")
-            .UseToolVersion(MSBuildToolVersion.VS2019)
+            .UseToolVersion(MSBuildToolVersion.VS2022)
             .SetMSBuildPlatform(MSBuildPlatform.x86)
             .WithProperty("OutDir", outputDir.FullPath));
 }
@@ -59,23 +59,30 @@ Task("Restore")
     }
 });
 
-Task("Build")
-    .IsDependentOn("Clean")
-    .IsDependentOn("Restore")
+Task("BuildLibs")
     .Does(() =>
 {
-    BuildProject("Plugin.BLE.Abstractions", "netstandard2.0");
-    BuildProject("Plugin.BLE", "netstandard2.0");
-    BuildProject("Plugin.BLE.Android", "android");
-    BuildProject("Plugin.BLE.iOS", "ios");
-    BuildProject("Plugin.BLE.macOS", "macOS");
-    BuildProject("Plugin.BLE.UWP", "uwp");
+    BuildProject(".", "Plugin.BLE.Abstractions", "netstandard2.0");
+    BuildProject(".", "Plugin.BLE", "netstandard2.0");
+    BuildProject(".", "Plugin.BLE.Android", "android");
+    BuildProject(".", "Plugin.BLE.iOS", "ios");
+    BuildProject(".", "Plugin.BLE.macOS", "macOS");
+    BuildProject(".", "Plugin.BLE.UWP", "uwp");
 
-    BuildProject("MvvmCross.Plugins.BLE", Path.Combine("mvx", "netstandard2.0"));
-    BuildProject("MvvmCross.Plugins.BLE.Droid", Path.Combine("mvx", "android"));
-    BuildProject("MvvmCross.Plugins.BLE.iOS", Path.Combine("mvx", "ios"));
-    BuildProject("MvvmCross.Plugins.BLE.macOS", Path.Combine("mvx", "macOS"));
-    BuildProject("MvvmCross.Plugins.BLE.UWP", Path.Combine("mvx", "uwp"));
+    BuildProject(".", "MvvmCross.Plugins.BLE", Path.Combine("mvx", "netstandard2.0"));
+    BuildProject(".", "MvvmCross.Plugins.BLE.Droid", Path.Combine("mvx", "android"));
+    BuildProject(".", "MvvmCross.Plugins.BLE.iOS", Path.Combine("mvx", "ios"));
+    BuildProject(".", "MvvmCross.Plugins.BLE.macOS", Path.Combine("mvx", "macOS"));
+    BuildProject(".", "MvvmCross.Plugins.BLE.UWP", Path.Combine("mvx", "uwp"));
+});
+
+Task("BuildClients")
+    .Does(() =>
+{
+  BuildProject("BLE.Client", "BLE.Client", Path.Combine("clients", "netstandard2.0"));
+  BuildProject("BLE.Client", "BLE.Client.Droid", Path.Combine("clients", "android"));
+  BuildProject("BLE.Client", "BLE.Client.iOS", Path.Combine("clients", "ios"));
+  BuildProject("BLE.Client", "BLE.Client.macOS", Path.Combine("clients", "macOS"));
 });
 
 Task("Clean").Does (() =>
@@ -83,8 +90,48 @@ Task("Clean").Does (() =>
     if (DirectoryExists (BuildTargetDir))
         DeleteDirectory (BuildTargetDir, new DeleteDirectorySettings {Recursive = true});
 
-    CleanDirectories ("./**/bin");
-    CleanDirectories ("./**/obj");
+    CleanDirectories ("../**/bin");
+    CleanDirectories ("../**/obj");
+});
+
+Task("Build")
+    .IsDependentOn("Clean")
+    .IsDependentOn("Restore")
+    .IsDependentOn("BuildLibs")
+    .Does(() => {});
+
+Task("BuildTests")
+    .Does(() =>
+{
+    var projects = GetFiles("../Source/Plugin.BLE.Tests/Plugin.BLE.Tests.csproj");
+    foreach(var project in projects)
+    {
+        DotNetBuild(
+            project.FullPath,
+            new DotNetBuildSettings()
+            {
+                Configuration = "Release",
+                NoRestore = true
+            });
+    }
+});
+
+Task("RunTests")
+    .IsDependentOn("BuildTests")
+    .Does(() =>
+{
+    var projects = GetFiles("../Source/Plugin.BLE.Tests/Plugin.BLE.Tests.csproj");
+    foreach(var project in projects)
+    {
+        DotNetTest(
+            project.FullPath,
+            new DotNetTestSettings()
+            {
+                Configuration = "Release",
+                NoBuild = true,
+                Loggers = { "console;verbosity=detailed" }
+            });
+    }
 });
 
 // ./build.ps1 -Target UpdateVersion -newVersion="2.0.1"

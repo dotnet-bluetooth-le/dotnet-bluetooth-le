@@ -1,4 +1,5 @@
 using Foundation;
+using MvvmCross.IoC;
 using MvvmCross.Logging;
 using MvvmCross.Plugin;
 using Plugin.BLE;
@@ -17,15 +18,15 @@ namespace MvvmCross.Plugins.BLE.macOS
 
         public Plugin()
         {
-            var log = Mvx.Resolve<IMvxLog>();
+            var log = Mvx.IoCProvider.Resolve<IMvxLog>();
             Trace.TraceImplementation = log.Trace;
         }
 
         public void Load()
         {
             Trace.Message("Loading bluetooth low energy plugin");
-            Mvx.LazyConstructAndRegisterSingleton(() => CrossBluetoothLE.Current);
-            Mvx.LazyConstructAndRegisterSingleton(() => Mvx.Resolve<IBluetoothLE>().Adapter);
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IBluetoothLE>(() => CrossBluetoothLE.Current);
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IAdapter>(() => Mvx.IoCProvider.Resolve<IBluetoothLE>().Adapter);
         }
     }
 }

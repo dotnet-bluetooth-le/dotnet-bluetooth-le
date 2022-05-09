@@ -14,7 +14,7 @@ namespace Plugin.BLE.Abstractions.Utils
             return Task.FromResult<IDevice>(null);
         }
 
-        protected override Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
+        protected override Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
         {
             TraceUnavailability();
             return Task.FromResult(0);
@@ -42,6 +42,12 @@ namespace Plugin.BLE.Abstractions.Utils
         }
 
         public override IReadOnlyList<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null)
+        {
+            TraceUnavailability();
+            return new List<IDevice>();
+        }
+
+        public override IReadOnlyList<IDevice> GetKnownDevicesByIds(Guid[] ids)
         {
             TraceUnavailability();
             return new List<IDevice>();

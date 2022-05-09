@@ -49,6 +49,15 @@ Add these permissions to AndroidManifest.xml. For Marshmallow and above, please 
 <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 ```
 
+Android 12 and above may require one or more of the following additional runtime permissions, depending on which features of the library you are using (see [the android Bluetooth permissions documentation](https://developer.android.com/guide/topics/connectivity/bluetooth/permissions))
+```xml
+<uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+<uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+<uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+
+```
+
+
 Add this line to your manifest if you want to declare that your app is available to BLE-capable devices **only**:
 ```xml
 <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
@@ -159,6 +168,15 @@ ble.StateChanged += (s, e) =>
 ```csharp
 adapter.DeviceDiscovered += (s,a) => deviceList.Add(a.Device);
 await adapter.StartScanningForDevicesAsync();
+```
+
+#### Scan Filtering
+```csharp
+var scanFilterOptions = new ScanFilterOptions();
+scanFilterOptions.ServiceUuids = new [] {guid1, guid2, etc}; // cross platform filter
+scanFilterOptions.ManufacturerIds = new [] {1,2,3,etc}; // android only filter
+scanFilterOptions.DeviceAddresses = new [] {"80:6F:B0:43:8D:3B","80:6F:B0:25:C3:15",etc}; // android only filter
+await adapter.StartScanningForDevicesAsync(scanFilterOptions);
 ```
 
 ##### ScanTimeout

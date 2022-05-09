@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
@@ -53,12 +54,12 @@ namespace Plugin.BLE.Tests.Mocks
             return Task.FromResult(true);
         }
 
-        protected override Task StartUpdatesNativeAsync()
+        protected override Task StartUpdatesNativeAsync(CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        protected override Task StopUpdatesNativeAsync()
+        protected override Task StopUpdatesNativeAsync(CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }

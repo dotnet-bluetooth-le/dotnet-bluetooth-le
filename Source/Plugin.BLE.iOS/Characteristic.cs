@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using CoreBluetooth;
 using Foundation;
@@ -152,9 +153,36 @@ namespace Plugin.BLE.iOS
                     subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
                     unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
             }
+
+            // CBCharacteristicWriteType is an Enum; so else path is always WithoutResponse.
             else
             {
-                task = Task.FromResult(true);
+                if (_parentDevice.CanSendWriteWithoutResponse)
+                {
+                    task = TaskBuilder.FromEvent<bool, EventHandler, EventHandler<CBPeripheralErrorEventArgs>>(
+                    execute: () =>
+                    {
+                        if (_parentDevice.State != CBPeripheralState.Connected)
+                            throw exception;
+                    },
+                    getCompleteHandler: (complete, reject) => (sender, args) =>
+                    {
+                        complete(true);
+                    },
+                    subscribeComplete: handler => _parentDevice.IsReadyToSendWriteWithoutResponse += handler,
+                    unsubscribeComplete: handler => _parentDevice.IsReadyToSendWriteWithoutResponse -= handler,
+                    getRejectHandler: reject => ((sender, args) =>
+                    {
+                        if (args.Peripheral.Identifier == _parentDevice.Identifier)
+                            reject(exception);
+                    }),
+                    subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
+                    unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
+
+                }
+                else {
+                    task = Task.FromResult(true);
+                }
             }
 
             var nsdata = NSData.FromArray(data);
@@ -163,7 +191,7 @@ namespace Plugin.BLE.iOS
             return task;
         }
 
-        protected override Task StartUpdatesNativeAsync()
+        protected override Task StartUpdatesNativeAsync(CancellationToken cancellationToken = default)
         {
             var exception = new Exception($"Device {Service.Device.Id} disconnected while starting updates for characteristic with {Id}.");
 
@@ -202,10 +230,11 @@ namespace Plugin.BLE.iOS
                           reject(new Exception($"Device {Service.Device.Id} disconnected while starting updates for characteristic with {Id}."));
                   }),
                   subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
-                  unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
+                  unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler, 
+                  token: cancellationToken);
         }
 
-        protected override Task StopUpdatesNativeAsync()
+        protected override Task StopUpdatesNativeAsync(CancellationToken cancellationToken = default)
         {
             var exception = new Exception($"Device {Service.Device.Id} disconnected while stopping updates for characteristic with {Id}.");
 
@@ -242,7 +271,8 @@ namespace Plugin.BLE.iOS
                         reject(exception);
                 }),
                 subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
-                unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
+                unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler,
+                token: cancellationToken);
         }
 
         private void UpdatedNotify(object sender, CBCharacteristicEventArgs e)

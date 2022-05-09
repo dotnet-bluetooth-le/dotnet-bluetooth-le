@@ -35,6 +35,11 @@ namespace Plugin.BLE.Android
         /// </summary>
         private CancellationTokenRegistration _connectCancellationTokenRegistration;
 
+        /// <summary>
+        /// the connect paramaters used when connecting to this device
+        /// </summary>
+        public ConnectParameters ConnectParameters { get; private set; }
+
         public Device(Adapter adapter, BluetoothDevice nativeDevice, BluetoothGatt gatt, int rssi, byte[] advertisementData = null) : base(adapter, nativeDevice)
         {
             Update(nativeDevice, gatt);
@@ -122,6 +127,7 @@ namespace Plugin.BLE.Android
         public void Connect(ConnectParameters connectParameters, CancellationToken cancellationToken)
         {
             IsOperationRequested = true;
+            ConnectParameters = connectParameters;
 
             if (connectParameters.ForceBleTransport)
             {
@@ -192,7 +198,7 @@ namespace Plugin.BLE.Android
         }
 
         /// <summary>
-        /// CloseGatt is called by the gattCallback in case of user disconnect or a disconnect by signal loss or a connection error. 
+        /// CloseGatt is called by the gattCallback in case of user disconnect or a disconnect by signal loss or a connection error.
         /// Cleares all cached services.
         /// </summary>
         public void CloseGatt()
@@ -250,7 +256,7 @@ namespace Plugin.BLE.Android
             while (index < scanRecord.Length)
             {
                 byte length = scanRecord[index++];
-                //Done once we run out of records 
+                //Done once we run out of records
                 // 1 byte for type and length-1 bytes for data
                 if (length == 0) break;
 
