@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.Bluetooth.GenericAttributeProfile;
 using Windows.Security.Cryptography;
@@ -52,7 +53,7 @@ namespace Plugin.BLE.UWP
             return _value = readResult.GetValueOrThrowIfError();
         }
 
-        protected override async Task StartUpdatesNativeAsync()
+        protected override async Task StartUpdatesNativeAsync(CancellationToken cancellationToken = default)
         {
             NativeCharacteristic.ValueChanged -= OnCharacteristicValueChanged;
             NativeCharacteristic.ValueChanged += OnCharacteristicValueChanged;
@@ -61,7 +62,7 @@ namespace Plugin.BLE.UWP
             result.ThrowIfError();
         }
 
-        protected override async Task StopUpdatesNativeAsync()
+        protected override async Task StopUpdatesNativeAsync(CancellationToken cancellationToken = default)
         {
             NativeCharacteristic.ValueChanged -= OnCharacteristicValueChanged;
 
