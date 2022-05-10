@@ -191,5 +191,11 @@ namespace Plugin.BLE.UWP
             macBytes.CopyTo(deviceGuid, 10);
             return new Guid(deviceGuid);
         }
+
+        public override IReadOnlyList<IDevice> GetKnownDevicesByIds(Guid[] ids)
+        {
+            // TODO: implement this
+            return new List<IDevice>();
+        }
     }
 }
