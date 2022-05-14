@@ -28,7 +28,7 @@ namespace Plugin.BLE.UWP
 
         protected override Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
         {
-            var serviceUuids = scanFilterOptions.ServiceUuids;
+            var serviceUuids = scanFilterOptions?.ServiceUuids;
             var hasFilter = serviceUuids?.Any() ?? false;
 
             _bleWatcher = new BluetoothLEAdvertisementWatcher { ScanningMode = ScanMode.ToNative() };
