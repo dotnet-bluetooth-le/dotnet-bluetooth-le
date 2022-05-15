@@ -41,7 +41,7 @@ namespace Plugin.BLE.UWP
         protected override async Task<IReadOnlyList<IService>> GetServicesNativeAsync()
         {
             if (NativeDevice?.BluetoothLEDevice == null)
-                return null;
+                return new List<IService>();
 
             var result = await NativeDevice.BluetoothLEDevice.GetGattServicesAsync(BleImplementation.CacheModeGetServices);
             result?.ThrowIfError();
@@ -49,7 +49,7 @@ namespace Plugin.BLE.UWP
             return result?.Services?
                 .Select(nativeService => new Service(nativeService, this))
                 .Cast<IService>()
-                .ToList();
+                .ToList() ?? new List<IService>();
         }
 
         protected override async Task<IService> GetServiceNativeAsync(Guid id)
