@@ -68,7 +68,9 @@ namespace Plugin.BLE.Abstractions
 
                 lock (KnownServices)
                 {
-                    KnownServices.AddRange(services);
+                    if (services != null)
+                        KnownServices.AddRange(services);
+
                     return KnownServices.ToArray();
                 }
             }
