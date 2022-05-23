@@ -3,6 +3,7 @@ using Acr.UserDialogs;
 using Plugin.Permissions;
 using Plugin.Settings;
 using MvvmCross;
+using MvvmCross.IoC;
 using MvvmCross.Forms.Platforms.Uap.Core;
 using Plugin.BLE;
 using Trace = Plugin.BLE.Abstractions.Trace;
@@ -11,9 +12,9 @@ namespace BLE.Client.UWP
 {
     public class Setup : MvxFormsWindowsSetup<BleMvxApplication, BleMvxFormsApp>
     {
-        protected override void InitializeIoC()
+        protected override IMvxIoCProvider InitializeIoC()
         {
-            base.InitializeIoC();
+            var result = base.InitializeIoC();
 
             Mvx.IoCProvider.RegisterSingleton(() => UserDialogs.Instance);
             Mvx.IoCProvider.RegisterSingleton(() => CrossSettings.Current);
@@ -22,6 +23,8 @@ namespace BLE.Client.UWP
             Mvx.IoCProvider.RegisterSingleton(() => CrossBluetoothLE.Current.Adapter);
 
             Trace.TraceImplementation = (s, objects) => Debug.WriteLine(s, objects);
+
+            return result;
         }
 
     }
