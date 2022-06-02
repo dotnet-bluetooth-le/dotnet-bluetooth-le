@@ -55,8 +55,8 @@ namespace Plugin.BLE.Android
                         complete(args.Characteristic.GetValue());
                     }
                 }),
-                subscribeComplete: handler => _gattCallback.CharacteristicValueUpdated += handler,
-                unsubscribeComplete: handler => _gattCallback.CharacteristicValueUpdated -= handler,
+                subscribeComplete: handler => _gattCallback.CharacteristicValueRead += handler,
+                unsubscribeComplete: handler => _gattCallback.CharacteristicValueRead -= handler,
                 getRejectHandler: reject => ((sender, args) =>
                 {
                     reject(new Exception($"Device '{Service.Device.Id}' disconnected while reading characteristic with {Id}."));
