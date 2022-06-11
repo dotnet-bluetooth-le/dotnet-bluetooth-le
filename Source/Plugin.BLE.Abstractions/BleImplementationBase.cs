@@ -18,7 +18,7 @@ namespace Plugin.BLE.Abstractions
 
         public BluetoothState State
         {
-            get { return _state; }
+            get => _state;
             protected set
             {
                 if (_state == value)

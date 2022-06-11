@@ -48,7 +48,7 @@ namespace Plugin.BLE
 
         private BluetoothState GetState()
         {
-            return _centralManager.State.ToBluetoothState();
+            return _centralManager?.State.ToBluetoothState() ?? BluetoothState.Unavailable;
         }
 
         private CBCentralInitOptions CreateInitOptions()

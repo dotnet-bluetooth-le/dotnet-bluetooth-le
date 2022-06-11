@@ -8,7 +8,7 @@ using Plugin.BLE.Abstractions.EventArgs;
 
 namespace Plugin.BLE.Tests.Mocks
 {
-    public class CharacteristicMock : CharacteristicBase
+    public class CharacteristicMock : CharacteristicBase<object>
     {
         public class WriteOperation
         {
@@ -22,7 +22,7 @@ namespace Plugin.BLE.Tests.Mocks
             }
         }
 
-        public CharacteristicMock(IService service = null) : base(service)
+        public CharacteristicMock(IService service = null) : base(service, null)
         {
         }
 

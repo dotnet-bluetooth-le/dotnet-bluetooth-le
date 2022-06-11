@@ -1,68 +1,77 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<views:MvxTabbedPage x:TypeArguments="viewModels:DeviceListViewModel" 
-             xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-             xmlns:viewModels="clr-namespace:BLE.Client.ViewModels;assembly=BLE.Client"
-             x:Class="BLE.Client.Pages.DeviceListPage"
-             Title="Discover devices"
-             x:Name="DevicePage">
+<views:MvxTabbedPage x:TypeArguments="viewModels:DeviceListViewModel"
+                     xmlns="http://xamarin.com/schemas/2014/forms"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                     xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                     xmlns:viewModels="clr-namespace:BLE.Client.ViewModels;assembly=BLE.Client"
+                     x:Class="BLE.Client.Pages.DeviceListPage"
+                     Title="Discover devices"
+                     x:Name="DevicePage">
     <views:MvxTabbedPage.Resources>
-    <ResourceDictionary>
-     <DataTemplate x:Key="DeviceItemTemplate">
-              <ViewCell>
-                <ViewCell.ContextActions>
-                  <MenuItem Command="{Binding Path=BindingContext.DisconnectCommand, Source={x:Reference DevicePage}}"
-                            CommandParameter="{Binding .}" IsDestructive="True"
-                            Text="Disconnect"/>
-                </ViewCell.ContextActions>
-                <Grid>
-                  <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                  </Grid.ColumnDefinitions>
-                  <Grid.Triggers>
-                    <DataTrigger TargetType="Grid"
-                                 Binding="{Binding IsConnected}"
-                                 Value="true">
-                      <Setter Property="BackgroundColor" Value="#1A00FF00"></Setter>
-                    </DataTrigger>
-                  </Grid.Triggers>
-                  <StackLayout Orientation="Vertical" VerticalOptions="Center">
-                    <Label Text="{Binding Name}" FontSize="Large" />
-                    <Label Text="{Binding Id, StringFormat='{0}'}" TextColor="Gray" FontSize="Small"/>
-                  </StackLayout>
-                  <Label Grid.Column="1"
-                         Margin="10"
-                         Text="{Binding Rssi}"
-                         VerticalTextAlignment="Center"></Label>
-                </Grid>
-              </ViewCell>
+        <ResourceDictionary>
+            <DataTemplate x:Key="DeviceItemTemplate">
+                <ViewCell>
+                    <ViewCell.ContextActions>
+                        <MenuItem Command="{Binding Path=BindingContext.DisconnectCommand, Source={x:Reference DevicePage}}"
+                                  CommandParameter="{Binding .}"
+                                  IsDestructive="True"
+                                  Text="Disconnect" />
+                    </ViewCell.ContextActions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.Triggers>
+                            <DataTrigger TargetType="Grid"
+                                         Binding="{Binding IsConnected}"
+                                         Value="true">
+                                <Setter Property="BackgroundColor"
+                                        Value="#1A00FF00"></Setter>
+                            </DataTrigger>
+                        </Grid.Triggers>
+                        <StackLayout Orientation="Vertical"
+                                     VerticalOptions="Center">
+                            <Label Text="{Binding Name}"
+                                   FontSize="Large" />
+                            <Label Text="{Binding Id, StringFormat='{0}'}"
+                                   TextColor="Gray"
+                                   FontSize="Small" />
+                        </StackLayout>
+                        <Label Grid.Column="1"
+                               Margin="10"
+                               Text="{Binding Rssi}"
+                               VerticalTextAlignment="Center"></Label>
+                    </Grid>
+                </ViewCell>
             </DataTemplate>
-      </ResourceDictionary>
-  </views:MvxTabbedPage.Resources>
+        </ResourceDictionary>
+    </views:MvxTabbedPage.Resources>
     <views:MvxTabbedPage.Children>
-    <ContentPage Title="Scan for devices">
-      <Grid>
-        <Grid.RowDefinitions>
-          <RowDefinition Height="Auto"></RowDefinition>
-          <RowDefinition Height="*"></RowDefinition>
-          <RowDefinition Height="Auto"></RowDefinition>
-          <RowDefinition Height="Auto"></RowDefinition>
-          <RowDefinition Height="Auto"></RowDefinition>
-          <RowDefinition Height="Auto"></RowDefinition>
-        </Grid.RowDefinitions>
-        <StackLayout BackgroundColor="#FF6969" Padding="10" IsVisible="{Binding IsStateOn, Converter={StaticResource InverseBoolean}}">
-          <Label Text="{Binding StateText}" FontSize="18" HorizontalTextAlignment="Center"></Label>
-        </StackLayout>
+        <ContentPage Title="Scan for devices">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackLayout BackgroundColor="#FF6969"
+                             Padding="10"
+                             IsVisible="{Binding IsStateOn, Converter={StaticResource InverseBoolean}}">
+                    <Label Text="{Binding StateText}"
+                           FontSize="18"
+                           HorizontalTextAlignment="Center"></Label>
+                </StackLayout>
 
-        <ListView Grid.Row="1" ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
-                 IsPullToRefreshEnabled="True"
-                 RefreshCommand="{Binding RefreshCommand}"
-                 IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
-                 RowHeight="80"
-                 ItemTemplate="{StaticResource DeviceItemTemplate}">
-        </ListView>
+                <ListView Grid.Row="1"
+                          ItemsSource="{Binding Devices}"
+                          SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
+                          IsPullToRefreshEnabled="True"
+                          RefreshCommand="{Binding RefreshCommand}"
+                          IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+                          RowHeight="80"
+                          ItemTemplate="{StaticResource DeviceItemTemplate}">
+                </ListView>
 
 
         <Label Grid.Row="2" Text="{Binding PreviousGuid, StringFormat='GUID {0}'}" FontSize="Small" TextColor="Gray" VerticalTextAlignment="End"/>
@@ -95,7 +104,7 @@
         </StackLayout>
 
         <Button Grid.Row="0" Text="Filtered Scan" Command="{Binding RefreshFilteredScanCommand}" />
-        
+
         <Grid VerticalOptions="Center" Grid.Row="1" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
             <Label VerticalTextAlignment="End" Text="Manufacturer Ids (Comma Separated)" Grid.Row="0"/>
             <Entry BackgroundColor="Beige" Text="{Binding ManufacturerIds}" Grid.Row="1"/>
@@ -121,7 +130,7 @@
             <Label Text="Use Android AutoConnect" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
             <Switch IsToggled="{Binding UseAutoConnect}" HorizontalOptions="End"></Switch>
         </StackLayout>
-       
+
         <StackLayout Grid.Row="6" Orientation="Horizontal">
           <Button Text="Connect to previous" Command="{Binding ConnectToPreviousCommand}" HorizontalOptions="FillAndExpand"/>
           <Button Text="Stop Scan" Command="{Binding StopScanCommand}" HorizontalOptions="End"/>

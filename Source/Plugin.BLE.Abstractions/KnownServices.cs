@@ -19,7 +19,7 @@ namespace Plugin.BLE.Abstractions
             return LookupTable.ContainsKey(id) ? LookupTable[id] : new KnownService("Unknown Service", Guid.Empty);
         }
 
-        private static readonly IList<KnownService> Services = new List<KnownService>()
+        public static IReadOnlyList<KnownService> Services { get; } = new List<KnownService>
         {
             new KnownService("Alert Notification Service", Guid.ParseExact("00001811-0000-1000-8000-00805f9b34fb", "d")),
             new KnownService("Battery Service", Guid.ParseExact("0000180f-0000-1000-8000-00805f9b34fb", "d")),
@@ -54,7 +54,6 @@ namespace Plugin.BLE.Abstractions
             new KnownService("TI SensorTag Connection Control", Guid.ParseExact("f000ccc0-0451-4000-b000-000000000000", "d")),
             new KnownService("TI SensorTag OvertheAir Download", Guid.ParseExact("f000ffc0-0451-4000-b000-000000000000", "d")),
             new KnownService("TXRX_SERV_UUID RedBearLabs Biscuit Service", Guid.ParseExact("713d0000-503e-4c75-ba94-3148f18d941e", "d")),
-        };
-
+        }.AsReadOnly();
     }
 }

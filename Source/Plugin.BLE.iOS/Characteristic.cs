@@ -15,22 +15,21 @@ using Plugin.BLE.Extensions;
 
 namespace Plugin.BLE.iOS
 {
-    public class Characteristic : CharacteristicBase
+    public class Characteristic : CharacteristicBase<CBCharacteristic>
     {
-        private readonly CBCharacteristic _nativeCharacteristic;
         private readonly CBPeripheral _parentDevice;
         private readonly IBleCentralManagerDelegate _bleCentralManagerDelegate;
 
         public override event EventHandler<CharacteristicUpdatedEventArgs> ValueUpdated;
 
-        public override Guid Id => _nativeCharacteristic.UUID.GuidFromUuid();
-        public override string Uuid => _nativeCharacteristic.UUID.ToString();
+        public override Guid Id => NativeCharacteristic.UUID.GuidFromUuid();
+        public override string Uuid => NativeCharacteristic.UUID.ToString();
 
         public override byte[] Value
         {
             get
             {
-                var value = _nativeCharacteristic.Value;
+                var value = NativeCharacteristic.Value;
                 if (value == null || value.Length == 0)
                 {
                     return new byte[0];
@@ -40,12 +39,11 @@ namespace Plugin.BLE.iOS
             }
         } 
 
-        public override CharacteristicPropertyType Properties => (CharacteristicPropertyType)(int)_nativeCharacteristic.Properties;
+        public override CharacteristicPropertyType Properties => (CharacteristicPropertyType)(int)NativeCharacteristic.Properties;
 
         public Characteristic(CBCharacteristic nativeCharacteristic, CBPeripheral parentDevice, IService service, IBleCentralManagerDelegate bleCentralManagerDelegate) 
-            : base(service)
+            : base(service, nativeCharacteristic)
         {
-            _nativeCharacteristic = nativeCharacteristic;
             _parentDevice = parentDevice;
             _bleCentralManagerDelegate = bleCentralManagerDelegate;
         }
@@ -60,11 +58,11 @@ namespace Plugin.BLE.iOS
                     if (_parentDevice.State != CBPeripheralState.Connected)
                         throw exception;
 
-                    _parentDevice.DiscoverDescriptors(_nativeCharacteristic);
+                    _parentDevice.DiscoverDescriptors(NativeCharacteristic);
                 },
                 getCompleteHandler: (complete, reject) => (sender, args) =>
                 {
-                    if (args.Characteristic.UUID != _nativeCharacteristic.UUID)
+                    if (args.Characteristic.UUID != NativeCharacteristic.UUID)
                         return;
 
                     if (args.Error != null)
@@ -97,11 +95,11 @@ namespace Plugin.BLE.iOS
                         if (_parentDevice.State != CBPeripheralState.Connected)
                             throw exception;
 
-                        _parentDevice.ReadValue(_nativeCharacteristic);
+                        _parentDevice.ReadValue(NativeCharacteristic);
                     },
                     getCompleteHandler: (complete, reject) => (sender, args) =>
                     {
-                        if (args.Characteristic.UUID != _nativeCharacteristic.UUID)
+                        if (args.Characteristic.UUID != NativeCharacteristic.UUID)
                             return;
 
                         if (args.Error != null)
@@ -140,7 +138,7 @@ namespace Plugin.BLE.iOS
                     },
                     getCompleteHandler: (complete, reject) => (sender, args) =>
                     {
-                        if (args.Characteristic.UUID != _nativeCharacteristic.UUID)
+                        if (args.Characteristic.UUID != NativeCharacteristic.UUID)
                             return;
 
                         complete(args.Error == null);
@@ -188,7 +186,7 @@ namespace Plugin.BLE.iOS
             }
 
             var nsdata = NSData.FromArray(data);
-            _parentDevice.WriteValue(nsdata, _nativeCharacteristic, writeType.ToNative());
+            _parentDevice.WriteValue(nsdata, NativeCharacteristic, writeType.ToNative());
 
             return task;
         }
@@ -207,11 +205,11 @@ namespace Plugin.BLE.iOS
                       if (_parentDevice.State != CBPeripheralState.Connected)
                           throw exception;
 
-                      _parentDevice.SetNotifyValue(true, _nativeCharacteristic);
+                      _parentDevice.SetNotifyValue(true, NativeCharacteristic);
                   },
                   getCompleteHandler: (complete, reject) => (sender, args) =>
                   {
-                      if (args.Characteristic.UUID != _nativeCharacteristic.UUID)
+                      if (args.Characteristic.UUID != NativeCharacteristic.UUID)
                           return;
 
                       if (args.Error != null)
@@ -248,11 +246,11 @@ namespace Plugin.BLE.iOS
                     if (_parentDevice.State != CBPeripheralState.Connected)
                         throw exception;
 
-                    _parentDevice.SetNotifyValue(false, _nativeCharacteristic);
+                    _parentDevice.SetNotifyValue(false, NativeCharacteristic);
                 },
                 getCompleteHandler: (complete, reject) => (sender, args) =>
                 {
-                    if (args.Characteristic.UUID != _nativeCharacteristic.UUID)
+                    if (args.Characteristic.UUID != NativeCharacteristic.UUID)
                         return;
 
                     if (args.Error != null)
@@ -279,7 +277,7 @@ namespace Plugin.BLE.iOS
 
         private void UpdatedNotify(object sender, CBCharacteristicEventArgs e)
         {
-            if (e.Characteristic.UUID == _nativeCharacteristic.UUID)
+            if (e.Characteristic.UUID == NativeCharacteristic.UUID)
             {
                 ValueUpdated?.Invoke(this, new CharacteristicUpdatedEventArgs(this));
             }

@@ -96,10 +96,9 @@ namespace Plugin.BLE.iOS
                 // when a peripheral disconnects, remove it from our running list.
                 var id = ParseDeviceGuid(e.Peripheral);
                 var stringId = id.ToString();
-                IDevice foundDevice;
 
                 // normal disconnect (requested by user)
-                var isNormalDisconnect = _deviceOperationRegistry.TryGetValue(stringId, out foundDevice);
+                var isNormalDisconnect = _deviceOperationRegistry.TryGetValue(stringId, out var foundDevice);
                 if (isNormalDisconnect)
                 {
                     _deviceOperationRegistry.Remove(stringId);
@@ -130,10 +129,9 @@ namespace Plugin.BLE.iOS
                 {
                     var id = ParseDeviceGuid(e.Peripheral);
                     var stringId = id.ToString();
-                    IDevice foundDevice;
 
                     // remove instance from registry
-                    if (_deviceOperationRegistry.TryGetValue(stringId, out foundDevice))
+                    if (_deviceOperationRegistry.TryGetValue(stringId, out var foundDevice))
                     {
                         _deviceOperationRegistry.Remove(stringId);
                     }

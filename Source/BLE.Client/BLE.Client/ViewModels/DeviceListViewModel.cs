@@ -51,7 +51,7 @@ namespace BLE.Client.ViewModels
         public MvxCommand<DeviceListItemViewModel> ConnectDisposeCommand => new MvxCommand<DeviceListItemViewModel>(ConnectAndDisposeDevice);
 
         public ObservableCollection<DeviceListItemViewModel> Devices { get; set; } = new ObservableCollection<DeviceListItemViewModel>();
-        public bool IsRefreshing => Adapter.IsScanning;
+        public bool IsRefreshing => Adapter?.IsScanning ?? false;
         public bool IsStateOn => _bluetoothLe.IsOn;
         public string StateText => GetStateText();
         public DeviceListItemViewModel SelectedDevice
@@ -141,11 +141,13 @@ namespace BLE.Client.ViewModels
             // quick and dirty :>
             _bluetoothLe.StateChanged += OnStateChanged;
             Adapter.DeviceDiscovered += OnDeviceDiscovered;
+            Adapter.DeviceAdvertised += OnDeviceDiscovered;
             Adapter.ScanTimeoutElapsed += Adapter_ScanTimeoutElapsed;
             Adapter.DeviceDisconnected += OnDeviceDisconnected;
             Adapter.DeviceConnectionLost += OnDeviceConnectionLost;
             //Adapter.DeviceConnected += (sender, e) => Adapter.DisconnectDeviceAsync(e.Device);
 
+            Adapter.ScanMode = ScanMode.LowLatency;
         }
 
         private Task GetPreviousGuidAsync()
@@ -323,7 +325,7 @@ namespace BLE.Client.ViewModels
                     if (int.TryParse(id, out var manuId))
                     {
                         list.Add(new ManufacturerDataFilter(manuId));
-                    }   
+                    }
                 }
 
                 scanFilterOptions.ManufacturerDataFilters = list.ToArray();
@@ -342,7 +344,7 @@ namespace BLE.Client.ViewModels
                     if (Guid.TryParse(id, out var serviceUUID))
                     {
                         list.Add(serviceUUID);
-                    } 
+                    }
                 }
                 scanFilterOptions.ServiceUuids = list.ToArray();
             }
@@ -613,7 +615,7 @@ namespace BLE.Client.ViewModels
         {
             Devices.FirstOrDefault(d => d.Id == e.Device.Id)?.Update();
             _userDialogs.HideLoading();
-            _userDialogs.Toast($"Disconnected {e.Device.Name}");
+            _userDialogs.Toast($"Disconnected {e.Device.Name}", TimeSpan.FromSeconds(3));
 
             Console.WriteLine($"Disconnected {e.Device.Name}");
         }
