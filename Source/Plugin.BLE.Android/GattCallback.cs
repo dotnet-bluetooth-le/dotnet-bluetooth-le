@@ -9,6 +9,7 @@ namespace Plugin.BLE.Android
     public interface IGattCallback
     {
         event EventHandler<ServicesDiscoveredCallbackEventArgs> ServicesDiscovered;
+        event EventHandler<CharacteristicReadCallbackEventArgs> CharacteristicValueRead;
         event EventHandler<CharacteristicReadCallbackEventArgs> CharacteristicValueUpdated;
         event EventHandler<CharacteristicWriteCallbackEventArgs> CharacteristicValueWritten;
         event EventHandler<DescriptorCallbackEventArgs> DescriptorValueWritten;
@@ -23,6 +24,7 @@ namespace Plugin.BLE.Android
         private readonly Adapter _adapter;
         private readonly Device _device;
         public event EventHandler<ServicesDiscoveredCallbackEventArgs> ServicesDiscovered;
+        public event EventHandler<CharacteristicReadCallbackEventArgs> CharacteristicValueRead;
         public event EventHandler<CharacteristicReadCallbackEventArgs> CharacteristicValueUpdated;
         public event EventHandler<CharacteristicWriteCallbackEventArgs> CharacteristicValueWritten;
         public event EventHandler<RssiReadCallbackEventArgs> RemoteRssiRead;
@@ -171,7 +173,7 @@ namespace Plugin.BLE.Android
 
             Trace.Message("OnCharacteristicRead: value {0}; status {1}", characteristic.GetValue().ToHexString(), status);
 
-            CharacteristicValueUpdated?.Invoke(this, new CharacteristicReadCallbackEventArgs(characteristic));
+            CharacteristicValueRead?.Invoke(this, new CharacteristicReadCallbackEventArgs(characteristic));
         }
 
         public override void OnCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic)
