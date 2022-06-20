@@ -8,21 +8,19 @@ using Plugin.BLE.Android.CallbackEventArgs;
 
 namespace Plugin.BLE.Android
 {
-    public class Descriptor : DescriptorBase
+    public class Descriptor : DescriptorBase<BluetoothGattDescriptor>
     {
-        private readonly BluetoothGattDescriptor _nativeDescriptor;
         private readonly BluetoothGatt _gatt;
         private readonly IGattCallback _gattCallback;
 
-        public override Guid Id => Guid.ParseExact(_nativeDescriptor.Uuid.ToString(), "d");
+        public override Guid Id => Guid.ParseExact(NativeDescriptor.Uuid.ToString(), "d");
 
-        public override byte[] Value => _nativeDescriptor.GetValue();
+        public override byte[] Value => NativeDescriptor.GetValue();
 
-        public Descriptor(BluetoothGattDescriptor nativeDescriptor, BluetoothGatt gatt, IGattCallback gattCallback, ICharacteristic characteristic) : base(characteristic)
+        public Descriptor(BluetoothGattDescriptor nativeDescriptor, BluetoothGatt gatt, IGattCallback gattCallback, ICharacteristic characteristic) : base(characteristic, nativeDescriptor)
         {
             _gattCallback = gattCallback;
             _gatt = gatt;
-            _nativeDescriptor = nativeDescriptor;
         }
 
         protected override Task WriteNativeAsync(byte[] data)
@@ -31,7 +29,7 @@ namespace Plugin.BLE.Android
                execute: () => InternalWrite(data),
                getCompleteHandler: (complete, reject) => ((sender, args) =>
                {
-                   if (args.Descriptor.Uuid != _nativeDescriptor.Uuid)
+                   if (args.Descriptor.Uuid != NativeDescriptor.Uuid)
                        return;
 
                    if (args.Exception != null)
@@ -51,10 +49,10 @@ namespace Plugin.BLE.Android
 
         private void InternalWrite(byte[] data)
         {
-            if (!_nativeDescriptor.SetValue(data))
+            if (!NativeDescriptor.SetValue(data))
                 throw new Exception("GATT: SET descriptor value failed");
 
-            if (!_gatt.WriteDescriptor(_nativeDescriptor))
+            if (!_gatt.WriteDescriptor(NativeDescriptor))
                 throw new Exception("GATT: WRITE descriptor value failed");
         }
 
@@ -64,7 +62,7 @@ namespace Plugin.BLE.Android
                execute: ReadInternal,
                getCompleteHandler: (complete, reject) => ((sender, args) =>
                   {
-                      if (args.Descriptor.Uuid == _nativeDescriptor.Uuid)
+                      if (args.Descriptor.Uuid == NativeDescriptor.Uuid)
                       {
                           complete(args.Descriptor.GetValue());
                       }
@@ -81,7 +79,7 @@ namespace Plugin.BLE.Android
 
         private void ReadInternal()
         {
-            if (!_gatt.ReadDescriptor(_nativeDescriptor))
+            if (!_gatt.ReadDescriptor(NativeDescriptor))
                 throw new Exception("GATT: read characteristic FALSE");
         }
     }

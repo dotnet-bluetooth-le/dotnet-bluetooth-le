@@ -1,6 +1,32 @@
 # Changelog
 
+## 2.2 UWP
+
+#### 2.2.0-pre4
+- Merged fixes from 2.1.3
+- #594 Added null-check to StartScanningForDevicesNativeAsync
+- #596 Added null-checks
+- #598 Bump Microsoft.Toolkit.Uwp.Connectivity to version 6.1.1 and .NETCore to 6.2.13
+- #599 Fix for Acr.UserDialogs bait library problem
+
+#### 2.2.0-pre2 Experimental main thread queue for Android
+- #376 Android: Main thread queue experimental
+- #336 Get service by GUID
+- #381 Merged PR
+- Merged fixes from 2.1.1
+
+#### 2.2.0-pre.1 UWP
+- UWP support pre-release
+
 ## 2.1 MacOS  
+
+### 2.1.3
+- Feature: additional scan filtering on Android, for manufacturer data, service data, device adress or device name (fixes #515)
+- Adding unacknowledged writes to iOS (fixes #473)
+- Add GetKnownDevicesByIds methods to get paired devices without the need of connecting to them
+- Added cancellation token support in Characteristic.StartUpdatesAsync and StopUpdatesAsync
+- Fix Android autoConnect flag
+- Update sample client to Android 12 (fixes #568)
 
 ### 2.1.2
 - Correctly close a gatt when a connection attempt is cancelled (fixes #484)
@@ -12,10 +38,10 @@
 - Added iOS/Mac support for 32-bit and 16-bit Service UUIDs (fixes #445)
 
 ### 2.1.1 Service Release for 2.1.0
-- [iOS] #373, #377 Fixed trace ouptut that caused NRE.
+- [iOS] #373, #377 Fixed trace output that caused NRE.
 
 ### 2.1.0 Stable Release MacOS
-- Use IReadOnlyLists for Services/Charactersitics/Descriptors and concurrent collections for DiscoveredDevices/ConnectedDevices
+- Use IReadOnlyLists for Services/Characteristics/Descriptors and concurrent collections for DiscoveredDevices/ConnectedDevices
 Should prevent crashes like: #320
 
 #### 2.1.0-pre.1

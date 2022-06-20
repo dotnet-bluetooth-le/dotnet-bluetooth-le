@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Acr.UserDialogs;
+using BLE.Client.Extensions;
+using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using Plugin.BLE.Abstractions;
@@ -16,27 +19,55 @@ namespace BLE.Client.ViewModels
         private IDevice _device;
 
         public IReadOnlyList<IService> Services { get; private set; }
+
+        public IMvxCommand DiscoverAllServicesCommand { get; }
+        public IMvxCommand<KnownService> DiscoverServiceByIdCommand { get; set; }
         public ServiceListViewModel(IAdapter adapter, IUserDialogs userDialogs, IMvxNavigationService navigation) : base(adapter)
         {
             _userDialogs = userDialogs;
             _navigation = navigation;
+
+            DiscoverAllServicesCommand = new MvxAsyncCommand(DiscoverServices);
+            DiscoverServiceByIdCommand = new MvxAsyncCommand<KnownService>(DiscoverService);
         }
 
-        public override void ViewAppeared()
-        {
-            base.ViewAppeared();
 
-            LoadServices();
-        }
 
-        private async void LoadServices()
+        private async Task DiscoverServices()
         {
             try
             {
                 _userDialogs.ShowLoading("Discovering services...");
 
                 Services = await _device.GetServicesAsync();
-                await RaisePropertyChanged(() => Services);
+                await RaisePropertyChanged(nameof(Services));
+            }
+            catch (Exception ex)
+            {
+                await _userDialogs.AlertAsync(ex.Message, "Error while discovering services");
+                Trace.Message(ex.Message);
+            }
+            finally
+            {
+                _userDialogs.HideLoading();
+            }
+        }
+
+        private async Task DiscoverService(KnownService knownService)
+        {
+            try
+            {
+                _userDialogs.ShowLoading($"Discovering service {knownService.Id}...");
+
+                var service = await _device.GetServiceAsync(knownService.Id);
+
+                Services = service != null ? new List<IService> { service } : new List<IService>();
+                await RaisePropertyChanged(nameof(Services));
+
+                if (service == null)
+                {
+                    _userDialogs.Toast($"Service not found: '{knownService}'", TimeSpan.FromSeconds(3));
+                }
             }
             catch (Exception ex)
             {

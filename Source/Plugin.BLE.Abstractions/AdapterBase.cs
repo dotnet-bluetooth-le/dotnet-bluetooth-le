@@ -13,8 +13,6 @@ namespace Plugin.BLE.Abstractions
 {
     public abstract class AdapterBase : IAdapter
     {
-        private readonly ConcurrentDictionary<Guid, IDevice> _discoveredDevices = new ConcurrentDictionary<Guid, IDevice>();
-
         private CancellationTokenSource _scanCancellationTokenSource;
         private volatile bool _isScanning;
         private Func<IDevice, bool> _currentScanDeviceFilter;
@@ -36,7 +34,9 @@ namespace Plugin.BLE.Abstractions
         public int ScanTimeout { get; set; } = 10000;
         public ScanMode ScanMode { get; set; } = ScanMode.LowPower;
 
-        public virtual IReadOnlyList<IDevice> DiscoveredDevices => _discoveredDevices.Values.ToList();
+        protected ConcurrentDictionary<Guid, IDevice> DiscoveredDevicesRegistry { get; } = new ConcurrentDictionary<Guid, IDevice>();
+
+        public virtual IReadOnlyList<IDevice> DiscoveredDevices => DiscoveredDevicesRegistry.Values.ToList();
 
         /// <summary>
         /// Used to store all connected devices
@@ -45,7 +45,10 @@ namespace Plugin.BLE.Abstractions
 
         public IReadOnlyList<IDevice> ConnectedDevices => ConnectedDeviceRegistry.Values.ToList();
 
-        public async Task StartScanningForDevicesAsync(Guid[] serviceUuids = null, Func<IDevice, bool> deviceFilter = null, bool allowDuplicatesKey = false, CancellationToken cancellationToken = default)
+        public async Task StartScanningForDevicesAsync(ScanFilterOptions scanFilterOptions, 
+            Func<IDevice, bool> deviceFilter = null, 
+            bool allowDuplicatesKey = false, 
+            CancellationToken cancellationToken = default)
         {
             if (IsScanning)
             {
@@ -54,17 +57,16 @@ namespace Plugin.BLE.Abstractions
             }
 
             IsScanning = true;
-            serviceUuids = serviceUuids ?? new Guid[0];
             _currentScanDeviceFilter = deviceFilter ?? (d => true);
             _scanCancellationTokenSource = new CancellationTokenSource();
 
             try
             {
-                _discoveredDevices.Clear();
+                DiscoveredDevicesRegistry.Clear();
 
                 using (cancellationToken.Register(() => _scanCancellationTokenSource?.Cancel()))
                 {
-                    await StartScanningForDevicesNativeAsync(serviceUuids, allowDuplicatesKey, _scanCancellationTokenSource.Token);
+                    await StartScanningForDevicesNativeAsync(scanFilterOptions, allowDuplicatesKey, _scanCancellationTokenSource.Token);
                     await Task.Delay(ScanTimeout, _scanCancellationTokenSource.Token);
                     Trace.Message("Adapter: Scan timeout has elapsed.");
                     CleanupScan();
@@ -76,6 +78,12 @@ namespace Plugin.BLE.Abstractions
                 CleanupScan();
                 Trace.Message("Adapter: Scan was cancelled.");
             }
+        }
+
+        public async Task StartScanningForDevicesAsync(Guid[] serviceUuids, Func<IDevice, bool> deviceFilter = null, bool allowDuplicatesKey = false,
+            CancellationToken cancellationToken = default)
+        {
+            await StartScanningForDevicesAsync(new ScanFilterOptions { ServiceUuids = serviceUuids }, deviceFilter, allowDuplicatesKey, cancellationToken);
         }
 
         public Task StopScanningForDevicesAsync()
@@ -191,10 +199,10 @@ namespace Plugin.BLE.Abstractions
             DeviceAdvertised?.Invoke(this, new DeviceEventArgs { Device = device });
 
             // TODO (sms): check equality implementation of device
-            if (_discoveredDevices.ContainsKey(device.Id))
+            if (DiscoveredDevicesRegistry.ContainsKey(device.Id))
                 return;
 
-            _discoveredDevices[device.Id] = device;
+            DiscoveredDevicesRegistry[device.Id] = device;
             DeviceDiscovered?.Invoke(this, new DeviceEventArgs { Device = device });
         }
 
@@ -215,7 +223,7 @@ namespace Plugin.BLE.Abstractions
                 Trace.Message("DisconnectedPeripheral by lost signal: {0}", device.Name);
                 DeviceConnectionLost?.Invoke(this, new DeviceErrorEventArgs { Device = device });
 
-                if (_discoveredDevices.TryRemove(device.Id, out _))
+                if (DiscoveredDevicesRegistry.TryRemove(device.Id, out _))
                 {
                     Trace.Message("Removed device from discovered devices list: {0}", device.Name);
                 }
@@ -232,12 +240,13 @@ namespace Plugin.BLE.Abstractions
             });
         }
 
-        protected abstract Task StartScanningForDevicesNativeAsync(Guid[] serviceUuids, bool allowDuplicatesKey, CancellationToken scanCancellationToken);
+        protected abstract Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken);
         protected abstract void StopScanNative();
         protected abstract Task ConnectToDeviceNativeAsync(IDevice device, ConnectParameters connectParameters, CancellationToken cancellationToken);
         protected abstract void DisconnectDeviceNative(IDevice device);
 
         public abstract Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters = default, CancellationToken cancellationToken = default);
         public abstract IReadOnlyList<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null);
+        public abstract IReadOnlyList<IDevice> GetKnownDevicesByIds(Guid[] ids);
     }
 }

@@ -8,34 +8,27 @@ using Plugin.BLE.Abstractions.Utils;
 
 namespace Plugin.BLE.iOS
 {
-    public class Descriptor : DescriptorBase
+    public class Descriptor : DescriptorBase<CBDescriptor>
     {
-        private readonly CBDescriptor _nativeDescriptor;
-
-        public override Guid Id => _nativeDescriptor.UUID.GuidFromUuid();
+        public override Guid Id => NativeDescriptor.UUID.GuidFromUuid();
 
         public override byte[] Value
         {
             get
             {
-                if (_nativeDescriptor.Value is NSData)
+                switch (NativeDescriptor.Value)
                 {
-                    return ((NSData)_nativeDescriptor.Value).ToArray();
+                    case NSData data:
+                        return data.ToArray();
+                    case NSNumber number:
+                        return BitConverter.GetBytes(number.UInt64Value);
+                    case NSString nsString:
+                        return System.Text.Encoding.UTF8.GetBytes(nsString.ToString());
+                    default:
+                        //TODO https://developer.apple.com/reference/corebluetooth/cbuuid/1667288-characteristic_descriptors
+                        Trace.Message($"Descriptor: can't convert {NativeDescriptor.Value?.GetType().Name} with value {NativeDescriptor.Value?.ToString()} to byte[]");
+                        return null;
                 }
-
-                if (_nativeDescriptor.Value is NSNumber)
-                {
-                    return BitConverter.GetBytes(((NSNumber)_nativeDescriptor.Value).UInt64Value);
-                }
-
-                if (_nativeDescriptor.Value is NSString)
-                {
-                    return System.Text.Encoding.UTF8.GetBytes(((NSString)_nativeDescriptor.Value).ToString());
-                }
-
-                //TODO https://developer.apple.com/reference/corebluetooth/cbuuid/1667288-characteristic_descriptors
-                Trace.Message($"Descriptor: can't convert {_nativeDescriptor.Value?.GetType().Name} with value {_nativeDescriptor.Value?.ToString()} to byte[]");
-                return null;
             }
         }
 
@@ -43,10 +36,9 @@ namespace Plugin.BLE.iOS
         private readonly IBleCentralManagerDelegate _bleCentralManagerDelegate;
 
         public Descriptor(CBDescriptor nativeDescriptor, CBPeripheral parentDevice, ICharacteristic characteristic, IBleCentralManagerDelegate bleCentralManagerDelegate) 
-            : base(characteristic)
+            : base(characteristic, nativeDescriptor)
         {
             _parentDevice = parentDevice;
-            _nativeDescriptor = nativeDescriptor;
             _bleCentralManagerDelegate = bleCentralManagerDelegate;
         }
 
@@ -60,11 +52,11 @@ namespace Plugin.BLE.iOS
                        if (_parentDevice.State != CBPeripheralState.Connected)
                            throw exception;
 
-                       _parentDevice.ReadValue(_nativeDescriptor);
+                       _parentDevice.ReadValue(NativeDescriptor);
                    },
                    getCompleteHandler: (complete, reject) => (sender, args) =>
                    {
-                       if (args.Descriptor.UUID != _nativeDescriptor.UUID)
+                       if (args.Descriptor.UUID != NativeDescriptor.UUID)
                            return;
 
                        if (args.Error != null)
@@ -92,11 +84,11 @@ namespace Plugin.BLE.iOS
                     {
                         if (_parentDevice.State != CBPeripheralState.Connected)
                             throw exception;
-                        _parentDevice.WriteValue(NSData.FromArray(data), _nativeDescriptor);
+                        _parentDevice.WriteValue(NSData.FromArray(data), NativeDescriptor);
                     },
                     getCompleteHandler: (complete, reject) => (sender, args) =>
                     {
-                        if (args.Descriptor.UUID != _nativeDescriptor.UUID)
+                        if (args.Descriptor.UUID != NativeDescriptor.UUID)
                             return;
 
                         if (args.Error != null)

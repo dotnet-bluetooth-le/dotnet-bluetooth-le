@@ -11,11 +11,10 @@ using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Extensions;
-using Plugin.Permissions.Abstractions;
-using Plugin.Settings.Abstractions;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace BLE.Client.ViewModels
@@ -24,7 +23,6 @@ namespace BLE.Client.ViewModels
     {
         private readonly IBluetoothLE _bluetoothLe;
         private readonly IUserDialogs _userDialogs;
-        private readonly ISettings _settings;
         private Guid _previousGuid;
         private CancellationTokenSource _cancellationTokenSource;
 
@@ -34,19 +32,26 @@ namespace BLE.Client.ViewModels
             set
             {
                 _previousGuid = value;
-                _settings.AddOrUpdateValue("lastguid", _previousGuid.ToString());
+                Preferences.Set("lastguid", _previousGuid.ToString());
                 RaisePropertyChanged();
                 RaisePropertyChanged(() => ConnectToPreviousCommand);
             }
         }
 
-        public MvxCommand RefreshCommand => new MvxCommand(() => TryStartScanning(true));
+        public MvxCommand RefreshCommand => new MvxCommand(() => TryStartScanning(refresh:true,filter:false));
+        public MvxCommand RefreshFilteredScanCommand => new MvxCommand(() => TryStartScanning(refresh:true,filter:true));
+
+        public MvxCommand EmptyDevicesCommand => new MvxCommand(() =>
+        {
+            Devices.Clear();
+        });
+
         public MvxCommand<DeviceListItemViewModel> DisconnectCommand => new MvxCommand<DeviceListItemViewModel>(DisconnectDevice);
 
         public MvxCommand<DeviceListItemViewModel> ConnectDisposeCommand => new MvxCommand<DeviceListItemViewModel>(ConnectAndDisposeDevice);
 
         public ObservableCollection<DeviceListItemViewModel> Devices { get; set; } = new ObservableCollection<DeviceListItemViewModel>();
-        public bool IsRefreshing => Adapter.IsScanning;
+        public bool IsRefreshing => Adapter?.IsScanning ?? false;
         public bool IsStateOn => _bluetoothLe.IsOn;
         public string StateText => GetStateText();
         public DeviceListItemViewModel SelectedDevice
@@ -64,6 +69,10 @@ namespace BLE.Client.ViewModels
         }
 
         bool _useAutoConnect;
+        private string _manufacturerIds;
+        private string _serviceUUIDs;
+        private string _deviceAddresses;
+
         public bool UseAutoConnect
         {
             get => _useAutoConnect;
@@ -78,36 +87,74 @@ namespace BLE.Client.ViewModels
             }
         }
 
-        public MvxCommand StopScanCommand => new MvxCommand(() =>
+        public string ManufacturerIds
+        {
+            get => _manufacturerIds;
+            set
+            {
+                if (_manufacturerIds == value)
+                    return;
+
+                _manufacturerIds = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string ServiceUUIDs
+        {
+            get => _serviceUUIDs;
+            set
+            {
+                if (_serviceUUIDs == value)
+                    return;
+
+                _serviceUUIDs = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string DeviceAddresses
+        {
+            get => _deviceAddresses;
+            set
+            {
+                if (_deviceAddresses == value)
+                    return;
+
+                _deviceAddresses = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public MvxAsyncCommand StopScanCommand => new MvxAsyncCommand(async () =>
         {
             _cancellationTokenSource.Cancel();
             CleanupCancellationToken();
-            RaisePropertyChanged(() => IsRefreshing);
+            await Task.Delay(50); // Give time for "IsRefreshing" to update, otherwise the loading indicator gets stuck
+            await RaisePropertyChanged(() => IsRefreshing);
         }, () => _cancellationTokenSource != null);
 
-        readonly IPermissions _permissions;
-
-        public DeviceListViewModel(IBluetoothLE bluetoothLe, IAdapter adapter, IUserDialogs userDialogs, ISettings settings, IPermissions permissions) : base(adapter)
+        public DeviceListViewModel(IBluetoothLE bluetoothLe, IAdapter adapter, IUserDialogs userDialogs) : base(adapter)
         {
-            _permissions = permissions;
             _bluetoothLe = bluetoothLe;
             _userDialogs = userDialogs;
-            _settings = settings;
             // quick and dirty :>
             _bluetoothLe.StateChanged += OnStateChanged;
             Adapter.DeviceDiscovered += OnDeviceDiscovered;
+            Adapter.DeviceAdvertised += OnDeviceDiscovered;
             Adapter.ScanTimeoutElapsed += Adapter_ScanTimeoutElapsed;
             Adapter.DeviceDisconnected += OnDeviceDisconnected;
             Adapter.DeviceConnectionLost += OnDeviceConnectionLost;
             //Adapter.DeviceConnected += (sender, e) => Adapter.DisconnectDeviceAsync(e.Device);
 
+            Adapter.ScanMode = ScanMode.LowLatency;
         }
 
         private Task GetPreviousGuidAsync()
         {
             return Task.Run(() =>
             {
-                var guidString = _settings.GetValueOrDefault("lastguid", string.Empty);
+                var guidString = Preferences.Get("lastguid", string.Empty);
                 PreviousGuid = !string.IsNullOrEmpty(guidString) ? Guid.Parse(guidString) : Guid.Empty;
             });
         }
@@ -221,37 +268,95 @@ namespace BLE.Client.ViewModels
             RaisePropertyChanged(() => IsRefreshing);
         }
 
-        private async void  TryStartScanning(bool refresh = false)
+        private async Task<bool> HasCorrectPermissions()
         {
-            if (Xamarin.Forms.Device.RuntimePlatform == Device.Android)
+            var permissionResult = await DependencyService.Get<Helpers.IPlatformHelpers>().CheckAndRequestBluetoothPermissions();
+            if (permissionResult != PermissionStatus.Granted)
             {
-                var status = await _permissions.CheckPermissionStatusAsync<Plugin.Permissions.LocationPermission>();
-                if (status != PermissionStatus.Granted)
-                {
-                    var permissionResult = await _permissions.RequestPermissionAsync<Plugin.Permissions.LocationPermission>();
+                await _userDialogs.AlertAsync("Permission denied. Not scanning.");
+                AppInfo.ShowSettingsUI();
+                return false;
+            }
 
-                    if (permissionResult != PermissionStatus.Granted)
-                    {
-                        await _userDialogs.AlertAsync("Permission denied. Not scanning.");
-                        _permissions.OpenAppSettings();
-                        return;
-                    }
-                }
+            return true;
+        }
+
+        private async void TryStartScanning(bool filter = false, bool refresh = false)
+        {
+            if (!await HasCorrectPermissions())
+            {
+                return;
             }
 
             if (IsStateOn && (refresh || !Devices.Any()) && !IsRefreshing)
             {
-                ScanForDevices();
+                if (filter)
+                {
+                    await ScanForDevicesFiltered();
+                }
+                else
+                {
+                    await ScanForDevices();
+                }
+
             }
         }
 
-        private async void ScanForDevices()
+        private async Task ScanForDevicesFiltered()
         {
             Devices.Clear();
 
+            await UpdateConnectedDevices();
+
+            _cancellationTokenSource = new CancellationTokenSource();
+            await RaisePropertyChanged(() => StopScanCommand);
+
+            await RaisePropertyChanged(() => IsRefreshing);
+            Adapter.ScanMode = ScanMode.LowLatency;
+
+            var scanFilterOptions = new ScanFilterOptions();
+
+            if (!string.IsNullOrWhiteSpace(ManufacturerIds))
+            {
+                var manuIds = ManufacturerIds.Split(',');
+                var list = new List<ManufacturerDataFilter>();
+                foreach (var id in manuIds)
+                {
+                    if (int.TryParse(id, out var manuId))
+                    {
+                        list.Add(new ManufacturerDataFilter(manuId));
+                    }
+                }
+
+                scanFilterOptions.ManufacturerDataFilters = list.ToArray();
+            }
+            if (!string.IsNullOrWhiteSpace(DeviceAddresses))
+            {
+                var ids = DeviceAddresses.Split(',');
+                scanFilterOptions.DeviceAddresses = ids.ToArray();
+            }
+            if (!string.IsNullOrWhiteSpace(ServiceUUIDs))
+            {
+                var ids = ServiceUUIDs.Split(',');
+                var list = new List<Guid>();
+                foreach (var id in ids)
+                {
+                    if (Guid.TryParse(id, out var serviceUUID))
+                    {
+                        list.Add(serviceUUID);
+                    }
+                }
+                scanFilterOptions.ServiceUuids = list.ToArray();
+            }
+
+            await Adapter.StartScanningForDevicesAsync(scanFilterOptions,_cancellationTokenSource.Token);
+        }
+
+        private async Task UpdateConnectedDevices()
+        {
             foreach (var connectedDevice in Adapter.ConnectedDevices)
             {
-                //update rssi for already connected evices (so tha 0 is not shown in the list)
+                //update rssi for already connected devices (so tha 0 is not shown in the list)
                 try
                 {
                     await connectedDevice.UpdateRssiAsync();
@@ -264,6 +369,13 @@ namespace BLE.Client.ViewModels
 
                 AddOrUpdateDevice(connectedDevice);
             }
+        }
+
+        private async Task ScanForDevices()
+        {
+            Devices.Clear();
+
+            await UpdateConnectedDevices();
 
             _cancellationTokenSource = new CancellationTokenSource();
             await RaisePropertyChanged(() => StopScanCommand);
@@ -503,7 +615,7 @@ namespace BLE.Client.ViewModels
         {
             Devices.FirstOrDefault(d => d.Id == e.Device.Id)?.Update();
             _userDialogs.HideLoading();
-            _userDialogs.Toast($"Disconnected {e.Device.Name}");
+            _userDialogs.Toast($"Disconnected {e.Device.Name}", TimeSpan.FromSeconds(3));
 
             Console.WriteLine($"Disconnected {e.Device.Name}");
         }

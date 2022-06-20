@@ -1,20 +1,15 @@
-﻿using System;
-using Acr.UserDialogs;
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
 using MvvmCross.Forms.Platforms.Android.Views;
+using Xamarin.Essentials;
 
 namespace BLE.Client.Droid
 {
     [Activity(ScreenOrientation = ScreenOrientation.Portrait
         ,ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation,
         LaunchMode = LaunchMode.SingleTask)]
-    public class MainActivity 
-		: MvxFormsAppCompatActivity
+    public class MainActivity : MvxFormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)
         {
@@ -23,6 +18,14 @@ namespace BLE.Client.Droid
 
             base.OnCreate(bundle);
 
+            Platform.Init(this, bundle);
+        }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
+        {
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }

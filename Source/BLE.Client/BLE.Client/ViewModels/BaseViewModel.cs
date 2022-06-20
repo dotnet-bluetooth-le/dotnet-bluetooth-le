@@ -23,17 +23,17 @@ namespace BLE.Client.ViewModels
         public BaseViewModel(IAdapter adapter)
         {
             Adapter = adapter;
-            _log = Mvx.IoCProvider.Resolve<ILogger<BaseViewModel>>();
+            Mvx.IoCProvider.TryResolve(out _log);
         }
 
         public override void ViewAppeared()
         {
-            _log.LogTrace("ViewAppeared {0}", GetType().Name);
+            _log?.LogTrace("ViewAppeared {0}", GetType().Name);
         }
 
         public override void ViewDisappeared()
         {
-            _log.LogTrace("ViewDisappeared {0}", GetType().Name);
+            _log?.LogTrace("ViewDisappeared {0}", GetType().Name);
         }
 
         public override void Prepare(MvxBundle parameters)

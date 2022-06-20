@@ -9,19 +9,17 @@ using Plugin.BLE.Abstractions.Utils;
 
 namespace Plugin.BLE.iOS
 {
-    public class Service : ServiceBase
+    public class Service : ServiceBase<CBService>
     {
-        private readonly CBService _service;
         private readonly CBPeripheral _device;
         private readonly IBleCentralManagerDelegate _bleCentralManagerDelegate;
 
-        public override Guid Id => _service.UUID.GuidFromUuid();
-        public override bool IsPrimary => _service.Primary;
+        public override Guid Id => NativeService.UUID.GuidFromUuid();
+        public override bool IsPrimary => NativeService.Primary;
 
-        public Service(CBService service, IDevice device, IBleCentralManagerDelegate bleCentralManagerDelegate) 
-            : base(device)
+        public Service(CBService nativeService, IDevice device, IBleCentralManagerDelegate bleCentralManagerDelegate) 
+            : base(device, nativeService)
         {
-            _service = service;
             _device = device.NativeDevice as CBPeripheral;
             _bleCentralManagerDelegate = bleCentralManagerDelegate;
         }
@@ -36,7 +34,7 @@ namespace Plugin.BLE.iOS
                     if (_device.State != CBPeripheralState.Connected)
                         throw exception;
 
-                    _device.DiscoverCharacteristics(_service);
+                    _device.DiscoverCharacteristics(NativeService);
                 },
                 getCompleteHandler: (complete, reject) => (sender, args) =>
                 {

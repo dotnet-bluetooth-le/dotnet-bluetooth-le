@@ -4,8 +4,8 @@ using MvvmCross;
 using MvvmCross.Forms.Platforms.Ios.Core;
 using MvvmCross.IoC;
 using MvvmCross.ViewModels;
-using Plugin.Permissions;
-using Plugin.Settings;
+using Serilog;
+using Serilog.Extensions.Logging;
 
 namespace BLE.Client.iOS
 {
@@ -16,8 +16,6 @@ namespace BLE.Client.iOS
             var result = base.InitializeIoC();
 
             Mvx.IoCProvider.RegisterSingleton(() => UserDialogs.Instance);
-            Mvx.IoCProvider.RegisterSingleton(() => CrossSettings.Current);
-            Mvx.IoCProvider.RegisterSingleton(() => CrossPermissions.Current);
 
             return result;
         }
@@ -34,12 +32,18 @@ namespace BLE.Client.iOS
 
         protected override ILoggerProvider CreateLogProvider()
         {
-            return null;
+            return new SerilogLoggerProvider();
         }
 
         protected override ILoggerFactory CreateLogFactory()
         {
-            return null;
+            // serilog configuration
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.NSLog()
+                .CreateLogger();
+
+            return new SerilogLoggerFactory();
         }
 
         /*

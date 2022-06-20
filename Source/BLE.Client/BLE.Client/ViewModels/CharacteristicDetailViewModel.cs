@@ -1,8 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Acr.UserDialogs;
+using BLE.Client.Extensions;
 using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
@@ -11,6 +15,7 @@ using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Extensions;
+using Xamarin.Forms;
 
 namespace BLE.Client.ViewModels
 {
@@ -39,6 +44,26 @@ namespace BLE.Client.ViewModels
             }
         }
 
+        public List<CharacteristicWriteType> CharacteristicWriteTypes => Enum.GetValues(typeof(CharacteristicWriteType))
+            .Cast<CharacteristicWriteType>().ToList();
+
+        public CharacteristicWriteType CharacteristicWriteType
+        {
+            get => Characteristic.WriteType;
+            set
+            {
+                try
+                {
+                    Characteristic.WriteType = value;
+                }
+                catch (Exception ex)
+                {
+                    _userDialogs.ErrorToast("Cannot set write type.", ex.Message, TimeSpan.FromSeconds(3));
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         public CharacteristicDetailViewModel(IAdapter adapter, IUserDialogs userDialogs) : base(adapter)
         {
             _userDialogs = userDialogs;
@@ -63,20 +88,20 @@ namespace BLE.Client.ViewModels
             var navigation = Mvx.IoCProvider.Resolve<IMvxNavigationService>();
             navigation.Close(this);
         }
-        public override void ViewDisappeared()
+        public override async void ViewDisappeared()
         {
             base.ViewDisappeared();
 
             if (Characteristic != null)
             {
-                StopUpdates();
+                await StopUpdates();
             }
-            
+
         }
 
-        public MvxCommand ReadCommand => new MvxCommand(ReadValueAsync);
+        public MvxAsyncCommand ReadCommand => new MvxAsyncCommand(ReadValueAsync);
 
-        private async void ReadValueAsync()
+        private async Task ReadValueAsync()
         {
             if (Characteristic == null)
                 return;
@@ -106,9 +131,44 @@ namespace BLE.Client.ViewModels
 
         }
 
-        public MvxCommand WriteCommand => new MvxCommand(WriteValueAsync);
+        public MvxAsyncCommand WriteCommand => new MvxAsyncCommand(WriteValueAsync);
 
-        private async void WriteValueAsync()
+        public MvxAsyncCommand WriteMultipleCommand => new MvxAsyncCommand(WriteMultipleValuesAsync);
+
+        private async Task WriteMultipleValuesAsync()
+        {
+            try
+            {
+                _userDialogs.ShowLoading("Write characteristic value");
+
+                var sw = Stopwatch.StartNew();
+
+                var tasks = new List<Task>();
+
+                // force multi-threaded write to test main thread queue
+                for (var i = 0; i < 100; i++)
+                {
+                    var value = i;
+                    var writeTask = Task.Run(async () => { await Characteristic.WriteAsync(new[] { Convert.ToByte(value) }); });
+                    tasks.Add(writeTask);
+                }
+
+                await Task.WhenAll(tasks);
+                sw.Stop();
+
+                await RaisePropertyChanged(nameof(CharacteristicValue));
+                _userDialogs.HideLoading();
+
+                Messages.Insert(0, $"Wrote 100 values in {sw.ElapsedMilliseconds}ms");
+            }
+            catch (Exception ex)
+            {
+                _userDialogs.HideLoading();
+                await _userDialogs.AlertAsync(ex.Message);
+            }
+        }
+
+        private async Task WriteValueAsync()
         {
             try
             {
@@ -134,7 +194,6 @@ namespace BLE.Client.ViewModels
                 _userDialogs.HideLoading();
                 await _userDialogs.AlertAsync(ex.Message);
             }
-
         }
 
         private static byte[] GetBytes(string text)
@@ -142,19 +201,9 @@ namespace BLE.Client.ViewModels
             return text.Split(' ').Where(token => !string.IsNullOrEmpty(token)).Select(token => Convert.ToByte(token, 16)).ToArray();
         }
 
-        public MvxCommand ToggleUpdatesCommand => new MvxCommand((() =>
-        {
-            if (_updatesStarted)
-            {
-                StopUpdates();
-            }
-            else
-            {
-                StartUpdates();
-            }
-        }));
+        public MvxAsyncCommand ToggleUpdatesCommand => new MvxAsyncCommand((() => _updatesStarted ? StopUpdates() : StartUpdates()));
 
-        private async void StartUpdates()
+        private async Task StartUpdates()
         {
             try
             {
@@ -163,7 +212,7 @@ namespace BLE.Client.ViewModels
                 Characteristic.ValueUpdated -= CharacteristicOnValueUpdated;
                 Characteristic.ValueUpdated += CharacteristicOnValueUpdated;
                 await Characteristic.StartUpdatesAsync();
-         
+
 
                 Messages.Insert(0, $"Start updates");
 
@@ -176,10 +225,15 @@ namespace BLE.Client.ViewModels
             }
         }
 
-        private async void StopUpdates()
+        private async Task StopUpdates()
         {
             try
             {
+                if (!_updatesStarted)
+                {
+                    return;
+                }
+
                 _updatesStarted = false;
 
                 await Characteristic.StopUpdatesAsync();
@@ -188,7 +242,6 @@ namespace BLE.Client.ViewModels
                 Messages.Insert(0, $"Stop updates");
 
                 await RaisePropertyChanged(() => UpdateButtonText);
-
             }
             catch (Exception ex)
             {
@@ -198,8 +251,11 @@ namespace BLE.Client.ViewModels
 
         private void CharacteristicOnValueUpdated(object sender, CharacteristicUpdatedEventArgs characteristicUpdatedEventArgs)
         {
-            Messages.Insert(0, $"{DateTime.Now.TimeOfDay} - Updated: {CharacteristicValue}");
-            RaisePropertyChanged(() => CharacteristicValue);
+            Device.InvokeOnMainThreadAsync(() =>
+            {
+                Messages.Insert(0, $"[{DateTime.Now.TimeOfDay}] - Updated: {CharacteristicValue}");
+                RaisePropertyChanged(() => CharacteristicValue);
+            });
         }
     }
 }

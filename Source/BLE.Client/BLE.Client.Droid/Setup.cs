@@ -6,8 +6,8 @@ using Microsoft.Extensions.Logging;
 using MvvmCross;
 using MvvmCross.Forms.Platforms.Android.Core;
 using MvvmCross.IoC;
-using Plugin.Permissions;
-using Plugin.Settings;
+using Serilog;
+using Serilog.Extensions.Logging;
 
 namespace BLE.Client.Droid
 {
@@ -18,16 +18,19 @@ namespace BLE.Client.Droid
             return new List<Assembly>(base.GetViewAssemblies().Union(new[] { typeof(BleMvxFormsApp).GetTypeInfo().Assembly }));
         }
 
-        /// <inheritdoc/>
         protected override ILoggerProvider CreateLogProvider()
         {
-            return null;
+            return new SerilogLoggerProvider();
         }
 
-        /// <inheritdoc/>
         protected override ILoggerFactory CreateLogFactory()
         {
-            return null;
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.AndroidLog()
+                .CreateLogger();
+
+            return new SerilogLoggerFactory();
         }
 
         protected override IMvxIoCProvider InitializeIoC()
@@ -35,8 +38,6 @@ namespace BLE.Client.Droid
             var result = base.InitializeIoC();
 
             Mvx.IoCProvider.RegisterSingleton(() => UserDialogs.Instance);
-            Mvx.IoCProvider.RegisterSingleton(() => CrossSettings.Current);
-            Mvx.IoCProvider.RegisterSingleton(() => CrossPermissions.Current);
 
             return result;
         }

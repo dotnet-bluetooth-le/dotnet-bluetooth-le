@@ -1,4 +1,5 @@
-# <img src="icon_small.png" width="71" height="71"/> Bluetooth LE plugin for Xamarin ![Build Status](https://app.bitrise.io/app/3fe54d0a5f43c2bf/status.svg?token=i9LUY4rIecZWd_3j7hwXgw)
+# <img src="icon_small.png" width="71" height="71"/> Bluetooth LE plugin for Xamarin 
+[Bitrise build status:](https://app.bitrise.io/app/3fe54d0a5f43c2bf) ![Build Status](https://app.bitrise.io/app/3fe54d0a5f43c2bf/status.svg?token=i9LUY4rIecZWd_3j7hwXgw) 
 
 Xamarin and MvvMCross plugin for accessing the bluetooth functionality. The plugin is loosely based on the BLE implementation of [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics).
 
@@ -48,6 +49,15 @@ Add these permissions to AndroidManifest.xml. For Marshmallow and above, please 
 <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 ```
 
+Android 12 and above may require one or more of the following additional runtime permissions, depending on which features of the library you are using (see [the android Bluetooth permissions documentation](https://developer.android.com/guide/topics/connectivity/bluetooth/permissions))
+```xml
+<uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+<uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+<uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+
+```
+
+
 Add this line to your manifest if you want to declare that your app is available to BLE-capable devices **only**:
 ```xml
 <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
@@ -81,6 +91,14 @@ On MacOS (version 11 and above) you must add the following keys to your `Info.pl
     <!--Description of the Bluetooth request message-->
     <key>NSBluetoothAlwaysUsageDescription</key>
     <string>YOUR CUSTOM MESSAGE</string>
+
+**UWP**
+
+Add this line to the Package Manifest (.appxmanifest):
+
+```xml
+<DeviceCapability Name="bluetooth" />
+```
 
 ## Sample app
 
@@ -136,7 +154,7 @@ public void Include(MvvmCross.Plugins.BLE.iOS.Plugin plugin)
 ```csharp
 var state = ble.State;
 ```
-You can also listen for State changes. So you can react if the user turns on/off bluetooth on you smartphone.
+You can also listen for State changes. So you can react if the user turns on/off bluetooth on your smartphone.
 ```csharp
 ble.StateChanged += (s, e) =>
 {
@@ -150,6 +168,15 @@ ble.StateChanged += (s, e) =>
 ```csharp
 adapter.DeviceDiscovered += (s,a) => deviceList.Add(a.Device);
 await adapter.StartScanningForDevicesAsync();
+```
+
+#### Scan Filtering
+```csharp
+var scanFilterOptions = new ScanFilterOptions();
+scanFilterOptions.ServiceUuids = new [] {guid1, guid2, etc}; // cross platform filter
+scanFilterOptions.ManufacturerIds = new [] {1,2,3,etc}; // android only filter
+scanFilterOptions.DeviceAddresses = new [] {"80:6F:B0:43:8D:3B","80:6F:B0:25:C3:15",etc}; // android only filter
+await adapter.StartScanningForDevicesAsync(scanFilterOptions);
 ```
 
 ##### ScanTimeout
@@ -247,7 +274,7 @@ await descriptor.WriteAsync(bytes);
 
 Returns all BLE devices connected or bonded (only Android) to the system. In order to use the device in the app you have to first call ConnectAsync.
 - For iOS the implementation uses get [retrieveConnectedPeripherals(services)](https://developer.apple.com/reference/corebluetooth/cbcentralmanager/1518924-retrieveconnectedperipherals)
-- For Android this function merges the functionality of thw following API calls:
+- For Android this function merges the functionality of the following API calls:
     - [getConnectedDevices](https://developer.android.com/reference/android/bluetooth/BluetoothManager.html#getConnectedDevices(int))
     - [getBondedDevices()](https://developer.android.com/reference/android/bluetooth/BluetoothAdapter.html#getBondedDevices())
 
@@ -267,8 +294,8 @@ foreach(var device in systemDevices)
 The BLE API implementation (especially on **Android**) has the following limitations:
 
 - *Characteristic/Descriptor Write*: make sure you call characteristic.**WriteAsync**(...) from the **main thread**, failing to do so will most probably result in a GattWriteError.
-- *Sequential calls*: **Always** wait for the previous BLE command to finish before invoking the next. The Android API needs it's calls to be serial, otherwise calls that do not wait for the previous ones will fail with some type of GattError. A more explicit example: if you call this in your view lifecycle (onAppearing etc) all these methods return **void** and 100% don't quarantee that any await bleCommand() called here will be truly awaited by other lifecycle methods.
-- *Scan wit services filter*: On **specifically Android 4.3** the *scan services filter does not work* (due to the underlying android implementation). For android 4.3 you will have to use a workaround and scan without a filter and then manually filter by using the advertisement data (which contains the published service GUIDs).
+- *Sequential calls*: **Always** wait for the previous BLE command to finish before invoking the next. The Android API needs its calls to be serial, otherwise calls that do not wait for the previous ones will fail with some type of GattError. A more explicit example: if you call this in your view lifecycle (onAppearing etc) all these methods return **void** and 100% don't guarantee that any await bleCommand() called here will be truly awaited by other lifecycle methods.
+- *Scan with services filter*: On **specifically Android 4.3** the *scan services filter does not work* (due to the underlying android implementation). For android 4.3 you will have to use a workaround and scan without a filter and then manually filter by using the advertisement data (which contains the published service GUIDs).
 
 ## Best practice
 
@@ -288,7 +315,8 @@ The BLE API implementation (especially on **Android**) has the following limitat
         //generic
     }
 ```
-- **Avoid caching of Characteristic or Service instances between connection sessions**. This includes saving a reference to them in you class between connection sessions etc. After a device has been disconnected all Service & Characteristic instances become **invalid**. Allways **use GetServiceAsync and GetCharacteristicAsync to get a valid instance**.
+
+- **Avoid caching of Characteristic or Service instances between connection sessions**. This includes saving a reference to them in your class between connection sessions etc. After a device has been disconnected all Service & Characteristic instances become **invalid**. Allways **use GetServiceAsync and GetCharacteristicAsync to get a valid instance**.
 
 ### General BLE iOS, Android
 

@@ -9,17 +9,19 @@ using Plugin.BLE.Abstractions.EventArgs;
 
 namespace Plugin.BLE.Abstractions
 {
-    public abstract class CharacteristicBase : ICharacteristic
+    public abstract class CharacteristicBase<TNativeCharacteristic> : ICharacteristic
     {
         private IReadOnlyList<IDescriptor> _descriptors;
         private CharacteristicWriteType _writeType = CharacteristicWriteType.Default;
+
+        protected TNativeCharacteristic NativeCharacteristic { get; }
 
         public abstract event EventHandler<CharacteristicUpdatedEventArgs> ValueUpdated;
 
         public abstract Guid Id { get; }
         public abstract string Uuid { get; }
         public abstract byte[] Value { get; }
-        public string Name => KnownCharacteristics.Lookup(Id).Name;
+        public virtual string Name => KnownCharacteristics.Lookup(Id).Name;
         public abstract CharacteristicPropertyType Properties { get; }
         public IService Service { get; }
 
@@ -58,9 +60,10 @@ namespace Plugin.BLE.Abstractions
             }
         }
 
-        protected CharacteristicBase(IService service)
+        protected CharacteristicBase(IService service, TNativeCharacteristic nativeCharacteristic)
         {
             Service = service;
+            NativeCharacteristic = nativeCharacteristic;
         }
 
         public async Task<byte[]> ReadAsync(CancellationToken cancellationToken = default)
@@ -102,7 +105,7 @@ namespace Plugin.BLE.Abstractions
                 CharacteristicWriteType.WithoutResponse;
         }
 
-        public Task StartUpdatesAsync()
+        public Task StartUpdatesAsync(CancellationToken cancellationToken = default)
         {
             if (!CanUpdate)
             {
@@ -110,17 +113,17 @@ namespace Plugin.BLE.Abstractions
             }
 
             Trace.Message("Characteristic.StartUpdates");
-            return StartUpdatesNativeAsync();
+            return StartUpdatesNativeAsync(cancellationToken);
         }
 
-        public Task StopUpdatesAsync()
+        public Task StopUpdatesAsync(CancellationToken cancellationToken = default)
         {
             if (!CanUpdate)
             {
                 throw new InvalidOperationException("Characteristic does not support update.");
             }
 
-            return StopUpdatesNativeAsync();
+            return StopUpdatesNativeAsync(cancellationToken);
         }
 
         public async Task<IReadOnlyList<IDescriptor>> GetDescriptorsAsync(CancellationToken cancellationToken = default)
@@ -137,7 +140,7 @@ namespace Plugin.BLE.Abstractions
         protected abstract Task<IReadOnlyList<IDescriptor>> GetDescriptorsNativeAsync();
         protected abstract Task<byte[]> ReadNativeAsync();
         protected abstract Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType);
-        protected abstract Task StartUpdatesNativeAsync();
-        protected abstract Task StopUpdatesNativeAsync();
+        protected abstract Task StartUpdatesNativeAsync(CancellationToken cancellationToken = default);
+        protected abstract Task StopUpdatesNativeAsync(CancellationToken cancellationToken = default);
     }
 }

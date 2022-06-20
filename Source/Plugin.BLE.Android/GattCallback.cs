@@ -9,6 +9,7 @@ namespace Plugin.BLE.Android
     public interface IGattCallback
     {
         event EventHandler<ServicesDiscoveredCallbackEventArgs> ServicesDiscovered;
+        event EventHandler<CharacteristicReadCallbackEventArgs> CharacteristicValueRead;
         event EventHandler<CharacteristicReadCallbackEventArgs> CharacteristicValueUpdated;
         event EventHandler<CharacteristicWriteCallbackEventArgs> CharacteristicValueWritten;
         event EventHandler<DescriptorCallbackEventArgs> DescriptorValueWritten;
@@ -23,6 +24,7 @@ namespace Plugin.BLE.Android
         private readonly Adapter _adapter;
         private readonly Device _device;
         public event EventHandler<ServicesDiscoveredCallbackEventArgs> ServicesDiscovered;
+        public event EventHandler<CharacteristicReadCallbackEventArgs> CharacteristicValueRead;
         public event EventHandler<CharacteristicReadCallbackEventArgs> CharacteristicValueUpdated;
         public event EventHandler<CharacteristicWriteCallbackEventArgs> CharacteristicValueWritten;
         public event EventHandler<RssiReadCallbackEventArgs> RemoteRssiRead;
@@ -41,14 +43,14 @@ namespace Plugin.BLE.Android
         {
             base.OnConnectionStateChange(gatt, status, newState);
 
-            if (!gatt.Device.Address.Equals(_device.BluetoothDevice.Address))
+            if (!gatt.Device.Address.Equals(_device.NativeDevice.Address))
             {
-                Trace.Message($"Gatt callback for device {_device.BluetoothDevice.Address} was called for device with address {gatt.Device.Address}. This shoud not happen. Please log an issue.");
+                Trace.Message($"Gatt callback for device {_device.NativeDevice.Address} was called for device with address {gatt.Device.Address}. This shoud not happen. Please log an issue.");
                 return;
             }
 
             //ToDo ignore just for me
-            Trace.Message($"References of parent device and gatt callback device equal? {ReferenceEquals(_device.BluetoothDevice, gatt.Device).ToString().ToUpper()}");
+            Trace.Message($"References of parent device and gatt callback device equal? {ReferenceEquals(_device.NativeDevice, gatt.Device).ToString().ToUpper()}");
 
             Trace.Message($"OnConnectionStateChange: GattStatus: {status}");
 
@@ -57,8 +59,11 @@ namespace Plugin.BLE.Android
                 // disconnected
                 case ProfileState.Disconnected:
 
-                    // Close GATT regardless, else we can accumulate zombie gatts.
-                    CloseGattInstances(gatt);
+                    // Close GATT if autoConnect is disabled, else we can accumulate zombie gatts.
+                    if (!_device.ConnectParameters.AutoConnect)
+                    {
+                        CloseGattInstances(gatt);
+                    }
 
                     // If status == 19, then connection was closed by the peripheral device (clean disconnect), consider this as a DeviceDisconnected
                     if (_device.IsOperationRequested || (int)status == 19)
@@ -142,7 +147,7 @@ namespace Plugin.BLE.Android
         private void CloseGattInstances(BluetoothGatt gatt)
         {
             //ToDO just for me
-            Trace.Message($"References of parnet device gatt and callback gatt equal? {ReferenceEquals(_device._gatt, gatt).ToString().ToUpper()}");
+            Trace.Message($"References of parent device gatt and callback gatt equal? {ReferenceEquals(_device._gatt, gatt).ToString().ToUpper()}");
 
             if (!ReferenceEquals(gatt, _device._gatt))
             {
@@ -168,7 +173,7 @@ namespace Plugin.BLE.Android
 
             Trace.Message("OnCharacteristicRead: value {0}; status {1}", characteristic.GetValue().ToHexString(), status);
 
-            CharacteristicValueUpdated?.Invoke(this, new CharacteristicReadCallbackEventArgs(characteristic));
+            CharacteristicValueRead?.Invoke(this, new CharacteristicReadCallbackEventArgs(characteristic));
         }
 
         public override void OnCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic)
