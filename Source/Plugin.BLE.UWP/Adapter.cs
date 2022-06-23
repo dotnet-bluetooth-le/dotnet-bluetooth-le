@@ -31,7 +31,7 @@ namespace Plugin.BLE.UWP
             var serviceUuids = scanFilterOptions?.ServiceUuids;
             var hasFilter = serviceUuids?.Any() ?? false;
 
-            _bleWatcher = new BluetoothLEAdvertisementWatcher { ScanningMode = ScanMode.ToNative() };
+            _bleWatcher = new BluetoothLEAdvertisementWatcher { ScanningMode = ScanMode.ToNative(), AllowExtendedAdvertisements = true };
 
             Trace.Message("Starting a scan for devices.");
             if (hasFilter)
