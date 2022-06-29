@@ -63,6 +63,7 @@
     <Compile Include="Extensions\BluetoothStateExtension.cs" />
     <Compile Include="Extensions\CharacteristicWriteTypeExtension.cs" />
     <Compile Include="Extensions\GattWriteTypeExtension.cs" />
+    <Compile Include="Extensions\ScanMatchModeExtension.cs" />
     <Compile Include="Extensions\ScanModeExtension.cs" />
     <Compile Include="GattCallback.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

@@ -149,6 +149,17 @@ namespace Plugin.BLE.Android
 
             var ssb = new ScanSettings.Builder();
             ssb.SetScanMode(ScanMode.ToNative());
+            ssb.SetMatchMode(ScanMatchMode.ToNative());
+
+            // If set to agressive reduce the number of adverts needed before raising the DeviceFound callback
+            if (ScanMatchMode.ToNative() == BluetoothScanMatchMode.Aggressive)
+            {
+                // Be more agressive when seeking adverts
+                ssb.SetNumOfMatches((int)BluetoothScanMatchNumber.OneAdvertisement);
+                ssb.SetCallbackType(ScanCallbackType.AllMatches);
+                Trace.Message("Using ScanMatchMode Agressive");
+            }
+            
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
             {
                 // enable Bluetooth 5 Advertisement Extensions on Android 8.0 and above
