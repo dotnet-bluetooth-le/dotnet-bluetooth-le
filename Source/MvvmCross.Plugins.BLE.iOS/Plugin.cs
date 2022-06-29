@@ -1,4 +1,5 @@
 using Foundation;
+using Microsoft.Extensions.Logging;
 using MvvmCross.IoC;
 using MvvmCross.Logging;
 using MvvmCross.Plugin;
@@ -18,8 +19,11 @@ namespace MvvmCross.Plugins.BLE.iOS
 
         public Plugin()
         {
-            var log = Mvx.IoCProvider.Resolve<IMvxLog>();
-            Trace.TraceImplementation = log.Trace;
+            ILogger<Plugin> log;
+            if (Mvx.IoCProvider.TryResolve(out log))
+            {
+                Trace.TraceImplementation = log.LogTrace;
+            }
         }
 
         public void Load()

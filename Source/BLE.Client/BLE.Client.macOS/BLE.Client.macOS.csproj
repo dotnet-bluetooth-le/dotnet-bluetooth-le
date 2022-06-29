@@ -99,10 +99,10 @@
       <Version>7.1.0.514</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross">
-      <Version>7.1.2</Version>
+      <Version>8.0.2</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross.Forms">
-      <Version>7.1.2</Version>
+      <Version>8.0.2</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
       <Version>5.0.0.2401</Version>

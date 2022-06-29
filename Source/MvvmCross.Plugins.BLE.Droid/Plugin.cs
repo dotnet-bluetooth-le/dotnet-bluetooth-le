@@ -1,5 +1,5 @@
+using Microsoft.Extensions.Logging;
 using MvvmCross.IoC;
-using MvvmCross.Logging;
 using MvvmCross.Plugin;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions;
@@ -13,8 +13,11 @@ namespace MvvmCross.Plugins.BLE.Droid
     {
         public Plugin()
         {
-            var log = Mvx.IoCProvider.Resolve<IMvxLog>();
-            Trace.TraceImplementation = log.Trace;
+            ILogger<Plugin> log;
+            if (Mvx.IoCProvider.TryResolve(out log))
+            {
+                Trace.TraceImplementation = log.LogTrace;
+            }
         }
         public void Load()
         {

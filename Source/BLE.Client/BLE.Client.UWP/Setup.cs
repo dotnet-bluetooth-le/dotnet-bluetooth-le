@@ -1,10 +1,13 @@
 using System.Diagnostics;
 using Acr.UserDialogs;
+using Microsoft.Extensions.Logging;
 using MvvmCross;
 using MvvmCross.IoC;
 using MvvmCross.Forms.Platforms.Uap.Core;
 using Plugin.BLE;
 using Trace = Plugin.BLE.Abstractions.Trace;
+using Serilog.Extensions.Logging;
+using Serilog;
 
 namespace BLE.Client.UWP
 {
@@ -21,6 +24,21 @@ namespace BLE.Client.UWP
             Trace.TraceImplementation = (s, objects) => Debug.WriteLine(s, objects);
 
             return result;
+        }
+
+        protected override ILoggerProvider CreateLogProvider()
+        {
+            return new SerilogLoggerProvider();
+        }
+
+        protected override ILoggerFactory CreateLogFactory()
+        {
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Debug()
+                .CreateLogger();
+
+            return new SerilogLoggerFactory();
         }
 
     }
