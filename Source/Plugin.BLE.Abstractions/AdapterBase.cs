@@ -34,6 +34,13 @@ namespace Plugin.BLE.Abstractions
         public int ScanTimeout { get; set; } = 10000;
         public ScanMode ScanMode { get; set; } = ScanMode.LowPower;
 
+
+        /// <summary>
+        /// Scan match mode defines how agressively we look for adverts
+        /// </summary>
+        public ScanMatchMode ScanMatchMode { get; set; } = ScanMatchMode.STICKY;
+        
+
         protected ConcurrentDictionary<Guid, IDevice> DiscoveredDevicesRegistry { get; } = new ConcurrentDictionary<Guid, IDevice>();
 
         public virtual IReadOnlyList<IDevice> DiscoveredDevices => DiscoveredDevicesRegistry.Values.ToList();

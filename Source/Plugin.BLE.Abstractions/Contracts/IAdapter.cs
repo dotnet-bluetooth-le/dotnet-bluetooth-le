@@ -56,6 +56,13 @@ namespace Plugin.BLE.Abstractions.Contracts
         ScanMode ScanMode { get; set; }
 
         /// <summary>
+        /// Specified the scan match mode. Must be set before calling StartScanningForDevicesAsync().
+        /// Changing it while scanning, will have no change the current scan behavior.
+        /// Default: <see cref="ScanMatchMode.STICKY"/> 
+        /// </summary>
+        ScanMatchMode ScanMatchMode { get; set; }
+
+        /// <summary>
         /// List of last discovered devices.
         /// </summary>
         IReadOnlyList<IDevice> DiscoveredDevices { get; }
