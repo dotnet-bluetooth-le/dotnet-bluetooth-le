@@ -160,7 +160,6 @@ namespace Plugin.BLE.Android
                 {
                     // Be more agressive when seeking adverts
                     ssb.SetNumOfMatches((int)BluetoothScanMatchNumber.OneAdvertisement);
-                    ssb.SetCallbackType(ScanCallbackType.AllMatches);
                     Trace.Message("Using ScanMatchMode Agressive");
                 }
             }
