@@ -2,6 +2,13 @@
 
 ## 2.2 UWP
 
+#### 2.2.0-pre5
+- #527 Updated logger to support MVVMCross 8
+- #600 Don't use same event handler for notifications as for read
+- #605 UWP: update target platform version and allow extended advertisements
+- #607 Added Scan Match Mode to Android
+- #611 updated UWP plugin to support mvvmcross 8
+
 #### 2.2.0-pre4
 - Merged fixes from 2.1.3
 - #594 Added null-check to StartScanningForDevicesNativeAsync
