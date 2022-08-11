@@ -51,7 +51,13 @@ namespace Plugin.BLE.iOS
 
                 //handle PoweredOff state
                 //notify subscribers about disconnection
+
+#if NET6_0_OR_GREATER || MACCATALYST
+
+                if (_centralManager.State == CBManagerState.PoweredOff)
+#else
                 if (_centralManager.State == CBCentralManagerState.PoweredOff)
+#endif
                 {
                     foreach (var device in ConnectedDeviceRegistry.Values.ToList())
                     {
@@ -144,8 +150,12 @@ namespace Plugin.BLE.iOS
 
         protected override async Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
         {
+#if NET6_0_OR_GREATER || MACCATALYST
+            await WaitForState(CBManagerState.PoweredOn, scanCancellationToken).ConfigureAwait(false);
+#else
             // Wait for the PoweredOn state
             await WaitForState(CBCentralManagerState.PoweredOn, scanCancellationToken).ConfigureAwait(false);
+#endif
 
             if (scanCancellationToken.IsCancellationRequested)
                 throw new TaskCanceledException("StartScanningForDevicesNativeAsync cancelled");
@@ -211,8 +221,12 @@ namespace Plugin.BLE.iOS
         /// <param name="deviceGuid">Device GUID.</param>
         public override async Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters = default(ConnectParameters), CancellationToken cancellationToken = default(CancellationToken))
         {
+#if NET6_0_OR_GREATER || MACCATALYST
+            await WaitForState(CBManagerState.PoweredOn, cancellationToken, true);
+#else
             // Wait for the PoweredOn state
             await WaitForState(CBCentralManagerState.PoweredOn, cancellationToken, true);
+#endif
 
             if (cancellationToken.IsCancellationRequested)
                 throw new TaskCanceledException("ConnectToKnownDeviceAsync cancelled");
@@ -233,7 +247,7 @@ namespace Plugin.BLE.iOS
                 var cbuuid = CBUUID.FromNSUuid(uuid);
 #endif
                 peripherial = systemPeripherials.SingleOrDefault(p =>
-#if __IOS__
+#if __IOS__ && !NET6_0_OR_GREATER
                 p.UUID.Equals(cbuuid)
 #else
                  p.Identifier.Equals(uuid)
@@ -277,7 +291,11 @@ namespace Plugin.BLE.iOS
             return nativeDevices.Select(d => new Device(this, d, _bleCentralManagerDelegate)).Cast<IDevice>().ToList();
         }
 
+#if NET6_0_OR_GREATER || MACCATALYST
+        private async Task WaitForState(CBManagerState state, CancellationToken cancellationToken, bool configureAwait = false)
+#else
         private async Task WaitForState(CBCentralManagerState state, CancellationToken cancellationToken, bool configureAwait = false)
+#endif
         {
             Trace.Message("Adapter: Waiting for state: " + state);
 

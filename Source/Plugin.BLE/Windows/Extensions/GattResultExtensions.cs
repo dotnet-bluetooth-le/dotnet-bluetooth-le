@@ -2,7 +2,11 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Devices.Bluetooth.GenericAttributeProfile;
+#if WINDOWS_UWP
 using Microsoft.Toolkit.Uwp.Connectivity;
+#else
+using CommunityToolkit.WinUI.Connectivity;
+#endif
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Exceptions;
 

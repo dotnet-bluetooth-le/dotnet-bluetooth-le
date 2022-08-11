@@ -59,14 +59,6 @@
       <Project>{83F1DFFB-A653-45DD-BE81-C02374C6DB07}</Project>
       <Name>MvvmCross.Plugins.BLE</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Plugin.BLE.Abstractions\Plugin.BLE.Abstractions.csproj">
-      <Project>{56531910-6309-4f1d-a12b-f69e2914fae6}</Project>
-      <Name>Plugin.BLE.Abstractions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Plugin.BLE.Android\Plugin.BLE.Android.csproj">
-      <Project>{80c10c11-6fcb-4038-b029-a700039e8f99}</Project>
-      <Name>Plugin.BLE.Android</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions">
