@@ -109,6 +109,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Plugin.BLE\Plugin.BLE.csproj">
+      <Project>{951ed11d-d026-449c-90dc-5027bc41fb3b}</Project>
+      <Name>Plugin.BLE</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BLE.Client\BLE.Client.csproj">
       <Project>{dfe97be0-070b-43ad-bf37-50fd42b542d1}</Project>
       <Name>BLE.Client</Name>

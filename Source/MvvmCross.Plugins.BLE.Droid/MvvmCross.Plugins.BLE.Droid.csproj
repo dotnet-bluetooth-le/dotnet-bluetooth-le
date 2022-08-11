@@ -59,6 +59,10 @@
       <Project>{83F1DFFB-A653-45DD-BE81-C02374C6DB07}</Project>
       <Name>MvvmCross.Plugins.BLE</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Plugin.BLE\Plugin.BLE.csproj">
+      <Project>{951ed11d-d026-449c-90dc-5027bc41fb3b}</Project>
+      <Name>Plugin.BLE</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions">

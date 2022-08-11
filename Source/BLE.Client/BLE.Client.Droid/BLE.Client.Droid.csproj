@@ -102,6 +102,10 @@
       <Project>{83f1dffb-a653-45dd-be81-c02374c6db07}</Project>
       <Name>MvvmCross.Plugins.BLE</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Plugin.BLE\Plugin.BLE.csproj">
+      <Project>{951ed11d-d026-449c-90dc-5027bc41fb3b}</Project>
+      <Name>Plugin.BLE</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BLE.Client\BLE.Client.csproj">
       <Name>BLE.Client</Name>
       <Project>{DFE97BE0-070B-43AD-BF37-50FD42B542D1}</Project>

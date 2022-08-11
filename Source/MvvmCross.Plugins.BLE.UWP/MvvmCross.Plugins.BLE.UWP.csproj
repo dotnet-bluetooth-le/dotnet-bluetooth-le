@@ -140,6 +140,10 @@
       <Project>{83f1dffb-a653-45dd-be81-c02374c6db07}</Project>
       <Name>MvvmCross.Plugins.BLE</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Plugin.BLE\Plugin.BLE.csproj">
+      <Project>{951ed11d-d026-449c-90dc-5027bc41fb3b}</Project>
+      <Name>Plugin.BLE</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\MvvmCross.Plugins.BLE\MvvmCross.Plugins.BLE.csproj" />
+    <ProjectReference Include="..\..\Plugin.BLE\Plugin.BLE.csproj" />
   </ItemGroup>
 
   <ItemGroup>
