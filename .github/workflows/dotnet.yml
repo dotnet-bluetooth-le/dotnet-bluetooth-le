@@ -69,6 +69,7 @@ jobs:
       run: nuget pack .build/MvvmCross.Plugin.BLE.nuspec -Version $(git describe)
     - name: Upload packages
       uses: actions/upload-artifact@v2
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       with:
         name: nupkg
         path: ./*Plugin.BLE*.nupkg
