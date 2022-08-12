@@ -10,7 +10,7 @@ var target = Argument("target", "Build");
 var NuGetTargetDir = MakeAbsolute(Directory("./nuget"));
 var BuildTargetDir = MakeAbsolute(Directory("./out/lib"));
 var ProjectSources = MakeAbsolute(Directory("../Source"));
-var NuspecFiles = new [] { "Plugin.BLE.nuspec", "MvvmCross.Plugin.BLE.nuspec" };
+var NuspecFiles = new [] { "MvvmCross.Plugin.BLE.nuspec" };
 
 string GetProjectPath(string pathPrefix, string projectName)
 {
@@ -62,13 +62,6 @@ Task("Restore")
 Task("BuildLibs")
     .Does(() =>
 {
-    BuildProject(".", "Plugin.BLE.Abstractions", "netstandard2.0");
-    BuildProject(".", "Plugin.BLE", "netstandard2.0");
-    BuildProject(".", "Plugin.BLE.Android", "android");
-    BuildProject(".", "Plugin.BLE.iOS", "ios");
-    BuildProject(".", "Plugin.BLE.macOS", "macOS");
-    BuildProject(".", "Plugin.BLE.UWP", "uwp");
-
     BuildProject(".", "MvvmCross.Plugins.BLE", Path.Combine("mvx", "netstandard2.0"));
     BuildProject(".", "MvvmCross.Plugins.BLE.Droid", Path.Combine("mvx", "android"));
     BuildProject(".", "MvvmCross.Plugins.BLE.iOS", Path.Combine("mvx", "ios"));
