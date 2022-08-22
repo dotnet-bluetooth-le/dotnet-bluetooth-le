@@ -29,10 +29,10 @@ jobs:
         & dotnet nuget locals all --clear
         & dotnet workload install maui --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
         & dotnet workload install android ios maccatalyst tvos macos maui wasm-tools maui-maccatalyst --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
-    - name: Build Plugin.BLE NuGet
-      run: msbuild .\Source\Plugin.BLE\Plugin.BLE.csproj /p:Configuration=Release /t:restore;build;pack /p:PackageVersion=${{env.NUGET_VERSION}} /p:PackageOutputPath=./nuget  /p:AssemblyFileVersion=${{env.NUGET_VERSION}}   /p:Version=${{env.NUGET_VERSION}} /p:FileVersion=${{env.NUGET_VERSION}} /p:InformationalVersion=${{env.NUGET_VERSION}} /p:AssemblyVersion=${{env.NUGET_VERSION}} /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
+    - name: Build Plugin.BLE NuGet
+      run: msbuild .\Source\Plugin.BLE\Plugin.BLE.csproj /p:Configuration=Release /t:restore;build;pack /p:PackageVersion=${{env.NUGET_VERSION}} /p:PackageOutputPath=./nuget  /p:AssemblyFileVersion=${{env.NUGET_VERSION}}   /p:Version=${{env.NUGET_VERSION}} /p:FileVersion=${{env.NUGET_VERSION}} /p:InformationalVersion=${{env.NUGET_VERSION}} /p:AssemblyVersion=${{env.NUGET_VERSION}} /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
     - name: Clean
       uses: cake-build/cake-action@v1
       with:
@@ -69,7 +69,6 @@ jobs:
       run: nuget pack .build/MvvmCross.Plugin.BLE.nuspec -Version $(git describe)
     - name: Upload packages
       uses: actions/upload-artifact@v2
-      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       with:
         name: nupkg
         path: ./*Plugin.BLE*.nupkg
