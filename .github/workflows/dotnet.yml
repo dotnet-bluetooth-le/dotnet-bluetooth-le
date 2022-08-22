@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
   
 env:
-    NUGET_VERSION: 3.0.0
+    NUGET_VERSION: 3.0.0-beta
 
 jobs:
   build:
