@@ -32,7 +32,7 @@ jobs:
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
     - name: Build Plugin.BLE NuGet
-      run: msbuild .\Source\Plugin.BLE\Plugin.BLE.csproj /p:Configuration=Release /t:restore;build;pack /p:PackageVersion=${{env.NUGET_VERSION}} /p:PackageOutputPath=./nuget  /p:AssemblyFileVersion=${{env.NUGET_VERSION}}   /p:Version=${{env.NUGET_VERSION}} /p:FileVersion=${{env.NUGET_VERSION}} /p:InformationalVersion=${{env.NUGET_VERSION}} /p:AssemblyVersion=${{env.NUGET_VERSION}} /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+      run: msbuild .\Source\Plugin.BLE\Plugin.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageVersion=${{env.NUGET_VERSION}} /p:PackageOutputPath=./nuget  /p:AssemblyFileVersion=${{env.NUGET_VERSION}}   /p:Version=${{env.NUGET_VERSION}} /p:FileVersion=${{env.NUGET_VERSION}} /p:InformationalVersion=${{env.NUGET_VERSION}} /p:AssemblyVersion=${{env.NUGET_VERSION}} /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
     - name: Clean
       uses: cake-build/cake-action@v1
       with:
