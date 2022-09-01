@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
   
 env:
-    NUGET_VERSION: 3.0.0-beta
+    NUGET_VERSION: 3.0.0
 
 jobs:
   build:
@@ -31,6 +31,8 @@ jobs:
         & dotnet workload install android ios maccatalyst tvos macos maui wasm-tools maui-maccatalyst --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
+    - name: Build Plugin.BLE NuGet Beta
+      run: msbuild .\Source\Plugin.BLE\Plugin.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageVersion=${{env.NUGET_VERSION}}-beta /p:PackageOutputPath=./nuget  /p:AssemblyFileVersion=${{env.NUGET_VERSION}}   /p:Version=${{env.NUGET_VERSION}} /p:FileVersion=${{env.NUGET_VERSION}} /p:InformationalVersion=${{env.NUGET_VERSION}} /p:AssemblyVersion=${{env.NUGET_VERSION}} /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
     - name: Build Plugin.BLE NuGet
       run: msbuild .\Source\Plugin.BLE\Plugin.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageVersion=${{env.NUGET_VERSION}} /p:PackageOutputPath=./nuget  /p:AssemblyFileVersion=${{env.NUGET_VERSION}}   /p:Version=${{env.NUGET_VERSION}} /p:FileVersion=${{env.NUGET_VERSION}} /p:InformationalVersion=${{env.NUGET_VERSION}} /p:AssemblyVersion=${{env.NUGET_VERSION}} /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
     - name: Clean
