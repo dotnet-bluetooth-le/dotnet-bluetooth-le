@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
   
 env:
-    NUGET_VERSION: 3.0.0
+    NUGET_VERSION: $(git describe)
 
 jobs:
   build:
@@ -65,8 +65,6 @@ jobs:
       with:
         script-path: .build/build.cake
         target: RunTests
-    - name: Generate nuget package (Vanilla)
-      run: nuget pack .build/Plugin.BLE.nuspec -Version $(git describe)
     - name: Generate nuget package (MvvmCross)
       run: nuget pack .build/MvvmCross.Plugin.BLE.nuspec -Version $(git describe)
     - name: Upload packages
