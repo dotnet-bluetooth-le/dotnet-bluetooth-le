@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
   
 env:
-    NUGET_VERSION: $(git describe)
+    NUGET_VERSION: 3.0.0
 
 jobs:
   build:
