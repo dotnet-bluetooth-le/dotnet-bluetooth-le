@@ -117,11 +117,6 @@
       <Project>{dfe97be0-070b-43ad-bf37-50fd42b542d1}</Project>
       <Name>BLE.Client</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\MvvmCross.Plugins.BLE.macOS\MvvmCross.Plugins.BLE.macOS.csproj">
-      <Project>{9530AA2D-2A0E-4AC3-93D5-28769BF43F89}</Project>
-      <Name>MvvmCross.Plugins.BLE.macOS</Name>
-      <ReferenceSourceTarget>ProjectReference</ReferenceSourceTarget>
-    </ProjectReference>
     <ProjectReference Include="..\..\MvvmCross.Plugins.BLE\MvvmCross.Plugins.BLE.csproj">
       <Project>{83F1DFFB-A653-45DD-BE81-C02374C6DB07}</Project>
       <Name>MvvmCross.Plugins.BLE</Name>

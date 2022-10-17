@@ -24,7 +24,7 @@
 			Plugin to access Bluetooth Low Energy functionality on Android, iOS, macOS, and UWP.
 			Read the full documentation on the projects page..
 		</Description>
-		<Copyright>Copyright Refractored LLC</Copyright>
+		<Copyright>Apache-2.0</Copyright>
 		<RepositoryUrl>https://github/xabre/xamarin-bluetooth-le/</RepositoryUrl>
 		<PackageReleaseNotes>See: https://github/xabre/xamarin-bluetooth-le/ </PackageReleaseNotes>
 

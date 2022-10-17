@@ -35,6 +35,10 @@ jobs:
       run: msbuild .\Source\Plugin.BLE\Plugin.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageVersion=${{env.NUGET_VERSION}}-beta /p:PackageOutputPath=./nuget  /p:AssemblyFileVersion=${{env.NUGET_VERSION}}   /p:Version=${{env.NUGET_VERSION}} /p:FileVersion=${{env.NUGET_VERSION}} /p:InformationalVersion=${{env.NUGET_VERSION}} /p:AssemblyVersion=${{env.NUGET_VERSION}} /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
     - name: Build Plugin.BLE NuGet
       run: msbuild .\Source\Plugin.BLE\Plugin.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageVersion=${{env.NUGET_VERSION}} /p:PackageOutputPath=./nuget  /p:AssemblyFileVersion=${{env.NUGET_VERSION}}   /p:Version=${{env.NUGET_VERSION}} /p:FileVersion=${{env.NUGET_VERSION}} /p:InformationalVersion=${{env.NUGET_VERSION}} /p:AssemblyVersion=${{env.NUGET_VERSION}} /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+    - name: Build MVVMCross Plugin.BLE NuGet Beta
+      run: msbuild .\Source\MvvmCross.Plugins.BLE\MvvmCross.Plugins.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageVersion=${{env.NUGET_VERSION}}-beta /p:PackageOutputPath=./nuget  /p:AssemblyFileVersion=${{env.NUGET_VERSION}}   /p:Version=${{env.NUGET_VERSION}} /p:FileVersion=${{env.NUGET_VERSION}} /p:InformationalVersion=${{env.NUGET_VERSION}} /p:AssemblyVersion=${{env.NUGET_VERSION}} /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+    - name: Build Plugin.BLE NuGet
+      run: msbuild .\Source\MvvmCross.Plugins.BLE\MvvmCross.Plugins.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageVersion=${{env.NUGET_VERSION}} /p:PackageOutputPath=./nuget  /p:AssemblyFileVersion=${{env.NUGET_VERSION}}   /p:Version=${{env.NUGET_VERSION}} /p:FileVersion=${{env.NUGET_VERSION}} /p:InformationalVersion=${{env.NUGET_VERSION}} /p:AssemblyVersion=${{env.NUGET_VERSION}} /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
     - name: Clean
       uses: cake-build/cake-action@v1
       with:
@@ -65,8 +69,6 @@ jobs:
       with:
         script-path: .build/build.cake
         target: RunTests
-    - name: Generate nuget package (MvvmCross)
-      run: nuget pack .build/MvvmCross.Plugin.BLE.nuspec -Version $(git describe)
     - name: Upload packages
       uses: actions/upload-artifact@v2
       with:

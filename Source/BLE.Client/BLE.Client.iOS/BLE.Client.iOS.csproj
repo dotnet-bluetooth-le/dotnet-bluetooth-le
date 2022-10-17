@@ -103,12 +103,6 @@
     <Compile Include="Helpers\PlatformHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MvvmCross.Plugins.BLE.iOS\MvvmCross.Plugins.BLE.iOS.csproj">
-      <Project>{cb52cff4-f804-41a0-8408-a31365f4ba91}</Project>
-      <Name>MvvmCross.Plugins.BLE.iOS</Name>
-      <IsAppExtension>false</IsAppExtension>
-      <IsWatchApp>false</IsWatchApp>
-    </ProjectReference>
     <ProjectReference Include="..\..\MvvmCross.Plugins.BLE\MvvmCross.Plugins.BLE.csproj">
       <Project>{83f1dffb-a653-45dd-be81-c02374c6db07}</Project>
       <Name>MvvmCross.Plugins.BLE</Name>
