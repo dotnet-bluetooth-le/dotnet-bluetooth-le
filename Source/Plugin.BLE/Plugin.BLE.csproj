@@ -117,5 +117,14 @@
 	<ItemGroup Condition=" $(TargetFramework.Contains('-mac')) ">
 		<Compile Include="**\Apple\**\*.cs" />
 	</ItemGroup>
+	 
+	    <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac')) ">
+		<Reference Include="Xamarin.Mac">
+			<HintPath Condition="Exists('C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\Extensions\Xamarin.VisualStudio')">C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\Extensions\Xamarin.VisualStudio\Xamarin.Mac.dll</HintPath>
+			<HintPath Condition="Exists('C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\Extensions\Xamarin.VisualStudio')">C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\Extensions\Xamarin.VisualStudio\Xamarin.Mac.dll</HintPath>
+			<HintPath Condition="Exists('C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Xamarin.VisualStudio')">C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Xamarin.VisualStudio\Xamarin.Mac.dll</HintPath>
+			<HintPath Condition="Exists('C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\Extensions\Xamarin.VisualStudio')">C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\Extensions\Xamarin.VisualStudio\Xamarin.Mac.dll</HintPath>
+		</Reference>
+	</ItemGroup>
 
 </Project>
