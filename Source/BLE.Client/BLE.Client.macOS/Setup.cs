@@ -28,13 +28,13 @@ namespace BLE.Client.macOS
 
         public override IEnumerable<Assembly> GetPluginAssemblies()
         {
-            return base.GetPluginAssemblies().Union(new[] { typeof(MvvmCross.Plugins.BLE.macOS.Plugin).Assembly });
+            return base.GetPluginAssemblies().Union(new[] { typeof(MvvmCross.Plugins.BLE.Plugin).Assembly });
         }
 
         /*
         public override IEnumerable<Assembly> GetPluginAssemblies()
         {
-            return new List<Assembly>(base.GetViewAssemblies().Union(new[] { typeof(MvvmCross.Plugins.BLE.iOS.Plugin).GetTypeInfo().Assembly }));
+            return new List<Assembly>(base.GetViewAssemblies().Union(new[] { typeof(MvvmCross.Plugins.BLE.Plugin).GetTypeInfo().Assembly }));
         }
         */
 

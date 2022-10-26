@@ -49,7 +49,7 @@ namespace BLE.Client.iOS
         /*
         public override IEnumerable<Assembly> GetPluginAssemblies()
         {
-            return new List<Assembly>(base.GetViewAssemblies().Union(new[] { typeof(MvvmCross.Plugins.BLE.iOS.Plugin).GetTypeInfo().Assembly }));
+            return new List<Assembly>(base.GetViewAssemblies().Union(new[] { typeof(MvvmCross.Plugins.BLE.Plugin).GetTypeInfo().Assembly }));
         }
         */
     }
