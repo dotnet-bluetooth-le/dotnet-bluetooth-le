@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -84,6 +85,38 @@ namespace Plugin.BLE.Abstractions
         public async Task<IService> GetServiceAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken))
         {
             var services = await GetServicesAsync(cancellationToken);
+            var service = await GetPrefferedServiceAsync(services, id);
+            return service;
+        }
+
+        private async Task<IService> GetPrefferedServiceAsync(IList<IService> services, Guid id)
+        {
+            var equalServices = services.Where(x => x.Id == id).ToList();
+            if (equalServices.Count > 1)
+            {
+                System.Diagnostics.Debug.WriteLine($"XXXXXX serveral services, id={id}");
+
+                var preferredService = equalServices.FirstOrDefault();
+                var preferredServiceCharacteristics = await preferredService.GetCharacteristicsAsync();
+
+                for (int index = 1; index < equalServices.Count; index++)
+                {
+                    var service = equalServices[index];
+                    var characteristics = await service.GetCharacteristicsAsync();
+
+                    if (characteristics.Count > preferredServiceCharacteristics.Count)
+                    {
+                        preferredService = service;
+                        preferredServiceCharacteristics = characteristics;
+                    }
+
+                    var allCharacteristicsAsText = string.Join(", ", characteristics.Select(x => $"{x.Name}={x.Id}"));
+                    System.Diagnostics.Debug.WriteLine($"XXXXXX index={index}, characteristicCount={characteristics.Count}, characteristics={allCharacteristicsAsText}");
+                }
+
+                return preferredService;
+            }
+
             return services.FirstOrDefault(x => x.Id == id);
         }
 
