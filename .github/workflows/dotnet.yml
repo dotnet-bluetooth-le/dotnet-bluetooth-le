@@ -7,7 +7,7 @@ on:
     branches: [ '**' ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-  
+
 env:
     NUGET_VERSION: 3.0.0
 
@@ -37,7 +37,7 @@ jobs:
       run: msbuild .\Source\Plugin.BLE\Plugin.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageVersion=${{env.NUGET_VERSION}} /p:PackageOutputPath=./nuget  /p:AssemblyFileVersion=${{env.NUGET_VERSION}}   /p:Version=${{env.NUGET_VERSION}} /p:FileVersion=${{env.NUGET_VERSION}} /p:InformationalVersion=${{env.NUGET_VERSION}} /p:AssemblyVersion=${{env.NUGET_VERSION}} /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
     - name: Build MVVMCross Plugin.BLE NuGet Beta
       run: msbuild .\Source\MvvmCross.Plugins.BLE\MvvmCross.Plugins.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageVersion=${{env.NUGET_VERSION}}-beta /p:PackageOutputPath=./nuget  /p:AssemblyFileVersion=${{env.NUGET_VERSION}}   /p:Version=${{env.NUGET_VERSION}} /p:FileVersion=${{env.NUGET_VERSION}} /p:InformationalVersion=${{env.NUGET_VERSION}} /p:AssemblyVersion=${{env.NUGET_VERSION}} /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
-    - name: Build Plugin.BLE NuGet
+    - name: Build MVVMCross Plugin.BLE NuGet
       run: msbuild .\Source\MvvmCross.Plugins.BLE\MvvmCross.Plugins.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageVersion=${{env.NUGET_VERSION}} /p:PackageOutputPath=./nuget  /p:AssemblyFileVersion=${{env.NUGET_VERSION}}   /p:Version=${{env.NUGET_VERSION}} /p:FileVersion=${{env.NUGET_VERSION}} /p:InformationalVersion=${{env.NUGET_VERSION}} /p:AssemblyVersion=${{env.NUGET_VERSION}} /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
     - name: Clean
       uses: cake-build/cake-action@v1
@@ -73,4 +73,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: nupkg
-        path: ./*Plugin.BLE*.nupkg
+        path: ./Source/*/nuget/*Plugin.BLE*.nupkg
