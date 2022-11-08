@@ -1,7 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
 	<PropertyGroup>
-		<TargetFrameworks>MonoAndroid10.0;Xamarin.iOS10;Xamarin.Mac20;net6.0-android;net6.0-ios;net6.0-maccatalyst;</TargetFrameworks>
-		<TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);uap10.0.19041;net6.0-windows10.0.19041;</TargetFrameworks>
+		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst;</TargetFrameworks>
+		<TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);net6.0-windows10.0.19041;</TargetFrameworks>
 		<AssemblyName>MVVMCross.Plugins.BLE</AssemblyName>
 		<RootNamespace>MVVMCross.Plugins.BLE</RootNamespace>
 		<AssemblyVersion>1.0.0.0</AssemblyVersion>
@@ -115,7 +115,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Plugin.BLE\Plugin.BLE.csproj" />
 	</ItemGroup>
-	 
+
 	    <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac')) ">
 		<Reference Include="Xamarin.Mac">
 			<HintPath Condition="Exists('C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\Extensions\Xamarin.VisualStudio')">C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\Extensions\Xamarin.VisualStudio\Xamarin.Mac.dll</HintPath>
