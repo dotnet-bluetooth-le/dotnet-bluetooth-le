@@ -7,8 +7,10 @@ namespace Plugin.BLE
     public interface IBleCentralManagerDelegate
     {
         event EventHandler<CBWillRestoreEventArgs> WillRestoreState;
+#if !NET6_0_OR_GREATER && !MACCATALYST
         event EventHandler<CBPeripheralsEventArgs> RetrievedPeripherals;
         event EventHandler<CBPeripheralsEventArgs> RetrievedConnectedPeripherals;
+#endif
         event EventHandler<CBPeripheralErrorEventArgs> FailedToConnectPeripheral;
         event EventHandler<CBDiscoveredPeripheralEventArgs> DiscoveredPeripheral;
         event EventHandler<CBPeripheralErrorEventArgs> DisconnectedPeripheral;
@@ -18,7 +20,7 @@ namespace Plugin.BLE
 
     public class BleCentralManagerDelegate : CBCentralManagerDelegate, IBleCentralManagerDelegate
     {
-        #region IBleCentralManagerDelegate events
+#region IBleCentralManagerDelegate events
 
         private event EventHandler<CBWillRestoreEventArgs> _willRestoreState;
 
@@ -27,6 +29,10 @@ namespace Plugin.BLE
             add => _willRestoreState += value;
             remove => _willRestoreState -= value;
         }
+
+        //TODO: Is this okay?
+
+#if !NET6_0_OR_GREATER && !MACCATALYST
 
         private event EventHandler<CBPeripheralsEventArgs> _retrievedPeripherals;
 
@@ -43,6 +49,7 @@ namespace Plugin.BLE
             add => _retrievedConnectedPeripherals += value;
             remove => _retrievedConnectedPeripherals -= value;
         }
+#endif
 
         private event EventHandler<CBPeripheralErrorEventArgs> _failedToConnectPeripheral;
 
@@ -84,15 +91,16 @@ namespace Plugin.BLE
             remove => _connectedPeripheral -= value;
         }
 
-        #endregion
+#endregion
 
-        #region Event wiring
+#region Event wiring
 
         public override void WillRestoreState(CBCentralManager central, NSDictionary dict)
         {
             _willRestoreState?.Invoke(this, new CBWillRestoreEventArgs(dict));
         }
-
+        //TODO: Is this okay?
+#if !NET6_0_OR_GREATER && !MACCATALYST
         public override void RetrievedPeripherals(CBCentralManager central, CBPeripheral[] peripherals)
         {
             _retrievedPeripherals?.Invoke(this, new CBPeripheralsEventArgs(peripherals));
@@ -102,6 +110,7 @@ namespace Plugin.BLE
         {
             _retrievedConnectedPeripherals?.Invoke(this, new CBPeripheralsEventArgs(peripherals));
         }
+#endif
 
         public override void FailedToConnectPeripheral(CBCentralManager central, CBPeripheral peripheral, NSError error)
         {
@@ -130,6 +139,6 @@ namespace Plugin.BLE
             _connectedPeripheral?.Invoke(this, new CBPeripheralEventArgs(peripheral));
         }
 
-        #endregion
+#endregion
     }
 }

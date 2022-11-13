@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+#if WINDOWS_UWP
 using Microsoft.Toolkit.Uwp.Connectivity;
+#else
+using CommunityToolkit.WinUI.Connectivity;
+#endif
 using Windows.Devices.Bluetooth;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;

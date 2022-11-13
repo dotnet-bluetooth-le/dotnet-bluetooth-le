@@ -16,9 +16,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Plugin.BLE.Abstractions\Plugin.BLE.Abstractions.csproj" />
+    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <ProjectReference Include="..\Plugin.BLE\Plugin.BLE.csproj" />
   </ItemGroup>
 </Project>

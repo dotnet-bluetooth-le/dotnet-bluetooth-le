@@ -143,7 +143,7 @@ MyViewModel(IBluetoothLE ble, IAdapter adapter)
 Please make sure you have this code in your LinkerPleaseLink.cs file
 
 ```csharp
-public void Include(MvvmCross.Plugins.BLE.iOS.Plugin plugin)
+public void Include(MvvmCross.Plugins.BLE.Plugin plugin)
 {
     plugin.Load();
 }

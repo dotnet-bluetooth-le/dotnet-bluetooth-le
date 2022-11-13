@@ -6,7 +6,11 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
 
+#if WINDOWS_UWP
 using Microsoft.Toolkit.Uwp.Connectivity;
+#else
+using CommunityToolkit.WinUI.Connectivity;
+#endif
 using Windows.Devices.Bluetooth;
 using Windows.Devices.Bluetooth.Advertisement;
 

@@ -29,7 +29,7 @@ namespace Plugin.BLE
 
         static IBluetoothLE CreateImplementation()
         {
-#if PORTABLE
+#if NETSTANDARD
             return null;
 #else
             var implementation = new BleImplementation();

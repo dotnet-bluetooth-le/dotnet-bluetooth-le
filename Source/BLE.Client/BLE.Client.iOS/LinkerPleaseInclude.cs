@@ -118,7 +118,7 @@ namespace BLE.Client.iOS
         //it seems that neight PreserveAttribute or [assembly: Preserve] is working. The only way to load it is this LinkerPleaseInclude file.
         public void Include(out IMvxPlugin plugin)
         {
-            plugin = new MvvmCross.Plugins.BLE.iOS.Plugin();//Make sure the plugin is loaded.
+            plugin = new MvvmCross.Plugins.BLE.Plugin();//Make sure the plugin is loaded.
         }
     }
 }
