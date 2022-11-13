@@ -1,9 +1,9 @@
-# <img src="icon_small.png" width="71" height="71"/> Bluetooth LE plugin for Xamarin 
-[Bitrise build status:](https://app.bitrise.io/app/3fe54d0a5f43c2bf) ![Build Status](https://app.bitrise.io/app/3fe54d0a5f43c2bf/status.svg?token=i9LUY4rIecZWd_3j7hwXgw) 
+# <img src="icon_small.png" width="71" height="71"/> Bluetooth LE plugin for Xamarin & MAUI
+[Bitrise build status:](https://app.bitrise.io/app/3fe54d0a5f43c2bf) ![Build Status](https://app.bitrise.io/app/3fe54d0a5f43c2bf/status.svg?token=i9LUY4rIecZWd_3j7hwXgw)
 
-Xamarin and MvvMCross plugin for accessing the bluetooth functionality. The plugin is loosely based on the BLE implementation of [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics).
+Xamarin, MAUI and MvvMCross plugin for accessing the bluetooth functionality. The plugin is loosely based on the BLE implementation of [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics).
 
-**Important Note:** With the term *"vanilla"* we mean the non MvvmCross/pure Xamarin version. You **can** use it without MvvmCross, if you download the vanilla package.
+**Important Note:** With the term *"vanilla"* we mean the non-MvvmCross version, i.e. the pure Xamarin or MAUI plugin. You **can** use it without MvvmCross, if you download the vanilla package.
 
 ## Support & Limitations
 
@@ -329,7 +329,7 @@ The BLE API implementation (especially on **Android**) has the following limitat
 
 1) Build
 
-    Open a console, change to the folder "xamarin-bluetooth-le/.build" and run `cake`.
+    Open a console, change to the folder "dotnet-bluetooth-le/.build" and run `cake`.
 
 2) pack the nuget
 
