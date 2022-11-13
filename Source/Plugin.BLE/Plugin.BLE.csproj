@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;MonoAndroid10.0;Xamarin.iOS10;Xamarin.Mac20;net6.0-android;net6.0-ios;net6.0-maccatalyst;</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;MonoAndroid10.0;Xamarin.iOS10;Xamarin.Mac20;net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
 		<TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);uap10.0.19041;net6.0-windows10.0.19041;</TargetFrameworks>
 		<AssemblyName>Plugin.BLE</AssemblyName>
 		<RootNamespace>Plugin.BLE</RootNamespace>
@@ -11,10 +11,10 @@
 		<Authors>Adrian Seceleanu, Sven-Michael Stüb</Authors>
 		<PackageId>Plugin.BLE</PackageId>
 		<PackOnBuild>true</PackOnBuild>
-		<PackageIconUrl>https://raw.githubusercontent.com/xabre/xamarin-bluetooth-le/master/icon_small.png</PackageIconUrl>
-		<PackageLicenseUrl>https://raw.githubusercontent.com/xabre/xamarin-bluetooth-le/master/icon_small.png</PackageLicenseUrl>
+		<PackageIconUrl>https://raw.githubusercontent.com/dotnet-bluetooth-le/dotnet-bluetooth-le/master/icon_small.png</PackageIconUrl>
+		<PackageLicenseUrl>https://raw.githubusercontent.com/dotnet-bluetooth-le/dotnet-bluetooth-le/master/icon_small.png</PackageLicenseUrl>
 		<Owners>Adrian Seceleanu, Sven-Michael Stüb</Owners>
-		<PackageProjectUrl>https://github/xabre/xamarin-bluetooth-le/</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/dotnet-bluetooth-le/dotnet-bluetooth-le/</PackageProjectUrl>
 		<Summary>Plugin to access Bluetooth Low Energy functionality on Android, iOS, macOS, and UWP.</Summary>
 		<PackageTags>
 			xamarin, pcl, xam.pcl, uwp, bluetooth, ble, .net maui,  xamarin.forms, ios
@@ -25,8 +25,8 @@
 			Read the full documentation on the projects page..
 		</Description>
 		<Copyright>Apache-2.0</Copyright>
-		<RepositoryUrl>https://github/xabre/xamarin-bluetooth-le/</RepositoryUrl>
-		<PackageReleaseNotes>See: https://github/xabre/xamarin-bluetooth-le/ </PackageReleaseNotes>
+		<RepositoryUrl>https://github.com/dotnet-bluetooth-le/dotnet-bluetooth-le/</RepositoryUrl>
+		<PackageReleaseNotes>See: https://github.com/dotnet-bluetooth-le/dotnet-bluetooth-le/ </PackageReleaseNotes>
 
 		<NeutralLanguage>en</NeutralLanguage>
 		<LangVersion>latest</LangVersion>
@@ -44,21 +44,14 @@
 		<TargetPlatformMinVersion Condition="$(TargetFramework.Contains('-windows10'))">10.0.17763.0</TargetPlatformMinVersion>
 	</PropertyGroup>
 
-	<PropertyGroup Condition=" '$(Configuration)'=='Release' And '$(OS)' == 'Windows_NT' ">
-		<!-- sourcelink: Declare that the Repository URL can be published to NuSpec -->
-		<PublishRepositoryUrl>true</PublishRepositoryUrl>
-		<!-- sourcelink: Embed source files that are not tracked by the source control manager to the PDB -->
-		<EmbedUntrackedSources>true</EmbedUntrackedSources>
-		<!-- sourcelink: Include PDB in the built .nupkg -->
-		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-	</PropertyGroup>
-
-	<ItemGroup Condition=" '$(Configuration)'=='Release' And '$(OS)' == 'Windows_NT' ">
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-		</PackageReference>
-	</ItemGroup>
+	  <PropertyGroup Condition=" '$(Configuration)'=='Release' And '$(OS)' == 'Windows_NT' ">
+	    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+	    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+	    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+	  </PropertyGroup>
+	  <ItemGroup>
+	    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+	  </ItemGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
 		<DebugSymbols>true</DebugSymbols>
