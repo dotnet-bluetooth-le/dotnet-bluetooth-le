@@ -36,8 +36,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{BF3073
 		..\.build\build.fsx = ..\.build\build.fsx
 		..\doc\changelog.md = ..\doc\changelog.md
 		..\.github\workflows\dotnet.yml = ..\.github\workflows\dotnet.yml
-		..\.build\MvvmCross.Plugin.BLE.nuspec = ..\.build\MvvmCross.Plugin.BLE.nuspec
-		..\.build\Plugin.BLE.nuspec = ..\.build\Plugin.BLE.nuspec
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugin.BLE.Tests", "Plugin.BLE.Tests\Plugin.BLE.Tests.csproj", "{F8374603-78C8-4CB8-A622-EC9226424474}"

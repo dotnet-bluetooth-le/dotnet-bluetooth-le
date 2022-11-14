@@ -333,9 +333,9 @@ The BLE API implementation (especially on **Android**) has the following limitat
 
 2) pack the nuget
 
-    `nuget pack Plugin.BLE.nuspec`
+    `nuget pack ../Source/Plugin.BLE/Plugin.BLE.csproj`
 
-    `nuget pack MvvmCross.Plugin.BLE.nuspec`
+    `nuget pack ../Source/MvvmCross.Plugins.BLE/MvvmCross.Plugins.BLE.csproj`
 
 
 
