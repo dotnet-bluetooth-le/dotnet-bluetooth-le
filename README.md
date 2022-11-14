@@ -361,4 +361,4 @@ We usually do our development work on a branch with the name of the milestone. S
 
 ## Licence
 
-[Apache 2.0](https://github.com/xabre/MvvmCross-BluetoothLE/blob/master/LICENSE)
+[Apache 2.0](https://github.com/dotnet-bluetooth-le/dotnet-bluetooth-le/blob/master/LICENSE)
