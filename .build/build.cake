@@ -10,7 +10,6 @@ var target = Argument("target", "Build");
 var NuGetTargetDir = MakeAbsolute(Directory("./nuget"));
 var BuildTargetDir = MakeAbsolute(Directory("./out/lib"));
 var ProjectSources = MakeAbsolute(Directory("../Source"));
-var NuspecFiles = new [] { "Plugin.BLE.nuspec", "MvvmCross.Plugin.BLE.nuspec" };
 
 string GetProjectPath(string pathPrefix, string projectName)
 {
@@ -136,18 +135,19 @@ Task("UpdateVersion")
     }
 
     ReplaceRegexInFiles("./**/AssemblyInfo.cs", "(?<=AssemblyVersion\\(\")(.+?)(?=\"\\))", cleanVersion);
-    ReplaceRegexInFiles("./**/*.nuspec", "(?<=<version>)(.+?)(?=</version>)", cleanVersion);
-    ReplaceRegexInFiles("./**/*.nuspec", "(?<=<dependency id=\"Plugin.BLE\" version=\")(.+?)(?=\" />)", cleanVersion);
-
+    ReplaceRegexInFiles("./**/*.csproj", "(?<=<Version>)(.+?)(?=</Version>)", cleanVersion);
 });
 
 Task("Pack")
     .IsDependentOn("Build")
     .Does(() =>
     {
-        foreach(var nuspec in NuspecFiles)
+        var p1 = GetProjectPath(".", "Plugin.BLE");
+        var p2 = GetProjectPath(".", "MvvmCross.Plugins.BLE");
+        var projects = new [] { p1, p2 };
+        foreach(var proj in projects)
         {
-            NuGetPack(nuspec, new NuGetPackSettings()
+            NuGetPack(proj, new NuGetPackSettings()
             {
                 OutputDirectory = NuGetTargetDir,
                 WorkingDirectory = BuildTargetDir,
