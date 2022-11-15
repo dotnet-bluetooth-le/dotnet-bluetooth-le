@@ -29,32 +29,32 @@ jobs:
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
     - name: Clean
-      uses: cake-build/cake-action@v1
+      uses: cake-build/cake-action@v1.4.1
       with:
         script-path: .build/build.cake
         target: Clean
     - name: Restore
-      uses: cake-build/cake-action@v1
+      uses: cake-build/cake-action@v1.4.1
       with:
         script-path: .build/build.cake
         target: Restore
     - name: Build Libs
-      uses: cake-build/cake-action@v1
+      uses: cake-build/cake-action@v1.4.1
       with:
         script-path: .build/build.cake
         target: BuildLibs
     - name: Build Clients
-      uses: cake-build/cake-action@v1
+      uses: cake-build/cake-action@v1.4.1
       with:
         script-path: .build/build.cake
         target: BuildClients
     - name: Builds Tests
-      uses: cake-build/cake-action@v1
+      uses: cake-build/cake-action@v1.4.1
       with:
         script-path: .build/build.cake
         target: BuildTests
     - name: Run Tests
-      uses: cake-build/cake-action@v1
+      uses: cake-build/cake-action@v1.4.1
       with:
         script-path: .build/build.cake
         target: RunTests
