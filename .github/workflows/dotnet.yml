@@ -12,14 +12,14 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0
     - uses: nuget/setup-nuget@v1
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 7.0.x
     - name: Install .NET MAUI
       shell: pwsh
       run: |
@@ -29,32 +29,32 @@ jobs:
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
     - name: Clean
-      uses: cake-build/cake-action@v1
+      uses: cake-build/cake-action@v1.4.1
       with:
         script-path: .build/build.cake
         target: Clean
     - name: Restore
-      uses: cake-build/cake-action@v1
+      uses: cake-build/cake-action@v1.4.1
       with:
         script-path: .build/build.cake
         target: Restore
     - name: Build Libs
-      uses: cake-build/cake-action@v1
+      uses: cake-build/cake-action@v1.4.1
       with:
         script-path: .build/build.cake
         target: BuildLibs
     - name: Build Clients
-      uses: cake-build/cake-action@v1
+      uses: cake-build/cake-action@v1.4.1
       with:
         script-path: .build/build.cake
         target: BuildClients
     - name: Builds Tests
-      uses: cake-build/cake-action@v1
+      uses: cake-build/cake-action@v1.4.1
       with:
         script-path: .build/build.cake
         target: BuildTests
     - name: Run Tests
-      uses: cake-build/cake-action@v1
+      uses: cake-build/cake-action@v1.4.1
       with:
         script-path: .build/build.cake
         target: RunTests
@@ -63,7 +63,7 @@ jobs:
     - name: Build MVVMCross.Plugins.BLE NuGet
       run: msbuild .\Source\MvvmCross.Plugins.BLE\MvvmCross.Plugins.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
     - name: Upload packages
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: nupkg
         path: ./Source/*/nuget/*Plugin.BLE*.nupkg
