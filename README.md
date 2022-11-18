@@ -7,12 +7,13 @@ Xamarin, MAUI and MvvMCross plugin for accessing the bluetooth functionality. Th
 
 ## Support & Limitations
 
-| Platform  | Version | Limitations |
-| ------------- | ----------- | ----------- |
-| Xamarin.Android | 4.3 |  |
-| Xamarin.iOS     | 7.0 |  |
-| Xamarin.Mac     | 10.9 (Mavericks) |  >= v2.1.0 |
-| UWP             | 1709 - 10.0.16299 (Fall Creators Update) | TBA |
+| Platform        | Version           | Limitations |
+| --------------- | ----------------- | ----------- |
+| Xamarin.Android | 4.3               |             |
+| Xamarin.iOS     | 7.0               |             |
+| Xamarin.Mac     | 10.9 (Mavericks)  | >= 2.1.0    |
+| Xamarin.UWP     | 1709 - 10.0.16299 | >= 2.2.0    |
+| MAUI (all 4 OS) |                   | >= 3.0.0    |
 
 [Changelog](doc/changelog.md)
 
