@@ -7,8 +7,10 @@ using System.Threading;
 using System.Threading.Tasks;
 
 #if WINDOWS_UWP
+using Windows.System;
 using Microsoft.Toolkit.Uwp.Connectivity;
 #else
+using Microsoft.UI.Dispatching;
 using CommunityToolkit.WinUI.Connectivity;
 #endif
 using Windows.Devices.Bluetooth;
@@ -24,10 +26,12 @@ namespace Plugin.BLE.UWP
     {
         private BluetoothLEHelper _bluetoothHelper;
         private BluetoothLEAdvertisementWatcher _bleWatcher;
+        private DispatcherQueue _dq;
 
         public Adapter(BluetoothLEHelper bluetoothHelper)
         {
             _bluetoothHelper = bluetoothHelper;
+            _dq = DispatcherQueue.GetForCurrentThread();
         }
 
         protected override Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
@@ -124,7 +128,7 @@ namespace Plugin.BLE.UWP
             var guidString = deviceGuid.ToString("N").Substring(20);
             var bluetoothAddress = Convert.ToUInt64(guidString, 16);
             var nativeDevice = await BluetoothLEDevice.FromBluetoothAddressAsync(bluetoothAddress);
-            var knownDevice = new Device(this, nativeDevice, 0, deviceGuid);
+            var knownDevice = new Device(this, nativeDevice, 0, deviceGuid, _dq);
 
             await ConnectToDeviceAsync(knownDevice, cancellationToken: cancellationToken);
             return knownDevice;
@@ -170,7 +174,7 @@ namespace Plugin.BLE.UWP
                 var bluetoothLeDevice = await BluetoothLEDevice.FromBluetoothAddressAsync(btAdv.BluetoothAddress);
                 if (bluetoothLeDevice != null) //make sure advertisement bluetooth address actually returns a device
                 {
-                    device = new Device(this, bluetoothLeDevice, btAdv.RawSignalStrengthInDBm, deviceId, ParseAdvertisementData(btAdv.Advertisement));
+                    device = new Device(this, bluetoothLeDevice, btAdv.RawSignalStrengthInDBm, deviceId, _dq, ParseAdvertisementData(btAdv.Advertisement));
                     Trace.Message("DiscoveredPeripheral: {0} Id: {1}, Rssi: {2}", device.Name, device.Id, btAdv.RawSignalStrengthInDBm);
                     this.HandleDiscoveredDevice(device);
                 }
