@@ -43,6 +43,7 @@
 		<SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-android'))">21.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-windows10'))">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$(TargetFramework.Contains('-windows10'))">10.0.17763.0</TargetPlatformMinVersion>
+		<TargetPlatformMinVersion Condition=" $(TargetFramework.StartsWith('uap10.0')) ">10.0.17763.0</TargetPlatformMinVersion>
 	</PropertyGroup>
 
 	  <PropertyGroup Condition=" '$(Configuration)'=='Release' And '$(OS)' == 'Windows_NT' ">
@@ -77,17 +78,13 @@
 
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
 		<Compile Include="**\Windows\**\*.cs" />
-		<PackageReference Include="Microsoft.Toolkit.Uwp.Connectivity" Version="6.1.1" />
+		<PackageReference Include="Microsoft.Toolkit.Uwp.Connectivity" Version="7.1.3" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.Contains('-windows')) ">
 		<Compile Include="**\Windows\**\*.cs" />
 		<PackageReference Include="CommunityToolkit.WinUI.Connectivity" Version="7.1.2" />
 	</ItemGroup>
-
-	<PropertyGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
-		<TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
-	</PropertyGroup>
 
 	<PropertyGroup Condition=" $(TargetFramework.Contains('-android')) ">
 	</PropertyGroup>
