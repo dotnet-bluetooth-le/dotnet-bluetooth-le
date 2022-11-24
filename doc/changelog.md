@@ -2,7 +2,11 @@
 
 ## 3.0 MAUI
 
-### 3.0.0-beta.1
+#### 3.0.0-beta.2
+- #640 Fix problems with MAUI on Windows (fixes #356)
+- #639 Fix warnings
+
+#### 3.0.0-beta.1
 - Add support for .NET 6 and MAUI, while keeping compatibility with Xamarin
 - #614 Upgrade to .NET 6
 - #638 GitHub Actions: update to .NET 7 (fixes #622, #626, #630)
