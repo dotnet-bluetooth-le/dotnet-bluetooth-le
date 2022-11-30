@@ -8,6 +8,8 @@ Xamarin, MAUI and MvvMCross plugin for accessing the bluetooth functionality. Th
 
 ## Support & Limitations
 
+[Release Notes](doc/changelog.md)
+
 | Platform        | Version           | Limitations |
 | --------------- | ----------------- | ----------- |
 | Xamarin.Android | 4.3               |             |
@@ -16,7 +18,12 @@ Xamarin, MAUI and MvvMCross plugin for accessing the bluetooth functionality. Th
 | Xamarin.UWP     | 1709 - 10.0.16299 | >= 2.2.0    |
 | MAUI (all 4 OS) |                   | >= 3.0.0    |
 
-[Changelog](doc/changelog.md)
+## Nuget Packages
+
+| package              | stable    | beta      | downloads |
+| ---------------------|:---------:|:---------:|:---------:|
+| Plugin.BLE           | [![NuGet](https://img.shields.io/nuget/v/Plugin.BLE.svg?style=flat)](https://www.nuget.org/packages/Plugin.BLE) | [![NuGet Beta](https://img.shields.io/nuget/vpre/Plugin.BLE.svg?style=flat)](https://www.nuget.org/packages/Plugin.BLE) | [![Downloads](https://img.shields.io/nuget/dt/Plugin.BLE.svg)](https://www.nuget.org/packages/Plugin.BLE)
+| MvvmCross.Plugin.BLE | [![NuGet MvvMCross](https://img.shields.io/nuget/v/MvvmCross.Plugin.BLE.svg?style=flat)](https://www.nuget.org/packages/MvvmCross.Plugin.BLE) | [![NuGet MvvMCross Beta](https://img.shields.io/nuget/vpre/MvvmCross.Plugin.BLE.svg?style=flat)](https://www.nuget.org/packages/MvvmCross.Plugin.BLE) | [![Downloads](https://img.shields.io/nuget/dt/MvvmCross.Plugin.BLE.svg)](https://www.nuget.org/packages/MvvmCross.Plugin.BLE)
 
 ## Installation
 
@@ -28,7 +35,6 @@ Install-Package Plugin.BLE
 // or pre-release
 Install-Package Plugin.BLE -Pre
 ```
-[![NuGet](https://img.shields.io/nuget/v/Plugin.BLE.svg?label=NuGet&style=flat-square)](https://www.nuget.org/packages/Plugin.BLE) [![NuGet Beta](https://img.shields.io/nuget/vpre/Plugin.BLE.svg?label=NuGet%20Beta&style=flat-square)](https://www.nuget.org/packages/Plugin.BLE)
 
 **MvvmCross**
 
@@ -37,8 +43,6 @@ Install-Package MvvmCross.Plugin.BLE
 // or
 Install-Package MvvmCross.Plugin.BLE -Pre
 ```
-
-[![NuGet MvvMCross](https://img.shields.io/nuget/v/MvvmCross.Plugin.BLE.svg?label=NuGet%20MvvMCross&style=flat-square)](https://www.nuget.org/packages/MvvmCross.Plugin.BLE) [![NuGet MvvMCross Beta](https://img.shields.io/nuget/vpre/MvvmCross.Plugin.BLE.svg?label=NuGet%20MvvMCross%20Beta&style=flat-square)](https://www.nuget.org/packages/MvvmCross.Plugin.BLE)
 
 **Android**
 
