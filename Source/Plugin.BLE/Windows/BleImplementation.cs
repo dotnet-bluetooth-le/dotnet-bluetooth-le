@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Windows.Devices.Bluetooth;
 #if WINDOWS_UWP
 using Microsoft.Toolkit.Uwp.Connectivity;
 #else
@@ -9,6 +8,7 @@ using CommunityToolkit.WinUI.Connectivity;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.UWP;
+using Windows.Devices.Bluetooth;
 using Windows.Devices.Radios;
 
 namespace Plugin.BLE
@@ -23,7 +23,7 @@ namespace Plugin.BLE
 
         private BluetoothLEHelper _bluetoothHelper;
 
-        private Radio _radio;
+        private Radio? _radio;
 
         protected override IAdapter CreateNativeAdapter()
         {
