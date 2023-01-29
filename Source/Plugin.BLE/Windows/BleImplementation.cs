@@ -37,7 +37,9 @@ namespace Plugin.BLE
                 return BluetoothState.Unavailable;
             }
 
-            Task.Run(InitRadioStateAsync).Wait(100);
+            // Wait for the async radio response to catch up, otherwise it will be null
+            // If it falls through, the StateChanged event doesn't get fired in time
+            Task.Run(InitRadioStateAsync).Wait(20);
 
             return _radio is not null
                 ? ToBluetoothState(_radio.State)
