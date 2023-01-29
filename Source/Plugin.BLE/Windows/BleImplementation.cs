@@ -8,6 +8,9 @@ using CommunityToolkit.WinUI.Connectivity;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.UWP;
+using System;
+using Windows.Devices.Radios;
+using System.Threading.Tasks;
 
 namespace Plugin.BLE
 {
@@ -21,6 +24,8 @@ namespace Plugin.BLE
 
         private BluetoothLEHelper _bluetoothHelper;
 
+        private Radio _radio;
+
         protected override IAdapter CreateNativeAdapter()
         {
             return new Adapter(_bluetoothHelper);
@@ -28,15 +33,16 @@ namespace Plugin.BLE
 
         protected override BluetoothState GetInitialStateNative()
         {
-            //The only way to get the state of bluetooth through windows is by
-            //getting the radios for a device. This operation is asynchronous
-            //and thus cannot be called in this method. Thus, we are just
-            //returning "On" as long as the BluetoothLEHelper is initialized
             if (_bluetoothHelper == null)
             {
                 return BluetoothState.Unavailable;
             }
-            return BluetoothState.On;
+
+            Task.Run(InitRadioStateAsync).Wait(100);
+
+            return _radio is not null
+                ? ToBluetoothState(_radio.State)
+                : BluetoothState.Unknown;
         }
 
         protected override void InitializeNative()
@@ -45,6 +51,38 @@ namespace Plugin.BLE
             var localHelper = BluetoothLEHelper.Context;
             _bluetoothHelper = localHelper;
         }
-    }
 
+        private async Task<BluetoothAdapter?> InitRadioStateAsync()
+        {
+            if (_bluetoothHelper == null)
+                return null;
+
+            var adapter = await BluetoothAdapter.GetDefaultAsync();
+            if (adapter.IsLowEnergySupported)
+            {
+                _radio = await adapter.GetRadioAsync();
+                _radio.StateChanged -= Radio_StateChanged;
+                _radio.StateChanged += Radio_StateChanged;
+            }
+
+            return adapter;
+        }
+
+        private void Radio_StateChanged(Radio sender, object args)
+        {
+            State = ToBluetoothState(sender.State);
+        }
+
+        private BluetoothState ToBluetoothState(RadioState state)
+        {
+            return state switch
+            {
+                RadioState.Unknown => BluetoothState.Unknown,
+                RadioState.On => BluetoothState.On,
+                RadioState.Off => BluetoothState.Off,
+                RadioState.Disabled => BluetoothState.Unavailable,
+                _ => BluetoothState.Unknown
+            };
+        }
+    }
 }
