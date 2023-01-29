@@ -1,16 +1,15 @@
-﻿using Windows.Devices.Bluetooth;
+﻿using System;
+using System.Threading.Tasks;
+using Windows.Devices.Bluetooth;
 #if WINDOWS_UWP
 using Microsoft.Toolkit.Uwp.Connectivity;
 #else
 using CommunityToolkit.WinUI.Connectivity;
 #endif
-
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.UWP;
-using System;
 using Windows.Devices.Radios;
-using System.Threading.Tasks;
 
 namespace Plugin.BLE
 {
