@@ -50,7 +50,7 @@ namespace Plugin.BLE
 
             // Wait for the async radio response to catch up, otherwise it will be null
             // If it falls through, the StateChanged event doesn't get fired in time
-            Task.Run(InitRadioStateAsync).Wait(10);
+            Task.Run(InitRadioStateAsync).Wait();
         }
 
         private async Task<BluetoothAdapter?> InitRadioStateAsync()
