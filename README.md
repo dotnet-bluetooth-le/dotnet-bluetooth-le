@@ -180,7 +180,7 @@ await adapter.StartScanningForDevicesAsync();
 ```csharp
 var scanFilterOptions = new ScanFilterOptions();
 scanFilterOptions.ServiceUuids = new [] {guid1, guid2, etc}; // cross platform filter
-scanFilterOptions.ManufacturerIds = new [] {1,2,3,etc}; // android only filter
+scanFilterOptions.ManufacturerDataFilters = new [] { new ManufacturerDataFilter(1), new ManufacturerDataFilter(2) }; // android only filter
 scanFilterOptions.DeviceAddresses = new [] {"80:6F:B0:43:8D:3B","80:6F:B0:25:C3:15",etc}; // android only filter
 await adapter.StartScanningForDevicesAsync(scanFilterOptions);
 ```
