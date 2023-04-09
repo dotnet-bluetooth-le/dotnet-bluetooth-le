@@ -7,10 +7,12 @@ namespace Plugin.BLE.Android.CallbackEventArgs
     {
         public BluetoothGattCharacteristic Characteristic { get; }
         public Exception Exception { get; }
+        public int BleResult { get; }
 
-        public CharacteristicWriteCallbackEventArgs(BluetoothGattCharacteristic characteristic, Exception exception = null)
+        public CharacteristicWriteCallbackEventArgs(BluetoothGattCharacteristic characteristic, GattStatus status, Exception exception = null)
         {
             Characteristic = characteristic;
+            BleResult = (int)status;
             Exception = exception;
         }
     }
