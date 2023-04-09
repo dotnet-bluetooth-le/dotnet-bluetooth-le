@@ -112,7 +112,7 @@ namespace Plugin.BLE.iOS
                         {
                             Trace.Message($"Read characterteristic value: {Value?.ToHexString()}");
                             int resultCode = (args.Error == null) ? 0 : 1; // TODO: Map args.Error.Code to GattStatus
-                            complete(new Tuple<int, byte[]>(resultCode, Value));
+                            complete(new Tuple<byte[], int>(Value, resultCode));
                         }
                     },
                     subscribeComplete: handler => _parentDevice.UpdatedCharacterteristicValue += handler,
