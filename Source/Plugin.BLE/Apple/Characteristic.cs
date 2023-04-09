@@ -123,14 +123,14 @@ namespace Plugin.BLE.iOS
                     unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
         }
 
-        protected override Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType)
+        protected override Task<int> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType)
         {
             var exception = new Exception($"Device {Service.Device.Id} disconnected while writing characteristic with {Id}.");
 
-            Task<bool> task;
+            Task<int> task;
             if (writeType.ToNative() == CBCharacteristicWriteType.WithResponse)
             {
-                task = TaskBuilder.FromEvent<bool, EventHandler<CBCharacteristicEventArgs>, EventHandler<CBPeripheralErrorEventArgs>>(
+                task = TaskBuilder.FromEvent<int, EventHandler<CBCharacteristicEventArgs>, EventHandler<CBPeripheralErrorEventArgs>>(
                     execute: () => 
                     {
                         if (_parentDevice.State != CBPeripheralState.Connected)
@@ -141,7 +141,7 @@ namespace Plugin.BLE.iOS
                         if (args.Characteristic.UUID != NativeCharacteristic.UUID)
                             return;
 
-                        complete(args.Error == null);
+                        complete((args.Error == null) ? 0 : 1);
                     },
                     subscribeComplete: handler => _parentDevice.WroteCharacteristicValue += handler,
                     unsubscribeComplete: handler => _parentDevice.WroteCharacteristicValue -= handler,
@@ -159,7 +159,7 @@ namespace Plugin.BLE.iOS
             {
                 if (_parentDevice.CanSendWriteWithoutResponse)
                 {
-                    task = TaskBuilder.FromEvent<bool, EventHandler, EventHandler<CBPeripheralErrorEventArgs>>(
+                    task = TaskBuilder.FromEvent<int, EventHandler, EventHandler<CBPeripheralErrorEventArgs>>(
                     execute: () =>
                     {
                         if (_parentDevice.State != CBPeripheralState.Connected)
@@ -167,7 +167,7 @@ namespace Plugin.BLE.iOS
                     },
                     getCompleteHandler: (complete, reject) => (sender, args) =>
                     {
-                        complete(true);
+                        complete(0);
                     },
                     subscribeComplete: handler => _parentDevice.IsReadyToSendWriteWithoutResponse += handler,
                     unsubscribeComplete: handler => _parentDevice.IsReadyToSendWriteWithoutResponse -= handler,
@@ -181,7 +181,7 @@ namespace Plugin.BLE.iOS
 
                 }
                 else {
-                    task = Task.FromResult(true);
+                    task = Task.FromResult(0);
                 }
             }
 

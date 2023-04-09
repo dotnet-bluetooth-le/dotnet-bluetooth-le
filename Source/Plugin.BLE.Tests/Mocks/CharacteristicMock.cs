@@ -48,10 +48,10 @@ namespace Plugin.BLE.Tests.Mocks
             throw new NotImplementedException();
         }
 
-        protected override Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType)
+        protected override Task<int> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType)
         {
             WriteHistory.Add(new WriteOperation(data, writeType));
-            return Task.FromResult(true);
+            return Task.FromResult(0);
         }
 
         protected override Task StartUpdatesNativeAsync(CancellationToken cancellationToken = default)
