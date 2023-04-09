@@ -79,10 +79,10 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Reads the characteristic value from the device. The result is also stored inisde the Value property.
         /// </summary>
         /// <param name="cancellationToken"></param>
-        /// <returns>A task that represents the asynchronous read operation. The Result property will contain the read bytes.</returns>
+        /// <returns>A task that represents the asynchronous read operation. The Result property will contain a tuple with the read bytes and the ble status code.</returns>
         /// <exception cref="InvalidOperationException">Thrown if characteristic doesn't support read. See: <see cref="CanRead"/></exception>
         /// <exception cref="CharacteristicReadException">Thrown if the reading of the value failed.</exception>
-        Task<byte[]> ReadAsync(CancellationToken cancellationToken = default);
+        Task<Tuple<byte[], int>> ReadAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Sends <paramref name="data"/> as characteristic value to the device.

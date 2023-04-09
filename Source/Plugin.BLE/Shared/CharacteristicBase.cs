@@ -66,7 +66,7 @@ namespace Plugin.BLE.Abstractions
             NativeCharacteristic = nativeCharacteristic;
         }
 
-        public async Task<byte[]> ReadAsync(CancellationToken cancellationToken = default)
+        public async Task<Tuple<byte[],int>> ReadAsync(CancellationToken cancellationToken = default)
         {
             if (!CanRead)
             {
@@ -138,7 +138,7 @@ namespace Plugin.BLE.Abstractions
         }
 
         protected abstract Task<IReadOnlyList<IDescriptor>> GetDescriptorsNativeAsync();
-        protected abstract Task<byte[]> ReadNativeAsync();
+        protected abstract Task<Tuple<byte[], int>> ReadNativeAsync();
         protected abstract Task<int> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType);
         protected abstract Task StartUpdatesNativeAsync(CancellationToken cancellationToken = default);
         protected abstract Task StopUpdatesNativeAsync(CancellationToken cancellationToken = default);

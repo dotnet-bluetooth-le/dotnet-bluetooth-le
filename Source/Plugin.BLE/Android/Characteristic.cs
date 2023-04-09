@@ -42,15 +42,16 @@ namespace Plugin.BLE.Android
             return Task.FromResult<IReadOnlyList<IDescriptor>>(NativeCharacteristic.Descriptors.Select(item => new Descriptor(item, _gatt, _gattCallback, this)).Cast<IDescriptor>().ToList());
         }
 
-        protected override async Task<byte[]> ReadNativeAsync()
+        protected override async Task<Tuple<byte[], int>> ReadNativeAsync()
         {
-            return await TaskBuilder.FromEvent<byte[], EventHandler<CharacteristicReadCallbackEventArgs>, EventHandler>(
+            return await TaskBuilder.FromEvent<Tuple<byte[], int>, EventHandler<CharacteristicReadCallbackEventArgs>, EventHandler>(
                 execute: ReadInternal,
                 getCompleteHandler: (complete, reject) => ((sender, args) =>
                 {
                     if (args.Characteristic.Uuid == NativeCharacteristic.Uuid)
                     {
-                        complete(args.Characteristic.GetValue());
+                        int resultCode = (int)args.Status;
+                        complete(new Tuple<int, byte[]>(resultCode, args.Characteristic.GetValue()));
                     }
                 }),
                 subscribeComplete: handler => _gattCallback.CharacteristicValueRead += handler,

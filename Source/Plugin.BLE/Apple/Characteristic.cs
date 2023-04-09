@@ -85,11 +85,11 @@ namespace Plugin.BLE.iOS
                 unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
         }
 
-        protected override Task<byte[]> ReadNativeAsync()
+        protected override Task<Tuple<byte[], int>> ReadNativeAsync()
         {
             var exception = new Exception($"Device '{Service.Device.Id}' disconnected while reading characteristic with {Id}.");
 
-            return TaskBuilder.FromEvent<byte[], EventHandler<CBCharacteristicEventArgs>, EventHandler<CBPeripheralErrorEventArgs>>(
+            return TaskBuilder.FromEvent<Tuple<byte[], int>, EventHandler<CBCharacteristicEventArgs>, EventHandler<CBPeripheralErrorEventArgs>>(
                     execute: () =>
                     {
                         if (_parentDevice.State != CBPeripheralState.Connected)
@@ -101,15 +101,18 @@ namespace Plugin.BLE.iOS
                     {
                         if (args.Characteristic.UUID != NativeCharacteristic.UUID)
                             return;
-
+#if false
+// don't throw an error on expection, as we want to properly return errors
                         if (args.Error != null)
                         {
                             reject(new CharacteristicReadException($"Read async error: {args.Error.Description}"));
                         }
                         else
+#endif
                         {
                             Trace.Message($"Read characterteristic value: {Value?.ToHexString()}");
-                            complete(Value);
+                            int resultCode = (args.Error == null) ? 0 : 1; // TODO: Map args.Error.Code to GattStatus
+                            complete(new Tuple<int, byte[]>(resultCode, Value));
                         }
                     },
                     subscribeComplete: handler => _parentDevice.UpdatedCharacterteristicValue += handler,
@@ -141,6 +144,7 @@ namespace Plugin.BLE.iOS
                         if (args.Characteristic.UUID != NativeCharacteristic.UUID)
                             return;
 
+                        // TODO: Replace with actual error code. 
                         complete((args.Error == null) ? 0 : 1);
                     },
                     subscribeComplete: handler => _parentDevice.WroteCharacteristicValue += handler,
@@ -167,6 +171,7 @@ namespace Plugin.BLE.iOS
                     },
                     getCompleteHandler: (complete, reject) => (sender, args) =>
                     {
+                        // TODO: Replace with actual error code.
                         complete(0);
                     },
                     subscribeComplete: handler => _parentDevice.IsReadyToSendWriteWithoutResponse += handler,
@@ -181,6 +186,7 @@ namespace Plugin.BLE.iOS
 
                 }
                 else {
+                    // TODO: Replace with actual error code.
                     task = Task.FromResult(0);
                 }
             }

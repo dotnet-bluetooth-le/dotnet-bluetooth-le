@@ -173,7 +173,7 @@ namespace Plugin.BLE.Android
 
             Trace.Message("OnCharacteristicRead: value {0}; status {1}", characteristic.GetValue().ToHexString(), status);
 
-            CharacteristicValueRead?.Invoke(this, new CharacteristicReadCallbackEventArgs(characteristic));
+            CharacteristicValueUpdated?.Invoke(this, new CharacteristicReadCallbackEventArgs(characteristic, status));
         }
 
         public override void OnCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic)
@@ -182,7 +182,7 @@ namespace Plugin.BLE.Android
 
             Trace.Message("OnCharacteristicChanged: value {0}", characteristic.GetValue().ToHexString());
 
-            CharacteristicValueUpdated?.Invoke(this, new CharacteristicReadCallbackEventArgs(characteristic));
+            CharacteristicValueUpdated?.Invoke(this, new CharacteristicReadCallbackEventArgs(characteristic, GattStatus.Success));
         }
 
         public override void OnCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, GattStatus status)
