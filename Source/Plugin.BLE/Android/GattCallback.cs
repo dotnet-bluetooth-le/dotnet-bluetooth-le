@@ -254,6 +254,11 @@ namespace Plugin.BLE.Android
                     break;
                 case GattStatus.Success:
                     break;
+                // default path to handle errors that are non standard BLE ones, but device priprietary ones.
+                default:
+                    exception = new Exception($"GattStatus: {(int)status}");
+                    break;
+
             }
 
             return exception;
