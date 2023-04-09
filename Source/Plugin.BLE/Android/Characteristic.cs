@@ -82,7 +82,7 @@ namespace Plugin.BLE.Android
                    {
                        if (args.Characteristic.Uuid == NativeCharacteristic.Uuid)
                        {
-                           complete(args.BleResult);
+                           complete(args.Status);
                        }
                    }),
                subscribeComplete: handler => _gattCallback.CharacteristicValueWritten += handler,
