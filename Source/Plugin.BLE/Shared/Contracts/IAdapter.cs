@@ -138,7 +138,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters = default, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Returns all BLE devices connected to the system. For android the implementations uses getConnectedDevices(GATT) & getBondedDevices()
+        /// Returns all BLE devices connected to the system. For android the implementations uses getConnectedDevices(GATT) and getBondedDevices()
         /// and for ios the implementation uses get retrieveConnectedPeripherals(services)
         /// https://developer.apple.com/reference/corebluetooth/cbcentralmanager/1518924-retrieveconnectedperipherals
         /// 
