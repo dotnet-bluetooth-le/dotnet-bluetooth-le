@@ -50,7 +50,8 @@ namespace Plugin.BLE.UWP
         protected override async Task<Tuple<byte[], int>> ReadNativeAsync()
         {
             var readResult = await NativeCharacteristic.ReadValueAsync(BleImplementation.CacheModeCharacteristicRead);
-            return _value = readResult.GetValueOrThrowIfError();
+            var _value = readResult.GetValueOrThrowIfError();
+            return Tuple.Create(_value, (int)readResult.Status);
         }
 
         protected override async Task StartUpdatesNativeAsync(CancellationToken cancellationToken = default)
@@ -77,7 +78,7 @@ namespace Plugin.BLE.UWP
                 writeType == CharacteristicWriteType.WithResponse ? GattWriteOption.WriteWithResponse : GattWriteOption.WriteWithoutResponse);
 
             result.ThrowIfError();
-            return true;
+            return (int)writeType.Status;
         }
 
         /// <summary>
