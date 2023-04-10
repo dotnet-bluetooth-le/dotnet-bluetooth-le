@@ -78,7 +78,7 @@ namespace Plugin.BLE.UWP
                 writeType == CharacteristicWriteType.WithResponse ? GattWriteOption.WriteWithResponse : GattWriteOption.WriteWithoutResponse);
 
             result.ThrowIfError();
-            return (int)writeType.Status;
+            return (int)result.Status;
         }
 
         /// <summary>
