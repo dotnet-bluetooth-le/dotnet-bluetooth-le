@@ -86,15 +86,16 @@ namespace Plugin.BLE.Android
                             //we already hadled device error so no need th raise disconnect event(happens when device not in range)
                             _adapter.HandleDisconnectedDevice(true, _device);
                         }
-                        break;
                     }
+                    else
+                    { 
+                        //connection must have been lost, because the callback was not triggered by calling disconnect
+                        Trace.Message($"Disconnected '{_device.Name}' by lost connection");
 
-                    //connection must have been lost, because the callback was not triggered by calling disconnect
-                    Trace.Message($"Disconnected '{_device.Name}' by lost connection");
+                        _adapter.ConnectedDeviceRegistry.TryRemove(gatt.Device.Address, out _);
+                        _adapter.HandleDisconnectedDevice(false, _device);
 
-                    _adapter.ConnectedDeviceRegistry.TryRemove(gatt.Device.Address, out _);
-                    _adapter.HandleDisconnectedDevice(false, _device);
-
+                    }
                     // inform pending tasks
                     ConnectionInterrupted?.Invoke(this, EventArgs.Empty);
                     break;
