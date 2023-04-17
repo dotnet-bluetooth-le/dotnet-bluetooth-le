@@ -4,7 +4,7 @@
 		<TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);uap10.0.19041;net6.0-windows10.0.19041;net7.0-windows10.0.19041</TargetFrameworks>
 		<AssemblyName>Plugin.BLE</AssemblyName>
 		<RootNamespace>Plugin.BLE</RootNamespace>
-		<Version>3.0.0-beta.2</Version>
+		<Version>3.0.0-beta.3</Version>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>
 		<Authors>Adrian Seceleanu, Sven-Michael Stübe, Janus Weil</Authors>
 		<PackageId>Plugin.BLE</PackageId>
