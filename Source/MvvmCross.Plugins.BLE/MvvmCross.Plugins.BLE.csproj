@@ -4,8 +4,6 @@
 		<TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);uap10.0.19041;net6.0-windows10.0.19041;net7.0-windows10.0.19041</TargetFrameworks>
 		<AssemblyName>MVVMCross.Plugins.BLE</AssemblyName>
 		<RootNamespace>MVVMCross.Plugins.BLE</RootNamespace>
-		<AssemblyVersion>1.0.0.0</AssemblyVersion>
-		<AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
 		<Version>3.0.0-beta.2</Version>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>
 		<Authors>Adrian Seceleanu, Sven-Michael Stübe, Janus Weil</Authors>
