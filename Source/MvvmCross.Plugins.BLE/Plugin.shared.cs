@@ -16,11 +16,16 @@ using Plugin.BLE.Abstractions.Contracts;
 
 namespace MvvmCross.Plugins.BLE
 {
+    /// <summary>
+    /// The MvvmCross plugin.
+    /// </summary>
     [MvxPlugin]
     [Preserve(AllMembers = true)]
-    public class Plugin
-     : IMvxPlugin
+    public class Plugin : IMvxPlugin
     {
+        /// <summary>
+        /// Plugin constructor.
+        /// </summary>
         public Plugin()
         {
             ILogger<Plugin> log;
@@ -29,6 +34,9 @@ namespace MvvmCross.Plugins.BLE
                 Trace.TraceImplementation = log.LogTrace;
             }
         }
+        /// <summary>
+        /// Load the plugin.
+        /// </summary>
         public void Load()
         {
             Trace.Message("Loading bluetooth low energy plugin");
