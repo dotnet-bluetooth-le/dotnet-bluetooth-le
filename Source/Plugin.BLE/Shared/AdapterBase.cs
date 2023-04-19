@@ -11,27 +11,64 @@ using Plugin.BLE.Abstractions.Utils;
 
 namespace Plugin.BLE.Abstractions
 {
+    /// <summary>
+    /// Base class for all platform-specific Adapter classes.
+    /// </summary>
     public abstract class AdapterBase : IAdapter
     {
         private CancellationTokenSource _scanCancellationTokenSource;
         private volatile bool _isScanning;
         private Func<IDevice, bool> _currentScanDeviceFilter;
 
+        /// <summary>
+        /// Occurs when the adapter receives an advertisement.
+        /// </summary>
         public event EventHandler<DeviceEventArgs> DeviceAdvertised;
+        /// <summary>
+        /// Occurs when the adapter receives an advertisement for the first time of the current scan run.
+        /// This means once per every <c>StartScanningForDevicesAsync</c> call.
+        /// </summary>
         public event EventHandler<DeviceEventArgs> DeviceDiscovered;
+        /// <summary>
+        /// Occurs when a device has been connected.
+        /// </summary>
         public event EventHandler<DeviceEventArgs> DeviceConnected;
+        /// <summary>
+        /// Occurs when a device has been disconnected. This occurs on intended disconnects after <see cref="DisconnectDeviceAsync"/>.
+        /// </summary>
         public event EventHandler<DeviceEventArgs> DeviceDisconnected;
+        /// <summary>
+        /// Occurs when a device has been disconnected. This occurs on unintended disconnects (e.g. when the device exploded).
+        /// </summary>
         public event EventHandler<DeviceErrorEventArgs> DeviceConnectionLost;
+        /// <summary>
+        /// Occurs when the connection to a device fails.
+        /// </summary>
         public event EventHandler<DeviceErrorEventArgs> DeviceConnectionError;
+        /// <summary>
+        /// Occurs when the scan has been stopped due the timeout after <see cref="ScanTimeout"/> ms.
+        /// </summary>
         public event EventHandler ScanTimeoutElapsed;
 
+        /// <summary>
+        /// Indicates, if the adapter is scanning for devices.
+        /// </summary>
         public bool IsScanning
         {
             get => _isScanning;
             private set => _isScanning = value;
         }
 
+        /// <summary>
+        /// Timeout for Ble scanning. Default is 10000.
+        /// </summary>
         public int ScanTimeout { get; set; } = 10000;
+
+        /// <summary>
+        /// Specifies the scanning mode. Must be set before calling StartScanningForDevicesAsync().
+        /// Changing it while scanning, will have no change the current scan behavior.
+        /// Default: <see cref="ScanMode.LowPower"/> 
+        /// </summary>
         public ScanMode ScanMode { get; set; } = ScanMode.LowPower;
 
 
@@ -39,10 +76,15 @@ namespace Plugin.BLE.Abstractions
         /// Scan match mode defines how agressively we look for adverts
         /// </summary>
         public ScanMatchMode ScanMatchMode { get; set; } = ScanMatchMode.STICKY;
-        
 
+        /// <summary>
+        /// Dictionary of all discovered devices, indexed by Guid.
+        /// </summary>
         protected ConcurrentDictionary<Guid, IDevice> DiscoveredDevicesRegistry { get; } = new ConcurrentDictionary<Guid, IDevice>();
 
+        /// <summary>
+        /// List of all discovered devices.
+        /// </summary>
         public virtual IReadOnlyList<IDevice> DiscoveredDevices => DiscoveredDevicesRegistry.Values.ToList();
 
         /// <summary>
@@ -50,8 +92,15 @@ namespace Plugin.BLE.Abstractions
         /// </summary>
         public ConcurrentDictionary<string, IDevice> ConnectedDeviceRegistry { get; } = new ConcurrentDictionary<string, IDevice>();
 
+        /// <summary>
+        /// List of all connected devices.
+        /// </summary>
         public IReadOnlyList<IDevice> ConnectedDevices => ConnectedDeviceRegistry.Values.ToList();
 
+        /// <summary>
+        /// Starts scanning for BLE devices that fulfill the <paramref name="deviceFilter"/>.
+        /// DeviceDiscovered will only be called, if <paramref name="deviceFilter"/> returns <c>true</c> for the discovered device.
+        /// </summary>
         public async Task StartScanningForDevicesAsync(ScanFilterOptions scanFilterOptions, 
             Func<IDevice, bool> deviceFilter = null, 
             bool allowDuplicatesKey = false, 
@@ -87,12 +136,20 @@ namespace Plugin.BLE.Abstractions
             }
         }
 
+        /// <summary>
+        /// Starts scanning for BLE devices that fulfill the <paramref name="deviceFilter"/>.
+        /// DeviceDiscovered will only be called, if <paramref name="deviceFilter"/> returns <c>true</c> for the discovered device.
+        /// This overload takes a list of service IDs and is only kept for backwards compatibility. Might be removed in a future version.
+        /// </summary>
         public async Task StartScanningForDevicesAsync(Guid[] serviceUuids, Func<IDevice, bool> deviceFilter = null, bool allowDuplicatesKey = false,
             CancellationToken cancellationToken = default)
         {
             await StartScanningForDevicesAsync(new ScanFilterOptions { ServiceUuids = serviceUuids }, deviceFilter, allowDuplicatesKey, cancellationToken);
         }
 
+        /// <summary>
+        /// Stops scanning for BLE devices.
+        /// </summary>
         public Task StopScanningForDevicesAsync()
         {
             if (_scanCancellationTokenSource != null && !_scanCancellationTokenSource.IsCancellationRequested)
@@ -107,6 +164,13 @@ namespace Plugin.BLE.Abstractions
             return Task.FromResult(0);
         }
 
+        /// <summary>
+        /// Connects to the <paramref name="device"/>.
+        /// </summary>
+        /// <param name="device">Device to connect to.</param>
+        /// <param name="connectParameters">Connection parameters. Contains platform specific parameters needed to achieved connection. The default value is None.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
+        /// <returns>A task that represents the asynchronous read operation. The Task will finish after the device has been connected successfuly.</returns>
         public async Task ConnectToDeviceAsync(IDevice device, ConnectParameters connectParameters = default, CancellationToken cancellationToken = default)
         {
             if (device == null)
@@ -150,6 +214,10 @@ namespace Plugin.BLE.Abstractions
             }
         }
 
+        /// <summary>
+        /// Disconnects from the <paramref name="device"/>.
+        /// </summary>
+        /// <param name="device">Device to connect from.</param>
         public Task DisconnectDeviceAsync(IDevice device)
         {
             if (!ConnectedDevices.Contains(device))
@@ -198,6 +266,9 @@ namespace Plugin.BLE.Abstractions
             IsScanning = false;
         }
 
+        /// <summary>
+        /// Handle discovery of a new device.
+        /// </summary>
         public void HandleDiscoveredDevice(IDevice device)
         {
             if (_currentScanDeviceFilter != null && !_currentScanDeviceFilter(device))
@@ -213,11 +284,17 @@ namespace Plugin.BLE.Abstractions
             DeviceDiscovered?.Invoke(this, new DeviceEventArgs { Device = device });
         }
 
+        /// <summary>
+        /// Handle connection of a new device.
+        /// </summary>
         public void HandleConnectedDevice(IDevice device)
         {
             DeviceConnected?.Invoke(this, new DeviceEventArgs { Device = device });
         }
 
+        /// <summary>
+        /// Handle disconnection of a device.
+        /// </summary>
         public void HandleDisconnectedDevice(bool disconnectRequested, IDevice device)
         {
             if (disconnectRequested)
@@ -237,6 +314,9 @@ namespace Plugin.BLE.Abstractions
             }
         }
 
+        /// <summary>
+        /// Handle connection failure.
+        /// </summary>
         public void HandleConnectionFail(IDevice device, string errorMessage)
         {
             Trace.Message("Failed to connect peripheral {0}: {1}", device.Id, device.Name);
@@ -247,13 +327,34 @@ namespace Plugin.BLE.Abstractions
             });
         }
 
+        /// <summary>
+        /// Native implementation of StartScanningForDevicesAsync.
+        /// </summary>
         protected abstract Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken);
+        /// <summary>
+        /// Stopping the scan (native implementation).
+        /// </summary>
         protected abstract void StopScanNative();
+        /// <summary>
+        /// Native implementation of ConnectToDeviceAsync.
+        /// </summary>
         protected abstract Task ConnectToDeviceNativeAsync(IDevice device, ConnectParameters connectParameters, CancellationToken cancellationToken);
+        /// <summary>
+        /// Native implementation of DisconnectDeviceAsync.
+        /// </summary>
         protected abstract void DisconnectDeviceNative(IDevice device);
 
+        /// <summary>
+        /// Connects to a device with a known GUID without scanning and if in range. Does not scan for devices.
+        /// </summary>
         public abstract Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters = default, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Returns all BLE devices connected to the system.
+        /// </summary>
         public abstract IReadOnlyList<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null);
+        /// <summary>
+        /// Returns a list of paired BLE devices for the given UUIDs.
+        /// </summary>
         public abstract IReadOnlyList<IDevice> GetKnownDevicesByIds(Guid[] ids);
     }
 }
