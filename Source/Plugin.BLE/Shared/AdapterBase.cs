@@ -356,5 +356,10 @@ namespace Plugin.BLE.Abstractions
         /// Returns a list of paired BLE devices for the given UUIDs.
         /// </summary>
         public abstract IReadOnlyList<IDevice> GetKnownDevicesByIds(Guid[] ids);
+
+        /// <summary>
+        /// Indicates whether extended advertising (BLE5) is supported.
+        /// </summary>
+        public virtual bool supportsExtendedAdvertising() => false;
     }
 }

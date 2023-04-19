@@ -165,5 +165,11 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <param name="ids">The list of UUIDs</param>
         /// <returns>The known device. Empty list if no device known.</returns>
         IReadOnlyList<IDevice> GetKnownDevicesByIds(Guid[] ids);
+
+        /// <summary>
+        /// Indicates whether extended advertising (BLE5) is supported.
+        /// </summary>
+        /// <returns><c>true</c> if extended advertising is supported, otherwise <c>false</c>.</returns>
+        bool supportsExtendedAdvertising();
     }
 }
