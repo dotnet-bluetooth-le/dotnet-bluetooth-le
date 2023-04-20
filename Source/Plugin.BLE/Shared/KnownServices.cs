@@ -4,7 +4,10 @@ using System.Linq;
 
 namespace Plugin.BLE.Abstractions
 {
-    // Source: https://developer.bluetooth.org/gatt/services/Pages/ServicesHome.aspx
+    /// <summary>
+    /// Provides a list of known services.
+    /// Source: https://developer.bluetooth.org/gatt/services/Pages/ServicesHome.aspx
+    /// </summary>
     public static class KnownServices
     {
         private static readonly Dictionary<Guid, KnownService> LookupTable;
@@ -14,11 +17,17 @@ namespace Plugin.BLE.Abstractions
             LookupTable = Services.ToDictionary(s => s.Id, s => s);
         }
 
+        /// <summary>
+        /// Look up a known service via its Id.
+        /// </summary>
         public static KnownService Lookup(Guid id)
         {
             return LookupTable.ContainsKey(id) ? LookupTable[id] : new KnownService("Unknown Service", Guid.Empty);
         }
 
+        /// <summary>
+        /// The list of known services.
+        /// </summary>
         public static IReadOnlyList<KnownService> Services { get; } = new List<KnownService>
         {
             new KnownService("Alert Notification Service", Guid.ParseExact("00001811-0000-1000-8000-00805f9b34fb", "d")),

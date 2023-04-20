@@ -16,7 +16,9 @@
         /// </summary>
         public bool ForceBleTransport { get; }
 
-
+        /// <summary>
+        /// Default-constructed connection parameters (all parameters set to false).
+        /// </summary>
         public static ConnectParameters None { get; } = new ConnectParameters();
 
         /// <summary>

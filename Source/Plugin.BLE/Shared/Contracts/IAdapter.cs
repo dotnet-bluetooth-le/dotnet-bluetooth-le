@@ -18,7 +18,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         event EventHandler<DeviceEventArgs> DeviceAdvertised;
         /// <summary>
         /// Occurs when the adapter receives an advertisement for the first time of the current scan run.
-        /// This means once per every <see cref="StartScanningForDevicesAsync"/> call. 
+        /// This means once per every <c>StartScanningForDevicesAsync</c> call. 
         /// </summary>
         event EventHandler<DeviceEventArgs> DeviceDiscovered;
         /// <summary>

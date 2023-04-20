@@ -9,6 +9,9 @@ using Plugin.BLE.Abstractions.Utils;
 
 namespace Plugin.BLE.Abstractions.Extensions
 {
+    /// <summary>
+    /// Various extensions for the <c>Adapter</c> classes.
+    /// </summary>
     public static class AdapterExtension
     {
         /// <summary>
@@ -59,11 +62,17 @@ namespace Plugin.BLE.Abstractions.Extensions
             return adapter.StartScanningForDevicesAsync(scanFilterOptions: null, deviceFilter: deviceFilter, cancellationToken: cancellationToken);
         }
 
+        /// <summary>
+        /// Try to discover a device with a specific device Id.
+        /// </summary>
         public static Task<IDevice> DiscoverDeviceAsync(this IAdapter adapter, Guid deviceId, CancellationToken cancellationToken = default)
         {
             return DiscoverDeviceAsync(adapter, device => device.Id == deviceId, cancellationToken);
         }
 
+        /// <summary>
+        /// Try to discover a device that matches a filter function.
+        /// </summary>
         public static async Task<IDevice> DiscoverDeviceAsync(this IAdapter adapter, Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken = default)
         {
             var device = adapter.DiscoveredDevices.FirstOrDefault(deviceFilter);

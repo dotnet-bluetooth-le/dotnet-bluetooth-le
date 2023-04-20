@@ -50,10 +50,20 @@ namespace Plugin.BLE.Abstractions
         /// </summary>
         ExtendedProperties = 128,
 
+
         // TODO: move these to seperate enum
-        NotifyEncryptionRequired = 256, //0x100
-        
-        IndicateEncryptionRequired = 512, //0x200
+
+        /// <summary>
+        /// iOS-specific value (0x100),
+        /// see https://developer.apple.com/documentation/corebluetooth/cbcharacteristicproperties/cbcharacteristicpropertynotifyencryptionrequired 
+        /// </summary>
+        NotifyEncryptionRequired = 256,
+
+        /// <summary>
+        /// iOS-specific value (0x200),
+        /// see https://developer.apple.com/documentation/corebluetooth/cbcharacteristicproperties/cbcharacteristicpropertyindicateencryptionrequired
+        /// </summary>
+        IndicateEncryptionRequired = 512,
     }
 }
 
