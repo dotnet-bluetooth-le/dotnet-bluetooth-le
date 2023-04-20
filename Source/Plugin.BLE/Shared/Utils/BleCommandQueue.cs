@@ -6,18 +6,29 @@ using System.Threading.Tasks;
 
 namespace Plugin.BLE.Abstractions.Utils
 {
+    /// <summary>
+    /// A BLE command queue.
+    /// </summary>
     public class BleCommandQueue
     {
+        /// <summary>
+        /// The actual queue of BLE commands.
+        /// </summary>
         public Queue<IBleCommand> CommandQueue { get; set; }
 
         private object _lock = new object();
         private IBleCommand _currentCommand;
 
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
         public BleCommandQueue()
         {
-
         }
 
+        /// <summary>
+        /// Enqueue a command with a given timeout.
+        /// </summary>
         public Task<T> EnqueueAsync<T>(Func<Task<T>> bleCommand, int timeOutInSeconds = 10)
         {
             var command = new BleCommand<T>(bleCommand, timeOutInSeconds);
@@ -30,6 +41,9 @@ namespace Plugin.BLE.Abstractions.Utils
             return command.ExecutingTask;
         }
 
+        /// <summary>
+        /// Cancel all pending commands.
+        /// </summary>
         public void CancelPending()
         {
             lock (_lock)
@@ -42,6 +56,9 @@ namespace Plugin.BLE.Abstractions.Utils
             }
         }
 
+        /// <summary>
+        /// Try to execute the next command in the queue.
+        /// </summary>
         private async void TryExecuteNext()
         {
             lock (_lock)
@@ -67,21 +84,46 @@ namespace Plugin.BLE.Abstractions.Utils
     }
 
 
+    /// <summary>
+    /// BLE command interface.
+    /// </summary>
     public interface IBleCommand
     {
+        /// <summary>
+        /// Execute the command.
+        /// </summary>
         Task ExecuteAsync();
+        /// <summary>
+        /// Cancel the command.
+        /// </summary>
         void Cancel();
+        /// <summary>
+        /// Indicates whether the command is currently executing.
+        /// </summary>
         bool IsExecuting { get; }
+        /// <summary>
+        /// Timeout of the command in milliseconds.
+        /// </summary>
         int TimeoutInMiliSeconds { get; }
     }
 
+    /// <summary>
+    /// A BLE command.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class BleCommand<T> : IBleCommand
     {
         private Func<Task<T>> _taskSource;
         private TaskCompletionSource<T> _taskCompletionSource;
 
+        /// <summary>
+        /// Timeout of the command in milliseconds.
+        /// </summary>
         public int TimeoutInMiliSeconds { get; }
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public BleCommand(Func<Task<T>> taskSource, int timeoutInSeconds)
         {
             _taskSource = taskSource;
@@ -89,10 +131,19 @@ namespace Plugin.BLE.Abstractions.Utils
             _taskCompletionSource = new TaskCompletionSource<T>();
         }
 
+        /// <summary>
+        /// The executing task.
+        /// </summary>
         public Task<T> ExecutingTask => _taskCompletionSource.Task;
 
+        /// <summary>
+        /// Indicates whether the command is currently executing.
+        /// </summary>
         public bool IsExecuting { get; private set; }
 
+        /// <summary>
+        /// Execute the command.
+        /// </summary>
         public async Task ExecuteAsync()
         {
             try
@@ -121,6 +172,9 @@ namespace Plugin.BLE.Abstractions.Utils
 
         }
 
+        /// <summary>
+        /// Cancel the command.
+        /// </summary>
         public void Cancel()
         {
             _taskCompletionSource.TrySetCanceled();
