@@ -36,7 +36,6 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns>A task that represents the asynchronous read operation. The Result property will contain the read bytes.</returns>
-        /// <exception cref="InvalidOperationException">Thrown if characteristic doesn't support read. See: <see cref="CanRead"/></exception>
         /// <exception cref="Exception">Thrown if the reading of the value failed.</exception>
         Task<byte[]> ReadAsync(CancellationToken cancellationToken = default);
 
