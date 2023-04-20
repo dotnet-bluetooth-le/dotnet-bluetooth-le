@@ -17,51 +17,51 @@
     <td>None</td>
   </tr>
   <tr>
-	<td>1</td>
+    <td>1</td>
     <td colspan="5" align="center">Broadcast</td>
   </tr>
   <tr>
-	<td>2</td>
+    <td>2</td>
     <td colspan="5" align="center">Read</td>
   </tr>
   <tr>
-	<td>4</td>
+    <td>4</td>
     <td colspan="5" align="center">WriteWithoutResponse</td>
   </tr>
   <tr>
-	<td>8</td>
+    <td>8</td>
     <td colspan="5" align="center">Write</td>
   </tr>
   <tr>
-	<td>16</td>
+    <td>16</td>
     <td colspan="5" align="center">Notify</td>
   </tr>
   <tr>
-	<td>32</td>
+    <td>32</td>
     <td colspan="5" align="center">Indicate</td>
   </tr>
   <tr>
-	<td>64</td>
+    <td>64</td>
     <td colspan="5" align="center">AuthenticatedSignedWrites</td>
   </tr>
   <tr>
-	<td>128</td>
+    <td>128</td>
     <td colspan="5" align="center">ExtendedProperties</td>
   </tr>
   <tr>
-	<td>256</td>
-    <td></td>
+    <td>256</td>
     <td></td>
     <td></td>
     <td>NotifyEncryptionRequired</td>
+    <td></td>
     <td>ReliableWrites</td>
   </tr>
   <tr>
-	<td>512</td>
-    <td></td>
+    <td>512</td>
     <td></td>
     <td></td>
     <td>IndicateEncryptionRequired</td>
+    <td></td>
     <td>WritableAuxiliaries</td>
   </tr>
 </table>
