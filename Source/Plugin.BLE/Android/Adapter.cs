@@ -150,7 +150,11 @@ namespace Plugin.BLE.Android
             var ssb = new ScanSettings.Builder();
             ssb.SetScanMode(ScanMode.ToNative());
 
+#if NET6_0_OR_GREATER
+            if (OperatingSystem.IsAndroidVersionAtLeast(23))
+#else
             if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+#endif
             {
                 // set the match mode on Android 6 and above
                 ssb.SetMatchMode(ScanMatchMode.ToNative());
@@ -164,7 +168,11 @@ namespace Plugin.BLE.Android
                 }
             }
             
+#if NET6_0_OR_GREATER
+            if (OperatingSystem.IsAndroidVersionAtLeast(26))
+#else
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+#endif
             {
                 // enable Bluetooth 5 Advertisement Extensions on Android 8.0 and above
                 ssb.SetLegacy(false);
