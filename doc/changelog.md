@@ -2,6 +2,10 @@
 
 ## 3.0 MAUI
 
+#### 3.0.0-beta.3
+- #650 Add support for .NET 7
+- #671 Adding propagating disconnect event if happening during communication (Android)
+
 #### 3.0.0-beta.2
 - #640 Fix problems with MAUI on Windows (fixes #356)
 - #639 Fix warnings

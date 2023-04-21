@@ -2,6 +2,9 @@
 
 namespace Plugin.BLE.Abstractions.Extensions
 {
+    /// <summary>
+    /// Various extensions for Guids.
+    /// </summary>
     public static class GuidExtension
     {
         /// <summary>
@@ -37,6 +40,9 @@ namespace Plugin.BLE.Abstractions.Extensions
             return "0x" + id;
         }
 
+        /// <summary>
+        /// Convert a byte array to a hex string.
+        /// </summary>
         public static string ToHexString(this byte[] bytes)
         {
             return bytes != null ? BitConverter.ToString(bytes) : string.Empty;

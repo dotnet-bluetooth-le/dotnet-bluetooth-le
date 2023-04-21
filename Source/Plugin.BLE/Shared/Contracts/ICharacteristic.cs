@@ -14,7 +14,7 @@ namespace Plugin.BLE.Abstractions.Contracts
     {
         /// <summary>
         /// Event gets raised, when the davice notifies a value change on this characteristic.
-        /// To start listening, call <see cref="StartUpdates"/>.
+        /// To start listening, call <see cref="StartUpdatesAsync"/>.
         /// </summary>
         event EventHandler<CharacteristicUpdatedEventArgs> ValueUpdated;
 
@@ -30,7 +30,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         string Uuid { get; }
 
         /// <summary>
-        /// Name of the charakteristic.
+        /// Name of the characteristic.
         /// Returns the name if the <see cref="Id"/> is a id of a standard characteristic.
         /// </summary>
         string Name { get; }
