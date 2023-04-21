@@ -290,6 +290,22 @@ namespace Plugin.BLE.Android
             }
         }
 
+        public override bool supportsCodedPHY()
+        {
+#if NET6_0_OR_GREATER
+            if (OperatingSystem.IsAndroidVersionAtLeast(26))
+#else
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+#endif
+            {
+                return _bluetoothAdapter.IsLeCodedPhySupported;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
 
         private class DeviceComparer : IEqualityComparer<BluetoothDevice>
         {
