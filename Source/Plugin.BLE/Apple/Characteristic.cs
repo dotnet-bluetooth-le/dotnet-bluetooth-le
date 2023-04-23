@@ -131,7 +131,7 @@ namespace Plugin.BLE.iOS
             if (writeType.ToNative() == CBCharacteristicWriteType.WithResponse)
             {
                 task = TaskBuilder.FromEvent<bool, EventHandler<CBCharacteristicEventArgs>, EventHandler<CBPeripheralErrorEventArgs>>(
-                    execute: () => 
+                    execute: () =>
                     {
                         if (_parentDevice.State != CBPeripheralState.Connected)
                             throw exception;
@@ -157,7 +157,14 @@ namespace Plugin.BLE.iOS
             // CBCharacteristicWriteType is an Enum; so else path is always WithoutResponse.
             else
             {
-                if (_parentDevice.CanSendWriteWithoutResponse)
+#if NET6_0_OR_GREATER
+                if (OperatingSystem.IsIOSVersionAtLeast(11) || OperatingSystem.IsTvOSVersionAtLeast(11) || OperatingSystem.IsMacCatalystVersionAtLeast(11)
+#elif __IOS__
+                if (UIKit.UIDevice.CurrentDevice.CheckSystemVersion(11, 0)
+#else
+                if (true
+#endif
+                    && _parentDevice.CanSendWriteWithoutResponse)
                 {
                     task = TaskBuilder.FromEvent<bool, EventHandler, EventHandler<CBPeripheralErrorEventArgs>>(
                     execute: () =>
