@@ -145,14 +145,21 @@ namespace Plugin.BLE.Android
         {
             //This parameter is present from API 18 but only public from API 23
             //So reflection is used before API 23
-            if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
+#if NET6_0_OR_GREATER
+            if (OperatingSystem.IsAndroidVersionAtLeast(23))
+#else
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+#endif
             {
-                //no transport mode before lollipop, it will probably not work... gattCallBackError 133 again alas
-                var connectGatt = NativeDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback);
+                var connectGatt = NativeDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback, BluetoothTransports.Le);
                 _connectCancellationTokenRegistration.Dispose();
                 _connectCancellationTokenRegistration = cancellationToken.Register(() => DisconnectAndClose(connectGatt));
             }
-            else if (Build.VERSION.SdkInt < BuildVersionCodes.M)
+#if NET6_0_OR_GREATER
+            else if (OperatingSystem.IsAndroidVersionAtLeast(21))
+#else
+            else if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
+#endif
             {
                 var m = NativeDevice.Class.GetDeclaredMethod("connectGatt", new Java.Lang.Class[] {
                                 Java.Lang.Class.FromType(typeof(Context)),
@@ -165,7 +172,8 @@ namespace Plugin.BLE.Android
             }
             else
             {
-                var connectGatt = NativeDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback, BluetoothTransports.Le);
+                //no transport mode before lollipop, it will probably not work... gattCallBackError 133 again alas
+                var connectGatt = NativeDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback);
                 _connectCancellationTokenRegistration.Dispose();
                 _connectCancellationTokenRegistration = cancellationToken.Register(() => DisconnectAndClose(connectGatt));
             }
