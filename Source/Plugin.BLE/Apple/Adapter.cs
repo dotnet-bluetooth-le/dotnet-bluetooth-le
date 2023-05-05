@@ -422,5 +422,23 @@ namespace Plugin.BLE.iOS
 
             return records;
         }
+
+#if NET6_0_OR_GREATER || __IOS__
+        public override bool supportsExtendedAdvertising()
+        {
+#if NET6_0_OR_GREATER
+            if (OperatingSystem.IsIOSVersionAtLeast(13) || OperatingSystem.IsTvOSVersionAtLeast(13) || OperatingSystem.IsMacCatalystVersionAtLeast(13))
+#elif __IOS__
+            if (UIKit.UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
+#endif
+            {
+                return CBCentralManager.SupportsFeatures(CBCentralManagerFeature.ExtendedScanAndConnect);
+            }
+            else
+            {
+                return false;
+            }
+        }
+#endif
     }
 }

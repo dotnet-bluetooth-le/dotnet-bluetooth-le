@@ -274,6 +274,39 @@ namespace Plugin.BLE.Android
             return devices.Where(item => ids.Contains(item.Id)).ToList();
         }
 
+        public override bool supportsExtendedAdvertising()
+        {
+#if NET6_0_OR_GREATER
+            if (OperatingSystem.IsAndroidVersionAtLeast(26))
+#else
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+#endif
+            {
+                return _bluetoothAdapter.IsLeExtendedAdvertisingSupported;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override bool supportsCodedPHY()
+        {
+#if NET6_0_OR_GREATER
+            if (OperatingSystem.IsAndroidVersionAtLeast(26))
+#else
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+#endif
+            {
+                return _bluetoothAdapter.IsLeCodedPhySupported;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
         private class DeviceComparer : IEqualityComparer<BluetoothDevice>
         {
             public bool Equals(BluetoothDevice x, BluetoothDevice y)
