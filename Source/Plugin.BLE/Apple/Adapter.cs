@@ -39,8 +39,9 @@ namespace Plugin.BLE.iOS
                     name = ((NSString)e.AdvertisementData.ValueForKey(CBAdvertisement.DataLocalNameKey)).ToString();
                 }
 
+                var advertisingRecords = ParseAdvertismentData(e.AdvertisementData, out bool isConnectable);
                 var device = new Device(this, e.Peripheral, _bleCentralManagerDelegate, name, e.RSSI.Int32Value,
-                    ParseAdvertismentData(e.AdvertisementData));
+                    advertisingRecords, isConnectable);
                 HandleDiscoveredDevice(device);
             };
 
@@ -310,9 +311,10 @@ namespace Plugin.BLE.iOS
             return list.Any(d => Guid.ParseExact(device.Identifier.AsString(), "d") == d.Id);
         }
 
-        public static List<AdvertisementRecord> ParseAdvertismentData(NSDictionary advertisementData)
+        public static List<AdvertisementRecord> ParseAdvertismentData(NSDictionary advertisementData, out bool isConnectable)
         {
             var records = new List<AdvertisementRecord>();
+            isConnectable = true;
 
             /*var keys = new List<NSString>
             {
@@ -410,8 +412,10 @@ namespace Plugin.BLE.iOS
                 {
                     // A Boolean value that indicates whether the advertising event type is connectable.
                     // The value for this key is an NSNumber object. You can use this value to determine whether a peripheral is connectable at a particular moment.
-                    records.Add(new AdvertisementRecord(AdvertisementRecordType.IsConnectable,
-                                                        new byte[] { ((NSNumber)advertisementData.ObjectForKey(key)).ByteValue }));
+                    // obsolete
+                    // records.Add(new AdvertisementRecord(AdvertisementRecordType.IsConnectable,
+                    //                                    new byte[] { ((NSNumber)advertisementData.ObjectForKey(key)).ByteValue }));
+                    isConnectable = ((NSNumber)advertisementData.ObjectForKey(key)).ByteValue != 0;
                 }
                 else
                 {

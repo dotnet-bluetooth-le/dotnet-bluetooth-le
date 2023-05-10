@@ -106,5 +106,18 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <returns>True if the update request was sucessfull. On iOS it will always return false.</returns>
         /// <param name="interval">The requested interval (High/Low/Normal)</param>
         bool UpdateConnectionInterval(ConnectionInterval interval);
+
+
+        /// <summary>
+        /// Gets the information if the device has hinted during advertising that the device is connectable.
+        /// This information is not pat of an advertising record. It's determined from the PDU header.
+        /// Check CanIsConnectable to verify that the device supports IsConnectable.
+        /// </summary>
+        bool IsConnectable { get; }
+
+        /// <summary>
+        /// True, if device supports IsConnectable else False
+        /// </summary>
+        bool CanIsConnectable { get; }
     }
 }

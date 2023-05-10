@@ -40,11 +40,13 @@ namespace Plugin.BLE.Android
         /// </summary>
         public ConnectParameters ConnectParameters { get; private set; }
 
-        public Device(Adapter adapter, BluetoothDevice nativeDevice, BluetoothGatt gatt, int rssi, byte[] advertisementData = null) : base(adapter, nativeDevice)
+        public Device(Adapter adapter, BluetoothDevice nativeDevice, BluetoothGatt gatt, int rssi = 0, byte[] advertisementData = null, bool isConnectable = true) 
+            : base(adapter, nativeDevice)
         {
             Update(nativeDevice, gatt);
             Rssi = rssi;
             AdvertisementRecords = ParseScanRecord(advertisementData);
+            IsConnectable = isConnectable;
             _gattCallback = new GattCallback(adapter, this);
         }
 
@@ -412,5 +414,10 @@ namespace Plugin.BLE.Android
                 throw new Exception($"Update Connection Interval fails with error. {ex.Message}");
             }
         }
+
+        public override bool IsConnectable { get; protected set; }
+
+        public override bool CanIsConnectable { get => (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop); }
+
     }
 }
