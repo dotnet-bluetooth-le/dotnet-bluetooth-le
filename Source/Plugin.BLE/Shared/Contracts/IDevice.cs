@@ -111,7 +111,8 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <summary>
         /// Gets the information if the device has hinted during advertising that the device is connectable.
         /// This information is not pat of an advertising record. It's determined from the PDU header.
-        /// Check CanIsConnectable to verify that the device supports IsConnectable.
+        /// Check SupportsIsConnectable to verify that the device supports IsConnectable.
+        /// If the device doesn't support IsConnectable then IsConnectable returns true.
         /// </summary>
         bool IsConnectable { get; }
 
