@@ -104,6 +104,6 @@ namespace Plugin.BLE.UWP
 
         public override bool IsConnectable { get; protected set; }
 
-        public override bool CanIsConnectable { get => true; }
+        public override bool SupportsIsConnectable { get => true; }
     }
 }

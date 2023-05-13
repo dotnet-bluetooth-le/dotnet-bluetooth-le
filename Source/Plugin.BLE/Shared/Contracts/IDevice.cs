@@ -118,6 +118,6 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <summary>
         /// True, if device supports IsConnectable else False
         /// </summary>
-        bool CanIsConnectable { get; }
+        bool SupportsIsConnectable { get; }
     }
 }

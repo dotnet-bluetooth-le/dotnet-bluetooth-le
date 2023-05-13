@@ -253,6 +253,6 @@ namespace Plugin.BLE.Abstractions
 
         public abstract bool IsConnectable { get; protected set; }
 
-        public abstract bool CanIsConnectable { get; }
+        public abstract bool SupportsIsConnectable { get; }
     }
 }

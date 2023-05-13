@@ -383,7 +383,14 @@ namespace Plugin.BLE.Android
                     records.Add(new AdvertisementRecord(AdvertisementRecordType.ServiceData, result.ScanRecord.ServiceData));
                 }*/
 
-                var device = new Device(_adapter, result.Device, null, result.Rssi, result.ScanRecord.GetBytes(), result.IsConnectable);
+                var device = new Device(_adapter, result.Device, null, result.Rssi, result.ScanRecord.GetBytes(),
+#if NET6_0_OR_GREATER
+                    OperatingSystem.IsAndroidVersionAtLeast(26)
+#else
+                    (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+#endif
+                    ? result.IsConnectable : true
+                ); ;
 
                 //Device device;
                 //if (result.ScanRecord.ManufacturerSpecificData.Size() > 0)

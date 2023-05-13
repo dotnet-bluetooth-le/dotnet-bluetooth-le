@@ -417,7 +417,15 @@ namespace Plugin.BLE.Android
 
         public override bool IsConnectable { get; protected set; }
 
-        public override bool CanIsConnectable { get => (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop); }
+
+        public override bool SupportsIsConnectable {
+            get =>
+#if NET6_0_OR_GREATER
+                OperatingSystem.IsAndroidVersionAtLeast(26);
+#else
+                (Build.VERSION.SdkInt >= BuildVersionCodes.O); 
+#endif
+        }
 
     }
 }
