@@ -292,6 +292,11 @@ namespace Plugin.BLE.iOS
             return nativeDevices.Select(d => new Device(this, d, _bleCentralManagerDelegate)).Cast<IDevice>().ToList();
         }
 
+        protected override IReadOnlyList<IDevice> GetBondedDevices()
+        {
+            return null; // not supported
+        }
+
 #if NET6_0_OR_GREATER || MACCATALYST
         private async Task WaitForState(CBManagerState state, CancellationToken cancellationToken, bool configureAwait = false)
 #else

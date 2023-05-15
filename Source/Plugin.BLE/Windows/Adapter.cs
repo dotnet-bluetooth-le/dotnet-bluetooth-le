@@ -142,6 +142,11 @@ namespace Plugin.BLE.UWP
             return ConnectedDevices;
         }
 
+        protected override IReadOnlyList<IDevice> GetBondedDevices()
+        {
+            return null; // not supported
+        }
+
         /// <summary>
         /// Parses a given advertisement for various stored properties
         /// Currently only parses the manufacturer specific data

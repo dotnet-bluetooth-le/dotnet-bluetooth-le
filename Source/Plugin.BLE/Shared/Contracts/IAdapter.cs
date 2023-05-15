@@ -38,6 +38,10 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// </summary>
         event EventHandler<DeviceErrorEventArgs> DeviceConnectionError;
         /// <summary>
+        /// Occurs when the bonding state of a device changed
+        /// </summary>
+        event EventHandler<DeviceBondStateChangedEventArgs> DeviceBondStateChanged;
+        /// <summary>
         /// Occurs when the scan has been stopped due the timeout after <see cref="ScanTimeout"/> ms.
         /// </summary>
         event EventHandler ScanTimeoutElapsed;
@@ -75,6 +79,12 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// List of currently connected devices.
         /// </summary>
         IReadOnlyList<IDevice> ConnectedDevices { get; }
+
+        /// <summary>
+        /// List of currently bonded devices.
+        /// The property is null if the OS doesn't provide this information
+        /// </summary>
+        IReadOnlyList<IDevice> BondedDevices { get; }
 
         /// <summary>
         /// Starts scanning for BLE devices that fulfill the <paramref name="deviceFilter"/>.

@@ -47,6 +47,11 @@ namespace Plugin.BLE.Abstractions.Utils
             return new List<IDevice>();
         }
 
+        protected override IReadOnlyList<IDevice> GetBondedDevices()
+        {
+            return null; // not supported
+        }
+
         public override IReadOnlyList<IDevice> GetKnownDevicesByIds(Guid[] ids)
         {
             TraceUnavailability();

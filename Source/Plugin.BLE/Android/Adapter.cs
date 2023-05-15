@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Android.App;
 using Android.Bluetooth;
 using Android.Bluetooth.LE;
+using Android.Content;
 using Android.OS;
 using Java.Util;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.BroadcastReceivers;
 using Plugin.BLE.Extensions;
 using Object = Java.Lang.Object;
 using Trace = Plugin.BLE.Abstractions.Trace;
@@ -27,17 +30,16 @@ namespace Plugin.BLE.Android
             _bluetoothManager = bluetoothManager;
             _bluetoothAdapter = bluetoothManager.Adapter;
 
+            //bonding
+            var bondStatusBroadcastReceiver = new BondStatusBroadcastReceiver();
+            Application.Context.RegisterReceiver(bondStatusBroadcastReceiver,
+                new IntentFilter(BluetoothDevice.ActionBondStateChanged));
 
-            // TODO: bonding
-            //var bondStatusBroadcastReceiver = new BondStatusBroadcastReceiver();
-            //Application.Context.RegisterReceiver(bondStatusBroadcastReceiver,
-            //    new IntentFilter(BluetoothDevice.ActionBondStateChanged));
-
-            ////forward events from broadcast receiver
-            //bondStatusBroadcastReceiver.BondStateChanged += (s, args) =>
-            //{
-            //    //DeviceBondStateChanged(this, args);
-            //};
+            //forward events from broadcast receiver
+            bondStatusBroadcastReceiver.BondStateChanged += (s, args) =>
+            {
+                HandleDeviceBondStateChanged(args);
+            };
 
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
             {
@@ -272,6 +274,13 @@ namespace Plugin.BLE.Android
         {
             var devices = GetSystemConnectedOrPairedDevices();
             return devices.Where(item => ids.Contains(item.Id)).ToList();
+        }
+
+        protected override IReadOnlyList<IDevice> GetBondedDevices()
+        {
+            var bondedDevices = _bluetoothAdapter.BondedDevices.Where(d => d.Type == BluetoothDeviceType.Le || d.Type == BluetoothDeviceType.Dual);
+
+            return bondedDevices.Select(d => new Device(this, d, null, 0)).Cast<IDevice>().ToList();
         }
 
         public override bool supportsExtendedAdvertising()
