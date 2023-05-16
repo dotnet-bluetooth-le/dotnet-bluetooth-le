@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using static Android.OS.Build;
+using static Java.Text.Normalizer;
 
 namespace Plugin.BLE.Abstractions.Contracts
 {
@@ -134,7 +136,13 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Bonding does pairing and remembers the keys in a secure storage so that they can be used for the next connection.
         /// You have to subscribe to Adapter.DeviceBondStateChanged to get the current state. Typically first bonding and later bonded.
         /// Important:
-        /// On iOS: Initiating a bonding request is not supported by iOS. The function simply returns false.
+        /// On iOS: 
+        /// Initiating a bonding request is not supported by iOS. The function simply returns false.
+        /// On Android:
+        /// Android system services will handle the necessary user interactions to confirm and complete the bonding process.
+        /// For apps targeting Build.VERSION_CODES#R or lower, this requires the Manifest.permission#BLUETOOTH_ADMIN permission 
+        /// which can be gained with a simple ßuses-permissionß manifest tag. For apps targeting Build.VERSION_CODES#S or or higher,
+        /// this requires the Manifest.permission#BLUETOOTH_CONNECT permission which can be gained with Activity.requestPermissions(String[], int). 
         /// </summary>
         /// <returns>True if bonding could be requested. On iOS it will always return false.</returns>
         bool CreateBond();
