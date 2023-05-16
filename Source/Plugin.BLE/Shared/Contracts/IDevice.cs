@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using static Android.OS.Build;
-using static Java.Text.Normalizer;
 
 namespace Plugin.BLE.Abstractions.Contracts
 {
