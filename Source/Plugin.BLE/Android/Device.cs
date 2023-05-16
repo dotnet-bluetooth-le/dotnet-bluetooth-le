@@ -415,8 +415,8 @@ namespace Plugin.BLE.Android
             }
         }
 
-        public override bool IsConnectable { get; protected set; }
 
+        public override bool IsConnectable { get; protected set; }
 
         public override bool SupportsIsConnectable {
             get =>
@@ -425,6 +425,69 @@ namespace Plugin.BLE.Android
 #else
                 (Build.VERSION.SdkInt >= BuildVersionCodes.O); 
 #endif
+        }
+
+
+        protected override DeviceBondState GetBondState()
+        {
+            if (NativeDevice == null)
+            {
+                Trace.Message($"[Warning]: Can't get bond state of {Name}. NativeDevice is null.");
+                return DeviceBondState.NotSupported;
+            }
+            var bondState = NativeDevice.BondState;
+            switch (bondState)
+            {
+                case global::Android.Bluetooth.Bond.None:
+                    return DeviceBondState.NotBonded;
+                case global::Android.Bluetooth.Bond.Bonding:
+                    return DeviceBondState.Bonding;
+                case global::Android.Bluetooth.Bond.Bonded:
+                    return DeviceBondState.Bonded;
+                default:
+                    return DeviceBondState.NotSupported;
+            }
+        }
+
+        public override bool CreateBond()
+        {
+            if (NativeDevice == null)
+            {
+                Trace.Message($"[Warning]: Can't create bond for {Name}. BluetoothDevice is null.");
+                return false;
+            }
+            else
+            {
+                return NativeDevice.CreateBond();
+            }
+        }
+
+        public override bool ForgetBond()
+        {
+            if (NativeDevice == null)
+            {
+                Trace.Message($"[Warning]: Can't remove bond of {Name}. BluetoothDevice is null.");
+                return false;
+            }
+
+            if (BondState == DeviceBondState.NotBonded)
+            {
+                Trace.Message($"Device {Name} is not bonded.");
+                return true;
+            }
+
+            try
+            {
+                // removeBond is not part of the API but was always available together with CreateBond (just hidden).
+                var removeBond = NativeDevice.Class.GetMethod("removeBond");
+                // calling removeBond will disconnect!
+                return (bool)removeBond.Invoke(NativeDevice);
+            }
+            catch (Exception ex)
+            {
+                Trace.Message($"RemoveBond of {Name} failed. {ex.Message}");
+                return false;
+            }
         }
 
     }

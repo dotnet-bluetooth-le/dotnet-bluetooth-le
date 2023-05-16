@@ -31,7 +31,7 @@ namespace Plugin.BLE.Android
             _bluetoothAdapter = bluetoothManager.Adapter;
 
             //bonding
-            var bondStatusBroadcastReceiver = new BondStatusBroadcastReceiver();
+            var bondStatusBroadcastReceiver = new BondStatusBroadcastReceiver(this);
             Application.Context.RegisterReceiver(bondStatusBroadcastReceiver,
                 new IntentFilter(BluetoothDevice.ActionBondStateChanged));
 

@@ -120,5 +120,29 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// True, if device supports IsConnectable else False
         /// </summary>
         bool SupportsIsConnectable { get; }
+
+
+        /// <summary>
+        /// Gets the bonding state of a device.
+        /// </summary>
+        DeviceBondState BondState { get; }
+
+        /// <summary>
+        /// Initiates a bonding request.
+        /// To establish an additional security level in the commumication between server and client pairing or bonding is used.
+        /// Pairing does the key exchange and encryption/decryption for one connection between server and client.
+        /// Bonding does pairing and remembers the keys in a secure storage so that they can be used for the next connection.
+        /// You have to subscribe to Adapter.DeviceBondStateChanged to get the current state. Typically first bonding and later bonded.
+        /// Important:
+        /// On iOS: Initiating a bonding request is not supported by iOS. The function simply returns false.
+        /// </summary>
+        /// <returns>True if bonding could be requested. On iOS it will always return false.</returns>
+        bool CreateBond();
+
+        /// <summary>
+        /// Forgets the bonding between server and client. 
+        /// </summary>
+        /// <returns></returns>
+        bool ForgetBond();
     }
 }

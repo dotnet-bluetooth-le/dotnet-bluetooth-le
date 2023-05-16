@@ -12,26 +12,31 @@ namespace Plugin.BLE.BroadcastReceivers
     {
         public event EventHandler<DeviceBondStateChangedEventArgs> BondStateChanged;
 
+        Adapter BroadCastAdapter;
+
+        public BondStatusBroadcastReceiver(Adapter adapter)
+        {
+            BroadCastAdapter = adapter;
+        }
+
         public override void OnReceive(Context context, Intent intent)
         {
-            var bondState = (Bond)intent.GetIntExtra(BluetoothDevice.ExtraBondState, (int)Bond.None);
-            //ToDo
-            var device = new Device(null, (BluetoothDevice)intent.GetParcelableExtra(BluetoothDevice.ExtraDevice), null);
-            Console.WriteLine(bondState.ToString());
-
             if (BondStateChanged == null) return;
 
+            var bondState = (global::Android.Bluetooth.Bond)intent.GetIntExtra(BluetoothDevice.ExtraBondState, (int)global::Android.Bluetooth.Bond.None);
+            var bluetoothDevice = (BluetoothDevice)intent.GetParcelableExtra(BluetoothDevice.ExtraDevice);
+            var device = new Device(BroadCastAdapter, bluetoothDevice, null, 0);
             switch (bondState)
             {
-                case Bond.None:
+                case global::Android.Bluetooth.Bond.None:
                     BondStateChanged(this, new DeviceBondStateChangedEventArgs() { Device = device, State = DeviceBondState.NotBonded });
                     break;
 
-                case Bond.Bonding:
+                case global::Android.Bluetooth.Bond.Bonding:
                     BondStateChanged(this, new DeviceBondStateChangedEventArgs() { Device = device, State = DeviceBondState.Bonding });
                     break;
 
-                case Bond.Bonded:
+                case global::Android.Bluetooth.Bond.Bonded:
                     BondStateChanged(this, new DeviceBondStateChangedEventArgs() { Device = device, State = DeviceBondState.Bonded });
                     break;
 
