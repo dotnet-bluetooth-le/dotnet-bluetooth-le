@@ -47,11 +47,11 @@ namespace Plugin.BLE.UWP
                 .ToList();
         }
 
-        protected override async Task<Tuple<byte[], int>> ReadNativeAsync()
+        protected override async Task<(byte[] data, int resultCode)> ReadNativeAsync()
         {
             var readResult = await NativeCharacteristic.ReadValueAsync(BleImplementation.CacheModeCharacteristicRead);
             var _value = readResult.GetValueOrThrowIfError();
-            return Tuple.Create(_value, (int)readResult.Status);
+            return (_value, (int)readResult.Status);
         }
 
         protected override async Task StartUpdatesNativeAsync(CancellationToken cancellationToken = default)

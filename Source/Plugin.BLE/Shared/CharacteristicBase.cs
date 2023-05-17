@@ -115,7 +115,7 @@ namespace Plugin.BLE.Abstractions
         /// <summary>
         /// Reads the characteristic value from the device. The result is also stored inisde the Value property.
         /// </summary>
-        public async Task<Tuple<byte[],int>> ReadAsync(CancellationToken cancellationToken = default)
+        public async Task<(byte[] data, int resultCode)> ReadAsync(CancellationToken cancellationToken = default)
         {
             if (!CanRead)
             {
@@ -213,7 +213,7 @@ namespace Plugin.BLE.Abstractions
         /// <summary>
         /// Native implementation of <c>ReadAsync</c>.
         /// </summary>
-        protected abstract Task<Tuple<byte[], int>> ReadNativeAsync();
+        protected abstract Task<(byte[] data, int resultCode)> ReadNativeAsync();
         /// <summary>
         /// Native implementation of <c>WriteAsync</c>.
         /// </summary>

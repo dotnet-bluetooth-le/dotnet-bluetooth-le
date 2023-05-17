@@ -85,11 +85,11 @@ namespace Plugin.BLE.iOS
                 unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
         }
 
-        protected override Task<Tuple<byte[], int>> ReadNativeAsync()
+        protected override Task<(byte[] data, int resultCode)> ReadNativeAsync()
         {
             var exception = new Exception($"Device '{Service.Device.Id}' disconnected while reading characteristic with {Id}.");
 
-            return TaskBuilder.FromEvent<Tuple<byte[], int>, EventHandler<CBCharacteristicEventArgs>, EventHandler<CBPeripheralErrorEventArgs>>(
+            return TaskBuilder.FromEvent<(byte[] data, int resultCode), EventHandler<CBCharacteristicEventArgs>, EventHandler<CBPeripheralErrorEventArgs>>(
                     execute: () =>
                     {
                         if (_parentDevice.State != CBPeripheralState.Connected)
@@ -112,7 +112,7 @@ namespace Plugin.BLE.iOS
                         {
                             Trace.Message($"Read characterteristic value: {Value?.ToHexString()}");
                             int resultCode = (args.Error == null) ? 0 : NSErrorToGattStatus(args.Error);
-                            complete(new Tuple<byte[], int>(Value, resultCode));
+                            complete((Value, resultCode));
                         }
                     },
                     subscribeComplete: handler => _parentDevice.UpdatedCharacterteristicValue += handler,

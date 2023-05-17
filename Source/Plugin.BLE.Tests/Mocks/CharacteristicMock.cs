@@ -43,7 +43,7 @@ namespace Plugin.BLE.Tests.Mocks
             throw new NotImplementedException();
         }
 
-        protected override Task<Tuple<byte[], int>> ReadNativeAsync()
+        protected override Task<(byte[] data, int resultCode)> ReadNativeAsync()
         {
             throw new NotImplementedException();
         }
