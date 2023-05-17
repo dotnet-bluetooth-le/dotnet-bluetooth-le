@@ -250,5 +250,9 @@ namespace Plugin.BLE.Abstractions
         {
             return Id.GetHashCode();
         }
+
+        public abstract bool IsConnectable { get; protected set; }
+
+        public abstract bool SupportsIsConnectable { get; }
     }
 }

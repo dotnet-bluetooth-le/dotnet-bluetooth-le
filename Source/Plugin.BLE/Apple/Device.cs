@@ -16,11 +16,11 @@ namespace Plugin.BLE.iOS
 
         public Device(Adapter adapter, CBPeripheral nativeDevice, IBleCentralManagerDelegate bleCentralManagerDelegate)
             : this(adapter, nativeDevice, bleCentralManagerDelegate, nativeDevice.Name, nativeDevice.RSSI?.Int32Value ?? 0,
-                new List<AdvertisementRecord>())
+                new List<AdvertisementRecord>(), true)
         {
         }
 
-        public Device(Adapter adapter, CBPeripheral nativeDevice, IBleCentralManagerDelegate bleCentralManagerDelegate, string name, int rssi, List<AdvertisementRecord> advertisementRecords)
+        public Device(Adapter adapter, CBPeripheral nativeDevice, IBleCentralManagerDelegate bleCentralManagerDelegate, string name, int rssi, List<AdvertisementRecord> advertisementRecords, bool isConnectable = true)
             : base(adapter, nativeDevice)
         {
             _bleCentralManagerDelegate = bleCentralManagerDelegate;
@@ -30,6 +30,7 @@ namespace Plugin.BLE.iOS
 
             Rssi = rssi;
             AdvertisementRecords = advertisementRecords;
+            IsConnectable = isConnectable;
 
             // TODO figure out if this is in any way required,
             // https://github.com/xabre/xamarin-bluetooth-le/issues/81
@@ -172,5 +173,10 @@ namespace Plugin.BLE.iOS
             Trace.Message("Cannot update connection inteval on iOS.");
             return false;
         }
+
+        public override bool IsConnectable { get; protected set; }
+
+        public override bool SupportsIsConnectable { get => true; }
+
     }
 }

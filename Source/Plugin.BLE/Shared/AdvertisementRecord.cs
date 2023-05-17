@@ -178,7 +178,8 @@ namespace Plugin.BLE.Abstractions
         /// <summary>
         /// The is connectable flag. This is only reliable for the ios imlementation. The android stack does not expose this in the client.
         /// </summary>
-        IsConnectable = 0xAA
+        // obsolete
+        // IsConnectable = 0xAA
     }
 
     /// <summary>
