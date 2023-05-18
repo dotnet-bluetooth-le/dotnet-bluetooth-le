@@ -115,7 +115,7 @@ namespace Plugin.BLE.Abstractions
         /// <summary>
         /// Reads the characteristic value from the device. The result is also stored inisde the Value property.
         /// </summary>
-        public async Task<byte[]> ReadAsync(CancellationToken cancellationToken = default)
+        public async Task<(byte[] data, int resultCode)> ReadAsync(CancellationToken cancellationToken = default)
         {
             if (!CanRead)
             {
@@ -131,7 +131,7 @@ namespace Plugin.BLE.Abstractions
         /// </summary>
         /// <param name="data">Data that should be written.</param>
         /// <param name="cancellationToken"></param>
-        public async Task<bool> WriteAsync(byte[] data, CancellationToken cancellationToken = default)
+        public async Task<int> WriteAsync(byte[] data, CancellationToken cancellationToken = default)
         {
             if (data == null)
             {
@@ -213,11 +213,11 @@ namespace Plugin.BLE.Abstractions
         /// <summary>
         /// Native implementation of <c>ReadAsync</c>.
         /// </summary>
-        protected abstract Task<byte[]> ReadNativeAsync();
+        protected abstract Task<(byte[] data, int resultCode)> ReadNativeAsync();
         /// <summary>
         /// Native implementation of <c>WriteAsync</c>.
         /// </summary>
-        protected abstract Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType);
+        protected abstract Task<int> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType);
         /// <summary>
         /// Native implementation of <c>StartUpdatesAsync</c>.
         /// </summary>
