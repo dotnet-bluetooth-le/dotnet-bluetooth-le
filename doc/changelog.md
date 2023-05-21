@@ -2,6 +2,13 @@
 
 ## 3.0 MAUI
 
+#### 3.0.0-beta.4
+- #669 Return error codes to application
+- #671 Adding propagating disconnect event if happening during communication
+- #679 Querying adapter capabilities: extended advertisements & coded PHY
+- #685 Fix build on Mac
+- #688 IsConnectable
+
 #### 3.0.0-beta.3
 - #650 Add support for .NET 7
 - #671 Adding propagating disconnect event if happening during communication (Android)
