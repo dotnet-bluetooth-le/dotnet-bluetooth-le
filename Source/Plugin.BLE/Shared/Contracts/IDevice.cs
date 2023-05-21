@@ -136,7 +136,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Important:
         /// On iOS: 
         /// Initiating a bonding request is not supported by iOS. The function simply returns false.
-        /// On Android:
+        /// On Android: Added in API level 19.
         /// Android system services will handle the necessary user interactions to confirm and complete the bonding process.
         /// For apps targeting Build.VERSION_CODES#R or lower, this requires the Manifest.permission#BLUETOOTH_ADMIN permission 
         /// which can be gained with a simple ßuses-permissionß manifest tag. For apps targeting Build.VERSION_CODES#S or or higher,

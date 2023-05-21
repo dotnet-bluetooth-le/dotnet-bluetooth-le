@@ -13,6 +13,7 @@ using Plugin.BLE.Android.CallbackEventArgs;
 using Trace = Plugin.BLE.Abstractions.Trace;
 using System.Threading;
 using Java.Util;
+using Plugin.BLE.Extensions;
 
 namespace Plugin.BLE.Android
 {
@@ -435,18 +436,7 @@ namespace Plugin.BLE.Android
                 Trace.Message($"[Warning]: Can't get bond state of {Name}. NativeDevice is null.");
                 return DeviceBondState.NotSupported;
             }
-            var bondState = NativeDevice.BondState;
-            switch (bondState)
-            {
-                case global::Android.Bluetooth.Bond.None:
-                    return DeviceBondState.NotBonded;
-                case global::Android.Bluetooth.Bond.Bonding:
-                    return DeviceBondState.Bonding;
-                case global::Android.Bluetooth.Bond.Bonded:
-                    return DeviceBondState.Bonded;
-                default:
-                    return DeviceBondState.NotSupported;
-            }
+            return NativeDevice.BondState.FromNative();
         }
 
         public override bool CreateBond()

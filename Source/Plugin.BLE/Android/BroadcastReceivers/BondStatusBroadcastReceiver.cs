@@ -4,6 +4,7 @@ using Android.Content;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Android;
+using Plugin.BLE.Extensions;
 
 namespace Plugin.BLE.BroadcastReceivers
 {
@@ -26,13 +27,7 @@ namespace Plugin.BLE.BroadcastReceivers
             var extraBondState = (Bond)intent.GetIntExtra(BluetoothDevice.ExtraBondState, (int)Bond.None);
             var bluetoothDevice = (BluetoothDevice)intent.GetParcelableExtra(BluetoothDevice.ExtraDevice);
             var device = new Device(BroadCastAdapter, bluetoothDevice, null, 0);
-            DeviceBondState bondState = DeviceBondState.NotSupported;
-            switch (extraBondState)
-            {
-                case Bond.None: bondState = DeviceBondState.NotBonded; break;
-                case Bond.Bonding: bondState = DeviceBondState.Bonding; break;
-                case Bond.Bonded: bondState = DeviceBondState.Bonded; break;
-            }
+            DeviceBondState bondState = extraBondState.FromNative();
             BondStateChanged(this, new DeviceBondStateChangedEventArgs() { Device = device, State = bondState }); ;
         }
 
