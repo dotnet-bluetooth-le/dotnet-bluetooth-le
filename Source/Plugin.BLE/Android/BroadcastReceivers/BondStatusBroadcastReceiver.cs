@@ -23,24 +23,18 @@ namespace Plugin.BLE.BroadcastReceivers
         {
             if (BondStateChanged == null) return;
 
-            var bondState = (global::Android.Bluetooth.Bond)intent.GetIntExtra(BluetoothDevice.ExtraBondState, (int)global::Android.Bluetooth.Bond.None);
+            var extraBondState = (Bond)intent.GetIntExtra(BluetoothDevice.ExtraBondState, (int)Bond.None);
             var bluetoothDevice = (BluetoothDevice)intent.GetParcelableExtra(BluetoothDevice.ExtraDevice);
             var device = new Device(BroadCastAdapter, bluetoothDevice, null, 0);
-            switch (bondState)
+            DeviceBondState bondState = DeviceBondState.NotSupported;
+            switch (extraBondState)
             {
-                case global::Android.Bluetooth.Bond.None:
-                    BondStateChanged(this, new DeviceBondStateChangedEventArgs() { Device = device, State = DeviceBondState.NotBonded });
-                    break;
-
-                case global::Android.Bluetooth.Bond.Bonding:
-                    BondStateChanged(this, new DeviceBondStateChangedEventArgs() { Device = device, State = DeviceBondState.Bonding });
-                    break;
-
-                case global::Android.Bluetooth.Bond.Bonded:
-                    BondStateChanged(this, new DeviceBondStateChangedEventArgs() { Device = device, State = DeviceBondState.Bonded });
-                    break;
-
+                case Bond.None: bondState = DeviceBondState.NotBonded; break;
+                case Bond.Bonding: bondState = DeviceBondState.Bonding; break;
+                case Bond.Bonded: bondState = DeviceBondState.Bonded; break;
             }
+            BondStateChanged(this, new DeviceBondStateChangedEventArgs() { Device = device, State = bondState }); ;
         }
+
     }
 }
