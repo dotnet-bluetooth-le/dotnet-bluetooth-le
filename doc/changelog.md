@@ -4,7 +4,6 @@
 
 #### 3.0.0-beta.4
 - #669 Return error codes to application
-- #671 Adding propagating disconnect event if happening during communication
 - #679 Querying adapter capabilities: extended advertisements & coded PHY
 - #685 Fix build on Mac
 - #688 IsConnectable
