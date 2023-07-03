@@ -38,8 +38,8 @@ namespace BLE.Client.ViewModels
             }
         }
 
-        public MvxCommand RefreshCommand => new MvxCommand(() => TryStartScanning(refresh:true,filter:false));
-        public MvxCommand RefreshFilteredScanCommand => new MvxCommand(() => TryStartScanning(refresh:true,filter:true));
+        public MvxCommand RefreshCommand => new MvxCommand(() => TryStartScanning(refresh: true, filter: false));
+        public MvxCommand RefreshFilteredScanCommand => new MvxCommand(() => TryStartScanning(refresh: true, filter: true));
 
         public MvxCommand EmptyDevicesCommand => new MvxCommand(() =>
         {
@@ -349,7 +349,7 @@ namespace BLE.Client.ViewModels
                 scanFilterOptions.ServiceUuids = list.ToArray();
             }
 
-            await Adapter.StartScanningForDevicesAsync(scanFilterOptions,_cancellationTokenSource.Token);
+            await Adapter.StartScanningForDevicesAsync(scanFilterOptions, _cancellationTokenSource.Token);
         }
 
         private async Task UpdateConnectedDevices()

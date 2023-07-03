@@ -8,7 +8,7 @@ namespace Plugin.BLE.Extensions
     {
         public static BluetoothScanMatchMode ToNative(this ScanMatchMode matchMode)
         {
-            switch(matchMode)
+            switch (matchMode)
             {
                 case ScanMatchMode.AGRESSIVE:
                     return BluetoothScanMatchMode.Aggressive;

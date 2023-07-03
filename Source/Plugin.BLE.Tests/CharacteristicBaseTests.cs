@@ -6,7 +6,7 @@ using Plugin.BLE.Tests.Mocks;
 using Xunit;
 
 namespace Plugin.BLE.Tests
-{ 
+{
     public class CharacteristicBaseTests
     {
         [Theory(DisplayName = "Setting WriteType to not supported type throws InvalidOperationException")]
