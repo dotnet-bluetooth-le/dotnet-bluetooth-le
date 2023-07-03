@@ -170,12 +170,12 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Indicates whether extended advertising (BLE5) is supported.
         /// </summary>
         /// <returns><c>true</c> if extended advertising is supported, otherwise <c>false</c>.</returns>
-        bool supportsExtendedAdvertising();
+        bool SupportsExtendedAdvertising();
 
         /// <summary>
         /// Indicates whether the Coded PHY feature (BLE5) is supported.
         /// </summary>
         /// <returns><c>true</c> if extended advertising is supported, otherwise <c>false</c>.</returns>
-        bool supportsCodedPHY();
+        bool SupportsCodedPHY();
     }
 }

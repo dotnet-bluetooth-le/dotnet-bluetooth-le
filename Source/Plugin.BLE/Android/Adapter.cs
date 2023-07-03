@@ -274,7 +274,7 @@ namespace Plugin.BLE.Android
             return devices.Where(item => ids.Contains(item.Id)).ToList();
         }
 
-        public override bool supportsExtendedAdvertising()
+        public override bool SupportsExtendedAdvertising()
         {
 #if NET6_0_OR_GREATER
             if (OperatingSystem.IsAndroidVersionAtLeast(26))
@@ -290,7 +290,7 @@ namespace Plugin.BLE.Android
             }
         }
 
-        public override bool supportsCodedPHY()
+        public override bool SupportsCodedPHY()
         {
 #if NET6_0_OR_GREATER
             if (OperatingSystem.IsAndroidVersionAtLeast(26))

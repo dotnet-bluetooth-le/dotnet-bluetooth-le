@@ -360,11 +360,11 @@ namespace Plugin.BLE.Abstractions
         /// <summary>
         /// Indicates whether extended advertising (BLE5) is supported.
         /// </summary>
-        public virtual bool supportsExtendedAdvertising() => false;
+        public virtual bool SupportsExtendedAdvertising() => false;
 
         /// <summary>
         /// Indicates whether the Coded PHY feature (BLE5) is supported.
         /// </summary>
-        public virtual bool supportsCodedPHY() => false;
+        public virtual bool SupportsCodedPHY() => false;
     }
 }
