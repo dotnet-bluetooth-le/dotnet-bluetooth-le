@@ -40,7 +40,7 @@ namespace Plugin.BLE.Android
         /// </summary>
         public ConnectParameters ConnectParameters { get; private set; }
 
-        public Device(Adapter adapter, BluetoothDevice nativeDevice, BluetoothGatt gatt, int rssi = 0, byte[] advertisementData = null, bool isConnectable = true) 
+        public Device(Adapter adapter, BluetoothDevice nativeDevice, BluetoothGatt gatt, int rssi = 0, byte[] advertisementData = null, bool isConnectable = true)
             : base(adapter, nativeDevice)
         {
             Update(nativeDevice, gatt);
@@ -418,7 +418,8 @@ namespace Plugin.BLE.Android
         public override bool IsConnectable { get; protected set; }
 
 
-        public override bool SupportsIsConnectable {
+        public override bool SupportsIsConnectable
+        {
             get =>
 #if NET6_0_OR_GREATER
                 OperatingSystem.IsAndroidVersionAtLeast(26);

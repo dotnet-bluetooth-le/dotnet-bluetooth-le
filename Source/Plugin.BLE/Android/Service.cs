@@ -16,7 +16,7 @@ namespace Plugin.BLE.Android
         public override Guid Id => Guid.ParseExact(NativeService.Uuid.ToString(), "d");
         public override bool IsPrimary => NativeService.Type == GattServiceType.Primary;
 
-        public Service(BluetoothGattService nativeService, BluetoothGatt gatt, IGattCallback gattCallback, IDevice device) 
+        public Service(BluetoothGattService nativeService, BluetoothGatt gatt, IGattCallback gattCallback, IDevice device)
             : base(device, nativeService)
         {
             _gatt = gatt;

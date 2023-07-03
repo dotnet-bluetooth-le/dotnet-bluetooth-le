@@ -132,7 +132,7 @@ namespace Plugin.BLE.Android
                         {
                             Trace.Message($"Device address {deviceAddress} is invalid. The correct format is \"01:02:03:AB:CD:EF\"");
                         }
-               
+
                     }
                 }
                 if (scanFilterOptions.HasDeviceNames)
@@ -144,7 +144,7 @@ namespace Plugin.BLE.Android
                         scanFilters.Add(sfb.Build());
                     }
                 }
-               
+
             }
 
             var ssb = new ScanSettings.Builder();
@@ -167,7 +167,7 @@ namespace Plugin.BLE.Android
                     Trace.Message("Using ScanMatchMode Agressive");
                 }
             }
-            
+
 #if NET6_0_OR_GREATER
             if (OperatingSystem.IsAndroidVersionAtLeast(26))
 #else

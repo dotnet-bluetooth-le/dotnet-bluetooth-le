@@ -101,9 +101,9 @@ namespace Plugin.BLE.Abstractions
         /// Starts scanning for BLE devices that fulfill the <paramref name="deviceFilter"/>.
         /// DeviceDiscovered will only be called, if <paramref name="deviceFilter"/> returns <c>true</c> for the discovered device.
         /// </summary>
-        public async Task StartScanningForDevicesAsync(ScanFilterOptions scanFilterOptions, 
-            Func<IDevice, bool> deviceFilter = null, 
-            bool allowDuplicatesKey = false, 
+        public async Task StartScanningForDevicesAsync(ScanFilterOptions scanFilterOptions,
+            Func<IDevice, bool> deviceFilter = null,
+            bool allowDuplicatesKey = false,
             CancellationToken cancellationToken = default)
         {
             if (IsScanning)

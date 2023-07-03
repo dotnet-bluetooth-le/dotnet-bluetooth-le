@@ -34,7 +34,7 @@ namespace Plugin.BLE.Abstractions.Extensions
         /// <returns>A task that represents the asynchronous read operation. The Task will finish after the scan has ended.</returns>
         public static Task StartScanningForDevicesAsync(this IAdapter adapter, Guid[] serviceUuids, CancellationToken cancellationToken = default)
         {
-            return adapter.StartScanningForDevicesAsync(new ScanFilterOptions(){ServiceUuids = serviceUuids}, null, cancellationToken: cancellationToken);
+            return adapter.StartScanningForDevicesAsync(new ScanFilterOptions() { ServiceUuids = serviceUuids }, null, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace Plugin.BLE.Abstractions.Extensions
         /// <exception cref="DeviceConnectionException">Thrown if the device connection fails.</exception>
         public static Task ConnectToDeviceAsync(this IAdapter adapter, IDevice device, ConnectParameters connectParameters, CancellationToken cancellationToken)
         {
-            return adapter.ConnectToDeviceAsync(device, connectParameters:connectParameters, cancellationToken: cancellationToken);
+            return adapter.ConnectToDeviceAsync(device, connectParameters: connectParameters, cancellationToken: cancellationToken);
         }
     }
 }
