@@ -46,7 +46,7 @@ namespace Plugin.BLE.Android
         {
             Update(nativeDevice, gatt);
             Rssi = rssi;
-            AdvertisementRecords = ParseScanRecord(advertisementData);
+            AdvertisementRecords = ParseScanRecord(advertisementData, nativeDevice);
             IsConnectable = isConnectable;
             _gattCallback = new GattCallback(adapter, this);
         }
@@ -256,7 +256,7 @@ namespace Plugin.BLE.Android
             return new Guid(deviceGuid);
         }
 
-        public static List<AdvertisementRecord> ParseScanRecord(byte[] scanRecord)
+        public static List<AdvertisementRecord> ParseScanRecord(byte[] scanRecord, BluetoothDevice nativeDevice)
         {
             var records = new List<AdvertisementRecord>();
 
@@ -319,7 +319,7 @@ namespace Plugin.BLE.Android
             }
             catch(Exception)
             {
-                Trace.Message($"Filed to parse advertisement data: {scanRecord.ToHexString()}");
+                Trace.Message("Failed to parse advertisementData. Device address: {0}, Data: {1}", nativeDevice.Address, scanRecord.ToHexString());
                 //There may be a situation where scanRecord contains incorrect data.
                 //We return an empty list, even if some of the data is recognized,
                 //because if the scanRecord is invalid, then we cannot be sure of the data.
