@@ -46,7 +46,7 @@ namespace Plugin.BLE.Android
         {
             Update(nativeDevice, gatt);
             Rssi = rssi;
-            AdvertisementRecords = ParseScanRecord(advertisementData, nativeDevice);
+            AdvertisementRecords = ParseScanRecord(advertisementData);
             IsConnectable = isConnectable;
             _gattCallback = new GattCallback(adapter, this);
         }
@@ -256,7 +256,7 @@ namespace Plugin.BLE.Android
             return new Guid(deviceGuid);
         }
 
-        public static List<AdvertisementRecord> ParseScanRecord(byte[] scanRecord, BluetoothDevice nativeDevice)
+        public List<AdvertisementRecord> ParseScanRecord(byte[] scanRecord)
         {
             var records = new List<AdvertisementRecord>();
 
@@ -315,16 +315,13 @@ namespace Plugin.BLE.Android
                     //Advance
                     index += length;
                 }
-                return records;
             }
             catch(Exception)
             {
-                Trace.Message("Failed to parse advertisementData. Device address: {0}, Data: {1}", nativeDevice.Address, scanRecord.ToHexString());
                 //There may be a situation where scanRecord contains incorrect data.
-                //We return an empty list, even if some of the data is recognized,
-                //because if the scanRecord is invalid, then we cannot be sure of the data.
-                return new List<AdvertisementRecord>();
+                Trace.Message("Failed to parse advertisementData. Device address: {0}, Data: {1}", NativeDevice.Address, scanRecord.ToHexString());
             }
+            return records;
         }
 
         public override async Task<bool> UpdateRssiAsync()
