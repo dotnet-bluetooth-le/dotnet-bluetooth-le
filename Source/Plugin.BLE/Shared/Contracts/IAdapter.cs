@@ -167,7 +167,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <param name="services">IMPORTANT: Only considered by iOS due to platform limitations. Filters devices by advertised services. SET THIS VALUE FOR ANY RESULTS</param>
         /// <returns>List of IDevices connected to the OS.  In case of no devices the list is empty.</returns>
         IReadOnlyList<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null);
-        
+
         /// <summary>
         /// Returns a list of paired BLE devices for the given UUIDs.
         /// </summary>
@@ -180,12 +180,12 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Indicates whether extended advertising (BLE5) is supported.
         /// </summary>
         /// <returns><c>true</c> if extended advertising is supported, otherwise <c>false</c>.</returns>
-        bool supportsExtendedAdvertising();
+        bool SupportsExtendedAdvertising();
 
         /// <summary>
         /// Indicates whether the Coded PHY feature (BLE5) is supported.
         /// </summary>
         /// <returns><c>true</c> if extended advertising is supported, otherwise <c>false</c>.</returns>
-        bool supportsCodedPHY();
+        bool SupportsCodedPHY();
     }
 }

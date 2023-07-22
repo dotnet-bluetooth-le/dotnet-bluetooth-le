@@ -30,7 +30,7 @@ namespace Plugin.BLE.BroadcastReceivers
                 return;
             }
 
-            var btState = (State) state;
+            var btState = (State)state;
             _stateChangedHandler?.Invoke(btState.ToBluetoothState());
         }
     }

@@ -24,6 +24,6 @@
         /// This is mapped to CONNECTION_PRIORITY_LOW_POWER,
         /// see https://developer.android.com/reference/android/bluetooth/BluetoothGatt#CONNECTION_PRIORITY_LOW_POWER
         /// </summary>
-        Low = 2 
+        Low = 2
     }
 }

@@ -433,7 +433,7 @@ namespace Plugin.BLE.iOS
         }
 
 #if NET6_0_OR_GREATER || __IOS__
-        public override bool supportsExtendedAdvertising()
+        public override bool SupportsExtendedAdvertising()
         {
 #if NET6_0_OR_GREATER
             if (OperatingSystem.IsIOSVersionAtLeast(13) || OperatingSystem.IsTvOSVersionAtLeast(13) || OperatingSystem.IsMacCatalystVersionAtLeast(13))

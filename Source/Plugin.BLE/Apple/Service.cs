@@ -17,7 +17,7 @@ namespace Plugin.BLE.iOS
         public override Guid Id => NativeService.UUID.GuidFromUuid();
         public override bool IsPrimary => NativeService.Primary;
 
-        public Service(CBService nativeService, IDevice device, IBleCentralManagerDelegate bleCentralManagerDelegate) 
+        public Service(CBService nativeService, IDevice device, IBleCentralManagerDelegate bleCentralManagerDelegate)
             : base(device, nativeService)
         {
             _device = device.NativeDevice as CBPeripheral;

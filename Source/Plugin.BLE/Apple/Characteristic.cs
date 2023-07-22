@@ -34,14 +34,14 @@ namespace Plugin.BLE.iOS
                 {
                     return new byte[0];
                 }
-                    
+
                 return value.ToArray();
             }
-        } 
+        }
 
         public override CharacteristicPropertyType Properties => (CharacteristicPropertyType)(int)NativeCharacteristic.Properties;
 
-        public Characteristic(CBCharacteristic nativeCharacteristic, CBPeripheral parentDevice, IService service, IBleCentralManagerDelegate bleCentralManagerDelegate) 
+        public Characteristic(CBCharacteristic nativeCharacteristic, CBPeripheral parentDevice, IService service, IBleCentralManagerDelegate bleCentralManagerDelegate)
             : base(service, nativeCharacteristic)
         {
             _parentDevice = parentDevice;
@@ -134,7 +134,7 @@ namespace Plugin.BLE.iOS
             if (writeType.ToNative() == CBCharacteristicWriteType.WithResponse)
             {
                 task = TaskBuilder.FromEvent<int, EventHandler<CBCharacteristicEventArgs>, EventHandler<CBPeripheralErrorEventArgs>>(
-                    execute: () => 
+                    execute: () =>
                     {
                         if (_parentDevice.State != CBPeripheralState.Connected)
                             throw exception;
@@ -190,7 +190,8 @@ namespace Plugin.BLE.iOS
                     unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
 
                 }
-                else {
+                else
+                {
                     task = Task.FromResult(0);
                 }
             }
@@ -240,7 +241,7 @@ namespace Plugin.BLE.iOS
                           reject(new Exception($"Device {Service.Device.Id} disconnected while starting updates for characteristic with {Id}."));
                   }),
                   subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
-                  unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler, 
+                  unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler,
                   token: cancellationToken);
         }
 
