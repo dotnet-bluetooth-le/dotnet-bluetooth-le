@@ -18,7 +18,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         event EventHandler<DeviceEventArgs> DeviceAdvertised;
         /// <summary>
         /// Occurs when the adapter receives an advertisement for the first time of the current scan run.
-        /// This means once per every <see cref="StartScanningForDevicesAsync"/> call. 
+        /// This means once per every <c>StartScanningForDevicesAsync</c> call. 
         /// </summary>
         event EventHandler<DeviceEventArgs> DeviceDiscovered;
         /// <summary>
@@ -33,6 +33,10 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Occurs when a device has been disconnected. This occurs on unintended disconnects (e.g. when the device exploded).
         /// </summary>
         event EventHandler<DeviceErrorEventArgs> DeviceConnectionLost;
+        /// <summary>
+        /// Occurs when the connection to a device fails.
+        /// </summary>
+        event EventHandler<DeviceErrorEventArgs> DeviceConnectionError;
         /// <summary>
         /// Occurs when the scan has been stopped due the timeout after <see cref="ScanTimeout"/> ms.
         /// </summary>
@@ -138,7 +142,10 @@ namespace Plugin.BLE.Abstractions.Contracts
         Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters = default, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Returns all BLE devices connected to the system. For android the implementations uses getConnectedDevices(GATT) & getBondedDevices()
+        /// Returns all BLE devices connected to the system.
+        /// </summary>
+        /// <remarks>
+        /// For android the implementations uses getConnectedDevices(GATT) and getBondedDevices()
         /// and for ios the implementation uses get retrieveConnectedPeripherals(services)
         /// https://developer.apple.com/reference/corebluetooth/cbcentralmanager/1518924-retrieveconnectedperipherals
         /// 
@@ -146,11 +153,11 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// https://developer.android.com/reference/android/bluetooth/BluetoothManager.html#getConnectedDevices(int)
         /// https://developer.android.com/reference/android/bluetooth/BluetoothAdapter.html#getBondedDevices()
         /// In order to use the device in the app you have to first call ConnectAsync.
-        /// </summary>
+        /// </remarks>
         /// <param name="services">IMPORTANT: Only considered by iOS due to platform limitations. Filters devices by advertised services. SET THIS VALUE FOR ANY RESULTS</param>
         /// <returns>List of IDevices connected to the OS.  In case of no devices the list is empty.</returns>
         IReadOnlyList<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null);
-        
+
         /// <summary>
         /// Returns a list of paired BLE devices for the given UUIDs.
         /// </summary>
@@ -158,5 +165,17 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <param name="ids">The list of UUIDs</param>
         /// <returns>The known device. Empty list if no device known.</returns>
         IReadOnlyList<IDevice> GetKnownDevicesByIds(Guid[] ids);
+
+        /// <summary>
+        /// Indicates whether extended advertising (BLE5) is supported.
+        /// </summary>
+        /// <returns><c>true</c> if extended advertising is supported, otherwise <c>false</c>.</returns>
+        bool SupportsExtendedAdvertising();
+
+        /// <summary>
+        /// Indicates whether the Coded PHY feature (BLE5) is supported.
+        /// </summary>
+        /// <returns><c>true</c> if extended advertising is supported, otherwise <c>false</c>.</returns>
+        bool SupportsCodedPHY();
     }
 }

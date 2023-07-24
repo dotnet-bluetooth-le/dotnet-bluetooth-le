@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace Plugin.BLE.Abstractions
 {
+    /// <summary>
+    /// Provides a list of known characteristics.
+    /// </summary>
     public static class KnownCharacteristics
     {
         static KnownCharacteristics()
@@ -12,6 +15,9 @@ namespace Plugin.BLE.Abstractions
             LookupTable = Characteristics.ToDictionary(c => c.Id, c => c);
         }
 
+        /// <summary>
+        /// Look up a known characteristic via its Id.
+        /// </summary>
         public static KnownCharacteristic Lookup(Guid id)
         {
             return LookupTable.ContainsKey(id) ? LookupTable[id] : new KnownCharacteristic("Unknown characteristic", Guid.Empty);

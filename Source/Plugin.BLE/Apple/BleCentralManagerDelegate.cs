@@ -20,7 +20,7 @@ namespace Plugin.BLE
 
     public class BleCentralManagerDelegate : CBCentralManagerDelegate, IBleCentralManagerDelegate
     {
-#region IBleCentralManagerDelegate events
+        #region IBleCentralManagerDelegate events
 
         private event EventHandler<CBWillRestoreEventArgs> _willRestoreState;
 
@@ -91,9 +91,9 @@ namespace Plugin.BLE
             remove => _connectedPeripheral -= value;
         }
 
-#endregion
+        #endregion
 
-#region Event wiring
+        #region Event wiring
 
         public override void WillRestoreState(CBCentralManager central, NSDictionary dict)
         {
@@ -139,6 +139,6 @@ namespace Plugin.BLE
             _connectedPeripheral?.Invoke(this, new CBPeripheralEventArgs(peripheral));
         }
 
-#endregion
+        #endregion
     }
 }

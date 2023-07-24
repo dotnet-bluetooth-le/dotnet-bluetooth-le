@@ -13,6 +13,7 @@ using Plugin.BLE.Android.CallbackEventArgs;
 using Trace = Plugin.BLE.Abstractions.Trace;
 using System.Threading;
 using Java.Util;
+using Plugin.BLE.Abstractions.Extensions;
 
 namespace Plugin.BLE.Android
 {
@@ -40,11 +41,13 @@ namespace Plugin.BLE.Android
         /// </summary>
         public ConnectParameters ConnectParameters { get; private set; }
 
-        public Device(Adapter adapter, BluetoothDevice nativeDevice, BluetoothGatt gatt, int rssi, byte[] advertisementData = null) : base(adapter, nativeDevice)
+        public Device(Adapter adapter, BluetoothDevice nativeDevice, BluetoothGatt gatt, int rssi = 0, byte[] advertisementData = null, bool isConnectable = true)
+            : base(adapter, nativeDevice)
         {
             Update(nativeDevice, gatt);
             Rssi = rssi;
             AdvertisementRecords = ParseScanRecord(advertisementData);
+            IsConnectable = isConnectable;
             _gattCallback = new GattCallback(adapter, this);
         }
 
@@ -145,14 +148,21 @@ namespace Plugin.BLE.Android
         {
             //This parameter is present from API 18 but only public from API 23
             //So reflection is used before API 23
-            if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
+#if NET6_0_OR_GREATER
+            if (OperatingSystem.IsAndroidVersionAtLeast(23))
+#else
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+#endif
             {
-                //no transport mode before lollipop, it will probably not work... gattCallBackError 133 again alas
-                var connectGatt = NativeDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback);
+                var connectGatt = NativeDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback, BluetoothTransports.Le);
                 _connectCancellationTokenRegistration.Dispose();
                 _connectCancellationTokenRegistration = cancellationToken.Register(() => DisconnectAndClose(connectGatt));
             }
-            else if (Build.VERSION.SdkInt < BuildVersionCodes.M)
+#if NET6_0_OR_GREATER
+            else if (OperatingSystem.IsAndroidVersionAtLeast(21))
+#else
+            else if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
+#endif
             {
                 var m = NativeDevice.Class.GetDeclaredMethod("connectGatt", new Java.Lang.Class[] {
                                 Java.Lang.Class.FromType(typeof(Context)),
@@ -165,7 +175,8 @@ namespace Plugin.BLE.Android
             }
             else
             {
-                var connectGatt = NativeDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback, BluetoothTransports.Le);
+                //no transport mode before lollipop, it will probably not work... gattCallBackError 133 again alas
+                var connectGatt = NativeDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback);
                 _connectCancellationTokenRegistration.Dispose();
                 _connectCancellationTokenRegistration = cancellationToken.Register(() => DisconnectAndClose(connectGatt));
             }
@@ -245,64 +256,71 @@ namespace Plugin.BLE.Android
             return new Guid(deviceGuid);
         }
 
-        public static List<AdvertisementRecord> ParseScanRecord(byte[] scanRecord)
+        public List<AdvertisementRecord> ParseScanRecord(byte[] scanRecord)
         {
             var records = new List<AdvertisementRecord>();
 
             if (scanRecord == null)
                 return records;
 
-            int index = 0;
-            while (index < scanRecord.Length)
+            try
             {
-                byte length = scanRecord[index++];
-                //Done once we run out of records
-                // 1 byte for type and length-1 bytes for data
-                if (length == 0) break;
-
-                int type = scanRecord[index];
-                //Done if our record isn't a valid type
-                if (type == 0) break;
-
-                if (!Enum.IsDefined(typeof(AdvertisementRecordType), type))
+                int index = 0;
+                while (index < scanRecord.Length)
                 {
-                    Trace.Message("Advertisment record type not defined: {0}", type);
-                    break;
-                }
+                    byte length = scanRecord[index++];
+                    //Done once we run out of records
+                    // 1 byte for type and length-1 bytes for data
+                    if (length == 0) break;
 
-                //data length is length -1 because type takes the first byte
-                byte[] data = new byte[length - 1];
-                Array.Copy(scanRecord, index + 1, data, 0, length - 1);
+                    int type = scanRecord[index];
+                    //Done if our record isn't a valid type
+                    if (type == 0) break;
 
-                // don't forget that data is little endian so reverse
-                // Supplement to Bluetooth Core Specification 1
-                // NOTE: all relevant devices are already little endian, so this is not necessary for any type except UUIDs
-                //var record = new AdvertisementRecord((AdvertisementRecordType)type, data.Reverse().ToArray());
-
-                switch ((AdvertisementRecordType)type)
-                {
-                    case AdvertisementRecordType.ServiceDataUuid32Bit:
-                    case AdvertisementRecordType.SsUuids128Bit:
-                    case AdvertisementRecordType.SsUuids16Bit:
-                    case AdvertisementRecordType.SsUuids32Bit:
-                    case AdvertisementRecordType.UuidCom32Bit:
-                    case AdvertisementRecordType.UuidsComplete128Bit:
-                    case AdvertisementRecordType.UuidsComplete16Bit:
-                    case AdvertisementRecordType.UuidsIncomple16Bit:
-                    case AdvertisementRecordType.UuidsIncomplete128Bit:
-                        Array.Reverse(data);
+                    if (!Enum.IsDefined(typeof(AdvertisementRecordType), type))
+                    {
+                        Trace.Message("Advertisment record type not defined: {0}", type);
                         break;
+                    }
+
+                    //data length is length -1 because type takes the first byte
+                    byte[] data = new byte[length - 1];
+                    Array.Copy(scanRecord, index + 1, data, 0, length - 1);
+
+                    // don't forget that data is little endian so reverse
+                    // Supplement to Bluetooth Core Specification 1
+                    // NOTE: all relevant devices are already little endian, so this is not necessary for any type except UUIDs
+                    //var record = new AdvertisementRecord((AdvertisementRecordType)type, data.Reverse().ToArray());
+
+                    switch ((AdvertisementRecordType)type)
+                    {
+                        case AdvertisementRecordType.ServiceDataUuid32Bit:
+                        case AdvertisementRecordType.SsUuids128Bit:
+                        case AdvertisementRecordType.SsUuids16Bit:
+                        case AdvertisementRecordType.SsUuids32Bit:
+                        case AdvertisementRecordType.UuidCom32Bit:
+                        case AdvertisementRecordType.UuidsComplete128Bit:
+                        case AdvertisementRecordType.UuidsComplete16Bit:
+                        case AdvertisementRecordType.UuidsIncomple16Bit:
+                        case AdvertisementRecordType.UuidsIncomplete128Bit:
+                            Array.Reverse(data);
+                            break;
+                    }
+                    var record = new AdvertisementRecord((AdvertisementRecordType)type, data);
+
+                    Trace.Message(record.ToString());
+
+                    records.Add(record);
+
+                    //Advance
+                    index += length;
                 }
-                var record = new AdvertisementRecord((AdvertisementRecordType)type, data);
-
-                Trace.Message(record.ToString());
-
-                records.Add(record);
-
-                //Advance
-                index += length;
             }
-
+            catch(Exception)
+            {
+                //There may be a situation where scanRecord contains incorrect data.
+                Trace.Message("Failed to parse advertisementData. Device address: {0}, Data: {1}", NativeDevice.Address, scanRecord.ToHexString());
+            }
             return records;
         }
 
@@ -404,5 +422,19 @@ namespace Plugin.BLE.Android
                 throw new Exception($"Update Connection Interval fails with error. {ex.Message}");
             }
         }
+
+        public override bool IsConnectable { get; protected set; }
+
+
+        public override bool SupportsIsConnectable
+        {
+            get =>
+#if NET6_0_OR_GREATER
+                OperatingSystem.IsAndroidVersionAtLeast(26);
+#else
+                (Build.VERSION.SdkInt >= BuildVersionCodes.O); 
+#endif
+        }
+
     }
 }

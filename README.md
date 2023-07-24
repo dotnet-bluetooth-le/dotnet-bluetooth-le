@@ -2,7 +2,7 @@
 
 Build status: [![Build status](https://github.com/dotnet-bluetooth-le/dotnet-bluetooth-le/actions/workflows/dotnet.yml/badge.svg)](https://github.com/dotnet-bluetooth-le/dotnet-bluetooth-le/actions/workflows/dotnet.yml?branch=master)
 
-Xamarin, MAUI and MvvMCross plugin for accessing the bluetooth functionality. The plugin is loosely based on the BLE implementation of [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics).
+[Xamarin](https://github.com/xamarin), [MAUI](https://github.com/dotnet/maui) and [MvvMCross](https://github.com/MvvmCross) plugin for accessing the bluetooth functionality. The plugin is loosely based on the BLE implementation of [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics).
 
 **Important Note:** With the term *"vanilla"* we mean the non-MvvmCross version, i.e. the pure Xamarin or MAUI plugin. You **can** use it without MvvmCross, if you download the vanilla package.
 
@@ -180,7 +180,7 @@ await adapter.StartScanningForDevicesAsync();
 ```csharp
 var scanFilterOptions = new ScanFilterOptions();
 scanFilterOptions.ServiceUuids = new [] {guid1, guid2, etc}; // cross platform filter
-scanFilterOptions.ManufacturerIds = new [] {1,2,3,etc}; // android only filter
+scanFilterOptions.ManufacturerDataFilters = new [] { new ManufacturerDataFilter(1), new ManufacturerDataFilter(2) }; // android only filter
 scanFilterOptions.DeviceAddresses = new [] {"80:6F:B0:43:8D:3B","80:6F:B0:25:C3:15",etc}; // android only filter
 await adapter.StartScanningForDevicesAsync(scanFilterOptions);
 ```
@@ -355,10 +355,11 @@ The BLE API implementation (especially on **Android**) has the following limitat
 
 ## Useful Links
 
+- [Bluetooth Core Specification v4.2 (2014)](https://www.bluetooth.com/specifications/specs/core-specification-4-2/)
+- [Bluetooth Core Specification v5.4 (2023)](https://www.bluetooth.com/specifications/specs/core-specification-5-4/)
 - [Android Bluetooth LE guideline](https://developer.android.com/guide/topics/connectivity/bluetooth-le.html)
 - [iOS CoreBluetooth Best Practices](https://developer.apple.com/library/ios/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/BestPracticesForInteractingWithARemotePeripheralDevice/BestPracticesForInteractingWithARemotePeripheralDevice.html)
 - [iOS CoreBluetooth Background Modes](https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/CoreBluetoothBackgroundProcessingForIOSApps/PerformingTasksWhileYourAppIsInTheBackground.html#//apple_ref/doc/uid/TP40013257-CH7-SW7)
-- [MvvmCross](https://github.com/MvvmCross)
 - [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics)
 
 ## How to contribute

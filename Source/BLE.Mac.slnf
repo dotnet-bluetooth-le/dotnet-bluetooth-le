@@ -3,19 +3,9 @@
     "path": "BLE.sln",
     "projects": [
       "Plugin.BLE\\Plugin.BLE.csproj",
-      "Plugin.BLE.Abstractions\\Plugin.BLE.Abstractions.csproj",
-      "Plugin.BLE.Android\\Plugin.BLE.Android.csproj",
-      "Plugin.BLE.iOS\\Plugin.BLE.iOS.csproj",
-      "Plugin.BLE.macOS\\Plugin.BLE.macOS.csproj",
       "Plugin.BLE.Tests\\Plugin.BLE.Tests.csproj",
       "MvvmCross.Plugins.BLE\\MvvmCross.Plugins.BLE.csproj",
-      "MvvmCross.Plugins.BLE.Droid\\MvvmCross.Plugins.BLE.Droid.csproj",
-      "MvvmCross.Plugins.BLE.iOS\\MvvmCross.Plugins.BLE.iOS.csproj",
-      "MvvmCross.Plugins.BLE.macOS\\MvvmCross.Plugins.BLE.macOS.csproj",
-      "BLE.Client\\BLE.Client\\BLE.Client.csproj",
-      "BLE.Client\\BLE.Client.Droid\\BLE.Client.Droid.csproj",
-      "BLE.Client\\BLE.Client.iOS\\BLE.Client.iOS.csproj",
-      "BLE.Client\\BLE.Client.macOS\\BLE.Client.macOS.csproj"
+      "BLE.Client\\BLE.Client\\BLE.Client.csproj"
     ]
   }
 }

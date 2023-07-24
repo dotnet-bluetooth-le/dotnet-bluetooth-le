@@ -19,13 +19,14 @@ namespace Plugin.BLE.UWP
 {
     public class Device : DeviceBase<ObservableBluetoothLEDevice>
     {
-        public Device(Adapter adapter, BluetoothLEDevice nativeDevice, int rssi, Guid id, DispatcherQueue dq, IReadOnlyList<AdvertisementRecord> advertisementRecords = null) 
+        public Device(Adapter adapter, BluetoothLEDevice nativeDevice, int rssi, Guid id, DispatcherQueue dq, IReadOnlyList<AdvertisementRecord> advertisementRecords = null, bool isConnectable = true) 
             : base(adapter, new ObservableBluetoothLEDevice(nativeDevice.DeviceInformation, dq)) 
         {
             Rssi = rssi;
             Id = id;
             Name = nativeDevice.Name;
             AdvertisementRecords = advertisementRecords;
+            IsConnectable = isConnectable;
         }
 
         internal void Update(short btAdvRawSignalStrengthInDBm, IReadOnlyList<AdvertisementRecord> advertisementData)
@@ -100,5 +101,9 @@ namespace Plugin.BLE.UWP
             NativeDevice.BluetoothLEDevice?.Dispose();            
             GC.Collect();
         }
+
+        public override bool IsConnectable { get; protected set; }
+
+        public override bool SupportsIsConnectable { get => true; }
     }
 }

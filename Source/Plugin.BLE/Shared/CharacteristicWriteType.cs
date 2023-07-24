@@ -9,7 +9,7 @@
         /// Value should be written with response if supported, else without response.
         /// </summary>
         Default,
-        
+
         /// <summary>
         /// Value should be written with response.
         /// </summary>

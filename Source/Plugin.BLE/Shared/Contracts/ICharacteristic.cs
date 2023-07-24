@@ -14,7 +14,7 @@ namespace Plugin.BLE.Abstractions.Contracts
     {
         /// <summary>
         /// Event gets raised, when the davice notifies a value change on this characteristic.
-        /// To start listening, call <see cref="StartUpdates"/>.
+        /// To start listening, call <see cref="StartUpdatesAsync"/>.
         /// </summary>
         event EventHandler<CharacteristicUpdatedEventArgs> ValueUpdated;
 
@@ -30,7 +30,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         string Uuid { get; }
 
         /// <summary>
-        /// Name of the charakteristic.
+        /// Name of the characteristic.
         /// Returns the name if the <see cref="Id"/> is a id of a standard characteristic.
         /// </summary>
         string Name { get; }
@@ -69,7 +69,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Indicates wheter the characteristic supports notify or not.
         /// </summary>
         bool CanUpdate { get; }
-        
+
         /// <summary>
         /// Returns the parent service. Use this to access the device.
         /// </summary>
@@ -79,10 +79,10 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Reads the characteristic value from the device. The result is also stored inisde the Value property.
         /// </summary>
         /// <param name="cancellationToken"></param>
-        /// <returns>A task that represents the asynchronous read operation. The Result property will contain the read bytes.</returns>
+        /// <returns>A task that represents the asynchronous read operation. The Result property will contain a tuple with the read bytes and the ble result code.</returns>
         /// <exception cref="InvalidOperationException">Thrown if characteristic doesn't support read. See: <see cref="CanRead"/></exception>
         /// <exception cref="CharacteristicReadException">Thrown if the reading of the value failed.</exception>
-        Task<byte[]> ReadAsync(CancellationToken cancellationToken = default);
+        Task<(byte[] data, int resultCode)> ReadAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Sends <paramref name="data"/> as characteristic value to the device.
@@ -90,14 +90,14 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <param name="data">Data that should be written.</param>
         /// <param name="cancellationToken"></param>
         /// <returns>
-        /// A task that represents the asynchronous read operation. The Task will finish after the value was written. The Result property will be <c>true</c> if the value
-        /// was written successful, otherwise <c>false</c>.
+        /// A task that represents the asynchronous write operation. The Task will finish after the value was written. The Result property will the errror
+        /// code sent by the BLE device. (0 = successful)
         /// If the characteristic is write with response, the Task will finish if the value has been written. 
-        /// If it is write without response, the task will immediately finish with <c>true</c>.
+        /// If it is write without response, the task will immediately finish with <c>0</c>.
         /// </returns>
         /// <exception cref="InvalidOperationException">Thrown if characteristic doesn't support write. See: <see cref="CanWrite"/></exception>
         /// <exception cref="ArgumentNullException">Thrwon if <paramref name="data"/> is null.</exception>
-        Task<bool> WriteAsync(byte[] data, CancellationToken cancellationToken = default);
+        Task<int> WriteAsync(byte[] data, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Starts listening for notify events on this characteristic.

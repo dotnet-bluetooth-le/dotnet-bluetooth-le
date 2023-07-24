@@ -42,15 +42,16 @@ namespace Plugin.BLE.Android
             return Task.FromResult<IReadOnlyList<IDescriptor>>(NativeCharacteristic.Descriptors.Select(item => new Descriptor(item, _gatt, _gattCallback, this)).Cast<IDescriptor>().ToList());
         }
 
-        protected override async Task<byte[]> ReadNativeAsync()
+        protected override async Task<(byte[] data, int resultCode)> ReadNativeAsync()
         {
-            return await TaskBuilder.FromEvent<byte[], EventHandler<CharacteristicReadCallbackEventArgs>, EventHandler>(
+            return await TaskBuilder.FromEvent<(byte[] data, int resultCode), EventHandler<CharacteristicReadCallbackEventArgs>, EventHandler>(
                 execute: ReadInternal,
                 getCompleteHandler: (complete, reject) => ((sender, args) =>
                 {
                     if (args.Characteristic.Uuid == NativeCharacteristic.Uuid)
                     {
-                        complete(args.Characteristic.GetValue());
+                        int resultCode = (int)args.Status;
+                        complete((args.Characteristic.GetValue(), resultCode));
                     }
                 }),
                 subscribeComplete: handler => _gattCallback.CharacteristicValueRead += handler,
@@ -71,17 +72,17 @@ namespace Plugin.BLE.Android
             }
         }
 
-        protected override async Task<bool> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType)
+        protected override async Task<int> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType)
         {
             NativeCharacteristic.WriteType = writeType.ToNative();
 
-            return await TaskBuilder.FromEvent<bool, EventHandler<CharacteristicWriteCallbackEventArgs>, EventHandler>(
+            return await TaskBuilder.FromEvent<int, EventHandler<CharacteristicWriteCallbackEventArgs>, EventHandler>(
                 execute: () => InternalWrite(data),
                 getCompleteHandler: (complete, reject) => ((sender, args) =>
                    {
                        if (args.Characteristic.Uuid == NativeCharacteristic.Uuid)
                        {
-                           complete(args.Exception == null);
+                           complete((int)args.Status);
                        }
                    }),
                subscribeComplete: handler => _gattCallback.CharacteristicValueWritten += handler,

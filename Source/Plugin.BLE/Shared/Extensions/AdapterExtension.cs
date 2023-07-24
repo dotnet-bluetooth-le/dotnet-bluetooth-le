@@ -9,6 +9,9 @@ using Plugin.BLE.Abstractions.Utils;
 
 namespace Plugin.BLE.Abstractions.Extensions
 {
+    /// <summary>
+    /// Various extensions for the <c>Adapter</c> classes.
+    /// </summary>
     public static class AdapterExtension
     {
         /// <summary>
@@ -31,7 +34,7 @@ namespace Plugin.BLE.Abstractions.Extensions
         /// <returns>A task that represents the asynchronous read operation. The Task will finish after the scan has ended.</returns>
         public static Task StartScanningForDevicesAsync(this IAdapter adapter, Guid[] serviceUuids, CancellationToken cancellationToken = default)
         {
-            return adapter.StartScanningForDevicesAsync(new ScanFilterOptions(){ServiceUuids = serviceUuids}, null, cancellationToken: cancellationToken);
+            return adapter.StartScanningForDevicesAsync(new ScanFilterOptions() { ServiceUuids = serviceUuids }, null, cancellationToken: cancellationToken);
         }
 
         /// <summary>
@@ -59,11 +62,17 @@ namespace Plugin.BLE.Abstractions.Extensions
             return adapter.StartScanningForDevicesAsync(scanFilterOptions: null, deviceFilter: deviceFilter, cancellationToken: cancellationToken);
         }
 
+        /// <summary>
+        /// Try to discover a device with a specific device Id.
+        /// </summary>
         public static Task<IDevice> DiscoverDeviceAsync(this IAdapter adapter, Guid deviceId, CancellationToken cancellationToken = default)
         {
             return DiscoverDeviceAsync(adapter, device => device.Id == deviceId, cancellationToken);
         }
 
+        /// <summary>
+        /// Try to discover a device that matches a filter function.
+        /// </summary>
         public static async Task<IDevice> DiscoverDeviceAsync(this IAdapter adapter, Func<IDevice, bool> deviceFilter, CancellationToken cancellationToken = default)
         {
             var device = adapter.DiscoveredDevices.FirstOrDefault(deviceFilter);
@@ -106,7 +115,7 @@ namespace Plugin.BLE.Abstractions.Extensions
         /// <exception cref="DeviceConnectionException">Thrown if the device connection fails.</exception>
         public static Task ConnectToDeviceAsync(this IAdapter adapter, IDevice device, ConnectParameters connectParameters, CancellationToken cancellationToken)
         {
-            return adapter.ConnectToDeviceAsync(device, connectParameters:connectParameters, cancellationToken: cancellationToken);
+            return adapter.ConnectToDeviceAsync(device, connectParameters: connectParameters, cancellationToken: cancellationToken);
         }
     }
 }

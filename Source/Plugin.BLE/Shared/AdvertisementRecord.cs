@@ -2,6 +2,9 @@
 
 namespace Plugin.BLE.Abstractions
 {
+    /// <summary>
+    /// Enumeration of various advertisement-record types.
+    /// </summary>
     public enum AdvertisementRecordType
     {
         /// <summary>
@@ -175,20 +178,36 @@ namespace Plugin.BLE.Abstractions
         /// <summary>
         /// The is connectable flag. This is only reliable for the ios imlementation. The android stack does not expose this in the client.
         /// </summary>
-        IsConnectable = 0xAA
+        // obsolete
+        // IsConnectable = 0xAA
     }
 
+    /// <summary>
+    /// A single advertisement record.
+    /// </summary>
     public class AdvertisementRecord
     {
+        /// <summary>
+        /// The type of the advertisement record.
+        /// </summary>
         public AdvertisementRecordType Type { get; private set; }
+        /// <summary>
+        /// The data included in the advertisement record (as a byte array).
+        /// </summary>
         public byte[] Data { get; private set; }
 
+        /// <summary>
+        /// AdvertisementRecord constructor.
+        /// </summary>
         public AdvertisementRecord(AdvertisementRecordType type, byte[] data)
         {
             Type = type;
             Data = data;
         }
 
+        /// <summary>
+        /// Returns a string describing the record.
+        /// </summary>
         public override string ToString()
         {
             return string.Format("Adv rec [Type {0}; Data {1}]", Type, Data.ToHexString());

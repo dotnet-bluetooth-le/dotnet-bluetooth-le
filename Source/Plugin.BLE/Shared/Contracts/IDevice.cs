@@ -1,4 +1,4 @@
-﻿﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -68,10 +68,11 @@ namespace Plugin.BLE.Abstractions.Contracts
 
         /// <summary>
         /// Updates the rssi value.
-        /// 
+        /// </summary>
+        /// <remarks>
         /// Important:
         /// On Android: This function will only work if the device is connected. The Rssi value will be determined once on the discovery of the device.
-        /// </summary>
+        /// </remarks>
         /// <returns>
         /// A task that represents the asynchronous read operation. The Result property will contain a boolean that inticates if the update was successful.
         /// The Task will finish after Rssi has been updated.
@@ -79,12 +80,14 @@ namespace Plugin.BLE.Abstractions.Contracts
         Task<bool> UpdateRssiAsync();
 
         /// <summary>
-        /// Requests a MTU update and fires an "Exchange MTU Request" on the ble stack. Be aware that the resulting MTU value will be negotiated between master and slave using your requested value for the negotiation.
-        /// 
+        /// Requests a MTU update and fires an "Exchange MTU Request" on the ble stack.
+        /// Be aware that the resulting MTU value will be negotiated between master and slave using your requested value for the negotiation.
+        /// </summary>
+        /// <remarks>
         /// Important: 
         /// On Android: This function will only work with API level 21 and higher. Other API level will get an default value as function result.
         /// On iOS: Requesting MTU sizes is not supported by iOS. The function will return the current negotiated MTU between master / slave.
-        /// </summary>
+        /// </remarks>
         /// <returns>
         /// A task that represents the asynchronous operation. The result contains the negotiated MTU size between master and slave</returns>
         /// <param name="requestValue">The requested MTU</param>
@@ -94,13 +97,28 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Requests a bluetooth-le connection update request. Be aware that this is only implemented on Android (>= API 21). 
         /// You can choose between a high, low and a normal mode which will requests the following connection intervals: HIGH (11-15ms). NORMAL (30-50ms). LOW (100-125ms).
         /// Its not possible to request a specific connection interval.
-        /// 
+        /// </summary>
+        /// <remarks>
         /// Important:
         /// On Android: This function will only work with API level 21 and higher. Other API level will return false as function result.
         /// On iOS: Updating the connection interval is not supported by iOS. The function simply returns false.
-        /// </summary>
+        /// </remarks>
         /// <returns>True if the update request was sucessfull. On iOS it will always return false.</returns>
         /// <param name="interval">The requested interval (High/Low/Normal)</param>
         bool UpdateConnectionInterval(ConnectionInterval interval);
+
+
+        /// <summary>
+        /// Gets the information if the device has hinted during advertising that the device is connectable.
+        /// This information is not pat of an advertising record. It's determined from the PDU header.
+        /// Check SupportsIsConnectable to verify that the device supports IsConnectable.
+        /// If the device doesn't support IsConnectable then IsConnectable returns true.
+        /// </summary>
+        bool IsConnectable { get; }
+
+        /// <summary>
+        /// True, if device supports IsConnectable else False
+        /// </summary>
+        bool SupportsIsConnectable { get; }
     }
 }

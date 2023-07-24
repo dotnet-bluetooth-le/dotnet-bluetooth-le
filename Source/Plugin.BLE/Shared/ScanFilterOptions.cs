@@ -9,16 +9,31 @@ namespace Plugin.BLE.Abstractions
     /// </summary>
     public class ServiceDataFilter
     {
+        /// <summary>
+        /// The service-data UUID.
+        /// </summary>
         public Guid ServiceDataUuid { get; set; }
+        /// <summary>
+        /// The service data (as a byte array).
+        /// </summary>
         public byte[] ServiceData { get; set; } = null;
+        /// <summary>
+        /// The service-data mask (as a byte array).
+        /// </summary>
         public byte[] ServiceDataMask { get; set; } = null;
 
+        /// <summary>
+        /// Standard constructor.
+        /// </summary>
         public ServiceDataFilter(Guid guid, byte[] data = null, byte[] mask = null)
         {
             ServiceDataUuid = guid;
             ServiceData = data ?? Array.Empty<byte>();
             ServiceDataMask = mask;
         }
+        /// <summary>
+        /// Constructor with UUID as string.
+        /// </summary>
         public ServiceDataFilter(string uuid, byte[] data = null, byte[] mask = null) : this(new Guid(uuid), data, mask)
         {
         }
@@ -30,10 +45,22 @@ namespace Plugin.BLE.Abstractions
     /// </summary>
     public class ManufacturerDataFilter
     {
+        /// <summary>
+        /// The manufacturer Id.
+        /// </summary>
         public int ManufacturerId { get; set; }
+        /// <summary>
+        /// The manufacturer data (as a byte array).
+        /// </summary>
         public byte[] ManufacturerData { get; set; } = null;
+        /// <summary>
+        /// The manufacturer-data mask (as a byte array).
+        /// </summary>
         public byte[] ManufacturerDataMask { get; set; } = null;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public ManufacturerDataFilter(int mid, byte[] data = null, byte[] mask = null)
         {
             ManufacturerId = mid;
@@ -73,12 +100,30 @@ namespace Plugin.BLE.Abstractions
         /// </summary>
         public string[] DeviceNames { get; set; } = null;
 
+        /// <summary>
+        /// Indicates whether the options include any filter at all.
+        /// </summary>
         public bool HasFilter => HasServiceIds || HasServiceData || HasDeviceAddresses || HasManufacturerIds || HasDeviceNames;
 
+        /// <summary>
+        /// Indicates whether the options include a filter on service Ids.
+        /// </summary>
         public bool HasServiceIds => ServiceUuids?.Any() == true;
+        /// <summary>
+        /// Indicates whether the options include a filter on service data.
+        /// </summary>
         public bool HasServiceData => ServiceDataFilters?.Any() == true;
+        /// <summary>
+        /// Indicates whether the options include a filter on device addresses.
+        /// </summary>
         public bool HasDeviceAddresses => DeviceAddresses?.Any() == true;
+        /// <summary>
+        /// Indicates whether the options include a filter on manufacturer data.
+        /// </summary>
         public bool HasManufacturerIds => ManufacturerDataFilters?.Any() == true;
+        /// <summary>
+        /// Indicates whether the options include a filter on device names.
+        /// </summary>
         public bool HasDeviceNames => DeviceNames?.Any() == true;
     }
 }

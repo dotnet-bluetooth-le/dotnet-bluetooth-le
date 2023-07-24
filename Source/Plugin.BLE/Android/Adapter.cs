@@ -132,7 +132,7 @@ namespace Plugin.BLE.Android
                         {
                             Trace.Message($"Device address {deviceAddress} is invalid. The correct format is \"01:02:03:AB:CD:EF\"");
                         }
-               
+
                     }
                 }
                 if (scanFilterOptions.HasDeviceNames)
@@ -144,13 +144,17 @@ namespace Plugin.BLE.Android
                         scanFilters.Add(sfb.Build());
                     }
                 }
-               
+
             }
 
             var ssb = new ScanSettings.Builder();
             ssb.SetScanMode(ScanMode.ToNative());
 
+#if NET6_0_OR_GREATER
+            if (OperatingSystem.IsAndroidVersionAtLeast(23))
+#else
             if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+#endif
             {
                 // set the match mode on Android 6 and above
                 ssb.SetMatchMode(ScanMatchMode.ToNative());
@@ -163,8 +167,12 @@ namespace Plugin.BLE.Android
                     Trace.Message("Using ScanMatchMode Agressive");
                 }
             }
-            
+
+#if NET6_0_OR_GREATER
+            if (OperatingSystem.IsAndroidVersionAtLeast(26))
+#else
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+#endif
             {
                 // enable Bluetooth 5 Advertisement Extensions on Android 8.0 and above
                 ssb.SetLegacy(false);
@@ -239,7 +247,7 @@ namespace Plugin.BLE.Android
             var macBytes = deviceGuid.ToByteArray().Skip(10).Take(6).ToArray();
             var nativeDevice = _bluetoothAdapter.GetRemoteDevice(macBytes);
 
-            var device = new Device(this, nativeDevice, null, 0, new byte[] { });
+            var device = new Device(this, nativeDevice, null);
 
             await ConnectToDeviceAsync(device, connectParameters, cancellationToken);
             return device;
@@ -257,7 +265,7 @@ namespace Plugin.BLE.Android
 
             var bondedDevices = _bluetoothAdapter.BondedDevices.Where(d => d.Type == BluetoothDeviceType.Le || d.Type == BluetoothDeviceType.Dual);
 
-            return connectedDevices.Union(bondedDevices, new DeviceComparer()).Select(d => new Device(this, d, null, 0)).Cast<IDevice>().ToList();
+            return connectedDevices.Union(bondedDevices, new DeviceComparer()).Select(d => new Device(this, d, null)).Cast<IDevice>().ToList();
         }
 
         public override IReadOnlyList<IDevice> GetKnownDevicesByIds(Guid[] ids)
@@ -265,6 +273,39 @@ namespace Plugin.BLE.Android
             var devices = GetSystemConnectedOrPairedDevices();
             return devices.Where(item => ids.Contains(item.Id)).ToList();
         }
+
+        public override bool SupportsExtendedAdvertising()
+        {
+#if NET6_0_OR_GREATER
+            if (OperatingSystem.IsAndroidVersionAtLeast(26))
+#else
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+#endif
+            {
+                return _bluetoothAdapter.IsLeExtendedAdvertisingSupported;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override bool SupportsCodedPHY()
+        {
+#if NET6_0_OR_GREATER
+            if (OperatingSystem.IsAndroidVersionAtLeast(26))
+#else
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+#endif
+            {
+                return _bluetoothAdapter.IsLeCodedPhySupported;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
 
         private class DeviceComparer : IEqualityComparer<BluetoothDevice>
         {
@@ -293,10 +334,9 @@ namespace Plugin.BLE.Android
             {
                 Trace.Message("Adapter.LeScanCallback: " + bleDevice.Name);
 
-                _adapter.HandleDiscoveredDevice(new Device(_adapter, bleDevice, null, rssi, scanRecord));
+                _adapter.HandleDiscoveredDevice(new Device(_adapter, bleDevice, null, rssi, scanRecord)); // No IsConnectable!
             }
         }
-
 
         public class Api21BleScanCallback : ScanCallback
         {
@@ -343,7 +383,14 @@ namespace Plugin.BLE.Android
                     records.Add(new AdvertisementRecord(AdvertisementRecordType.ServiceData, result.ScanRecord.ServiceData));
                 }*/
 
-                var device = new Device(_adapter, result.Device, null, result.Rssi, result.ScanRecord.GetBytes());
+                var device = new Device(_adapter, result.Device, null, result.Rssi, result.ScanRecord.GetBytes(),
+#if NET6_0_OR_GREATER
+                    OperatingSystem.IsAndroidVersionAtLeast(26)
+#else
+                    (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+#endif
+                    ? result.IsConnectable : true
+                ); ;
 
                 //Device device;
                 //if (result.ScanRecord.ManufacturerSpecificData.Size() > 0)

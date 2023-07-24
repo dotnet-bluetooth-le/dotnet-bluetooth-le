@@ -4,7 +4,10 @@ using System.Linq;
 
 namespace Plugin.BLE.Abstractions
 {
-    // Source: https://developer.bluetooth.org/gatt/descriptors/Pages/DescriptorsHomePage.aspx
+    /// <summary>
+    /// Provides a list of known descriptors.
+    /// Source: https://developer.bluetooth.org/gatt/descriptors/Pages/DescriptorsHomePage.aspx
+    /// </summary>
     public static class KnownDescriptors
     {
         private static readonly Dictionary<Guid, KnownDescriptor> LookupTable;
@@ -14,6 +17,9 @@ namespace Plugin.BLE.Abstractions
             LookupTable = Descriptors.ToDictionary(d => d.Id, d => d);
         }
 
+        /// <summary>
+        /// Look up a known descriptor via its Id.
+        /// </summary>
         public static KnownDescriptor Lookup(Guid id)
         {
             return LookupTable.ContainsKey(id) ? LookupTable[id] : new KnownDescriptor("Unknown descriptor", Guid.Empty);
