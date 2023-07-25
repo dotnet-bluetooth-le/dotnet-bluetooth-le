@@ -164,7 +164,10 @@ namespace Plugin.BLE.UWP
             {
                 _deviceOperationRegistry.Remove(device.Id.ToString());
                 ((Device)device).ClearServices();
-                device.Dispose();    
+
+                // [TR 07-25-23] don't actually dispose the device.  Dispose has special meaning on Windows.
+                // Once an object is "Disposed" it cannot be accessed in any way.
+                ((Device)device).FreeResources();
             }
         }
 
