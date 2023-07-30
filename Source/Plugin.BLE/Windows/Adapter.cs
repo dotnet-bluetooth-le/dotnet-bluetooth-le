@@ -34,6 +34,11 @@ namespace Plugin.BLE.UWP
             _dq = DispatcherQueue.GetForCurrentThread();
         }
 
+        public override Task BondAsync(IDevice device)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
         {
             var serviceUuids = scanFilterOptions?.ServiceUuids;

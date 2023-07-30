@@ -35,6 +35,8 @@ namespace Plugin.BLE.Android
         /// the registration must be disposed to avoid disconnecting after a connection
         /// </summary>
         private CancellationTokenRegistration _connectCancellationTokenRegistration;
+        
+        private TaskCompletionSource<bool> _bondCompleteTaskCompletionSource;
 
         /// <summary>
         /// the connect paramaters used when connecting to this device
@@ -142,6 +144,23 @@ namespace Plugin.BLE.Android
                 _connectCancellationTokenRegistration.Dispose();
                 _connectCancellationTokenRegistration = cancellationToken.Register(() => DisconnectAndClose(connectGatt));
             }
+        }
+
+        public Task BondAsync()
+        {
+            _bondCompleteTaskCompletionSource = new TaskCompletionSource<bool>();
+            NativeDevice.CreateBond();
+            return _bondCompleteTaskCompletionSource.Task;
+        }
+
+        internal void SetBondState(DeviceBondState state)
+        {
+            if (state != DeviceBondState.Bonded)
+            {
+                return;
+            }
+
+            _bondCompleteTaskCompletionSource?.TrySetResult(true);
         }
 
         private void ConnectToGattForceBleTransportAPI(bool autoconnect, CancellationToken cancellationToken)

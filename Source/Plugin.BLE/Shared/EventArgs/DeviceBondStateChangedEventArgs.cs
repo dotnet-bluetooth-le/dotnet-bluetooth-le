@@ -10,7 +10,7 @@ namespace Plugin.BLE.Abstractions.EventArgs
         /// <summary>
         /// The device.
         /// </summary>
-        public IDevice Device { get; set; }
+        public string Address { get; set; }
         /// <summary>
         /// The bond state.
         /// </summary>

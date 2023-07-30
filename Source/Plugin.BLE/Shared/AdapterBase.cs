@@ -327,6 +327,8 @@ namespace Plugin.BLE.Abstractions
             });
         }
 
+        public abstract Task BondAsync(IDevice device);
+
         /// <summary>
         /// Native implementation of StartScanningForDevicesAsync.
         /// </summary>

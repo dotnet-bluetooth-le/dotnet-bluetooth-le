@@ -149,6 +149,11 @@ namespace Plugin.BLE.iOS
                 };
         }
 
+        public override Task BondAsync(IDevice device)
+        {
+            throw new NotSupportedException();
+        }
+
         protected override async Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
         {
 #if NET6_0_OR_GREATER || MACCATALYST

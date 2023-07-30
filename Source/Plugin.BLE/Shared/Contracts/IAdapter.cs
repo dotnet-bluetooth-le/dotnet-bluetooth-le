@@ -76,6 +76,8 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// </summary>
         IReadOnlyList<IDevice> ConnectedDevices { get; }
 
+        public Task BondAsync(IDevice device);
+
         /// <summary>
         /// Starts scanning for BLE devices that fulfill the <paramref name="deviceFilter"/>.
         /// DeviceDiscovered will only be called, if <paramref name="deviceFilter"/> returns <c>true</c> for the discovered device.

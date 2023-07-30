@@ -14,6 +14,11 @@ namespace Plugin.BLE.Abstractions.Utils
             return Task.FromResult<IDevice>(null);
         }
 
+        public override Task BondAsync(IDevice device)
+        {
+            return Task.FromResult(0);
+        }
+
         protected override Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
         {
             TraceUnavailability();
