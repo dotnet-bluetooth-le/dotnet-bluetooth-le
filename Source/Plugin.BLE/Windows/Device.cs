@@ -11,6 +11,7 @@ using Microsoft.UI.Dispatching;
 using CommunityToolkit.WinUI.Connectivity;
 #endif
 using Windows.Devices.Bluetooth;
+using Windows.Devices.Enumeration;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Extensions;
@@ -92,13 +93,29 @@ namespace Plugin.BLE.UWP
 
         public override void Dispose()
         {
-            NativeDevice.Services.ToList().ForEach(s => 
+            FreeResources(false);
+        }
+
+        internal void FreeResources(bool recreateNativeDevice = true)
+        {
+            NativeDevice?.Services?.ToList().ForEach(s =>
             {
                 s?.Service?.Session?.Dispose();
                 s?.Service?.Dispose();
             });
 
-            NativeDevice.BluetoothLEDevice?.Dispose();            
+            // save these so we can re-create ObservableBluetoothLEDevice if needed
+            var tempDevInfo = NativeDevice?.DeviceInfo;
+            var tempDq = NativeDevice?.DispatcherQueue;
+
+            NativeDevice?.BluetoothLEDevice?.Dispose();
+
+            // the ObservableBluetoothLEDevice doesn't really support the BluetoothLEDevice
+            // being disposed so we need to recreate it.  What we really need is to be able
+            // to set NativeDevice?.BluetoothLEDevice = null;
+            if (recreateNativeDevice)
+                NativeDevice = new ObservableBluetoothLEDevice(tempDevInfo, tempDq);
+            
             GC.Collect();
         }
 
