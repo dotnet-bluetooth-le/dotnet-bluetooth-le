@@ -2,6 +2,11 @@
 
 ## 3.0 MAUI
 
+#### 3.0.0-beta.5
+- #721 Fix Windows connect/disconnect issues (fixes #423, #528, #536, #620)
+- #719 Fixed crash with incorrect data in advertisement data on Android (fixes #567, #713)
+- #708 Coding style fixes (fixes #693)
+
 #### 3.0.0-beta.4
 - #669 Return error codes to application
 - #679 Querying adapter capabilities: extended advertisements & coded PHY
