@@ -19,6 +19,7 @@ using Windows.Devices.Bluetooth.Advertisement;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Extensions;
+using System.Collections.Concurrent;
 
 namespace Plugin.BLE.UWP
 {
@@ -27,6 +28,12 @@ namespace Plugin.BLE.UWP
         private BluetoothLEHelper _bluetoothHelper;
         private BluetoothLEAdvertisementWatcher _bleWatcher;
         private DispatcherQueue _dq;
+
+        /// <summary>
+        /// Registry used to store device instances for pending operations : disconnect
+        /// Helps to detect connection lost events.
+        /// </summary>
+        private readonly IDictionary<string, IDevice> _deviceOperationRegistry = new ConcurrentDictionary<string, IDevice>();
 
         public Adapter(BluetoothLEHelper bluetoothHelper)
         {
@@ -82,7 +89,36 @@ namespace Plugin.BLE.UWP
 
             ConnectedDeviceRegistry[device.Id.ToString()] = device;
 
+            // TODO: ObservableBluetoothLEDevice.ConnectAsync needs updated to include a cancelation token param
+            // currently it is hardcoded to 5000ms. On windows users should not use cancellation tokens with 
+            // timeouts that are <= 5000ms
             await nativeDevice.ConnectAsync();
+
+            if (nativeDevice.BluetoothLEDevice.ConnectionStatus != BluetoothConnectionStatus.Connected)
+            {
+                // use DisconnectDeviceNative to clean up resources otherwise windows won't disconnect the device
+                // after a subsequent successful connection (#528, #536, #423)
+                DisconnectDeviceNative(device);
+
+                // fire a connection failed event
+                HandleConnectionFail(device, "Failed connecting to device.");
+
+                // this is normally done in Device_ConnectionStatusChanged but since nothing actually connected
+                // or disconnect, ConnectionStatusChanged will not fire.
+                ConnectedDeviceRegistry.TryRemove(device.Id.ToString(), out _);
+            }
+            else if (cancellationToken.IsCancellationRequested)
+            {
+                // connection attempt succeeded but was cancelled before it could be completed
+                // see TODO above.
+
+                // cleanup resources
+                DisconnectDeviceNative(device);
+            }
+            else
+            {
+                _deviceOperationRegistry[device.Id.ToString()] = device;
+            }
         }
 
         private void Device_ConnectionStatusChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
@@ -106,7 +142,16 @@ namespace Plugin.BLE.UWP
 
             if (!nativeDevice.IsConnected && ConnectedDeviceRegistry.TryRemove(address, out var disconnectedDevice))
             {
-                HandleDisconnectedDevice(true, disconnectedDevice);
+                bool isNormalDisconnect = !_deviceOperationRegistry.Remove(disconnectedDevice.Id.ToString());
+                if (!isNormalDisconnect)
+                {
+                    // device was powered off or went out of range.  Call DisconnectDeviceNative to cleanup
+                    // resources otherwise windows will not disconnect on a subsequent connect-disconnect.
+                    DisconnectDeviceNative(disconnectedDevice);
+                }
+
+                // fire the correct event (DeviceDisconnected or DeviceConnectionLost)
+                HandleDisconnectedDevice(isNormalDisconnect, disconnectedDevice);
             }
         }
 
@@ -117,8 +162,12 @@ namespace Plugin.BLE.UWP
             
             if (device.NativeDevice is ObservableBluetoothLEDevice)
             {
+                _deviceOperationRegistry.Remove(device.Id.ToString());
                 ((Device)device).ClearServices();
-                device.Dispose();                
+
+                // [TR 07-25-23] don't actually dispose the device.  Dispose has special meaning on Windows.
+                // Once an object is "Disposed" it cannot be accessed in any way.
+                ((Device)device).FreeResources();
             }
         }
 
