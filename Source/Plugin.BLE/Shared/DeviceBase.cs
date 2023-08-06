@@ -260,10 +260,5 @@ namespace Plugin.BLE.Abstractions
 
         public DeviceBondState BondState => GetBondState();
 
-        public abstract bool CreateBond();
-
-        public abstract bool ForgetBond();
-
-
     }
 }

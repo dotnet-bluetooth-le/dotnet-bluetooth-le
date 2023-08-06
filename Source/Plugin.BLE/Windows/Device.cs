@@ -112,17 +112,5 @@ namespace Plugin.BLE.UWP
             return DeviceBondState.NotSupported;
         }
 
-        public override bool CreateBond()
-        {
-            Trace.Message("Cannot initiate a bonding request on iOS.");
-            return false;
-        }
-
-        public override bool ForgetBond()
-        {
-            Trace.Message("Cannot forget bonding on iOS.");
-            return false;
-        }
-
     }
 }

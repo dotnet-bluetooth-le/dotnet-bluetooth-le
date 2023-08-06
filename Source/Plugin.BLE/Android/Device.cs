@@ -440,46 +440,5 @@ namespace Plugin.BLE.Android
             return NativeDevice.BondState.FromNative();
         }
 
-        public override bool CreateBond()
-        {
-            if (NativeDevice == null)
-            {
-                Trace.Message($"[Warning]: Can't create bond for {Name}. BluetoothDevice is null.");
-                return false;
-            }
-            else
-            {
-                return NativeDevice.CreateBond();
-            }
-        }
-
-        public override bool ForgetBond()
-        {
-            if (NativeDevice == null)
-            {
-                Trace.Message($"[Warning]: Can't remove bond of {Name}. BluetoothDevice is null.");
-                return false;
-            }
-
-            if (BondState == DeviceBondState.NotBonded)
-            {
-                Trace.Message($"Device {Name} is not bonded.");
-                return true;
-            }
-
-            try
-            {
-                // removeBond is not part of the API but was always available together with CreateBond (just hidden).
-                var removeBond = NativeDevice.Class.GetMethod("removeBond");
-                // calling removeBond will disconnect!
-                return (bool)removeBond.Invoke(NativeDevice);
-            }
-            catch (Exception ex)
-            {
-                Trace.Message($"RemoveBond of {Name} failed. {ex.Message}");
-                return false;
-            }
-        }
-
     }
 }
