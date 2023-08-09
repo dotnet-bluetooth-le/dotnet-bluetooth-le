@@ -154,16 +154,6 @@ namespace Plugin.BLE.Android
             return _bondCompleteTaskCompletionSource.Task;
         }
 
-        internal void SetBondState(DeviceBondState state)
-        {
-            if (state != DeviceBondState.Bonded)
-            {
-                return;
-            }
-
-            _bondCompleteTaskCompletionSource?.TrySetResult(true);
-        }
-
         private void ConnectToGattForceBleTransportAPI(bool autoconnect, CancellationToken cancellationToken)
         {
             //This parameter is present from API 18 but only public from API 23
