@@ -8,9 +8,15 @@ namespace Plugin.BLE.Abstractions.EventArgs
     public class DeviceBondStateChangedEventArgs : System.EventArgs
     {
         /// <summary>
+        /// The device address.
+        /// </summary>
+        public string Address { get; set; }
+        
+        /// <summary>
         /// The device.
         /// </summary>
         public IDevice Device { get; set; }
+        
         /// <summary>
         /// The bond state.
         /// </summary>

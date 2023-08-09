@@ -336,6 +336,8 @@ namespace Plugin.BLE.Abstractions
             });
         }
 
+        public abstract Task BondAsync(IDevice device);
+
         /// <summary>
         /// Handle bond state changed information.
         /// </summary>

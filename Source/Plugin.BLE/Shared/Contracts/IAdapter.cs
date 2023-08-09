@@ -80,6 +80,8 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// </summary>
         IReadOnlyList<IDevice> ConnectedDevices { get; }
 
+        public Task BondAsync(IDevice device);
+
         /// <summary>
         /// List of currently bonded devices.
         /// The property is null if the OS doesn't provide this information

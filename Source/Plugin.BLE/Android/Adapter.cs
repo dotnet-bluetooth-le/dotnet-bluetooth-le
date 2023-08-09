@@ -4,13 +4,16 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Android.App;
+using Android.App;
 using Android.Bluetooth;
 using Android.Bluetooth.LE;
+using Android.Content;
 using Android.Content;
 using Android.OS;
 using Java.Util;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.BroadcastReceivers;
 using Plugin.BLE.BroadcastReceivers;
 using Plugin.BLE.Extensions;
 using Object = Java.Lang.Object;
@@ -24,6 +27,8 @@ namespace Plugin.BLE.Android
         private readonly BluetoothAdapter _bluetoothAdapter;
         private readonly Api18BleScanCallback _api18ScanCallback;
         private readonly Api21BleScanCallback _api21ScanCallback;
+
+        private readonly Dictionary<string, TaskCompletionSource<bool>> _bondingTcsForAddress = new();
 
         public Adapter(BluetoothManager bluetoothManager)
         {
@@ -39,6 +44,23 @@ namespace Plugin.BLE.Android
             bondStatusBroadcastReceiver.BondStateChanged += (s, args) =>
             {
                 HandleDeviceBondStateChanged(args);
+
+                if (!_bondingTcsForAddress.TryGetValue(args.Address, out var tcs))
+                {
+                    return;
+                }
+
+                if (args.State == DeviceBondState.Bonding)
+                {
+                    return;
+                }
+
+                if (args.State == DeviceBondState.Bonded)
+                {
+                    tcs.TrySetResult(true);
+                }
+
+                tcs.TrySetException(new Exception("Bonding failed."));
             };
 
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
@@ -49,6 +71,30 @@ namespace Plugin.BLE.Android
             {
                 _api18ScanCallback = new Api18BleScanCallback(this);
             }
+        }
+
+        public override Task BondAsync(IDevice device)
+        {
+            if (device == null)
+                throw new ArgumentNullException(nameof(device));
+
+            if (!(device.NativeDevice is BluetoothDevice nativeDevice))
+                throw new ArgumentException("Invalid device type");
+
+            if (nativeDevice.BondState == Bond.Bonded)
+                return Task.CompletedTask;
+
+            var tcs = new TaskCompletionSource<bool>();
+
+            _bondingTcsForAddress.Add(nativeDevice.Address!, tcs);
+
+            if (!nativeDevice.CreateBond())
+            {
+                _bondingTcsForAddress.Remove(nativeDevice.Address);
+                throw new Exception("Bonding failed");
+            }
+
+            return tcs.Task;
         }
 
         protected override Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken)

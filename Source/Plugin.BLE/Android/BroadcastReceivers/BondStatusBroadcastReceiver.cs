@@ -8,7 +8,6 @@ using Plugin.BLE.Extensions;
 
 namespace Plugin.BLE.BroadcastReceivers
 {
-    //[BroadcastReceiver]
     public class BondStatusBroadcastReceiver : BroadcastReceiver
     {
         public event EventHandler<DeviceBondStateChangedEventArgs> BondStateChanged;
@@ -27,8 +26,16 @@ namespace Plugin.BLE.BroadcastReceivers
             var extraBondState = (Bond)intent.GetIntExtra(BluetoothDevice.ExtraBondState, (int)Bond.None);
             var bluetoothDevice = (BluetoothDevice)intent.GetParcelableExtra(BluetoothDevice.ExtraDevice);
             var device = new Device(BroadCastAdapter, bluetoothDevice, null, 0);
+
+            var address = bluetoothDevice?.Address;
+
+            if (address == null)
+            {
+                return;
+            }
+
             DeviceBondState bondState = extraBondState.FromNative();
-            BondStateChanged(this, new DeviceBondStateChangedEventArgs() { Device = device, State = bondState }); ;
+            BondStateChanged(this, new DeviceBondStateChangedEventArgs() { Address = address, Device = device, State = bondState }); ;
         }
 
     }
