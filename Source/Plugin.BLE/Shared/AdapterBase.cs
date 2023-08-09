@@ -74,8 +74,7 @@ namespace Plugin.BLE.Abstractions
         /// Default: <see cref="ScanMode.LowPower"/> 
         /// </summary>
         public ScanMode ScanMode { get; set; } = ScanMode.LowPower;
-
-
+        
         /// <summary>
         /// Scan match mode defines how agressively we look for adverts
         /// </summary>
@@ -335,7 +334,8 @@ namespace Plugin.BLE.Abstractions
                 ErrorMessage = errorMessage
             });
         }
-
+        
+        /// <inheritdoc/>
         public abstract Task BondAsync(IDevice device);
 
         /// <summary>
@@ -379,9 +379,7 @@ namespace Plugin.BLE.Abstractions
         /// <summary>
         /// Returns all BLE device bonded to the system.
         /// </summary>
-        /// <returns></returns>
         protected abstract IReadOnlyList<IDevice> GetBondedDevices();
-
 
         /// <summary>
         /// Indicates whether extended advertising (BLE5) is supported.

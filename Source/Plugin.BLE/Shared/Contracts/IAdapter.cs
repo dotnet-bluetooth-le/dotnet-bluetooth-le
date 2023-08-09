@@ -82,7 +82,7 @@ namespace Plugin.BLE.Abstractions.Contracts
 
         /// <summary>
         /// Initiates a bonding request.
-        /// To establish an additional security level in the commumication between server and client pairing or bonding is used.
+        /// To establish an additional security level in the communication between server and client pairing or bonding is used.
         /// Pairing does the key exchange and encryption/decryption for one connection between server and client.
         /// Bonding does pairing and remembers the keys in a secure storage so that they can be used for the next connection.
         /// You have to subscribe to Adapter.DeviceBondStateChanged to get the current state. Typically first bonding and later bonded.
@@ -165,7 +165,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <param name="deviceGuid"></param>
         /// <param name="connectParameters">Connection parameters. Contains platform specific parameters needed to achieved connection. The default value is None.</param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
-        /// <returns></returns>
+        /// <returns>The connected device.</returns>
         Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters = default, CancellationToken cancellationToken = default);
 
         /// <summary>

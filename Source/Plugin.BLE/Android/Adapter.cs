@@ -76,13 +76,19 @@ namespace Plugin.BLE.Android
         public override Task BondAsync(IDevice device)
         {
             if (device == null)
-                throw new ArgumentNullException(nameof(device));
+            {
+	            throw new ArgumentNullException(nameof(device));
+            }
 
             if (!(device.NativeDevice is BluetoothDevice nativeDevice))
-                throw new ArgumentException("Invalid device type");
+            {
+	            throw new ArgumentException("Invalid device type");
+            }
 
             if (nativeDevice.BondState == Bond.Bonded)
-                return Task.CompletedTask;
+            {
+	            return Task.CompletedTask;
+            }
 
             var tcs = new TaskCompletionSource<bool>();
 
@@ -445,7 +451,7 @@ namespace Plugin.BLE.Android
                     (Build.VERSION.SdkInt >= BuildVersionCodes.O)
 #endif
                     ? result.IsConnectable : true
-                ); ;
+                );
 
                 //Device device;
                 //if (result.ScanRecord.ManufacturerSpecificData.Size() > 0)
@@ -463,7 +469,6 @@ namespace Plugin.BLE.Android
                 //}
 
                 _adapter.HandleDiscoveredDevice(device);
-
             }
         }
     }

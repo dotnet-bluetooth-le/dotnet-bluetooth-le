@@ -455,8 +455,7 @@ namespace Plugin.BLE.Android
                 (Build.VERSION.SdkInt >= BuildVersionCodes.O); 
 #endif
         }
-
-
+        
         protected override DeviceBondState GetBondState()
         {
             if (NativeDevice == null)
@@ -466,6 +465,5 @@ namespace Plugin.BLE.Android
             }
             return NativeDevice.BondState.FromNative();
         }
-
     }
 }
