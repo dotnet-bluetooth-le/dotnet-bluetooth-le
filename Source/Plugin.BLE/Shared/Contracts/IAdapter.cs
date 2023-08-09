@@ -80,6 +80,21 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// </summary>
         IReadOnlyList<IDevice> ConnectedDevices { get; }
 
+        /// <summary>
+        /// Initiates a bonding request.
+        /// To establish an additional security level in the commumication between server and client pairing or bonding is used.
+        /// Pairing does the key exchange and encryption/decryption for one connection between server and client.
+        /// Bonding does pairing and remembers the keys in a secure storage so that they can be used for the next connection.
+        /// You have to subscribe to Adapter.DeviceBondStateChanged to get the current state. Typically first bonding and later bonded.
+        /// Important:
+        /// On iOS: 
+        /// Initiating a bonding request is not supported by iOS. The function simply returns false.
+        /// On Android: Added in API level 19.
+        /// Android system services will handle the necessary user interactions to confirm and complete the bonding process.
+        /// For apps targeting Build.VERSION_CODES#R or lower, this requires the Manifest.permission#BLUETOOTH_ADMIN permission 
+        /// which can be gained with a simple 'uses-permission' manifest tag. For apps targeting Build.VERSION_CODES#S or or higher,
+        /// this requires the Manifest.permission#BLUETOOTH_CONNECT permission which can be gained with Activity.requestPermissions(String[], int). 
+        /// </summary>
         public Task BondAsync(IDevice device);
 
         /// <summary>
