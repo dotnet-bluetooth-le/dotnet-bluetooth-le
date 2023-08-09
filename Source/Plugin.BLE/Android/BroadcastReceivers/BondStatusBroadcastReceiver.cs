@@ -34,7 +34,7 @@ namespace Plugin.BLE.BroadcastReceivers
                 return;
             }
 
-            DeviceBondState bondState = extraBondState.FromNative();
+            var bondState = extraBondState.FromNative();
             BondStateChanged(this, new DeviceBondStateChangedEventArgs() { Address = address, Device = device, State = bondState }); ;
         }
 
