@@ -38,20 +38,14 @@ namespace Plugin.BLE.BroadcastReceivers
 #endif
             {
 #if NET7_0_OR_GREATER
-#pragma warning disable CA1416
 	            bluetoothDevice = (BluetoothDevice)intent.GetParcelableExtra(BluetoothDevice.ExtraDevice, Java.Lang.Class.FromType(typeof(BluetoothDevice)));
-#pragma warning restore CA1416
 #else
-#pragma warning disable CA1422
 	            bluetoothDevice = (BluetoothDevice)intent.GetParcelableExtra(BluetoothDevice.ExtraDevice);
-#pragma warning restore CA1422
 #endif
             }
             else 
             {
-#pragma warning disable CA1422
 	            bluetoothDevice = (BluetoothDevice)intent.GetParcelableExtra(BluetoothDevice.ExtraDevice);
-#pragma warning restore CA1422
             }
             
             var device = new Device(_broadcastAdapter, bluetoothDevice, null);
