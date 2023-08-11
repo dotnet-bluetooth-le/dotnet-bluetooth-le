@@ -174,6 +174,12 @@ namespace Plugin.BLE.UWP
         public override async Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters = default, CancellationToken cancellationToken = default)
         {
             //convert GUID to string and take last 12 characters as MAC address
+            if (DiscoveredDevicesRegistry.TryGetValue(deviceGuid, out IDevice discoveredDevice))
+            {
+                await ConnectToDeviceAsync(discoveredDevice, connectParameters, cancellationToken);
+                return discoveredDevice;
+            }
+
             var guidString = deviceGuid.ToString("N").Substring(20);
             var bluetoothAddress = Convert.ToUInt64(guidString, 16);
             var nativeDevice = await BluetoothLEDevice.FromBluetoothAddressAsync(bluetoothAddress);
