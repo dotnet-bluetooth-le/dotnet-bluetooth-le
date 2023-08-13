@@ -86,10 +86,17 @@ namespace Plugin.BLE.Android
             {
 	            return Task.CompletedTask;
             }
-
-            var tcs = new TaskCompletionSource<bool>();
-
-            _bondingTcsForAddress.Add(nativeDevice.Address!, tcs);
+            
+            var deviceAddress = nativeDevice.Address!;
+            if (_bondingTcsForAddress.TryGetValue(deviceAddress, out var tcs))
+            {
+	            tcs.TrySetException(new Exception("Bonding failed on old try."));
+	            _bondingTcsForAddress.Remove(deviceAddress);
+            }
+            
+            var taskCompletionSource = new TaskCompletionSource<bool>();
+            
+            _bondingTcsForAddress.Add(nativeDevice.Address!, taskCompletionSource);
 
             if (!nativeDevice.CreateBond())
             {
@@ -97,7 +104,7 @@ namespace Plugin.BLE.Android
                 throw new Exception("Bonding failed");
             }
 
-            return tcs.Task;
+            return taskCompletionSource.Task;
         }
 
         protected override Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
