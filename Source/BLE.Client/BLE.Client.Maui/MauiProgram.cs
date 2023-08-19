@@ -15,26 +15,32 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
         builder.Services.AddSingleton<IAlertService, AlertService>();
-		if (IsAndroid)
-		{
-			AddAndroidSpecificItems(builder);
-        }
+
+        AddPlatformSpecificItems(builder);
+
+
 
 #if DEBUG
         //builder.Logging.AddDebug();
 #endif
 
-		return builder.Build();
+        return builder.Build();
 	}
 
     public static bool IsAndroid => DeviceInfo.Current.Platform == DevicePlatform.Android;
 
-    private static void AddAndroidSpecificItems(MauiAppBuilder builder)
+    public static bool IsMacCatalyst => DeviceInfo.Current.Platform == DevicePlatform.MacCatalyst;
+
+    public static bool IsMacOS => DeviceInfo.Current.Platform == DevicePlatform.macOS;
+
+
+    private static void AddPlatformSpecificItems(MauiAppBuilder builder)
     {
 #if ANDROID
         builder.Services.AddSingleton<IPlatformHelpers, DroidPlatformHelpers>();
+#elif MACCATALYST
+        builder.Services.AddSingleton<IPlatformHelpers, MacCatalystPlatformHelpers>();
 #endif
-
-	}
+    }
 }
 
