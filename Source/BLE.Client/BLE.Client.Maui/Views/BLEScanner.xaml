@@ -34,7 +34,6 @@
                 WidthRequest="150"
                 FontSize="32"
                 TextColor="Black"
-                HeightRequest="30"
                 Command="{Binding ScanForDevices}"
                 HorizontalOptions="Start"/>
         <Label Text="{Binding LastMessage}"
