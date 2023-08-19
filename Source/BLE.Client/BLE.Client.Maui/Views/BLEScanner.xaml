@@ -10,7 +10,7 @@
     </ContentPage.BindingContext>-->
     <Grid Margin="5">
         <Grid.RowDefinitions>
-            <RowDefinition Height="64"/>
+            <RowDefinition Height="64" />
             <RowDefinition Height="34"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
@@ -20,7 +20,7 @@
             <ColumnDefinition Width="850"/>
             <ColumnDefinition Width="350"/>
         </Grid.ColumnDefinitions>
-        <BoxView Grid.Row="0" Grid.ColumnSpan="3" Color="AliceBlue"  />
+        <BoxView Grid.Row="0" Grid.ColumnSpan="3" Color="AliceBlue" />
         <BoxView Grid.Row="2" Grid.ColumnSpan="3" Color="AliceBlue"  />
         <Image Source="scanning.gif"
                Grid.Row="0"
@@ -33,18 +33,21 @@
                 Grid.Column="1"
                 WidthRequest="150"
                 FontSize="32"
+                TextColor="Black"
+                HeightRequest="30"
                 Command="{Binding ScanForDevices}"
                 HorizontalOptions="Start"/>
         <Label Text="{Binding LastMessage}"
                Grid.Row="0"
                Grid.Column="2"
                Grid.ColumnSpan="1"
+               TextColor="Black"
                FontSize="14"/>
-       <Label Grid.Row="1" Grid.Column="1" Text="Devices" FontSize="32"/>
+       <Label Grid.Row="1" Grid.Column="1" Text="Devices" TextColor="Black" FontSize="32"/>
        <ListView Grid.Row="2"
-                  Grid.Column="1"
+                  Grid.Column="1" 
                   ItemsSource="{Binding Path=BLEDevices}" BackgroundColor="Cornsilk" />
-        <Label Grid.Row="1" Grid.Column="2" Text="Messages" FontSize="32"/>
+        <Label Grid.Row="1" Grid.Column="2" Text="Messages" TextColor="Black" FontSize="32"/>
         <ListView Grid.Row="2"
                   Grid.Column="2"
                   ItemsSource="{Binding Path=Messages}" BackgroundColor="Cyan"/>

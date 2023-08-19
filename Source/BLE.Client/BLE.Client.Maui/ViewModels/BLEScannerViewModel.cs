@@ -26,18 +26,35 @@ namespace BLE.Client.Maui.ViewModels
 
         public IAsyncRelayCommand StartScan { get; }
 
-        public IList<BLEDeviceViewModel> BLEDevices { get; } = new ObservableCollection<BLEDeviceViewModel>();
-        public IList<string> Messages { get; } = new ObservableCollection<string>();
-        public string LastMessage { get; set; }
 
-        public string SpinnerName { get { return "spinner.gif"; } }
+        private ObservableCollection<BLEDeviceViewModel> _devices = new ObservableCollection<BLEDeviceViewModel>();
+        private ObservableCollection<string> _messages = new ObservableCollection<string>();
+
+        public IList<BLEDeviceViewModel> BLEDevices { get { DebugMessage("Getting BLEDevices"); return _devices; } } 
+        public IList<string> Messages { get { DebugMessage("Getting messages"); return _messages; } }
+
+        private string _lastMessage = string.Empty;
+        public string LastMessage {
+            get
+            {
+                DebugMessage("Getting LastMessage");
+                return _lastMessage;
+            }
+            set
+            {
+                _lastMessage = value;
+            } }
+
+        public string SpinnerName { get { DebugMessage("getting SpinnerName"); return "spinner.gif"; } }
 
         private void ClearMessages()
         {
+            DebugMessage($"enter ClearMessages");
             Messages.Clear();
             OnPropertyChanged(nameof(Messages));
             LastMessage = string.Empty;
             OnPropertyChanged(nameof(LastMessage));
+            DebugMessage($"exit ClearMessages");
         }
 
         private AsyncRelayCommand startScan;
@@ -66,6 +83,8 @@ namespace BLE.Client.Maui.ViewModels
 
         public BLEScannerViewModel()
         {
+            LastMessage = string.Empty;
+            DebugMessage($"Into BLEScannerViewModel constructor");
             _scanCancellationToken = _scanCancellationTokenSource.Token;
             ConfigureBLE();
         }
@@ -73,25 +92,35 @@ namespace BLE.Client.Maui.ViewModels
 
         private string GetStateText()
         {
+            DebugMessage("Into GetState");
+            var result = "Unknown BLE state.";
             switch (_bluetoothManager.State)
             {
                 case BluetoothState.Unknown:
-                    return "Unknown BLE state.";
+                    result = "Unknown BLE state.";
+                    break;
                 case BluetoothState.Unavailable:
-                    return "BLE is not available on this device.";
+                    result = "BLE is not available on this device.";
+                    break;
                 case BluetoothState.Unauthorized:
-                    return "You are not allowed to use BLE.";
+                    result = "You are not allowed to use BLE.";
+                    break;
                 case BluetoothState.TurningOn:
-                    return "BLE is warming up, please wait.";
+                    result = "BLE is warming up, please wait.";
+                    break;
                 case BluetoothState.On:
-                    return "BLE is on.";
+                    result = "BLE is on.";
+                    break;
                 case BluetoothState.TurningOff:
-                    return "BLE is turning off. That's sad!";
+                    result = "BLE is turning off. That's sad!";
+                    break;
                 case BluetoothState.Off:
-                    return "BLE is off. Turn it on!";
-                default:
-                    return "Unknown BLE state.";
+                    result = "BLE is off. Turn it on!";
+                    break;
             }
+            DebugMessage($"return state as '{result}'");
+
+            return result;
         }
 
         private void ShowMessage(string message)
@@ -103,15 +132,17 @@ namespace BLE.Client.Maui.ViewModels
         private void DebugMessage(string message)
         {
             Debug.WriteLine(message);
-            Messages.Add(message);
-            LastMessage = $"Last message: '{message}'";
-            OnPropertyChanged(nameof(LastMessage));
-            OnPropertyChanged(nameof(Messages));
+            //Messages.Add(message);
+            //LastMessage = $"Last message: '{message}'";
+            //OnPropertyChanged(nameof(LastMessage));
+            //OnPropertyChanged(nameof(Messages));
         }
 
         private void ConfigureBLE()
         {
+            DebugMessage("into ConfigureBLE");
             _bluetoothManager = CrossBluetoothLE.Current;
+            DebugMessage("got _bluetoothManager");
             if (_bluetoothManager == null)
             {
                 DebugMessage("CrossBluetoothLE.Current is null");
@@ -128,10 +159,12 @@ namespace BLE.Client.Maui.ViewModels
             }            
             else
             {
+                DebugMessage("go and set event handlers");
                 Adapter.DeviceDiscovered += OnDeviceDiscovered;
                 Adapter.DeviceAdvertised += OnDeviceDiscovered;
                 Adapter.ScanTimeoutElapsed += Adapter_ScanTimeoutElapsed;
                 Adapter.ScanMode = ScanMode.LowLatency;
+                DebugMessage("event handlers set");
             }
 
             if (_bluetoothManager == null && Adapter == null)
@@ -153,6 +186,7 @@ namespace BLE.Client.Maui.ViewModels
             DebugMessage("OnStateChanged");
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsStateOn)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(StateText)));
+            DebugMessage("OnStateChanged done");
         }
 
         private void Adapter_ScanTimeoutElapsed(object sender, EventArgs e)
@@ -161,12 +195,14 @@ namespace BLE.Client.Maui.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsRefreshing)));
 
             CleanupCancellationToken();
+            DebugMessage("Adapter_ScanTimeoutElapsed done");
         }
 
         private void OnDeviceDiscovered(object sender, DeviceEventArgs args)
         {
             DebugMessage("OnDeviceDiscovered");
             AddOrUpdateDevice(args.Device);
+            DebugMessage("OnDeviceDiscovered done");
         }
 
         private void AddOrUpdateDevice(IDevice device)
@@ -183,6 +219,7 @@ namespace BLE.Client.Maui.ViewModels
                 BLEDevices.Add(new BLEDeviceViewModel(device));
                 OnPropertyChanged(nameof(BLEDevices));
             }
+            DebugMessage($"Device Found: '{device.Id}' done");
         }
 
         private void CleanupCancellationToken()
@@ -193,6 +230,7 @@ namespace BLE.Client.Maui.ViewModels
             
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CancelScan)));
             IsScanning = false;
+            DebugMessage("CleanUpCancellationToken done");
         }
 
         public ICommand CancelScan
@@ -208,6 +246,7 @@ namespace BLE.Client.Maui.ViewModels
         {
             get
             {
+                DebugMessage($"Getting IsScanning: {_isScanning}"); 
                 return _isScanning;
             }
             set
@@ -244,11 +283,13 @@ namespace BLE.Client.Maui.ViewModels
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
+            DebugMessage($"OnPropertyChanged {(propertyName ?? "null PropertyName")}");
             if (PropertyChanged == null)
             {
                 ShowMessage($"PropertyChanged for {propertyName} is null, binding updates will fail");
             }
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            DebugMessage($"OnPropertyChanged {(propertyName ?? "null PropertyName")} done");
         }
 
         private Command scanForDevices;
@@ -292,6 +333,7 @@ namespace BLE.Client.Maui.ViewModels
 
         private async void StartScanForDevices()
         {
+            DebugMessage("into StartScanForDevices");
             if (!await HasCorrectPermissions())
             {
                 DebugMessage("Permissons fail - can't scan");
@@ -321,14 +363,19 @@ namespace BLE.Client.Maui.ViewModels
 
         private async Task<bool> HasCorrectPermissions()
         {
-            var permissionResult = await App.PlatformHelper.CheckAndRequestBluetoothPermissions();
+            DebugMessage("Into HasCorrectPermissions");
+            var result = App.PlatformHelper.CheckAndRequestBluetoothPermissions();
+            var permissionResult = result.Result;
+            DebugMessage($"Back from await App.PlatformHelper: '{permissionResult}'");
             if (permissionResult != PermissionStatus.Granted)
             {
+                DebugMessage($"!!Permissions denied!! '{permissionResult}'");
                 ShowMessage("Permission denied. Not scanning.");
                 AppInfo.ShowSettingsUI();
                 return false;
             }
 
+            DebugMessage("Exit HasCorrectPermissions");
             return true;
         }
 
