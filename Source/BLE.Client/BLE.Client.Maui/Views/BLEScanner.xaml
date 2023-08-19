@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:BLE.Client.Maui.ViewModels"
+             x:DataType="local:BLEScannerViewModel"
+             x:Class="BLE.Client.Maui.Views.BLEScanner"
+             Title="BLE Scanner">
+        <!--<ContentPage.BindingContext>
+        <local:BLEScannerViewModel />
+    </ContentPage.BindingContext>-->
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="64"/>
+            <RowDefinition Height="34"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="64"/>
+            <ColumnDefinition Width="850"/>
+            <ColumnDefinition Width="350"/>
+        </Grid.ColumnDefinitions>
+        <BoxView Grid.Row="0" Grid.ColumnSpan="3" Color="AliceBlue"  />
+        <BoxView Grid.Row="2" Grid.ColumnSpan="3" Color="AliceBlue"  />
+        <Image Source="scanning.gif"
+               Grid.Row="0"
+               Grid.Column="0" IsAnimationPlaying="{Binding IsScanning}"
+               Aspect="AspectFit"
+               HeightRequest="64"
+               IsVisible = "{Binding IsScanning}"/>
+       <Button Text="{Binding Path=ScanLabelText}"
+                Grid.Row="0"
+                Grid.Column="1"
+                WidthRequest="150"
+                FontSize="32"
+                Command="{Binding ScanForDevices}"
+                HorizontalOptions="Start"/>
+        <Label Text="{Binding LastMessage}"
+               Grid.Row="0"
+               Grid.Column="2"
+               Grid.ColumnSpan="1"
+               FontSize="14"/>
+       <Label Grid.Row="1" Grid.Column="1" Text="Devices" FontSize="32"/>
+       <ListView Grid.Row="2"
+                  Grid.Column="1"
+                  ItemsSource="{Binding Path=BLEDevices}" BackgroundColor="Cornsilk" />
+        <Label Grid.Row="1" Grid.Column="2" Text="Messages" FontSize="32"/>
+        <ListView Grid.Row="2"
+                  Grid.Column="2"
+                  ItemsSource="{Binding Path=Messages}" BackgroundColor="Cyan"/>
+    </Grid>
+</ContentPage>
