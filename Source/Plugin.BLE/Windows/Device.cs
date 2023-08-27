@@ -79,10 +79,11 @@ namespace Plugin.BLE.UWP
             return NativeDevice.IsPaired ? DeviceState.Limited : DeviceState.Disconnected;
         }
 
-        protected override Task<int> RequestMtuNativeAsync(int requestValue)
+        protected override async Task<int> RequestMtuNativeAsync(int requestValue)
         {
-            Trace.Message("Request MTU not supported in UWP");
-            return Task.FromResult(-1);
+            var devId = BluetoothDeviceId.FromId(NativeDevice.BluetoothLEDevice.DeviceId);
+            using var gattSession = await Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession.FromDeviceIdAsync(devId);
+            return gattSession.MaxPduSize;
         }
 
         protected override bool UpdateConnectionIntervalNative(ConnectionInterval interval)
