@@ -171,12 +171,15 @@ namespace Plugin.BLE.UWP
             }
         }
 
-        public override async Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters = default, CancellationToken cancellationToken = default)
+        public override async Task<IDevice> ConnectToKnownDeviceNativeAsync(Guid deviceGuid, ConnectParameters connectParameters = default, CancellationToken cancellationToken = default)
         {
             //convert GUID to string and take last 12 characters as MAC address
             var guidString = deviceGuid.ToString("N").Substring(20);
             var bluetoothAddress = Convert.ToUInt64(guidString, 16);
             var nativeDevice = await BluetoothLEDevice.FromBluetoothAddressAsync(bluetoothAddress);
+            if (nativeDevice == null)
+                throw new Abstractions.Exceptions.DeviceConnectionException(deviceGuid, "", $"[Adapter] Device {deviceGuid} not found.");
+
             var knownDevice = new Device(this, nativeDevice, 0, deviceGuid, _dq);
 
             await ConnectToDeviceAsync(knownDevice, cancellationToken: cancellationToken);
