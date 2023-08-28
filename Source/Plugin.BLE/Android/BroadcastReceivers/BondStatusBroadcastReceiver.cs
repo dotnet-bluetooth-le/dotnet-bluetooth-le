@@ -34,7 +34,7 @@ namespace Plugin.BLE.BroadcastReceivers
 #if NET7_0_OR_GREATER
 	        if (Build.VERSION.SdkInt >= BuildVersionCodes.Tiramisu)
 #else
-            if (Build.VERSION.SdkInt >= 33)
+            if ((int)Build.VERSION.SdkInt >= 33)
 #endif
             {
 #if NET7_0_OR_GREATER
