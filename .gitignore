@@ -32,6 +32,10 @@ FAKE*
 !FAKE*.cs
 .fake/
 .idea/
+*.dll
+*.puibxml
+*.pdb
+*.DS_Store
 
 # Visual Studo 2015 cache/options directory
 .vs/
