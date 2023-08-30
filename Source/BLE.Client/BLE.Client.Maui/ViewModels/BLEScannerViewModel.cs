@@ -14,7 +14,7 @@ namespace BLE.Client.Maui.ViewModels
     public class BLEScannerViewModel : INotifyPropertyChanged
     {
 
-        private  IBluetoothLE _bluetoothManager;
+        private IBluetoothLE _bluetoothManager;
         protected IAdapter Adapter;
         public bool IsStateOn => _bluetoothManager.IsOn;
         public string StateText => GetStateText();
@@ -27,10 +27,9 @@ namespace BLE.Client.Maui.ViewModels
         public IAsyncRelayCommand StartScan { get; }
 
 
-        private ObservableCollection<BLEDeviceViewModel> _devices = new ObservableCollection<BLEDeviceViewModel>();
+        public ObservableCollection<BLEDeviceViewModel> BLEDevices { get; private set;} =  new ObservableCollection<BLEDeviceViewModel>();
         private ObservableCollection<string> _messages = new ObservableCollection<string>();
 
-        public IList<BLEDeviceViewModel> BLEDevices { get { DebugMessage("Getting BLEDevices"); return _devices; } } 
         public IList<string> Messages { get { DebugMessage("Getting messages"); return _messages; } }
 
         private string _lastMessage = string.Empty;

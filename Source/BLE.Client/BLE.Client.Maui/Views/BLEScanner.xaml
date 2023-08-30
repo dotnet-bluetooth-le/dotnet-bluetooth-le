@@ -45,7 +45,28 @@
        <Label Grid.Row="1" Grid.Column="1" Text="Devices" TextColor="Black" FontSize="32"/>
        <ListView Grid.Row="2"
                   Grid.Column="1" 
-                  ItemsSource="{Binding Path=BLEDevices}" BackgroundColor="Cornsilk" />
+                  ItemsSource="{Binding Path=BLEDevices}" BackgroundColor="LightGray">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>           
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label VerticalTextAlignment="Center" Grid.Column="1" Grid.Row="0" Text="{Binding .}" TextColor="Black" FontAttributes="Bold"/>
+                                </Grid>  
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+       </ListView>
+
+
+
+
         <Label Grid.Row="1" Grid.Column="2" Text="Messages" TextColor="Black" FontSize="32"/>
         <ListView Grid.Row="2"
                   Grid.Column="2"
