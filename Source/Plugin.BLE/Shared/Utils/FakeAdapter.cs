@@ -8,7 +8,7 @@ namespace Plugin.BLE.Abstractions.Utils
 {
     internal class FakeAdapter : AdapterBase
     {
-        public override Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters, CancellationToken cancellationToken)
+        public override Task<IDevice> ConnectToKnownDeviceNativeAsync(Guid deviceGuid, ConnectParameters connectParameters, CancellationToken cancellationToken)
         {
             TraceUnavailability();
             return Task.FromResult<IDevice>(null);
