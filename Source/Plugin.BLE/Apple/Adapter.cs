@@ -220,7 +220,7 @@ namespace Plugin.BLE.iOS
         /// </summary>
         /// <returns>The to known device async.</returns>
         /// <param name="deviceGuid">Device GUID.</param>
-        public override async Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters = default(ConnectParameters), CancellationToken cancellationToken = default(CancellationToken))
+        public override async Task<IDevice> ConnectToKnownDeviceNativeAsync(Guid deviceGuid, ConnectParameters connectParameters = default(ConnectParameters), CancellationToken cancellationToken = default(CancellationToken))
         {
 #if NET6_0_OR_GREATER || MACCATALYST
             await WaitForState(CBManagerState.PoweredOn, cancellationToken, true);
@@ -230,7 +230,7 @@ namespace Plugin.BLE.iOS
 #endif
 
             if (cancellationToken.IsCancellationRequested)
-                throw new TaskCanceledException("ConnectToKnownDeviceAsync cancelled");
+                throw new TaskCanceledException("ConnectToKnownDeviceNativeAsync cancelled");
 
             //FYI attempted to use tobyte array insetead of string but there was a problem with byte ordering Guid->NSUui
             var uuid = new NSUuid(deviceGuid.ToString());
@@ -256,7 +256,7 @@ namespace Plugin.BLE.iOS
                 );
 
                 if (peripherial == null)
-                    throw new Exception($"[Adapter] Device {deviceGuid} not found.");
+                    throw new Abstractions.Exceptions.DeviceConnectionException(deviceGuid, "", $"[Adapter] Device {deviceGuid} not found.");
             }
 
 
