@@ -38,9 +38,10 @@ public static class MauiProgram
     {
 #if ANDROID
         builder.Services.AddSingleton<IPlatformHelpers, DroidPlatformHelpers>();
+#elif IOS
+        builder.Services.AddSingleton<IPlatformHelpers, iOSPlatformHelpers>();
 #elif MACCATALYST
         builder.Services.AddSingleton<IPlatformHelpers, MacCatalystPlatformHelpers>();
 #endif
     }
 }
-
