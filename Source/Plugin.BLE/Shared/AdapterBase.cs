@@ -328,6 +328,24 @@ namespace Plugin.BLE.Abstractions
         }
 
         /// <summary>
+        /// Connects to a device with a known GUID without scanning and if in range. Does not scan for devices.
+        /// </summary>
+        public async Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters = default, CancellationToken cancellationToken = default)
+        {
+            if (DiscoveredDevicesRegistry.TryGetValue(deviceGuid, out IDevice discoveredDevice))
+            {
+                await ConnectToDeviceAsync(discoveredDevice, connectParameters, cancellationToken);
+                return discoveredDevice;
+            }
+
+            var connectedDevice = await ConnectToKnownDeviceNativeAsync(deviceGuid, connectParameters, cancellationToken);
+            if (!DiscoveredDevicesRegistry.ContainsKey(deviceGuid)) 
+                DiscoveredDevicesRegistry.TryAdd(deviceGuid, connectedDevice);
+
+            return connectedDevice;
+        }
+
+        /// <summary>
         /// Native implementation of StartScanningForDevicesAsync.
         /// </summary>
         protected abstract Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken);
@@ -345,9 +363,9 @@ namespace Plugin.BLE.Abstractions
         protected abstract void DisconnectDeviceNative(IDevice device);
 
         /// <summary>
-        /// Connects to a device with a known GUID without scanning and if in range. Does not scan for devices.
+        /// Native implementation of ConnectToKnownDeviceAsync.
         /// </summary>
-        public abstract Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters = default, CancellationToken cancellationToken = default);
+        public abstract Task<IDevice> ConnectToKnownDeviceNativeAsync(Guid deviceGuid, ConnectParameters connectParameters = default, CancellationToken cancellationToken = default);
         /// <summary>
         /// Returns all BLE devices connected to the system.
         /// </summary>
