@@ -28,5 +28,9 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.plugin.ble</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Need bluetooth permission.</string>
 </dict>
 </plist>
