@@ -2,10 +2,11 @@
   "solution": {
     "path": "BLE.sln",
     "projects": [
-      "Plugin.BLE\\Plugin.BLE.csproj",
-      "Plugin.BLE.Tests\\Plugin.BLE.Tests.csproj",
+      "BLE.Client\\BLE.Client.Maui\\BLE.Client.Maui.csproj",
+      "BLE.Client\\BLE.Client\\BLE.Client.csproj",
       "MvvmCross.Plugins.BLE\\MvvmCross.Plugins.BLE.csproj",
-      "BLE.Client\\BLE.Client\\BLE.Client.csproj"
+      "Plugin.BLE.Tests\\Plugin.BLE.Tests.csproj",
+      "Plugin.BLE\\Plugin.BLE.csproj"
     ]
   }
 }
