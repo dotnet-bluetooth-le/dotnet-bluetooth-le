@@ -56,7 +56,7 @@ namespace BLE.Client.Maui.ViewModels
             DebugMessage($"exit ClearMessages");
         }
 
-        private AsyncRelayCommand startScan;
+        //private AsyncRelayCommand startScan;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -363,8 +363,7 @@ namespace BLE.Client.Maui.ViewModels
         private async Task<bool> HasCorrectPermissions()
         {
             DebugMessage("Into HasCorrectPermissions");
-            var result = App.PlatformHelper.CheckAndRequestBluetoothPermissions();
-            var permissionResult = result.Result;
+            var permissionResult = await App.PlatformHelper.CheckAndRequestBluetoothPermissions();
             DebugMessage($"Back from await App.PlatformHelper: '{permissionResult}'");
             if (permissionResult != PermissionStatus.Granted)
             {
@@ -380,4 +379,3 @@ namespace BLE.Client.Maui.ViewModels
 
     }
 }
-
