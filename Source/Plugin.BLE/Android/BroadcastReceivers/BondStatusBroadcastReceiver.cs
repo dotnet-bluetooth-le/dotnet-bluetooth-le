@@ -31,10 +31,10 @@ namespace Plugin.BLE.BroadcastReceivers
             BluetoothDevice bluetoothDevice;
             
             // As older versions of .NET (pre7) don't include the Tiramisu version code, handle it manually.
-#if NET7_0_OR_GREATER
-	        if (Build.VERSION.SdkInt >= BuildVersionCodes.Tiramisu)
+#if NET6_0_OR_GREATER
+	        if (OperatingSystem.IsAndroidVersionAtLeast(33))
 #else
-            if ((int)Build.VERSION.SdkInt >= 33)
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.Tiramisu)
 #endif
             {
 #if NET7_0_OR_GREATER
