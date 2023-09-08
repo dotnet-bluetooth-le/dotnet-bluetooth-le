@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;net6.0-android;net6.0-ios;net6.0-maccatalyst;net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;net6.0-android33.0;net6.0-ios;net6.0-maccatalyst;net7.0-android33.0;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
 		<TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);MonoAndroid13.0;Xamarin.iOS10;Xamarin.Mac20;uap10.0.19041;net6.0-windows10.0.19041;net7.0-windows10.0.19041</TargetFrameworks>
 		<AssemblyName>Plugin.BLE</AssemblyName>
 		<RootNamespace>Plugin.BLE</RootNamespace>
