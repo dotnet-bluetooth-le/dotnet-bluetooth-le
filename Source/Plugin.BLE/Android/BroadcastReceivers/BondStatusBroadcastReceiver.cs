@@ -37,11 +37,7 @@ namespace Plugin.BLE.BroadcastReceivers
             if ((int)Build.VERSION.SdkInt >= 33)
 #endif
             {
-#if NET7_0_OR_GREATER
 	            bluetoothDevice = (BluetoothDevice)intent.GetParcelableExtra(BluetoothDevice.ExtraDevice, Java.Lang.Class.FromType(typeof(BluetoothDevice)));
-#else
-	            bluetoothDevice = (BluetoothDevice)intent.GetParcelableExtra(BluetoothDevice.ExtraDevice);
-#endif
             }
             else 
             {
