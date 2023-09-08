@@ -5,3 +5,6 @@ find . -type d \( -name 'bin' -o -name 'obj' \) -prune -exec rm -rf {} \;
 
 # remove Resource.designer.cs files
 find . -name 'Resource.designer.cs' -exec rm -rf {} \;
+
+# remove VS cache folder
+rm -rf Source/.vs/

@@ -2,6 +2,11 @@
 
 ## 3.0 MAUI
 
+#### 3.0.0-beta.6
+- #728 Add Windows support for RequestMtuAsync (fixes #727)
+- #735 Fix DisconnectAsync hangs on Windows and Android after scanning then connecting with ConnectToKnownDeviceAsync (fixes #734)
+- #736 Add MAUI sample client
+
 #### 3.0.0-beta.5
 - #721 Fix Windows connect/disconnect issues (fixes #423, #528, #536, #620)
 - #719 Fixed crash with incorrect data in advertisement data on Android (fixes #567, #713)

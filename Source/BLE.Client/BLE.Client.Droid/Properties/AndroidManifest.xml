@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.ble.client" android:installLocation="auto">
-	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="31" />
+	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="33" />
 	<application android:label="BLE Explorer" android:icon="@drawable/icon" android:theme="@style/MyTheme"></application>
 	<!-- Request legacy Bluetooth + location permissions on older devices. -->
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" android:maxSdkVersion="30" />
