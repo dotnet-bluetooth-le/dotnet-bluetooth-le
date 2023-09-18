@@ -2,11 +2,6 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Devices.Bluetooth.GenericAttributeProfile;
-#if WINDOWS_UWP
-using Microsoft.Toolkit.Uwp.Connectivity;
-#else
-using CommunityToolkit.WinUI.Connectivity;
-#endif
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Exceptions;
 
@@ -48,7 +43,7 @@ namespace Plugin.BLE.Extensions
         }
 
         private static string GetErrorMessage(this GattCommunicationStatus status, string tag, byte? protocolError)
-        {
+        {            
             switch (status)
             {
                 //output trace message with status of update
@@ -56,7 +51,7 @@ namespace Plugin.BLE.Extensions
                     Trace.Message($"[{tag}] success.");
                     return null;
                 case GattCommunicationStatus.ProtocolError when protocolError != null:
-                    return $"[{tag}] failed with status: {status} and protocol error {protocolError.GetErrorString()}";
+                    return $"[{tag}] failed with status: {status} and protocol error  {protocolError.GetErrorString()}";
                 case GattCommunicationStatus.AccessDenied:
                 case GattCommunicationStatus.ProtocolError:
                 case GattCommunicationStatus.Unreachable:

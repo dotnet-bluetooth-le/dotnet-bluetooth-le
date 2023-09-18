@@ -5,14 +5,6 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
-
-#if WINDOWS_UWP
-using Windows.System;
-using Microsoft.Toolkit.Uwp.Connectivity;
-#else
-using Microsoft.UI.Dispatching;
-using CommunityToolkit.WinUI.Connectivity;
-#endif
 using Windows.Devices.Bluetooth;
 using Windows.Devices.Bluetooth.Advertisement;
 
@@ -24,10 +16,8 @@ using System.Collections.Concurrent;
 namespace Plugin.BLE.UWP
 {
     public class Adapter : AdapterBase
-    {
-        private BluetoothLEHelper _bluetoothHelper;
-        private BluetoothLEAdvertisementWatcher _bleWatcher;
-        private DispatcherQueue _dq;
+    {        
+        private BluetoothLEAdvertisementWatcher _bleWatcher;        
 
         /// <summary>
         /// Registry used to store device instances for pending operations : disconnect
@@ -35,10 +25,8 @@ namespace Plugin.BLE.UWP
         /// </summary>
         private readonly IDictionary<string, IDevice> _deviceOperationRegistry = new ConcurrentDictionary<string, IDevice>();
 
-        public Adapter(BluetoothLEHelper bluetoothHelper)
+        public Adapter()
         {
-            _bluetoothHelper = bluetoothHelper;
-            _dq = DispatcherQueue.GetForCurrentThread();
         }
 
         protected override Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
@@ -59,10 +47,8 @@ namespace Plugin.BLE.UWP
 
                 Trace.Message($"ScanFilters: {string.Join(", ", serviceUuids)}");
             }
-
-            _bleWatcher.Received -= DeviceFoundAsync;
-            _bleWatcher.Received += DeviceFoundAsync;
-
+            _bleWatcher.Received -= AdvertisementReceived;
+            _bleWatcher.Received += AdvertisementReceived;
             _bleWatcher.Start();
             return Task.FromResult(true);
         }
@@ -72,29 +58,25 @@ namespace Plugin.BLE.UWP
             if (_bleWatcher != null)
             {
                 Trace.Message("Stopping the scan for devices");
-                _bleWatcher.Stop();
+                _bleWatcher.Stop();                
                 _bleWatcher = null;
             }
         }
 
         protected override async Task ConnectToDeviceNativeAsync(IDevice device, ConnectParameters connectParameters, CancellationToken cancellationToken)
         {
-            Trace.Message($"Connecting to device with ID:  {device.Id.ToString()}");
-
-            if (!(device.NativeDevice is ObservableBluetoothLEDevice nativeDevice))
-                return;
-
-            nativeDevice.PropertyChanged -= Device_ConnectionStatusChanged;
-            nativeDevice.PropertyChanged += Device_ConnectionStatusChanged;
+            
+            var nativeDevice = device.NativeDevice as BluetoothLEDevice;
+            Trace.Message("ConnectToDeviceNativeAsync {0} Named: {1} Connected: {2}", device.Id.ToHexBleAddress(), device.Name, nativeDevice.ConnectionStatus);
 
             ConnectedDeviceRegistry[device.Id.ToString()] = device;
+            nativeDevice.ConnectionStatusChanged += Device_ConnectionStatusChanged;
 
-            // TODO: ObservableBluetoothLEDevice.ConnectAsync needs updated to include a cancelation token param
-            // currently it is hardcoded to 5000ms. On windows users should not use cancellation tokens with 
-            // timeouts that are <= 5000ms
-            await nativeDevice.ConnectAsync();
+            var gats = await nativeDevice.GetGattServicesAsync(BluetoothCacheMode.Uncached);
 
-            if (nativeDevice.BluetoothLEDevice.ConnectionStatus != BluetoothConnectionStatus.Connected)
+
+            Trace.Message("ConnectToDeviceNativeAsync DONE {0} Named: {1} Connected: {2}", device.Id.ToHexBleAddress(), device.Name, nativeDevice.ConnectionStatus);
+            if (nativeDevice.ConnectionStatus != BluetoothConnectionStatus.Connected)
             {
                 // use DisconnectDeviceNative to clean up resources otherwise windows won't disconnect the device
                 // after a subsequent successful connection (#528, #536, #423)
@@ -121,26 +103,18 @@ namespace Plugin.BLE.UWP
             }
         }
 
-        private void Device_ConnectionStatusChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            if (!(sender is ObservableBluetoothLEDevice nativeDevice) || nativeDevice.BluetoothLEDevice == null)
-            {
-                return;
-            }
-
-            if (propertyChangedEventArgs.PropertyName != nameof(nativeDevice.IsConnected))
-            {
-                return;
-            }
-
-            var address = ParseDeviceId(nativeDevice.BluetoothLEDevice.BluetoothAddress).ToString();
-            if (nativeDevice.IsConnected && ConnectedDeviceRegistry.TryGetValue(address, out var connectedDevice))
+        private void Device_ConnectionStatusChanged(BluetoothLEDevice nativeDevice, object args)
+        {                    
+            var id = nativeDevice.BluetoothAddress.ParseDeviceId().ToString();
+            if (nativeDevice.ConnectionStatus == BluetoothConnectionStatus.Connected 
+                && ConnectedDeviceRegistry.TryGetValue(id, out var connectedDevice))
             {
                 HandleConnectedDevice(connectedDevice);
                 return;
             }
 
-            if (!nativeDevice.IsConnected && ConnectedDeviceRegistry.TryRemove(address, out var disconnectedDevice))
+            if (nativeDevice.ConnectionStatus == BluetoothConnectionStatus.Disconnected 
+                && ConnectedDeviceRegistry.TryRemove(id, out var disconnectedDevice))
             {
                 bool isNormalDisconnect = !_deviceOperationRegistry.Remove(disconnectedDevice.Id.ToString());
                 if (!isNormalDisconnect)
@@ -159,15 +133,10 @@ namespace Plugin.BLE.UWP
         {
             // Windows doesn't support disconnecting, so currently just dispose of the device
             Trace.Message($"Disconnected from device with ID:  {device.Id}");
-            
-            if (device.NativeDevice is ObservableBluetoothLEDevice)
+            if (device.NativeDevice is BluetoothLEDevice nativeDevice)
             {
-                _deviceOperationRegistry.Remove(device.Id.ToString());
-                ((Device)device).ClearServices();
-
-                // [TR 07-25-23] don't actually dispose the device.  Dispose has special meaning on Windows.
-                // Once an object is "Disposed" it cannot be accessed in any way.
-                ((Device)device).FreeResources();
+                _deviceOperationRegistry.Remove(device.Id.ToString());                
+                nativeDevice.Dispose();
             }
         }
 
@@ -180,7 +149,7 @@ namespace Plugin.BLE.UWP
             if (nativeDevice == null)
                 throw new Abstractions.Exceptions.DeviceConnectionException(deviceGuid, "", $"[Adapter] Device {deviceGuid} not found.");
 
-            var knownDevice = new Device(this, nativeDevice, 0, deviceGuid, _dq);
+            var knownDevice = new Device(this, nativeDevice, 0, deviceGuid);
 
             await ConnectToDeviceAsync(knownDevice, cancellationToken: cancellationToken);
             return knownDevice;
@@ -211,45 +180,33 @@ namespace Plugin.BLE.UWP
         /// </summary>
         /// <param name="watcher">The bluetooth advertisement watcher currently being used</param>
         /// <param name="btAdv">The advertisement recieved by the watcher</param>
-        private async void DeviceFoundAsync(BluetoothLEAdvertisementWatcher watcher, BluetoothLEAdvertisementReceivedEventArgs btAdv)
+        private void AdvertisementReceived(BluetoothLEAdvertisementWatcher watcher, BluetoothLEAdvertisementReceivedEventArgs btAdv)
         {
-            var deviceId = ParseDeviceId(btAdv.BluetoothAddress);
+            var deviceId = btAdv.BluetoothAddress.ParseDeviceId();
 
             if (DiscoveredDevicesRegistry.TryGetValue(deviceId, out var device))
             {
-                Trace.Message("AdvertisdedPeripheral: {0} Id: {1}, Rssi: {2}", device.Name, device.Id, btAdv.RawSignalStrengthInDBm);
+                Trace.Message("AdvertisementReceived - Old Device: {0}", btAdv.ToDetailedString());
                 (device as Device)?.Update(btAdv.RawSignalStrengthInDBm, ParseAdvertisementData(btAdv.Advertisement));
                 this.HandleDiscoveredDevice(device);
             }
             else
             {
-                var bluetoothLeDevice = await BluetoothLEDevice.FromBluetoothAddressAsync(btAdv.BluetoothAddress);
+                Trace.Message("AdvertisementReceived - New Device: {0}", btAdv.ToDetailedString());
+                var bluetoothLeDevice = BluetoothLEDevice.FromBluetoothAddressAsync(btAdv.BluetoothAddress).AsTask().Result;
+                //var bluetoothLeDevice = await BluetoothLEDevice.FromBluetoothAddressAsync(btAdv.BluetoothAddress);
                 if (bluetoothLeDevice != null) //make sure advertisement bluetooth address actually returns a device
                 {
-                    device = new Device(this, bluetoothLeDevice, btAdv.RawSignalStrengthInDBm, deviceId, _dq, ParseAdvertisementData(btAdv.Advertisement), btAdv.IsConnectable);
-                    Trace.Message("DiscoveredPeripheral: {0} Id: {1}, Rssi: {2}", device.Name, device.Id, btAdv.RawSignalStrengthInDBm);
+                    device = new Device(
+                        this,
+                        bluetoothLeDevice,
+                        btAdv.RawSignalStrengthInDBm,
+                        deviceId,
+                        ParseAdvertisementData(btAdv.Advertisement),
+                        btAdv.IsConnectable);
                     this.HandleDiscoveredDevice(device);
                 }
             }
-        }
-
-        /// <summary>
-        /// Method to parse the bluetooth address as a hex string to a UUID
-        /// </summary>
-        /// <param name="bluetoothAddress">BluetoothLEDevice native device address</param>
-        /// <returns>a GUID that is padded left with 0 and the last 6 bytes are the bluetooth address</returns>
-        private static Guid ParseDeviceId(ulong bluetoothAddress)
-        {
-            var macWithoutColons = bluetoothAddress.ToString("x");
-            macWithoutColons = macWithoutColons.PadLeft(12, '0'); //ensure valid length
-            var deviceGuid = new byte[16];
-            Array.Clear(deviceGuid, 0, 16);
-            var macBytes = Enumerable.Range(0, macWithoutColons.Length)
-                .Where(x => x % 2 == 0)
-                .Select(x => Convert.ToByte(macWithoutColons.Substring(x, 2), 16))
-                .ToArray();
-            macBytes.CopyTo(deviceGuid, 10);
-            return new Guid(deviceGuid);
         }
 
         public override IReadOnlyList<IDevice> GetKnownDevicesByIds(Guid[] ids)
