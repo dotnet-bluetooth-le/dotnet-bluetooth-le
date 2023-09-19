@@ -2,6 +2,7 @@
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.Extensions;
+using Plugin.BLE.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,11 @@ namespace BLE.Client.WinConsole
         private readonly IBluetoothLE bluetoothLE;
         private readonly IAdapter adapter;
         private readonly Action<string, object[]>? writer;
-        private readonly List<IDevice> foundDevices;
+        private readonly List<IDevice> discoveredDevices;
 
         public BleDemo(Action<string, object[]>? writer = null)
         {
-            foundDevices = new List<IDevice>();
+            discoveredDevices = new List<IDevice>();
             bluetoothLE = CrossBluetoothLE.Current;
             adapter = CrossBluetoothLE.Current.Adapter;
             this.writer = writer;
@@ -41,27 +42,45 @@ namespace BLE.Client.WinConsole
             Write("Bluetooth is on");
             Write("Scanning now for " + time_ms + " ms...");            
             var cancellationTokenSource = new CancellationTokenSource(time_ms);
-            foundDevices.Clear();
+            discoveredDevices.Clear();
 
             adapter.DeviceDiscovered += (s, a) =>
             {
                 var dev = a.Device;
-                Write("Found: {0} with Name = {1} Connectable: {2}", dev.Id.ToString()[^12..], dev.Name, dev.IsConnectable);
-                foundDevices.Add(a.Device);
+                Write("DeviceDiscovered: {0} with Name = {1}", dev.Id.ToHexBleAddress(), dev.Name);
+                discoveredDevices.Add(a.Device);
             };
             adapter.ScanMode = scanMode;
             await adapter.StartScanningForDevicesAsync(cancellationToken: cancellationTokenSource.Token);
 
         }
 
-        public async Task ConnectTest(string subname)
+        void WriteAdvertisementRecords(IDevice device)
         {
-            foreach(var device in foundDevices)
+            Write("Device.State: {0} with {1} AdvertisementRecords", device.State, device.AdvertisementRecords.Count);
+            foreach (var ar in device.AdvertisementRecords)
             {
-                if (device.Name.Contains(subname))
+                switch (ar.Type)
+                {
+                    case AdvertisementRecordType.CompleteLocalName:
+                        Write(ar.ToString() + " = " + Encoding.UTF8.GetString(ar.Data));
+                        break;
+                    default:
+                        Write(ar.ToString());
+                        break;
+                }
+            }
+        }
+
+        public async Task ConnectTest(string name)
+        {
+            Thread.Sleep(10);
+            foreach(var device in discoveredDevices)
+            {
+                if (device.Name.Contains(name))
                 {
                     await adapter.ConnectToDeviceAsync(device);
-                    Write("Device.State: {0}", device.State);
+                    WriteAdvertisementRecords(device);
                 }
             }
         }

@@ -11,7 +11,7 @@ namespace BLE.Client.WinConsole
     /// <summary>
     /// A class, which can log trace to the console without blocking the caller
     /// </summary>
-    public class ConsoleTracer
+    public class ConsoleTracer : IDisposable
     {
         record Entry
         (
@@ -23,13 +23,12 @@ namespace BLE.Client.WinConsole
         private readonly DateTime time0;
         private readonly Stopwatch stopwatch;
         private readonly Task worker;
-        private readonly object mutex;
+        private bool disposing = false;
         private readonly AutoResetEvent newEntry = new AutoResetEvent(false);
         ConcurrentQueue<Entry> entries = new ConcurrentQueue<Entry>();
 
         public ConsoleTracer()
         {
-            mutex = new object();
             time0 = DateTime.Now;
             stopwatch = Stopwatch.StartNew();
             worker = new Task(WriteWorker);
@@ -50,7 +49,7 @@ namespace BLE.Client.WinConsole
 
         void WriteWorker()
         {
-            while (newEntry.WaitOne())
+            while (!disposing && newEntry.WaitOne())
             {
                 while (entries.TryDequeue(out Entry entry))
                 {
@@ -58,11 +57,18 @@ namespace BLE.Client.WinConsole
                     Console.WriteLine(entry.Time.ToString("HH:mm:ss.fff ") + entry.Format + " ", entry.Args);
                 }
             }
+            Console.WriteLine("Bye");
         }
 
         private DateTime GetTime()
         {
             return time0.AddTicks(stopwatch.ElapsedTicks);
+        }
+
+        public void Dispose()
+        {
+            disposing = true;            
+            worker.Wait(1000);
         }
     }
 }
