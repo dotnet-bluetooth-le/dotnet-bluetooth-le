@@ -96,8 +96,6 @@
     <ProjectReference Include="..\..\MvvmCross.Plugins.BLE\MvvmCross.Plugins.BLE.csproj">
       <Project>{83f1dffb-a653-45dd-be81-c02374c6db07}</Project>
       <Name>MvvmCross.Plugins.BLE</Name>
-      <TargetPlatformIdentifier>Android</TargetPlatformIdentifier>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\..\Plugin.BLE\Plugin.BLE.csproj">
       <Project>{951ed11d-d026-449c-90dc-5027bc41fb3b}</Project>
