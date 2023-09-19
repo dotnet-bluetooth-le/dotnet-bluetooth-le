@@ -7,11 +7,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.Bluetooth;
 using Windows.Devices.Bluetooth.Advertisement;
-
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Extensions;
 using System.Collections.Concurrent;
+using Windows.Devices.Bluetooth.GenericAttributeProfile;
 
 namespace Plugin.BLE.UWP
 {
@@ -70,13 +70,14 @@ namespace Plugin.BLE.UWP
             Trace.Message("ConnectToDeviceNativeAsync {0} Named: {1} Connected: {2}", device.Id.ToHexBleAddress(), device.Name, nativeDevice.ConnectionStatus);
 
             ConnectedDeviceRegistry[device.Id.ToString()] = device;
+
+            nativeDevice.ConnectionStatusChanged -= Device_ConnectionStatusChanged;
             nativeDevice.ConnectionStatusChanged += Device_ConnectionStatusChanged;
 
-            var gats = await nativeDevice.GetGattServicesAsync(BluetoothCacheMode.Uncached);
-
-
-            Trace.Message("ConnectToDeviceNativeAsync DONE {0} Named: {1} Connected: {2}", device.Id.ToHexBleAddress(), device.Name, nativeDevice.ConnectionStatus);
-            if (nativeDevice.ConnectionStatus != BluetoothConnectionStatus.Connected)
+            var gattServiceResult = await nativeDevice.GetGattServicesAsync(BluetoothCacheMode.Uncached);
+                        
+            if (gattServiceResult.Status != GattCommunicationStatus.Success 
+                || nativeDevice.ConnectionStatus != BluetoothConnectionStatus.Connected)
             {
                 // use DisconnectDeviceNative to clean up resources otherwise windows won't disconnect the device
                 // after a subsequent successful connection (#528, #536, #423)

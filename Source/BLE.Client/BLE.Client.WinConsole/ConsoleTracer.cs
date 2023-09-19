@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace BLE.Client.WinConsole
 {
+    /// <summary>
+    /// A class, which can log trace to the console without blocking the caller
+    /// </summary>
     public class ConsoleTracer
     {
         record Entry
@@ -19,21 +22,25 @@ namespace BLE.Client.WinConsole
 
         private readonly DateTime time0;
         private readonly Stopwatch stopwatch;
-        private readonly object mutex;        
+        private readonly Task worker;
+        private readonly object mutex;
         private readonly AutoResetEvent newEntry = new AutoResetEvent(false);
         ConcurrentQueue<Entry> entries = new ConcurrentQueue<Entry>();
 
-        public ConsoleTracer() 
+        public ConsoleTracer()
         {
             mutex = new object();
             time0 = DateTime.Now;
             stopwatch = Stopwatch.StartNew();
-            new Thread(WriteWorker)
-            {
-                IsBackground = true,
-            }.Start();
+            worker = new Task(WriteWorker);
+            worker.Start();
         }
 
+        /// <summary>
+        /// Trace something to the console - adding to queue - not blocking the caller
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="args"></param>
         public void Trace(string format, params object[] args)
         {
             var time = GetTime();
@@ -43,20 +50,17 @@ namespace BLE.Client.WinConsole
 
         void WriteWorker()
         {
-            while (newEntry.WaitOne(1000))
+            while (newEntry.WaitOne())
             {
-                StringBuilder sb = new StringBuilder();                
                 while (entries.TryDequeue(out Entry entry))
-                {                                        
-                    sb.AppendLine();
-                    //Console.WriteLine(entry.Time.ToString("yyyy-MM-ddTHH:mm:ss.fff ") + string.Format(entry.Format, entry.Args) + " ");
-                    Console.WriteLine(entry.Time.ToString("yyyy-MM-ddTHH:mm:ss.fff ") + entry.Format + " ", entry.Args);
-                }                
-                //Console.Write(sb.ToString());
+                {
+                    //Console.WriteLine(entry.Time.ToString("yyyy-MM-ddTHH:mm:ss.fff ") + entry.Format + " ", entry.Args);
+                    Console.WriteLine(entry.Time.ToString("HH:mm:ss.fff ") + entry.Format + " ", entry.Args);
+                }
             }
         }
 
-        private DateTime GetTime() 
+        private DateTime GetTime()
         {
             return time0.AddTicks(stopwatch.ElapsedTicks);
         }

@@ -15,8 +15,11 @@ public static class TextHelpers
     {
         string hexadr = btAdv.BluetoothAddress.ToHexBleAddress();
         StringBuilder sb = new StringBuilder();
-        sb.Append(hexadr).Append(", Rssi:").Append(btAdv.RawSignalStrengthInDBm)
-            .Append(", Type: ").Append(btAdv.BluetoothAddressType);
+        sb.Append(hexadr)
+            .Append(", ").Append(btAdv.BluetoothAddressType)
+            .Append(", ").Append(btAdv.RawSignalStrengthInDBm)
+            .Append(", ").Append(btAdv.AdvertisementType);
+
         if (btAdv.IsConnectable)
         {
             sb.Append(", Connectable");
@@ -46,7 +49,6 @@ public static class TextHelpers
         return id.ToString("N").Substring(20);
         //return id.ToString()[^12..].ToUpperInvariant(); //Not for netstandard2.0
     }
-
 
     /// <summary>
     /// Get a string of the BLE address: 48 bit = 6 bytes = 12 Hex chars

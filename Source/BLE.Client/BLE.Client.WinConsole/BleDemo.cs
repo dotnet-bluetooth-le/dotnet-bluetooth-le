@@ -30,7 +30,7 @@ namespace BLE.Client.WinConsole
             writer?.Invoke(format, args);
         }
 
-        public async Task DoTheScanning(ScanMode scanMode = ScanMode.Passive, int time_ms = 2000)
+        public async Task DoTheScanning(ScanMode scanMode = ScanMode.LowPower, int time_ms = 2000)
         {
 
             if (!bluetoothLE.IsOn)
