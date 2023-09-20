@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Devices.Bluetooth;
 
 namespace BLE.Client.WinConsole
 {
@@ -29,6 +30,12 @@ namespace BLE.Client.WinConsole
         private void Write(string format, params object[] args)
         {
             writer?.Invoke(format, args);
+        }
+
+        public void ConnectToKnown(Guid id)
+        {
+            IDevice dev = adapter.ConnectToKnownDeviceAsync(id).Result;
+            WriteAdvertisementRecords(dev);
         }
 
         public async Task DoTheScanning(ScanMode scanMode = ScanMode.LowPower, int time_ms = 2000)
@@ -57,7 +64,12 @@ namespace BLE.Client.WinConsole
 
         void WriteAdvertisementRecords(IDevice device)
         {
-            Write("Device.State: {0} with {1} AdvertisementRecords", device.State, device.AdvertisementRecords.Count);
+            if (device.AdvertisementRecords is null)
+            {
+                Write("{0} {1} has no AdvertisementRecords...", device.Name, device.State);
+                return;
+            }
+            Write("{0} {1} with {2} AdvertisementRecords", device.Name, device.State, device.AdvertisementRecords.Count);
             foreach (var ar in device.AdvertisementRecords)
             {
                 switch (ar.Type)
