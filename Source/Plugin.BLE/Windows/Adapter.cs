@@ -41,6 +41,11 @@ namespace Plugin.BLE.UWP
             _dq = DispatcherQueue.GetForCurrentThread();
         }
 
+        public override Task BondAsync(IDevice device)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
         {
             var serviceUuids = scanFilterOptions?.ServiceUuids;
@@ -192,6 +197,11 @@ namespace Plugin.BLE.UWP
             //async method. 
             Trace.Message("Returning devices connected by this app only");
             return ConnectedDevices;
+        }
+
+        protected override IReadOnlyList<IDevice> GetBondedDevices()
+        {
+            return null; // not supported
         }
 
         /// <summary>
