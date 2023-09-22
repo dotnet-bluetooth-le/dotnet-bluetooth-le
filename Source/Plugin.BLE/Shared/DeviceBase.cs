@@ -202,8 +202,7 @@ namespace Plugin.BLE.Abstractions
         public void ClearServices()
         {
             this.CancelEverythingAndReInitialize();
-
-
+            
             lock (KnownServices)
             {
                 foreach (var service in KnownServices)
@@ -251,8 +250,25 @@ namespace Plugin.BLE.Abstractions
             return Id.GetHashCode();
         }
 
+        /// <summary>
+        /// Reflects if the device is connectable.
+        /// Only supported if <see cref="SupportsIsConnectable"/> is true.
+        /// </summary>
         public abstract bool IsConnectable { get; protected set; }
 
+        /// <summary>
+        /// Shows whether the device supports the <see cref="IsConnectable"/>.
+        /// </summary>
         public abstract bool SupportsIsConnectable { get; }
+        
+        /// <summary>
+        /// Gets the <see cref="DeviceBondState"/> of the device.
+        /// </summary>
+        protected abstract DeviceBondState GetBondState();
+
+        /// <summary>
+        /// Gets the <see cref="DeviceBondState"/> of the device.
+        /// </summary>
+        public DeviceBondState BondState => GetBondState();
     }
 }

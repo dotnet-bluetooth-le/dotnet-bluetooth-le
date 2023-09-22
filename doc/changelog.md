@@ -2,6 +2,10 @@
 
 ## 3.0 MAUI
 
+#### 3.0.0-rc.1
+- #730 Bonding on Android (fixes #690)
+- #740 Target Android 13 everywhere
+
 #### 3.0.0-beta.6
 - #728 Add Windows support for RequestMtuAsync (fixes #727)
 - #735 Fix DisconnectAsync hangs on Windows and Android after scanning then connecting with ConnectToKnownDeviceAsync (fixes #734)

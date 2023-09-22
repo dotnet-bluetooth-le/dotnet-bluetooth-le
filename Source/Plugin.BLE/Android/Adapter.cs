@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Android.App;
 using Android.Bluetooth;
 using Android.Bluetooth.LE;
+using Android.Content;
 using Android.OS;
 using Java.Util;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.BroadcastReceivers;
 using Plugin.BLE.Extensions;
 using Object = Java.Lang.Object;
 using Trace = Plugin.BLE.Abstractions.Trace;
@@ -22,22 +25,40 @@ namespace Plugin.BLE.Android
         private readonly Api18BleScanCallback _api18ScanCallback;
         private readonly Api21BleScanCallback _api21ScanCallback;
 
+        private readonly Dictionary<string, TaskCompletionSource<bool>> _bondingTcsForAddress = new();
+
         public Adapter(BluetoothManager bluetoothManager)
         {
             _bluetoothManager = bluetoothManager;
             _bluetoothAdapter = bluetoothManager.Adapter;
 
+            //bonding
+            var bondStatusBroadcastReceiver = new BondStatusBroadcastReceiver(this);
+            Application.Context.RegisterReceiver(bondStatusBroadcastReceiver,
+                new IntentFilter(BluetoothDevice.ActionBondStateChanged));
 
-            // TODO: bonding
-            //var bondStatusBroadcastReceiver = new BondStatusBroadcastReceiver();
-            //Application.Context.RegisterReceiver(bondStatusBroadcastReceiver,
-            //    new IntentFilter(BluetoothDevice.ActionBondStateChanged));
+            //forward events from broadcast receiver
+            bondStatusBroadcastReceiver.BondStateChanged += (s, args) =>
+            {
+                HandleDeviceBondStateChanged(args);
 
-            ////forward events from broadcast receiver
-            //bondStatusBroadcastReceiver.BondStateChanged += (s, args) =>
-            //{
-            //    //DeviceBondStateChanged(this, args);
-            //};
+                if (!_bondingTcsForAddress.TryGetValue(args.Address, out var tcs))
+                {
+                    return;
+                }
+
+                if (args.State == DeviceBondState.Bonding)
+                {
+                    return;
+                }
+
+                if (args.State == DeviceBondState.Bonded)
+                {
+                    tcs.TrySetResult(true);
+                }
+
+                tcs.TrySetException(new Exception("Bonding failed."));
+            };
 
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
             {
@@ -47,6 +68,43 @@ namespace Plugin.BLE.Android
             {
                 _api18ScanCallback = new Api18BleScanCallback(this);
             }
+        }
+
+        public override Task BondAsync(IDevice device)
+        {
+            if (device == null)
+            {
+	            throw new ArgumentNullException(nameof(device));
+            }
+
+            if (!(device.NativeDevice is BluetoothDevice nativeDevice))
+            {
+	            throw new ArgumentException("Invalid device type");
+            }
+
+            if (nativeDevice.BondState == Bond.Bonded)
+            {
+	            return Task.CompletedTask;
+            }
+            
+            var deviceAddress = nativeDevice.Address!;
+            if (_bondingTcsForAddress.TryGetValue(deviceAddress, out var tcs))
+            {
+	            tcs.TrySetException(new Exception("Bonding failed on old try."));
+	            _bondingTcsForAddress.Remove(deviceAddress);
+            }
+            
+            var taskCompletionSource = new TaskCompletionSource<bool>();
+            
+            _bondingTcsForAddress.Add(nativeDevice.Address!, taskCompletionSource);
+
+            if (!nativeDevice.CreateBond())
+            {
+                _bondingTcsForAddress.Remove(nativeDevice.Address);
+                throw new Exception("Bonding failed");
+            }
+
+            return taskCompletionSource.Task;
         }
 
         protected override Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
@@ -275,6 +333,13 @@ namespace Plugin.BLE.Android
             return devices.Where(item => ids.Contains(item.Id)).ToList();
         }
 
+        protected override IReadOnlyList<IDevice> GetBondedDevices()
+        {
+            var bondedDevices = _bluetoothAdapter.BondedDevices.Where(d => d.Type == BluetoothDeviceType.Le || d.Type == BluetoothDeviceType.Dual);
+
+            return bondedDevices.Select(d => new Device(this, d, null, 0)).Cast<IDevice>().ToList();
+        }
+
         public override bool SupportsExtendedAdvertising()
         {
 #if NET6_0_OR_GREATER
@@ -391,7 +456,7 @@ namespace Plugin.BLE.Android
                     (Build.VERSION.SdkInt >= BuildVersionCodes.O)
 #endif
                     ? result.IsConnectable : true
-                ); ;
+                );
 
                 //Device device;
                 //if (result.ScanRecord.ManufacturerSpecificData.Size() > 0)
@@ -409,7 +474,6 @@ namespace Plugin.BLE.Android
                 //}
 
                 _adapter.HandleDiscoveredDevice(device);
-
             }
         }
     }
