@@ -13,6 +13,7 @@ using Plugin.BLE.Android.CallbackEventArgs;
 using Trace = Plugin.BLE.Abstractions.Trace;
 using System.Threading;
 using Java.Util;
+using Plugin.BLE.Extensions;
 using Plugin.BLE.Abstractions.Extensions;
 
 namespace Plugin.BLE.Android
@@ -35,6 +36,8 @@ namespace Plugin.BLE.Android
         /// the registration must be disposed to avoid disconnecting after a connection
         /// </summary>
         private CancellationTokenRegistration _connectCancellationTokenRegistration;
+        
+        private TaskCompletionSource<bool> _bondCompleteTaskCompletionSource;
 
         /// <summary>
         /// the connect paramaters used when connecting to this device
@@ -104,6 +107,11 @@ namespace Plugin.BLE.Android
 
         private async Task<IReadOnlyList<IService>> DiscoverServicesInternal()
         {
+	        if (_gatt == null)
+	        {
+		        Trace.Message("[Warning]: Can't discover services {0}. Gatt is null.", Name);
+	        }
+	        
             return await TaskBuilder
                 .FromEvent<IReadOnlyList<IService>, EventHandler<ServicesDiscoveredCallbackEventArgs>, EventHandler>(
                     execute: () =>
@@ -115,7 +123,14 @@ namespace Plugin.BLE.Android
                     },
                     getCompleteHandler: (complete, reject) => ((sender, args) =>
                     {
-                        complete(_gatt.Services.Select(service => new Service(service, _gatt, _gattCallback, this)).ToList());
+	                    if (_gatt.Services == null)
+	                    {
+		                    complete(new List<IService>());
+	                    }
+	                    else
+	                    {
+		                    complete(_gatt.Services.Select(service => new Service(service, _gatt, _gattCallback, this)).ToList());
+	                    }
                     }),
                     subscribeComplete: handler => _gattCallback.ServicesDiscovered += handler,
                     unsubscribeComplete: handler => _gattCallback.ServicesDiscovered -= handler,
@@ -142,6 +157,13 @@ namespace Plugin.BLE.Android
                 _connectCancellationTokenRegistration.Dispose();
                 _connectCancellationTokenRegistration = cancellationToken.Register(() => DisconnectAndClose(connectGatt));
             }
+        }
+
+        public Task BondAsync()
+        {
+            _bondCompleteTaskCompletionSource = new TaskCompletionSource<bool>();
+            NativeDevice.CreateBond();
+            return _bondCompleteTaskCompletionSource.Task;
         }
 
         private void ConnectToGattForceBleTransportAPI(bool autoconnect, CancellationToken cancellationToken)
@@ -184,8 +206,8 @@ namespace Plugin.BLE.Android
 
         private void DisconnectAndClose(BluetoothGatt gatt)
         {
-            gatt.Disconnect();
-            gatt.Close();
+            gatt?.Disconnect();
+            gatt?.Close();
         }
 
         /// <summary>
@@ -423,8 +445,8 @@ namespace Plugin.BLE.Android
             }
         }
 
-        public override bool IsConnectable { get; protected set; }
 
+        public override bool IsConnectable { get; protected set; }
 
         public override bool SupportsIsConnectable
         {
@@ -435,6 +457,15 @@ namespace Plugin.BLE.Android
                 (Build.VERSION.SdkInt >= BuildVersionCodes.O); 
 #endif
         }
-
+        
+        protected override DeviceBondState GetBondState()
+        {
+            if (NativeDevice == null)
+            {
+                Trace.Message($"[Warning]: Can't get bond state of {Name}. NativeDevice is null.");
+                return DeviceBondState.NotSupported;
+            }
+            return NativeDevice.BondState.FromNative();
+        }
     }
 }

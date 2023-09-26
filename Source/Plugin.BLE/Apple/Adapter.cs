@@ -149,6 +149,11 @@ namespace Plugin.BLE.iOS
                 };
         }
 
+        public override Task BondAsync(IDevice device)
+        {
+            throw new NotSupportedException();
+        }
+
         protected override async Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
         {
 #if NET6_0_OR_GREATER || MACCATALYST
@@ -290,6 +295,11 @@ namespace Plugin.BLE.iOS
                 ids.Select(guid => new NSUuid(guid.ToString())).ToArray());
 
             return nativeDevices.Select(d => new Device(this, d, _bleCentralManagerDelegate)).Cast<IDevice>().ToList();
+        }
+
+        protected override IReadOnlyList<IDevice> GetBondedDevices()
+        {
+            return null; // not supported
         }
 
 #if NET6_0_OR_GREATER || MACCATALYST

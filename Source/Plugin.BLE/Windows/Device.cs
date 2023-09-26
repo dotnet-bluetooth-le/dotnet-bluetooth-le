@@ -123,5 +123,10 @@ namespace Plugin.BLE.UWP
         public override bool IsConnectable { get; protected set; }
 
         public override bool SupportsIsConnectable { get => true; }
+        
+        protected override DeviceBondState GetBondState()
+        {
+            return DeviceBondState.NotSupported;
+        }
     }
 }

@@ -46,6 +46,10 @@ namespace Plugin.BLE.Abstractions
         /// </summary>
         public event EventHandler<DeviceErrorEventArgs> DeviceConnectionError;
         /// <summary>
+        /// Occurs when the bonding state of a device changed.
+        /// </summary>
+        public event EventHandler<DeviceBondStateChangedEventArgs> DeviceBondStateChanged;
+        /// <summary>
         /// Occurs when the scan has been stopped due the timeout after <see cref="ScanTimeout"/> ms.
         /// </summary>
         public event EventHandler ScanTimeoutElapsed;
@@ -70,8 +74,7 @@ namespace Plugin.BLE.Abstractions
         /// Default: <see cref="ScanMode.LowPower"/> 
         /// </summary>
         public ScanMode ScanMode { get; set; } = ScanMode.LowPower;
-
-
+        
         /// <summary>
         /// Scan match mode defines how agressively we look for adverts
         /// </summary>
@@ -96,6 +99,11 @@ namespace Plugin.BLE.Abstractions
         /// List of all connected devices.
         /// </summary>
         public IReadOnlyList<IDevice> ConnectedDevices => ConnectedDeviceRegistry.Values.ToList();
+
+        /// <summary>
+        /// List of all bonded devices (or null if the device does not support this information).
+        /// </summary>
+        public IReadOnlyList<IDevice> BondedDevices => GetBondedDevices();
 
         /// <summary>
         /// Starts scanning for BLE devices that fulfill the <paramref name="deviceFilter"/>.
@@ -326,6 +334,18 @@ namespace Plugin.BLE.Abstractions
                 ErrorMessage = errorMessage
             });
         }
+        
+        /// <inheritdoc/>
+        public abstract Task BondAsync(IDevice device);
+
+        /// <summary>
+        /// Handle bond state changed information.
+        /// </summary>
+        /// <param name="args"></param>
+        protected void HandleDeviceBondStateChanged(DeviceBondStateChangedEventArgs args)
+        {
+            DeviceBondStateChanged?.Invoke(this, args);
+        }
 
         /// <summary>
         /// Connects to a device with a known GUID without scanning and if in range. Does not scan for devices.
@@ -374,6 +394,10 @@ namespace Plugin.BLE.Abstractions
         /// Returns a list of paired BLE devices for the given UUIDs.
         /// </summary>
         public abstract IReadOnlyList<IDevice> GetKnownDevicesByIds(Guid[] ids);
+        /// <summary>
+        /// Returns all BLE device bonded to the system.
+        /// </summary>
+        protected abstract IReadOnlyList<IDevice> GetBondedDevices();
 
         /// <summary>
         /// Indicates whether extended advertising (BLE5) is supported.

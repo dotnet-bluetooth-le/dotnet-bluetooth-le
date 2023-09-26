@@ -108,7 +108,6 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <param name="interval">The requested interval (High/Low/Normal)</param>
         bool UpdateConnectionInterval(ConnectionInterval interval);
 
-
         /// <summary>
         /// Gets the information if the device has hinted during advertising that the device is connectable.
         /// This information is not pat of an advertising record. It's determined from the PDU header.
@@ -121,5 +120,10 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// True, if device supports IsConnectable else False
         /// </summary>
         bool SupportsIsConnectable { get; }
+        
+        /// <summary>
+        /// Gets the bonding state of a device.
+        /// </summary>
+        DeviceBondState BondState { get; }
     }
 }

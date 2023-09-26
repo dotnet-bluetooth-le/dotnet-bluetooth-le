@@ -20,6 +20,10 @@ namespace Plugin.BLE.Abstractions
         /// Indicates the remote device is bonded (paired),
         /// see https://developer.android.com/reference/android/bluetooth/BluetoothDevice#BOND_BONDED
         /// </summary>
-        Bonded
+        Bonded,
+        /// <summary>
+        /// Indicates that the device does not support information about the bonding state.
+        /// </summary>
+        NotSupported = -1,
     }
 }

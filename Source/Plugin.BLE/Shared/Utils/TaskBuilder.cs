@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace Plugin.BLE.Abstractions.Utils
 {
+	/// <summary>
+	/// Builder class to create event driven Tasks that may be marshalled onto the main thread.
+	/// </summary>
     public static class TaskBuilder
     {
         /// <summary>
@@ -21,6 +24,9 @@ namespace Plugin.BLE.Abstractions.Utils
 
         private static readonly SemaphoreSlim QueueSemaphore = new SemaphoreSlim(1);
 
+        /// <summary>
+        /// Creates an event driven chain of <see cref="Action">Actions</see>.
+        /// </summary>
         public static async Task<TReturn> FromEvent<TReturn, TEventHandler, TRejectHandler>(
             Action execute,
             Func<Action<TReturn>, Action<Exception>, TEventHandler> getCompleteHandler,
@@ -55,6 +61,9 @@ namespace Plugin.BLE.Abstractions.Utils
             }
         }
 
+        /// <summary>
+        /// Queues the given <see cref="Action"/> onto the main thread and executes it.
+        /// </summary>
         public static Task EnqueueOnMainThreadAsync(Action execute, CancellationToken token = default)
             => SafeEnqueueAndExecute<bool>(execute, token);
 

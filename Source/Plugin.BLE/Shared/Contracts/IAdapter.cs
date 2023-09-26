@@ -38,6 +38,10 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// </summary>
         event EventHandler<DeviceErrorEventArgs> DeviceConnectionError;
         /// <summary>
+        /// Occurs when the bonding state of a device changed
+        /// </summary>
+        event EventHandler<DeviceBondStateChangedEventArgs> DeviceBondStateChanged;
+        /// <summary>
         /// Occurs when the scan has been stopped due the timeout after <see cref="ScanTimeout"/> ms.
         /// </summary>
         event EventHandler ScanTimeoutElapsed;
@@ -75,6 +79,29 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// List of currently connected devices.
         /// </summary>
         IReadOnlyList<IDevice> ConnectedDevices { get; }
+
+        /// <summary>
+        /// Initiates a bonding request.
+        /// To establish an additional security level in the communication between server and client pairing or bonding is used.
+        /// Pairing does the key exchange and encryption/decryption for one connection between server and client.
+        /// Bonding does pairing and remembers the keys in a secure storage so that they can be used for the next connection.
+        /// You have to subscribe to Adapter.DeviceBondStateChanged to get the current state. Typically first bonding and later bonded.
+        /// Important:
+        /// On iOS: 
+        /// Initiating a bonding request is not supported by iOS. The function simply returns false.
+        /// On Android: Added in API level 19.
+        /// Android system services will handle the necessary user interactions to confirm and complete the bonding process.
+        /// For apps targeting Build.VERSION_CODES#R or lower, this requires the Manifest.permission#BLUETOOTH_ADMIN permission 
+        /// which can be gained with a simple 'uses-permission' manifest tag. For apps targeting Build.VERSION_CODES#S or or higher,
+        /// this requires the Manifest.permission#BLUETOOTH_CONNECT permission which can be gained with Activity.requestPermissions(String[], int). 
+        /// </summary>
+        public Task BondAsync(IDevice device);
+
+        /// <summary>
+        /// List of currently bonded devices.
+        /// The property is null if the OS doesn't provide this information
+        /// </summary>
+        IReadOnlyList<IDevice> BondedDevices { get; }
 
         /// <summary>
         /// Starts scanning for BLE devices that fulfill the <paramref name="deviceFilter"/>.
@@ -138,7 +165,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <param name="deviceGuid"></param>
         /// <param name="connectParameters">Connection parameters. Contains platform specific parameters needed to achieved connection. The default value is None.</param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
-        /// <returns></returns>
+        /// <returns>The connected device.</returns>
         Task<IDevice> ConnectToKnownDeviceAsync(Guid deviceGuid, ConnectParameters connectParameters = default, CancellationToken cancellationToken = default);
 
         /// <summary>
