@@ -57,7 +57,7 @@ namespace BLE.Client.WinConsole
                     Console.WriteLine(entry.Time.ToString("HH:mm:ss.fff ") + entry.Format + " ", entry.Args);
                 }
             }
-            Console.WriteLine("Bye");
+            Console.WriteLine("Bye bye says the Console Tracer.");
         }
 
         private DateTime GetTime()

@@ -46,7 +46,7 @@ public static class TextHelpers
     /// <returns></returns>
     public static string ToHexBleAddress(this Guid id)
     {
-        return id.ToString("N").Substring(20);
+        return id.ToString("N").Substring(20).ToUpperInvariant();
         //return id.ToString()[^12..].ToUpperInvariant(); //Not for netstandard2.0
     }
 
@@ -77,5 +77,31 @@ public static class TextHelpers
             .ToArray();
         macBytes.CopyTo(deviceGuid, 10);
         return new Guid(deviceGuid);
+    }
+
+    /// <summary>
+    /// Covert 12 chars hex string = 6 bytes = 48 bits to Guid used in this plugin
+    /// </summary>
+    /// <param name="macWithoutColons"></param>
+    /// <returns></returns>
+    public static Guid ToBleDeviceGuid(this string macWithoutColons)
+    {
+        macWithoutColons = macWithoutColons.PadLeft(12, '0'); //ensure valid length
+        var deviceGuid = new byte[16];
+        Array.Clear(deviceGuid, 0, 16);
+        var macBytes = Enumerable.Range(0, macWithoutColons.Length)
+            .Where(x => x % 2 == 0)
+            .Select(x => Convert.ToByte(macWithoutColons.Substring(x, 2), 16))
+            .ToArray();
+        macBytes.CopyTo(deviceGuid, 10);
+        return new Guid(deviceGuid);
+    }
+
+    public static ulong ToBleAddress(this Guid deviceGuid)
+    {
+        //convert GUID to string and take last 12 characters as MAC address
+        var guidString = deviceGuid.ToString("N").Substring(20);
+        var bluetoothAddress = Convert.ToUInt64(guidString, 16);
+        return bluetoothAddress;
     }
 }

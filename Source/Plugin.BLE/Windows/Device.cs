@@ -6,11 +6,17 @@ using Windows.Devices.Bluetooth;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Extensions;
+using System.Threading;
+using System.Collections.Concurrent;
 
 namespace Plugin.BLE.UWP
 {
     public class Device : DeviceBase<BluetoothLEDevice>
-    {
+    {                
+        private ConcurrentBag<ManualResetEvent> asyncOperations = new();
+        private readonly Mutex opMutex = new Mutex(false);
+        private readonly SemaphoreSlim opSemaphore = new SemaphoreSlim(1);
+
         public Device(Adapter adapter, BluetoothLEDevice nativeDevice, int rssi, Guid id,
             IReadOnlyList<AdvertisementRecord> advertisementRecords = null, bool isConnectable = true) 
             : base(adapter, nativeDevice) 
@@ -33,9 +39,25 @@ namespace Plugin.BLE.UWP
             //No current method to update the Rssi of a device
             //In future implementations, maybe listen for device's advertisements
 
-            Trace.Message("Request RSSI not supported in UWP");
+            Trace.Message("Request RSSI not supported in UWP");            
 
             return Task.FromResult(true);
+        }
+
+        public void DisposeNativeDevice()
+        {
+            if (NativeDevice is not null)
+            { 
+                NativeDevice.Dispose();
+                NativeDevice = null;
+            }
+        }
+
+        public async Task RecreateNativeDevice()
+        {
+            DisposeNativeDevice();
+            var bleAddress = Id.ToBleAddress();
+            NativeDevice = await BluetoothLEDevice.FromBluetoothAddressAsync(bleAddress);
         }
 
         protected override async Task<IReadOnlyList<IService>> GetServicesNativeAsync()
@@ -50,6 +72,7 @@ namespace Plugin.BLE.UWP
                 .Select(nativeService => new Service(nativeService, this))
                 .Cast<IService>()
                 .ToList() ?? new List<IService>();
+
         }
 
         protected override async Task<IService> GetServiceNativeAsync(Guid id)
@@ -63,6 +86,10 @@ namespace Plugin.BLE.UWP
 
         protected override DeviceState GetState()
         {
+            if (NativeDevice is null)
+            {
+                return DeviceState.Disconnected;
+            }
             if (NativeDevice.ConnectionStatus == BluetoothConnectionStatus.Connected)
             {
                 return DeviceState.Connected;
@@ -81,41 +108,17 @@ namespace Plugin.BLE.UWP
         {
             Trace.Message("Update Connection Interval not supported in UWP");
             return false;
-        }
+        }                
 
         public override void Dispose()
         {            
             if (NativeDevice != null)
             {
-                Trace.Message("Disposing {0} with id = {1}", Name, Id.ToString());
+                Trace.Message("Disposing {0} with name = {1}", Id.ToHexBleAddress(), Name);                
                 NativeDevice.Dispose();
-                NativeDevice = null;
+                NativeDevice = null;                
             }
-            //FreeResources(false);
         }
-
-        //internal void FreeResources(bool recreateNativeDevice = true)
-        //{
-        //    NativeDevice?.Services?.ToList().ForEach(s =>
-        //    {
-        //        s?.Service?.Session?.Dispose();
-        //        s?.Service?.Dispose();
-        //    });
-
-        //    // save these so we can re-create ObservableBluetoothLEDevice if needed
-        //    var tempDevInfo = NativeDevice?.DeviceInfo;
-        //    var tempDq = NativeDevice?.DispatcherQueue;
-
-        //    NativeDevice?.BluetoothLEDevice?.Dispose();
-
-        //    // the ObservableBluetoothLEDevice doesn't really support the BluetoothLEDevice
-        //    // being disposed so we need to recreate it.  What we really need is to be able
-        //    // to set NativeDevice?.BluetoothLEDevice = null;
-        //    if (recreateNativeDevice)
-        //        NativeDevice = new ObservableBluetoothLEDevice(tempDevInfo, tempDq);
-            
-        //    GC.Collect();
-        //}
 
         public override bool IsConnectable { get; protected set; }
 

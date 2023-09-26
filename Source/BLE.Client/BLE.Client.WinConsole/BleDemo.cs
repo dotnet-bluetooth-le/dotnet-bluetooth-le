@@ -4,6 +4,7 @@ using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.Extensions;
 using Plugin.BLE.Extensions;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,10 +19,12 @@ namespace BLE.Client.WinConsole
         private readonly IAdapter adapter;
         private readonly Action<string, object[]>? writer;
         private readonly List<IDevice> discoveredDevices;
+        private readonly IDictionary<Guid, IDevice> connectedDevices;
 
         public BleDemo(Action<string, object[]>? writer = null)
         {
             discoveredDevices = new List<IDevice>();
+            connectedDevices = new ConcurrentDictionary<Guid, IDevice>();
             bluetoothLE = CrossBluetoothLE.Current;
             adapter = CrossBluetoothLE.Current.Adapter;
             this.writer = writer;
@@ -32,10 +35,17 @@ namespace BLE.Client.WinConsole
             writer?.Invoke(format, args);
         }
 
-        public void ConnectToKnown(Guid id)
+        public IDevice ConnectToKnown(Guid id)
         {
             IDevice dev = adapter.ConnectToKnownDeviceAsync(id).Result;
-            WriteAdvertisementRecords(dev);
+            connectedDevices[id] = dev;
+            return dev;
+        }
+
+        public IDevice ConnectToKnown(string bleaddress)
+        {
+            var id = bleaddress.ToBleDeviceGuid();
+            return ConnectToKnown(id);
         }
 
         public async Task DoTheScanning(ScanMode scanMode = ScanMode.LowPower, int time_ms = 2000)
@@ -95,6 +105,11 @@ namespace BLE.Client.WinConsole
                     WriteAdvertisementRecords(device);
                 }
             }
+        }
+
+        internal Task Disconnect(IDevice dev)
+        {
+            return adapter.DisconnectDeviceAsync(dev);
         }
     }
 }

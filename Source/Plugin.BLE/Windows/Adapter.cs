@@ -17,13 +17,13 @@ namespace Plugin.BLE.UWP
 {
     public class Adapter : AdapterBase
     {        
-        private BluetoothLEAdvertisementWatcher _bleWatcher;        
+        private BluetoothLEAdvertisementWatcher _bleWatcher;
 
         /// <summary>
         /// Registry used to store device instances for pending operations : disconnect
         /// Helps to detect connection lost events.
         /// </summary>
-        private readonly IDictionary<string, IDevice> _deviceOperationRegistry = new ConcurrentDictionary<string, IDevice>();
+        private readonly IDictionary<string, IDevice> _deviceOperationRegistry = new ConcurrentDictionary<string, IDevice>();                
 
         public Adapter()
         {
@@ -65,7 +65,11 @@ namespace Plugin.BLE.UWP
 
         protected override async Task ConnectToDeviceNativeAsync(IDevice device, ConnectParameters connectParameters, CancellationToken cancellationToken)
         {
-            
+            var dev = device as Device;
+            if (dev.NativeDevice == null)
+            {
+                await dev.RecreateNativeDevice();
+            }
             var nativeDevice = device.NativeDevice as BluetoothLEDevice;
             Trace.Message("ConnectToDeviceNativeAsync {0} Named: {1} Connected: {2}", device.Id.ToHexBleAddress(), device.Name, nativeDevice.ConnectionStatus);
 
@@ -74,10 +78,13 @@ namespace Plugin.BLE.UWP
             nativeDevice.ConnectionStatusChanged -= Device_ConnectionStatusChanged;
             nativeDevice.ConnectionStatusChanged += Device_ConnectionStatusChanged;
 
-            var gattServiceResult = await nativeDevice.GetGattServicesAsync(BluetoothCacheMode.Uncached);
-                        
-            if (gattServiceResult.Status != GattCommunicationStatus.Success 
-                || nativeDevice.ConnectionStatus != BluetoothConnectionStatus.Connected)
+            // Calling the GetGattServicesAsync on the BluetoothLEDevice with uncached property causes the device to connect
+            BluetoothCacheMode restoremode = BleImplementation.CacheModeGetServices;
+            BleImplementation.CacheModeGetServices = BluetoothCacheMode.Uncached;                        
+            var services = device.GetServicesAsync(cancellationToken).Result;
+            BleImplementation.CacheModeGetServices = restoremode;
+
+            if (!services.Any() || nativeDevice.ConnectionStatus != BluetoothConnectionStatus.Connected)
             {
                 // use DisconnectDeviceNative to clean up resources otherwise windows won't disconnect the device
                 // after a subsequent successful connection (#528, #536, #423)
@@ -101,12 +108,17 @@ namespace Plugin.BLE.UWP
             else
             {
                 _deviceOperationRegistry[device.Id.ToString()] = device;
-            }
+            }            
         }
 
         private void Device_ConnectionStatusChanged(BluetoothLEDevice nativeDevice, object args)
-        {                    
-            var id = nativeDevice.BluetoothAddress.ParseDeviceId().ToString();
+        {            
+            Trace.Message("Device_ConnectionStatusChanged {0} {1} {2}",
+                nativeDevice.BluetoothAddress.ToHexBleAddress(),
+                nativeDevice.Name,
+                nativeDevice.ConnectionStatus);
+            var id = nativeDevice.BluetoothAddress.ParseDeviceId().ToString();            
+
             if (nativeDevice.ConnectionStatus == BluetoothConnectionStatus.Connected 
                 && ConnectedDeviceRegistry.TryGetValue(id, out var connectedDevice))
             {
@@ -127,26 +139,29 @@ namespace Plugin.BLE.UWP
 
                 // fire the correct event (DeviceDisconnected or DeviceConnectionLost)
                 HandleDisconnectedDevice(isNormalDisconnect, disconnectedDevice);
-            }
+                if (isNormalDisconnect)
+                {
+                    nativeDevice.ConnectionStatusChanged -= Device_ConnectionStatusChanged;
+                }
+            }            
         }
 
         protected override void DisconnectDeviceNative(IDevice device)
         {
             // Windows doesn't support disconnecting, so currently just dispose of the device
-            Trace.Message($"Disconnected from device with ID:  {device.Id}");
+            Trace.Message($"DisconnectDeviceNative from device with ID:  {device.Id.ToHexBleAddress()}");
             if (device.NativeDevice is BluetoothLEDevice nativeDevice)
-            {
-                _deviceOperationRegistry.Remove(device.Id.ToString());                
-                nativeDevice.Dispose();
-            }
+            {                
+                _deviceOperationRegistry.Remove(device.Id.ToString());
+                ((Device)device).ClearServices();
+                ((Device)device).DisposeNativeDevice();                                           
+            }            
         }
 
         public override async Task<IDevice> ConnectToKnownDeviceNativeAsync(Guid deviceGuid, ConnectParameters connectParameters = default, CancellationToken cancellationToken = default)
-        {
-            //convert GUID to string and take last 12 characters as MAC address
-            var guidString = deviceGuid.ToString("N").Substring(20);
-            var bluetoothAddress = Convert.ToUInt64(guidString, 16);
-            var nativeDevice = await BluetoothLEDevice.FromBluetoothAddressAsync(bluetoothAddress);
+        {            
+            var bleAddress = deviceGuid.ToBleAddress();            
+            var nativeDevice = await BluetoothLEDevice.FromBluetoothAddressAsync(bleAddress);
             if (nativeDevice == null)
                 throw new Abstractions.Exceptions.DeviceConnectionException(deviceGuid, "", $"[Adapter] Device {deviceGuid} not found.");
 
