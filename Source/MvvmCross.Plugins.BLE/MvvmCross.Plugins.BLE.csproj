@@ -82,7 +82,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.Contains('-windows')) ">
-		<PackageReference Include="MvvmCross" Version="9.0.1" />
+		<PackageReference Include="MvvmCross" Version="9.1.1" />
 	</ItemGroup>
 
 	<PropertyGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
@@ -93,7 +93,7 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.Contains('-android')) ">
-		<PackageReference Include="MvvmCross" Version="9.0.1" />
+		<PackageReference Include="MvvmCross" Version="9.1.1" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
@@ -105,7 +105,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.Contains('-ios')) ">
-		<PackageReference Include="MvvmCross" Version="9.0.1" />
+		<PackageReference Include="MvvmCross" Version="9.1.1" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac')) ">
@@ -113,7 +113,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.Contains('-mac')) ">
-		<PackageReference Include="MvvmCross" Version="9.0.1" />
+		<PackageReference Include="MvvmCross" Version="9.1.1" />
 	</ItemGroup>
 
 	<ItemGroup>
