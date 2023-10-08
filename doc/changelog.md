@@ -2,6 +2,11 @@
 
 ## 3.0 MAUI
 
+#### 3.0.0
+- Add support for MAUI (.NET 6 and 7), while keeping compatibility with Xamarin
+- Add support for Windows (UWP & WinUI, experimental)
+- Various improvements and bugfixes (see beta- and pre-releases)
+
 #### 3.0.0-rc.1
 - #730 Bonding on Android (fixes #690)
 - #740 Target Android 13 everywhere
