@@ -26,10 +26,14 @@ namespace Plugin.BLE
             try
             {                                
                 BluetoothAdapter btAdapter = BluetoothAdapter.GetDefaultAsync().AsTask().Result;
-                var radio = btAdapter.GetRadioAsync().AsTask().Result;
+                if (!btAdapter.IsLowEnergySupported)
+                {
+                    return BluetoothState.Unavailable;
+                }
+                var radio = btAdapter.GetRadioAsync().AsTask().Result;                
                 switch (radio.State)
                 {
-                    case RadioState.On:
+                    case RadioState.On:                        
                         return BluetoothState.On;
                     case RadioState.Off:
                         return BluetoothState.Off;                    

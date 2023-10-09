@@ -18,7 +18,7 @@ namespace Plugin.BLE.Extensions;
 /// <summary>
 /// Helper function when working with <see cref="GattProtocolError" />
 /// </summary>
-public static class GattProtocolErrorParser
+internal static class GattProtocolErrorParser
 {
     /// <summary>
     /// Helper to convert an Gatt error value into a string

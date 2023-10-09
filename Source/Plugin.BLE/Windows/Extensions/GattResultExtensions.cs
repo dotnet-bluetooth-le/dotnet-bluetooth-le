@@ -7,7 +7,7 @@ using Plugin.BLE.Abstractions.Exceptions;
 
 namespace Plugin.BLE.Extensions
 {
-    public static class GattResultExtensions
+    internal static class GattResultExtensions
     {
         public static void ThrowIfError(this GattWriteResult result, [CallerMemberName]string tag = null)
             => result.Status.ThrowIfError(tag, result.ProtocolError);
