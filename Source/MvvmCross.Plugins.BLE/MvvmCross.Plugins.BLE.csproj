@@ -4,7 +4,7 @@
 		<TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);MonoAndroid13.0;Xamarin.iOS10;Xamarin.Mac20;uap10.0.19041;net6.0-windows10.0.19041;net7.0-windows10.0.19041</TargetFrameworks>
 		<AssemblyName>MVVMCross.Plugins.BLE</AssemblyName>
 		<RootNamespace>MVVMCross.Plugins.BLE</RootNamespace>
-		<Version>3.0.0-rc.1</Version>
+		<Version>3.0.0</Version>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>
 		<Authors>Adrian Seceleanu, Sven-Michael Stübe, Janus Weil</Authors>
 		<PackageId>MvvmCross.Plugin.BLE</PackageId>
@@ -82,7 +82,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.Contains('-windows')) ">
-		<PackageReference Include="MvvmCross" Version="9.0.1" />
+		<PackageReference Include="MvvmCross" Version="9.1.1" />
 	</ItemGroup>
 
 	<PropertyGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
@@ -93,7 +93,7 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.Contains('-android')) ">
-		<PackageReference Include="MvvmCross" Version="9.0.1" />
+		<PackageReference Include="MvvmCross" Version="9.1.1" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
@@ -105,7 +105,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.Contains('-ios')) ">
-		<PackageReference Include="MvvmCross" Version="9.0.1" />
+		<PackageReference Include="MvvmCross" Version="9.1.1" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac')) ">
@@ -113,7 +113,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.Contains('-mac')) ">
-		<PackageReference Include="MvvmCross" Version="9.0.1" />
+		<PackageReference Include="MvvmCross" Version="9.1.1" />
 	</ItemGroup>
 
 	<ItemGroup>
