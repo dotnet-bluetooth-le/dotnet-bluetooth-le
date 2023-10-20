@@ -42,6 +42,8 @@ public static class MauiProgram
         builder.Services.AddSingleton<IPlatformHelpers, iOSPlatformHelpers>();
 #elif MACCATALYST
         builder.Services.AddSingleton<IPlatformHelpers, MacCatalystPlatformHelpers>();
+#elif WINDOWS
+        builder.Services.AddSingleton<IPlatformHelpers, WindowsPlatformHelpers>();
 #endif
     }
 }
