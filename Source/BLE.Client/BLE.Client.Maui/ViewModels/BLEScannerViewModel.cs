@@ -215,7 +215,8 @@ namespace BLE.Client.Maui.ViewModels
             else
             {
                 DebugMessage($"Add Device: {device.Id}");
-                BLEDevices.Add(new BLEDeviceViewModel(device));
+                vm = new BLEDeviceViewModel(device);
+                MainThread.BeginInvokeOnMainThread(() => BLEDevices.Add(vm));
                 OnPropertyChanged(nameof(BLEDevices));
             }
             DebugMessage($"Device Found: '{device.Id}' done");
