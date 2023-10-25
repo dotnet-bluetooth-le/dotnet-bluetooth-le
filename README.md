@@ -44,7 +44,9 @@ Install-Package MvvmCross.Plugin.BLE
 Install-Package MvvmCross.Plugin.BLE -Pre
 ```
 
-**Android**
+## Permissions
+
+### Android
 
 Add these permissions to AndroidManifest.xml. For Marshmallow and above, please follow [Requesting Runtime Permissions in Android Marshmallow](https://devblogs.microsoft.com/xamarin/requesting-runtime-permissions-in-android-marshmallow/) and don't forget to prompt the user for the location permission.
 
@@ -60,45 +62,46 @@ Android 12 and above may require one or more of the following additional runtime
 <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
 <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
 <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
-
 ```
-
 
 Add this line to your manifest if you want to declare that your app is available to BLE-capable devices **only**:
 ```xml
 <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
 ````
 
-**iOS**
+### iOS
 
 On iOS you must add the following keys to your `Info.plist`
 
-    <key>UIBackgroundModes</key>
-    <array>
-        <!--for connecting to devices (client)-->
-        <string>bluetooth-central</string>
+```xml
+<key>UIBackgroundModes</key>
+<array>
+    <!--for connecting to devices (client)-->
+    <string>bluetooth-central</string>
+    <!--for server configurations if needed-->
+    <string>bluetooth-peripheral</string>
+</array>
 
-        <!--for server configurations if needed-->
-        <string>bluetooth-peripheral</string>
-    </array>
+<!--Description of the Bluetooth request message (required on iOS 10, deprecated)-->
+<key>NSBluetoothPeripheralUsageDescription</key>
+<string>YOUR CUSTOM MESSAGE</string>
 
-    <!--Description of the Bluetooth request message (required on iOS 10, deprecated)-->
-    <key>NSBluetoothPeripheralUsageDescription</key>
-    <string>YOUR CUSTOM MESSAGE</string>
+<!--Description of the Bluetooth request message (required on iOS 13)-->
+<key>NSBluetoothAlwaysUsageDescription</key>
+<string>YOUR CUSTOM MESSAGE</string>
+````
 
-    <!--Description of the Bluetooth request message (required on iOS 13)-->
-    <key>NSBluetoothAlwaysUsageDescription</key>
-    <string>YOUR CUSTOM MESSAGE</string>
-
-**MacOS**
+### MacOS
 
 On MacOS (version 11 and above) you must add the following keys to your `Info.plist`:
 
-    <!--Description of the Bluetooth request message-->
-    <key>NSBluetoothAlwaysUsageDescription</key>
-    <string>YOUR CUSTOM MESSAGE</string>
+```xml
+<!--Description of the Bluetooth request message-->
+<key>NSBluetoothAlwaysUsageDescription</key>
+<string>YOUR CUSTOM MESSAGE</string>
+````
 
-**UWP**
+### UWP
 
 Add this line to the Package Manifest (.appxmanifest):
 
