@@ -8,18 +8,19 @@ using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Extensions;
 using System.Threading;
 using System.Collections.Concurrent;
+using WBluetooth = global::Windows.Devices.Bluetooth;
 
 namespace Plugin.BLE.Windows
 {
     public class Device : DeviceBase<BluetoothLEDevice>
-    {                
+    {
         private ConcurrentBag<ManualResetEvent> asyncOperations = new();
         private readonly Mutex opMutex = new Mutex(false);
         private readonly SemaphoreSlim opSemaphore = new SemaphoreSlim(1);
 
         public Device(Adapter adapter, BluetoothLEDevice nativeDevice, int rssi, Guid id,
-            IReadOnlyList<AdvertisementRecord> advertisementRecords = null, bool isConnectable = true) 
-            : base(adapter, nativeDevice) 
+            IReadOnlyList<AdvertisementRecord> advertisementRecords = null, bool isConnectable = true)
+            : base(adapter, nativeDevice)
         {
             Rssi = rssi;
             Id = id;
@@ -39,7 +40,7 @@ namespace Plugin.BLE.Windows
             //No current method to update the Rssi of a device
             //In future implementations, maybe listen for device's advertisements
 
-            Trace.Message("Request RSSI not supported in Windows");            
+            Trace.Message("Request RSSI not supported in Windows");
 
             return Task.FromResult(true);
         }
@@ -47,7 +48,7 @@ namespace Plugin.BLE.Windows
         public void DisposeNativeDevice()
         {
             if (NativeDevice is not null)
-            { 
+            {
                 NativeDevice.Dispose();
                 NativeDevice = null;
             }
@@ -93,14 +94,14 @@ namespace Plugin.BLE.Windows
             if (NativeDevice.ConnectionStatus == BluetoothConnectionStatus.Connected)
             {
                 return DeviceState.Connected;
-            }             
+            }
             return NativeDevice.WasSecureConnectionUsedForPairing ? DeviceState.Limited : DeviceState.Disconnected;
         }
 
         protected override async Task<int> RequestMtuNativeAsync(int requestValue)
         {
             var devId = BluetoothDeviceId.FromId(NativeDevice.DeviceId);
-            using var gattSession = await global::Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession.FromDeviceIdAsync(devId);
+            using var gattSession = await WBluetooth.GenericAttributeProfile.GattSession.FromDeviceIdAsync(devId);
             return gattSession.MaxPduSize;
         }
 
@@ -108,22 +109,22 @@ namespace Plugin.BLE.Windows
         {
             Trace.Message("Update Connection Interval not supported in Windows");
             return false;
-        }                
+        }
 
         public override void Dispose()
-        {            
+        {
             if (NativeDevice != null)
             {
-                Trace.Message("Disposing {0} with name = {1}", Id.ToHexBleAddress(), Name);                
+                Trace.Message("Disposing {0} with name = {1}", Id.ToHexBleAddress(), Name);
                 NativeDevice.Dispose();
-                NativeDevice = null;                
+                NativeDevice = null;
             }
         }
 
         public override bool IsConnectable { get; protected set; }
 
         public override bool SupportsIsConnectable { get => true; }
-        
+
         protected override DeviceBondState GetBondState()
         {
             return DeviceBondState.NotSupported;
