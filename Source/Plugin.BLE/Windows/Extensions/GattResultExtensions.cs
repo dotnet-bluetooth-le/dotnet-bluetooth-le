@@ -9,20 +9,19 @@ namespace Plugin.BLE.Extensions
 {
     internal static class GattResultExtensions
     {
-        public static void ThrowIfError(this GattWriteResult result, [CallerMemberName]string tag = null)
+        public static void ThrowIfError(this GattWriteResult result, [CallerMemberName] string tag = null)
             => result.Status.ThrowIfError(tag, result.ProtocolError);
 
-        public static void ThrowIfError(this GattCharacteristicsResult result, [CallerMemberName]string tag = null)
+        public static void ThrowIfError(this GattCharacteristicsResult result, [CallerMemberName] string tag = null)
             => result.Status.ThrowIfError(tag, result.ProtocolError);
 
-        public static void ThrowIfError(this GattDescriptorsResult result, [CallerMemberName]string tag = null)
+        public static void ThrowIfError(this GattDescriptorsResult result, [CallerMemberName] string tag = null)
             => result.Status.ThrowIfError(tag, result.ProtocolError);
 
-        public static void ThrowIfError(this GattDeviceServicesResult result, [CallerMemberName]string tag = null)
+        public static void ThrowIfError(this GattDeviceServicesResult result, [CallerMemberName] string tag = null)
             => result.Status.ThrowIfError(tag, result.ProtocolError);
 
-
-        public static byte[] GetValueOrThrowIfError(this GattReadResult result, [CallerMemberName]string tag = null)
+        public static byte[] GetValueOrThrowIfError(this GattReadResult result, [CallerMemberName] string tag = null)
         {
             var errorMessage = result.Status.GetErrorMessage(tag, result.ProtocolError);
             if (!string.IsNullOrEmpty(errorMessage))
@@ -33,7 +32,7 @@ namespace Plugin.BLE.Extensions
             return result.Value?.ToArray() ?? new byte[0];
         }
 
-        public static void ThrowIfError(this GattCommunicationStatus status, [CallerMemberName]string tag = null, byte? protocolError = null)
+        public static void ThrowIfError(this GattCommunicationStatus status, [CallerMemberName] string tag = null, byte? protocolError = null)
         {
             var errorMessage = status.GetErrorMessage(tag, protocolError);
             if (!string.IsNullOrEmpty(errorMessage))
@@ -43,7 +42,7 @@ namespace Plugin.BLE.Extensions
         }
 
         private static string GetErrorMessage(this GattCommunicationStatus status, string tag, byte? protocolError)
-        {            
+        {
             switch (status)
             {
                 //output trace message with status of update
