@@ -12,6 +12,7 @@ using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Extensions;
 using System.Collections.Concurrent;
 using Windows.Devices.Bluetooth.GenericAttributeProfile;
+using Windows.Devices.Enumeration;
 
 namespace Plugin.BLE.UWP
 {
@@ -210,17 +211,15 @@ namespace Plugin.BLE.UWP
         {
             var deviceId = btAdv.BluetoothAddress.ParseDeviceId();
 
-            if (DiscoveredDevicesRegistry.TryGetValue(deviceId, out var device))
+            if (DiscoveredDevicesRegistry.TryGetValue(deviceId, out var device) && device != null)
             {
-                Trace.Message("AdvertisementReceived - Old Device: {0}", btAdv.ToDetailedString());
+                Trace.Message("AdvReceived - Old: {0}", btAdv.ToDetailedString(device.Name));
                 (device as Device)?.Update(btAdv.RawSignalStrengthInDBm, ParseAdvertisementData(btAdv.Advertisement));
                 this.HandleDiscoveredDevice(device);
             }
-            else
+            if (device == null)
             {
-                Trace.Message("AdvertisementReceived - New Device: {0}", btAdv.ToDetailedString());
                 var bluetoothLeDevice = BluetoothLEDevice.FromBluetoothAddressAsync(btAdv.BluetoothAddress).AsTask().Result;
-                //var bluetoothLeDevice = await BluetoothLEDevice.FromBluetoothAddressAsync(btAdv.BluetoothAddress);
                 if (bluetoothLeDevice != null) //make sure advertisement bluetooth address actually returns a device
                 {
                     device = new Device(
@@ -230,7 +229,13 @@ namespace Plugin.BLE.UWP
                         deviceId,
                         ParseAdvertisementData(btAdv.Advertisement),
                         btAdv.IsConnectable);
+                    Trace.Message("AdvReceived - New: {0}", btAdv.ToDetailedString(device.Name));
+                    _ = DiscoveredDevicesRegistry.TryRemove(deviceId, out _);
                     this.HandleDiscoveredDevice(device);
+                }
+                else
+                {
+                    DiscoveredDevicesRegistry[deviceId] = null;
                 }
             }
         }

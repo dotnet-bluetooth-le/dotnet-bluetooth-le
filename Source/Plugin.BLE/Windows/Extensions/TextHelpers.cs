@@ -11,11 +11,12 @@ namespace Plugin.BLE.Extensions;
 
 public static class TextHelpers
 {    
-    public static string ToDetailedString(this BluetoothLEAdvertisementReceivedEventArgs btAdv)
+    public static string ToDetailedString(this BluetoothLEAdvertisementReceivedEventArgs btAdv, string name = "na")
     {
         string hexadr = btAdv.BluetoothAddress.ToHexBleAddress();
         StringBuilder sb = new StringBuilder();
         sb.Append(hexadr)
+            .Append(", ").Append(name)
             .Append(", ").Append(btAdv.BluetoothAddressType)
             .Append(", ").Append(btAdv.RawSignalStrengthInDBm)
             .Append(", ").Append(btAdv.AdvertisementType);
@@ -37,7 +38,7 @@ public static class TextHelpers
             sb.Append(", Directed");
         }
         return sb.ToString();
-    }
+    }    
 
     /// <summary>
     /// Get a string of the BLE address: 48 bit = 6 bytes = 12 Hex chars
@@ -80,7 +81,7 @@ public static class TextHelpers
     }
 
     /// <summary>
-    /// Covert 12 chars hex string = 6 bytes = 48 bits to Guid used in this plugin
+    /// Convert 12 chars hex string = 6 bytes = 48 bits to Guid used in this plugin
     /// </summary>
     /// <param name="macWithoutColons"></param>
     /// <returns></returns>
@@ -96,6 +97,14 @@ public static class TextHelpers
         macBytes.CopyTo(deviceGuid, 10);
         return new Guid(deviceGuid);
     }
+
+    public static Guid ToBleDeviceGuidFromId(this string idWithColons)
+    {
+        //example: Bluetooth#Bluetoothe4:aa:ea:cd:28:00-70:bf:92:06:e1:9e
+        var nocolons = idWithColons.Replace(":", "");
+        return ToBleDeviceGuid(nocolons.Substring(nocolons.Length-12, 12));
+    }
+
 
     public static ulong ToBleAddress(this Guid deviceGuid)
     {

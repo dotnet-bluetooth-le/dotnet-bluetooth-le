@@ -72,7 +72,7 @@ namespace BLE.Client.WinConsole
 
         }
 
-        void WriteAdvertisementRecords(IDevice device)
+        private void WriteAdvertisementRecords(IDevice device)
         {
             if (device.AdvertisementRecords is null)
             {
@@ -104,6 +104,16 @@ namespace BLE.Client.WinConsole
                     await adapter.ConnectToDeviceAsync(device);
                     WriteAdvertisementRecords(device);
                 }
+            }
+        }
+
+        public void ShowGetSystemConnectedOrPairedDevices()
+        {
+            IReadOnlyList<IDevice>  devs = adapter.GetSystemConnectedOrPairedDevices();
+            Write("GetSystemConnectedOrPairedDevices found {0} devices.", devs.Count);
+            foreach(var dev in devs)
+            {
+                Write("{0}: {1}", dev.Id.ToHexBleAddress(), dev.Name);
             }
         }
 
