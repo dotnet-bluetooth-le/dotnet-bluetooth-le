@@ -9,7 +9,7 @@ using Plugin.BLE.Extensions;
 using System.Threading;
 using System.Collections.Concurrent;
 
-namespace Plugin.BLE.UWP
+namespace Plugin.BLE.Windows
 {
     public class Device : DeviceBase<BluetoothLEDevice>
     {                
@@ -39,7 +39,7 @@ namespace Plugin.BLE.UWP
             //No current method to update the Rssi of a device
             //In future implementations, maybe listen for device's advertisements
 
-            Trace.Message("Request RSSI not supported in UWP");            
+            Trace.Message("Request RSSI not supported in Windows");            
 
             return Task.FromResult(true);
         }
@@ -100,13 +100,13 @@ namespace Plugin.BLE.UWP
         protected override async Task<int> RequestMtuNativeAsync(int requestValue)
         {
             var devId = BluetoothDeviceId.FromId(NativeDevice.DeviceId);
-            using var gattSession = await Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession.FromDeviceIdAsync(devId);
+            using var gattSession = await global::Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession.FromDeviceIdAsync(devId);
             return gattSession.MaxPduSize;
         }
 
         protected override bool UpdateConnectionIntervalNative(ConnectionInterval interval)
         {
-            Trace.Message("Update Connection Interval not supported in UWP");
+            Trace.Message("Update Connection Interval not supported in Windows");
             return false;
         }                
 

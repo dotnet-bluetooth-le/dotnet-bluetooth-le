@@ -1,7 +1,7 @@
 ﻿using Windows.Devices.Bluetooth;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
-using Plugin.BLE.UWP;
+using Plugin.BLE.Windows;
 using System;
 using System.Threading.Tasks;
 using Windows.Devices.Radios;
