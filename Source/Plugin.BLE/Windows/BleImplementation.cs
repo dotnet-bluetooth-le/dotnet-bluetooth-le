@@ -1,13 +1,10 @@
 ﻿using Windows.Devices.Bluetooth;
-#if WINDOWS_UWP
-using Microsoft.Toolkit.Uwp.Connectivity;
-#else
-using CommunityToolkit.WinUI.Connectivity;
-#endif
-
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
-using Plugin.BLE.UWP;
+using Plugin.BLE.Windows;
+using System;
+using System.Threading.Tasks;
+using Windows.Devices.Radios;
 
 namespace Plugin.BLE
 {
@@ -19,31 +16,41 @@ namespace Plugin.BLE
         public static BluetoothCacheMode CacheModeGetCharacteristics { get; set; } = BluetoothCacheMode.Cached;
         public static BluetoothCacheMode CacheModeGetServices { get; set; } = BluetoothCacheMode.Cached;
 
-        private BluetoothLEHelper _bluetoothHelper;
-
         protected override IAdapter CreateNativeAdapter()
         {
-            return new Adapter(_bluetoothHelper);
+            return new Adapter();
         }
 
         protected override BluetoothState GetInitialStateNative()
         {
-            //The only way to get the state of bluetooth through windows is by
-            //getting the radios for a device. This operation is asynchronous
-            //and thus cannot be called in this method. Thus, we are just
-            //returning "On" as long as the BluetoothLEHelper is initialized
-            if (_bluetoothHelper == null)
+            try
+            {                                
+                BluetoothAdapter btAdapter = BluetoothAdapter.GetDefaultAsync().AsTask().Result;
+                if (!btAdapter.IsLowEnergySupported)
+                {
+                    return BluetoothState.Unavailable;
+                }
+                var radio = btAdapter.GetRadioAsync().AsTask().Result;                
+                switch (radio.State)
+                {
+                    case RadioState.On:                        
+                        return BluetoothState.On;
+                    case RadioState.Off:
+                        return BluetoothState.Off;                    
+                    default:
+                        return BluetoothState.Unavailable;
+                }
+            }
+            catch (Exception ex) 
             {
+                Trace.Message("GetInitialStateNativeAsync exception:{0}", ex.Message);
                 return BluetoothState.Unavailable;
             }
-            return BluetoothState.On;
         }
 
         protected override void InitializeNative()
         {
-            //create local helper using the app context
-            var localHelper = BluetoothLEHelper.Context;
-            _bluetoothHelper = localHelper;
+            
         }
     }
 

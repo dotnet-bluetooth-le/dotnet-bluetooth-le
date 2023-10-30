@@ -6,7 +6,7 @@ using Plugin.BLE.Abstractions.Contracts;
 using Windows.Security.Cryptography;
 using Plugin.BLE.Extensions;
 
-namespace Plugin.BLE.UWP
+namespace Plugin.BLE.Windows
 {
     public class Descriptor : DescriptorBase<GattDescriptor>
     {
