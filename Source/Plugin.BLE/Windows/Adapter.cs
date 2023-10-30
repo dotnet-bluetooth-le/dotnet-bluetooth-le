@@ -10,18 +10,19 @@ using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Extensions;
 using System.Collections.Concurrent;
+using Windows.Devices.Enumeration;
 
 namespace Plugin.BLE.Windows
 {
     public class Adapter : AdapterBase
-    {        
+    {
         private BluetoothLEAdvertisementWatcher _bleWatcher;
 
         /// <summary>
         /// Registry used to store device instances for pending operations : disconnect
         /// Helps to detect connection lost events.
         /// </summary>
-        private readonly IDictionary<string, IDevice> _deviceOperationRegistry = new ConcurrentDictionary<string, IDevice>();                
+        private readonly IDictionary<string, IDevice> _deviceOperationRegistry = new ConcurrentDictionary<string, IDevice>();
 
         public Adapter()
         {
@@ -61,7 +62,7 @@ namespace Plugin.BLE.Windows
             if (_bleWatcher != null)
             {
                 Trace.Message("Stopping the scan for devices");
-                _bleWatcher.Stop();                
+                _bleWatcher.Stop();
                 _bleWatcher = null;
             }
         }
@@ -83,7 +84,7 @@ namespace Plugin.BLE.Windows
 
             // Calling the GetGattServicesAsync on the BluetoothLEDevice with uncached property causes the device to connect
             BluetoothCacheMode restoremode = BleImplementation.CacheModeGetServices;
-            BleImplementation.CacheModeGetServices = BluetoothCacheMode.Uncached;                        
+            BleImplementation.CacheModeGetServices = BluetoothCacheMode.Uncached;
             var services = device.GetServicesAsync(cancellationToken).Result;
             BleImplementation.CacheModeGetServices = restoremode;
 
@@ -111,25 +112,25 @@ namespace Plugin.BLE.Windows
             else
             {
                 _deviceOperationRegistry[device.Id.ToString()] = device;
-            }            
+            }
         }
 
         private void Device_ConnectionStatusChanged(BluetoothLEDevice nativeDevice, object args)
-        {            
+        {
             Trace.Message("Device_ConnectionStatusChanged {0} {1} {2}",
                 nativeDevice.BluetoothAddress.ToHexBleAddress(),
                 nativeDevice.Name,
                 nativeDevice.ConnectionStatus);
-            var id = nativeDevice.BluetoothAddress.ParseDeviceId().ToString();            
+            var id = nativeDevice.BluetoothAddress.ParseDeviceId().ToString();
 
-            if (nativeDevice.ConnectionStatus == BluetoothConnectionStatus.Connected 
+            if (nativeDevice.ConnectionStatus == BluetoothConnectionStatus.Connected
                 && ConnectedDeviceRegistry.TryGetValue(id, out var connectedDevice))
             {
                 HandleConnectedDevice(connectedDevice);
                 return;
             }
 
-            if (nativeDevice.ConnectionStatus == BluetoothConnectionStatus.Disconnected 
+            if (nativeDevice.ConnectionStatus == BluetoothConnectionStatus.Disconnected
                 && ConnectedDeviceRegistry.TryRemove(id, out var disconnectedDevice))
             {
                 bool isNormalDisconnect = !_deviceOperationRegistry.Remove(disconnectedDevice.Id.ToString());
@@ -146,7 +147,7 @@ namespace Plugin.BLE.Windows
                 {
                     nativeDevice.ConnectionStatusChanged -= Device_ConnectionStatusChanged;
                 }
-            }            
+            }
         }
 
         protected override void DisconnectDeviceNative(IDevice device)
@@ -154,16 +155,16 @@ namespace Plugin.BLE.Windows
             // Windows doesn't support disconnecting, so currently just dispose of the device
             Trace.Message($"DisconnectDeviceNative from device with ID:  {device.Id.ToHexBleAddress()}");
             if (device.NativeDevice is BluetoothLEDevice nativeDevice)
-            {                
+            {
                 _deviceOperationRegistry.Remove(device.Id.ToString());
                 ((Device)device).ClearServices();
-                ((Device)device).DisposeNativeDevice();                                           
-            }            
+                ((Device)device).DisposeNativeDevice();
+            }
         }
 
         public override async Task<IDevice> ConnectToKnownDeviceNativeAsync(Guid deviceGuid, ConnectParameters connectParameters = default, CancellationToken cancellationToken = default)
-        {            
-            var bleAddress = deviceGuid.ToBleAddress();            
+        {
+            var bleAddress = deviceGuid.ToBleAddress();
             var nativeDevice = await BluetoothLEDevice.FromBluetoothAddressAsync(bleAddress);
             if (nativeDevice == null)
                 throw new Abstractions.Exceptions.DeviceConnectionException(deviceGuid, "", $"[Adapter] Device {deviceGuid} not found.");
@@ -176,10 +177,35 @@ namespace Plugin.BLE.Windows
 
         public override IReadOnlyList<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null)
         {
-            //currently no way to retrieve paired and connected devices on windows without using an
-            //async method. 
-            Trace.Message("Returning devices connected by this app only");
-            return ConnectedDevices;
+            string pairedSelector = BluetoothDevice.GetDeviceSelectorFromPairingState(true);
+            DeviceInformationCollection pairedDevices = DeviceInformation.FindAllAsync(pairedSelector).GetAwaiter().GetResult();
+            List<IDevice> devlist = ConnectedDevices.ToList();
+            List<Guid> ids = ConnectedDevices.Select(d => d.Id).ToList();
+            foreach (var dev in pairedDevices)
+            {
+                Guid id = dev.Id.ToBleDeviceGuidFromId();
+                ulong bleaddress = id.ToBleAddress();
+                if (!ids.Contains(id))
+                {
+                    var bluetoothLeDevice = BluetoothLEDevice.FromBluetoothAddressAsync(bleaddress).AsTask().Result;
+                    if (bluetoothLeDevice != null)
+                    {
+                        var device = new Device(
+                            this,
+                            bluetoothLeDevice,
+                            0, id);
+                        devlist.Add(device);
+                        ids.Add(id);
+                        Trace.Message("GetSystemConnectedOrPairedDevices: {0}: {1}", dev.Id, dev.Name);
+                    }
+                    else
+                    {
+                        Trace.Message("GetSystemConnectedOrPairedDevices: {0}: {1}, BluetoothLEDevice == null", dev.Id, dev.Name);
+                    }
+
+                }
+            }
+            return devlist;
         }
 
         protected override IReadOnlyList<IDevice> GetBondedDevices()
