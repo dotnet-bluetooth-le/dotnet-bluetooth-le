@@ -75,13 +75,11 @@
 	</ItemGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
-		<Compile Include="**\Windows\**\*.cs" />
-		<PackageReference Include="Microsoft.Toolkit.Uwp.Connectivity" Version="7.1.3" />
+		<Compile Include="**\Windows\**\*.cs" />		
 	</ItemGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.Contains('-windows')) ">
-		<Compile Include="**\Windows\**\*.cs" />
-		<PackageReference Include="CommunityToolkit.WinUI.Connectivity" Version="7.1.2" />
+		<Compile Include="**\Windows\**\*.cs" />		
 	</ItemGroup>
 
 	<PropertyGroup Condition=" $(TargetFramework.Contains('-android')) ">

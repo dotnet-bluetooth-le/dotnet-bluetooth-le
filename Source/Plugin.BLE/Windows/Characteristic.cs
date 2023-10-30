@@ -11,7 +11,7 @@ using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Extensions;
 
-namespace Plugin.BLE.UWP
+namespace Plugin.BLE.Windows
 {
     public class Characteristic : CharacteristicBase<GattCharacteristic>
     {
