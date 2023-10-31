@@ -50,7 +50,7 @@ namespace Plugin.BLE.Windows
         protected override async Task<(byte[] data, int resultCode)> ReadNativeAsync()
         {
             var readResult = await NativeCharacteristic.ReadValueAsync(BleImplementation.CacheModeCharacteristicRead);
-            var _value = readResult.GetValueOrThrowIfError();
+            _value = readResult.GetValueOrThrowIfError();
             return (_value, (int)readResult.Status);
         }
 
