@@ -16,7 +16,7 @@ Build status: [![Build status](https://github.com/dotnet-bluetooth-le/dotnet-blu
 | Xamarin.iOS     | 7.0               |             |
 | Xamarin.Mac     | 10.9 (Mavericks)  | >= 2.1.0    |
 | Xamarin.UWP     | 1709 - 10.0.16299 | >= 2.2.0    |
-| MAUI (all 4 OS) |                   | >= 3.0.0    |
+| MAUI (Android, iOS, Mac, WinUI) |   | >= 3.0.0    |
 
 ## Nuget Packages
 

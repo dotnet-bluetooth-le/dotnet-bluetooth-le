@@ -14,14 +14,13 @@
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 		<Owners>Adrian Seceleanu, Sven-Michael Stübe, Janus Weil</Owners>
 		<PackageProjectUrl>https://github.com/dotnet-bluetooth-le/dotnet-bluetooth-le/</PackageProjectUrl>
-		<Summary>Plugin to access Bluetooth Low Energy functionality on Android, iOS, macOS, and UWP.</Summary>
+		<Summary>Plugin to access Bluetooth Low Energy functionality on Android, iOS, macOS, and Windows.</Summary>
 		<PackageTags>
-			xamarin, maui, pcl, xam.pcl, uwp, bluetooth, ble, .net maui, xamarin.forms, ios
+			xamarin, maui, pcl, xam.pcl, bluetooth, ble, .net maui, xamarin.forms, android, ios
 		</PackageTags>
 		<Title>Bluetooth Low Energy (BLE) Plugin for .NET MAUI and Xamarin</Title>
 		<Description>
-			Xamarin and MAUI plugin to access Bluetooth Low Energy functionality on Android, iOS, macOS, and UWP.
-			Read the full documentation on the projects page.
+			Xamarin and MAUI plugin to access Bluetooth Low Energy functionality on Android, iOS, macOS, and Windows.
 		</Description>
 		<Copyright>Apache-2.0</Copyright>
 		<RepositoryUrl>https://github.com/dotnet-bluetooth-le/dotnet-bluetooth-le/</RepositoryUrl>

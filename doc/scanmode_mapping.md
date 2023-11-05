@@ -5,7 +5,7 @@
     <th>Value</th>
     <th>iOS/macOS</th>
     <th>Android</th>
-    <th>UWP</th>
+    <th>Windows</th>
   </tr>
   <tr>
     <td>Passive</td>
@@ -33,4 +33,4 @@
 
 - iOS: Not supported. [Passive Mode will be used automatically in background mode](https://lists.apple.com/archives/bluetooth-dev/2012/May/msg00041.html) (caution: very old information!))
 - Android: [ScanSettings](https://developer.android.com/reference/android/bluetooth/le/ScanSettings.html). Falls back to system default for all scan modes, if Android < Lollipop.
-- UWP: [BluetoothLEScanningMode](https://docs.microsoft.com/en-us/uwp/api/windows.devices.bluetooth.advertisement.bluetoothlescanningmode)
+- Windows: [BluetoothLEScanningMode](https://docs.microsoft.com/en-us/uwp/api/windows.devices.bluetooth.advertisement.bluetoothlescanningmode)

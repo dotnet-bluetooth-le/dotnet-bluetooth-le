@@ -18,7 +18,7 @@ namespace Plugin.BLE.Abstractions.Utils
         /// Platform specific main thread invocation. Useful to avoid GATT 133 errors on Android.
         /// Set this to NULL in order to disable main thread queued invocations.
         /// Android: already implemented and set by default
-        /// UWP, iOS, macOS: NULL by default - not needed, turning this on is redundant as it's already handled internaly by the platform
+        /// Windows, iOS, macOS: NULL by default - not needed, turning this on is redundant as it's already handled internaly by the platform
         /// </summary>
         public static Action<Action> MainThreadInvoker { get; set; }
 

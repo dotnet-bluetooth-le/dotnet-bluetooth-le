@@ -7,7 +7,7 @@
     <td>Plugin</td>
     <td>iOS</td>
     <td>Android</td>
-    <td>UWP</td>
+    <td>Windows</td>
   </tr>
   <tr>
     <td>0</td>
@@ -66,10 +66,10 @@
   </tr>
 </table>
 
-Specification: [Core 4.2 Vol.3 3.3.1.1](https://www.bluetooth.org/DocMan/handlers/DownloadDoc.ashx?doc_id=286439)
-UWP: [GattCharacteristicProperties](https://msdn.microsoft.com/en-in/library/windows/apps/windows.devices.bluetooth.genericattributeprofile.gattcharacteristicproperties)
-Android: [GattProperty](https://developer.xamarin.com/api/type/Android.Bluetooth.GattProperty/)
-iOS: [CBCharacteristicProperties](https://developer.apple.com/library/ios/documentation/CoreBluetooth/Reference/CBCharacteristic_Class/#//apple_ref/c/tdef/CBCharacteristicProperties)
+- Specification: [Core 4.2 Vol.3 3.3.1.1](https://www.bluetooth.org/DocMan/handlers/DownloadDoc.ashx?doc_id=286439)
+- Windows: [GattCharacteristicProperties](https://msdn.microsoft.com/en-in/library/windows/apps/windows.devices.bluetooth.genericattributeprofile.gattcharacteristicproperties)
+- Android: [GattProperty](https://developer.xamarin.com/api/type/Android.Bluetooth.GattProperty/)
+- iOS: [CBCharacteristicProperties](https://developer.apple.com/library/ios/documentation/CoreBluetooth/Reference/CBCharacteristic_Class/#//apple_ref/c/tdef/CBCharacteristicProperties)
 
 From 1 to 128 all platforms are using the values from the specification.
-iOS and UWP are using the values 256, and 512. On UWP they are mapped to extended properties (Core 4.2 §3.3.3.1). iOS is using it for non standard (4.2) values.  
+iOS and Windows are using the values 256, and 512. On Windows they are mapped to extended properties (Core 4.2 §3.3.3.1). iOS is using it for non standard (4.2) values.  
