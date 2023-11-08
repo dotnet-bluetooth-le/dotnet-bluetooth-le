@@ -166,6 +166,11 @@ namespace Plugin.BLE.Abstractions
         SecureConnectionsRandomValue = 0x23,
 
         /// <summary>
+        /// «Broadcast Name»   Public Broadcast Profile v1.0 or later
+        /// </summary>
+        BroadcastName = 0x30,
+
+        /// <summary>
         /// «3D Information Data»	​3D Synchronization Profile, v1.0 or later
         /// </summary>
         Information3DData = 0x3D,
