@@ -11,6 +11,7 @@ using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Extensions;
 using System.Collections.Concurrent;
 using Windows.Devices.Enumeration;
+using WBluetooth = global::Windows.Devices.Bluetooth;
 
 namespace Plugin.BLE.Windows
 {
@@ -83,12 +84,9 @@ namespace Plugin.BLE.Windows
             nativeDevice.ConnectionStatusChanged += Device_ConnectionStatusChanged;
 
             // Calling the GetGattServicesAsync on the BluetoothLEDevice with uncached property causes the device to connect
-            BluetoothCacheMode restoremode = BleImplementation.CacheModeGetServices;
-            BleImplementation.CacheModeGetServices = BluetoothCacheMode.Uncached;
-            var services = device.GetServicesAsync(cancellationToken).Result;
-            BleImplementation.CacheModeGetServices = restoremode;
-
-            if (!services.Any() || nativeDevice.ConnectionStatus != BluetoothConnectionStatus.Connected)
+            var servicesResult = await dev.NativeDevice.GetGattServicesAsync(BluetoothCacheMode.Uncached);
+            if (servicesResult.Status != WBluetooth.GenericAttributeProfile.GattCommunicationStatus.Success
+                || nativeDevice.ConnectionStatus != BluetoothConnectionStatus.Connected)
             {
                 // use DisconnectDeviceNative to clean up resources otherwise windows won't disconnect the device
                 // after a subsequent successful connection (#528, #536, #423)
