@@ -35,7 +35,8 @@ namespace Plugin.BLE.Abstractions.Utils
             Func<Action<Exception>, TRejectHandler> getRejectHandler,
             Action<TRejectHandler> subscribeReject,
             Action<TRejectHandler> unsubscribeReject,
-            CancellationToken token = default)
+            CancellationToken token = default,
+            bool mainthread = true)
         {
             var tcs = new TaskCompletionSource<TReturn>();
             void Complete(TReturn args) => tcs.TrySetResult(args);
@@ -51,7 +52,7 @@ namespace Plugin.BLE.Abstractions.Utils
                 subscribeReject(rejectHandler);
                 using (token.Register(() => tcs.TrySetCanceled(), false))
                 {
-                    return await SafeEnqueueAndExecute(execute, token, tcs);
+                    return await SafeEnqueueAndExecute(execute, token, tcs, mainthread);
                 }
             }
             finally
@@ -64,13 +65,13 @@ namespace Plugin.BLE.Abstractions.Utils
         /// <summary>
         /// Queues the given <see cref="Action"/> onto the main thread and executes it.
         /// </summary>
-        public static Task EnqueueOnMainThreadAsync(Action execute, CancellationToken token = default)
-            => SafeEnqueueAndExecute<bool>(execute, token);
+        public static Task EnqueueOnMainThreadAsync(Action execute, CancellationToken token = default, bool mainthread = true)
+            => SafeEnqueueAndExecute<bool>(execute, token, mainthread: mainthread);
 
 
-        private static async Task<TReturn> SafeEnqueueAndExecute<TReturn>(Action execute, CancellationToken token, TaskCompletionSource<TReturn> tcs = null)
+        private static async Task<TReturn> SafeEnqueueAndExecute<TReturn>(Action execute, CancellationToken token, TaskCompletionSource<TReturn> tcs = null, bool mainthread = true)
         {
-            if (MainThreadInvoker != null)
+            if (MainThreadInvoker != null && mainthread)
             {
                 var shouldReleaseSemaphore = false;
                 var shouldCompleteTask = tcs == null;

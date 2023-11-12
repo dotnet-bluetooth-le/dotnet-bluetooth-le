@@ -218,7 +218,7 @@ namespace Plugin.BLE.Abstractions
 
                     subscribeReject: handler => DeviceConnectionError += handler,
                     unsubscribeReject: handler => DeviceConnectionError -= handler,
-                    token: cts.Token);
+                    token: cts.Token, mainthread: false);
             }
         }
 
