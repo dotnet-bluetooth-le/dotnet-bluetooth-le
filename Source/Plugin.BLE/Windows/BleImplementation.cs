@@ -30,22 +30,33 @@ namespace Plugin.BLE
                 {
                     return BluetoothState.Unavailable;
                 }
-                var radio = btAdapter.GetRadioAsync().AsTask().Result;                
-                switch (radio.State)
-                {
-                    case RadioState.On:                        
-                        return BluetoothState.On;
-                    case RadioState.Off:
-                        return BluetoothState.Off;                    
-                    default:
-                        return BluetoothState.Unavailable;
-                }
+                var radio = btAdapter.GetRadioAsync().AsTask().Result;
+                radio.StateChanged += Radio_StateChanged;
+                return ToBluetoothState(radio.State);
             }
             catch (Exception ex) 
             {
                 Trace.Message("GetInitialStateNativeAsync exception:{0}", ex.Message);
                 return BluetoothState.Unavailable;
             }
+        }
+
+        private static BluetoothState ToBluetoothState(RadioState radioState)
+        {
+            switch (radioState)
+            {
+                case RadioState.On:
+                    return BluetoothState.On;
+                case RadioState.Off:
+                    return BluetoothState.Off;
+                default:
+                    return BluetoothState.Unavailable;
+            }
+        }
+
+        private void Radio_StateChanged(Radio radio, object args)
+        {
+            State = ToBluetoothState(radio.State);
         }
 
         protected override void InitializeNative()
