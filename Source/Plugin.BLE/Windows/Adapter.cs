@@ -84,11 +84,21 @@ namespace Plugin.BLE.Windows
             nativeDevice.ConnectionStatusChanged += Device_ConnectionStatusChanged;
 
             // Calling the GetGattServicesAsync on the BluetoothLEDevice with uncached property causes the device to connect
+            //
             // ref https://learn.microsoft.com/en-us/uwp/api/windows.devices.bluetooth.bluetoothledevice.frombluetoothaddressasync
             // Creating a BluetoothLEDevice object by calling this method alone doesn't (necessarily) initiate a connection.
             // To initiate a connection, set GattSession.MaintainConnection to true, or call an uncached service discovery
             // method on BluetoothLEDevice, or perform a read/write operation against the device.
+            //
+            // Remark from Ask Bojesen 2023-11-12:
+            // Below three lines reflect the different approach with GattSession, but I could not get this working properly 
+            //
+            // var deviceId = BluetoothDeviceId.FromId(dev.NativeDevice.DeviceId);            
+            // var genericProfileGattSession = await GattSession.FromDeviceIdAsync(deviceId);            
+            // bool success = genericProfileGattSession.MaintainConnection = true;
+
             var servicesResult = await dev.NativeDevice.GetGattServicesAsync(BluetoothCacheMode.Uncached);
+
             if (servicesResult.Status != WBluetooth.GenericAttributeProfile.GattCommunicationStatus.Success
                 || nativeDevice.ConnectionStatus != BluetoothConnectionStatus.Connected)
             {
