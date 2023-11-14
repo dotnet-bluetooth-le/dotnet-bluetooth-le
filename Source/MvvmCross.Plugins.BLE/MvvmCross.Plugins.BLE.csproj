@@ -52,6 +52,11 @@
 		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="$(TargetFramework.Contains('-windows10'))">
+		<RuntimeIdentifiers>win10-x64;win10-x86;win10-arm64</RuntimeIdentifiers>
+		<UseRidGraph>true</UseRidGraph>
+	</PropertyGroup>
+
 	<ItemGroup Condition=" '$(Configuration)'=='Release' And '$(OS)' == 'Windows_NT' ">
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
 			<PrivateAssets>all</PrivateAssets>
