@@ -117,7 +117,11 @@ namespace Plugin.BLE.Windows
         }
 
         public async Task<bool> ConnectInternal(ConnectParameters connectParameters, CancellationToken cancellationToken)
-        {            
+        {
+            // ref https://learn.microsoft.com/en-us/uwp/api/windows.devices.bluetooth.bluetoothledevice.frombluetoothaddressasync
+            // Creating a BluetoothLEDevice object by calling this method alone doesn't (necessarily) initiate a connection.
+            // To initiate a connection, set GattSession.MaintainConnection to true, or call an uncached service discovery
+            // method on BluetoothLEDevice, or perform a read/write operation against the device.            
             this.connectParameters = connectParameters;
             if (NativeDevice is null)
             {
@@ -127,7 +131,7 @@ namespace Plugin.BLE.Windows
             try
             {
                 var devId = BluetoothDeviceId.FromId(NativeDevice.DeviceId);
-                gattSession = await WBluetooth.GenericAttributeProfile.GattSession.FromDeviceIdAsync(devId);                
+                gattSession = await GattSession.FromDeviceIdAsync(devId);                
                 gattSession.SessionStatusChanged += GattSession_SessionStatusChanged;
                 gattSession.MaintainConnection = true;
             } catch (Exception ex)
