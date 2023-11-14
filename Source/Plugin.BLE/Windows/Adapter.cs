@@ -97,10 +97,11 @@ namespace Plugin.BLE.Windows
             // var genericProfileGattSession = await GattSession.FromDeviceIdAsync(deviceId);            
             // bool success = genericProfileGattSession.MaintainConnection = true;
 
-            var servicesResult = await dev.NativeDevice.GetGattServicesAsync(BluetoothCacheMode.Uncached);
+            //var servicesResult = await dev.NativeDevice.GetGattServicesAsync(BluetoothCacheMode.Uncached);
+            //bool success = servicesResult.Status == WBluetooth.GenericAttributeProfile.GattCommunicationStatus.Success;
+            bool success = await dev.ConnectInternal(connectParameters, cancellationToken);
 
-            if (servicesResult.Status != WBluetooth.GenericAttributeProfile.GattCommunicationStatus.Success
-                || nativeDevice.ConnectionStatus != BluetoothConnectionStatus.Connected)
+            if (!success)            
             {
                 // use DisconnectDeviceNative to clean up resources otherwise windows won't disconnect the device
                 // after a subsequent successful connection (#528, #536, #423)
@@ -165,12 +166,11 @@ namespace Plugin.BLE.Windows
         protected override void DisconnectDeviceNative(IDevice device)
         {
             // Windows doesn't support disconnecting, so currently just dispose of the device
-            Trace.Message($"DisconnectDeviceNative from device with ID:  {device.Id.ToHexBleAddress()}");
+            Trace.Message($"DisconnectDeviceNative from device with ID:  {device.Id.ToHexBleAddress()}");            
             if (device.NativeDevice is BluetoothLEDevice nativeDevice)
             {
                 _deviceOperationRegistry.Remove(device.Id.ToString());
-                ((Device)device).ClearServices();
-                ((Device)device).DisposeNativeDevice();
+                ((Device)device).DisconnectInternal();
             }
         }
 

@@ -9,6 +9,8 @@ using Plugin.BLE.Extensions;
 using System.Threading;
 using System.Collections.Concurrent;
 using WBluetooth = global::Windows.Devices.Bluetooth;
+using static System.Net.Mime.MediaTypeNames;
+using Windows.Devices.Bluetooth.GenericAttributeProfile;
 
 namespace Plugin.BLE.Windows
 {
@@ -17,6 +19,9 @@ namespace Plugin.BLE.Windows
         private ConcurrentBag<ManualResetEvent> asyncOperations = new();
         private readonly Mutex opMutex = new Mutex(false);
         private readonly SemaphoreSlim opSemaphore = new SemaphoreSlim(1);
+        private ConnectParameters connectParameters;
+        private GattSession gattSession = null;
+        private bool isDisposed = false;
 
         public Device(Adapter adapter, BluetoothLEDevice nativeDevice, int rssi, Guid id,
             IReadOnlyList<AdvertisementRecord> advertisementRecords = null, bool isConnectable = true)
@@ -101,7 +106,7 @@ namespace Plugin.BLE.Windows
         protected override async Task<int> RequestMtuNativeAsync(int requestValue)
         {
             var devId = BluetoothDeviceId.FromId(NativeDevice.DeviceId);
-            using var gattSession = await WBluetooth.GenericAttributeProfile.GattSession.FromDeviceIdAsync(devId);
+            using var gattSession = await WBluetooth.GenericAttributeProfile.GattSession.FromDeviceIdAsync(devId);            
             return gattSession.MaxPduSize;
         }
 
@@ -111,14 +116,72 @@ namespace Plugin.BLE.Windows
             return false;
         }
 
+        public async Task<bool> ConnectInternal(ConnectParameters connectParameters, CancellationToken cancellationToken)
+        {            
+            this.connectParameters = connectParameters;
+            if (NativeDevice is null)
+            {
+                Trace.Message("ConnectInternal says: Cannot connect since NativeDevice is null");
+                return false;
+            }
+            try
+            {
+                var devId = BluetoothDeviceId.FromId(NativeDevice.DeviceId);
+                gattSession = await WBluetooth.GenericAttributeProfile.GattSession.FromDeviceIdAsync(devId);                
+                gattSession.SessionStatusChanged += GattSession_SessionStatusChanged;
+                gattSession.MaintainConnection = true;
+            } catch (Exception ex)
+            {
+                Trace.Message("WARNING ConnectInternal failed: {0}", ex.Message);
+                DisposeGattSession();
+                return false;
+            }
+            bool success = gattSession != null;
+            return success;
+        }
+
+        private void DisposeGattSession()
+        {
+            if (gattSession != null)
+            {
+                gattSession.MaintainConnection = false;
+                gattSession.SessionStatusChanged -= GattSession_SessionStatusChanged;
+                gattSession.Dispose();
+                gattSession = null;
+            }
+        }
+
+        private void GattSession_SessionStatusChanged(GattSession sender, GattSessionStatusChangedEventArgs args)
+        {
+            Trace.Message("GattSession_SessionStatusChanged: " + args.Status);
+        }
+
+        public void DisconnectInternal()
+        {
+            DisposeGattSession();
+            ClearServices();
+            DisposeNativeDevice();
+        }
+
         public override void Dispose()
         {
-            if (NativeDevice != null)
+            if (isDisposed)
             {
-                Trace.Message("Disposing {0} with name = {1}", Id.ToHexBleAddress(), Name);
-                NativeDevice.Dispose();
-                NativeDevice = null;
+                return;
             }
+            isDisposed = true;
+            try
+            {
+                DisposeGattSession();
+                ClearServices();
+                DisposeNativeDevice();
+            }
+            catch { }
+        }
+
+        ~Device() 
+        { 
+            DisposeGattSession(); 
         }
 
         public override bool IsConnectable { get; protected set; }
