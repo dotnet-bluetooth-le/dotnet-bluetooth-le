@@ -110,7 +110,7 @@ namespace Plugin.BLE.Windows
             if (gattSession is null)
             {
                 Trace.Message("WARNING RequestMtuNativeAsync failed since gattSession is null");
-                return -1; 
+                return -1;
             }
             return gattSession.MaxPduSize;
         }
