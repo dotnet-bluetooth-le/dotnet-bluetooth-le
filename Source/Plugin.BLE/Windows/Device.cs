@@ -9,6 +9,8 @@ using Plugin.BLE.Extensions;
 using System.Threading;
 using System.Collections.Concurrent;
 using WBluetooth = global::Windows.Devices.Bluetooth;
+using static System.Net.Mime.MediaTypeNames;
+using Windows.Devices.Bluetooth.GenericAttributeProfile;
 
 namespace Plugin.BLE.Windows
 {
@@ -17,6 +19,9 @@ namespace Plugin.BLE.Windows
         private ConcurrentBag<ManualResetEvent> asyncOperations = new();
         private readonly Mutex opMutex = new Mutex(false);
         private readonly SemaphoreSlim opSemaphore = new SemaphoreSlim(1);
+        private ConnectParameters connectParameters;
+        private GattSession gattSession = null;
+        private bool isDisposed = false;
 
         public Device(Adapter adapter, BluetoothLEDevice nativeDevice, int rssi, Guid id,
             IReadOnlyList<AdvertisementRecord> advertisementRecords = null, bool isConnectable = true)
@@ -100,8 +105,13 @@ namespace Plugin.BLE.Windows
 
         protected override async Task<int> RequestMtuNativeAsync(int requestValue)
         {
-            var devId = BluetoothDeviceId.FromId(NativeDevice.DeviceId);
-            using var gattSession = await WBluetooth.GenericAttributeProfile.GattSession.FromDeviceIdAsync(devId);
+            // Ref https://learn.microsoft.com/en-us/uwp/api/windows.devices.bluetooth.genericattributeprofile.gattsession.maxpdusize
+            // There are no means in windows to request a change, but we can read the current value
+            if (gattSession is null)
+            {
+                Trace.Message("WARNING RequestMtuNativeAsync failed since gattSession is null");
+                return -1;
+            }
             return gattSession.MaxPduSize;
         }
 
@@ -111,14 +121,83 @@ namespace Plugin.BLE.Windows
             return false;
         }
 
+        public async Task<bool> ConnectInternal(ConnectParameters connectParameters, CancellationToken cancellationToken)
+        {
+            // ref https://learn.microsoft.com/en-us/uwp/api/windows.devices.bluetooth.bluetoothledevice.frombluetoothaddressasync
+            // Creating a BluetoothLEDevice object by calling this method alone doesn't (necessarily) initiate a connection.
+            // To initiate a connection, set GattSession.MaintainConnection to true, or call an uncached service discovery
+            // method on BluetoothLEDevice, or perform a read/write operation against the device.            
+            this.connectParameters = connectParameters;
+            if (NativeDevice is null)
+            {
+                Trace.Message("ConnectInternal says: Cannot connect since NativeDevice is null");
+                return false;
+            }
+            try
+            {
+                var devId = BluetoothDeviceId.FromId(NativeDevice.DeviceId);
+                gattSession = await GattSession.FromDeviceIdAsync(devId);
+                gattSession.SessionStatusChanged += GattSession_SessionStatusChanged;
+                gattSession.MaxPduSizeChanged += GattSession_MaxPduSizeChanged;
+                gattSession.MaintainConnection = true;
+            }
+            catch (Exception ex)
+            {
+                Trace.Message("WARNING ConnectInternal failed: {0}", ex.Message);
+                DisposeGattSession();
+                return false;
+            }
+            bool success = gattSession != null;
+            return success;
+        }
+
+        private void DisposeGattSession()
+        {
+            if (gattSession != null)
+            {
+                gattSession.MaintainConnection = false;
+                gattSession.SessionStatusChanged -= GattSession_SessionStatusChanged;
+                gattSession.Dispose();
+                gattSession = null;
+            }
+        }
+
+        private void GattSession_SessionStatusChanged(GattSession sender, GattSessionStatusChangedEventArgs args)
+        {
+            Trace.Message("GattSession_SessionStatusChanged: " + args.Status);
+        }
+
+        private void GattSession_MaxPduSizeChanged(GattSession sender, object args)
+        {
+            Trace.Message("GattSession_MaxPduSizeChanged: {0}", sender.MaxPduSize);
+        }
+
+        public void DisconnectInternal()
+        {
+            DisposeGattSession();
+            ClearServices();
+            DisposeNativeDevice();
+        }
+
         public override void Dispose()
         {
-            if (NativeDevice != null)
+            if (isDisposed)
             {
-                Trace.Message("Disposing {0} with name = {1}", Id.ToHexBleAddress(), Name);
-                NativeDevice.Dispose();
-                NativeDevice = null;
+                return;
             }
+            isDisposed = true;
+            try
+            {
+                DisposeGattSession();
+                ClearServices();
+                DisposeNativeDevice();
+            }
+            catch { }
+        }
+
+        ~Device()
+        {
+            DisposeGattSession();
         }
 
         public override bool IsConnectable { get; protected set; }

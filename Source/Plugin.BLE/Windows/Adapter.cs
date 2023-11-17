@@ -82,13 +82,9 @@ namespace Plugin.BLE.Windows
             nativeDevice.ConnectionStatusChanged -= Device_ConnectionStatusChanged;
             nativeDevice.ConnectionStatusChanged += Device_ConnectionStatusChanged;
 
-            // Calling the GetGattServicesAsync on the BluetoothLEDevice with uncached property causes the device to connect
-            BluetoothCacheMode restoremode = BleImplementation.CacheModeGetServices;
-            BleImplementation.CacheModeGetServices = BluetoothCacheMode.Uncached;
-            var services = device.GetServicesAsync(cancellationToken).Result;
-            BleImplementation.CacheModeGetServices = restoremode;
+            bool success = await dev.ConnectInternal(connectParameters, cancellationToken);
 
-            if (!services.Any() || nativeDevice.ConnectionStatus != BluetoothConnectionStatus.Connected)
+            if (!success)
             {
                 // use DisconnectDeviceNative to clean up resources otherwise windows won't disconnect the device
                 // after a subsequent successful connection (#528, #536, #423)
@@ -157,8 +153,7 @@ namespace Plugin.BLE.Windows
             if (device.NativeDevice is BluetoothLEDevice nativeDevice)
             {
                 _deviceOperationRegistry.Remove(device.Id.ToString());
-                ((Device)device).ClearServices();
-                ((Device)device).DisposeNativeDevice();
+                ((Device)device).DisconnectInternal();
             }
         }
 

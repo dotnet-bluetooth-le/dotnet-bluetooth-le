@@ -47,6 +47,16 @@ namespace BLE.Client.WinConsole
             newEntry.Set();
         }
 
+        /// <summary>
+        /// Get a tracer with a prefix 
+        /// </summary>
+        /// <param name="prefix"></param>
+        /// <returns></returns>
+        public Action<string, object[]> GetPrefixedTrace(string prefix)
+        {
+            return new Action<string, object[]>((format, args) => Trace(prefix + " - " + format, args));
+        }
+
         void WriteWorker()
         {
             while (!disposing && newEntry.WaitOne())
@@ -57,7 +67,7 @@ namespace BLE.Client.WinConsole
                     Console.WriteLine(entry.Time.ToString("HH:mm:ss.fff ") + entry.Format + " ", entry.Args);
                 }
             }
-            Console.WriteLine("Bye bye says the Console Tracer.");
+            Console.WriteLine("Console Tracer is Finished.");
         }
 
         private DateTime GetTime()
@@ -67,8 +77,9 @@ namespace BLE.Client.WinConsole
 
         public void Dispose()
         {
-            disposing = true;            
-            worker.Wait(1000);
+            disposing = true;
+            newEntry.Set();
+            worker.Wait(100);
         }
     }
 }
