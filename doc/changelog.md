@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.1
+
+#### 3.1.0-beta.1
+- #746 Windows.Devices.Bluetooth Only
+- #764 ReadAsync updates characteristic value on Windows
+- #770 Remove .NET 6
+- #773 Added BroadcastName to AdvertisementRecordType (fixes #772)
+- #774 disable MainThreadInvoker in Adapter.ConnectToDeviceAsync (fixes #757)
+- #776 Improve Connect In Windows
+- #777 StateChanged for Windows
+- #778 Add support for .NET 8
+
+
 ## 3.0 MAUI
 
 #### 3.0.0
@@ -40,6 +53,7 @@
 - #614 Upgrade to .NET 6
 - #638 GitHub Actions: update to .NET 7 (fixes #622, #626, #630)
 
+
 ## 2.2 UWP
 
 #### 2.2.0-pre5
@@ -64,6 +78,7 @@
 
 #### 2.2.0-pre.1 UWP
 - UWP support pre-release
+
 
 ## 2.1 MacOS  
 
