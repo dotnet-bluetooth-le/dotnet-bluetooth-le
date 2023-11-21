@@ -232,7 +232,14 @@ namespace Plugin.BLE.Windows
             if (DiscoveredDevicesRegistry.TryGetValue(deviceId, out var device) && device != null)
             {
                 Trace.Message("AdvReceived - Old: {0}", btAdv.ToDetailedString(device.Name));
-                (device as Device)?.Update(btAdv.RawSignalStrengthInDBm, ParseAdvertisementData(btAdv.Advertisement));
+                var advertisementRecords = ParseAdvertisementData(btAdv.Advertisement);
+                if (btAdv.AdvertisementType.HasFlag(BluetoothLEAdvertisementType.ScanResponse))
+                {
+                    (device as Device)?.UpdateScanResponseAdvertisementRecords(btAdv.RawSignalStrengthInDBm, advertisementRecords);
+                } else
+                {
+                    (device as Device)?.UpdateAdvertisementRecords(btAdv.RawSignalStrengthInDBm, advertisementRecords);
+                }
                 this.HandleDiscoveredDevice(device);
             }
             if (device == null)

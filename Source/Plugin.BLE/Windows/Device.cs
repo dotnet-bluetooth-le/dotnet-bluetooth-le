@@ -34,10 +34,16 @@ namespace Plugin.BLE.Windows
             IsConnectable = isConnectable;
         }
 
-        internal void Update(short btAdvRawSignalStrengthInDBm, IReadOnlyList<AdvertisementRecord> advertisementData)
+        internal void UpdateAdvertisementRecords(short btAdvRawSignalStrengthInDBm, IReadOnlyList<AdvertisementRecord> advertisementData)
         {
             this.Rssi = btAdvRawSignalStrengthInDBm;
             this.AdvertisementRecords = advertisementData;
+        }
+
+        internal void UpdateScanResponseAdvertisementRecords(short btAdvRawSignalStrengthInDBm, IReadOnlyList<AdvertisementRecord> advertisementData)
+        {
+            this.Rssi = btAdvRawSignalStrengthInDBm;
+            this.ScanResponseAdvertisementRecords = advertisementData;
         }
 
         public override Task<bool> UpdateRssiAsync()

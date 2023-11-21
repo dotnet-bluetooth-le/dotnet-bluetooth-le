@@ -48,6 +48,15 @@ namespace Plugin.BLE.Abstractions.Contracts
         IReadOnlyList<AdvertisementRecord> AdvertisementRecords { get; }
 
         /// <summary>
+        /// All the advertisment records received as scan responses
+        /// For example:
+        /// - Advertised Service UUIDS
+        /// - Manufacturer Specifc data
+        /// - ...
+        /// </summary>
+        IReadOnlyList<AdvertisementRecord> ScanResponseAdvertisementRecords { get; }
+
+        /// <summary>
         /// Gets all services of the device.
         /// </summary>
         /// <param name="cancellationToken"></param>
@@ -120,7 +129,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// True, if device supports IsConnectable else False
         /// </summary>
         bool SupportsIsConnectable { get; }
-        
+
         /// <summary>
         /// Gets the bonding state of a device.
         /// </summary>

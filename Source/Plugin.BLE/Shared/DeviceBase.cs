@@ -84,6 +84,10 @@ namespace Plugin.BLE.Abstractions
         /// </summary>
         public IReadOnlyList<AdvertisementRecord> AdvertisementRecords { get; protected set; }
         /// <summary>
+        /// All the advertisment records revived as scan responses.
+        /// </summary>
+        public IReadOnlyList<AdvertisementRecord> ScanResponseAdvertisementRecords { get; protected set; }        
+        /// <summary>
         /// The native device.
         /// </summary>
         public TNativeDevice NativeDevice { get; protected set; }
@@ -98,6 +102,8 @@ namespace Plugin.BLE.Abstractions
         {
             Adapter = adapter;
             NativeDevice = nativeDevice;
+            ScanResponseAdvertisementRecords = new List<AdvertisementRecord>();
+            AdvertisementRecords = new List<AdvertisementRecord>();
         }
 
         /// <summary>
