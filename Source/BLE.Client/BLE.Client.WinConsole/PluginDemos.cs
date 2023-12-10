@@ -14,7 +14,7 @@ using Windows.Devices.Bluetooth;
 
 namespace BLE.Client.WinConsole
 {
-    internal class BleDemo
+    internal class PluginDemos
     {
         private readonly IBluetoothLE bluetoothLE;
         public IAdapter Adapter { get; }
@@ -23,7 +23,7 @@ namespace BLE.Client.WinConsole
         private readonly IDictionary<Guid, IDevice> connectedDevices;
         private bool scanningDone = false;
 
-        public BleDemo(Action<string, object[]>? writer = null)
+        public PluginDemos(Action<string, object[]>? writer = null)
         {
             discoveredDevices = new List<IDevice>();
             connectedDevices = new ConcurrentDictionary<Guid, IDevice>();
@@ -44,10 +44,14 @@ namespace BLE.Client.WinConsole
             return dev;
         }
 
-        public IDevice ConnectToKnown(string bleaddress)
+        public async Task Test_Connect_Disconnect(string bleaddress)
         {
             var id = bleaddress.ToBleDeviceGuid();
-            return ConnectToKnown(id);
+            IDevice dev = await Adapter.ConnectToKnownDeviceAsync(id);
+            connectedDevices[id] = dev;            
+            await Task.Delay(4000);
+            await Adapter.DisconnectDeviceAsync(dev);
+            dev.Dispose();
         }
 
         public async Task DoTheScanning(ScanMode scanMode = ScanMode.LowPower, int time_ms = 2000)

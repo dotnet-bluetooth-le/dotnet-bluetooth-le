@@ -31,7 +31,7 @@ namespace Plugin.BLE.Windows
             Id = id;
             Name = nativeDevice.Name;
             AdvertisementRecords = advertisementRecords;
-            IsConnectable = isConnectable;
+            IsConnectable = isConnectable;            
         }
 
         internal void Update(short btAdvRawSignalStrengthInDBm, IReadOnlyList<AdvertisementRecord> advertisementData)
@@ -121,25 +121,53 @@ namespace Plugin.BLE.Windows
             return false;
         }
 
+
+
+        static void MaybeRequestPreferredConnectionParameters(BluetoothLEDevice device, ConnectParameters connectParameters)
+        {
+#if WINDOWS10_0_22000_0_OR_GREATER
+            BluetoothLEPreferredConnectionParameters parameters = null;
+            switch(connectParameters.ConnectionParameterSet)
+            {
+                case ConnectionParameterSet.Balanced:
+                    parameters = BluetoothLEPreferredConnectionParameters.Balanced;
+                    break;
+                case ConnectionParameterSet.PowerOptimized:
+                    parameters = BluetoothLEPreferredConnectionParameters.PowerOptimized;
+                    break;
+                case ConnectionParameterSet.ThroughputOptimized:
+                    parameters = BluetoothLEPreferredConnectionParameters.ThroughputOptimized;
+                    break;
+                default:
+                    parameters = BluetoothLEPreferredConnectionParameters.ThroughputOptimized;
+                    break;
+            }
+            if (parameters is not null)
+            {
+                var conreq = device.RequestPreferredConnectionParameters(parameters);
+                Trace.Message($"RequestPreferredConnectionParameters({connectParameters.ConnectionParameterSet}): {conreq.Status}");
+            }            
+#endif
+        }
         public async Task<bool> ConnectInternal(ConnectParameters connectParameters, CancellationToken cancellationToken)
         {
             // ref https://learn.microsoft.com/en-us/uwp/api/windows.devices.bluetooth.bluetoothledevice.frombluetoothaddressasync
             // Creating a BluetoothLEDevice object by calling this method alone doesn't (necessarily) initiate a connection.
             // To initiate a connection, set GattSession.MaintainConnection to true, or call an uncached service discovery
-            // method on BluetoothLEDevice, or perform a read/write operation against the device.            
-            this.connectParameters = connectParameters;
+            // method on BluetoothLEDevice, or perform a read/write operation against the device.                        
             if (NativeDevice is null)
             {
                 Trace.Message("ConnectInternal says: Cannot connect since NativeDevice is null");
                 return false;
             }
             try
-            {
+            {                
+                MaybeRequestPreferredConnectionParameters(NativeDevice, connectParameters);
                 var devId = BluetoothDeviceId.FromId(NativeDevice.DeviceId);
-                gattSession = await GattSession.FromDeviceIdAsync(devId);
+                gattSession = await GattSession.FromDeviceIdAsync(devId);                
+                gattSession.MaintainConnection = true;
                 gattSession.SessionStatusChanged += GattSession_SessionStatusChanged;
                 gattSession.MaxPduSizeChanged += GattSession_MaxPduSizeChanged;
-                gattSession.MaintainConnection = true;
             }
             catch (Exception ex)
             {
@@ -156,6 +184,7 @@ namespace Plugin.BLE.Windows
             if (gattSession != null)
             {
                 gattSession.MaintainConnection = false;
+                gattSession.MaxPduSizeChanged -= GattSession_MaxPduSizeChanged;
                 gattSession.SessionStatusChanged -= GattSession_SessionStatusChanged;
                 gattSession.Dispose();
                 gattSession = null;

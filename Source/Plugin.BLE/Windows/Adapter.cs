@@ -62,7 +62,7 @@ namespace Plugin.BLE.Windows
             if (_bleWatcher != null)
             {
                 Trace.Message("Stopping the scan for devices");
-                _bleWatcher.Stop();
+                _bleWatcher.Stop();                
                 _bleWatcher = null;
             }
         }
@@ -122,6 +122,12 @@ namespace Plugin.BLE.Windows
             if (nativeDevice.ConnectionStatus == BluetoothConnectionStatus.Connected
                 && ConnectedDeviceRegistry.TryGetValue(id, out var connectedDevice))
             {
+#if WINDOWS10_0_22000_0_OR_GREATER
+                var conpar = nativeDevice.GetConnectionParameters();
+                Trace.Message(
+                    $"Connected with Latency = {conpar.ConnectionLatency}, "
+                    + $"Interval = {conpar.ConnectionInterval}, Timeout = {conpar.LinkTimeout}");
+#endif
                 HandleConnectedDevice(connectedDevice);
                 return;
             }
