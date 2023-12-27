@@ -99,3 +99,22 @@ jobs:
       run: dotnet build ./Source/MvvmCross.Plugins.BLE/MvvmCross.Plugins.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
     - name: Build MAUI sample
       run: dotnet build ./Source/BLE.Client/BLE.Client.Maui/BLE.Client.Maui.csproj /p:Configuration=Release /t:restore,build /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+
+  linuxBuild:      
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+         dotnet-version: 8.0.x
+    - name: Install workloads
+      run: dotnet workload install android wasm-tools maui-android
+    - name: Build Plugin.BLE NuGet
+      run: dotnet build ./Source/Plugin.BLE/Plugin.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+    - name: Build MVVMCross.Plugins.BLE NuGet
+      run: dotnet build ./Source/MvvmCross.Plugins.BLE/MvvmCross.Plugins.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+    - name: Build MAUI sample
+      run: dotnet build ./Source/BLE.Client/BLE.Client.Maui/BLE.Client.Maui.csproj /p:Configuration=Release /t:restore,build /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
