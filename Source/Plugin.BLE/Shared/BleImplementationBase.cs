@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Utils;
@@ -71,19 +72,23 @@ namespace Plugin.BLE.Abstractions
                 return new FakeAdapter();
 
             return CreateNativeAdapter();
-        }
+        }        
 
         /// <summary>
         /// Native implementation of <c>Initialize</c>.
         /// </summary>
         protected abstract void InitializeNative();
+        
         /// <summary>
         /// Get initial state of native adapter.
         /// </summary>
         protected abstract BluetoothState GetInitialStateNative();
+        
         /// <summary>
         /// Create the native adapter.
         /// </summary>
         protected abstract IAdapter CreateNativeAdapter();
+        
+        public abstract Task<bool> TrySetStateAsync(bool on);
     }
 }

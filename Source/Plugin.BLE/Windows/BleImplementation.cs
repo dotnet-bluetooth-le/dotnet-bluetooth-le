@@ -71,12 +71,7 @@ namespace Plugin.BLE
             }
         }
 
-        /// <summary>
-        /// Try set the state of the Bluetooth on/off in Windows
-        /// </summary>
-        /// <param name="on"></param>
-        /// <returns>true if the the method executed with success otherwice false</returns>
-        public async Task<bool> TrySetStateAsync(bool on)
+        public override async Task<bool> TrySetStateAsync(bool on)
         {
             if (!isInitialized)
             {
@@ -88,7 +83,7 @@ namespace Plugin.BLE
             }
             catch (Exception ex)
             {
-                Trace.Message("TrySetStateAsync exception:{0}", ex.Message);
+                Trace.Message("TrySetStateAsync exception: {0}", ex.Message);
                 return false;
             }
         }

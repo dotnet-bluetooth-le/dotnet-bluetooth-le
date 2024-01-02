@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Android.App;
 using Android.Bluetooth;
 using Android.Content;
@@ -81,5 +82,11 @@ namespace Plugin.BLE
 
         protected override IAdapter CreateNativeAdapter()
             => new Adapter(_bluetoothManager);
+
+        public override Task<bool> TrySetStateAsync(bool on)
+        {
+            Abstractions.Trace.Message("WARNING TrySetStateAsync is not implemented for Android");
+            return Task<bool>.FromResult(false);
+        }
     }
 }
