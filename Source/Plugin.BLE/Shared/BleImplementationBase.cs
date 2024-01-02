@@ -18,7 +18,6 @@ namespace Plugin.BLE.Abstractions
         /// Occurs when the state of the Bluetooth adapter changes.
         /// </summary>
         public event EventHandler<BluetoothStateChangedArgs> StateChanged;
-
         /// <summary>
         /// Indicates whether the device supports BLE.
         /// </summary>
@@ -72,23 +71,28 @@ namespace Plugin.BLE.Abstractions
                 return new FakeAdapter();
 
             return CreateNativeAdapter();
-        }        
+        }
 
         /// <summary>
         /// Native implementation of <c>Initialize</c>.
         /// </summary>
         protected abstract void InitializeNative();
-        
+
         /// <summary>
         /// Get initial state of native adapter.
         /// </summary>
         protected abstract BluetoothState GetInitialStateNative();
-        
+
         /// <summary>
         /// Create the native adapter.
         /// </summary>
         protected abstract IAdapter CreateNativeAdapter();
-        
+
+        /// <summary>
+        /// Try set the state of the Bluetooth on/off
+        /// </summary>
+        /// <param name="on"></param>
+        /// <returns>true if the the method executed with success otherwice false</returns>
         public abstract Task<bool> TrySetStateAsync(bool on);
     }
 }
