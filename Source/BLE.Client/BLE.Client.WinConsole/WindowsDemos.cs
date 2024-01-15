@@ -12,6 +12,8 @@ using Windows.Devices.Bluetooth.GenericAttributeProfile;
 using Windows.Devices.Bluetooth;
 using WBluetooth = Windows.Devices.Bluetooth;
 using Plugin.BLE.Extensions;
+using System.Threading;
+using Windows.Devices.Enumeration;
 
 namespace BLE.Client.WinConsole
 {
@@ -34,7 +36,7 @@ namespace BLE.Client.WinConsole
             writer?.Invoke(format, args);
         }
 
-        public async Task Test_Connect_Disconnect(string blehexaddress)
+        public async Task Connect_Disconnect(string blehexaddress)
         {
             ulong bleaddress = blehexaddress.ToBleDeviceGuid().ToBleAddress();
             WBluetooth.BluetoothLEDevice dev = await WBluetooth.BluetoothLEDevice.FromBluetoothAddressAsync(bleaddress);
@@ -76,6 +78,24 @@ namespace BLE.Client.WinConsole
             Write("Disconnected in {0} ms", stopwatch.ElapsedMilliseconds);
         }
 
+        public async Task UnPairAllBleDevices(string bleaddress = "")
+        {
+            string aqsFilter = BluetoothLEDevice.GetDeviceSelector();
+            var collection = await DeviceInformation.FindAllAsync(aqsFilter);
+            foreach (DeviceInformation di in collection)
+            {
+                try
+                {
+                    Write($"Unpairing {di.Name}");
+                    _ = di.Pairing.UnpairAsync();
+                }
+                catch (Exception ex)
+                {
+                    Write($"Exception when unpairing {di.Name}: {ex.Message}");
+                }
+            }
+        }
+
         private void GattSession_MaxPduSizeChanged(GattSession sender, object args)
         {
             Write("MaxPduSizeChanged: {0}", sender.MaxPduSize);
@@ -89,7 +109,7 @@ namespace BLE.Client.WinConsole
         private void Dev_ConnectionStatusChanged(BluetoothLEDevice sender, object args)
         {
             Write("ConnectionStatusChanged:{0}", sender.ConnectionStatus);
-            switch(sender.ConnectionStatus)
+            switch (sender.ConnectionStatus)
             {
                 case BluetoothConnectionStatus.Disconnected:
                     disconnectedSignal.Set();

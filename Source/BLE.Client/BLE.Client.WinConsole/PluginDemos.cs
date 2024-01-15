@@ -9,8 +9,10 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.Bluetooth;
+using Windows.Devices.Enumeration;
 
 namespace BLE.Client.WinConsole
 {
@@ -20,17 +22,27 @@ namespace BLE.Client.WinConsole
         public IAdapter Adapter { get; }
         private readonly Action<string, object[]>? writer;
         private readonly List<IDevice> discoveredDevices;
-        private readonly IDictionary<Guid, IDevice> connectedDevices;
         private bool scanningDone = false;
 
         public PluginDemos(Action<string, object[]>? writer = null)
         {
             discoveredDevices = new List<IDevice>();
-            connectedDevices = new ConcurrentDictionary<Guid, IDevice>();
             bluetoothLE = CrossBluetoothLE.Current;
             Adapter = CrossBluetoothLE.Current.Adapter;
+            Adapter.DeviceConnected += Adapter_DeviceConnected;
+            Adapter.DeviceDisconnected += Adapter_DeviceDisconnected;
             this.writer = writer;
-        }        
+        }
+
+        private void Adapter_DeviceDisconnected(object? sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs e)
+        {
+            Write($"Adapter_DeviceDisconnected {e.Device.Id}");
+        }
+
+        private void Adapter_DeviceConnected(object? sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs e)
+        {
+            Write($"Adapter_DeviceConnected {e.Device.Id}");
+        }
 
         private void Write(string format, params object[] args)
         {
@@ -39,19 +51,58 @@ namespace BLE.Client.WinConsole
 
         public IDevice ConnectToKnown(Guid id)
         {
-            IDevice dev = Adapter.ConnectToKnownDeviceAsync(id).Result;
-            connectedDevices[id] = dev;
+            IDevice dev = Adapter.ConnectToKnownDeviceAsync(id).Result;            
             return dev;
         }
 
-        public async Task Test_Connect_Disconnect(string bleaddress)
+        public async Task Connect_Disconnect(string bleaddress)
         {
             var id = bleaddress.ToBleDeviceGuid();
-            IDevice dev = await Adapter.ConnectToKnownDeviceAsync(id);
-            connectedDevices[id] = dev;            
+            IDevice dev = await Adapter.ConnectToKnownDeviceAsync(id);            
+            Write("Waiting 4 secs");
             await Task.Delay(4000);
+            Write("Disconnecting");
             await Adapter.DisconnectDeviceAsync(dev);
             dev.Dispose();
+            Write("Test_Connect_Disconnect done");
+        }
+
+        public async Task Pair_Connect_Disconnect(string bleaddress)
+        {
+            var id = bleaddress.ToBleDeviceGuid();
+            ulong bleAddressulong = id.ToBleAddress();
+            using (BluetoothLEDevice nativeDevice = await BluetoothLEDevice.FromBluetoothAddressAsync(bleAddressulong))
+            {                
+                nativeDevice.ConnectionStatusChanged += NativeDevice_ConnectionStatusChanged;
+                var deviceInformation = await DeviceInformation.CreateFromIdAsync(nativeDevice.DeviceId);
+                var pairing = deviceInformation.Pairing;
+                pairing.Custom.PairingRequested += Custom_PairingRequested;
+                Write("Pairing");
+                DevicePairingResult result = await pairing.Custom.PairAsync(DevicePairingKinds.ConfirmOnly, DevicePairingProtectionLevel.Encryption);
+                Write("Pairing result: " + result.Status);                
+            }
+            Write("Waiting 5 sec");
+            await Task.Delay(5000);
+            IDevice dev = await Adapter.ConnectToKnownDeviceAsync(id);            
+            await Task.Delay(1000);
+            await dev.RequestMtuAsync(517);
+            Write("Waiting 3 secs");
+            await Task.Delay(3000);
+            Write("Disconnecting");
+            await Adapter.DisconnectDeviceAsync(dev);
+            dev.Dispose();
+            Write("Pair_Connect_Disconnect done");
+        }
+
+        private void NativeDevice_ConnectionStatusChanged(BluetoothLEDevice sender, object args)
+        {
+            Write($"NativeDevice_ConnectionStatusChanged({sender.ConnectionStatus})");
+        }
+
+        private void Custom_PairingRequested(DeviceInformationCustomPairing sender, DevicePairingRequestedEventArgs args)
+        {
+            Write("Custom_PairingRequested -> Accept");
+            args.Accept();
         }
 
         public async Task DoTheScanning(ScanMode scanMode = ScanMode.LowPower, int time_ms = 2000)
