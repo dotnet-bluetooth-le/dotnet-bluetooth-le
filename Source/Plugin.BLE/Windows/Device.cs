@@ -138,8 +138,8 @@ namespace Plugin.BLE.Windows
                 case ConnectionParameterSet.ThroughputOptimized:
                     parameters = BluetoothLEPreferredConnectionParameters.ThroughputOptimized;
                     break;
-                default:
-                    parameters = BluetoothLEPreferredConnectionParameters.ThroughputOptimized;
+                case ConnectionParameterSet.None:
+                default:                    
                     break;
             }
             if (parameters is not null)
