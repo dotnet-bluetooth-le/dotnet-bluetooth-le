@@ -10,6 +10,10 @@ namespace Plugin.BLE
 {
     public class BleImplementation : BleImplementationBase
     {
+        private BluetoothAdapter btAdapter;
+        private Radio radio;
+        private bool isInitialized = false;
+
         public static BluetoothCacheMode CacheModeCharacteristicRead { get; set; } = BluetoothCacheMode.Uncached;
         public static BluetoothCacheMode CacheModeDescriptorRead { get; set; } = BluetoothCacheMode.Uncached;
         public static BluetoothCacheMode CacheModeGetDescriptors { get; set; } = BluetoothCacheMode.Cached;
@@ -23,22 +27,15 @@ namespace Plugin.BLE
 
         protected override BluetoothState GetInitialStateNative()
         {
-            try
-            {                                
-                BluetoothAdapter btAdapter = BluetoothAdapter.GetDefaultAsync().AsTask().Result;
-                if (!btAdapter.IsLowEnergySupported)
-                {
-                    return BluetoothState.Unavailable;
-                }
-                var radio = btAdapter.GetRadioAsync().AsTask().Result;
-                radio.StateChanged += Radio_StateChanged;
-                return ToBluetoothState(radio.State);
-            }
-            catch (Exception ex) 
+            if (!isInitialized)
             {
-                Trace.Message("GetInitialStateNativeAsync exception:{0}", ex.Message);
+                return BluetoothState.Unknown;
+            }
+            if (!btAdapter.IsLowEnergySupported)
+            {
                 return BluetoothState.Unavailable;
             }
+            return ToBluetoothState(radio.State);
         }
 
         private static BluetoothState ToBluetoothState(RadioState radioState)
@@ -61,7 +58,34 @@ namespace Plugin.BLE
 
         protected override void InitializeNative()
         {
-            
+            try
+            {
+                btAdapter = BluetoothAdapter.GetDefaultAsync().AsTask().Result;
+                radio = btAdapter.GetRadioAsync().AsTask().Result;
+                radio.StateChanged += Radio_StateChanged;
+                isInitialized = true;
+            }
+            catch (Exception ex)
+            {
+                Trace.Message("InitializeNative exception:{0}", ex.Message);
+            }
+        }
+
+        public override async Task<bool> TrySetStateAsync(bool on)
+        {
+            if (!isInitialized)
+            {
+                return false;
+            }
+            try
+            {
+                return await radio.SetStateAsync(on ? RadioState.On : RadioState.Off) == RadioAccessStatus.Allowed;
+            }
+            catch (Exception ex)
+            {
+                Trace.Message("TrySetStateAsync exception: {0}", ex.Message);
+                return false;
+            }
         }
     }
 
