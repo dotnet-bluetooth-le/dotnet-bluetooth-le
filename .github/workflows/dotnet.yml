@@ -100,7 +100,7 @@ jobs:
     - name: Build MAUI sample
       run: dotnet build ./Source/BLE.Client/BLE.Client.Maui/BLE.Client.Maui.csproj /p:Configuration=Release /t:restore,build /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
 
-  linuxBuild:      
+  linuxBuild:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -112,9 +112,13 @@ jobs:
          dotnet-version: 8.0.x
     - name: Install workloads
       run: dotnet workload install android wasm-tools maui-android
+    - name: Install Android tools
+      run: |
+        ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager \
+        --sdk_root=$ANDROID_SDK_ROOT "platform-tools"
     - name: Build Plugin.BLE NuGet
-      run: dotnet build ./Source/Plugin.BLE/Plugin.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+      run: dotnet build ./Source/Plugin.BLE/Plugin.BLE.csproj -p:Configuration=Release -t:restore,build,pack -p:Version=$(git describe) -p:ContinuousIntegrationBuild=true -p:DeterministicSourcePaths=false
     - name: Build MVVMCross.Plugins.BLE NuGet
-      run: dotnet build ./Source/MvvmCross.Plugins.BLE/MvvmCross.Plugins.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+      run: dotnet build ./Source/MvvmCross.Plugins.BLE/MvvmCross.Plugins.BLE.csproj -p:Configuration=Release -t:restore,build,pack -p:Version=$(git describe) -p:ContinuousIntegrationBuild=true -p:DeterministicSourcePaths=false
     - name: Build MAUI sample
-      run: dotnet build ./Source/BLE.Client/BLE.Client.Maui/BLE.Client.Maui.csproj /p:Configuration=Release /t:restore,build /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+      run: dotnet build ./Source/BLE.Client/BLE.Client.Maui/BLE.Client.Maui.csproj -p:Configuration=Release -t:restore,build -p:Version=$(git describe) -p:ContinuousIntegrationBuild=true -p:DeterministicSourcePaths=false
