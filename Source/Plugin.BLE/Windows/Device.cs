@@ -31,7 +31,7 @@ namespace Plugin.BLE.Windows
             Id = id;
             Name = nativeDevice.Name;
             AdvertisementRecords = advertisementRecords;
-            IsConnectable = isConnectable;            
+            IsConnectable = isConnectable;
         }
 
         internal void Update(short btAdvRawSignalStrengthInDBm, IReadOnlyList<AdvertisementRecord> advertisementData)
@@ -159,10 +159,10 @@ namespace Plugin.BLE.Windows
                 return false;
             }
             try
-            {                
+            {
                 MaybeRequestPreferredConnectionParameters(NativeDevice, connectParameters);
                 var devId = BluetoothDeviceId.FromId(NativeDevice.DeviceId);
-                gattSession = await GattSession.FromDeviceIdAsync(devId);                
+                gattSession = await GattSession.FromDeviceIdAsync(devId);
                 gattSession.MaintainConnection = true;
                 gattSession.SessionStatusChanged += GattSession_SessionStatusChanged;
                 gattSession.MaxPduSizeChanged += GattSession_MaxPduSizeChanged;

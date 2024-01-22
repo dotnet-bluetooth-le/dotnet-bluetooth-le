@@ -33,7 +33,7 @@
         /// <param name="autoConnect">Android only: Whether to directly connect to the remote device (false) or to automatically connect as soon as the remote device becomes available (true). The default is false.</param>
         /// <param name="forceBleTransport">Android only: For Dual Mode device, force transport mode to LE. The default is false.</param>
         public ConnectParameters(
-            bool autoConnect = false, 
+            bool autoConnect = false,
             bool forceBleTransport = false,
             ConnectionParameterSet connectionParameterSet = ConnectionParameterSet.None)
         {

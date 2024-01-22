@@ -62,7 +62,7 @@ namespace Plugin.BLE.Windows
             if (_bleWatcher != null)
             {
                 Trace.Message("Stopping the scan for devices");
-                _bleWatcher.Stop();                
+                _bleWatcher.Stop();
                 _bleWatcher = null;
             }
         }
