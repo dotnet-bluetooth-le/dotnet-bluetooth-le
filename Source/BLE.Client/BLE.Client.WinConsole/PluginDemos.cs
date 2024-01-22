@@ -71,19 +71,22 @@ namespace BLE.Client.WinConsole
         {
             var id = bleaddress.ToBleDeviceGuid();
             ulong bleAddressulong = id.ToBleAddress();
+            DeviceInformation? deviceInformation = null;
             using (BluetoothLEDevice nativeDevice = await BluetoothLEDevice.FromBluetoothAddressAsync(bleAddressulong))
-            {                
+            {
+                nativeDevice.RequestPreferredConnectionParameters(BluetoothLEPreferredConnectionParameters.ThroughputOptimized);
                 nativeDevice.ConnectionStatusChanged += NativeDevice_ConnectionStatusChanged;
-                var deviceInformation = await DeviceInformation.CreateFromIdAsync(nativeDevice.DeviceId);
-                var pairing = deviceInformation.Pairing;
-                pairing.Custom.PairingRequested += Custom_PairingRequested;
-                Write("Pairing");
-                DevicePairingResult result = await pairing.Custom.PairAsync(DevicePairingKinds.ConfirmOnly, DevicePairingProtectionLevel.Encryption);
-                Write("Pairing result: " + result.Status);                
+                deviceInformation = await DeviceInformation.CreateFromIdAsync(nativeDevice.DeviceId);
             }
-            Write("Waiting 5 sec");
-            await Task.Delay(5000);
-            IDevice dev = await Adapter.ConnectToKnownDeviceAsync(id);            
+            deviceInformation.Pairing.Custom.PairingRequested += Custom_PairingRequested;
+            Write("Pairing");
+            DevicePairingResult result = await deviceInformation.Pairing.Custom.PairAsync(DevicePairingKinds.ConfirmOnly, DevicePairingProtectionLevel.Encryption);
+            Write("Pairing result: " + result.Status);
+            //Write("Waiting 10 sec after pairing before connecting");
+            //await Task.Delay(2*5000);
+            Write("Calling Adapter.ConnectToKnownDeviceAsync");
+            IDevice dev = await Adapter.ConnectToKnownDeviceAsync(id);
+            Write($"Calling Adapter.ConnectToKnownDeviceAsync done with {dev.Name}");
             await Task.Delay(1000);
             await dev.RequestMtuAsync(517);
             Write("Waiting 3 secs");

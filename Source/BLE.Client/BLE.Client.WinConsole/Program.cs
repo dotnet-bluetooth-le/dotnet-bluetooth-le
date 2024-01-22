@@ -8,7 +8,7 @@ using Windows.Media.Capture;
 Console.WriteLine("Hello, BLE World!");
 using (var ct = new ConsoleTracer())
 {
-    const string bleaddress = "8C4B14C9C68A";
+    const string bleaddress = "8C4B14C86266";
     Plugin.BLE.Abstractions.Trace.TraceImplementation = ct.GetPrefixedTrace("Plugin.BLE");
     var ppemos = new PluginDemos(ct.GetPrefixedTrace("      DEMO"));
     var wdemos = new WindowsDemos(ct.GetPrefixedTrace("      DEMO"));

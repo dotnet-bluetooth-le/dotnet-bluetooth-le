@@ -121,8 +121,6 @@ namespace Plugin.BLE.Windows
             return false;
         }
 
-
-
         static void MaybeRequestPreferredConnectionParameters(BluetoothLEDevice device, ConnectParameters connectParameters)
         {
 #if WINDOWS10_0_22000_0_OR_GREATER
