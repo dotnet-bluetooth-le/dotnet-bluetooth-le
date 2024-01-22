@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Plugin.BLE.Abstractions.EventArgs;
 
 namespace Plugin.BLE.Abstractions.Contracts
@@ -28,6 +29,14 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <c>true</c> if <see cref="State"/> is <c>BluetoothState.On</c>
         /// </summary>
         bool IsOn { get; }
+
+        /// <summary>
+        /// Try set the state of the Bluetooth on/off
+        /// 2024-01-14: Only supported in Windows
+        /// </summary>
+        /// <param name="on"></param>
+        /// <returns>true if the the method executed with success otherwice false</returns>
+        Task<bool> TrySetStateAsync(bool on);
 
         /// <summary>
         /// Adapter to that provides access to the physical bluetooth adapter.

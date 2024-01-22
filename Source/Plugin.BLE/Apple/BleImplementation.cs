@@ -4,6 +4,7 @@ using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Extensions;
 using Plugin.BLE.iOS;
+using System.Threading.Tasks;
 
 namespace Plugin.BLE
 {
@@ -60,6 +61,12 @@ namespace Plugin.BLE
 #endif
                 ShowPowerAlert = _showPowerAlert
             };
+        }
+
+        public override Task<bool> TrySetStateAsync(bool on)
+        {
+            Trace.Message("WARNING TrySetStateAsync is not implemented for Apple");
+            return Task<bool>.FromResult(false);
         }
     }
 }
