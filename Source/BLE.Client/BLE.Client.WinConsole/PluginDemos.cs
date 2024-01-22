@@ -58,9 +58,10 @@ namespace BLE.Client.WinConsole
         public async Task Connect_Disconnect(string bleaddress)
         {
             var id = bleaddress.ToBleDeviceGuid();
-            IDevice dev = await Adapter.ConnectToKnownDeviceAsync(id);            
-            Write("Waiting 4 secs");
-            await Task.Delay(4000);
+            var connectParameters = new ConnectParameters(connectionParameterSet: ConnectionParameterSet.ThroughputOptimized);
+            IDevice dev = await Adapter.ConnectToKnownDeviceAsync(id, connectParameters);            
+            Write("Waiting 5 secs");
+            await Task.Delay(5000);
             Write("Disconnecting");
             await Adapter.DisconnectDeviceAsync(dev);
             dev.Dispose();

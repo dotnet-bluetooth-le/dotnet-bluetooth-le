@@ -172,7 +172,7 @@ namespace Plugin.BLE.Windows
 
             var knownDevice = new Device(this, nativeDevice, 0, deviceGuid);
 
-            await ConnectToDeviceAsync(knownDevice, cancellationToken: cancellationToken);
+            await ConnectToDeviceAsync(knownDevice, connectParameters, cancellationToken: cancellationToken);
             return knownDevice;
         }
 
