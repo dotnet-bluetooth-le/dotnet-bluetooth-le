@@ -8,19 +8,15 @@ using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Extensions;
 using System.Threading;
 using System.Collections.Concurrent;
-using WBluetooth = global::Windows.Devices.Bluetooth;
-using static System.Net.Mime.MediaTypeNames;
 using Windows.Devices.Bluetooth.GenericAttributeProfile;
+using Windows.Devices.Enumeration;
 
 namespace Plugin.BLE.Windows
 {
     public class Device : DeviceBase<BluetoothLEDevice>
     {
-        private ConcurrentBag<ManualResetEvent> asyncOperations = new();
-        private readonly Mutex opMutex = new Mutex(false);
-        private readonly SemaphoreSlim opSemaphore = new SemaphoreSlim(1);
-        private ConnectParameters connectParameters;
         private GattSession gattSession = null;
+        private DeviceInformation deviceInformation = null;
         private bool isDisposed = false;
 
         public Device(Adapter adapter, BluetoothLEDevice nativeDevice, int rssi, Guid id,
@@ -125,7 +121,7 @@ namespace Plugin.BLE.Windows
         {
 #if WINDOWS10_0_22000_0_OR_GREATER
             BluetoothLEPreferredConnectionParameters parameters = null;
-            switch(connectParameters.ConnectionParameterSet)
+            switch (connectParameters.ConnectionParameterSet)
             {
                 case ConnectionParameterSet.Balanced:
                     parameters = BluetoothLEPreferredConnectionParameters.Balanced;
@@ -137,16 +133,18 @@ namespace Plugin.BLE.Windows
                     parameters = BluetoothLEPreferredConnectionParameters.ThroughputOptimized;
                     break;
                 case ConnectionParameterSet.None:
-                default:                    
+                default:
+                    parameters = BluetoothLEPreferredConnectionParameters.ThroughputOptimized;
                     break;
             }
             if (parameters is not null)
             {
                 var conreq = device.RequestPreferredConnectionParameters(parameters);
                 Trace.Message($"RequestPreferredConnectionParameters({connectParameters.ConnectionParameterSet}): {conreq.Status}");
-            }            
+            }
 #endif
         }
+
         public async Task<bool> ConnectInternal(ConnectParameters connectParameters, CancellationToken cancellationToken)
         {
             // ref https://learn.microsoft.com/en-us/uwp/api/windows.devices.bluetooth.bluetoothledevice.frombluetoothaddressasync
@@ -161,6 +159,19 @@ namespace Plugin.BLE.Windows
             try
             {
                 MaybeRequestPreferredConnectionParameters(NativeDevice, connectParameters);
+                deviceInformation = await DeviceInformation.CreateFromIdAsync(NativeDevice.DeviceId);
+                if (!deviceInformation.Pairing.IsPaired && deviceInformation.Pairing.CanPair)
+                {
+                    Trace.Message($"Pairing with {deviceInformation.Name} ({deviceInformation.Id})");
+                    deviceInformation.Pairing.Custom.PairingRequested += Custom_PairingRequested;
+                    DevicePairingResult result = await deviceInformation.Pairing.Custom.PairAsync(
+                        DevicePairingKinds.ConfirmOnly, DevicePairingProtectionLevel.Encryption);
+                    Trace.Message($"Pairing with {deviceInformation.Name} ({deviceInformation.Id}) result: {result.Status}");
+                    if (result.Status != DevicePairingResultStatus.Paired)
+                    {
+                        throw new Exception($"Could not pair: {result.Status}");
+                    }
+                }
                 var devId = BluetoothDeviceId.FromId(NativeDevice.DeviceId);
                 gattSession = await GattSession.FromDeviceIdAsync(devId);
                 gattSession.MaintainConnection = true;
@@ -176,6 +187,13 @@ namespace Plugin.BLE.Windows
             bool success = gattSession != null;
             return success;
         }
+
+        private void Custom_PairingRequested(DeviceInformationCustomPairing sender, DevicePairingRequestedEventArgs args)
+        {
+            Trace.Message("Custom_PairingRequested -> Accept");
+            args.Accept();
+        }
+
 
         private void DisposeGattSession()
         {

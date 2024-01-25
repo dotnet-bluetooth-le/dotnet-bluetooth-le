@@ -180,7 +180,7 @@ namespace BLE.Client.WinConsole
             return null;
         }
 
-        public void ShowGetSystemConnectedOrPairedDevices()
+        public Task ShowGetSystemConnectedOrPairedDevices(string dummy = "")
         {
             IReadOnlyList<IDevice>  devs = Adapter.GetSystemConnectedOrPairedDevices();
             Write("GetSystemConnectedOrPairedDevices found {0} devices.", devs.Count);
@@ -188,6 +188,7 @@ namespace BLE.Client.WinConsole
             {
                 Write("{0}: {1}", dev.Id.ToHexBleAddress(), dev.Name);
             }
+            return Task.CompletedTask;
         }
 
         /// <summary>
