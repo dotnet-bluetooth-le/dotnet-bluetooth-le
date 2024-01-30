@@ -121,7 +121,7 @@ namespace Plugin.BLE.Windows
             return false;
         }
 
-        static void MaybeRequestPreferredConnectionParameters(BluetoothLEDevice device, ConnectParameters connectParameters)
+        static bool MaybeRequestPreferredConnectionParameters(BluetoothLEDevice device, ConnectParameters connectParameters)
         {
 #if WINDOWS10_0_22000_0_OR_GREATER
             BluetoothLEPreferredConnectionParameters parameters = null;
@@ -144,8 +144,13 @@ namespace Plugin.BLE.Windows
             {
                 var conreq = device.RequestPreferredConnectionParameters(parameters);
                 Trace.Message($"RequestPreferredConnectionParameters({connectParameters.ConnectionParameterSet}): {conreq.Status}");
-            }            
+                return conreq.Status == BluetoothLEPreferredConnectionParametersRequestStatus.Success;
+            }
+            return true;
+#else 
+            return false;
 #endif
+
         }
         public async Task<bool> ConnectInternal(ConnectParameters connectParameters, CancellationToken cancellationToken)
         {
@@ -234,6 +239,11 @@ namespace Plugin.BLE.Windows
         protected override DeviceBondState GetBondState()
         {
             return DeviceBondState.NotSupported;
+        }
+
+        public override bool UpdateConnectionParameters(ConnectParameters connectParameters = default)
+        {
+            return MaybeRequestPreferredConnectionParameters(NativeDevice, connectParameters);
         }
     }
 }

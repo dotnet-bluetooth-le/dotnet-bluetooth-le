@@ -8,7 +8,7 @@ using Windows.Media.Capture;
 Console.WriteLine("Hello, BLE World!");
 using (var ct = new ConsoleTracer())
 {
-    const string bleaddress = "8C4B14C86266";
+    const string bleaddress = "8C4B14C8602A";
     Plugin.BLE.Abstractions.Trace.TraceImplementation = ct.GetPrefixedTrace("Plugin.BLE");
     var ppemos = new PluginDemos(ct.GetPrefixedTrace("      DEMO"));
     var wdemos = new WindowsDemos(ct.GetPrefixedTrace("      DEMO"));
@@ -16,6 +16,7 @@ using (var ct = new ConsoleTracer())
     {
         {ConsoleKey.D1, new Demo("Plugin:  Connect -> Disconnect", ppemos.Connect_Disconnect) },
         {ConsoleKey.D2, new Demo("Plugin:  Pair -> Connect -> Disconnect", ppemos.Pair_Connect_Disconnect) },
+        {ConsoleKey.D3, new Demo("Plugin:  Connect -> Change Parameters -> Disconnect", ppemos.Connect_Change_Parameters_Disconnect) },
         {ConsoleKey.D8, new Demo("Windows: Connect -> Disconnect", wdemos.Connect_Disconnect) },
         {ConsoleKey.D9, new Demo("Windows: Unpair all BLE devices", wdemos.UnPairAllBleDevices) },
     };
