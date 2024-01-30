@@ -467,5 +467,10 @@ namespace Plugin.BLE.Android
             }
             return NativeDevice.BondState.FromNative();
         }
+
+        public override bool UpdateConnectionParameters(ConnectParameters connectParameters = default)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
