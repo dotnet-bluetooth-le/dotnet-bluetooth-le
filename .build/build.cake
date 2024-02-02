@@ -72,6 +72,7 @@ Task("BuildClients")
   BuildProject("BLE.Client", "BLE.Client.Droid", Path.Combine("clients", "android"));
   BuildProject("BLE.Client", "BLE.Client.iOS", Path.Combine("clients", "ios"));
   BuildProject("BLE.Client", "BLE.Client.macOS", Path.Combine("clients", "macOS"));
+  BuildProject("BLE.Client", "BLE.Client.UWP", Path.Combine("clients", "uwp"));
 });
 
 Task("Clean").Does (() =>
