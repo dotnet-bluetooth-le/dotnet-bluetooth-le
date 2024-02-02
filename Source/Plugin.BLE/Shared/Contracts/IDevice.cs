@@ -127,14 +127,14 @@ namespace Plugin.BLE.Abstractions.Contracts
         DeviceBondState BondState { get; }
 
         /// <summary>
-        /// Updates the connection paramaters if already connected
+        /// Updates the connection parameters if already connected
         /// </summary>
         /// <remarks>
         /// Only implemented for Windows
         /// </remarks>
-        /// <param name="connectParameters">Connection parameters. Contains platform specific parameters needed to achieved connection. The default value is None.</param>
+        /// <param name="connectParameters">Connection parameters. Contains platform specific parameters needed to achieve connection. The default value is None.</param>
         /// <returns>
-        /// The Result property will contain a boolean that inticates if the update was successful.        
+        /// The Result property will contain a boolean that indicates if the update was successful.        
         /// </returns>
         bool UpdateConnectionParameters(ConnectParameters connectParameters = default);
     }
