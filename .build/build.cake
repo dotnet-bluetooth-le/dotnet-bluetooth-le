@@ -76,6 +76,7 @@ Task("BuildClients")
   BuildProject("BLE.Client", "BLE.Client.UWP", Path.Combine("clients", "uwp"));
   // .NET 7/8
   BuildProject("BLE.Client", "BLE.Client.WinConsole", Path.Combine("clients", "wincon"));
+  BuildProject("BLE.Client", "BLE.Client.Maui", Path.Combine("clients", "maui"));
 });
 
 Task("Clean").Does (() =>
