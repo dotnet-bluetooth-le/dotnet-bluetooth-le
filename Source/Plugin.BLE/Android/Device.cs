@@ -40,7 +40,7 @@ namespace Plugin.BLE.Android
         private TaskCompletionSource<bool> _bondCompleteTaskCompletionSource;
 
         /// <summary>
-        /// the connect paramaters used when connecting to this device
+        /// the connect parameters used when connecting to this device
         /// </summary>
         public ConnectParameters ConnectParameters { get; private set; }
 
@@ -466,6 +466,11 @@ namespace Plugin.BLE.Android
                 return DeviceBondState.NotSupported;
             }
             return NativeDevice.BondState.FromNative();
+        }
+
+        public override bool UpdateConnectionParameters(ConnectParameters connectParameters = default)
+        {
+            throw new NotImplementedException();
         }
     }
 }

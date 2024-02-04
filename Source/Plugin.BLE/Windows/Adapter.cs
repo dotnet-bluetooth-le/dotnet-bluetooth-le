@@ -122,6 +122,12 @@ namespace Plugin.BLE.Windows
             if (nativeDevice.ConnectionStatus == BluetoothConnectionStatus.Connected
                 && ConnectedDeviceRegistry.TryGetValue(id, out var connectedDevice))
             {
+#if WINDOWS10_0_22000_0_OR_GREATER
+                var conpar = nativeDevice.GetConnectionParameters();
+                Trace.Message(
+                    $"Connected with Latency = {conpar.ConnectionLatency}, "
+                    + $"Interval = {conpar.ConnectionInterval}, Timeout = {conpar.LinkTimeout}");
+#endif
                 HandleConnectedDevice(connectedDevice);
                 return;
             }
@@ -166,7 +172,7 @@ namespace Plugin.BLE.Windows
 
             var knownDevice = new Device(this, nativeDevice, 0, deviceGuid);
 
-            await ConnectToDeviceAsync(knownDevice, cancellationToken: cancellationToken);
+            await ConnectToDeviceAsync(knownDevice, connectParameters, cancellationToken: cancellationToken);
             return knownDevice;
         }
 

@@ -182,5 +182,10 @@ namespace Plugin.BLE.iOS
         {
             return DeviceBondState.NotSupported;
         }
+
+        public override bool UpdateConnectionParameters(ConnectParameters connectParameters = default)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
