@@ -42,9 +42,13 @@
 		<CodesignKey>Mac Developer</CodesignKey>
 		<PackageSigningKey>3rd Party Mac Developer Installer</PackageSigningKey>
 	</PropertyGroup>
-	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+	<PropertyGroup Condition="$(TargetFramework.Contains('-windows')) and $(PlatformTarget)=='x64'">
 		<Platforms>x64</Platforms>
-		<RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+		<RuntimeIdentifier>win10-x64</RuntimeIdentifier>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(TargetFramework.Contains('-windows')) and $(PlatformTarget)=='x86'">
+		<Platforms>x86</Platforms>
+		<RuntimeIdentifier>win10-x86</RuntimeIdentifier>
 	</PropertyGroup>
 
 	<ItemGroup>
