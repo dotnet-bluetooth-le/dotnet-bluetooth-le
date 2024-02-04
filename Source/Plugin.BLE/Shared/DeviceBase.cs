@@ -267,7 +267,7 @@ namespace Plugin.BLE.Abstractions
         protected abstract DeviceBondState GetBondState();
 
         /// <summary>
-        /// Updates the connection paramaters if already connected
+        /// Updates the connection parameters if already connected
         /// </summary>
         /// <param name="connectParameters"></param>
         /// <returns></returns>

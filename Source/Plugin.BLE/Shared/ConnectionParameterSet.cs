@@ -7,7 +7,7 @@
     public enum ConnectionParameterSet
     {
         /// <summary>
-        /// Not setting any preffered connection type
+        /// Not setting any prefered connection type
         /// </summary>
         None,
         /// <summary>
