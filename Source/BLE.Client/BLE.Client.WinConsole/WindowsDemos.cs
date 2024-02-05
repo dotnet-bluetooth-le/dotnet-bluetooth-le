@@ -36,10 +36,11 @@ namespace BLE.Client.WinConsole
             writer?.Invoke(format, args);
         }
 
-        public async Task Connect_Disconnect(string blehexaddress)
+        public async Task Connect_Disconnect()
         {
-            ulong bleaddress = blehexaddress.ToBleDeviceGuid().ToBleAddress();
-            WBluetooth.BluetoothLEDevice dev = await WBluetooth.BluetoothLEDevice.FromBluetoothAddressAsync(bleaddress);
+            string bleaddress = BleAddressSelector.GetBleAddress();
+            ulong bleaddressUl = bleaddress.ToBleDeviceGuid().ToBleAddress();
+            WBluetooth.BluetoothLEDevice dev = await WBluetooth.BluetoothLEDevice.FromBluetoothAddressAsync(bleaddressUl);
             dev.RequestPreferredConnectionParameters(BluetoothLEPreferredConnectionParameters.ThroughputOptimized);
             dev.ConnectionStatusChanged += Dev_ConnectionStatusChanged;
             var devId = BluetoothDeviceId.FromId(dev.DeviceId);
@@ -78,8 +79,9 @@ namespace BLE.Client.WinConsole
             Write("Disconnected in {0} ms", stopwatch.ElapsedMilliseconds);
         }
 
-        public async Task UnPairAllBleDevices(string bleaddress = "")
+        public async Task UnPairAllBleDevices()
         {
+            var bleaddress = BleAddressSelector.GetBleAddress();
             string aqsFilter = BluetoothLEDevice.GetDeviceSelector();
             var collection = await DeviceInformation.FindAllAsync(aqsFilter);
             foreach (DeviceInformation di in collection)

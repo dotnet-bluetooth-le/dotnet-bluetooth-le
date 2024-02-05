@@ -51,15 +51,16 @@ namespace BLE.Client.WinConsole
 
         public IDevice ConnectToKnown(Guid id)
         {
-            IDevice dev = Adapter.ConnectToKnownDeviceAsync(id).Result;            
+            IDevice dev = Adapter.ConnectToKnownDeviceAsync(id).Result;
             return dev;
         }
 
-        public async Task Connect_Disconnect(string bleaddress)
+        public async Task Connect_Disconnect()
         {
+            string bleaddress = BleAddressSelector.GetBleAddress();
             var id = bleaddress.ToBleDeviceGuid();
             var connectParameters = new ConnectParameters(connectionParameterSet: ConnectionParameterSet.ThroughputOptimized);
-            IDevice dev = await Adapter.ConnectToKnownDeviceAsync(id, connectParameters);            
+            IDevice dev = await Adapter.ConnectToKnownDeviceAsync(id, connectParameters);
             Write("Waiting 5 secs");
             await Task.Delay(5000);
             Write("Disconnecting");
@@ -68,8 +69,9 @@ namespace BLE.Client.WinConsole
             Write("Test_Connect_Disconnect done");
         }
 
-        public async Task Connect_Change_Parameters_Disconnect(string bleaddress)
+        public async Task Connect_Change_Parameters_Disconnect()
         {
+            string bleaddress = BleAddressSelector.GetBleAddress();
             var id = bleaddress.ToBleDeviceGuid();
             var connectParameters = new ConnectParameters(connectionParameterSet: ConnectionParameterSet.Balanced);
             IDevice dev = await Adapter.ConnectToKnownDeviceAsync(id, connectParameters);
@@ -89,8 +91,9 @@ namespace BLE.Client.WinConsole
             Write("Test_Connect_Disconnect done");
         }
 
-        public async Task Pair_Connect_Disconnect(string bleaddress)
+        public async Task Pair_Connect_Disconnect()
         {
+            string bleaddress = BleAddressSelector.GetBleAddress();
             var id = bleaddress.ToBleDeviceGuid();
             ulong bleAddressulong = id.ToBleAddress();
             DeviceInformation? deviceInformation = null;
@@ -139,19 +142,40 @@ namespace BLE.Client.WinConsole
                 return;
             }
             Write("Bluetooth is on");
-            Write("Scanning now for " + time_ms + " ms...");            
+            Write("Scanning now for " + time_ms + " ms...");
             var cancellationTokenSource = new CancellationTokenSource(time_ms);
             discoveredDevices.Clear();
 
+            int index = 1;
             Adapter.DeviceDiscovered += (s, a) =>
             {
                 var dev = a.Device;
-                Write("DeviceDiscovered: {0} with Name = {1}", dev.Id.ToHexBleAddress(), dev.Name);
+                Write($"{index++}: DeviceDiscovered: {0} with Name = {1}", dev.Id.ToHexBleAddress(), dev.Name);
                 discoveredDevices.Add(a.Device);
             };
             Adapter.ScanMode = scanMode;
             await Adapter.StartScanningForDevicesAsync(cancellationToken: cancellationTokenSource.Token);
             scanningDone = true;
+        }
+
+        internal async Task DiscoverAndSelect()
+        {
+            await DoTheScanning();
+            int index = 1;
+            await Task.Delay(200);
+            Console.WriteLine();
+            foreach (var dev in discoveredDevices)
+            {
+                Console.WriteLine($"{index++}: {dev.Id.ToHexBleAddress()} with Name = {dev.Name}");
+            }
+            Console.WriteLine();
+            Console.Write($"Select BLE address index with value {1} to {discoveredDevices.Count}: ");
+            if (int.TryParse(Console.ReadLine(), out int selectedIndex))
+            {
+                IDevice selecteddev = discoveredDevices[selectedIndex - 1];
+                Console.WriteLine($"Selected {selectedIndex}: {selecteddev.Id.ToHexBleAddress()} with Name = {selecteddev.Name}");
+                BleAddressSelector.SetBleAddress(selecteddev.Id.ToHexBleAddress());
+            }
         }
 
         private void WriteAdvertisementRecords(IDevice device)
@@ -190,34 +214,36 @@ namespace BLE.Client.WinConsole
                 return null;
             }
             Thread.Sleep(10);
-            foreach(var device in discoveredDevices)
+            foreach (var device in discoveredDevices)
             {
                 if (device.Name.Contains(name))
                 {
-                    await Adapter.ConnectToDeviceAsync(device);                    
+                    await Adapter.ConnectToDeviceAsync(device);
                     return device;
                 }
             }
             return null;
         }
 
-        public void ShowGetSystemConnectedOrPairedDevices()
+        public Task RunGetSystemConnectedOrPairedDevices()
         {
-            IReadOnlyList<IDevice>  devs = Adapter.GetSystemConnectedOrPairedDevices();
-            Write("GetSystemConnectedOrPairedDevices found {0} devices.", devs.Count);
-            foreach(var dev in devs)
+            IReadOnlyList<IDevice> devs = Adapter.GetSystemConnectedOrPairedDevices();
+            Task.Delay(200);
+            Write($"GetSystemConnectedOrPairedDevices found {devs.Count} devices:");
+            foreach (var dev in devs)
             {
                 Write("{0}: {1}", dev.Id.ToHexBleAddress(), dev.Name);
             }
+            return Task.CompletedTask;
         }
 
         /// <summary>
         /// This demonstrates a bug where the known services is not cleared at disconnect (2023-11-03)
-        /// </summary>
-        /// <param name="bleaddress">12 hex char ble address</param>
-        public async Task ShowNumberOfServices(string bleaddress)
+        /// </summary>        
+        public async Task ShowNumberOfServices()
         {
-            Write("Connecting to device with address = {0}", bleaddress);            
+            string bleaddress = BleAddressSelector.GetBleAddress();
+            Write("Connecting to device with address = {0}", bleaddress);
             IDevice dev = await Adapter.ConnectToKnownDeviceAsync(bleaddress.ToBleDeviceGuid()) ?? throw new Exception("null");
             string name = dev.Name;
             Write("Connected to {0} {1} {2}", name, dev.Id.ToHexBleAddress(), dev.State);
@@ -243,5 +269,7 @@ namespace BLE.Client.WinConsole
         {
             return Adapter.DisconnectDeviceAsync(dev);
         }
+
+
     }
 }

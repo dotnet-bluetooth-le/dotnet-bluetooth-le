@@ -178,7 +178,7 @@ namespace Plugin.BLE.Windows
 
         public override IReadOnlyList<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null)
         {
-            string pairedSelector = BluetoothDevice.GetDeviceSelectorFromPairingState(true);
+            string pairedSelector = BluetoothLEDevice.GetDeviceSelectorFromPairingState(true);
             DeviceInformationCollection pairedDevices = DeviceInformation.FindAllAsync(pairedSelector).GetAwaiter().GetResult();
             List<IDevice> devlist = ConnectedDevices.ToList();
             List<Guid> ids = ConnectedDevices.Select(d => d.Id).ToList();
