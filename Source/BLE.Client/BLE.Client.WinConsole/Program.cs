@@ -22,6 +22,7 @@ using (var ct = new ConsoleTracer())
         {ConsoleKey.D4, new Demo("Pair -> Connect -> Disconnect", ppemos.Pair_Connect_Disconnect) },
         {ConsoleKey.D5, new Demo("Connect -> Change Parameters -> Disconnect", ppemos.Connect_Change_Parameters_Disconnect) },
         {ConsoleKey.D6, new Demo("Run GetSystemConnectedOrPairedDevices", ppemos.RunGetSystemConnectedOrPairedDevices) },
+        {ConsoleKey.D7, new Demo("Run Discover 3X and ShowNumberOfServices", ppemos.Discover3XAndShowNumberOfServices) },
         {ConsoleKey.A, new Demo("Pure Windows: Connect -> Disconnect", wdemos.Connect_Disconnect) },
         {ConsoleKey.S, new Demo("Pure Windows: Unpair all BLE devices", wdemos.UnPairAllBleDevices) },
     };

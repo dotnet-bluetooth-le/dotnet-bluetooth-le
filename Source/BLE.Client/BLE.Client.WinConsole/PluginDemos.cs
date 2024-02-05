@@ -142,7 +142,7 @@ namespace BLE.Client.WinConsole
                 return;
             }
             Write("Bluetooth is on");
-            Write("Scanning now for " + time_ms + " ms...");
+            Write($"Scanning now for {time_ms} millisecs with mode: {scanMode}");
             var cancellationTokenSource = new CancellationTokenSource(time_ms);
             discoveredDevices.Clear();
 
@@ -213,7 +213,7 @@ namespace BLE.Client.WinConsole
                 Write("ConnectTest({0}) Failed - Call the DoTheScanning() method first!");
                 return null;
             }
-            Thread.Sleep(10);
+            await Task.Delay(10);
             foreach (var device in discoveredDevices)
             {
                 if (device.Name.Contains(name))
@@ -240,29 +240,44 @@ namespace BLE.Client.WinConsole
         /// <summary>
         /// This demonstrates a bug where the known services is not cleared at disconnect (2023-11-03)
         /// </summary>        
+        public async Task ShowNumberOfServicesWithDisconnectConnect()
+        {
+            string bleaddress = BleAddressSelector.GetBleAddress();
+            Write("Connecting to device with address = {0}", bleaddress);
+            IDevice dev = await Adapter.ConnectToKnownDeviceAsync(bleaddress.ToBleDeviceGuid()) ?? throw new Exception("null");
+            string name = dev.Name;
+            Write($"Connected to {name} {dev.Id.ToHexBleAddress()} {dev.State}");
+            Write("Calling dev.GetServicesAsync()...");
+            var services = await dev.GetServicesAsync();
+            Write("Found {0} services", services.Count);
+            await Task.Delay(1000);
+            Write("Disconnecting from {0} {1}", name, dev.Id.ToHexBleAddress());
+            await Adapter.DisconnectDeviceAsync(dev);
+            await Task.Delay(1000);
+            Write("ReConnecting to device {0} {1}...", name, dev.Id.ToHexBleAddress());
+            await Adapter.ConnectToDeviceAsync(dev);
+            Write("Connect Done.");
+            await Task.Delay(1000);
+            Write("Calling dev.GetServicesAsync()...");
+            services = await dev.GetServicesAsync();
+            Write("Found {0} services", services.Count);
+            await Adapter.DisconnectDeviceAsync(dev);
+            await Task.Delay(100);
+        }
+
         public async Task ShowNumberOfServices()
         {
             string bleaddress = BleAddressSelector.GetBleAddress();
             Write("Connecting to device with address = {0}", bleaddress);
             IDevice dev = await Adapter.ConnectToKnownDeviceAsync(bleaddress.ToBleDeviceGuid()) ?? throw new Exception("null");
             string name = dev.Name;
-            Write("Connected to {0} {1} {2}", name, dev.Id.ToHexBleAddress(), dev.State);
+            Write($"Connected to {name} {dev.Id.ToHexBleAddress()} {dev.State}");
             Write("Calling dev.GetServicesAsync()...");
             var services = await dev.GetServicesAsync();
             Write("Found {0} services", services.Count);
-            Thread.Sleep(1000);
-            Write("Disconnecting from {0} {1}", name, dev.Id.ToHexBleAddress());
+            await Task.Delay(1000);
             await Adapter.DisconnectDeviceAsync(dev);
-            Thread.Sleep(1000);
-            Write("ReConnecting to device {0} {1}...", name, dev.Id.ToHexBleAddress());
-            await Adapter.ConnectToDeviceAsync(dev);
-            Write("Connect Done.");
-            Thread.Sleep(1000);
-            Write("Calling dev.GetServicesAsync()...");
-            services = await dev.GetServicesAsync();
-            Write("Found {0} services", services.Count);
-            await Adapter.DisconnectDeviceAsync(dev);
-            Thread.Sleep(1000);
+            await Task.Delay(100);
         }
 
         internal Task Disconnect(IDevice dev)
@@ -270,6 +285,13 @@ namespace BLE.Client.WinConsole
             return Adapter.DisconnectDeviceAsync(dev);
         }
 
-
+        internal async Task Discover3XAndShowNumberOfServices()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                await DoTheScanning(ScanMode.Passive, 5000);
+            }
+            await ShowNumberOfServices();
+        }
     }
 }
