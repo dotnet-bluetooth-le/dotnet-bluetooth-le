@@ -37,6 +37,7 @@ namespace Plugin.BLE.Abstractions
             new KnownService("Cycling Power", Guid.ParseExact("00001818-0000-1000-8000-00805f9b34fb", "d")),
             new KnownService("Cycling Speed and Cadence", Guid.ParseExact("00001816-0000-1000-8000-00805f9b34fb", "d")),
             new KnownService("Device Information", Guid.ParseExact("0000180a-0000-1000-8000-00805f9b34fb", "d")),
+            new KnownService("Fitness Machine Service", Guid.ParseExact("00001826-0000-1000-8000-00805f9b34fb", "d")),
             new KnownService("Generic Access", Guid.ParseExact("00001800-0000-1000-8000-00805f9b34fb", "d")),
             new KnownService("Generic Attribute", Guid.ParseExact("00001801-0000-1000-8000-00805f9b34fb", "d")),
             new KnownService("Glucose", Guid.ParseExact("00001808-0000-1000-8000-00805f9b34fb", "d")),
@@ -63,7 +64,6 @@ namespace Plugin.BLE.Abstractions
             new KnownService("TI SensorTag Connection Control", Guid.ParseExact("f000ccc0-0451-4000-b000-000000000000", "d")),
             new KnownService("TI SensorTag OvertheAir Download", Guid.ParseExact("f000ffc0-0451-4000-b000-000000000000", "d")),
             new KnownService("TXRX_SERV_UUID RedBearLabs Biscuit Service", Guid.ParseExact("713d0000-503e-4c75-ba94-3148f18d941e", "d")),
-            new KnownService("Fitness Machine Service", Guid.ParseExact("00001826-0000-1000-8000-00805f9b34fb", "d")),
         }.AsReadOnly();
     }
 }
