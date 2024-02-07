@@ -144,11 +144,8 @@ namespace Plugin.BLE.Windows
                 }
 
                 // fire the correct event (DeviceDisconnected or DeviceConnectionLost)
-                HandleDisconnectedDevice(isNormalDisconnect, disconnectedDevice);
-                if (isNormalDisconnect)
-                {
-                    nativeDevice.ConnectionStatusChanged -= Device_ConnectionStatusChanged;
-                }
+                HandleDisconnectedDevice(isNormalDisconnect, disconnectedDevice);                
+                nativeDevice.ConnectionStatusChanged -= Device_ConnectionStatusChanged;
             }
         }
 
