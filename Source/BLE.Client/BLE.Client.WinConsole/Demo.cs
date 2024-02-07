@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 public record Demo
 (
     string Description,
-    Func<string, Task> Method
+    Func<Task> Method
 );
 

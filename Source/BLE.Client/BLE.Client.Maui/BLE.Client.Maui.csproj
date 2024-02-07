@@ -9,6 +9,7 @@
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<PublishReadyToRun>false</PublishReadyToRun>
 
 		<!-- Display name -->
 		<ApplicationTitle>BLE.Client.Maui</ApplicationTitle>
@@ -36,10 +37,20 @@
 	  <WarningLevel>4</WarningLevel>
 	</PropertyGroup>
 	<PropertyGroup Condition="$(TargetFramework.Contains('-maccatalyst'))">
-	  <CreatePackage>false</CreatePackage>
-	  <CodesignKey>Mac Developer</CodesignKey>
-	  <PackageSigningKey>3rd Party Mac Developer Installer</PackageSigningKey>
+		<RuntimeIdentifier>maccatalyst-arm64</RuntimeIdentifier>
+		<CreatePackage>false</CreatePackage>
+		<CodesignKey>Mac Developer</CodesignKey>
+		<PackageSigningKey>3rd Party Mac Developer Installer</PackageSigningKey>
 	</PropertyGroup>
+	<PropertyGroup Condition="$(TargetFramework.Contains('-windows')) and $(PlatformTarget)=='x64'">
+		<Platforms>x64</Platforms>
+		<RuntimeIdentifier>win10-x64</RuntimeIdentifier>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(TargetFramework.Contains('-windows')) and $(PlatformTarget)=='x86'">
+		<Platforms>x86</Platforms>
+		<RuntimeIdentifier>win10-x86</RuntimeIdentifier>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
