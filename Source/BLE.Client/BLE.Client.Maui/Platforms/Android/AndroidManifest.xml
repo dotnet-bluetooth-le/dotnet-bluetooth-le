@@ -15,5 +15,4 @@
 	<uses-permission android:name="android.permission.BLUETOOTH_SCAN" android:usesPermissionFlags="neverForLocation" />
 	<uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.CONTROL_LOCATION_UPDATES" />
-	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="33" />
 </manifest>
