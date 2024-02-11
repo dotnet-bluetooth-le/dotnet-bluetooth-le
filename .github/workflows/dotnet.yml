@@ -16,13 +16,13 @@ jobs:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
-    - uses: nuget/setup-nuget@v1
+    - uses: nuget/setup-nuget@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
     - name: Set up JDK 11
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
         java-version: '11'
@@ -33,34 +33,34 @@ jobs:
         & dotnet workload install maui --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
         & dotnet workload install android ios maccatalyst tvos macos maui wasm-tools maui-maccatalyst --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
     - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.1
+      uses: microsoft/setup-msbuild@v2
     - name: Clean
-      uses: cake-build/cake-action@v1.4.1
+      uses: cake-build/cake-action@v2
       with:
         script-path: .build/build.cake
         target: Clean
     - name: Restore
-      uses: cake-build/cake-action@v1.4.1
+      uses: cake-build/cake-action@v2
       with:
         script-path: .build/build.cake
         target: Restore
     - name: Build Libs
-      uses: cake-build/cake-action@v1.4.1
+      uses: cake-build/cake-action@v2
       with:
         script-path: .build/build.cake
         target: BuildLibs
     - name: Build Clients
-      uses: cake-build/cake-action@v1.4.1
+      uses: cake-build/cake-action@v2
       with:
         script-path: .build/build.cake
         target: BuildClients
     - name: Builds Tests
-      uses: cake-build/cake-action@v1.4.1
+      uses: cake-build/cake-action@v2
       with:
         script-path: .build/build.cake
         target: BuildTests
     - name: Run Tests
-      uses: cake-build/cake-action@v1.4.1
+      uses: cake-build/cake-action@v2
       with:
         script-path: .build/build.cake
         target: RunTests
@@ -69,7 +69,7 @@ jobs:
     - name: Build MVVMCross.Plugins.BLE NuGet
       run: msbuild .\Source\MvvmCross.Plugins.BLE\MvvmCross.Plugins.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
     - name: Upload packages
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: nupkg
         path: ./Source/*/nuget/*Plugin.BLE*.nupkg
