@@ -31,17 +31,29 @@ namespace BLE.Client.WinConsole
             Adapter = CrossBluetoothLE.Current.Adapter;
             Adapter.DeviceConnected += Adapter_DeviceConnected;
             Adapter.DeviceDisconnected += Adapter_DeviceDisconnected;
+            Adapter.DeviceConnectionLost += Adapter_DeviceConnectionLost;
+            Adapter.DeviceConnectionError += Adapter_DeviceConnectionError;
             this.writer = writer;
+        }
+
+        private void Adapter_DeviceConnectionError(object? sender, Plugin.BLE.Abstractions.EventArgs.DeviceErrorEventArgs e)
+        {
+            Write($"Adapter_DeviceConnectionError {e.Device.Id.ToHexBleAddress()} with name: {e.Device.Name}");
+        }
+
+        private void Adapter_DeviceConnectionLost(object? sender, Plugin.BLE.Abstractions.EventArgs.DeviceErrorEventArgs e)
+        {
+            Write($"Adapter_DeviceConnectionLost {e.Device.Id.ToHexBleAddress()} with name: {e.Device.Name}");
         }
 
         private void Adapter_DeviceDisconnected(object? sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs e)
         {
-            Write($"Adapter_DeviceDisconnected {e.Device.Id}");
+            Write($"Adapter_DeviceDisconnected {e.Device.Id.ToHexBleAddress()} with name: {e.Device.Name}");
         }
 
         private void Adapter_DeviceConnected(object? sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs e)
         {
-            Write($"Adapter_DeviceConnected {e.Device.Id}");
+            Write($"Adapter_DeviceConnected {e.Device.Id.ToHexBleAddress()} with name:  {e.Device.Name}");
         }
 
         private void Write(string format, params object[] args)
@@ -67,6 +79,114 @@ namespace BLE.Client.WinConsole
             await Adapter.DisconnectDeviceAsync(dev);
             dev.Dispose();
             Write("Test_Connect_Disconnect done");
+        }
+
+        public async Task Connect_Read_Services_Disconnect_5X()
+        {
+            string bleaddress = BleAddressSelector.GetBleAddress();
+            var id = bleaddress.ToBleDeviceGuid();
+            var connectParameters = new ConnectParameters(connectionParameterSet: ConnectionParameterSet.Balanced);
+
+            using (IDevice dev = await Adapter.ConnectToKnownDeviceAsync(id, connectParameters))
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    await Task.Delay(100);
+                    Write($"---------------- {i} ------------------");
+                    if (dev.State != DeviceState.Connected)
+                    {
+                        Write("Connecting");
+                        await Adapter.ConnectToDeviceAsync(dev);
+                    }
+                    Write("Reading services");
+
+                    var services = await dev.GetServicesAsync();
+                    List<ICharacteristic> charlist = new List<ICharacteristic>();
+                    foreach (var service in services)
+                    {
+                        var characteristics = await service.GetCharacteristicsAsync();
+                        charlist.AddRange(characteristics);
+                    }
+
+                    foreach (var service in services)
+                    {
+                        service.Dispose();
+                    }
+                    charlist.Clear();
+                    Write("Waiting 3 secs");
+                    await Task.Delay(3000);
+                    Write("Disconnecting");
+                    await Adapter.DisconnectDeviceAsync(dev);
+                    Write("Test_Connect_Disconnect done");
+                }
+            }
+        }
+
+        public async Task Connect_Read_Services_Dispose_5X()
+        {
+            string bleaddress = BleAddressSelector.GetBleAddress();
+            var id = bleaddress.ToBleDeviceGuid();
+            var connectParameters = new ConnectParameters(connectionParameterSet: ConnectionParameterSet.Balanced);
+            for (int i = 0; i < 5; i++)
+            {
+                await Task.Delay(100);
+                Write($"---------------- {i} ------------------");
+                IDevice dev = await Adapter.ConnectToKnownDeviceAsync(id, connectParameters);
+                Write("Reading services");
+                var services = await dev.GetServicesAsync();
+                List<ICharacteristic> charlist = new List<ICharacteristic>();
+                foreach (var service in services)
+                {
+                    var characteristics = await service.GetCharacteristicsAsync();
+                    charlist.AddRange(characteristics);
+                }
+
+                foreach (var service in services)
+                {
+                    service.Dispose();
+                }
+                charlist.Clear();
+                Write("Waiting 3 secs");
+                await Task.Delay(3000);
+                //await Adapter.DisconnectDeviceAsync(dev);                
+                Write("Disposing");
+                dev.Dispose();
+            }
+        }
+
+        public async Task Connect_ConnectionLost_Connect()
+        {
+            string bleaddress = BleAddressSelector.GetBleAddress();
+            var id = bleaddress.ToBleDeviceGuid();
+            var connectParameters = new ConnectParameters(connectionParameterSet: ConnectionParameterSet.Balanced);
+            ConsoleKey consoleKey = ConsoleKey.None;
+            using (IDevice dev = await Adapter.ConnectToKnownDeviceAsync(id, connectParameters))
+            {
+                while (consoleKey != ConsoleKey.Escape)
+                {
+                    Write("Reading services");
+                    var services = await dev.GetServicesAsync();
+                    List<ICharacteristic> charlist = new List<ICharacteristic>();
+                    foreach (var service in services)
+                    {
+                        var characteristics = await service.GetCharacteristicsAsync();
+                        charlist.AddRange(characteristics);
+                    }
+                    await Task.Delay(1000);
+                    Console.WriteLine(new string('-', 80));
+                    Console.WriteLine("Now powercycle the device... Hit any key when the device is booted up again (Escape to quit)");
+                    Console.WriteLine(new string('-', 80));
+                    consoleKey = Console.ReadKey().Key;
+                    await Adapter.ConnectToDeviceAsync(dev, connectParameters);
+                    Write("Waiting 3 secs");
+                    await Task.Delay(3000);
+                    foreach (var service in services)
+                    {
+                        service.Dispose();
+                    }
+                    charlist.Clear();
+                }
+            }
         }
 
         public async Task Connect_Change_Parameters_Disconnect()

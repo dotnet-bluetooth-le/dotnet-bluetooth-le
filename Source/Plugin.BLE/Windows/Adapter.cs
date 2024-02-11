@@ -19,10 +19,10 @@ namespace Plugin.BLE.Windows
         private BluetoothLEAdvertisementWatcher _bleWatcher;
 
         /// <summary>
-        /// Registry used to store device instances for pending operations : disconnect
+        /// Registry used to store device instances for pending disconnect operations
         /// Helps to detect connection lost events.
         /// </summary>
-        private readonly IDictionary<string, IDevice> _deviceOperationRegistry = new ConcurrentDictionary<string, IDevice>();
+        private readonly IDictionary<string, IDevice> disconnectingRegistry = new ConcurrentDictionary<string, IDevice>();
 
         public Adapter()
         {
@@ -77,14 +77,17 @@ namespace Plugin.BLE.Windows
             var nativeDevice = device.NativeDevice as BluetoothLEDevice;
             Trace.Message("ConnectToDeviceNativeAsync {0} Named: {1} Connected: {2}", device.Id.ToHexBleAddress(), device.Name, nativeDevice.ConnectionStatus);
 
-            ConnectedDeviceRegistry[device.Id.ToString()] = device;
-
-            nativeDevice.ConnectionStatusChanged -= Device_ConnectionStatusChanged;
-            nativeDevice.ConnectionStatusChanged += Device_ConnectionStatusChanged;
 
             bool success = await dev.ConnectInternal(connectParameters, cancellationToken);
-
-            if (!success)
+            if (success)
+            {
+                if (!ConnectedDeviceRegistry.ContainsKey(device.Id.ToString()))
+                {
+                    ConnectedDeviceRegistry[device.Id.ToString()] = device;
+                    nativeDevice.ConnectionStatusChanged += Device_ConnectionStatusChanged;
+                }
+            }
+            else
             {
                 // use DisconnectDeviceNative to clean up resources otherwise windows won't disconnect the device
                 // after a subsequent successful connection (#528, #536, #423)
@@ -94,20 +97,8 @@ namespace Plugin.BLE.Windows
                 HandleConnectionFail(device, "Failed connecting to device.");
 
                 // this is normally done in Device_ConnectionStatusChanged but since nothing actually connected
-                // or disconnect, ConnectionStatusChanged will not fire.
+                // or disconnect, ConnectionStatusChanged will not fire.                
                 ConnectedDeviceRegistry.TryRemove(device.Id.ToString(), out _);
-            }
-            else if (cancellationToken.IsCancellationRequested)
-            {
-                // connection attempt succeeded but was cancelled before it could be completed
-                // see TODO above.
-
-                // cleanup resources
-                DisconnectDeviceNative(device);
-            }
-            else
-            {
-                _deviceOperationRegistry[device.Id.ToString()] = device;
             }
         }
 
@@ -135,20 +126,17 @@ namespace Plugin.BLE.Windows
             if (nativeDevice.ConnectionStatus == BluetoothConnectionStatus.Disconnected
                 && ConnectedDeviceRegistry.TryRemove(id, out var disconnectedDevice))
             {
-                bool isNormalDisconnect = !_deviceOperationRegistry.Remove(disconnectedDevice.Id.ToString());
-                if (!isNormalDisconnect)
+                bool disconnectRequested = disconnectingRegistry.Remove(id);
+                if (!disconnectRequested)
                 {
                     // device was powered off or went out of range.  Call DisconnectDeviceNative to cleanup
                     // resources otherwise windows will not disconnect on a subsequent connect-disconnect.
                     DisconnectDeviceNative(disconnectedDevice);
                 }
-
+                ConnectedDeviceRegistry.Remove(id, out _);
+                nativeDevice.ConnectionStatusChanged -= Device_ConnectionStatusChanged;
                 // fire the correct event (DeviceDisconnected or DeviceConnectionLost)
-                HandleDisconnectedDevice(isNormalDisconnect, disconnectedDevice);
-                if (isNormalDisconnect)
-                {
-                    nativeDevice.ConnectionStatusChanged -= Device_ConnectionStatusChanged;
-                }
+                HandleDisconnectedDevice(disconnectRequested, disconnectedDevice);
             }
         }
 
@@ -156,11 +144,8 @@ namespace Plugin.BLE.Windows
         {
             // Windows doesn't support disconnecting, so currently just dispose of the device
             Trace.Message($"DisconnectDeviceNative from device with ID:  {device.Id.ToHexBleAddress()}");
-            if (device.NativeDevice is BluetoothLEDevice nativeDevice)
-            {
-                _deviceOperationRegistry.Remove(device.Id.ToString());
-                ((Device)device).DisconnectInternal();
-            }
+            disconnectingRegistry[device.Id.ToString()] = device;
+            ((Device)device).DisconnectInternal();
         }
 
         public override async Task<IDevice> ConnectToKnownDeviceNativeAsync(Guid deviceGuid, ConnectParameters connectParameters = default, CancellationToken cancellationToken = default)
