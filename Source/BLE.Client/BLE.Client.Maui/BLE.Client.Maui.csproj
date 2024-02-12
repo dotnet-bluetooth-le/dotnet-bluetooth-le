@@ -70,6 +70,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
 	</ItemGroup>
@@ -79,7 +80,6 @@
 	  <None Remove="Models\" />
 	  <None Remove="Views\" />
 	  <None Remove="Services\" />
-	  <None Remove="Helpers\" />
 	  <None Remove="Resources\Images\7jo1.gif" />
 	  <None Remove="Resources\Images\scanning.gif" />
 	</ItemGroup>
@@ -88,7 +88,6 @@
 	  <Folder Include="Models\" />
 	  <Folder Include="Views\" />
 	  <Folder Include="Services\" />
-	  <Folder Include="Helpers\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Plugin.BLE\Plugin.BLE.csproj" />

@@ -364,7 +364,9 @@ namespace BLE.Client.Maui.ViewModels
         private async Task<bool> HasCorrectPermissions()
         {
             DebugMessage("Into HasCorrectPermissions");
-            var permissionResult = await App.PlatformHelper.CheckAndRequestBluetoothPermissions();
+            var permissionResult = await Permissions.CheckStatusAsync<Permissions.Bluetooth>();
+            if (permissionResult != PermissionStatus.Granted)
+                permissionResult = await Permissions.RequestAsync<Permissions.Bluetooth>();
             DebugMessage($"Back from await App.PlatformHelper: '{permissionResult}'");
             if (permissionResult != PermissionStatus.Granted)
             {
