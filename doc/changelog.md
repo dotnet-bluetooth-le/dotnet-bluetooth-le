@@ -2,6 +2,13 @@
 
 ## 3.1
 
+#### 3.1.0-beta.2
+- #784 Turn Bluetooth Radio On/Off
+- #801 Connection parameters for Windows
+- #805 Added services for Citysports treadmill (fixes #804)
+- #807 Fix GetSystemConnectedOrPairedDevices in Windows
+- #809 Fix ConnectionLost -> Connect for Windows
+
 #### 3.1.0-beta.1
 - #746 Windows.Devices.Bluetooth Only
 - #764 ReadAsync updates characteristic value on Windows
