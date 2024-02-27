@@ -16,7 +16,6 @@ namespace Plugin.BLE.Windows
     public class Device : DeviceBase<BluetoothLEDevice>
     {
         private GattSession gattSession = null;
-        private DeviceInformation deviceInformation = null;
         private bool isDisposed = false;
 
         public Device(Adapter adapter, BluetoothLEDevice nativeDevice, int rssi, Guid id,
@@ -133,7 +132,7 @@ namespace Plugin.BLE.Windows
                     parameters = BluetoothLEPreferredConnectionParameters.ThroughputOptimized;
                     break;
                 case ConnectionParameterSet.None:
-                default:                    
+                default:
                     break;
             }
             if (parameters is not null)
@@ -154,7 +153,8 @@ namespace Plugin.BLE.Windows
             // ref https://learn.microsoft.com/en-us/uwp/api/windows.devices.bluetooth.bluetoothledevice.frombluetoothaddressasync
             // Creating a BluetoothLEDevice object by calling this method alone doesn't (necessarily) initiate a connection.
             // To initiate a connection, set GattSession.MaintainConnection to true, or call an uncached service discovery
-            // method on BluetoothLEDevice, or perform a read/write operation against the device.                        
+            // method on BluetoothLEDevice, or perform a read/write operation against the device.                                    
+            // 2024-02-27: Note, that The DeviceInformation.Pairing.Custom.PairAsync also initiates a connection
             if (NativeDevice is null)
             {
                 Trace.Message("ConnectInternal says: Cannot connect since NativeDevice is null");
@@ -163,24 +163,27 @@ namespace Plugin.BLE.Windows
             try
             {
                 MaybeRequestPreferredConnectionParameters(NativeDevice, connectParameters);
-                deviceInformation = await DeviceInformation.CreateFromIdAsync(NativeDevice.DeviceId);
-                if (!deviceInformation.Pairing.IsPaired && deviceInformation.Pairing.CanPair)
-                {
-                    Trace.Message($"Pairing with {deviceInformation.Name} ({deviceInformation.Id})");
-                    deviceInformation.Pairing.Custom.PairingRequested += Custom_PairingRequested;
-                    DevicePairingResult result = await deviceInformation.Pairing.Custom.PairAsync(
-                        DevicePairingKinds.ConfirmOnly, DevicePairingProtectionLevel.Encryption);
-                    Trace.Message($"Pairing with {deviceInformation.Name} ({deviceInformation.Id}) result: {result.Status}");
-                    if (result.Status != DevicePairingResultStatus.Paired)
-                    {
-                        throw new Exception($"Could not pair: {result.Status}");
-                    }
-                }
                 var devId = BluetoothDeviceId.FromId(NativeDevice.DeviceId);
                 gattSession = await GattSession.FromDeviceIdAsync(devId);
-                gattSession.MaintainConnection = true;
                 gattSession.SessionStatusChanged += GattSession_SessionStatusChanged;
                 gattSession.MaxPduSizeChanged += GattSession_MaxPduSizeChanged;
+                if (connectParameters.AutoPair)
+                {
+                    DeviceInformation deviceInformation = await DeviceInformation.CreateFromIdAsync(NativeDevice.DeviceId);
+                    if (!deviceInformation.Pairing.IsPaired && deviceInformation.Pairing.CanPair)
+                    {
+                        Trace.Message($"Pairing with {deviceInformation.Name} ({deviceInformation.Id})");
+                        deviceInformation.Pairing.Custom.PairingRequested += Custom_PairingRequested;
+                        DevicePairingResult result = await deviceInformation.Pairing.Custom.PairAsync(
+                            DevicePairingKinds.ConfirmOnly, DevicePairingProtectionLevel.Encryption);
+                        Trace.Message($"Pairing with {deviceInformation.Name} ({deviceInformation.Id}) result: {result.Status}");
+                        if (result.Status != DevicePairingResultStatus.Paired)
+                        {
+                            throw new Exception($"Could not pair: {result.Status}");
+                        }
+                    }
+                }
+                gattSession.MaintainConnection = true;
             }
             catch (Exception ex)
             {
@@ -189,6 +192,7 @@ namespace Plugin.BLE.Windows
                 return false;
             }
             bool success = gattSession != null;
+            Trace.Message($"ConnectInternal returning {success}");
             return success;
         }
 

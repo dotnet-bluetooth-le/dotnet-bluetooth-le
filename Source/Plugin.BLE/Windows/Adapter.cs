@@ -85,7 +85,11 @@ namespace Plugin.BLE.Windows
                 {
                     ConnectedDeviceRegistry[device.Id.ToString()] = device;
                     nativeDevice.ConnectionStatusChanged += Device_ConnectionStatusChanged;
-                }
+                    if (nativeDevice.ConnectionStatus == BluetoothConnectionStatus.Connected)
+                    {
+                        Device_ConnectionStatusChanged(nativeDevice, null);
+                    }
+                }                
             }
             else
             {
