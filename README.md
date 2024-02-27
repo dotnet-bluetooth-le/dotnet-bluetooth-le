@@ -113,7 +113,7 @@ Add this line to the Package Manifest (.appxmanifest):
 
 We provide a sample Xamarin.Forms app, that is a basic bluetooth LE scanner. With this app, it's possible to
 
-- check the ble status
+- check the BLE status
 - discover devices
 - connect/disconnect
 - discover the services
@@ -325,14 +325,14 @@ The BLE API implementation (especially on **Android**) has the following limitat
     }
 ```
 
-- **Avoid caching of Characteristic or Service instances between connection sessions**. This includes saving a reference to them in your class between connection sessions etc. After a device has been disconnected all Service & Characteristic instances become **invalid**. Allways **use GetServiceAsync and GetCharacteristicAsync to get a valid instance**.
+- **Avoid caching of Characteristic or Service instances between connection sessions**. This includes saving a reference to them in your class between connection sessions etc. After a device has been disconnected all Service & Characteristic instances become **invalid**. Always **use GetServiceAsync and GetCharacteristicAsync to get a valid instance**.
 
 ### General BLE iOS, Android
 
-- Scanning: Avoid performing ble device operations like Connect, Read, Write etc while scanning for devices. Scanning is battery-intensive.
-    - try to stop scanning before performing device operations (connect/read/write/etc)
-    - try to stop scanning as soon as you find the desired device
-    - never scan on a loop, and set a time limit on your scan
+- Scanning: Avoid performing BLE device operations like Connect, Read, Write etc while scanning for devices. Scanning is battery-intensive.
+    - Try to stop scanning before performing device operations (connect/read/write/etc).
+    - Try to stop scanning as soon as you find the desired device.
+    - Never scan on a loop, and set a time limit on your scan.
 
 ## How to build the nuget package
 

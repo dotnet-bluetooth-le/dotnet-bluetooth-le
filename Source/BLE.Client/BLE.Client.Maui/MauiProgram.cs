@@ -1,5 +1,4 @@
-﻿using BLE.Client.Helpers;
-using BLE.Client.Maui.Services;
+﻿using BLE.Client.Maui.Services;
 namespace BLE.Client.Maui;
 
 public static class MauiProgram
@@ -16,10 +15,6 @@ public static class MauiProgram
 			});
         builder.Services.AddSingleton<IAlertService, AlertService>();
 
-        AddPlatformSpecificItems(builder);
-
-
-
 #if DEBUG
         //builder.Logging.AddDebug();
 #endif
@@ -32,18 +27,4 @@ public static class MauiProgram
     public static bool IsMacCatalyst => DeviceInfo.Current.Platform == DevicePlatform.MacCatalyst;
 
     public static bool IsMacOS => DeviceInfo.Current.Platform == DevicePlatform.macOS;
-
-
-    private static void AddPlatformSpecificItems(MauiAppBuilder builder)
-    {
-#if ANDROID
-        builder.Services.AddSingleton<IPlatformHelpers, DroidPlatformHelpers>();
-#elif IOS
-        builder.Services.AddSingleton<IPlatformHelpers, iOSPlatformHelpers>();
-#elif MACCATALYST
-        builder.Services.AddSingleton<IPlatformHelpers, MacCatalystPlatformHelpers>();
-#elif WINDOWS
-        builder.Services.AddSingleton<IPlatformHelpers, WindowsPlatformHelpers>();
-#endif
-    }
 }
