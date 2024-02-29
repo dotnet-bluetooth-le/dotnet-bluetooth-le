@@ -211,6 +211,24 @@ namespace BLE.Client.WinConsole
             Write("Test_Connect_Disconnect done");
         }
 
+        public async Task BondAsync()
+        {
+            string bleaddress = BleAddressSelector.GetBleAddress();
+            var id = bleaddress.ToBleDeviceGuid();
+            IDevice dev = await Adapter.ConnectToKnownDeviceAsync(id);
+            await Adapter.BondAsync(dev);
+        }
+
+        public Task GetBondedDevices()
+        {
+            int idx = 0;
+            foreach(var dev in Adapter.BondedDevices)
+            {
+                Write($"{idx++} Bonded device: {dev.Name} : {dev.Id}");
+            }
+            return Task.FromResult(true);
+        }
+
         public async Task Pair_Connect_Disconnect()
         {
             string bleaddress = BleAddressSelector.GetBleAddress();

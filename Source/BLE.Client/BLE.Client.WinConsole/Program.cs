@@ -25,6 +25,8 @@ using (var ct = new ConsoleTracer())
         {ConsoleKey.D7, new Demo("5X: Connect -> Read services -> Disconnect", ppemos.Connect_Read_Services_Disconnect_5X) },
         {ConsoleKey.D8, new Demo("5X: Connect -> Read services -> Dispose", ppemos.Connect_Read_Services_Dispose_5X) },
         {ConsoleKey.D9, new Demo("Connect -> Loop: ConnectionLost -> Connect", ppemos.Connect_ConnectionLost_Connect) },
+        {ConsoleKey.Q, new Demo("Adapter.BondAsync", ppemos.BondAsync) },
+        {ConsoleKey.W, new Demo("Adapter.BondedDevices", ppemos.GetBondedDevices) },
         {ConsoleKey.A, new Demo("Pure Windows: Connect -> Disconnect", wdemos.Connect_Disconnect) },
         {ConsoleKey.S, new Demo("Pure Windows: Unpair all BLE devices", wdemos.UnPairAllBleDevices) },
     };
