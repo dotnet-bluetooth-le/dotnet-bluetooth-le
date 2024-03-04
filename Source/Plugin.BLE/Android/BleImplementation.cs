@@ -85,8 +85,12 @@ namespace Plugin.BLE
 
         public override Task<bool> TrySetStateAsync(bool on)
         {
-            Abstractions.Trace.Message("WARNING TrySetStateAsync is not implemented for Android");
-            return Task<bool>.FromResult(false);
+            const string ACTION_REQUEST_DISABLE = "android.bluetooth.adapter.action.REQUEST_DISABLE";
+
+            var intent = new Intent(on ? BluetoothAdapter.ActionRequestEnable : ACTION_REQUEST_DISABLE);
+            intent.SetFlags(ActivityFlags.NewTask);
+            Application.Context.StartActivity(intent);
+            return Task.FromResult(true);
         }
     }
 }
