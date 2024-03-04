@@ -31,8 +31,8 @@ namespace Plugin.BLE.Abstractions.Contracts
         bool IsOn { get; }
 
         /// <summary>
-        /// Try set the state of the Bluetooth on/off
-        /// 2024-01-14: Only supported in Windows
+        /// Try to set the state of the Bluetooth (on/off).
+        /// Supported on: Android & Windows.
         /// </summary>
         /// <param name="on"></param>
         /// <returns>true if the the method executed with success otherwice false</returns>
