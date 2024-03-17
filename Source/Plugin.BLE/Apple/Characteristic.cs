@@ -111,7 +111,7 @@ namespace Plugin.BLE.iOS
 #endif
                         {
                             Trace.Message($"Read characterteristic value: {Value?.ToHexString()}");
-                            int resultCode = (args.Error == null) ? 0 : NSErrorToGattStatus(args.Error);
+                            int resultCode = NSErrorToGattStatus(args.Error);
                             complete((Value, resultCode));
                         }
                     },
@@ -144,7 +144,7 @@ namespace Plugin.BLE.iOS
                         if (args.Characteristic.UUID != NativeCharacteristic.UUID)
                             return;
 
-                        complete((args.Error == null) ? 0 : NSErrorToGattStatus(args.Error));
+                        complete(NSErrorToGattStatus(args.Error));
                     },
                     subscribeComplete: handler => _parentDevice.WroteCharacteristicValue += handler,
                     unsubscribeComplete: handler => _parentDevice.WroteCharacteristicValue -= handler,
@@ -288,6 +288,9 @@ namespace Plugin.BLE.iOS
 
         protected int NSErrorToGattStatus(NSError error)
         {
+            if (error == null)
+                return 0;
+
             switch (error.Domain)
             {
                 case "CBATTErrorDomain":
