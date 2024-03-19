@@ -11,6 +11,7 @@ using System.Collections.Concurrent;
 using WBluetooth = global::Windows.Devices.Bluetooth;
 using static System.Net.Mime.MediaTypeNames;
 using Windows.Devices.Bluetooth.GenericAttributeProfile;
+using Windows.Devices.Enumeration;
 
 namespace Plugin.BLE.Windows
 {
@@ -238,7 +239,23 @@ namespace Plugin.BLE.Windows
 
         protected override DeviceBondState GetBondState()
         {
-            return DeviceBondState.NotSupported;
+            try
+            {
+                DeviceInformation deviceInformation = DeviceInformation.CreateFromIdAsync(NativeDevice.DeviceId).AsTask().Result;
+                if (deviceInformation.Pairing.IsPaired)
+                {
+                    return DeviceBondState.Bonded;
+                }
+                else
+                {
+                    return DeviceBondState.NotBonded;
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.Message($"GetBondState exception for {NativeDevice.DeviceId} : {ex.Message}");
+                return DeviceBondState.NotSupported;
+            }
         }
 
         public override bool UpdateConnectionParameters(ConnectParameters connectParameters = default)

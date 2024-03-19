@@ -27,6 +27,7 @@ using (var ct = new ConsoleTracer())
         {ConsoleKey.D9, new Demo("Connect -> Loop: ConnectionLost -> Connect", ppemos.Connect_ConnectionLost_Connect) },
         {ConsoleKey.Q, new Demo("Adapter.BondAsync", ppemos.BondAsync) },
         {ConsoleKey.W, new Demo("Adapter.BondedDevices", ppemos.GetBondedDevices) },
+        {ConsoleKey.E, new Demo("Device.BondState", ppemos.ShowBondState) },
         {ConsoleKey.A, new Demo("Pure Windows: Connect -> Disconnect", wdemos.Connect_Disconnect) },
         {ConsoleKey.S, new Demo("Pure Windows: Unpair all BLE devices", wdemos.UnPairAllBleDevices) },
     };
