@@ -242,14 +242,7 @@ namespace Plugin.BLE.Windows
             try
             {
                 DeviceInformation deviceInformation = DeviceInformation.CreateFromIdAsync(NativeDevice.DeviceId).AsTask().Result;
-                if (deviceInformation.Pairing.IsPaired)
-                {
-                    return DeviceBondState.Bonded;
-                }
-                else
-                {
-                    return DeviceBondState.NotBonded;
-                }
+                return deviceInformation.Pairing.IsPaired ? DeviceBondState.Bonded : DeviceBondState.NotBonded;                
             }
             catch (Exception ex)
             {
