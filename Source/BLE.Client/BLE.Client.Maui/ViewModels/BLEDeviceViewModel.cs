@@ -117,7 +117,10 @@ namespace BLE.Client.Maui.ViewModels
             }
         }
 
-
+        public string Adverts
+        {
+            get => String.Join('\n', AdvertisementRecords.Select(advert => $"{advert.Type}: 0x{Convert.ToHexString(advert.Data)}"));
+        }
 
         public override string ToString()
         {
