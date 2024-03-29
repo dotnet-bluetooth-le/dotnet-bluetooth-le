@@ -28,35 +28,8 @@ namespace BLE.Client.Maui.ViewModels
 
 
         public ObservableCollection<BLEDeviceViewModel> BLEDevices { get; private set;} =  new ObservableCollection<BLEDeviceViewModel>();
-        private ObservableCollection<string> _messages = new ObservableCollection<string>();
-
-        public IList<string> Messages { get { DebugMessage("Getting messages"); return _messages; } }
-
-        private string _lastMessage = string.Empty;
-        public string LastMessage {
-            get
-            {
-                DebugMessage("Getting LastMessage");
-                return _lastMessage;
-            }
-            set
-            {
-                _lastMessage = value;
-            } }
 
         public string SpinnerName { get { DebugMessage("getting SpinnerName"); return "spinner.gif"; } }
-
-        private void ClearMessages()
-        {
-            DebugMessage($"enter ClearMessages");
-            Messages.Clear();
-            OnPropertyChanged(nameof(Messages));
-            LastMessage = string.Empty;
-            OnPropertyChanged(nameof(LastMessage));
-            DebugMessage($"exit ClearMessages");
-        }
-
-        //private AsyncRelayCommand startScan;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -82,7 +55,6 @@ namespace BLE.Client.Maui.ViewModels
 
         public BLEScannerViewModel()
         {
-            LastMessage = string.Empty;
             DebugMessage($"Into BLEScannerViewModel constructor");
             _scanCancellationToken = _scanCancellationTokenSource.Token;
             ConfigureBLE();
@@ -131,10 +103,7 @@ namespace BLE.Client.Maui.ViewModels
         private void DebugMessage(string message)
         {
             Debug.WriteLine(message);
-            //Messages.Add(message);
-            //LastMessage = $"Last message: '{message}'";
-            //OnPropertyChanged(nameof(LastMessage));
-            //OnPropertyChanged(nameof(Messages));
+            App.Logger.AddMessage(message);
         }
 
         private void ConfigureBLE()
@@ -297,7 +266,6 @@ namespace BLE.Client.Maui.ViewModels
 
         private void PerformScanForDevices()
         {
-            ClearMessages();
             if (!IsScanning)
             {
                 IsScanning = true;

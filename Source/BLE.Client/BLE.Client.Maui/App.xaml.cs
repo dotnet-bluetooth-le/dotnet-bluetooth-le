@@ -4,16 +4,19 @@ namespace BLE.Client.Maui;
 
 public partial class App : Application
 {
-    public static IServiceProvider Services;
-    public static IAlertService AlertSvc;
+    private static IServiceProvider ServicesProvider;
+    public static IServiceProvider Services => ServicesProvider;
+    private static IAlertService AlertService;
+    public static IAlertService AlertSvc => AlertService;
+
+    public readonly static LogService Logger = new();
 
     public App(IServiceProvider provider)
 	{
 		InitializeComponent();
 
-        Services = provider;
-        AlertSvc = Services.GetService<IAlertService>();
+        ServicesProvider = provider;
+        AlertService = Services.GetService<IAlertService>();
         MainPage = new AppShell();
 	}
 }
-

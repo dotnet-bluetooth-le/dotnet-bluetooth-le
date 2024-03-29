@@ -6,9 +6,13 @@
     xmlns:local="clr-namespace:BLE.Client.Maui.Views"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        Title="BLE Scanner"
-        ContentTemplate="{DataTemplate local:BLEScanner}"
-        Route="BLEScanner" />
-
+    <TabBar>
+        <ShellContent Title="BLE Scanner"
+            ContentTemplate="{DataTemplate local:BLEScanner}"
+            Route="BLEScanner" />
+            
+        <ShellContent Title="Log"
+            ContentTemplate="{DataTemplate local:LogViewer}"
+            Route="LogViewer" />
+    </TabBar>
 </Shell>
