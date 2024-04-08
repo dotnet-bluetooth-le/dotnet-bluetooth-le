@@ -14,8 +14,8 @@
         </Grid.RowDefinitions>
         
         <HorizontalStackLayout Grid.Row="0">
-            <Button Text="{Binding Path=ScanLabelText}" FontSize="32"
-                Command="{Binding ScanForDevices}" />
+            <Button Text="{Binding ToggleScanningCmdLabelText}" FontSize="32"
+                Command="{Binding ToggleScanning}" />
             <ActivityIndicator IsRunning="{Binding IsScanning}" Margin="8"/>
         </HorizontalStackLayout>
         
