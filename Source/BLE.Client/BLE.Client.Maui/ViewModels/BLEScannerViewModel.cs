@@ -186,10 +186,16 @@ namespace BLE.Client.Maui.ViewModels
         }
         private async void ScanForDevicesAsync()
         {
-            if (!IsStateOn || !await HasCorrectPermissions())
+            if (!IsStateOn)
             {
-                DebugMessage("BluetoothLE not available - abort scan attempt");
-                ToggleScanForDevices();
+                ShowMessage("Bluetooth is not ON.\nPlease turn on Bluetooth and try again.");
+                IsScanning = false;
+                return;
+            }
+            if (!await HasCorrectPermissions())
+            {
+                DebugMessage("Aborting scan attempt");
+                IsScanning = false;
                 return;
             }
             DebugMessage("StartScanForDevices called");
