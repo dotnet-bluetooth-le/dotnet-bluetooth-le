@@ -1,19 +1,93 @@
-﻿using System;
-using System.ComponentModel;
-using System.Text;
-using BLE.Client.Maui.Models;
+﻿using System.Text;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 
 namespace BLE.Client.Maui.ViewModels
 {
-	public class BLEDeviceViewModel : INotifyPropertyChanged
+	public class BLEDeviceViewModel : BaseViewModel
     {
-		public BLEDeviceViewModel()
-		{
-		}
+        private Guid _deviceId = new();
+        public Guid DeviceId
+        {
+            get => _deviceId;
+            set
+            {
+                if (_deviceId != value)
+                {
+                    _deviceId = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private string _name = string.Empty;
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                if (_name != value)
+                {
+                    _name = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private int _rssi = 0;
+        public int Rssi
+        {
+            get => _rssi;
+            set
+            {
+                if (_rssi != value)
+                {
+                    _rssi = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private bool _isConnectable = false;
+        public bool IsConnectable
+        {
+            get => _isConnectable;
+            set
+            {
+                if (_isConnectable != value)
+                {
+                    _isConnectable = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private DeviceState _state = DeviceState.Disconnected;
+        public DeviceState State
+        {
+            get => _state;
+            set
+            {
+                if (_state != value)
+                {
+                    _state = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public IReadOnlyList<AdvertisementRecord> AdvertisementRecords;
+        public string Adverts
+        {
+            get => String.Join('\n', AdvertisementRecords.Select(advert => $"{advert.Type}: 0x{Convert.ToHexString(advert.Data)}"));
+        }
 
         public BLEDeviceViewModel(IDevice device)
+        {
+            Update(device);
+        }
+
+        public void Update(IDevice device)
         {
             DeviceId = device.Id;
             Name = device.Name;
@@ -21,105 +95,6 @@ namespace BLE.Client.Maui.ViewModels
             IsConnectable = device.IsConnectable;
             AdvertisementRecords = device.AdvertisementRecords;
             State = device.State;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-		private Guid _deviceId = new();
-        private string _name = string.Empty;
-        private string _manufacturerData = string.Empty;
-        private int _rssi = 0;
-        private bool _isConnectable = false;
-        private DeviceState _state = DeviceState.Disconnected;
-
-        public IReadOnlyList<AdvertisementRecord> AdvertisementRecords;
-
-
-
-        public Guid DeviceId
-		{
-			get
-			{
-				return _deviceId;
-			}
-			set
-			{
-				_deviceId = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DeviceId)));
-            }
-		}
-
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                _name = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
-            }
-        }
-
-
-        public string ManufacturerData
-        {
-            get
-            {
-                return _manufacturerData;
-            }
-            set
-            {
-                _manufacturerData = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ManufacturerData)));
-            }
-        }
-
-
-
-        public int Rssi
-        {
-            get
-            {
-                return _rssi;
-            }
-            set
-            {
-                _rssi = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Rssi)));
-            }
-        }
-
-        public bool IsConnectable
-        {
-            get
-            {
-                return _isConnectable;
-            }
-            set
-            {
-                _isConnectable = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsConnectable)));
-            }
-        }
-        public DeviceState State
-
-        {
-            get
-            {
-                return _state;
-            }
-            set
-            {
-                _state = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DeviceState)));
-            }
-        }
-
-        public string Adverts
-        {
-            get => String.Join('\n', AdvertisementRecords.Select(advert => $"{advert.Type}: 0x{Convert.ToHexString(advert.Data)}"));
         }
 
         public override string ToString()

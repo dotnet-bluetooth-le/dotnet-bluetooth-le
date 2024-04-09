@@ -1,9 +1,6 @@
 ﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using CommunityToolkit.Mvvm.Input;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
@@ -11,7 +8,7 @@ using Plugin.BLE.Abstractions.Extensions;
 
 namespace BLE.Client.Maui.ViewModels
 {
-    public class BLEScannerViewModel : INotifyPropertyChanged
+    public class BLEScannerViewModel : BaseViewModel
     {
         private readonly IBluetoothLE _bluetoothManager;
         protected IAdapter Adapter;
@@ -151,12 +148,12 @@ namespace BLE.Client.Maui.ViewModels
 
         private void AddOrUpdateDevice(IDevice device)
         {
-            DebugMessage($"Device Found: '{device.Id}'");
             MainThread.BeginInvokeOnMainThread(() => {
                 var vm = BLEDevices.FirstOrDefault(d => d.DeviceId == device.Id);
                 if (vm != null)
                 {
                     DebugMessage($"Update Device: {device.Id}");
+                    vm.Update(device);
                 }
                 else
                 {
@@ -165,7 +162,6 @@ namespace BLE.Client.Maui.ViewModels
                     BLEDevices.Add(vm);
                 }
             });
-            DebugMessage($"Device Found: '{device.Id}' done");
         }
 
         private void ToggleScanForDevices()
@@ -253,14 +249,5 @@ namespace BLE.Client.Maui.ViewModels
         }
 
         #endregion Scan & Discover
-
-        #region INotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion INotifyPropertyChanged
     }
 }
