@@ -2,6 +2,10 @@
 
 ## 3.1
 
+#### 3.1.0-beta.3
+- #823 Implement BleImplementation.TrySetStateAsync on Android (fixes #821)
+- #827 Fix a NullReferenceException in Characteristic.NSErrorToGattStatus on iOS (fixes #825)
+
 #### 3.1.0-beta.2
 - #784 Turn Bluetooth Radio On/Off
 - #801 Connection parameters for Windows
