@@ -39,6 +39,9 @@ namespace Plugin.BLE.Abstractions.Contracts
         event EventHandler<DeviceErrorEventArgs> DeviceConnectionError;
         /// <summary>
         /// Occurs when the bonding state of a device changed
+        /// Android: Supported
+        /// iOS: Not supported
+        /// Windows: Not supported        
         /// </summary>
         event EventHandler<DeviceBondStateChangedEventArgs> DeviceBondStateChanged;
         /// <summary>
