@@ -28,9 +28,27 @@ namespace Plugin.BLE.Windows
         {
         }
 
-        public override Task BondAsync(IDevice device)
+        public override async Task BondAsync(IDevice device)
         {
-            throw new NotImplementedException();
+            var bleDevice = device.NativeDevice as BluetoothLEDevice;
+            if (bleDevice is null)
+            {
+                Trace.Message($"BondAsync failed since NativeDevice is null with: {device.Name}: {device.Id} ");
+                return;
+            }
+            DeviceInformation deviceInformation = await DeviceInformation.CreateFromIdAsync(bleDevice.DeviceId);
+            if (deviceInformation.Pairing.IsPaired)
+            {
+                Trace.Message($"BondAsync is already paired with: {device.Name}: {device.Id}");
+                return;
+            }
+            if (!deviceInformation.Pairing.CanPair)
+            {
+                Trace.Message($"BondAsync cannot pair with: {device.Name}: {device.Id}");
+                return;
+            }
+            DevicePairingResult result = await deviceInformation.Pairing.PairAsync();
+            Trace.Message($"BondAsync pairing result was {result.Status} with: {device.Name}: {device.Id}");
         }
 
         protected override Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
@@ -161,6 +179,33 @@ namespace Plugin.BLE.Windows
             return knownDevice;
         }
 
+        protected override IReadOnlyList<IDevice> GetBondedDevices()
+        {
+            string pairedSelector = BluetoothLEDevice.GetDeviceSelectorFromPairingState(true);
+            DeviceInformationCollection pairedDevices = DeviceInformation.FindAllAsync(pairedSelector).GetAwaiter().GetResult();
+            List<IDevice> devlist = new List<IDevice>();
+            foreach (var dev in pairedDevices)
+            {
+                Guid id = dev.Id.ToBleDeviceGuidFromId();
+                ulong bleaddress = id.ToBleAddress();
+                var bluetoothLeDevice = BluetoothLEDevice.FromBluetoothAddressAsync(bleaddress).AsTask().Result;
+                if (bluetoothLeDevice != null)
+                {
+                    var device = new Device(
+                        this,
+                        bluetoothLeDevice,
+                        0, id);
+                    devlist.Add(device);                    
+                    Trace.Message("GetBondedDevices: {0}: {1}", dev.Id, dev.Name);
+                }
+                else
+                {
+                    Trace.Message("GetBondedDevices: {0}: {1}, BluetoothLEDevice == null", dev.Id, dev.Name);
+                }
+            }
+            return devlist;
+        }
+
         public override IReadOnlyList<IDevice> GetSystemConnectedOrPairedDevices(Guid[] services = null)
         {
             string pairedSelector = BluetoothLEDevice.GetDeviceSelectorFromPairingState(true);
@@ -192,11 +237,6 @@ namespace Plugin.BLE.Windows
                 }
             }
             return devlist;
-        }
-
-        protected override IReadOnlyList<IDevice> GetBondedDevices()
-        {
-            return null; // not supported
         }
 
         /// <summary>
