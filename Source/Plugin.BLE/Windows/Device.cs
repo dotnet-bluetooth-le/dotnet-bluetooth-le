@@ -259,7 +259,16 @@ namespace Plugin.BLE.Windows
 
         protected override DeviceBondState GetBondState()
         {
-            return DeviceBondState.NotSupported;
+            try
+            {
+                DeviceInformation deviceInformation = DeviceInformation.CreateFromIdAsync(NativeDevice.DeviceId).AsTask().Result;
+                return deviceInformation.Pairing.IsPaired ? DeviceBondState.Bonded : DeviceBondState.NotBonded;                
+            }
+            catch (Exception ex)
+            {
+                Trace.Message($"GetBondState exception for {NativeDevice.DeviceId} : {ex.Message}");
+                return DeviceBondState.NotSupported;
+            }
         }
 
         public override bool UpdateConnectionParameters(ConnectParameters connectParameters = default)
