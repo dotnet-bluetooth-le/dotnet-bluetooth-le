@@ -246,16 +246,19 @@ namespace BLE.Client.WinConsole
             DeviceInformation? deviceInformation = null;
             using (BluetoothLEDevice nativeDevice = await BluetoothLEDevice.FromBluetoothAddressAsync(bleAddressulong))
             {
-                nativeDevice.RequestPreferredConnectionParameters(BluetoothLEPreferredConnectionParameters.ThroughputOptimized);
-                nativeDevice.ConnectionStatusChanged += NativeDevice_ConnectionStatusChanged;
                 deviceInformation = await DeviceInformation.CreateFromIdAsync(nativeDevice.DeviceId);
             }
-            deviceInformation.Pairing.Custom.PairingRequested += Custom_PairingRequested;
-            Write("Pairing");
-            DevicePairingResult result = await deviceInformation.Pairing.Custom.PairAsync(DevicePairingKinds.ConfirmOnly, DevicePairingProtectionLevel.Encryption);
-            Write("Pairing result: " + result.Status);
-            //Write("Waiting 10 sec after pairing before connecting");
-            //await Task.Delay(2*5000);
+
+            if (!deviceInformation.Pairing.IsPaired && deviceInformation.Pairing.CanPair)
+            {
+                Write("Starting custom pairing...");
+                deviceInformation.Pairing.Custom.PairingRequested += Custom_PairingRequested;
+                DevicePairingResult result = await deviceInformation.Pairing.Custom.PairAsync(DevicePairingKinds.ConfirmOnly, DevicePairingProtectionLevel.Encryption);
+                Write("Pairing result: " + result.Status);
+            } else
+            {
+                Write("Already paired");
+            }
             Write("Calling Adapter.ConnectToKnownDeviceAsync");
             IDevice dev = await Adapter.ConnectToKnownDeviceAsync(id);
             Write($"Calling Adapter.ConnectToKnownDeviceAsync done with {dev.Name}");
@@ -266,7 +269,7 @@ namespace BLE.Client.WinConsole
             Write("Disconnecting");
             await Adapter.DisconnectDeviceAsync(dev);
             dev.Dispose();
-            Write("Pair_Connect_Disconnect done");
+            Write("Custom_Pair_Connect_Disconnect done");
         }
 
         private void NativeDevice_ConnectionStatusChanged(BluetoothLEDevice sender, object args)
@@ -296,6 +299,10 @@ namespace BLE.Client.WinConsole
             int index = 1;
             Adapter.DeviceDiscovered += (s, a) =>
             {
+                if (scanningDone)
+                {
+                    return;
+                }
                 var dev = a.Device;
                 Write($"{index++}: DeviceDiscovered: {0} with Name = {1}", dev.Id.ToHexBleAddress(), dev.Name);
                 discoveredDevices.Add(a.Device);
