@@ -21,7 +21,9 @@ namespace Plugin.BLE.Abstractions
         Connected,
 
         /// <summary>
-        /// OnAndroid: Device is connected to the system. In order to use this device please call connect it by using the Adapter. 
+        /// Android: Device is connected to the system. In order to use this device please call connect it by using the Adapter. 
+        /// Windows: Device is connected to the system, but the connect sequence has not been established in this Plugin.
+        /// iOS: Not used
         /// </summary>
         Limited
     }
