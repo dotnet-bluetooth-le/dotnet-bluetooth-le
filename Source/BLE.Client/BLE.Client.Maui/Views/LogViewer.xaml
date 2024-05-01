@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BLE.Client.Maui.ViewModels"
+             x:DataType="{x:Type vm:LogViewModel}"
+             x:Class="BLE.Client.Maui.Views.LogViewer"
+             Title="Log Viewer">
+    <StackLayout>
+        <Button Text="Clear" FontSize="32" Command="{Binding ClearLogMessages}" Margin="5,5,5,8"/>
+        <ListView Margin="5,0,5,5"
+                  ItemsSource="{x:Static vm:LogViewModel.Messages}"
+                  HasUnevenRows="True" SelectionMode="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label Text="{Binding .}" Margin="0, 2"/>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

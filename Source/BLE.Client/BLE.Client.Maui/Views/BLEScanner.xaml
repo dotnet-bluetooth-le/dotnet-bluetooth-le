@@ -5,71 +5,51 @@
              x:DataType="local:BLEScannerViewModel"
              x:Class="BLE.Client.Maui.Views.BLEScanner"
              Title="BLE Scanner">
-        <!--<ContentPage.BindingContext>
-        <local:BLEScannerViewModel />
-    </ContentPage.BindingContext>-->
-    <Grid Margin="5">
+    <Grid Margin="5" RowSpacing="8">
         <Grid.RowDefinitions>
-            <RowDefinition Height="64" />
-            <RowDefinition Height="34"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="64"/>
-            <ColumnDefinition Width="850"/>
-            <ColumnDefinition Width="350"/>
-        </Grid.ColumnDefinitions>
-        <BoxView Grid.Row="0" Grid.ColumnSpan="3" Color="AliceBlue" />
-        <BoxView Grid.Row="2" Grid.ColumnSpan="3" Color="AliceBlue"  />
-        <Image Source="scanning.gif"
-               Grid.Row="0"
-               Grid.Column="0" IsAnimationPlaying="{Binding IsScanning}"
-               Aspect="AspectFit"
-               HeightRequest="64"
-               IsVisible = "{Binding IsScanning}"/>
-       <Button Text="{Binding Path=ScanLabelText}"
-                Grid.Row="0"
-                Grid.Column="1"
-                WidthRequest="150"
-                FontSize="32"
-                TextColor="Black"
-                Command="{Binding ScanForDevices}"
-                HorizontalOptions="Start"/>
-        <Label Text="{Binding LastMessage}"
-               Grid.Row="0"
-               Grid.Column="2"
-               Grid.ColumnSpan="1"
-               TextColor="Black"
-               FontSize="14"/>
-       <Label Grid.Row="1" Grid.Column="1" Text="Devices" TextColor="Black" FontSize="32"/>
-       <ListView Grid.Row="2"
-                  Grid.Column="1" 
-                  ItemsSource="{Binding Path=BLEDevices}" BackgroundColor="LightGray">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>           
-                            <ViewCell>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="10"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Label VerticalTextAlignment="Center" Grid.Column="1" Grid.Row="0" Text="{Binding .}" TextColor="Black" FontAttributes="Bold"/>
-                                </Grid>  
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-       </ListView>
+        
+        <HorizontalStackLayout Grid.Row="0">
+            <Button Text="{Binding ToggleScanningCmdLabelText}" FontSize="32"
+                Command="{Binding ToggleScanning}" />
+            <ActivityIndicator IsRunning="{Binding IsScanning}" Margin="8"/>
+        </HorizontalStackLayout>
+        
+        <Label Grid.Row="1" Text="Devices" FontSize="32"/>
 
+        <CollectionView Grid.Row="2" ItemsSource="{Binding Path=BLEDevices}" SelectionMode="Single"
+                        Margin="5, 0" Background="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray900}}">
+            <CollectionView.Resources>
+                <Style TargetType="VerticalStackLayout">
+                    <Setter Property="VisualStateManager.VisualStateGroups">
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="Selected">
+                                    <VisualState.Setters>
+                                        <Setter Property="Background" Value="{AppThemeBinding Light=LightSkyBlue, Dark=DarkBlue}"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </Setter>
+                </Style>
+            </CollectionView.Resources>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type local:BLEDeviceViewModel}">
+                    <VerticalStackLayout Padding="5, 10">
+                        <Label Text="{Binding Name}" FontSize="20" FontAttributes="Bold"/>
+                        <Label Text="{Binding DeviceId}" FontSize="16" FontAttributes="Italic"/>
+                        <Label Text="{Binding Adverts}"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
-
-
-        <Label Grid.Row="1" Grid.Column="2" Text="Messages" TextColor="Black" FontSize="32"/>
-        <ListView Grid.Row="2"
-                  Grid.Column="2"
-                  ItemsSource="{Binding Path=Messages}" BackgroundColor="Cyan"/>
+        <!--<Button Grid.Row="3" Text="Connect" IsEnabled="False" FontSize="32"/>-->
     </Grid>
 </ContentPage>
