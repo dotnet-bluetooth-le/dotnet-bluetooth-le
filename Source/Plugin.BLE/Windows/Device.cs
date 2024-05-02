@@ -97,6 +97,12 @@ namespace Plugin.BLE.Windows
             {
                 return DeviceState.Disconnected;
             }
+            if (gattSession is null)
+            {
+                // This is the case if the OS already is connected, but the ConnectInternal method has not yet been called
+                // Because the gattSession is created in the ConnectInternal method
+                return DeviceState.Limited;
+            }
             if (NativeDevice.ConnectionStatus == BluetoothConnectionStatus.Connected)
             {
                 return DeviceState.Connected;
@@ -158,7 +164,8 @@ namespace Plugin.BLE.Windows
             // ref https://learn.microsoft.com/en-us/uwp/api/windows.devices.bluetooth.bluetoothledevice.frombluetoothaddressasync
             // Creating a BluetoothLEDevice object by calling this method alone doesn't (necessarily) initiate a connection.
             // To initiate a connection, set GattSession.MaintainConnection to true, or call an uncached service discovery
-            // method on BluetoothLEDevice, or perform a read/write operation against the device.                        
+            // method on BluetoothLEDevice, or perform a read/write operation against the device.
+            // 2024-04-22: Note, that The DeviceInformation.Pairing.Custom.PairAsync also initiates a connection
             if (NativeDevice is null)
             {
                 Trace.Message("ConnectInternal says: Cannot connect since NativeDevice is null");

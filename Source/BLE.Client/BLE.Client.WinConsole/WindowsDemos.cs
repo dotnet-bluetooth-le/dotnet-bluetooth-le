@@ -87,9 +87,9 @@ namespace BLE.Client.WinConsole
             foreach (DeviceInformation di in collection)
             {
                 try
-                {
-                    Write($"Unpairing {di.Name}");
-                    _ = di.Pairing.UnpairAsync();
+                {                    
+                    DeviceUnpairingResult res = await di.Pairing.UnpairAsync();
+                    Write($"Unpairing {di.Name}: {res.Status}");
                 }
                 catch (Exception ex)
                 {
