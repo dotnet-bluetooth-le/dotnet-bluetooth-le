@@ -2,6 +2,10 @@
 
 ## 3.1
 
+#### 3.1.0-rc.1
+- #820 Windows Implementation for BondAsync and BondedDevices
+- #839 Windows: Handle that a device is already connected
+
 #### 3.1.0-beta.3
 - #823 Implement BleImplementation.TrySetStateAsync on Android (fixes #821)
 - #827 Fix a NullReferenceException in Characteristic.NSErrorToGattStatus on iOS (fixes #825)
