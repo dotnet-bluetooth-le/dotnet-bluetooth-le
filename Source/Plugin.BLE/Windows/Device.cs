@@ -48,7 +48,7 @@ namespace Plugin.BLE.Windows
 
             Trace.Message("Request RSSI not supported in Windows");
 
-            return Task.FromResult(true);
+            return Task.FromResult(false);
         }
 
         public void DisposeNativeDevice()

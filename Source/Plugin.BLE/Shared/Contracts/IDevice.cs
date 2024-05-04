@@ -21,7 +21,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         string Name { get; }
 
         /// <summary>
-        /// Last known rssi value in decibals.
+        /// Last known RSSI value in decibels.
         /// Can be updated via <see cref="UpdateRssiAsync()"/>.
         /// </summary>
         int Rssi { get; }
@@ -67,15 +67,15 @@ namespace Plugin.BLE.Abstractions.Contracts
         Task<IService> GetServiceAsync(Guid id, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Updates the rssi value.
+        /// Updates the RSSI value.
         /// </summary>
         /// <remarks>
-        /// Important:
-        /// On Android: This function will only work if the device is connected. The Rssi value will be determined once on the discovery of the device.
+        /// This method is only supported on Android, iOS and MacOS, but not on Windows.
+        /// On Android: This function will only work if the device is connected. The RSSI value will be determined once on the discovery of the device.
         /// </remarks>
         /// <returns>
-        /// A task that represents the asynchronous read operation. The Result property will contain a boolean that inticates if the update was successful.
-        /// The Task will finish after Rssi has been updated.
+        /// A task that represents the asynchronous read operation. The Result property will contain a boolean that indicates if the update was successful.
+        /// The Task will finish after the RSSI has been updated.
         /// </returns>
         Task<bool> UpdateRssiAsync();
 
