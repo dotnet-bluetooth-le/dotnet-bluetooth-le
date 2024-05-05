@@ -22,7 +22,7 @@ namespace Plugin.BLE
 
         protected override IAdapter CreateNativeAdapter()
         {
-            return new Adapter();
+            return new Adapter(btAdapter);
         }
 
         protected override BluetoothState GetInitialStateNative()
