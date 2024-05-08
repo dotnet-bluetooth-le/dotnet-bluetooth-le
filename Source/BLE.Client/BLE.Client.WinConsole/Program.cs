@@ -24,7 +24,7 @@ using (var ct = new ConsoleTracer())
         {ConsoleKey.D6, new Demo("Run GetSystemConnectedOrPairedDevices", ppemos.RunGetSystemConnectedOrPairedDevices) },
         {ConsoleKey.D7, new Demo("5X: Connect -> Read services -> Disconnect", ppemos.Connect_Read_Services_Disconnect_5X) },
         {ConsoleKey.D8, new Demo("5X: Connect -> Read services -> Dispose", ppemos.Connect_Read_Services_Dispose_5X) },
-        {ConsoleKey.D9, new Demo("Connect -> Loop: ConnectionLost -> Connect", ppemos.Connect_ConnectionLost_Connect) },
+        {ConsoleKey.D9, new Demo("Connect -> Loop: ConnectionLost -> Connect", ppemos.Connect_ConnectionLost_Reconnect) },
         {ConsoleKey.Q, new Demo("Adapter.BondAsync", ppemos.BondAsync) },
         {ConsoleKey.W, new Demo("Adapter.BondedDevices", ppemos.GetBondedDevices) },
         {ConsoleKey.E, new Demo("Device.BondState", ppemos.ShowBondState) },

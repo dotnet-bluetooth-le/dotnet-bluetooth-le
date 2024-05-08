@@ -81,13 +81,12 @@ namespace BLE.Client.WinConsole
 
         public async Task UnPairAllBleDevices()
         {
-            var bleaddress = BleAddressSelector.GetBleAddress();
             string aqsFilter = BluetoothLEDevice.GetDeviceSelector();
             var collection = await DeviceInformation.FindAllAsync(aqsFilter);
             foreach (DeviceInformation di in collection)
             {
                 try
-                {                    
+                {
                     DeviceUnpairingResult res = await di.Pairing.UnpairAsync();
                     Write($"Unpairing {di.Name}: {res.Status}");
                 }
