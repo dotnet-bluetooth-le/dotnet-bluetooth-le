@@ -153,7 +153,7 @@ namespace Plugin.BLE.Windows
                 {
                     // device was powered off or went out of range.  Call DisconnectDeviceNative to cleanup
                     // resources otherwise windows will not disconnect on a subsequent connect-disconnect.
-                    DisconnectDeviceNative(disconnectedDevice);
+                    ((Device)disconnectedDevice).DisconnectInternal();
                 }
                 ConnectedDeviceRegistry.Remove(id, out _);
                 nativeDevice.ConnectionStatusChanged -= Device_ConnectionStatusChanged;
@@ -199,7 +199,7 @@ namespace Plugin.BLE.Windows
                         this,
                         bluetoothLeDevice,
                         0, id);
-                    devlist.Add(device);                    
+                    devlist.Add(device);
                     Trace.Message("GetBondedDevices: {0}: {1}", dev.Id, dev.Name);
                 }
                 else
