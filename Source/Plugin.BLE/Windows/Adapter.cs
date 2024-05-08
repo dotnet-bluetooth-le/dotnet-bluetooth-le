@@ -151,7 +151,7 @@ namespace Plugin.BLE.Windows
                 bool disconnectRequested = disconnectingRegistry.Remove(id);
                 if (!disconnectRequested)
                 {
-                    // device was powered off or went out of range.  Call DisconnectDeviceNative to cleanup
+                    // Device was powered off or went out of range. Call DisconnectInternal to cleanup
                     // resources otherwise windows will not disconnect on a subsequent connect-disconnect.
                     ((Device)disconnectedDevice).DisconnectInternal();
                 }
