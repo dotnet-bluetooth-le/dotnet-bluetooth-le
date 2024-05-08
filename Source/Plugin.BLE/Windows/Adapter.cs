@@ -199,7 +199,7 @@ namespace Plugin.BLE.Windows
                         this,
                         bluetoothLeDevice,
                         0, id);
-                    devlist.Add(device);                    
+                    devlist.Add(device);
                     Trace.Message("GetBondedDevices: {0}: {1}", dev.Id, dev.Name);
                 }
                 else
@@ -270,7 +270,7 @@ namespace Plugin.BLE.Windows
                 Trace.Message("AdvReceived - Old: {0}", btAdv.ToDetailedString(device.Name));
                 (device as Device)?.Update(btAdv.RawSignalStrengthInDBm, ParseAdvertisementData(btAdv.Advertisement));
                 HandleDiscoveredDevice(device);
-            } 
+            }
             else
             {
                 var bluetoothLeDevice = BluetoothLEDevice.FromBluetoothAddressAsync(btAdv.BluetoothAddress).AsTask().Result;
@@ -283,7 +283,7 @@ namespace Plugin.BLE.Windows
                         deviceId,
                         ParseAdvertisementData(btAdv.Advertisement),
                         btAdv.IsConnectable);
-                    Trace.Message("AdvReceived - New: {0}", btAdv.ToDetailedString(device.Name));                    
+                    Trace.Message("AdvReceived - New: {0}", btAdv.ToDetailedString(device.Name));
                     HandleDiscoveredDevice(device);
                 }
             }
