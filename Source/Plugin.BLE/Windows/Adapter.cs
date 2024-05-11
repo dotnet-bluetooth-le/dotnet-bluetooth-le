@@ -266,13 +266,14 @@ namespace Plugin.BLE.Windows
         {
             var deviceId = btAdv.BluetoothAddress.ParseDeviceId();
 
-            if (DiscoveredDevicesRegistry.TryGetValue(deviceId, out var device) && device != null)
+            if (DiscoveredDevicesRegistry.TryGetValue(deviceId, out var device))
             {
+                // This deviceId has been discovered
                 Trace.Message("AdvReceived - Old: {0}", btAdv.ToDetailedString(device.Name));
                 (device as Device)?.Update(btAdv.RawSignalStrengthInDBm, ParseAdvertisementData(btAdv.Advertisement));
-                this.HandleDiscoveredDevice(device);
+                HandleDiscoveredDevice(device);
             }
-            if (device == null)
+            else
             {
                 var bluetoothLeDevice = BluetoothLEDevice.FromBluetoothAddressAsync(btAdv.BluetoothAddress).AsTask().Result;
                 if (bluetoothLeDevice != null) //make sure advertisement bluetooth address actually returns a device
@@ -285,12 +286,7 @@ namespace Plugin.BLE.Windows
                         ParseAdvertisementData(btAdv.Advertisement),
                         btAdv.IsConnectable);
                     Trace.Message("AdvReceived - New: {0}", btAdv.ToDetailedString(device.Name));
-                    _ = DiscoveredDevicesRegistry.TryRemove(deviceId, out _);
-                    this.HandleDiscoveredDevice(device);
-                }
-                else
-                {
-                    DiscoveredDevicesRegistry[deviceId] = null;
+                    HandleDiscoveredDevice(device);
                 }
             }
         }
