@@ -16,6 +16,7 @@ namespace Plugin.BLE.Windows
 {
     public class Adapter : AdapterBase
     {
+        private readonly BluetoothAdapter _bluetoothAdapter;
         private BluetoothLEAdvertisementWatcher _bleWatcher;
 
         /// <summary>
@@ -24,8 +25,9 @@ namespace Plugin.BLE.Windows
         /// </summary>
         private readonly IDictionary<string, IDevice> disconnectingRegistry = new ConcurrentDictionary<string, IDevice>();
 
-        public Adapter()
+        public Adapter(BluetoothAdapter adapter)
         {
+            _bluetoothAdapter = adapter;
         }
 
         public override async Task BondAsync(IDevice device)
@@ -199,7 +201,7 @@ namespace Plugin.BLE.Windows
                         this,
                         bluetoothLeDevice,
                         0, id);
-                    devlist.Add(device);                    
+                    devlist.Add(device);
                     Trace.Message("GetBondedDevices: {0}: {1}", dev.Id, dev.Name);
                 }
                 else
@@ -297,6 +299,11 @@ namespace Plugin.BLE.Windows
         {
             // TODO: implement this
             return new List<IDevice>();
+        }
+
+        public override bool SupportsExtendedAdvertising()
+        {
+            return _bluetoothAdapter.IsExtendedAdvertisingSupported;
         }
     }
 }
