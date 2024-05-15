@@ -23,6 +23,9 @@ namespace BLE.Client.WinConsole
         private readonly Action<string, object[]>? writer;
         private readonly List<IDevice> discoveredDevices;
         private bool scanningDone = false;
+        private ConsoleKey consoleKey = ConsoleKey.None;
+        private IDevice? reconnectDevice;
+        private CancellationTokenSource escKeyCancellationTokenSource = new CancellationTokenSource();
 
         public PluginDemos(Action<string, object[]>? writer = null)
         {
@@ -39,11 +42,6 @@ namespace BLE.Client.WinConsole
         private void Adapter_DeviceConnectionError(object? sender, Plugin.BLE.Abstractions.EventArgs.DeviceErrorEventArgs e)
         {
             Write($"Adapter_DeviceConnectionError {e.Device.Id.ToHexBleAddress()} with name: {e.Device.Name}");
-        }
-
-        private void Adapter_DeviceConnectionLost(object? sender, Plugin.BLE.Abstractions.EventArgs.DeviceErrorEventArgs e)
-        {
-            Write($"Adapter_DeviceConnectionLost {e.Device.Id.ToHexBleAddress()} with name: {e.Device.Name}");
         }
 
         private void Adapter_DeviceDisconnected(object? sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs e)
@@ -163,38 +161,68 @@ namespace BLE.Client.WinConsole
             }
         }
 
-        public async Task Connect_ConnectionLost_Connect()
+        private void ConsoleKeyReader()
+        {
+            while (consoleKey != ConsoleKey.Escape)
+            {
+                consoleKey = Console.ReadKey().Key;
+            }
+            Write("Escape key pressed - stopping...");
+            escKeyCancellationTokenSource.Cancel();
+        }
+
+        private async Task ConnectWorker(Guid id)
+        {
+            while (consoleKey != ConsoleKey.Escape)
+            {
+                try
+                {
+                    Write("Trying to connect to device (Escape key to abort)");
+                    reconnectDevice = await Adapter.ConnectToKnownDeviceAsync(id, cancellationToken: escKeyCancellationTokenSource.Token);
+                    Write("Reading all services and characteristics");
+                    var services = await reconnectDevice.GetServicesAsync();
+                    List<ICharacteristic> characteristics = new List<ICharacteristic>();
+                    foreach (var service in services)
+                    {
+                        var newcharacteristics = await service.GetCharacteristicsAsync();
+                        characteristics.AddRange(newcharacteristics);
+                    }
+                    await Task.Delay(1000);
+                    Write(new string('-', 80));
+                    Write("Connected successfully!");
+                    Write("To test connection lost: Move the device out of range / power off the device");
+                    Write(new string('-', 80));
+                    break;
+                }
+                catch
+                {
+                }
+            }
+        }
+
+        public async Task Connect_ConnectionLost_Reconnect()
         {
             string bleaddress = BleAddressSelector.GetBleAddress();
             var id = bleaddress.ToBleDeviceGuid();
-            var connectParameters = new ConnectParameters(connectionParameterSet: ConnectionParameterSet.Balanced);
-            ConsoleKey consoleKey = ConsoleKey.None;
-            using (IDevice dev = await Adapter.ConnectToKnownDeviceAsync(id, connectParameters))
+            var consoleReaderTask = new Task(ConsoleKeyReader);
+            consoleReaderTask.Start();
+            await ConnectWorker(id);
+            consoleReaderTask.Wait();
+        }
+
+        private async void Adapter_DeviceConnectionLost(object? sender, Plugin.BLE.Abstractions.EventArgs.DeviceErrorEventArgs e)
+        {
+            Write($"Adapter_DeviceConnectionLost {e.Device.Id.ToHexBleAddress()} with name: {e.Device.Name}");
+            if (reconnectDevice is not null && reconnectDevice.Id == e.Device.Id)
             {
-                while (consoleKey != ConsoleKey.Escape)
-                {
-                    Write("Reading services");
-                    var services = await dev.GetServicesAsync();
-                    List<ICharacteristic> charlist = new List<ICharacteristic>();
-                    foreach (var service in services)
-                    {
-                        var characteristics = await service.GetCharacteristicsAsync();
-                        charlist.AddRange(characteristics);
-                    }
-                    await Task.Delay(1000);
-                    Console.WriteLine(new string('-', 80));
-                    Console.WriteLine("Now powercycle the device... Hit any key when the device is booted up again (Escape to quit)");
-                    Console.WriteLine(new string('-', 80));
-                    consoleKey = Console.ReadKey().Key;
-                    await Adapter.ConnectToDeviceAsync(dev, connectParameters);
-                    Write("Waiting 3 secs");
-                    await Task.Delay(3000);
-                    foreach (var service in services)
-                    {
-                        service.Dispose();
-                    }
-                    charlist.Clear();
-                }
+                reconnectDevice.Dispose();
+                reconnectDevice = null;
+                await Task.Delay(1000);
+                Write(new string('-', 80));
+                Write("Lost connection!");
+                Write("To test reconnect: Move the device back in range / power on the device");
+                Write(new string('-', 80));
+                _ = ConnectWorker(e.Device.Id);
             }
         }
 
@@ -231,7 +259,7 @@ namespace BLE.Client.WinConsole
         public Task GetBondedDevices()
         {
             int idx = 0;
-            foreach(var dev in Adapter.BondedDevices)
+            foreach (var dev in Adapter.BondedDevices)
             {
                 Write($"{idx++} Bonded device: {dev.Name} : {dev.Id}");
             }
@@ -255,7 +283,8 @@ namespace BLE.Client.WinConsole
                 deviceInformation.Pairing.Custom.PairingRequested += Custom_PairingRequested;
                 DevicePairingResult result = await deviceInformation.Pairing.Custom.PairAsync(DevicePairingKinds.ConfirmOnly, DevicePairingProtectionLevel.Encryption);
                 Write("Pairing result: " + result.Status);
-            } else
+            }
+            else
             {
                 Write("Already paired");
             }
@@ -270,11 +299,6 @@ namespace BLE.Client.WinConsole
             await Adapter.DisconnectDeviceAsync(dev);
             dev.Dispose();
             Write("Custom_Pair_Connect_Disconnect done");
-        }
-
-        private void NativeDevice_ConnectionStatusChanged(BluetoothLEDevice sender, object args)
-        {
-            Write($"NativeDevice_ConnectionStatusChanged({sender.ConnectionStatus})");
         }
 
         private void Custom_PairingRequested(DeviceInformationCustomPairing sender, DevicePairingRequestedEventArgs args)
