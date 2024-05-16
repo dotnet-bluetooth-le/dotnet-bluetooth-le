@@ -59,6 +59,16 @@ namespace BLE.Client.WinConsole
             writer?.Invoke(format, args);
         }
 
+        public async Task TurnBluetoothOn()
+        {
+            await bluetoothLE.TrySetStateAsync(true);
+        }
+
+        public async Task TurnBluetoothOff()
+        {
+            await bluetoothLE.TrySetStateAsync(false);
+        }
+
         public IDevice ConnectToKnown(Guid id)
         {
             IDevice dev = Adapter.ConnectToKnownDeviceAsync(id).Result;
@@ -338,6 +348,11 @@ namespace BLE.Client.WinConsole
 
         internal async Task DiscoverAndSelect()
         {
+            if (!bluetoothLE.IsOn)
+            {
+                Console.WriteLine("Bluetooth is off - cannot discover");
+                return;
+            }
             await DoTheScanning();
             int index = 1;
             await Task.Delay(200);
@@ -345,6 +360,11 @@ namespace BLE.Client.WinConsole
             foreach (var dev in discoveredDevices)
             {
                 Console.WriteLine($"{index++}: {dev.Id.ToHexBleAddress()} with Name = {dev.Name}");
+            }
+            if (discoveredDevices.Count == 0)
+            {
+                Console.Write("NO BLE Devices discovered");
+                return;
             }
             Console.WriteLine();
             Console.Write($"Select BLE address index with value {1} to {discoveredDevices.Count}: ");

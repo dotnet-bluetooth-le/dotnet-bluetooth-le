@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.Media.Capture;
 
 Console.WriteLine("Hello, BLE World!");
+Console.WriteLine($"BleImplementation.OsRuntimeBuildNumber: {BleImplementation.OsRuntimeBuildNumber}");
 using (var ct = new ConsoleTracer())
 {
 
@@ -16,6 +17,8 @@ using (var ct = new ConsoleTracer())
     var demoDict = new Dictionary<ConsoleKey, Demo>
     {
 
+        {ConsoleKey.B, new Demo("Turn Bluetooth ON", ppemos.TurnBluetoothOn) },
+        {ConsoleKey.N, new Demo("Turn Bluetooth OFF", ppemos.TurnBluetoothOff) },
         {ConsoleKey.D1, new Demo("Discover and set the BleAddress", ppemos.DiscoverAndSelect) },
         {ConsoleKey.D2, new Demo("Set the BleAddress", BleAddressSelector.NewBleAddress) },
         {ConsoleKey.D3, new Demo("Connect -> Disconnect", ppemos.Connect_Disconnect) },
@@ -62,6 +65,7 @@ using (var ct = new ConsoleTracer())
         {
             Console.WriteLine();
             Console.WriteLine($"Running: {chosendemo.Description}");
+            Console.WriteLine("-------------------------------------------------------");
             if (chosendemo is null)
             {
                 throw new Exception("No such demo!");
@@ -73,7 +77,7 @@ using (var ct = new ConsoleTracer())
             Console.WriteLine($"{key}  -> No such test. Remember {ConsoleKey.Escape} -> Quit!");
         }
         await Task.Delay(200);
-        Console.WriteLine("---------------------------------------------");
+        Console.WriteLine("-------------------------------------------------------");
     }
 }
 

@@ -138,10 +138,13 @@ namespace Plugin.BLE.Windows
                 && ConnectedDeviceRegistry.TryGetValue(id, out var connectedDevice))
             {
 #if WINDOWS10_0_22000_0_OR_GREATER
-                var conpar = nativeDevice.GetConnectionParameters();
-                Trace.Message(
-                    $"Connected with Latency = {conpar.ConnectionLatency}, "
-                    + $"Interval = {conpar.ConnectionInterval}, Timeout = {conpar.LinkTimeout}");
+                if (BleImplementation.OsRuntimeBuildNumber >= 22000)
+                {
+                    var conpar = nativeDevice.GetConnectionParameters();
+                    Trace.Message(
+                        $"Connected with Latency = {conpar.ConnectionLatency}, "
+                        + $"Interval = {conpar.ConnectionInterval}, Timeout = {conpar.LinkTimeout}");
+                }
 #endif
                 HandleConnectedDevice(connectedDevice);
                 return;

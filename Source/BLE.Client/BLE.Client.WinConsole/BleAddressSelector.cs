@@ -9,7 +9,7 @@ namespace BLE.Client.WinConsole
 {
     public static class BleAddressSelector
     {
-        static string bleaddressTxtPath = "bleaddress.txt";
+        static string bleaddressTxtPath = Path.Combine(Path.GetTempPath(), "bleaddress.txt");
         static string? bleaddress = null;
 
         public static bool DoesBleAddressExists()
@@ -23,7 +23,7 @@ namespace BLE.Client.WinConsole
         }
 
         public static string GetBleAddress()
-        {            
+        {
             if (bleaddress is null)
             {
                 if (File.Exists(bleaddressTxtPath))
@@ -55,8 +55,8 @@ namespace BLE.Client.WinConsole
 
         public static Task NewBleAddress()
         {
-            Console.Write("Enter BLE Address (12 hex chars): ");            
-            SetBleAddress(Console.ReadLine());            
+            Console.Write("Enter BLE Address (12 hex chars): ");
+            SetBleAddress(Console.ReadLine());
             return Task.CompletedTask;
         }
     }
