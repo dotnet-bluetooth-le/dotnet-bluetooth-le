@@ -304,7 +304,7 @@ namespace Plugin.BLE.Android
         {
             var macBytes = deviceGuid.ToByteArray().Skip(10).Take(6).ToArray();
             var nativeDevice = _bluetoothAdapter.GetRemoteDevice(macBytes);
-            if (nativeDevice == null)
+            if (nativeDevice == null || !(BluetoothDeviceType.Le == nativeDevice.Type || BluetoothDeviceType.Dual == nativeDevice.Type))
                 throw new Abstractions.Exceptions.DeviceConnectionException(deviceGuid,"", $"[Adapter] Device {deviceGuid} not found.");
             var device = new Device(this, nativeDevice, null);
 
