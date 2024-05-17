@@ -98,18 +98,19 @@ namespace BLE.Client.WinConsole
             dev.Dispose();
         }
 
-        public async Task Connect_Read_Services_Disconnect_5X()
+        public async Task Connect_Read_Services_Disconnect_Loop()
         {
             string bleaddress = BleAddressSelector.GetBleAddress();
             var id = bleaddress.ToBleDeviceGuid();
             var connectParameters = new ConnectParameters(connectionParameterSet: ConnectionParameterSet.Balanced);
-
+            new Task(ConsoleKeyReader).Start();            
             using (IDevice dev = await Adapter.ConnectToKnownDeviceAsync(id, connectParameters))
             {
-                for (int i = 0; i < 5; i++)
+                int count = 1;
+                while(true)
                 {
                     await Task.Delay(100);
-                    Write($"---------------- {i} ------------------");
+                    Write($"---------------- {count++} ------- (Esc to stop) ------");
                     if (dev.State != DeviceState.Connected)
                     {
                         Write("Connecting");
@@ -135,19 +136,25 @@ namespace BLE.Client.WinConsole
                     Write("Disconnecting");
                     await Adapter.DisconnectDeviceAsync(dev);
                     Write("Test_Connect_Disconnect done");
+                    if (consoleKey == ConsoleKey.Escape)
+                    {
+                        break;
+                    }
                 }
             }
         }
 
-        public async Task Connect_Read_Services_Dispose_5X()
+        public async Task Connect_Read_Services_Dispose_Loop()
         {
             string bleaddress = BleAddressSelector.GetBleAddress();
             var id = bleaddress.ToBleDeviceGuid();
             var connectParameters = new ConnectParameters(connectionParameterSet: ConnectionParameterSet.Balanced);
-            for (int i = 0; i < 5; i++)
+            new Task(ConsoleKeyReader).Start();
+            int count = 1;
+            while (true)  
             {
                 await Task.Delay(100);
-                Write($"---------------- {i} ------------------");
+                Write($"---------------- {count++} ------- (Esc to stop) ------");
                 IDevice dev = await Adapter.ConnectToKnownDeviceAsync(id, connectParameters);
                 Write("Reading services");
                 var services = await dev.GetServicesAsync();
@@ -165,7 +172,7 @@ namespace BLE.Client.WinConsole
                 charlist.Clear();
                 Write("Waiting 3 secs");
                 await Task.Delay(3000);
-                //await Adapter.DisconnectDeviceAsync(dev);                
+                await Adapter.DisconnectDeviceAsync(dev);                
                 Write("Disposing");
                 dev.Dispose();
             }

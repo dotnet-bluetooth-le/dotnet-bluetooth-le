@@ -138,7 +138,7 @@ namespace Plugin.BLE.Windows
                 && ConnectedDeviceRegistry.TryGetValue(id, out var connectedDevice))
             {
 #if WINDOWS10_0_22000_0_OR_GREATER
-                if (BleImplementation.OsRuntimeBuildNumber >= 22000)
+                if (Environment.OSVersion.Version.Build >= 22000)
                 {
                     var conpar = nativeDevice.GetConnectionParameters();
                     Trace.Message(

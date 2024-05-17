@@ -131,7 +131,7 @@ namespace Plugin.BLE.Windows
         static bool MaybeRequestPreferredConnectionParameters(BluetoothLEDevice device, ConnectParameters connectParameters)
         {
 #if WINDOWS10_0_22000_0_OR_GREATER
-            if (BleImplementation.OsRuntimeBuildNumber < 22000)
+            if (Environment.OSVersion.Version.Build < 22000)
             {
                 return false;
             }

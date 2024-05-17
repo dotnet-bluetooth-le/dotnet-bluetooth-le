@@ -20,26 +20,6 @@ namespace Plugin.BLE
         public static BluetoothCacheMode CacheModeGetCharacteristics { get; set; } = BluetoothCacheMode.Cached;
         public static BluetoothCacheMode CacheModeGetServices { get; set; } = BluetoothCacheMode.Cached;
 
-        private static int? runtimeBuildNumber = null;
-
-        /// <summary>
-        /// Get the Windows runtime build number
-        /// Eg running on Windows 10 gives 19041 even though it is executing an application compiled as eg net8.0-windows10.0.22621.0
-        /// ref https://learn.microsoft.com/en-us/windows/release-health/release-information
-        /// ref https://learn.microsoft.com/en-us/windows/release-health/windows11-release-information
-        /// </summary>
-        public static int OsRuntimeBuildNumber
-        {
-            get
-            {
-                if (runtimeBuildNumber is null)
-                {
-                    runtimeBuildNumber = Environment.OSVersion.Version.Build;
-                }
-                return runtimeBuildNumber.Value;
-            }
-        }
-
         protected override IAdapter CreateNativeAdapter()
         {
             return new Adapter(btAdapter);

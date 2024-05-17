@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Windows.Media.Capture;
 
 Console.WriteLine("Hello, BLE World!");
-Console.WriteLine($"BleImplementation.OsRuntimeBuildNumber: {BleImplementation.OsRuntimeBuildNumber}");
+Console.WriteLine($"Environment.OSVersion.Version.Build: {Environment.OSVersion.Version.Build}");
 using (var ct = new ConsoleTracer())
 {
 
@@ -25,8 +25,8 @@ using (var ct = new ConsoleTracer())
         {ConsoleKey.D4, new Demo("Pair -> Connect -> Disconnect", ppemos.Pair_Connect_Disconnect) },
         {ConsoleKey.D5, new Demo("Connect -> Change Parameters -> Disconnect", ppemos.Connect_Change_Parameters_Disconnect) },
         {ConsoleKey.D6, new Demo("Run GetSystemConnectedOrPairedDevices", ppemos.RunGetSystemConnectedOrPairedDevices) },
-        {ConsoleKey.D7, new Demo("5X: Connect -> Read services -> Disconnect", ppemos.Connect_Read_Services_Disconnect_5X) },
-        {ConsoleKey.D8, new Demo("5X: Connect -> Read services -> Dispose", ppemos.Connect_Read_Services_Dispose_5X) },
+        {ConsoleKey.D7, new Demo("Loop: Connect -> Read services -> Disconnect", ppemos.Connect_Read_Services_Disconnect_Loop) },
+        {ConsoleKey.D8, new Demo("Loop: Connect -> Read services -> Dispose", ppemos.Connect_Read_Services_Dispose_Loop) },
         {ConsoleKey.D9, new Demo("Connect -> Loop: ConnectionLost -> Connect", ppemos.Connect_ConnectionLost_Reconnect) },
         {ConsoleKey.Q, new Demo("Adapter.BondAsync", ppemos.BondAsync) },
         {ConsoleKey.W, new Demo("Adapter.BondedDevices", ppemos.GetBondedDevices) },

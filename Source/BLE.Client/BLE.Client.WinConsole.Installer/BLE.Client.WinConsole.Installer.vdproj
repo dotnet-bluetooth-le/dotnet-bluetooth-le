@@ -69,6 +69,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -156,15 +164,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:BLE.Client.WinConsole"
-        "ProductCode" = "8:{F6BA5731-7436-4762-A612-E16066951342}"
-        "PackageCode" = "8:{D8837791-AD30-4637-A38E-E4873DBC15A2}"
+        "ProductCode" = "8:{5F449E95-7E87-4E64-B500-80A6AF1D97DA}"
+        "PackageCode" = "8:{B9329BAB-7161-4B70-A339-EFC0E40F2D22}"
         "UpgradeCode" = "8:{2DC56EBC-822F-4B47-93C7-DCBD97994976}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.0.2"
         "Manufacturer" = "8:Plugin.BLE"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -172,7 +180,7 @@
         "Subject" = "8:"
         "ARPCONTACT" = "8:Ask Bojesen"
         "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:v1.0.0"
+        "ARPCOMMENTS" = "8:v1.0.2"
         "ARPURLINFOABOUT" = "8:https://github.com/dotnet-bluetooth-le/dotnet-bluetooth-le"
         "ARPPRODUCTICON" = "8:"
         "ARPIconIndex" = "3:0"
