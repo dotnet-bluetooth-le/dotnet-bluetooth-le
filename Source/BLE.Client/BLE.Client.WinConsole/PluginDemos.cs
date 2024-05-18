@@ -59,6 +59,16 @@ namespace BLE.Client.WinConsole
             writer?.Invoke(format, args);
         }
 
+        public async Task TurnBluetoothOn()
+        {
+            await bluetoothLE.TrySetStateAsync(true);
+        }
+
+        public async Task TurnBluetoothOff()
+        {
+            await bluetoothLE.TrySetStateAsync(false);
+        }
+
         public IDevice ConnectToKnown(Guid id)
         {
             IDevice dev = Adapter.ConnectToKnownDeviceAsync(id).Result;
@@ -88,18 +98,19 @@ namespace BLE.Client.WinConsole
             dev.Dispose();
         }
 
-        public async Task Connect_Read_Services_Disconnect_5X()
+        public async Task Connect_Read_Services_Disconnect_Loop()
         {
             string bleaddress = BleAddressSelector.GetBleAddress();
             var id = bleaddress.ToBleDeviceGuid();
             var connectParameters = new ConnectParameters(connectionParameterSet: ConnectionParameterSet.Balanced);
-
+            new Task(ConsoleKeyReader).Start();            
             using (IDevice dev = await Adapter.ConnectToKnownDeviceAsync(id, connectParameters))
             {
-                for (int i = 0; i < 5; i++)
+                int count = 1;
+                while(true)
                 {
                     await Task.Delay(100);
-                    Write($"---------------- {i} ------------------");
+                    Write($"---------------- {count++} ------- (Esc to stop) ------");
                     if (dev.State != DeviceState.Connected)
                     {
                         Write("Connecting");
@@ -125,19 +136,25 @@ namespace BLE.Client.WinConsole
                     Write("Disconnecting");
                     await Adapter.DisconnectDeviceAsync(dev);
                     Write("Test_Connect_Disconnect done");
+                    if (consoleKey == ConsoleKey.Escape)
+                    {
+                        break;
+                    }
                 }
             }
         }
 
-        public async Task Connect_Read_Services_Dispose_5X()
+        public async Task Connect_Read_Services_Dispose_Loop()
         {
             string bleaddress = BleAddressSelector.GetBleAddress();
             var id = bleaddress.ToBleDeviceGuid();
             var connectParameters = new ConnectParameters(connectionParameterSet: ConnectionParameterSet.Balanced);
-            for (int i = 0; i < 5; i++)
+            new Task(ConsoleKeyReader).Start();
+            int count = 1;
+            while (true)  
             {
                 await Task.Delay(100);
-                Write($"---------------- {i} ------------------");
+                Write($"---------------- {count++} ------- (Esc to stop) ------");
                 IDevice dev = await Adapter.ConnectToKnownDeviceAsync(id, connectParameters);
                 Write("Reading services");
                 var services = await dev.GetServicesAsync();
@@ -155,7 +172,7 @@ namespace BLE.Client.WinConsole
                 charlist.Clear();
                 Write("Waiting 3 secs");
                 await Task.Delay(3000);
-                //await Adapter.DisconnectDeviceAsync(dev);                
+                await Adapter.DisconnectDeviceAsync(dev);                
                 Write("Disposing");
                 dev.Dispose();
             }
@@ -338,6 +355,11 @@ namespace BLE.Client.WinConsole
 
         internal async Task DiscoverAndSelect()
         {
+            if (!bluetoothLE.IsOn)
+            {
+                Console.WriteLine("Bluetooth is off - cannot discover");
+                return;
+            }
             await DoTheScanning();
             int index = 1;
             await Task.Delay(200);
@@ -345,6 +367,11 @@ namespace BLE.Client.WinConsole
             foreach (var dev in discoveredDevices)
             {
                 Console.WriteLine($"{index++}: {dev.Id.ToHexBleAddress()} with Name = {dev.Name}");
+            }
+            if (discoveredDevices.Count == 0)
+            {
+                Console.Write("NO BLE Devices discovered");
+                return;
             }
             Console.WriteLine();
             Console.Write($"Select BLE address index with value {1} to {discoveredDevices.Count}: ");

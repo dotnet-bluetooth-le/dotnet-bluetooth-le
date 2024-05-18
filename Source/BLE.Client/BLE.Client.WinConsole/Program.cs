@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.Media.Capture;
 
 Console.WriteLine("Hello, BLE World!");
+Console.WriteLine($"Environment.OSVersion.Version.Build: {Environment.OSVersion.Version.Build}");
 using (var ct = new ConsoleTracer())
 {
 
@@ -16,14 +17,16 @@ using (var ct = new ConsoleTracer())
     var demoDict = new Dictionary<ConsoleKey, Demo>
     {
 
+        {ConsoleKey.B, new Demo("Turn Bluetooth ON", ppemos.TurnBluetoothOn) },
+        {ConsoleKey.N, new Demo("Turn Bluetooth OFF", ppemos.TurnBluetoothOff) },
         {ConsoleKey.D1, new Demo("Discover and set the BleAddress", ppemos.DiscoverAndSelect) },
         {ConsoleKey.D2, new Demo("Set the BleAddress", BleAddressSelector.NewBleAddress) },
         {ConsoleKey.D3, new Demo("Connect -> Disconnect", ppemos.Connect_Disconnect) },
         {ConsoleKey.D4, new Demo("Pair -> Connect -> Disconnect", ppemos.Pair_Connect_Disconnect) },
         {ConsoleKey.D5, new Demo("Connect -> Change Parameters -> Disconnect", ppemos.Connect_Change_Parameters_Disconnect) },
         {ConsoleKey.D6, new Demo("Run GetSystemConnectedOrPairedDevices", ppemos.RunGetSystemConnectedOrPairedDevices) },
-        {ConsoleKey.D7, new Demo("5X: Connect -> Read services -> Disconnect", ppemos.Connect_Read_Services_Disconnect_5X) },
-        {ConsoleKey.D8, new Demo("5X: Connect -> Read services -> Dispose", ppemos.Connect_Read_Services_Dispose_5X) },
+        {ConsoleKey.D7, new Demo("Loop: Connect -> Read services -> Disconnect", ppemos.Connect_Read_Services_Disconnect_Loop) },
+        {ConsoleKey.D8, new Demo("Loop: Connect -> Read services -> Dispose", ppemos.Connect_Read_Services_Dispose_Loop) },
         {ConsoleKey.D9, new Demo("Connect -> Loop: ConnectionLost -> Connect", ppemos.Connect_ConnectionLost_Reconnect) },
         {ConsoleKey.Q, new Demo("Adapter.BondAsync", ppemos.BondAsync) },
         {ConsoleKey.W, new Demo("Adapter.BondedDevices", ppemos.GetBondedDevices) },
@@ -62,6 +65,7 @@ using (var ct = new ConsoleTracer())
         {
             Console.WriteLine();
             Console.WriteLine($"Running: {chosendemo.Description}");
+            Console.WriteLine("-------------------------------------------------------");
             if (chosendemo is null)
             {
                 throw new Exception("No such demo!");
@@ -73,7 +77,7 @@ using (var ct = new ConsoleTracer())
             Console.WriteLine($"{key}  -> No such test. Remember {ConsoleKey.Escape} -> Quit!");
         }
         await Task.Delay(200);
-        Console.WriteLine("---------------------------------------------");
+        Console.WriteLine("-------------------------------------------------------");
     }
 }
 
