@@ -11,6 +11,7 @@ using Android.OS;
 using Java.Util;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Android.Extensions;
 using Plugin.BLE.BroadcastReceivers;
 using Plugin.BLE.Extensions;
 using Object = Java.Lang.Object;
@@ -306,6 +307,8 @@ namespace Plugin.BLE.Android
             var nativeDevice = _bluetoothAdapter.GetRemoteDevice(macBytes);
             if (nativeDevice == null)
                 throw new Abstractions.Exceptions.DeviceConnectionException(deviceGuid,"", $"[Adapter] Device {deviceGuid} not found.");
+            if (!nativeDevice.SupportsBLE())
+                throw new Abstractions.Exceptions.DeviceConnectionException(deviceGuid,"", $"[Adapter] Device {deviceGuid} does not support BLE.");
             var device = new Device(this, nativeDevice, null);
 
             await ConnectToDeviceAsync(device, connectParameters, cancellationToken);
@@ -320,9 +323,9 @@ namespace Plugin.BLE.Android
             }
 
             //add dualMode type too as they are BLE too ;)
-            var connectedDevices = _bluetoothManager.GetConnectedDevices(ProfileType.Gatt).Where(d => d.Type == BluetoothDeviceType.Le || d.Type == BluetoothDeviceType.Dual);
+            var connectedDevices = _bluetoothManager.GetConnectedDevices(ProfileType.Gatt).Where(d => d.SupportsBLE());
 
-            var bondedDevices = _bluetoothAdapter.BondedDevices.Where(d => d.Type == BluetoothDeviceType.Le || d.Type == BluetoothDeviceType.Dual);
+            var bondedDevices = _bluetoothAdapter.BondedDevices.Where(d => d.SupportsBLE());
 
             return connectedDevices.Union(bondedDevices, new DeviceComparer()).Select(d => new Device(this, d, null)).Cast<IDevice>().ToList();
         }
@@ -335,7 +338,7 @@ namespace Plugin.BLE.Android
 
         protected override IReadOnlyList<IDevice> GetBondedDevices()
         {
-            var bondedDevices = _bluetoothAdapter.BondedDevices.Where(d => d.Type == BluetoothDeviceType.Le || d.Type == BluetoothDeviceType.Dual);
+            var bondedDevices = _bluetoothAdapter.BondedDevices.Where(d => d.SupportsBLE());
 
             return bondedDevices.Select(d => new Device(this, d, null, 0)).Cast<IDevice>().ToList();
         }
