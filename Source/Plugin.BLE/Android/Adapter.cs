@@ -300,6 +300,7 @@ namespace Plugin.BLE.Android
             //make sure everything is disconnected
             ((Device)device).Disconnect();
         }
+
         public override async Task<IDevice> ConnectToKnownDeviceNativeAsync(Guid deviceGuid, ConnectParameters connectParameters = default(ConnectParameters), CancellationToken cancellationToken = default(CancellationToken))
         {
             var macBytes = deviceGuid.ToByteArray().Skip(10).Take(6).ToArray();
