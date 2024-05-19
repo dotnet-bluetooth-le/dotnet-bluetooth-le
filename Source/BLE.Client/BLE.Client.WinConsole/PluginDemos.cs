@@ -103,7 +103,7 @@ namespace BLE.Client.WinConsole
             string bleaddress = BleAddressSelector.GetBleAddress();
             var id = bleaddress.ToBleDeviceGuid();
             var connectParameters = new ConnectParameters(connectionParameterSet: ConnectionParameterSet.Balanced);
-            new Task(ConsoleKeyReader).Start();            
+            new Task(ConsoleKeyReader).Start();
             using (IDevice dev = await Adapter.ConnectToKnownDeviceAsync(id, connectParameters))
             {
                 int count = 1;
@@ -151,7 +151,7 @@ namespace BLE.Client.WinConsole
             var connectParameters = new ConnectParameters(connectionParameterSet: ConnectionParameterSet.Balanced);
             new Task(ConsoleKeyReader).Start();
             int count = 1;
-            while (true)  
+            while (true)
             {
                 await Task.Delay(100);
                 Write($"---------------- {count++} ------- (Esc to stop) ------");
@@ -163,16 +163,35 @@ namespace BLE.Client.WinConsole
                 {
                     var characteristics = await service.GetCharacteristicsAsync();
                     charlist.AddRange(characteristics);
+                    foreach (Characteristic characteristic in characteristics)
+                    {
+                        if (characteristic.Properties.HasFlag(CharacteristicPropertyType.Indicate)
+                            || characteristic.Properties.HasFlag(CharacteristicPropertyType.Notify))
+                        {
+                            Write($"Characteristic.Properties: {characteristic.Properties}");
+                            try
+                            {
+                                await characteristic.StartUpdatesAsync();
+                            } catch { }
+                        }
+                    }
                 }
 
                 foreach (var service in services)
                 {
                     service.Dispose();
                 }
+                foreach (Characteristic characteristic in charlist)
+                {
+                    try
+                    {
+                        await characteristic.StopUpdatesAsync();
+                    } catch { }
+                }
                 charlist.Clear();
                 Write("Waiting 3 secs");
                 await Task.Delay(3000);
-                await Adapter.DisconnectDeviceAsync(dev);                
+                await Adapter.DisconnectDeviceAsync(dev);
                 Write("Disposing");
                 dev.Dispose();
             }

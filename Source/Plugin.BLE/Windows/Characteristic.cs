@@ -59,8 +59,18 @@ namespace Plugin.BLE.Windows
             NativeCharacteristic.ValueChanged -= OnCharacteristicValueChanged;
             NativeCharacteristic.ValueChanged += OnCharacteristicValueChanged;
 
-            var result = await NativeCharacteristic.WriteClientCharacteristicConfigurationDescriptorWithResultAsync(GattClientCharacteristicConfigurationDescriptorValue.Notify);
-            result.ThrowIfError();
+            if (Properties.HasFlag(CharacteristicPropertyType.Notify))
+            {
+                var result = await NativeCharacteristic.WriteClientCharacteristicConfigurationDescriptorWithResultAsync(GattClientCharacteristicConfigurationDescriptorValue.Notify);
+                result.ThrowIfError();
+            } else if (Properties.HasFlag(CharacteristicPropertyType.Indicate))
+            {
+                var result = await NativeCharacteristic.WriteClientCharacteristicConfigurationDescriptorWithResultAsync(GattClientCharacteristicConfigurationDescriptorValue.Indicate);
+                result.ThrowIfError();
+            } else
+            {
+                throw new Exception($"StartUpdatesNativeAsync for {Uuid} failed since not Notify or Indicate");
+            }
         }
 
         protected override async Task StopUpdatesNativeAsync(CancellationToken cancellationToken = default)
