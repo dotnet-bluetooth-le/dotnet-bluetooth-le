@@ -32,7 +32,7 @@ namespace Plugin.BLE.Abstractions.Contracts
 
         /// <summary>
         /// Try to set the state of the Bluetooth (on/off).
-        /// Supported on: Android & Windows.
+        /// Supported on Android and Windows.
         /// </summary>
         /// <param name="on"></param>
         /// <returns>true if the the method executed with success otherwice false</returns>
