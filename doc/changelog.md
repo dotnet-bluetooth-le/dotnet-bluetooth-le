@@ -1,6 +1,15 @@
 # Changelog
 
-## 3.1
+## 3.1 .NET 8 & Gemeric Windows Implementation
+
+### 3.1.0
+- #844 Fix Device.UpdateRssiAsync on Windows (fixes #810)
+- #845 Implement Adapter.SupportsExtendedAdvertising on Windows (fixes #815)
+- #848 Windows: Fixed null entries in DiscoveredDevices (fixes #828)
+- #849 Windows: Connect -> ConnectionLost -> Reconnect (fixes #826)
+- #853 Windows: Check for OS build number version Runtime (fixes #852)
+- #855 Android: Bluetooth stack breaks when trying connect on phone boot (fixes #854)
+- #858 Windows: Fixed StartUpdatesNativeAsync for indicate (fixes #847)
 
 #### 3.1.0-rc.1
 - #820 Windows Implementation for BondAsync and BondedDevices
