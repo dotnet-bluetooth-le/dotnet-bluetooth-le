@@ -52,13 +52,13 @@ namespace Plugin.BLE.Abstractions
         /// </summary>
         public Task<byte[]> ReadAsync(CancellationToken cancellationToken = default)
         {
-            return ReadNativeAsync();
+            return ReadNativeAsync(cancellationToken);
         }
 
         /// <summary>
         /// Native implementation of <c>ReadAsync</c>.
         /// </summary>
-        protected abstract Task<byte[]> ReadNativeAsync();
+        protected abstract Task<byte[]> ReadNativeAsync(CancellationToken cancellationToken);
 
         /// <summary>
         /// Sends <paramref name="data"/> as characteristic value to the device.
@@ -72,12 +72,12 @@ namespace Plugin.BLE.Abstractions
                 throw new ArgumentNullException(nameof(data));
             }
 
-            return WriteNativeAsync(data);
+            return WriteNativeAsync(data, cancellationToken);
         }
 
         /// <summary>
         /// Native implementation of <c>WriteAsync</c>.
         /// </summary>
-        protected abstract Task WriteNativeAsync(byte[] data);
+        protected abstract Task WriteNativeAsync(byte[] data, CancellationToken cancellationToken);
     }
 }

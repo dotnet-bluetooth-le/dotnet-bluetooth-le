@@ -37,12 +37,12 @@ namespace Plugin.BLE.Android
             _gattCallback = gattCallback;
         }
 
-        protected override Task<IReadOnlyList<IDescriptor>> GetDescriptorsNativeAsync()
+        protected override Task<IReadOnlyList<IDescriptor>> GetDescriptorsNativeAsync(CancellationToken cancellationToken)
         {
             return Task.FromResult<IReadOnlyList<IDescriptor>>(NativeCharacteristic.Descriptors.Select(item => new Descriptor(item, _gatt, _gattCallback, this)).Cast<IDescriptor>().ToList());
         }
 
-        protected override async Task<(byte[] data, int resultCode)> ReadNativeAsync()
+        protected override async Task<(byte[] data, int resultCode)> ReadNativeAsync(CancellationToken cancellationToken)
         {
             return await TaskBuilder.FromEvent<(byte[] data, int resultCode), EventHandler<CharacteristicReadCallbackEventArgs>, EventHandler>(
                 execute: ReadInternal,
@@ -61,7 +61,8 @@ namespace Plugin.BLE.Android
                     reject(new Exception($"Device '{Service.Device.Id}' disconnected while reading characteristic with {Id}."));
                 }),
                 subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
-                unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler);
+                unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler,
+				token: cancellationToken);
         }
 
         void ReadInternal()
@@ -72,7 +73,7 @@ namespace Plugin.BLE.Android
             }
         }
 
-        protected override async Task<int> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType)
+        protected override async Task<int> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType, CancellationToken cancellationToken)
         {
             NativeCharacteristic.WriteType = writeType.ToNative();
 
@@ -92,7 +93,8 @@ namespace Plugin.BLE.Android
                    reject(new Exception($"Device '{Service.Device.Id}' disconnected while writing characteristic with {Id}."));
                }),
                subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
-               unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler);
+               unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler,
+			   token: cancellationToken);
         }
 
         private void InternalWrite(byte[] data)
@@ -110,7 +112,7 @@ namespace Plugin.BLE.Android
             }
         }
 
-        protected override async Task StartUpdatesNativeAsync(CancellationToken cancellationToken = default)
+        protected override async Task StartUpdatesNativeAsync(CancellationToken cancellationToken)
         {
             // wire up the characteristic value updating on the gattcallback for event forwarding
             _gattCallback.CharacteristicValueUpdated -= OnCharacteristicValueChanged;
@@ -154,7 +156,7 @@ namespace Plugin.BLE.Android
             Trace.Message("Characteristic.StartUpdates, successful!");
         }
 
-        protected override async Task StopUpdatesNativeAsync(CancellationToken cancellationToken = default)
+        protected override async Task StopUpdatesNativeAsync(CancellationToken cancellationToken)
         {
             _gattCallback.CharacteristicValueUpdated -= OnCharacteristicValueChanged;
 

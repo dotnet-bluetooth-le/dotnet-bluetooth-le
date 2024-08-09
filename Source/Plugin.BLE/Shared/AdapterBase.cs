@@ -226,7 +226,7 @@ namespace Plugin.BLE.Abstractions
         /// Disconnects from the <paramref name="device"/>.
         /// </summary>
         /// <param name="device">Device to connect from.</param>
-        public Task DisconnectDeviceAsync(IDevice device)
+        public Task DisconnectDeviceAsync(IDevice device, CancellationToken cancellationToken = default)
         {
             if (!ConnectedDevices.Contains(device))
             {
@@ -257,7 +257,8 @@ namespace Plugin.BLE.Abstractions
                    }
                }),
                subscribeReject: handler => DeviceConnectionError += handler,
-               unsubscribeReject: handler => DeviceConnectionError -= handler);
+               unsubscribeReject: handler => DeviceConnectionError -= handler,
+               token: cancellationToken);
         }
 
         private void CleanupScan()

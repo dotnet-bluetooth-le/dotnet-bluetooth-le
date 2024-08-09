@@ -36,7 +36,7 @@ namespace Plugin.BLE.Windows
         {
         }
 
-        protected override async Task<IReadOnlyList<IDescriptor>> GetDescriptorsNativeAsync()
+        protected override async Task<IReadOnlyList<IDescriptor>> GetDescriptorsNativeAsync(CancellationToken cancellationToken)
         {
             var descriptorsResult = await NativeCharacteristic.GetDescriptorsAsync(BleImplementation.CacheModeGetDescriptors);
             descriptorsResult.ThrowIfError();
@@ -47,14 +47,14 @@ namespace Plugin.BLE.Windows
                 .ToList();
         }
 
-        protected override async Task<(byte[] data, int resultCode)> ReadNativeAsync()
+        protected override async Task<(byte[] data, int resultCode)> ReadNativeAsync(CancellationToken cancellationToken)
         {
             var readResult = await NativeCharacteristic.ReadValueAsync(BleImplementation.CacheModeCharacteristicRead);
             _value = readResult.GetValueOrThrowIfError();
             return (_value, (int)readResult.Status);
         }
 
-        protected override async Task StartUpdatesNativeAsync(CancellationToken cancellationToken = default)
+        protected override async Task StartUpdatesNativeAsync(CancellationToken cancellationToken)
         {
             NativeCharacteristic.ValueChanged -= OnCharacteristicValueChanged;
             NativeCharacteristic.ValueChanged += OnCharacteristicValueChanged;
@@ -73,7 +73,7 @@ namespace Plugin.BLE.Windows
             }
         }
 
-        protected override async Task StopUpdatesNativeAsync(CancellationToken cancellationToken = default)
+        protected override async Task StopUpdatesNativeAsync(CancellationToken cancellationToken)
         {
             NativeCharacteristic.ValueChanged -= OnCharacteristicValueChanged;
 
@@ -81,7 +81,7 @@ namespace Plugin.BLE.Windows
             result.ThrowIfError();
         }
 
-        protected override async Task<int> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType)
+        protected override async Task<int> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType, CancellationToken cancellationToken)
         {
             var result = await NativeCharacteristic.WriteValueWithResultAsync(
                 CryptographicBuffer.CreateFromByteArray(data),

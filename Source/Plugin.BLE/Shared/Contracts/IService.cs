@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Plugin.BLE.Abstractions.Contracts
@@ -33,18 +34,20 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <summary>
         /// Gets the characteristics of the service.
         /// </summary>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
         /// <returns>A task that represents the asynchronous read operation. The Result property will contain a list of characteristics.</returns>
-        Task<IReadOnlyList<ICharacteristic>> GetCharacteristicsAsync();
+        Task<IReadOnlyList<ICharacteristic>> GetCharacteristicsAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets the first characteristic with the Id <paramref name="id"/>. 
         /// </summary>
         /// <param name="id">The id of the searched characteristic.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
         /// <returns>
         /// A task that represents the asynchronous read operation. 
         /// The Result property will contain the characteristic with the specified <paramref name="id"/>.
         /// If the characteristic doesn't exist, the Result will be null.
         /// </returns>
-        Task<ICharacteristic> GetCharacteristicAsync(Guid id);
+        Task<ICharacteristic> GetCharacteristicAsync(Guid id, CancellationToken cancellationToken = default);
     }
 }
