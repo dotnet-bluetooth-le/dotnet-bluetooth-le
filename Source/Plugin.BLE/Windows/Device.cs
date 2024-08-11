@@ -41,7 +41,7 @@ namespace Plugin.BLE.Windows
             this.AdvertisementRecords = advertisementData;
         }
 
-        public override Task<bool> UpdateRssiAsync()
+        public override Task<bool> UpdateRssiAsync(CancellationToken cancellationToken)
         {
             //No current method to update the Rssi of a device
             //In future implementations, maybe listen for device's advertisements
@@ -67,7 +67,7 @@ namespace Plugin.BLE.Windows
             NativeDevice = await BluetoothLEDevice.FromBluetoothAddressAsync(bleAddress);
         }
 
-        protected override async Task<IReadOnlyList<IService>> GetServicesNativeAsync()
+        protected override async Task<IReadOnlyList<IService>> GetServicesNativeAsync(CancellationToken cancellationToken)
         {
             if (NativeDevice == null)
                 return new List<IService>();
@@ -82,7 +82,7 @@ namespace Plugin.BLE.Windows
 
         }
 
-        protected override async Task<IService> GetServiceNativeAsync(Guid id)
+        protected override async Task<IService> GetServiceNativeAsync(Guid id, CancellationToken cancellationToken)
         {
             var result = await NativeDevice.GetGattServicesForUuidAsync(id, BleImplementation.CacheModeGetServices);
             result.ThrowIfError();
@@ -110,7 +110,7 @@ namespace Plugin.BLE.Windows
             return NativeDevice.WasSecureConnectionUsedForPairing ? DeviceState.Limited : DeviceState.Disconnected;
         }
 
-        protected override async Task<int> RequestMtuNativeAsync(int requestValue)
+        protected override async Task<int> RequestMtuNativeAsync(int requestValue, CancellationToken cancellationToken)
         {
             // Ref https://learn.microsoft.com/en-us/uwp/api/windows.devices.bluetooth.genericattributeprofile.gattsession.maxpdusize
             // There are no means in windows to request a change, but we can read the current value

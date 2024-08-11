@@ -159,8 +159,9 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Disconnects from the <paramref name="device"/>.
         /// </summary>
         /// <param name="device">Device to connect from.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
         /// <returns>A task that represents the asynchronous read operation. The Task will finish after the device has been disconnected successfuly.</returns>
-        Task DisconnectDeviceAsync(IDevice device);
+        Task DisconnectDeviceAsync(IDevice device, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Connects to a device with a known GUID without scanning and if in range. Does not scan for devices.

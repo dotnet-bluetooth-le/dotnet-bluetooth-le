@@ -38,17 +38,17 @@ namespace Plugin.BLE.Tests.Mocks
 
         public override CharacteristicPropertyType Properties => MockPropterties;
 
-        protected override Task<IReadOnlyList<IDescriptor>> GetDescriptorsNativeAsync()
+        protected override Task<IReadOnlyList<IDescriptor>> GetDescriptorsNativeAsync(CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        protected override Task<(byte[] data, int resultCode)> ReadNativeAsync()
+        protected override Task<(byte[] data, int resultCode)> ReadNativeAsync(CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        protected override Task<int> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType)
+        protected override Task<int> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType, CancellationToken cancellationToken)
         {
             WriteHistory.Add(new WriteOperation(data, writeType));
             return Task.FromResult(0);

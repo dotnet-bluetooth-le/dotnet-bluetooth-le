@@ -22,7 +22,7 @@ namespace Plugin.BLE.Abstractions.Contracts
 
         /// <summary>
         /// Last known RSSI value in decibels.
-        /// Can be updated via <see cref="UpdateRssiAsync()"/>.
+        /// Can be updated via <see cref="UpdateRssiAsync(CancellationToken)"/>.
         /// </summary>
         int Rssi { get; }
 
@@ -69,6 +69,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <summary>
         /// Updates the RSSI value.
         /// </summary>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
         /// <remarks>
         /// This method is only supported on Android, iOS and MacOS, but not on Windows.
         /// On Android: This function will only work if the device is connected. The RSSI value will be determined once on the discovery of the device.
@@ -77,7 +78,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// A task that represents the asynchronous read operation. The Result property will contain a boolean that indicates if the update was successful.
         /// The Task will finish after the RSSI has been updated.
         /// </returns>
-        Task<bool> UpdateRssiAsync();
+        Task<bool> UpdateRssiAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Requests a MTU update and fires an "Exchange MTU Request" on the ble stack.
@@ -92,7 +93,8 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <returns>
         /// A task that represents the asynchronous operation. The result contains the negotiated MTU size between master and slave</returns>
         /// <param name="requestValue">The requested MTU</param>
-        Task<int> RequestMtuAsync(int requestValue);
+        /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
+        Task<int> RequestMtuAsync(int requestValue, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Requests a bluetooth-le connection update request. Be aware that this is only implemented on Android (>= API 21). 

@@ -5,6 +5,7 @@ using Plugin.BLE.Abstractions;
 using Foundation;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.Utils;
+using System.Threading;
 
 namespace Plugin.BLE.iOS
 {
@@ -42,7 +43,7 @@ namespace Plugin.BLE.iOS
             _bleCentralManagerDelegate = bleCentralManagerDelegate;
         }
 
-        protected override Task<byte[]> ReadNativeAsync()
+        protected override Task<byte[]> ReadNativeAsync(CancellationToken cancellationToken)
         {
             var exception = new Exception($"Device '{Characteristic.Service.Device.Id}' disconnected while reading descriptor with {Id}.");
 
@@ -72,10 +73,11 @@ namespace Plugin.BLE.iOS
                            reject(exception);
                    }),
                    subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
-                   unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
+                   unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler,
+				   token: cancellationToken);
         }
 
-        protected override Task WriteNativeAsync(byte[] data)
+        protected override Task WriteNativeAsync(byte[] data, CancellationToken cancellationToken)
         {
             var exception = new Exception($"Device '{Characteristic.Service.Device.Id}' disconnected while writing descriptor with {Id}.");
 
@@ -104,7 +106,8 @@ namespace Plugin.BLE.iOS
                             reject(exception);
                     }),
                     subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
-                    unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
+                    unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler,
+					token: cancellationToken);
         }
     }
 }

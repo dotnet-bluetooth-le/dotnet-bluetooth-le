@@ -5,6 +5,7 @@ using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Windows.Security.Cryptography;
 using Plugin.BLE.Extensions;
+using System.Threading;
 
 namespace Plugin.BLE.Windows
 {
@@ -23,13 +24,13 @@ namespace Plugin.BLE.Windows
         {
         }
 
-        protected override async Task<byte[]> ReadNativeAsync()
+        protected override async Task<byte[]> ReadNativeAsync(CancellationToken cancellationToken)
         {
             var readResult = await NativeDescriptor.ReadValueAsync(BleImplementation.CacheModeDescriptorRead);
             return _value = readResult.GetValueOrThrowIfError();
         }
 
-        protected override async Task WriteNativeAsync(byte[] data)
+        protected override async Task WriteNativeAsync(byte[] data, CancellationToken cancellationToken)
         {
             var result = await NativeDescriptor.WriteValueWithResultAsync(CryptographicBuffer.CreateFromByteArray(data));
             result.ThrowIfError();

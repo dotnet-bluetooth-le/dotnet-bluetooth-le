@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using CoreBluetooth;
 using Foundation;
@@ -43,12 +44,12 @@ namespace Plugin.BLE.iOS
             Trace.Message("Device changed name: {0}", Name);
         }
 
-        protected override Task<IReadOnlyList<IService>> GetServicesNativeAsync()
+        protected override Task<IReadOnlyList<IService>> GetServicesNativeAsync(CancellationToken cancellationToken)
         {
-            return GetServicesInternal();
+            return GetServicesInternal(null, cancellationToken);
         }
 
-        protected override async Task<IService> GetServiceNativeAsync(Guid id)
+        protected override async Task<IService> GetServiceNativeAsync(Guid id, CancellationToken cancellationToken)
         {
             var cbuuid = CBUUID.FromString(id.ToString());
             var nativeService = NativeDevice.Services?.FirstOrDefault(service => service.UUID.Equals(cbuuid));
@@ -57,11 +58,11 @@ namespace Plugin.BLE.iOS
                 return new Service(nativeService, this, _bleCentralManagerDelegate);
             }
 
-            var services = await GetServicesInternal(cbuuid);
+            var services = await GetServicesInternal(cbuuid, cancellationToken);
             return services?.FirstOrDefault();
         }
 
-        private Task<IReadOnlyList<IService>> GetServicesInternal(CBUUID id = null)
+        private Task<IReadOnlyList<IService>> GetServicesInternal(CBUUID id, CancellationToken cancellationToken)
         {
             var exception = new Exception($"Device {Name} disconnected while fetching services.");
 
@@ -108,10 +109,11 @@ namespace Plugin.BLE.iOS
                             reject(exception);
                     }),
                     subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
-                    unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
+                    unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler,
+					token: cancellationToken);
         }
 
-        public override Task<bool> UpdateRssiAsync()
+        public override Task<bool> UpdateRssiAsync(CancellationToken cancellationToken)
         {
             return TaskBuilder.FromEvent<bool, EventHandler<CBRssiEventArgs>, EventHandler<CBPeripheralErrorEventArgs>>(
                 execute: () => NativeDevice.ReadRSSI(),
@@ -135,7 +137,8 @@ namespace Plugin.BLE.iOS
                         reject(new Exception($"Device {Name} disconnected while reading RSSI."));
                 }),
                 subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
-                unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
+                unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler,
+                token: cancellationToken);
         }
 
         protected override DeviceState GetState()
@@ -162,7 +165,7 @@ namespace Plugin.BLE.iOS
             //Name = nativeDevice.Name; 
         }
 
-        protected override async Task<int> RequestMtuNativeAsync(int requestValue)
+        protected override async Task<int> RequestMtuNativeAsync(int requestValue, CancellationToken cancellationToken)
         {
             Trace.Message($"Request MTU is not supported on iOS.");
             return await Task.FromResult((int)NativeDevice.GetMaximumWriteValueLength(CBCharacteristicWriteType.WithoutResponse));

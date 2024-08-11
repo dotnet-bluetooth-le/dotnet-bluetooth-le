@@ -123,7 +123,7 @@ namespace Plugin.BLE.Abstractions
             }
 
             Trace.Message("Characteristic.ReadAsync");
-            return await ReadNativeAsync();
+            return await ReadNativeAsync(cancellationToken);
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace Plugin.BLE.Abstractions
             var writeType = GetWriteType();
 
             Trace.Message("Characteristic.WriteAsync");
-            return await WriteNativeAsync(data, writeType);
+            return await WriteNativeAsync(data, writeType, cancellationToken);
         }
 
         private CharacteristicWriteType GetWriteType()
@@ -192,7 +192,7 @@ namespace Plugin.BLE.Abstractions
         /// <param name="cancellationToken"></param>
         public async Task<IReadOnlyList<IDescriptor>> GetDescriptorsAsync(CancellationToken cancellationToken = default)
         {
-            return _descriptors ?? (_descriptors = await GetDescriptorsNativeAsync());
+            return _descriptors ?? (_descriptors = await GetDescriptorsNativeAsync(cancellationToken));
         }
 
         /// <summary>
@@ -209,22 +209,22 @@ namespace Plugin.BLE.Abstractions
         /// <summary>
         /// Native implementation of <c>GetDescriptorsAsync</c>.
         /// </summary>
-        protected abstract Task<IReadOnlyList<IDescriptor>> GetDescriptorsNativeAsync();
+        protected abstract Task<IReadOnlyList<IDescriptor>> GetDescriptorsNativeAsync(CancellationToken cancellationToken);
         /// <summary>
         /// Native implementation of <c>ReadAsync</c>.
         /// </summary>
-        protected abstract Task<(byte[] data, int resultCode)> ReadNativeAsync();
+        protected abstract Task<(byte[] data, int resultCode)> ReadNativeAsync(CancellationToken cancellationToken);
         /// <summary>
         /// Native implementation of <c>WriteAsync</c>.
         /// </summary>
-        protected abstract Task<int> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType);
+        protected abstract Task<int> WriteNativeAsync(byte[] data, CharacteristicWriteType writeType, CancellationToken cancellationToken);
         /// <summary>
         /// Native implementation of <c>StartUpdatesAsync</c>.
         /// </summary>
-        protected abstract Task StartUpdatesNativeAsync(CancellationToken cancellationToken = default);
+        protected abstract Task StartUpdatesNativeAsync(CancellationToken cancellationToken);
         /// <summary>
         /// Native implementation of <c>StopUpdatesAsync</c>.
         /// </summary>
-        protected abstract Task StopUpdatesNativeAsync(CancellationToken cancellationToken = default);
+        protected abstract Task StopUpdatesNativeAsync(CancellationToken cancellationToken);
     }
 }

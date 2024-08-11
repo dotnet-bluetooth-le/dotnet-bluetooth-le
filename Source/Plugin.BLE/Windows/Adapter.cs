@@ -175,7 +175,7 @@ namespace Plugin.BLE.Windows
             ((Device)device).DisconnectInternal();
         }
 
-        public override async Task<IDevice> ConnectToKnownDeviceNativeAsync(Guid deviceGuid, ConnectParameters connectParameters = default, CancellationToken cancellationToken = default)
+        public override async Task<IDevice> ConnectToKnownDeviceNativeAsync(Guid deviceGuid, ConnectParameters connectParameters, CancellationToken cancellationToken)
         {
             var bleAddress = deviceGuid.ToBleAddress();
             var nativeDevice = await BluetoothLEDevice.FromBluetoothAddressAsync(bleAddress);
