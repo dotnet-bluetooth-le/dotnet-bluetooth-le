@@ -47,6 +47,7 @@ namespace Plugin.BLE.Abstractions
         /// <summary>
         /// Gets the characteristics of the service.
         /// </summary>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
         public async Task<IReadOnlyList<ICharacteristic>> GetCharacteristicsAsync(CancellationToken cancellationToken = default)
         {
             if (!_characteristics.Any())

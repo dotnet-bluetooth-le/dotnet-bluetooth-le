@@ -72,7 +72,7 @@ namespace Plugin.BLE.Abstractions
         public string Name { get; protected set; }
         /// <summary>
         /// Last known rssi value in decibals.
-        /// Can be updated via <see cref="UpdateRssiAsync()"/>.
+        /// Can be updated via <see cref="UpdateRssiAsync(CancellationToken)"/>.
         /// </summary>
         public int Rssi { get; protected set; }
         /// <summary>

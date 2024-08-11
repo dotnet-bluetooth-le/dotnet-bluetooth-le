@@ -22,7 +22,7 @@ namespace Plugin.BLE.Abstractions.Contracts
 
         /// <summary>
         /// Last known RSSI value in decibels.
-        /// Can be updated via <see cref="UpdateRssiAsync()"/>.
+        /// Can be updated via <see cref="UpdateRssiAsync(CancellationToken)"/>.
         /// </summary>
         int Rssi { get; }
 
