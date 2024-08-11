@@ -63,6 +63,7 @@ namespace Plugin.BLE.Abstractions
         /// Gets the first characteristic with the Id <paramref name="id"/>. 
         /// </summary>
         /// <param name="id">The id of the searched characteristic.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
         public async Task<ICharacteristic> GetCharacteristicAsync(Guid id, CancellationToken cancellationToken = default)
         {
             var characteristics = await GetCharacteristicsAsync(cancellationToken);
