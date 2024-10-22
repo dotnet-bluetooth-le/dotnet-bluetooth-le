@@ -69,7 +69,7 @@ namespace Plugin.BLE.Android
 
         internal bool IsOperationRequested { get; set; }
 
-        protected override async Task<IReadOnlyList<IService>> GetServicesNativeAsync()
+        protected override async Task<IReadOnlyList<IService>> GetServicesNativeAsync(CancellationToken cancellationToken)
         {
             if (_gattCallback == null || _gatt == null)
             {
@@ -82,10 +82,10 @@ namespace Plugin.BLE.Android
                 return _gatt.Services.Select(service => new Service(service, _gatt, _gattCallback, this)).ToList();
             }
 
-            return await DiscoverServicesInternal();
+            return await DiscoverServicesInternal(cancellationToken);
         }
 
-        protected override async Task<IService> GetServiceNativeAsync(Guid id)
+        protected override async Task<IService> GetServiceNativeAsync(Guid id, CancellationToken cancellationToken)
         {
             if (_gattCallback == null || _gatt == null)
             {
@@ -101,11 +101,11 @@ namespace Plugin.BLE.Android
                 return new Service(nativeService, _gatt, _gattCallback, this);
             }
 
-            var services = await DiscoverServicesInternal();
+            var services = await DiscoverServicesInternal(cancellationToken);
             return services?.FirstOrDefault(service => service.Id == id);
         }
 
-        private async Task<IReadOnlyList<IService>> DiscoverServicesInternal()
+        private async Task<IReadOnlyList<IService>> DiscoverServicesInternal(CancellationToken cancellationToken)
         {
 	        if (_gatt == null)
 	        {
@@ -139,7 +139,8 @@ namespace Plugin.BLE.Android
                         reject(new Exception($"Device {Name} disconnected while fetching services."));
                     }),
                     subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
-                    unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler);
+                    unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler,
+					token: cancellationToken);
         }
 
         public void Connect(ConnectParameters connectParameters, CancellationToken cancellationToken)
@@ -346,7 +347,7 @@ namespace Plugin.BLE.Android
             return records;
         }
 
-        public override async Task<bool> UpdateRssiAsync()
+        public override async Task<bool> UpdateRssiAsync(CancellationToken cancellationToken)
         {
             if (_gatt == null || _gattCallback == null)
             {
@@ -377,10 +378,11 @@ namespace Plugin.BLE.Android
                   reject(new Exception($"Device {Name} disconnected while updating rssi."));
               }),
               subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
-              unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler);
+              unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler,
+              token: cancellationToken);
         }
 
-        protected override async Task<int> RequestMtuNativeAsync(int requestValue)
+        protected override async Task<int> RequestMtuNativeAsync(int requestValue, CancellationToken cancellationToken)
         {
             if (_gatt == null || _gattCallback == null)
             {
@@ -415,7 +417,8 @@ namespace Plugin.BLE.Android
                    reject(new Exception($"Device {Name} disconnected while requesting MTU."));
                }),
               subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
-              unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler
+              unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler,
+              token: cancellationToken
             );
         }
 

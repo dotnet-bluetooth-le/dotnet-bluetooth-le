@@ -72,7 +72,7 @@ namespace Plugin.BLE.Abstractions
         public string Name { get; protected set; }
         /// <summary>
         /// Last known rssi value in decibals.
-        /// Can be updated via <see cref="UpdateRssiAsync()"/>.
+        /// Can be updated via <see cref="UpdateRssiAsync(CancellationToken)"/>.
         /// </summary>
         public int Rssi { get; protected set; }
         /// <summary>
@@ -115,7 +115,7 @@ namespace Plugin.BLE.Abstractions
 
             using (var source = this.GetCombinedSource(cancellationToken))
             {
-                var services = await GetServicesNativeAsync();
+                var services = await GetServicesNativeAsync(cancellationToken);
 
                 lock (KnownServices)
                 {
@@ -141,9 +141,9 @@ namespace Plugin.BLE.Abstractions
         /// <summary>
         /// Requests a MTU update and fires an "Exchange MTU Request" on the ble stack.
         /// </summary>
-        public async Task<int> RequestMtuAsync(int requestValue)
+        public async Task<int> RequestMtuAsync(int requestValue, CancellationToken cancellationToken = default)
         {
-            return await RequestMtuNativeAsync(requestValue);
+            return await RequestMtuNativeAsync(requestValue, cancellationToken);
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace Plugin.BLE.Abstractions
         /// <summary>
         /// Updates the rssi value.
         /// </summary>
-        public abstract Task<bool> UpdateRssiAsync();
+        public abstract Task<bool> UpdateRssiAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Determines the state of the device.
@@ -166,15 +166,15 @@ namespace Plugin.BLE.Abstractions
         /// <summary>
         /// Native implementation of <c>GetServicesAsync</c>.
         /// </summary>
-        protected abstract Task<IReadOnlyList<IService>> GetServicesNativeAsync();
+        protected abstract Task<IReadOnlyList<IService>> GetServicesNativeAsync(CancellationToken cancellationToken);
         /// <summary>
         /// Currently not being used anywhere!
         /// </summary>
-        protected abstract Task<IService> GetServiceNativeAsync(Guid id);
+        protected abstract Task<IService> GetServiceNativeAsync(Guid id, CancellationToken cancellationToken);
         /// <summary>
         /// Native implementation of <c>RequestMtuAsync</c>.
         /// </summary>
-        protected abstract Task<int> RequestMtuNativeAsync(int requestValue);
+        protected abstract Task<int> RequestMtuNativeAsync(int requestValue, CancellationToken cancellationToken);
         /// <summary>
         /// Native implementation of <c>UpdateConnectionInterval</c>.
         /// </summary>

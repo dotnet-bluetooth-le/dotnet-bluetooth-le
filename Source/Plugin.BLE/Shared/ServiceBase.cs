@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Plugin.BLE.Abstractions.Contracts;
 
@@ -46,11 +47,12 @@ namespace Plugin.BLE.Abstractions
         /// <summary>
         /// Gets the characteristics of the service.
         /// </summary>
-        public async Task<IReadOnlyList<ICharacteristic>> GetCharacteristicsAsync()
+        /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
+        public async Task<IReadOnlyList<ICharacteristic>> GetCharacteristicsAsync(CancellationToken cancellationToken = default)
         {
             if (!_characteristics.Any())
-            {
-                _characteristics.AddRange(await GetCharacteristicsNativeAsync());
+            {    
+                _characteristics.AddRange(await GetCharacteristicsNativeAsync(cancellationToken));
             }
 
             // make a copy here so that the caller cant modify the original list
@@ -61,16 +63,17 @@ namespace Plugin.BLE.Abstractions
         /// Gets the first characteristic with the Id <paramref name="id"/>. 
         /// </summary>
         /// <param name="id">The id of the searched characteristic.</param>
-        public async Task<ICharacteristic> GetCharacteristicAsync(Guid id)
+        /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.</param>
+        public async Task<ICharacteristic> GetCharacteristicAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            var characteristics = await GetCharacteristicsAsync();
+            var characteristics = await GetCharacteristicsAsync(cancellationToken);
             return characteristics.FirstOrDefault(c => c.Id == id);
         }
 
         /// <summary>
         /// Native implementation of <c>GetCharacteristicsAsync</c>.
         /// </summary>
-        protected abstract Task<IList<ICharacteristic>> GetCharacteristicsNativeAsync();
+        protected abstract Task<IList<ICharacteristic>> GetCharacteristicsNativeAsync(CancellationToken cancellationToken);
 
         /// <summary>
         /// Dispose the service.
