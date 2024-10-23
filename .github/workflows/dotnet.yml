@@ -75,7 +75,7 @@ jobs:
         path: ./Source/*/nuget/*Plugin.BLE*.nupkg
 
   macBuild:
-    runs-on: macos-14
+    runs-on: macos-15
     steps:
     - uses: actions/checkout@v4
       with:
@@ -87,12 +87,14 @@ jobs:
     - name: Setup XCode
       uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '15'
+        xcode-version: latest-stable
     - name: Install .NET MAUI
       run: |
         dotnet nuget locals all --clear
         dotnet workload install maui --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
         dotnet workload install android ios maccatalyst tvos macos maui wasm-tools maui-maccatalyst --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
+    - name: Install Android tools
+      run: ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT "platforms;android-34" "platforms;android-33" "build-tools;34.0.0" "platform-tools"
     - name: Build Plugin.BLE NuGet
       run: dotnet build ./Source/Plugin.BLE/Plugin.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
     - name: Build MVVMCross.Plugins.BLE NuGet
@@ -113,9 +115,7 @@ jobs:
     - name: Install workloads
       run: dotnet workload install android wasm-tools maui-android
     - name: Install Android tools
-      run: |
-        ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager \
-        --sdk_root=$ANDROID_SDK_ROOT "platform-tools"
+      run: ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT "platform-tools"
     - name: Build Plugin.BLE NuGet
       run: dotnet build ./Source/Plugin.BLE/Plugin.BLE.csproj -p:Configuration=Release -t:restore,build,pack -p:Version=$(git describe) -p:ContinuousIntegrationBuild=true -p:DeterministicSourcePaths=false
     - name: Build MVVMCross.Plugins.BLE NuGet
