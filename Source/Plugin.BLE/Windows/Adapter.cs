@@ -52,6 +52,7 @@ namespace Plugin.BLE.Windows
             DeviceInformationCustomPairing p = deviceInformation.Pairing.Custom;
             p.PairingRequested += PairingRequestedHandler;
             var result = await p.PairAsync(DevicePairingKinds.ConfirmOnly);
+            p.PairingRequested -= PairingRequestedHandler;
             Trace.Message($"BondAsync pairing result was {result.Status} with: {device.Name}: {device.Id}");
         }
 
