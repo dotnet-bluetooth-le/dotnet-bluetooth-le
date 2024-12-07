@@ -49,8 +49,25 @@ namespace Plugin.BLE.Windows
                 Trace.Message($"BondAsync cannot pair with: {device.Name}: {device.Id}");
                 return;
             }
-            DevicePairingResult result = await deviceInformation.Pairing.PairAsync();
+            DeviceInformationCustomPairing p = deviceInformation.Pairing.Custom;
+            p.PairingRequested += PairingRequestedHandler;
+            var result = await p.PairAsync(DevicePairingKinds.ConfirmOnly);
+            p.PairingRequested -= PairingRequestedHandler;
             Trace.Message($"BondAsync pairing result was {result.Status} with: {device.Name}: {device.Id}");
+        }
+
+        private static void PairingRequestedHandler(DeviceInformationCustomPairing sender, DevicePairingRequestedEventArgs args)
+        {
+            switch (args.PairingKind)
+            {
+                case DevicePairingKinds.ConfirmOnly:
+                    args.Accept();
+                    break;
+
+                default:
+                    Trace.Message("PairingKind " + args.PairingKind + " not supported");
+                    break;
+            }
         }
 
         protected override Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
