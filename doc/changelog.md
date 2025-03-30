@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.2 .NET 9
+
+### 3.2.0-beta.1
+- #880 Recognize cancellation tokens for async methods (fixes #824)
+- #899 Added CustomPairing for Windows
+- #908 Remove net7.0 targets
+- #923 Add net9.0 TFMs
+- #928 Provide missing cancellation token to write characteristics method
+
+
 ## 3.1 .NET 8 & Gemeric Windows Implementation
 
 ### 3.1.0
