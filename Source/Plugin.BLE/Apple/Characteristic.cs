@@ -190,8 +190,8 @@ namespace Plugin.BLE.iOS
                             reject(exception);
                     }),
                     subscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral += handler,
-                    unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler);
-
+                    unsubscribeReject: handler => _bleCentralManagerDelegate.DisconnectedPeripheral -= handler,
+                    token: cancellationToken);
                 }
                 else
                 {
