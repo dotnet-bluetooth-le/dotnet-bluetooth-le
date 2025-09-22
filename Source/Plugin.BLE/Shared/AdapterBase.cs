@@ -105,6 +105,17 @@ namespace Plugin.BLE.Abstractions
         /// </summary>
         public IReadOnlyList<IDevice> BondedDevices => GetBondedDevices();
 
+        public void ClearDeviceRegistries()
+        {
+            foreach (var device in ConnectedDeviceRegistry.Values.ToList())
+            {
+                ((IDevice)device).ClearServices();
+                HandleDisconnectedDevice(false, device);
+            }
+            ConnectedDeviceRegistry.Clear();
+            DiscoveredDevicesRegistry.Clear();
+        }
+
         /// <summary>
         /// Starts scanning for BLE devices that fulfill the <paramref name="deviceFilter"/>.
         /// DeviceDiscovered will only be called, if <paramref name="deviceFilter"/> returns <c>true</c> for the discovered device.

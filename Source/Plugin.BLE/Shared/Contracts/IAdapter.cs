@@ -107,6 +107,12 @@ namespace Plugin.BLE.Abstractions.Contracts
         IReadOnlyList<IDevice> BondedDevices { get; }
 
         /// <summary>
+        /// Clear all cached device registries
+        /// (discovered or connected devices).
+        /// </summary>
+        public void ClearDeviceRegistries();
+
+        /// <summary>
         /// Starts scanning for BLE devices that fulfill the <paramref name="deviceFilter"/>.
         /// DeviceDiscovered will only be called, if <paramref name="deviceFilter"/> returns <c>true</c> for the discovered device.
         /// </summary>

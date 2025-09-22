@@ -60,13 +60,7 @@ namespace Plugin.BLE.iOS
                 if (_centralManager.State == CBCentralManagerState.PoweredOff)
 #endif
                 {
-                    foreach (var device in ConnectedDeviceRegistry.Values.ToList())
-                    {
-                        ((Device)device).ClearServices();
-                        HandleDisconnectedDevice(false, device);
-                    }
-
-                    ConnectedDeviceRegistry.Clear();
+                    ClearDeviceRegistries();
                 }
             };
 
