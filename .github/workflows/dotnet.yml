@@ -11,7 +11,7 @@ on:
 jobs:
 
   winBuild:
-    runs-on: windows-latest
+    runs-on: windows-2022
     steps:
     - uses: actions/checkout@v4
       with:
