@@ -98,7 +98,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// which can be gained with a simple 'uses-permission' manifest tag. For apps targeting Build.VERSION_CODES#S or or higher,
         /// this requires the Manifest.permission#BLUETOOTH_CONNECT permission which can be gained with Activity.requestPermissions(String[], int). 
         /// </summary>
-        public Task BondAsync(IDevice device);
+        Task BondAsync(IDevice device);
 
         /// <summary>
         /// List of currently bonded devices.
@@ -110,7 +110,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// Clear all cached device registries
         /// (discovered or connected devices).
         /// </summary>
-        public void ClearDeviceRegistries();
+        void ClearDeviceRegistries();
 
         /// <summary>
         /// Starts scanning for BLE devices that fulfill the <paramref name="deviceFilter"/>.

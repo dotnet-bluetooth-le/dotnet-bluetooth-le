@@ -143,6 +143,6 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// <summary>
         /// Clear all (known) services.
         /// </summary>
-        public void ClearServices();
+        void ClearServices();
     }
 }
