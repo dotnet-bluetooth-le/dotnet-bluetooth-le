@@ -105,6 +105,10 @@ namespace Plugin.BLE.Abstractions
         /// </summary>
         public IReadOnlyList<IDevice> BondedDevices => GetBondedDevices();
 
+        /// <summary>
+        /// Clear all cached device registries
+        /// (discovered or connected devices).
+        /// </summary>
         public void ClearDeviceRegistries()
         {
             foreach (var device in ConnectedDeviceRegistry.Values.ToList())
