@@ -50,7 +50,14 @@ namespace Plugin.BLE
             if (!ctx.PackageManager.HasSystemFeature(PackageManager.FeatureBluetoothLe))
                 return;
 
-            var statusChangeReceiver = new BluetoothStatusBroadcastReceiver(state => State = state);
+            var statusChangeReceiver = new BluetoothStatusBroadcastReceiver(state =>
+            {
+                State = state;
+                if (state == BluetoothState.Off)
+                {
+                    Adapter.ClearDeviceRegistries();
+                }
+            });
             ctx.RegisterReceiver(statusChangeReceiver, new IntentFilter(BluetoothAdapter.ActionStateChanged));
 
             _bluetoothManager = (BluetoothManager)ctx.GetSystemService(Context.BluetoothService);

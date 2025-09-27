@@ -139,5 +139,10 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// The Result property will contain a boolean that indicates if the update was successful.        
         /// </returns>
         bool UpdateConnectionParameters(ConnectParameters connectParameters = default);
+
+        /// <summary>
+        /// Clear all (known) services.
+        /// </summary>
+        void ClearServices();
     }
 }
