@@ -396,6 +396,11 @@ namespace Plugin.BLE.Android
                 return -1;
             }
 
+            if (requestValue < 23 || requestValue > 517)
+            {
+                throw new ArgumentOutOfRangeException(nameof(requestValue), requestValue, "Requested MTU value may not be smaller than 23 and not larger than 517");
+            }
+
             return await TaskBuilder.FromEvent<int, EventHandler<MtuRequestCallbackEventArgs>, EventHandler>(
               execute: () => { _gatt.RequestMtu(requestValue); },
               getCompleteHandler: (complete, reject) => ((sender, args) =>
