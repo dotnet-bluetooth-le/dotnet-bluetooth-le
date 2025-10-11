@@ -216,10 +216,11 @@ namespace Plugin.BLE.Android
 #endif
             {
                 // set the match mode on Android 6 and above
-                ssb.SetMatchMode(ScanMatchMode.ToNative());
+                var smm = ScanMatchMode.ToNative();
+                ssb.SetMatchMode(smm);
 
                 // If set to agressive, reduce the number of adverts needed before raising the DeviceFound callback
-                if (ScanMatchMode.ToNative() == BluetoothScanMatchMode.Aggressive)
+                if (smm == BluetoothScanMatchMode.Aggressive)
                 {
                     // Be more agressive when seeking adverts
                     ssb.SetNumOfMatches((int)BluetoothScanMatchNumber.OneAdvertisement);
