@@ -19,12 +19,19 @@ namespace Plugin.BLE.Extensions
             switch (scanMode)
             {
                 case ScanMode.Passive:
-                    if (Build.VERSION.SdkInt < BuildVersionCodes.M)
+#if NET6_0_OR_GREATER
+                    if (OperatingSystem.IsAndroidVersionAtLeast(23))
+#else
+                    if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+#endif
+                    {
+                        return AndroidScanMode.Opportunistic;
+                    }
+                    else
                     {
                         Trace.Message("Scanmode Passive is not supported on API lvl < 23. Falling back to LowPower.");
                         return AndroidScanMode.LowPower;
                     }
-                    return AndroidScanMode.Opportunistic;
                 case ScanMode.LowPower:
                     return AndroidScanMode.LowPower;
                 case ScanMode.Balanced:
