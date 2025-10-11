@@ -86,7 +86,7 @@ namespace Plugin.BLE.Abstractions.Contracts
         /// </summary>
         /// <remarks>
         /// Important: 
-        /// On Android: This function will only work with API level 21 and higher. Other API level will get an default value as function result.
+        /// On Android: This function will only work with API level 21 and higher. On earlier API levels it will return a default value. Starting from API level 34, this always requests an MTU of 517 (and the requested value is ignored).
         /// On iOS: Requesting MTU sizes is not supported by iOS. The function will return the current negotiated MTU between master / slave.
         /// On Windows: Requesting MTU sizes is not directly supported. Windows will always try and negotiate the maximum MTU between master / slave. The function will return the current negotiated MTU between master / slave.
         /// </remarks>
