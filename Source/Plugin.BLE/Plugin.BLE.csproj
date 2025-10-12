@@ -5,7 +5,7 @@
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);MonoAndroid13.0;Xamarin.iOS10;Xamarin.Mac20;uap10.0.19041;net8.0-windows10.0.19041;net8.0-windows10.0.22000.0;net9.0-windows10.0.19041</TargetFrameworks>
 		<AssemblyName>Plugin.BLE</AssemblyName>
 		<RootNamespace>Plugin.BLE</RootNamespace>
-		<Version>3.2.0-beta.1</Version>
+		<Version>3.2.0-beta.2</Version>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>
 		<Authors>Adrian Seceleanu, Sven-Michael Stübe, Janus Weil</Authors>
 		<PackageId>Plugin.BLE</PackageId>

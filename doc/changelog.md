@@ -1,6 +1,11 @@
 # Changelog
 
-## 3.2 .NET 9
+## 3.2 .NET 9 & Bugfixing
+
+### 3.2.0-beta.2
+- #958 Clear all cached devices when Bluetooth is turned off (fixes #882 and #957)
+- #960 [Android] Check input and enhance documentation of RequestMtuAsync (fixes #950)
+- #961 Fix some Android warnings
 
 ### 3.2.0-beta.1
 - #880 Recognize cancellation tokens for async methods (fixes #824)
