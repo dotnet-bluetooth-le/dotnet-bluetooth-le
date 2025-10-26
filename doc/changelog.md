@@ -2,6 +2,9 @@
 
 ## 3.2 .NET 9 & Bugfixing
 
+### 3.2.0
+- No functional changes wrt beta.2
+
 ### 3.2.0-beta.2
 - #958 Clear all cached devices when Bluetooth is turned off (fixes #882 and #957)
 - #960 [Android] Check input and enhance documentation of RequestMtuAsync (fixes #950)

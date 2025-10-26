@@ -5,15 +5,15 @@
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);MonoAndroid13.0;Xamarin.iOS10;Xamarin.Mac20;uap10.0.19041;net8.0-windows10.0.19041;net8.0-windows10.0.22000.0;net9.0-windows10.0.19041</TargetFrameworks>
 		<AssemblyName>Plugin.BLE</AssemblyName>
 		<RootNamespace>Plugin.BLE</RootNamespace>
-		<Version>3.2.0-beta.2</Version>
+		<Version>3.2.0</Version>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>
-		<Authors>Adrian Seceleanu, Sven-Michael Stübe, Janus Weil</Authors>
+		<Authors>Janus Weil, Adrian Seceleanu, Sven-Michael Stübe, Ask Magnussen Bojesen</Authors>
 		<PackageId>Plugin.BLE</PackageId>
 		<PackOnBuild>true</PackOnBuild>
 		<PackageIcon>icon_small.png</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-		<Owners>Adrian Seceleanu, Sven-Michael Stübe, Janus Weil</Owners>
+		<Owners>Janus Weil, Adrian Seceleanu, Sven-Michael Stübe</Owners>
 		<PackageProjectUrl>https://github.com/dotnet-bluetooth-le/dotnet-bluetooth-le/</PackageProjectUrl>
 		<Summary>Plugin to access Bluetooth Low Energy functionality on Android, iOS, macOS, and Windows.</Summary>
 		<PackageTags>
