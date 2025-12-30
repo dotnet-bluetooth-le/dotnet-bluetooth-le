@@ -21,18 +21,11 @@ namespace Plugin.BLE.Android
             get
             {
 #if NET6_0_OR_GREATER
-                if (OperatingSystem.IsAndroidVersionAtLeast(33))
-                {
 #pragma warning disable CA1422 // Validate platform compatibility
-                    return NativeDescriptor.GetValue();
-#pragma warning restore CA1422
-                }
-                else
-                {
-                    return NativeDescriptor.GetValue();
-                }
-#else
+#endif
                 return NativeDescriptor.GetValue();
+#if NET6_0_OR_GREATER
+#pragma warning restore CA1422
 #endif
             }
         }
@@ -101,20 +94,11 @@ namespace Plugin.BLE.Android
                       if (args.Descriptor.Uuid == NativeDescriptor.Uuid)
                       {
 #if NET6_0_OR_GREATER
-                          // For Android 33+, GetValue() is deprecated but still works
-                          // The value is stored in the descriptor after the callback
-                          if (OperatingSystem.IsAndroidVersionAtLeast(33))
-                          {
 #pragma warning disable CA1422 // Validate platform compatibility
-                              complete(args.Descriptor.GetValue());
-#pragma warning restore CA1422
-                          }
-                          else
-                          {
-                              complete(args.Descriptor.GetValue());
-                          }
-#else
+#endif
                           complete(args.Descriptor.GetValue());
+#if NET6_0_OR_GREATER
+#pragma warning restore CA1422
 #endif
                       }
                   }),

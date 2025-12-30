@@ -32,18 +32,11 @@ namespace Plugin.BLE.Android
             get
             {
 #if NET6_0_OR_GREATER
-                if (OperatingSystem.IsAndroidVersionAtLeast(33))
-                {
 #pragma warning disable CA1422 // Validate platform compatibility
-                    return NativeCharacteristic.GetValue() ?? new byte[0];
-#pragma warning restore CA1422
-                }
-                else
-                {
-                    return NativeCharacteristic.GetValue() ?? new byte[0];
-                }
-#else
+#endif
                 return NativeCharacteristic.GetValue() ?? new byte[0];
+#if NET6_0_OR_GREATER
+#pragma warning restore CA1422
 #endif
             }
         }
@@ -71,22 +64,13 @@ namespace Plugin.BLE.Android
                     {
                         int resultCode = (int)args.Status;
 #if NET6_0_OR_GREATER
-                        // For Android 33+, GetValue() is deprecated but still works
-                        // The value is stored in the characteristic after the callback
-                        if (OperatingSystem.IsAndroidVersionAtLeast(33))
-                        {
 #pragma warning disable CA1422 // Validate platform compatibility
-                            byte[] value = args.Characteristic.GetValue();
-#pragma warning restore CA1422
-                            complete((value, resultCode));
-                        }
-                        else
-                        {
-                            complete((args.Characteristic.GetValue(), resultCode));
-                        }
-#else
-                        complete((args.Characteristic.GetValue(), resultCode));
 #endif
+                        byte[] value = args.Characteristic.GetValue();
+#if NET6_0_OR_GREATER
+#pragma warning restore CA1422
+#endif
+                        complete((value, resultCode));
                     }
                 }),
                 subscribeComplete: handler => _gattCallback.CharacteristicValueRead += handler,
