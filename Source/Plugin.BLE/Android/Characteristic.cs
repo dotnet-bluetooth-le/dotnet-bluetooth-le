@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Android.Bluetooth;
-using AndroidOS = Android.OS;
+using Android.OS;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
@@ -12,6 +12,7 @@ using Plugin.BLE.Android.CallbackEventArgs;
 using Plugin.BLE.Extensions;
 using Plugin.BLE.Abstractions.Utils;
 using System.Threading;
+using Trace = Plugin.BLE.Abstractions.Trace;
 
 namespace Plugin.BLE.Android
 {
@@ -122,7 +123,7 @@ namespace Plugin.BLE.Android
 #if NET6_0_OR_GREATER
             if (OperatingSystem.IsAndroidVersionAtLeast(33))
 #else
-            if (AndroidOS.Build.VERSION.SdkInt >= AndroidOS.BuildVersionCodes.Tiramisu)
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.Tiramisu)
 #endif
             {
                 // Use new API for Android 33+
