@@ -174,18 +174,11 @@ namespace Plugin.BLE.Android
             base.OnCharacteristicRead(gatt, characteristic, status);
 
 #if NET6_0_OR_GREATER
-            if (OperatingSystem.IsAndroidVersionAtLeast(33))
-            {
 #pragma warning disable CA1422 // Validate platform compatibility
-                Trace.Message("OnCharacteristicRead: value {0}; status {1}", characteristic.GetValue().ToHexString(), status);
-#pragma warning restore CA1422
-            }
-            else
-            {
-                Trace.Message("OnCharacteristicRead: value {0}; status {1}", characteristic.GetValue().ToHexString(), status);
-            }
-#else
+#endif
             Trace.Message("OnCharacteristicRead: value {0}; status {1}", characteristic.GetValue().ToHexString(), status);
+#if NET6_0_OR_GREATER
+#pragma warning restore CA1422
 #endif
 
             CharacteristicValueRead?.Invoke(this, new CharacteristicReadCallbackEventArgs(characteristic, status));
@@ -197,18 +190,11 @@ namespace Plugin.BLE.Android
             base.OnCharacteristicChanged(gatt, characteristic);
 
 #if NET6_0_OR_GREATER
-            if (OperatingSystem.IsAndroidVersionAtLeast(33))
-            {
 #pragma warning disable CA1422 // Validate platform compatibility
-                Trace.Message("OnCharacteristicChanged: value {0}", characteristic.GetValue().ToHexString());
-#pragma warning restore CA1422
-            }
-            else
-            {
-                Trace.Message("OnCharacteristicChanged: value {0}", characteristic.GetValue().ToHexString());
-            }
-#else
+#endif
             Trace.Message("OnCharacteristicChanged: value {0}", characteristic.GetValue().ToHexString());
+#if NET6_0_OR_GREATER
+#pragma warning restore CA1422
 #endif
 
             CharacteristicValueUpdated?.Invoke(this, new CharacteristicReadCallbackEventArgs(characteristic, GattStatus.Success));
@@ -219,18 +205,11 @@ namespace Plugin.BLE.Android
             base.OnCharacteristicWrite(gatt, characteristic, status);
 
 #if NET6_0_OR_GREATER
-            if (OperatingSystem.IsAndroidVersionAtLeast(33))
-            {
 #pragma warning disable CA1422 // Validate platform compatibility
-                Trace.Message("OnCharacteristicWrite: value {0} status {1}", characteristic.GetValue().ToHexString(), status);
-#pragma warning restore CA1422
-            }
-            else
-            {
-                Trace.Message("OnCharacteristicWrite: value {0} status {1}", characteristic.GetValue().ToHexString(), status);
-            }
-#else
+#endif
             Trace.Message("OnCharacteristicWrite: value {0} status {1}", characteristic.GetValue().ToHexString(), status);
+#if NET6_0_OR_GREATER
+#pragma warning restore CA1422
 #endif
 
             CharacteristicValueWritten?.Invoke(this, new CharacteristicWriteCallbackEventArgs(characteristic, status, GetExceptionFromGattStatus(status)));
@@ -266,18 +245,11 @@ namespace Plugin.BLE.Android
             base.OnDescriptorWrite(gatt, descriptor, status);
 
 #if NET6_0_OR_GREATER
-            if (OperatingSystem.IsAndroidVersionAtLeast(33))
-            {
 #pragma warning disable CA1422 // Validate platform compatibility
-                Trace.Message("OnDescriptorWrite: {0}", descriptor.GetValue()?.ToHexString());
-#pragma warning restore CA1422
-            }
-            else
-            {
-                Trace.Message("OnDescriptorWrite: {0}", descriptor.GetValue()?.ToHexString());
-            }
-#else
+#endif
             Trace.Message("OnDescriptorWrite: {0}", descriptor.GetValue()?.ToHexString());
+#if NET6_0_OR_GREATER
+#pragma warning restore CA1422
 #endif
 
             DescriptorValueWritten?.Invoke(this, new DescriptorCallbackEventArgs(descriptor, GetExceptionFromGattStatus(status)));
@@ -289,18 +261,11 @@ namespace Plugin.BLE.Android
             base.OnDescriptorRead(gatt, descriptor, status);
 
 #if NET6_0_OR_GREATER
-            if (OperatingSystem.IsAndroidVersionAtLeast(33))
-            {
 #pragma warning disable CA1422 // Validate platform compatibility
-                Trace.Message("OnDescriptorRead: {0}", descriptor.GetValue()?.ToHexString());
-#pragma warning restore CA1422
-            }
-            else
-            {
-                Trace.Message("OnDescriptorRead: {0}", descriptor.GetValue()?.ToHexString());
-            }
-#else
+#endif
             Trace.Message("OnDescriptorRead: {0}", descriptor.GetValue()?.ToHexString());
+#if NET6_0_OR_GREATER
+#pragma warning restore CA1422
 #endif
 
             DescriptorValueRead?.Invoke(this, new DescriptorCallbackEventArgs(descriptor, GetExceptionFromGattStatus(status)));
