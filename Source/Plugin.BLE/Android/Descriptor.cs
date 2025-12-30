@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Android.Bluetooth;
+using AndroidOS = Android.OS;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.Utils;
@@ -65,6 +66,9 @@ namespace Plugin.BLE.Android
         {
 #if NET6_0_OR_GREATER
             if (OperatingSystem.IsAndroidVersionAtLeast(33))
+#else
+            if (AndroidOS.Build.VERSION.SdkInt >= AndroidOS.BuildVersionCodes.Tiramisu)
+#endif
             {
                 // Use new API for Android 33+
                 var result = _gatt.WriteDescriptor(NativeDescriptor, data);
@@ -73,16 +77,13 @@ namespace Plugin.BLE.Android
             }
             else
             {
-#endif
                 // Use legacy API for Android < 33
                 if (!NativeDescriptor.SetValue(data))
                     throw new Exception("GATT: SET descriptor value failed");
 
                 if (!_gatt.WriteDescriptor(NativeDescriptor))
                     throw new Exception("GATT: WRITE descriptor value failed");
-#if NET6_0_OR_GREATER
             }
-#endif
         }
 
         protected override async Task<byte[]> ReadNativeAsync(CancellationToken cancellationToken)
