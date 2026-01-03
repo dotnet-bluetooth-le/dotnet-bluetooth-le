@@ -3,7 +3,6 @@
     "path": "BLE.sln",
     "projects": [
       "BLE.Client\\BLE.Client.Maui\\BLE.Client.Maui.csproj",
-      "BLE.Client\\BLE.Client\\BLE.Client.csproj",
       "MvvmCross.Plugins.BLE\\MvvmCross.Plugins.BLE.csproj",
       "Plugin.BLE.Tests\\Plugin.BLE.Tests.csproj",
       "Plugin.BLE\\Plugin.BLE.csproj"
