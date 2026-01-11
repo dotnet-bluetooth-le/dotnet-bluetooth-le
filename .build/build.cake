@@ -68,13 +68,6 @@ Task("BuildLibs")
 Task("BuildClients")
     .Does(() =>
 {
-  // Xamarin
-  BuildProject("BLE.Client", "BLE.Client", Path.Combine("clients", "netstandard2.0"));
-  BuildProject("BLE.Client", "BLE.Client.Droid", Path.Combine("clients", "android"));
-  BuildProject("BLE.Client", "BLE.Client.iOS", Path.Combine("clients", "ios"));
-  BuildProject("BLE.Client", "BLE.Client.macOS", Path.Combine("clients", "macOS"));
-  BuildProject("BLE.Client", "BLE.Client.UWP", Path.Combine("clients", "uwp"));
-  // .NET 7/8
   BuildProject("BLE.Client", "BLE.Client.WinConsole", Path.Combine("clients", "wincon"));
   BuildProject("BLE.Client", "BLE.Client.Maui", Path.Combine("clients", "maui"));
 });
