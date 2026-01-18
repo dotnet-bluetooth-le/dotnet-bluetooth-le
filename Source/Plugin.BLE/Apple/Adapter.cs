@@ -272,6 +272,10 @@ namespace Plugin.BLE.iOS
             {
                 serviceUuids = services.Select(guid => CBUUID.FromString(guid.ToString())).ToArray();
             }
+            else
+            {
+                serviceUuids = [];
+            }
 
             var nativeDevices = _centralManager.RetrieveConnectedPeripherals(serviceUuids);
 
