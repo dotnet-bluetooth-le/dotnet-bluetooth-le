@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;net9.0-android;net10.0-android</TargetFrameworks>
+		<TargetFrameworks>net9.0;net9.0-android;net10.0;net10.0-android</TargetFrameworks>
 		<TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform('linux'))">$(TargetFrameworks);net9.0-ios;net9.0-maccatalyst;net10.0-ios;net10.0-maccatalyst</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041;net10.0-windows10.0.19041</TargetFrameworks>
 		<AssemblyName>Plugin.BLE</AssemblyName>

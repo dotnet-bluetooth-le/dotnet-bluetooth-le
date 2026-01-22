@@ -29,12 +29,12 @@ namespace Plugin.BLE
 
         static IBluetoothLE CreateImplementation()
         {
-#if NETSTANDARD
-            return null;
-#else
+#if ANDROID || IOS || MACCATALYST || WINDOWS
             var implementation = new BleImplementation();
             implementation.Initialize();
             return implementation;
+#else
+            return null;
 #endif
         }
 
