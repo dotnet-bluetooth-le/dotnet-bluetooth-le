@@ -39,8 +39,6 @@
 	<PropertyGroup Condition="$(TargetFramework.Contains('-maccatalyst'))">
 		<RuntimeIdentifier>maccatalyst-arm64</RuntimeIdentifier>
 		<CreatePackage>false</CreatePackage>
-		<CodesignKey>Mac Developer</CodesignKey>
-		<PackageSigningKey>3rd Party Mac Developer Installer</PackageSigningKey>
 	</PropertyGroup>
 	<PropertyGroup Condition="$(TargetFramework.Contains('-windows')) and $(PlatformTarget)=='x64'">
 		<Platforms>x64</Platforms>
