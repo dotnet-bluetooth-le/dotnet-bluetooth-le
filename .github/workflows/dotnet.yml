@@ -29,36 +29,6 @@ jobs:
     - name: Install workloads
       shell: pwsh
       run: dotnet workload install maui
-    - name: Clean
-      uses: cake-build/cake-action@v2
-      with:
-        script-path: .build/build.cake
-        target: Clean
-    - name: Restore
-      uses: cake-build/cake-action@v2
-      with:
-        script-path: .build/build.cake
-        target: Restore
-    - name: Build Libs
-      uses: cake-build/cake-action@v2
-      with:
-        script-path: .build/build.cake
-        target: BuildLibs
-    - name: Build Clients
-      uses: cake-build/cake-action@v2
-      with:
-        script-path: .build/build.cake
-        target: BuildClients
-    - name: Builds Tests
-      uses: cake-build/cake-action@v2
-      with:
-        script-path: .build/build.cake
-        target: BuildTests
-    - name: Run Tests
-      uses: cake-build/cake-action@v2
-      with:
-        script-path: .build/build.cake
-        target: RunTests
     - name: Build Plugin.BLE NuGet
       run: dotnet build .\Source\Plugin.BLE\Plugin.BLE.csproj -p:Configuration=Release -t:restore,build,pack -p:PackageOutputPath=./nuget -p:Version=$(git describe) -p:ContinuousIntegrationBuild=true -p:DeterministicSourcePaths=false
     - name: Build MVVMCross.Plugins.BLE NuGet
@@ -68,6 +38,15 @@ jobs:
       with:
         name: nupkg
         path: ./Source/*/nuget/*Plugin.BLE*.nupkg
+    - name: Build MAUI sample
+      run: dotnet build ./Source/BLE.Client/BLE.Client.Maui/BLE.Client.Maui.csproj -p:Configuration=Debug -t:restore,build -p:Version=$(git describe) -p:ContinuousIntegrationBuild=true -p:DeterministicSourcePaths=false
+    - name: Build WinConsole sample
+      run: dotnet build ./Source/BLE.Client/BLE.Client.WinConsole/BLE.Client.WinConsole.csproj -p:Configuration=Debug -t:restore,build -p:Version=$(git describe) -p:ContinuousIntegrationBuild=true -p:DeterministicSourcePaths=false
+    - name: Build tests
+      run: dotnet build ./Source/Plugin.BLE.Tests/Plugin.BLE.Tests.csproj -p:Configuration=Debug -t:restore,build
+    - name: Run tests
+      run: dotnet test ./Source/Plugin.BLE.Tests/Plugin.BLE.Tests.csproj -p:Configuration=Debug
+
 
   macBuild:
     runs-on: macos-26
