@@ -92,4 +92,4 @@ jobs:
     - name: Build MVVMCross.Plugins.BLE NuGet
       run: dotnet build ./Source/MvvmCross.Plugins.BLE/MvvmCross.Plugins.BLE.csproj -p:Configuration=Release -t:restore,build,pack -p:Version=$(git describe) -p:ContinuousIntegrationBuild=true -p:DeterministicSourcePaths=false
     - name: Build MAUI sample
-      run: dotnet build ./Source/BLE.Client/BLE.Client.Maui/BLE.Client.Maui.csproj -p:Configuration=Release -t:restore,build -p:Version=$(git describe) -p:ContinuousIntegrationBuild=true -p:DeterministicSourcePaths=false
+      run: dotnet build ./Source/BLE.Client/BLE.Client.Maui/BLE.Client.Maui.csproj -p:Configuration=Debug -t:restore,build -p:Version=$(git describe) -p:ContinuousIntegrationBuild=true -p:DeterministicSourcePaths=false
