@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Android.App;
-using Android.OS;
 using Android.Bluetooth;
 using Android.Content;
 using Plugin.BLE.Abstractions;
@@ -177,7 +176,7 @@ namespace Plugin.BLE.Android
                 _connectCancellationTokenRegistration.Dispose();
                 _connectCancellationTokenRegistration = cancellationToken.Register(() => DisconnectAndClose(connectGatt));
             }
-            else if (OperatingSystem.IsAndroidVersionAtLeast(21))
+            else
             {
                 var m = NativeDevice.Class.GetDeclaredMethod("connectGatt", new Java.Lang.Class[] {
                                 Java.Lang.Class.FromType(typeof(Context)),
@@ -187,13 +186,6 @@ namespace Plugin.BLE.Android
 
                 var transport = NativeDevice.Class.GetDeclaredField("TRANSPORT_LE").GetInt(null); // LE = 2, BREDR = 1, AUTO = 0
                 m.Invoke(NativeDevice, Application.Context, false, _gattCallback, transport);
-            }
-            else
-            {
-                //no transport mode before lollipop, it will probably not work... gattCallBackError 133 again alas
-                var connectGatt = NativeDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback);
-                _connectCancellationTokenRegistration.Dispose();
-                _connectCancellationTokenRegistration = cancellationToken.Register(() => DisconnectAndClose(connectGatt));
             }
         }
 
@@ -382,12 +374,6 @@ namespace Plugin.BLE.Android
                 return -1;
             }
 
-            if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
-            {
-                Trace.Message($"Request MTU not supported in this Android API level");
-                return -1;
-            }
-
             if (requestValue < 23 || requestValue > 517)
             {
                 throw new ArgumentOutOfRangeException(nameof(requestValue), requestValue, "Requested MTU value may not be smaller than 23 and not larger than 517");
@@ -424,12 +410,6 @@ namespace Plugin.BLE.Android
             if (_gatt == null || _gattCallback == null)
             {
                 Trace.Message("You can't update a connection interval for disconnected devices. Device is {0}", State);
-                return false;
-            }
-
-            if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
-            {
-                Trace.Message($"Update connection interval paramter in this Android API level");
                 return false;
             }
 
