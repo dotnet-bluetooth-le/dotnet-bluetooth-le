@@ -29,8 +29,6 @@ jobs:
     - name: Install workloads
       shell: pwsh
       run: dotnet workload install maui
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v2
     - name: Clean
       uses: cake-build/cake-action@v2
       with:
@@ -62,9 +60,9 @@ jobs:
         script-path: .build/build.cake
         target: RunTests
     - name: Build Plugin.BLE NuGet
-      run: msbuild .\Source\Plugin.BLE\Plugin.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+      run: dotnet build .\Source\Plugin.BLE\Plugin.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
     - name: Build MVVMCross.Plugins.BLE NuGet
-      run: msbuild .\Source\MvvmCross.Plugins.BLE\MvvmCross.Plugins.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+      run: dotnet build .\Source\MvvmCross.Plugins.BLE\MvvmCross.Plugins.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
     - name: Upload packages
       uses: actions/upload-artifact@v4
       with:
