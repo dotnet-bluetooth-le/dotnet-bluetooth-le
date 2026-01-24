@@ -60,9 +60,9 @@ jobs:
         script-path: .build/build.cake
         target: RunTests
     - name: Build Plugin.BLE NuGet
-      run: dotnet build .\Source\Plugin.BLE\Plugin.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+      run: dotnet build .\Source\Plugin.BLE\Plugin.BLE.csproj -p:Configuration=Release -t:restore,build,pack -p:PackageOutputPath=./nuget -p:Version=$(git describe) -p:ContinuousIntegrationBuild=true -p:DeterministicSourcePaths=false
     - name: Build MVVMCross.Plugins.BLE NuGet
-      run: dotnet build .\Source\MvvmCross.Plugins.BLE\MvvmCross.Plugins.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:PackageOutputPath=./nuget /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+      run: dotnet build .\Source\MvvmCross.Plugins.BLE\MvvmCross.Plugins.BLE.csproj -p:Configuration=Release -t:restore,build,pack -p:PackageOutputPath=./nuget -p:Version=$(git describe) -p:ContinuousIntegrationBuild=true -p:DeterministicSourcePaths=false
     - name: Upload packages
       uses: actions/upload-artifact@v4
       with:
@@ -88,11 +88,11 @@ jobs:
     #- name: Install Android tools
     #  run: ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT "platforms;android-34" "platforms;android-33" "build-tools;34.0.0" "platform-tools"
     - name: Build Plugin.BLE NuGet
-      run: dotnet build ./Source/Plugin.BLE/Plugin.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+      run: dotnet build ./Source/Plugin.BLE/Plugin.BLE.csproj -p:Configuration=Release -t:restore,build,pack -p:Version=$(git describe) -p:ContinuousIntegrationBuild=true -p:DeterministicSourcePaths=false
     - name: Build MVVMCross.Plugins.BLE NuGet
-      run: dotnet build ./Source/MvvmCross.Plugins.BLE/MvvmCross.Plugins.BLE.csproj /p:Configuration=Release /t:restore,build,pack /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+      run: dotnet build ./Source/MvvmCross.Plugins.BLE/MvvmCross.Plugins.BLE.csproj -p:Configuration=Release -t:restore,build,pack -p:Version=$(git describe) -p:ContinuousIntegrationBuild=true -p:DeterministicSourcePaths=false
     - name: Build MAUI sample
-      run: dotnet build ./Source/BLE.Client/BLE.Client.Maui/BLE.Client.Maui.csproj /p:Configuration=Debug /t:restore,build /p:Version=$(git describe) /p:ContinuousIntegrationBuild=true /p:DeterministicSourcePaths=false
+      run: dotnet build ./Source/BLE.Client/BLE.Client.Maui/BLE.Client.Maui.csproj -p:Configuration=Debug -t:restore,build -p:Version=$(git describe) -p:ContinuousIntegrationBuild=true -p:DeterministicSourcePaths=false
 
   linuxBuild:
     runs-on: ubuntu-latest
