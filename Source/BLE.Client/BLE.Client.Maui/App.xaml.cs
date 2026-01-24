@@ -17,6 +17,10 @@ public partial class App : Application
 
         ServicesProvider = provider;
         AlertService = Services.GetService<IAlertService>();
-        MainPage = new AppShell();
 	}
+
+    protected override Window CreateWindow(IActivationState activationState)
+    {
+        return new Window(new AppShell());
+    }
 }
