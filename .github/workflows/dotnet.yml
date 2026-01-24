@@ -87,7 +87,7 @@ jobs:
     - name: Setup XCode
       uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '26.0'
+        xcode-version: '26.2'
     - name: Install .NET MAUI
       run: |
         dotnet nuget locals all --clear
