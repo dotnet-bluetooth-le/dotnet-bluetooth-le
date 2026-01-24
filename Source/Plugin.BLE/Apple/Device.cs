@@ -34,7 +34,7 @@ namespace Plugin.BLE.iOS
             IsConnectable = isConnectable;
 
             // TODO figure out if this is in any way required,
-            // https://github.com/xabre/xamarin-bluetooth-le/issues/81
+            // https://github.com/dotnet-bluetooth-le/dotnet-bluetooth-le/issues/81
             //_nativeDevice.UpdatedName += OnNameUpdated;
         }
 

@@ -6,7 +6,7 @@ using Trace = Plugin.BLE.Abstractions.Trace;
 namespace Plugin.BLE.Extensions
 {
     /// <summary>
-    /// See https://github.com/xabre/xamarin-bluetooth-le/blob/master/doc/scanmode_mapping.md
+    /// See https://github.com/dotnet-bluetooth-le/dotnet-bluetooth-le/blob/main/doc/scanmode_mapping.md
     /// </summary>
     internal static class ScanModeExtension
     {
