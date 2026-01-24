@@ -83,27 +83,12 @@
 		<None Include="..\..\README.md" Pack="true" Visible="false" PackagePath="" />
 	</ItemGroup>
 
-	<ItemGroup Condition=" $(TargetFramework.Contains('-windows')) ">
-		<PackageReference Include="MvvmCross" Version="9.1.1" />
-	</ItemGroup>
-
-	<ItemGroup Condition=" $(TargetFramework.Contains('-android')) ">
-		<PackageReference Include="MvvmCross" Version="9.1.1" />
-	</ItemGroup>
-
-	<ItemGroup Condition=" $(TargetFramework.Contains('-ios')) ">
-		<PackageReference Include="MvvmCross" Version="9.1.1" />
-	</ItemGroup>
-
-	<ItemGroup Condition=" $(TargetFramework.Contains('-mac')) ">
-		<PackageReference Include="MvvmCross" Version="9.1.1" />
-	</ItemGroup>
-
 	<ItemGroup>
 	  <ProjectReference Include="..\Plugin.BLE\Plugin.BLE.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+	  <PackageReference Include="MvvmCross" Version="10.1.2" />
+	  <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.2" />
 	</ItemGroup>
 </Project>
