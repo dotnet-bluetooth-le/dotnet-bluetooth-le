@@ -1,5 +1,4 @@
 ﻿using Android.Bluetooth.LE;
-using Android.OS;
 using Plugin.BLE.Abstractions.Contracts;
 using System;
 
@@ -9,11 +8,7 @@ namespace Plugin.BLE.Extensions
     {
         public static BluetoothScanMatchMode ToNative(this ScanMatchMode matchMode)
         {
-#if NET6_0_OR_GREATER
             if (OperatingSystem.IsAndroidVersionAtLeast(23))
-#else
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
-#endif
             {
                 switch (matchMode)
                 {

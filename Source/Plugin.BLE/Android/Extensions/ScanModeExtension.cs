@@ -19,11 +19,7 @@ namespace Plugin.BLE.Extensions
             switch (scanMode)
             {
                 case ScanMode.Passive:
-#if NET6_0_OR_GREATER
                     if (OperatingSystem.IsAndroidVersionAtLeast(23))
-#else
-                    if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
-#endif
                     {
                         return AndroidScanMode.Opportunistic;
                     }

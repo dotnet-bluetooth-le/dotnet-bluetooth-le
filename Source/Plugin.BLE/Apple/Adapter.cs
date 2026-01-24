@@ -53,12 +53,7 @@ namespace Plugin.BLE.iOS
                 //handle PoweredOff state
                 //notify subscribers about disconnection
 
-#if NET6_0_OR_GREATER || MACCATALYST
-
                 if (_centralManager.State == CBManagerState.PoweredOff)
-#else
-                if (_centralManager.State == CBCentralManagerState.PoweredOff)
-#endif
                 {
                     ClearDeviceRegistries();
                 }
@@ -150,12 +145,8 @@ namespace Plugin.BLE.iOS
 
         protected override async Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
         {
-#if NET6_0_OR_GREATER || MACCATALYST
-            await WaitForState(CBManagerState.PoweredOn, scanCancellationToken).ConfigureAwait(false);
-#else
             // Wait for the PoweredOn state
-            await WaitForState(CBCentralManagerState.PoweredOn, scanCancellationToken).ConfigureAwait(false);
-#endif
+            await WaitForState(CBManagerState.PoweredOn, scanCancellationToken).ConfigureAwait(false);
 
             if (scanCancellationToken.IsCancellationRequested)
                 throw new TaskCanceledException("StartScanningForDevicesNativeAsync cancelled");
@@ -221,12 +212,8 @@ namespace Plugin.BLE.iOS
         /// <param name="deviceGuid">Device GUID.</param>
         public override async Task<IDevice> ConnectToKnownDeviceNativeAsync(Guid deviceGuid, ConnectParameters connectParameters, CancellationToken cancellationToken)
         {
-#if NET6_0_OR_GREATER || MACCATALYST
-            await WaitForState(CBManagerState.PoweredOn, cancellationToken, true);
-#else
             // Wait for the PoweredOn state
-            await WaitForState(CBCentralManagerState.PoweredOn, cancellationToken, true);
-#endif
+            await WaitForState(CBManagerState.PoweredOn, cancellationToken, true);
 
             if (cancellationToken.IsCancellationRequested)
                 throw new TaskCanceledException("ConnectToKnownDeviceNativeAsync cancelled");
@@ -243,16 +230,7 @@ namespace Plugin.BLE.iOS
             {
                 var systemPeripherials = _centralManager.RetrieveConnectedPeripherals(new CBUUID[0]);
 
-#if __IOS__
-                var cbuuid = CBUUID.FromNSUuid(uuid);
-#endif
-                peripherial = systemPeripherials.SingleOrDefault(p =>
-#if __IOS__ && !NET6_0_OR_GREATER
-                p.UUID.Equals(cbuuid)
-#else
-                 p.Identifier.Equals(uuid)
-#endif
-                );
+                peripherial = systemPeripherials.SingleOrDefault(p => p.Identifier.Equals(uuid));
 
                 if (peripherial == null)
                     throw new Abstractions.Exceptions.DeviceConnectionException(deviceGuid, "", $"[Adapter] Device {deviceGuid} not found.");
@@ -300,11 +278,7 @@ namespace Plugin.BLE.iOS
             return null; // not supported
         }
 
-#if NET6_0_OR_GREATER || MACCATALYST
         private async Task WaitForState(CBManagerState state, CancellationToken cancellationToken, bool configureAwait = false)
-#else
-        private async Task WaitForState(CBCentralManagerState state, CancellationToken cancellationToken, bool configureAwait = false)
-#endif
         {
             Trace.Message("Adapter: Waiting for state: " + state);
 
@@ -435,14 +409,9 @@ namespace Plugin.BLE.iOS
             return records;
         }
 
-#if NET6_0_OR_GREATER || __IOS__
         public override bool SupportsExtendedAdvertising()
         {
-#if NET6_0_OR_GREATER
             if (OperatingSystem.IsIOSVersionAtLeast(13) || OperatingSystem.IsTvOSVersionAtLeast(13) || OperatingSystem.IsMacCatalystVersionAtLeast(13))
-#elif __IOS__
-            if (UIKit.UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
-#endif
             {
                 return CBCentralManager.SupportsFeatures(CBCentralManagerFeature.ExtendedScanAndConnect);
             }
@@ -451,6 +420,5 @@ namespace Plugin.BLE.iOS
                 return false;
             }
         }
-#endif
     }
 }

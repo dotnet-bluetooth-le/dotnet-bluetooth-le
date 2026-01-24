@@ -28,11 +28,7 @@ namespace Plugin.BLE
         {
             get
             {
-#if NET6_0_OR_GREATER
                 if (OperatingSystem.IsAndroidVersionAtLeast(23))
-#else
-                if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
-#endif
                 {
                     return Looper.MainLooper.IsCurrentThread;
                 }

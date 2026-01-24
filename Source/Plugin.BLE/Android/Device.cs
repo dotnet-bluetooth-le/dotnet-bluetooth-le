@@ -171,21 +171,13 @@ namespace Plugin.BLE.Android
         {
             //This parameter is present from API 18 but only public from API 23
             //So reflection is used before API 23
-#if NET6_0_OR_GREATER
             if (OperatingSystem.IsAndroidVersionAtLeast(23))
-#else
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
-#endif
             {
                 var connectGatt = NativeDevice.ConnectGatt(Application.Context, autoconnect, _gattCallback, BluetoothTransports.Le);
                 _connectCancellationTokenRegistration.Dispose();
                 _connectCancellationTokenRegistration = cancellationToken.Register(() => DisconnectAndClose(connectGatt));
             }
-#if NET6_0_OR_GREATER
             else if (OperatingSystem.IsAndroidVersionAtLeast(21))
-#else
-            else if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
-#endif
             {
                 var m = NativeDevice.Class.GetDeclaredMethod("connectGatt", new Java.Lang.Class[] {
                                 Java.Lang.Class.FromType(typeof(Context)),
@@ -458,12 +450,7 @@ namespace Plugin.BLE.Android
 
         public override bool SupportsIsConnectable
         {
-            get =>
-#if NET6_0_OR_GREATER
-                OperatingSystem.IsAndroidVersionAtLeast(26);
-#else
-                (Build.VERSION.SdkInt >= BuildVersionCodes.O); 
-#endif
+            get => OperatingSystem.IsAndroidVersionAtLeast(26);
         }
         
         protected override DeviceBondState GetBondState()

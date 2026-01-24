@@ -7,10 +7,6 @@ namespace Plugin.BLE
     public interface IBleCentralManagerDelegate
     {
         event EventHandler<CBWillRestoreEventArgs> WillRestoreState;
-#if !NET6_0_OR_GREATER && !MACCATALYST
-        event EventHandler<CBPeripheralsEventArgs> RetrievedPeripherals;
-        event EventHandler<CBPeripheralsEventArgs> RetrievedConnectedPeripherals;
-#endif
         event EventHandler<CBPeripheralErrorEventArgs> FailedToConnectPeripheral;
         event EventHandler<CBDiscoveredPeripheralEventArgs> DiscoveredPeripheral;
         event EventHandler<CBPeripheralErrorEventArgs> DisconnectedPeripheral;
@@ -29,27 +25,6 @@ namespace Plugin.BLE
             add => _willRestoreState += value;
             remove => _willRestoreState -= value;
         }
-
-        //TODO: Is this okay?
-
-#if !NET6_0_OR_GREATER && !MACCATALYST
-
-        private event EventHandler<CBPeripheralsEventArgs> _retrievedPeripherals;
-
-        event EventHandler<CBPeripheralsEventArgs> IBleCentralManagerDelegate.RetrievedPeripherals
-        {
-            add => _retrievedPeripherals += value;
-            remove => _retrievedPeripherals -= value;
-        }
-
-        private event EventHandler<CBPeripheralsEventArgs> _retrievedConnectedPeripherals;
-
-        event EventHandler<CBPeripheralsEventArgs> IBleCentralManagerDelegate.RetrievedConnectedPeripherals
-        {
-            add => _retrievedConnectedPeripherals += value;
-            remove => _retrievedConnectedPeripherals -= value;
-        }
-#endif
 
         private event EventHandler<CBPeripheralErrorEventArgs> _failedToConnectPeripheral;
 
@@ -99,18 +74,6 @@ namespace Plugin.BLE
         {
             _willRestoreState?.Invoke(this, new CBWillRestoreEventArgs(dict));
         }
-        //TODO: Is this okay?
-#if !NET6_0_OR_GREATER && !MACCATALYST
-        public override void RetrievedPeripherals(CBCentralManager central, CBPeripheral[] peripherals)
-        {
-            _retrievedPeripherals?.Invoke(this, new CBPeripheralsEventArgs(peripherals));
-        }
-
-        public override void RetrievedConnectedPeripherals(CBCentralManager central, CBPeripheral[] peripherals)
-        {
-            _retrievedConnectedPeripherals?.Invoke(this, new CBPeripheralsEventArgs(peripherals));
-        }
-#endif
 
         public override void FailedToConnectPeripheral(CBCentralManager central, CBPeripheral peripheral, NSError error)
         {

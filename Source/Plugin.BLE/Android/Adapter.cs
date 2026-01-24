@@ -209,11 +209,7 @@ namespace Plugin.BLE.Android
             var ssb = new ScanSettings.Builder();
             ssb.SetScanMode(ScanMode.ToNative());
 
-#if NET6_0_OR_GREATER
             if (OperatingSystem.IsAndroidVersionAtLeast(23))
-#else
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
-#endif
             {
                 // set the match mode on Android 6 and above
                 var smm = ScanMatchMode.ToNative();
@@ -228,11 +224,7 @@ namespace Plugin.BLE.Android
                 }
             }
 
-#if NET6_0_OR_GREATER
             if (OperatingSystem.IsAndroidVersionAtLeast(26))
-#else
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
-#endif
             {
                 // enable Bluetooth 5 Advertisement Extensions on Android 8.0 and above
                 ssb.SetLegacy(false);
@@ -346,11 +338,7 @@ namespace Plugin.BLE.Android
 
         public override bool SupportsExtendedAdvertising()
         {
-#if NET6_0_OR_GREATER
             if (OperatingSystem.IsAndroidVersionAtLeast(26))
-#else
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
-#endif
             {
                 return _bluetoothAdapter.IsLeExtendedAdvertisingSupported;
             }
@@ -362,11 +350,7 @@ namespace Plugin.BLE.Android
 
         public override bool SupportsCodedPHY()
         {
-#if NET6_0_OR_GREATER
             if (OperatingSystem.IsAndroidVersionAtLeast(26))
-#else
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
-#endif
             {
                 return _bluetoothAdapter.IsLeCodedPhySupported;
             }
@@ -454,12 +438,7 @@ namespace Plugin.BLE.Android
                 }*/
 
                 var device = new Device(_adapter, result.Device, null, result.Rssi, result.ScanRecord.GetBytes(),
-#if NET6_0_OR_GREATER
-                    OperatingSystem.IsAndroidVersionAtLeast(26)
-#else
-                    (Build.VERSION.SdkInt >= BuildVersionCodes.O)
-#endif
-                    ? result.IsConnectable : true
+                    OperatingSystem.IsAndroidVersionAtLeast(26) ? result.IsConnectable : true
                 );
 
                 //Device device;

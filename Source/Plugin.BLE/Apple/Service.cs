@@ -57,13 +57,8 @@ namespace Plugin.BLE.iOS
                     }
                 },
 
-#if NET6_0_OR_GREATER || MACCATALYST
                 subscribeComplete: handler => _device.DiscoveredCharacteristics += handler,
                 unsubscribeComplete: handler => _device.DiscoveredCharacteristics -= handler,
-#else
-                subscribeComplete: handler => _device.DiscoveredCharacteristic += handler,
-                unsubscribeComplete: handler => _device.DiscoveredCharacteristic -= handler,
-#endif
                 getRejectHandler: reject => ((sender, args) =>
                 {
                     if (args.Peripheral.Identifier == _device.Identifier)
