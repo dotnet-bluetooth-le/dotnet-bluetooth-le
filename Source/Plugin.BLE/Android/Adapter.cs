@@ -378,7 +378,7 @@ namespace Plugin.BLE.Android
                 }*/
 
                 var device = new Device(_adapter, result.Device, null, result.Rssi, result.ScanRecord.GetBytes(),
-                    OperatingSystem.IsAndroidVersionAtLeast(26) ? result.IsConnectable : true
+                    !OperatingSystem.IsAndroidVersionAtLeast(26) || result.IsConnectable
                 );
 
                 //Device device;
