@@ -1,8 +1,8 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;net8.0-android34.0;net9.0-android</TargetFrameworks>
-		<TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform('linux'))">$(TargetFrameworks);net8.0-ios;net8.0-maccatalyst;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);MonoAndroid13.0;Xamarin.iOS10;Xamarin.Mac20;uap10.0.19041;net8.0-windows10.0.19041;net8.0-windows10.0.22000.0;net9.0-windows10.0.19041</TargetFrameworks>
+		<TargetFrameworks>net9.0;net9.0-android;net10.0;net10.0-android</TargetFrameworks>
+		<TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform('linux'))">$(TargetFrameworks);net9.0-ios;net9.0-maccatalyst;net10.0-ios;net10.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041;net10.0-windows10.0.19041</TargetFrameworks>
 		<AssemblyName>Plugin.BLE</AssemblyName>
 		<RootNamespace>Plugin.BLE</RootNamespace>
 		<Version>3.2.0</Version>
@@ -17,11 +17,11 @@
 		<PackageProjectUrl>https://github.com/dotnet-bluetooth-le/dotnet-bluetooth-le/</PackageProjectUrl>
 		<Summary>Plugin to access Bluetooth Low Energy functionality on Android, iOS, macOS, and Windows.</Summary>
 		<PackageTags>
-			xamarin, maui, pcl, xam.pcl, bluetooth, ble, .net maui, xamarin.forms, android, ios
+			maui, pcl, xam.pcl, bluetooth, ble, .net maui, android, ios, macos, windows
 		</PackageTags>
-		<Title>Bluetooth Low Energy (BLE) Plugin for .NET MAUI and Xamarin</Title>
+		<Title>Bluetooth Low Energy (BLE) Plugin for .NET MAUI</Title>
 		<Description>
-			Xamarin and MAUI plugin to access Bluetooth Low Energy functionality on Android, iOS, macOS, and Windows.
+			.NET MAUI plugin to access Bluetooth Low Energy functionality on Android, iOS, macOS, and Windows.
 		</Description>
 		<Copyright>Apache-2.0</Copyright>
 		<RepositoryUrl>https://github.com/dotnet-bluetooth-le/dotnet-bluetooth-le/</RepositoryUrl>
@@ -41,7 +41,6 @@
 		<SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-android'))">21.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-windows10'))">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$(TargetFramework.Contains('-windows10'))">10.0.17763.0</TargetPlatformMinVersion>
-		<TargetPlatformMinVersion Condition=" $(TargetFramework.StartsWith('uap10.0')) ">10.0.17763.0</TargetPlatformMinVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)'=='Release' And '$(OS)' == 'Windows_NT' ">
@@ -78,51 +77,20 @@
 		<None Include="..\..\README.md" Pack="true" Visible="false" PackagePath="" />
 	</ItemGroup>
 
-	<ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
-	</ItemGroup>
-
-	<ItemGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
-		<Compile Include="**\Windows\**\*.cs" />
-	</ItemGroup>
-
 	<ItemGroup Condition=" $(TargetFramework.Contains('-windows')) ">
 		<Compile Include="**\Windows\**\*.cs" />
 	</ItemGroup>
 
-	<PropertyGroup Condition=" $(TargetFramework.Contains('-android')) ">
-	</PropertyGroup>
-
 	<ItemGroup Condition=" $(TargetFramework.Contains('-android')) ">
 		<Compile Include="**\Android\**\*.cs" />
-	</ItemGroup>
-
-	<ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
-		<Compile Include="**\Android\**\*.cs" />
-	</ItemGroup>
-
-	<ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
-		<Compile Include="**\Apple\**\*.cs" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.Contains('-ios')) ">
 		<Compile Include="**\Apple\**\*.cs" />
 	</ItemGroup>
 
-	<ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac')) ">
-		<Compile Include="**\Apple\**\*.cs" />
-	</ItemGroup>
-
 	<ItemGroup Condition=" $(TargetFramework.Contains('-mac')) ">
 		<Compile Include="**\Apple\**\*.cs" />
-	</ItemGroup>
-
-	<ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac')) ">
-		<Reference Include="Xamarin.Mac">
-			<HintPath Condition="Exists('C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\Extensions\Xamarin.VisualStudio')">C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\Extensions\Xamarin.VisualStudio\Xamarin.Mac.dll</HintPath>
-			<HintPath Condition="Exists('C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\Extensions\Xamarin.VisualStudio')">C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\Extensions\Xamarin.VisualStudio\Xamarin.Mac.dll</HintPath>
-			<HintPath Condition="Exists('C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Xamarin.VisualStudio')">C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Xamarin.VisualStudio\Xamarin.Mac.dll</HintPath>
-			<HintPath Condition="Exists('C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\Extensions\Xamarin.VisualStudio')">C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\Extensions\Xamarin.VisualStudio\Xamarin.Mac.dll</HintPath>
-		</Reference>
 	</ItemGroup>
 
 </Project>

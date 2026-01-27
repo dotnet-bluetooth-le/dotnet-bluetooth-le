@@ -2,7 +2,7 @@ namespace Plugin.BLE.Abstractions.Contracts
 {
     /// <summary>
     /// Defines how Scans are performed.
-    /// See: https://github.com/xabre/xamarin-bluetooth-le/blob/master/doc/scanmode_mapping.md
+    /// See: https://github.com/dotnet-bluetooth-le/dotnet-bluetooth-le/blob/main/doc/scanmode_mapping.md
     /// </summary>
     public enum ScanMode
     {

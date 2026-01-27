@@ -9,12 +9,12 @@ namespace BLE.Client.Maui.Services
 
         public Task ShowAlertAsync(string title, string message, string cancel = "OK")
         {
-            return Application.Current.MainPage.DisplayAlert(title, message, cancel);
+            return Application.Current.Windows[0].Page?.DisplayAlertAsync(title, message, cancel);
         }
 
         public Task<bool> ShowConfirmationAsync(string title, string message, string accept = "Yes", string cancel = "No")
         {
-            return Application.Current.MainPage.DisplayAlert(title, message, accept, cancel);
+            return Application.Current.Windows[0].Page?.DisplayAlertAsync(title, message, accept, cancel);
         }
 
 
@@ -25,7 +25,7 @@ namespace BLE.Client.Maui.Services
         /// </summary>
         public void ShowAlert(string title, string message, string cancel = "OK")
         {
-            Application.Current.MainPage.Dispatcher.Dispatch(async () =>
+            Application.Current.Windows[0].Page?.Dispatcher.Dispatch(async () =>
                 await ShowAlertAsync(title, message, cancel)
             );
         }
@@ -37,7 +37,7 @@ namespace BLE.Client.Maui.Services
         public void ShowConfirmation(string title, string message, Action<bool> callback,
                                      string accept = "Yes", string cancel = "No")
         {
-            Application.Current.MainPage.Dispatcher.Dispatch(async () =>
+            Application.Current.Windows[0].Page?.Dispatcher.Dispatch(async () =>
             {
                 bool answer = await ShowConfirmationAsync(title, message, accept, cancel);
                 callback(answer);

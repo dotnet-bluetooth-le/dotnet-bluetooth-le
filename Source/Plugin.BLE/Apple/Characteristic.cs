@@ -8,7 +8,6 @@ using Foundation;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
-using Plugin.BLE.Abstractions.Exceptions;
 using Plugin.BLE.Abstractions.Extensions;
 using Plugin.BLE.Abstractions.Utils;
 using Plugin.BLE.Extensions;
@@ -163,13 +162,7 @@ namespace Plugin.BLE.iOS
             // CBCharacteristicWriteType is an Enum; so else path is always WithoutResponse.
             else
             {
-#if NET6_0_OR_GREATER
                 if (OperatingSystem.IsIOSVersionAtLeast(11) || OperatingSystem.IsTvOSVersionAtLeast(11) || OperatingSystem.IsMacCatalystVersionAtLeast(11)
-#elif __IOS__
-                if (UIKit.UIDevice.CurrentDevice.CheckSystemVersion(11, 0)
-#else
-                if (true
-#endif
                     && _parentDevice.CanSendWriteWithoutResponse)
                 {
                     task = TaskBuilder.FromEvent<int, EventHandler, EventHandler<CBPeripheralErrorEventArgs>>(

@@ -360,10 +360,10 @@ The BLE API implementation (especially on **Android**) has the following limitat
 
 - [Bluetooth Core Specification v4.2 (2014)](https://www.bluetooth.com/specifications/specs/core-specification-4-2/)
 - [Bluetooth Core Specification v5.4 (2023)](https://www.bluetooth.com/specifications/specs/core-specification-5-4/)
-- [Android Bluetooth LE guideline](https://developer.android.com/guide/topics/connectivity/bluetooth-le.html)
-- [iOS CoreBluetooth Best Practices](https://developer.apple.com/library/ios/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/BestPracticesForInteractingWithARemotePeripheralDevice/BestPracticesForInteractingWithARemotePeripheralDevice.html)
+- [Android Bluetooth LE guideline](https://developer.android.com/develop/connectivity/bluetooth/ble/ble-overview)
+- [iOS CoreBluetooth Best Practices](https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/BestPracticesForInteractingWithARemotePeripheralDevice/BestPracticesForInteractingWithARemotePeripheralDevice.html)
 - [iOS CoreBluetooth Background Modes](https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/CoreBluetoothBackgroundProcessingForIOSApps/PerformingTasksWhileYourAppIsInTheBackground.html#//apple_ref/doc/uid/TP40013257-CH7-SW7)
-- [Monkey Robotics](https://github.com/xamarin/Monkey.Robotics)
+- [Monkey Robotics](https://github.com/xamarin/Monkey.BluetoothLE)
 
 ## How to contribute
 

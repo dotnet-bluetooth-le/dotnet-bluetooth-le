@@ -1,7 +1,6 @@
 using System;
 using Android.Bluetooth;
 using Android.Content;
-using Android.OS;
 using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Android;
 using Plugin.BLE.Extensions;
@@ -30,11 +29,7 @@ namespace Plugin.BLE.BroadcastReceivers
 
             BluetoothDevice bluetoothDevice;
             
-#if NET6_0_OR_GREATER
             if (OperatingSystem.IsAndroidVersionAtLeast(33))
-#else
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.Tiramisu)
-#endif
             {
 	            bluetoothDevice = (BluetoothDevice)intent.GetParcelableExtra(BluetoothDevice.ExtraDevice, Java.Lang.Class.FromType(typeof(BluetoothDevice)));
             }

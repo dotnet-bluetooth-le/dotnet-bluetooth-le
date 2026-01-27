@@ -5,7 +5,7 @@ namespace Plugin.BLE.Abstractions
     /// <summary>
     /// Represents the properties of a characteristic.
     /// It's a superset of all common platform specific properties.
-    /// See: https://github.com/xabre/xamarin-bluetooth-le/blob/master/doc/characteristics.md 
+    /// See: https://github.com/dotnet-bluetooth-le/dotnet-bluetooth-le/blob/main/doc/characteristics.md
     /// </summary>
     [Flags]
     public enum CharacteristicPropertyType

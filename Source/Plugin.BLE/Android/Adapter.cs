@@ -8,13 +8,11 @@ using Android.Bluetooth;
 using Android.Bluetooth.LE;
 using Android.Content;
 using Android.OS;
-using Java.Util;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Android.Extensions;
 using Plugin.BLE.BroadcastReceivers;
 using Plugin.BLE.Extensions;
-using Object = Java.Lang.Object;
 using Trace = Plugin.BLE.Abstractions.Trace;
 
 namespace Plugin.BLE.Android
@@ -23,7 +21,6 @@ namespace Plugin.BLE.Android
     {
         private readonly BluetoothManager _bluetoothManager;
         private readonly BluetoothAdapter _bluetoothAdapter;
-        private readonly Api18BleScanCallback _api18ScanCallback;
         private readonly Api21BleScanCallback _api21ScanCallback;
 
         private readonly Dictionary<string, TaskCompletionSource<bool>> _bondingTcsForAddress = new();
@@ -61,14 +58,7 @@ namespace Plugin.BLE.Android
                 tcs.TrySetException(new Exception("Bonding failed."));
             };
 
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
-            {
-                _api21ScanCallback = new Api21BleScanCallback(this);
-            }
-            else
-            {
-                _api18ScanCallback = new Api18BleScanCallback(this);
-            }
+            _api21ScanCallback = new Api21BleScanCallback(this);
         }
 
         public override Task BondAsync(IDevice device)
@@ -110,30 +100,8 @@ namespace Plugin.BLE.Android
 
         protected override Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
         {
-            if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
-            {
-                StartScanningOld(scanFilterOptions?.ServiceUuids);
-            }
-            else
-            {
-                StartScanningNew(scanFilterOptions);
-            }
-
+            StartScanningNew(scanFilterOptions);
             return Task.FromResult(true);
-        }
-
-        private void StartScanningOld(Guid[] serviceUuids)
-        {
-            var hasFilter = serviceUuids?.Any() ?? false;
-            UUID[] uuids = null;
-            if (hasFilter)
-            {
-                uuids = serviceUuids.Select(u => UUID.FromString(u.ToString())).ToArray();
-            }
-            Trace.Message("Adapter < 21: Starting a scan for devices.");
-#pragma warning disable 618
-            _bluetoothAdapter.StartLeScan(uuids, _api18ScanCallback);
-#pragma warning restore 618
         }
 
         private void StartScanningNew(ScanFilterOptions scanFilterOptions)
@@ -209,11 +177,7 @@ namespace Plugin.BLE.Android
             var ssb = new ScanSettings.Builder();
             ssb.SetScanMode(ScanMode.ToNative());
 
-#if NET6_0_OR_GREATER
             if (OperatingSystem.IsAndroidVersionAtLeast(23))
-#else
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
-#endif
             {
                 // set the match mode on Android 6 and above
                 var smm = ScanMatchMode.ToNative();
@@ -228,11 +192,7 @@ namespace Plugin.BLE.Android
                 }
             }
 
-#if NET6_0_OR_GREATER
             if (OperatingSystem.IsAndroidVersionAtLeast(26))
-#else
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
-#endif
             {
                 // enable Bluetooth 5 Advertisement Extensions on Android 8.0 and above
                 ssb.SetLegacy(false);
@@ -275,18 +235,8 @@ namespace Plugin.BLE.Android
 
         protected override void StopScanNative()
         {
-            if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
-            {
-                Trace.Message("Adapter < 21: Stopping the scan for devices.");
-#pragma warning disable 618
-                _bluetoothAdapter.StopLeScan(_api18ScanCallback);
-#pragma warning restore 618
-            }
-            else
-            {
-                Trace.Message("Adapter >= 21: Stopping the scan for devices.");
-                _bluetoothAdapter.BluetoothLeScanner?.StopScan(_api21ScanCallback);
-            }
+            Trace.Message("Adapter >= 21: Stopping the scan for devices.");
+            _bluetoothAdapter.BluetoothLeScanner?.StopScan(_api21ScanCallback);
         }
 
         protected override Task ConnectToDeviceNativeAsync(IDevice device, ConnectParameters connectParameters,
@@ -346,11 +296,7 @@ namespace Plugin.BLE.Android
 
         public override bool SupportsExtendedAdvertising()
         {
-#if NET6_0_OR_GREATER
             if (OperatingSystem.IsAndroidVersionAtLeast(26))
-#else
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
-#endif
             {
                 return _bluetoothAdapter.IsLeExtendedAdvertisingSupported;
             }
@@ -362,11 +308,7 @@ namespace Plugin.BLE.Android
 
         public override bool SupportsCodedPHY()
         {
-#if NET6_0_OR_GREATER
             if (OperatingSystem.IsAndroidVersionAtLeast(26))
-#else
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
-#endif
             {
                 return _bluetoothAdapter.IsLeCodedPhySupported;
             }
@@ -387,24 +329,6 @@ namespace Plugin.BLE.Android
             public int GetHashCode(BluetoothDevice obj)
             {
                 return obj.GetHashCode();
-            }
-        }
-
-
-        public class Api18BleScanCallback : Object, BluetoothAdapter.ILeScanCallback
-        {
-            private readonly Adapter _adapter;
-
-            public Api18BleScanCallback(Adapter adapter)
-            {
-                _adapter = adapter;
-            }
-
-            public void OnLeScan(BluetoothDevice bleDevice, int rssi, byte[] scanRecord)
-            {
-                Trace.Message("Adapter.LeScanCallback: " + bleDevice.Name);
-
-                _adapter.HandleDiscoveredDevice(new Device(_adapter, bleDevice, null, rssi, scanRecord)); // No IsConnectable!
             }
         }
 
@@ -454,12 +378,7 @@ namespace Plugin.BLE.Android
                 }*/
 
                 var device = new Device(_adapter, result.Device, null, result.Rssi, result.ScanRecord.GetBytes(),
-#if NET6_0_OR_GREATER
-                    OperatingSystem.IsAndroidVersionAtLeast(26)
-#else
-                    (Build.VERSION.SdkInt >= BuildVersionCodes.O)
-#endif
-                    ? result.IsConnectable : true
+                    !OperatingSystem.IsAndroidVersionAtLeast(26) || result.IsConnectable
                 );
 
                 //Device device;

@@ -1,5 +1,4 @@
 using System;
-using Android.OS;
 using Plugin.BLE.Abstractions.Contracts;
 using AndroidScanMode = Android.Bluetooth.LE.ScanMode;
 using Trace = Plugin.BLE.Abstractions.Trace;
@@ -13,17 +12,10 @@ namespace Plugin.BLE.Extensions
     {
         public static AndroidScanMode ToNative(this ScanMode scanMode)
         {
-            if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
-                throw new InvalidOperationException("Scan modes are not implemented in API lvl < 21.");
-
             switch (scanMode)
             {
                 case ScanMode.Passive:
-#if NET6_0_OR_GREATER
                     if (OperatingSystem.IsAndroidVersionAtLeast(23))
-#else
-                    if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
-#endif
                     {
                         return AndroidScanMode.Opportunistic;
                     }
