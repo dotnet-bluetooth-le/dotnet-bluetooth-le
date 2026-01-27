@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.3 .NET 10
+
+### 3.3.0-beta.1
+- #980 Update to .NET 10, remove .NET 8 and Xamarin (fixes #968)
+- #979 Apple: Update default GetSystemConnectedOrPaired behaviour
+- #978 Remove the old Xamarin sample app (BLE.Client)
+
+
 ## 3.2 .NET 9 & Bugfixing
 
 ### 3.2.0
