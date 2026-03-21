@@ -2,10 +2,12 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Android.Bluetooth;
+using Android.OS;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.Utils;
 using Plugin.BLE.Android.CallbackEventArgs;
+using Trace = Plugin.BLE.Abstractions.Trace;
 
 namespace Plugin.BLE.Android
 {
@@ -16,7 +18,19 @@ namespace Plugin.BLE.Android
 
         public override Guid Id => Guid.ParseExact(NativeDescriptor.Uuid.ToString(), "d");
 
-        public override byte[] Value => NativeDescriptor.GetValue();
+        public override byte[] Value
+        {
+            get
+            {
+#if NET6_0_OR_GREATER
+#pragma warning disable CA1422 // Validate platform compatibility
+#endif
+                return NativeDescriptor.GetValue();
+#if NET6_0_OR_GREATER
+#pragma warning restore CA1422
+#endif
+            }
+        }
 
         public Descriptor(BluetoothGattDescriptor nativeDescriptor, BluetoothGatt gatt, IGattCallback gattCallback, ICharacteristic characteristic) : base(characteristic, nativeDescriptor)
         {
@@ -51,11 +65,26 @@ namespace Plugin.BLE.Android
 
         private void InternalWrite(byte[] data)
         {
-            if (!NativeDescriptor.SetValue(data))
-                throw new Exception("GATT: SET descriptor value failed");
+#if NET6_0_OR_GREATER
+            if (OperatingSystem.IsAndroidVersionAtLeast(33))
+#else
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.Tiramisu)
+#endif
+            {
+                // Use new API for Android 33+
+                var result = _gatt.WriteDescriptor(NativeDescriptor, data);
+                if (result != 0)
+                    throw new Exception("GATT: WRITE descriptor value failed");
+            }
+            else
+            {
+                // Use legacy API for Android < 33
+                if (!NativeDescriptor.SetValue(data))
+                    throw new Exception("GATT: SET descriptor value failed");
 
-            if (!_gatt.WriteDescriptor(NativeDescriptor))
-                throw new Exception("GATT: WRITE descriptor value failed");
+                if (!_gatt.WriteDescriptor(NativeDescriptor))
+                    throw new Exception("GATT: WRITE descriptor value failed");
+            }
         }
 
         protected override async Task<byte[]> ReadNativeAsync(CancellationToken cancellationToken)
@@ -66,7 +95,13 @@ namespace Plugin.BLE.Android
                   {
                       if (args.Descriptor.Uuid == NativeDescriptor.Uuid)
                       {
+#if NET6_0_OR_GREATER
+#pragma warning disable CA1422 // Validate platform compatibility
+#endif
                           complete(args.Descriptor.GetValue());
+#if NET6_0_OR_GREATER
+#pragma warning restore CA1422
+#endif
                       }
                   }),
                subscribeComplete: handler => _gattCallback.DescriptorValueRead += handler,
