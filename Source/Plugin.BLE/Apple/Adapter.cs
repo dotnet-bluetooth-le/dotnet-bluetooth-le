@@ -350,6 +350,34 @@ namespace Plugin.BLE.iOS
                         }
                     }
                 }
+                else if (key == CBAdvertisement.DataSolicitedServiceUUIDsKey)
+                {
+                    var array = (NSArray)advertisementData.ObjectForKey(key);
+
+                    for (nuint i = 0; i < array.Count; i++)
+                    {
+                        var cbuuid = array.GetItem<CBUUID>(i);
+
+                        switch (cbuuid.Data.Length)
+                        {
+                            case 16:
+                                // 128-bit solicited service UUID
+                                records.Add(new AdvertisementRecord(AdvertisementRecordType.SsUuids128Bit, cbuuid.Data.ToArray()));
+                                break;
+                            case 8:
+                                // 32-bit solicited service UUID
+                                records.Add(new AdvertisementRecord(AdvertisementRecordType.SsUuids32Bit, cbuuid.Data.ToArray()));
+                                break;
+                            case 2:
+                                // 16-bit solicited service UUID
+                                records.Add(new AdvertisementRecord(AdvertisementRecordType.SsUuids16Bit, cbuuid.Data.ToArray()));
+                                break;
+                            default:
+                                // Invalid data length for UUID
+                                break;
+                        }
+                    }
+                }
                 else if (key == CBAdvertisement.DataTxPowerLevelKey)
                 {
                     //iOS stores TxPower as NSNumber. Get int value of number and convert it into a signed Byte
