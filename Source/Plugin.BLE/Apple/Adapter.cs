@@ -336,7 +336,7 @@ namespace Plugin.BLE.iOS
                                 // 128-bit UUID
                                 records.Add(new AdvertisementRecord(AdvertisementRecordType.UuidsComplete128Bit, cbuuid.Data.ToArray()));
                                 break;
-                            case 8:
+                            case 4:
                                 // 32-bit UUID
                                 records.Add(new AdvertisementRecord(AdvertisementRecordType.UuidCom32Bit, cbuuid.Data.ToArray()));
                                 break;
@@ -364,7 +364,7 @@ namespace Plugin.BLE.iOS
                                 // 128-bit solicited service UUID
                                 records.Add(new AdvertisementRecord(AdvertisementRecordType.SsUuids128Bit, cbuuid.Data.ToArray()));
                                 break;
-                            case 8:
+                            case 4:
                                 // 32-bit solicited service UUID
                                 records.Add(new AdvertisementRecord(AdvertisementRecordType.SsUuids32Bit, cbuuid.Data.ToArray()));
                                 break;

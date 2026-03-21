@@ -76,7 +76,20 @@ namespace BLE.Client.Maui.ViewModels
             }
         }
 
-        public IReadOnlyList<AdvertisementRecord> AdvertisementRecords;
+        private IReadOnlyList<AdvertisementRecord> _adverts;
+        public IReadOnlyList<AdvertisementRecord> AdvertisementRecords
+        { 
+            get => _adverts;
+            set
+            {
+                if (_adverts != value)
+                {
+                    _adverts = value;
+                    RaisePropertyChanged();
+                    RaisePropertyChanged(nameof(Adverts));
+                }
+            }
+        }
         public string Adverts
         {
             get => String.Join('\n', AdvertisementRecords.Select(advert => $"{advert.Type}: 0x{Convert.ToHexString(advert.Data)}"));
