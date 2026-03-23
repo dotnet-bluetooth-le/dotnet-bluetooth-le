@@ -338,7 +338,7 @@ namespace Plugin.BLE.iOS
                                 break;
                             case 4:
                                 // 32-bit UUID
-                                records.Add(new AdvertisementRecord(AdvertisementRecordType.UuidCom32Bit, cbuuid.Data.ToArray()));
+                                records.Add(new AdvertisementRecord(AdvertisementRecordType.UuidsComplete32Bit, cbuuid.Data.ToArray()));
                                 break;
                             case 2:
                                 // 16-bit UUID
@@ -415,7 +415,7 @@ namespace Plugin.BLE.iOS
                         Buffer.BlockCopy(keyAsData, 0, arr, 0, keyAsData.Length);
                         Buffer.BlockCopy(valueAsData, 0, arr, keyAsData.Length, valueAsData.Length);
 
-                        records.Add(new AdvertisementRecord(AdvertisementRecordType.ServiceData, arr));
+                        records.Add(new AdvertisementRecord(AdvertisementRecordType.ServiceDataUuid16bit, arr));
                     }
                 }
                 else if (key == CBAdvertisement.IsConnectable)

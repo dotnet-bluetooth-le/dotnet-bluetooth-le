@@ -305,10 +305,10 @@ namespace Plugin.BLE.Android
                         case AdvertisementRecordType.SsUuids128Bit:
                         case AdvertisementRecordType.SsUuids16Bit:
                         case AdvertisementRecordType.SsUuids32Bit:
-                        case AdvertisementRecordType.UuidCom32Bit:
+                        case AdvertisementRecordType.UuidsComplete32Bit:
                         case AdvertisementRecordType.UuidsComplete128Bit:
                         case AdvertisementRecordType.UuidsComplete16Bit:
-                        case AdvertisementRecordType.UuidsIncomple16Bit:
+                        case AdvertisementRecordType.UuidsIncomplete16Bit:
                         case AdvertisementRecordType.UuidsIncomplete128Bit:
                             Array.Reverse(data);
                             break;
