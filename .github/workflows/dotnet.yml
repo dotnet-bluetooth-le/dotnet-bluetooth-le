@@ -16,7 +16,6 @@ jobs:
     - uses: actions/checkout@v6
       with:
         fetch-depth: 0
-    - uses: nuget/setup-nuget@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v5
       with:
