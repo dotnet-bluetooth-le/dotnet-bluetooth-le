@@ -60,10 +60,12 @@ dlldata.c
 *.ilk
 *.meta
 *.obj
+*.orig
 *.pch
 *.pdb
 *.pgc
 *.pgd
+*.rej
 *.rsp
 *.sbr
 *.tlb
