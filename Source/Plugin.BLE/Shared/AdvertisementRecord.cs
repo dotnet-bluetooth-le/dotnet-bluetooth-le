@@ -17,7 +17,7 @@ namespace Plugin.BLE.Abstractions
         ///«Incomplete List of 16-bit Service Class UUIDs»	Bluetooth Core 
         /// </summary>
         UuidsIncomplete16Bit = 0x02,
-        [ObsoleteAttribute("This member is obsolete. Use UuidsIncomplete16Bit instead.", false)]
+        [Obsolete($"This member is obsolete. Use {nameof(UuidsIncomplete16Bit)} instead.", false)]
         UuidsIncomple16Bit = 0x02,
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Plugin.BLE.Abstractions
         /// «Complete List of 32-bit Service Class UUIDs»	Bluetooth Core Specification:
         /// </summary>
         UuidsComplete32Bit = 0x05,
-        [ObsoleteAttribute("This member is obsolete. Use UuidsComplete32Bit instead.", false)]
+        [Obsolete($"This member is obsolete. Use {nameof(UuidsComplete32Bit)} instead.", false)]
         UuidCom32Bit = 0x05,
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace Plugin.BLE.Abstractions
         /// 	​Core Specification Supplement, Part A, section 1.11
         /// </summary>
         ServiceDataUuid16Bit = 0x16,
-        [ObsoleteAttribute("This member is obsolete. Use ServiceDataUuid16Bit instead.", false)]
+        [Obsolete($"This member is obsolete. Use {nameof(ServiceDataUuid16Bit)} instead.", false)]
         ServiceData = 0x16,
 
         /// <summary>
@@ -161,7 +161,7 @@ namespace Plugin.BLE.Abstractions
         /// ​«Service Data - 128-bit UUID»	​Core Specification Supplement, Part A, section 1.11
         /// </summary>
         ServiceDataUuid128Bit = 0x21,
-        [ObsoleteAttribute("This member is obsolete. Use ServiceDataUuid128Bit instead.", false)]
+        [Obsolete($"This member is obsolete. Use {nameof(ServiceDataUuid128Bit)} instead.", false)]
         ServiceData128Bit = 0x21,
 
         /// <summary>
