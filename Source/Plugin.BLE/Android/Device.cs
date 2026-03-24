@@ -301,14 +301,14 @@ namespace Plugin.BLE.Android
 
                     switch ((AdvertisementRecordType)type)
                     {
-                        case AdvertisementRecordType.ServiceDataUuid32Bit:
-                        case AdvertisementRecordType.SsUuids128Bit:
                         case AdvertisementRecordType.SsUuids16Bit:
                         case AdvertisementRecordType.SsUuids32Bit:
+                        case AdvertisementRecordType.SsUuids128Bit:
+                        case AdvertisementRecordType.UuidsComplete16Bit:
                         case AdvertisementRecordType.UuidsComplete32Bit:
                         case AdvertisementRecordType.UuidsComplete128Bit:
-                        case AdvertisementRecordType.UuidsComplete16Bit:
                         case AdvertisementRecordType.UuidsIncomplete16Bit:
+                        case AdvertisementRecordType.UuidsIncomplete32Bit:
                         case AdvertisementRecordType.UuidsIncomplete128Bit:
                             Array.Reverse(data);
                             break;
