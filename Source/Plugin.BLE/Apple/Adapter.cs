@@ -415,7 +415,24 @@ namespace Plugin.BLE.iOS
                         Buffer.BlockCopy(keyAsData, 0, arr, 0, keyAsData.Length);
                         Buffer.BlockCopy(valueAsData, 0, arr, keyAsData.Length, valueAsData.Length);
 
-                        records.Add(new AdvertisementRecord(AdvertisementRecordType.ServiceDataUuid16Bit, arr));
+                        AdvertisementRecordType recordType;
+                        switch (keyAsData.Length)
+                        {
+                            case 2:
+                                recordType = AdvertisementRecordType.ServiceDataUuid16Bit;
+                                break;
+                            case 4:
+                                recordType = AdvertisementRecordType.ServiceDataUuid32Bit;
+                                break;
+                            case 16:
+                                recordType = AdvertisementRecordType.ServiceDataUuid128Bit;
+                                break;
+                            default:
+                                Trace.Message("Parsing Advertisement: Unexpected service UUID length {0} bytes in service data. Skipping.", keyAsData.Length);
+                                continue;
+                        }
+
+                        records.Add(new AdvertisementRecord(recordType, arr));
                     }
                 }
                 else if (key == CBAdvertisement.IsConnectable)
