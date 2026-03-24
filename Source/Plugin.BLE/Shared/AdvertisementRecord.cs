@@ -108,8 +108,8 @@ namespace Plugin.BLE.Abstractions
         /// «Service Data»	Bluetooth Core Specification:​«Service Data - 16-bit UUID»
         /// 	​Core Specification Supplement, Part A, section 1.11
         /// </summary>
-        ServiceDataUuid16bit = 0x16,
-        [ObsoleteAttribute("This member is obsolete. Use ServiceDataUuid16bit instead.", false)]
+        ServiceDataUuid16Bit = 0x16,
+        [ObsoleteAttribute("This member is obsolete. Use ServiceDataUuid16Bit instead.", false)]
         ServiceData = 0x16,
 
         /// <summary>

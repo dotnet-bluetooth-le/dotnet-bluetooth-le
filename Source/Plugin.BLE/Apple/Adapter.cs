@@ -415,7 +415,7 @@ namespace Plugin.BLE.iOS
                         Buffer.BlockCopy(keyAsData, 0, arr, 0, keyAsData.Length);
                         Buffer.BlockCopy(valueAsData, 0, arr, keyAsData.Length, valueAsData.Length);
 
-                        records.Add(new AdvertisementRecord(AdvertisementRecordType.ServiceDataUuid16bit, arr));
+                        records.Add(new AdvertisementRecord(AdvertisementRecordType.ServiceDataUuid16Bit, arr));
                     }
                 }
                 else if (key == CBAdvertisement.IsConnectable)
