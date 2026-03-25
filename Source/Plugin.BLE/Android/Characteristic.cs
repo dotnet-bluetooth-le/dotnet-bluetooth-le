@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Android.Bluetooth;
+using Android.OS;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
@@ -11,6 +12,7 @@ using Plugin.BLE.Android.CallbackEventArgs;
 using Plugin.BLE.Extensions;
 using Plugin.BLE.Abstractions.Utils;
 using System.Threading;
+using Trace = Plugin.BLE.Abstractions.Trace;
 
 namespace Plugin.BLE.Android
 {
@@ -27,7 +29,19 @@ namespace Plugin.BLE.Android
 
         public override Guid Id => Guid.Parse(NativeCharacteristic.Uuid.ToString());
         public override string Uuid => NativeCharacteristic.Uuid.ToString();
-        public override byte[] Value => NativeCharacteristic.GetValue() ?? new byte[0];
+        public override byte[] Value
+        {
+            get
+            {
+#if NET6_0_OR_GREATER
+#pragma warning disable CA1422 // Validate platform compatibility
+#endif
+                return NativeCharacteristic.GetValue() ?? new byte[0];
+#if NET6_0_OR_GREATER
+#pragma warning restore CA1422
+#endif
+            }
+        }
         public override CharacteristicPropertyType Properties => (CharacteristicPropertyType)(int)NativeCharacteristic.Properties;
 
         public Characteristic(BluetoothGattCharacteristic nativeCharacteristic, BluetoothGatt gatt,
@@ -51,7 +65,14 @@ namespace Plugin.BLE.Android
                     if (args.Characteristic.Uuid == NativeCharacteristic.Uuid)
                     {
                         int resultCode = (int)args.Status;
-                        complete((args.Characteristic.GetValue(), resultCode));
+#if NET6_0_OR_GREATER
+#pragma warning disable CA1422 // Validate platform compatibility
+#endif
+                        byte[] value = args.Characteristic.GetValue();
+#if NET6_0_OR_GREATER
+#pragma warning restore CA1422
+#endif
+                        complete((value, resultCode));
                     }
                 }),
                 subscribeComplete: handler => _gattCallback.CharacteristicValueRead += handler,
@@ -99,16 +120,33 @@ namespace Plugin.BLE.Android
 
         private void InternalWrite(byte[] data)
         {
-            if (!NativeCharacteristic.SetValue(data))
+#if NET6_0_OR_GREATER
+            if (OperatingSystem.IsAndroidVersionAtLeast(33))
+#else
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.Tiramisu)
+#endif
             {
-                throw new CharacteristicReadException("Gatt characteristic set value FAILED.");
+                // Use new API for Android 33+
+                Trace.Message("Write {0}", Id);
+                
+                var result = _gatt.WriteCharacteristic(NativeCharacteristic, data, (int)NativeCharacteristic.WriteType);
+                if (result != 0)
+                    throw new CharacteristicReadException("Gatt write characteristic FAILED.");
             }
-
-            Trace.Message("Write {0}", Id);
-
-            if (!_gatt.WriteCharacteristic(NativeCharacteristic))
+            else
             {
-                throw new CharacteristicReadException("Gatt write characteristic FAILED.");
+                // Use legacy API for Android < 33
+                if (!NativeCharacteristic.SetValue(data))
+                {
+                    throw new CharacteristicReadException("Gatt characteristic set value FAILED.");
+                }
+
+                Trace.Message("Write {0}", Id);
+
+                if (!_gatt.WriteCharacteristic(NativeCharacteristic))
+                {
+                    throw new CharacteristicReadException("Gatt write characteristic FAILED.");
+                }
             }
         }
 
