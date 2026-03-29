@@ -7,6 +7,7 @@ using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
 using Plugin.BLE.Abstractions.Exceptions;
+using Plugin.BLE.Abstractions.Extensions;
 using Plugin.BLE.Android.CallbackEventArgs;
 using Plugin.BLE.Extensions;
 using Plugin.BLE.Abstractions.Utils;
@@ -18,7 +19,7 @@ namespace Plugin.BLE.Android
     {
         //https://developer.android.com/samples/BluetoothLeGatt/src/com.example.android.bluetoothlegatt/SampleGattAttributes.html
 
-        private static readonly Guid ClientCharacteristicConfigurationDescriptorId = Guid.Parse("00002902-0000-1000-8000-00805f9b34fb");
+        private static readonly Guid ClientCharacteristicConfigurationDescriptorId = GuidExtension.UuidFromPartial(0x2902);
 
         private readonly BluetoothGatt _gatt;
         private readonly IGattCallback _gattCallback;
