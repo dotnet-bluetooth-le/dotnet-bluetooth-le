@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Plugin.BLE.Abstractions.Extensions;
 
 namespace Plugin.BLE.Abstractions
@@ -29,15 +28,15 @@ namespace Plugin.BLE.Abstractions
 
         private static readonly IList<KnownDescriptor> Descriptors =
         [
-            new KnownDescriptor("Characteristic Extended Properties",   GuidExtension.UuidFromPartial(0x2900)),
-            new KnownDescriptor("Characteristic User Description",      GuidExtension.UuidFromPartial(0x2901)),
-            new KnownDescriptor("Client Characteristic Configuration",  GuidExtension.UuidFromPartial(0x2902)),
-            new KnownDescriptor("Server Characteristic Configuration",  GuidExtension.UuidFromPartial(0x2903)),
-            new KnownDescriptor("Characteristic Presentation Format",   GuidExtension.UuidFromPartial(0x2904)),
-            new KnownDescriptor("Characteristic Aggregate Format",      GuidExtension.UuidFromPartial(0x2905)),
-            new KnownDescriptor("Valid Range",                          GuidExtension.UuidFromPartial(0x2906)),
-            new KnownDescriptor("External Report Reference",            GuidExtension.UuidFromPartial(0x2907)),
-            new KnownDescriptor("Export Reference",                     GuidExtension.UuidFromPartial(0x2908)),
+            new KnownDescriptor(0x2900, "Characteristic Extended Properties"),
+            new KnownDescriptor(0x2901, "Characteristic User Description"),
+            new KnownDescriptor(0x2902, "Client Characteristic Configuration"),
+            new KnownDescriptor(0x2903, "Server Characteristic Configuration"),
+            new KnownDescriptor(0x2904, "Characteristic Presentation Format"),
+            new KnownDescriptor(0x2905, "Characteristic Aggregate Format"),
+            new KnownDescriptor(0x2906, "Valid Range"),
+            new KnownDescriptor(0x2907, "External Report Reference"),
+            new KnownDescriptor(0x2908, "Export Reference"),
         ];
     }
 }
