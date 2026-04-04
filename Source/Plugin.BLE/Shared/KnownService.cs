@@ -1,4 +1,5 @@
 using System;
+using Plugin.BLE.Abstractions.Extensions;
 
 namespace Plugin.BLE.Abstractions
 {
@@ -17,12 +18,30 @@ namespace Plugin.BLE.Abstractions
         public Guid Id { get; }
 
         /// <summary>
-        /// Constructor.
+        /// Standard constructor.
         /// </summary>
         public KnownService(string name, Guid id)
         {
             Name = name;
             Id = id;
+        }
+
+        /// <summary>
+        /// Construct from string Guid.
+        /// </summary>
+        public KnownService(string id_str, string name)
+        {
+            Name = name;
+            Id = Guid.ParseExact(id_str, "d");
+        }
+
+        /// <summary>
+        /// Construct from partial Guid.
+        /// </summary>
+        public KnownService(short partial_id, string name)
+        {
+            Name = name;
+            Id = GuidExtension.UuidFromPartial(partial_id);
         }
 
         /// <summary>
