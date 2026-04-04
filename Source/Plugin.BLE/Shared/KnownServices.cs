@@ -5,8 +5,8 @@ using System.Linq;
 namespace Plugin.BLE.Abstractions
 {
     /// <summary>
-    /// Provides a list of known services.
-    /// Source: https://developer.bluetooth.org/gatt/services/Pages/ServicesHome.aspx
+    /// Provides a list of known services. Source:
+    /// https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Assigned_Numbers/out/en/Assigned_Numbers.pdf#3.4.2.4
     /// </summary>
     public static class KnownServices
     {
@@ -30,11 +30,11 @@ namespace Plugin.BLE.Abstractions
         /// </summary>
         public static IReadOnlyList<KnownService> Services { get; } = new List<KnownService>
         {
-            new(0x1800, "Generic Access"),
-            new(0x1801, "Generic Attribute"),
+            new(0x1800, "GAP"),
+            new(0x1801, "GATT"),
             new(0x1802, "Immediate Alert"),
             new(0x1803, "Link Loss"),
-            new(0x1804, "TX Power"),
+            new(0x1804, "Tx Power"),
             new(0x1805, "Current Time"),
             new(0x1806, "Reference Time Update"),
             new(0x1807, "Next DST Change"),
