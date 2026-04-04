@@ -66,6 +66,15 @@ namespace Plugin.BLE.Abstractions
             new(0x1824, "Transport Discovery"),
             new(0x1825, "Object Transfer"),
             new(0x1826, "Fitness Machine"),
+            new(0x1827, "Mesh Provisioning"),
+            new(0x1828, "Mesh Proxy"),
+            new(0x1829, "Reconnection Configuration"),
+            new(0x183a, "Insulin Delivery"),
+            new(0x183b, "Binary Sensor"),
+            new(0x183c, "Emergency Configuration"),
+            new(0x183d, "Authorization Control"),
+            new(0x183e, "Physical Activity Monitor"),
+            new(0x183f, "Elapsed Time"),
 
             new("0000ffe0-0000-1000-8000-00805f9b34fb", "TI SensorTag Smart Keys"),
 
