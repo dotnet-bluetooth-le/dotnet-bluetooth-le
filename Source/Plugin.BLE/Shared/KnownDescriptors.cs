@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Plugin.BLE.Abstractions.Extensions;
+
 namespace Plugin.BLE.Abstractions
 {
     /// <summary>
@@ -25,17 +27,17 @@ namespace Plugin.BLE.Abstractions
             return LookupTable.ContainsKey(id) ? LookupTable[id] : new KnownDescriptor("Unknown descriptor", Guid.Empty);
         }
 
-        private static readonly IList<KnownDescriptor> Descriptors = new List<KnownDescriptor>()
-        {
-            new KnownDescriptor("Characteristic Extended Properties", Guid.ParseExact("00002900-0000-1000-8000-00805f9b34fb", "d")),
-            new KnownDescriptor("Characteristic User Description", Guid.ParseExact("00002901-0000-1000-8000-00805f9b34fb", "d")),
-            new KnownDescriptor("Client Characteristic Configuration", Guid.ParseExact("00002902-0000-1000-8000-00805f9b34fb", "d")),
-            new KnownDescriptor("Server Characteristic Configuration", Guid.ParseExact("00002903-0000-1000-8000-00805f9b34fb", "d")),
-            new KnownDescriptor("Characteristic Presentation Format", Guid.ParseExact("00002904-0000-1000-8000-00805f9b34fb", "d")),
-            new KnownDescriptor("Characteristic Aggregate Format", Guid.ParseExact("00002905-0000-1000-8000-00805f9b34fb", "d")),
-            new KnownDescriptor("Valid Range", Guid.ParseExact("00002906-0000-1000-8000-00805f9b34fb", "d")),
-            new KnownDescriptor("External Report Reference", Guid.ParseExact("00002907-0000-1000-8000-00805f9b34fb", "d")),
-            new KnownDescriptor("Export Reference", Guid.ParseExact("00002908-0000-1000-8000-00805f9b34fb", "d")),
-        };
+        private static readonly IList<KnownDescriptor> Descriptors =
+        [
+            new KnownDescriptor("Characteristic Extended Properties",   GuidExtension.UuidFromPartial(0x2900)),
+            new KnownDescriptor("Characteristic User Description",      GuidExtension.UuidFromPartial(0x2901)),
+            new KnownDescriptor("Client Characteristic Configuration",  GuidExtension.UuidFromPartial(0x2902)),
+            new KnownDescriptor("Server Characteristic Configuration",  GuidExtension.UuidFromPartial(0x2903)),
+            new KnownDescriptor("Characteristic Presentation Format",   GuidExtension.UuidFromPartial(0x2904)),
+            new KnownDescriptor("Characteristic Aggregate Format",      GuidExtension.UuidFromPartial(0x2905)),
+            new KnownDescriptor("Valid Range",                          GuidExtension.UuidFromPartial(0x2906)),
+            new KnownDescriptor("External Report Reference",            GuidExtension.UuidFromPartial(0x2907)),
+            new KnownDescriptor("Export Reference",                     GuidExtension.UuidFromPartial(0x2908)),
+        ];
     }
 }
