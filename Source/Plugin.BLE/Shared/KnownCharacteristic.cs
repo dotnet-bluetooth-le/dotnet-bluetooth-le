@@ -38,10 +38,10 @@ namespace Plugin.BLE.Abstractions
         /// <summary>
         /// Construct from partial Guid.
         /// </summary>
-        public KnownCharacteristic(short partial_id, string name)
+        public KnownCharacteristic(ushort partialId, string name)
         {
             Name = name;
-            Id = GuidExtension.UuidFromPartial(partial_id);
+            Id = GuidExtension.UuidFromPartial(partialId);
         }
     }
 }
