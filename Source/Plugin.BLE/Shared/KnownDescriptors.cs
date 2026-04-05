@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Plugin.BLE.Abstractions.Extensions;
 
 namespace Plugin.BLE.Abstractions
 {
