@@ -29,10 +29,10 @@ namespace Plugin.BLE.Abstractions
         /// <summary>
         /// Construct from string Guid.
         /// </summary>
-        public KnownCharacteristic(string id_str, string name)
+        public KnownCharacteristic(string idStr, string name)
         {
             Name = name;
-            Id = Guid.ParseExact(id_str, "d");
+            Id = Guid.ParseExact(idStr, "d");
         }
 
         /// <summary>
