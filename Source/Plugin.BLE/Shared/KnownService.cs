@@ -29,19 +29,19 @@ namespace Plugin.BLE.Abstractions
         /// <summary>
         /// Construct from string Guid.
         /// </summary>
-        public KnownService(string id_str, string name)
+        public KnownService(string idStr, string name)
         {
             Name = name;
-            Id = Guid.ParseExact(id_str, "d");
+            Id = Guid.ParseExact(idStr, "d");
         }
 
         /// <summary>
         /// Construct from partial Guid.
         /// </summary>
-        public KnownService(short partial_id, string name)
+        public KnownService(ushort partialId, string name)
         {
             Name = name;
-            Id = GuidExtension.UuidFromPartial(partial_id);
+            Id = GuidExtension.UuidFromPartial(partialId);
         }
 
         /// <summary>
