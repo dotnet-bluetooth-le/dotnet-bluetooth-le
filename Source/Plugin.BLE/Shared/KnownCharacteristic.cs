@@ -27,7 +27,7 @@ namespace Plugin.BLE.Abstractions
         }
 
         /// <summary>
-        /// Construct from string Guid.
+        /// Construct from GUID string (in dashed format).
         /// </summary>
         public KnownCharacteristic(string idStr, string name)
         {
