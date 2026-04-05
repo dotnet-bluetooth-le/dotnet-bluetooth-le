@@ -77,7 +77,7 @@ namespace Plugin.BLE.Abstractions
             new KnownCharacteristic(0x2a29, "Manufacturer Name String"),
             new KnownCharacteristic(0x2a2a, "IEEE 11073-20601 Regulatory Certification Data List"),
             new KnownCharacteristic(0x2a2b, "Current Time"),
-            // 2a2c
+            new KnownCharacteristic(0x2a2c, "Magnetic Declination"),
             new KnownCharacteristic(0x2a2d, "Latitude"),
             new KnownCharacteristic(0x2a2e, "Longitude"),
             new KnownCharacteristic(0x2a2f, "Position 2D"),
@@ -118,24 +118,22 @@ namespace Plugin.BLE.Abstractions
 
             new KnownCharacteristic(0x2a50, "PnP ID"),
             new KnownCharacteristic(0x2a51, "Glucose Feature"),
-            new KnownCharacteristic(0x2a52, "Record Access Control Point (Test Version)"),
+            new KnownCharacteristic(0x2a52, "Record Access Control Point"),
             new KnownCharacteristic(0x2a53, "RSC Measurement"),
             new KnownCharacteristic(0x2a54, "RSC Feature"),
             new KnownCharacteristic(0x2a55, "SC Control Point"),
             new KnownCharacteristic(0x2a56, "Digital Input"),
             new KnownCharacteristic(0x2a57, "Digital Output"),
             new KnownCharacteristic(0x2a58, "Analog Input"),
-            // 2a59
             new KnownCharacteristic(0x2a5a, "Aggregate Input"),
             new KnownCharacteristic(0x2a5b, "CSC Measurement"),
             new KnownCharacteristic(0x2a5c, "CSC Feature"),
             new KnownCharacteristic(0x2a5d, "Sensor Location"),
-            new KnownCharacteristic(0x2a5e, "Pulse Oximetry Spot-Check Measurement"),
-            new KnownCharacteristic(0x2a5f, "Pulse Oximetry Continuous Measurement"),
+            new KnownCharacteristic(0x2a5e, "PLX Spot-Check Measurement"),
+            new KnownCharacteristic(0x2a5f, "PLX Continuous Measurement"),
 
-            new KnownCharacteristic(0x2a60, "Pulse Oximetry Pulsatile Event"),
-            new KnownCharacteristic(0x2a61, "Pulse Oximetry Features"),
-            new KnownCharacteristic(0x2a62, "Pulse Oximetry Control Point"),
+            new KnownCharacteristic(0x2a60, "PLX Features"),
+            new KnownCharacteristic(0x2a62, "PLX Control Point"),
             new KnownCharacteristic(0x2a63, "Cycling Power Measurement"),
             new KnownCharacteristic(0x2a64, "Cycling Power Vector"),
             new KnownCharacteristic(0x2a65, "Cycling Power Feature"),
@@ -165,7 +163,7 @@ namespace Plugin.BLE.Abstractions
             new KnownCharacteristic(0x2a7c, "Trend"),
             new KnownCharacteristic(0x2a7d, "Descriptor Value Changed"),
             new KnownCharacteristic(0x2a7e, "Aerobic Heart Rate Lower Limit"),
-            // 2a7f
+            new KnownCharacteristic(0x2a7f, "Aerobic Threshold"),
 
             new KnownCharacteristic(0x2a80, "Age"),
             new KnownCharacteristic(0x2a81, "Anaerobic Heart Rate Lower Limit"),
