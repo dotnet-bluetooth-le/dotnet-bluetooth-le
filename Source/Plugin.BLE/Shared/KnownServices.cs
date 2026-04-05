@@ -111,7 +111,7 @@ namespace Plugin.BLE.Abstractions
             new("f000aa00-0451-4000-b000-000000000000", "TI SensorTag Infrared Thermometer"),
             new("f000aa10-0451-4000-b000-000000000000", "TI SensorTag Accelerometer"),
             new("f000aa20-0451-4000-b000-000000000000", "TI SensorTag Humidity"),
-            new("f000aa30-0451-4000-b000-000000000000", "TI SensorTag Magnometer"),
+            new("f000aa30-0451-4000-b000-000000000000", "TI SensorTag Magnetometer"),
             new("f000aa40-0451-4000-b000-000000000000", "TI SensorTag Barometer"),
             new("f000aa50-0451-4000-b000-000000000000", "TI SensorTag Gyroscope"),
             new("f000aa60-0451-4000-b000-000000000000", "TI SensorTag Test"),
