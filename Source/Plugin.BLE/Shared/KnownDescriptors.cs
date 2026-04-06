@@ -5,8 +5,8 @@ using System.Linq;
 namespace Plugin.BLE.Abstractions
 {
     /// <summary>
-    /// Provides a list of known descriptors.
-    /// Source: https://developer.bluetooth.org/gatt/descriptors/Pages/DescriptorsHomePage.aspx
+    /// Provides a list of known descriptors. Source:
+    /// https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Assigned_Numbers/out/en/Assigned_Numbers.pdf#3.7.3
     /// </summary>
     public static class KnownDescriptors
     {
@@ -25,17 +25,32 @@ namespace Plugin.BLE.Abstractions
             return LookupTable.ContainsKey(id) ? LookupTable[id] : new KnownDescriptor("Unknown descriptor", Guid.Empty);
         }
 
-        private static readonly IList<KnownDescriptor> Descriptors = new List<KnownDescriptor>()
-        {
-            new KnownDescriptor("Characteristic Extended Properties", Guid.ParseExact("00002900-0000-1000-8000-00805f9b34fb", "d")),
-            new KnownDescriptor("Characteristic User Description", Guid.ParseExact("00002901-0000-1000-8000-00805f9b34fb", "d")),
-            new KnownDescriptor("Client Characteristic Configuration", Guid.ParseExact("00002902-0000-1000-8000-00805f9b34fb", "d")),
-            new KnownDescriptor("Server Characteristic Configuration", Guid.ParseExact("00002903-0000-1000-8000-00805f9b34fb", "d")),
-            new KnownDescriptor("Characteristic Presentation Format", Guid.ParseExact("00002904-0000-1000-8000-00805f9b34fb", "d")),
-            new KnownDescriptor("Characteristic Aggregate Format", Guid.ParseExact("00002905-0000-1000-8000-00805f9b34fb", "d")),
-            new KnownDescriptor("Valid Range", Guid.ParseExact("00002906-0000-1000-8000-00805f9b34fb", "d")),
-            new KnownDescriptor("External Report Reference", Guid.ParseExact("00002907-0000-1000-8000-00805f9b34fb", "d")),
-            new KnownDescriptor("Export Reference", Guid.ParseExact("00002908-0000-1000-8000-00805f9b34fb", "d")),
-        };
+        private static readonly IList<KnownDescriptor> Descriptors =
+        [
+            new KnownDescriptor(0x2900, "Characteristic Extended Properties"),
+            new KnownDescriptor(0x2901, "Characteristic User Description"),
+            new KnownDescriptor(0x2902, "Client Characteristic Configuration"),
+            new KnownDescriptor(0x2903, "Server Characteristic Configuration"),
+            new KnownDescriptor(0x2904, "Characteristic Presentation Format"),
+            new KnownDescriptor(0x2905, "Characteristic Aggregate Format"),
+            new KnownDescriptor(0x2906, "Valid Range"),
+            new KnownDescriptor(0x2907, "External Report Reference"),
+            new KnownDescriptor(0x2908, "Export Reference"),
+            new KnownDescriptor(0x2909, "Number of Digitals"),
+            new KnownDescriptor(0x290a, "Value Trigger Setting"),
+            new KnownDescriptor(0x290b, "Environmental Sensing Configuration"),
+            new KnownDescriptor(0x290c, "Environmental Sensing Measurement"),
+            new KnownDescriptor(0x290d, "Environmental Sensing Trigger Setting"),
+            new KnownDescriptor(0x290e, "Time Trigger Setting"),
+            new KnownDescriptor(0x290f, "Complete BR-EDR Transport Block Data"),
+            new KnownDescriptor(0x2910, "Observation Schedule"),
+            new KnownDescriptor(0x2911, "Valid Range and Accuracy"),
+            new KnownDescriptor(0x2912, "Measurement Description"),
+            new KnownDescriptor(0x2913, "Manufacturer Limits"),
+            new KnownDescriptor(0x2914, "Process Tolerances"),
+            new KnownDescriptor(0x2915, "IMD Trigger Setting"),
+            new KnownDescriptor(0x2916, "Cooking Sensor Info"),
+            new KnownDescriptor(0x2917, "Cooking Trigger Setting"),
+        ];
     }
 }
