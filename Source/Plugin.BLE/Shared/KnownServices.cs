@@ -30,8 +30,8 @@ namespace Plugin.BLE.Abstractions
         /// </summary>
         public static IReadOnlyList<KnownService> Services { get; } = new List<KnownService>
         {
-            new(0x1800, "GAP"),
-            new(0x1801, "GATT"),
+            new(0x1800, "Generic Access (GAP)"),
+            new(0x1801, "Generic Attribute (GATT)"),
             new(0x1802, "Immediate Alert"),
             new(0x1803, "Link Loss"),
             new(0x1804, "Tx Power"),
@@ -44,6 +44,7 @@ namespace Plugin.BLE.Abstractions
             new(0x180d, "Heart Rate"),
             new(0x180e, "Phone Alert Status"),
             new(0x180f, "Battery"),
+
             new(0x1810, "Blood Pressure"),
             new(0x1811, "Alert Notification"),
             new(0x1812, "Human Interface Device"),
@@ -59,6 +60,7 @@ namespace Plugin.BLE.Abstractions
             new(0x181d, "Weight Scale"),
             new(0x181e, "Bond Management"),
             new(0x181f, "Continuous Glucose"),
+
             new(0x1820, "Internet Protocol Support"),
             new(0x1821, "Indoor Positioning"),
             new(0x1822, "Pulse Oximeter"),
@@ -69,12 +71,14 @@ namespace Plugin.BLE.Abstractions
             new(0x1827, "Mesh Provisioning"),
             new(0x1828, "Mesh Proxy"),
             new(0x1829, "Reconnection Configuration"),
+
             new(0x183a, "Insulin Delivery"),
             new(0x183b, "Binary Sensor"),
             new(0x183c, "Emergency Configuration"),
             new(0x183d, "Authorization Control"),
             new(0x183e, "Physical Activity Monitor"),
             new(0x183f, "Elapsed Time"),
+
             new(0x1840, "Generic Health Sensor"),
             new(0x1843, "Audio Input Control"),
             new(0x1844, "Volume Control"),
@@ -89,6 +93,7 @@ namespace Plugin.BLE.Abstractions
             new(0x184d, "Microphone Control"),
             new(0x184e, "Audio Stream Control"),
             new(0x184f, "Broadcast Audio Scan"),
+
             new(0x1850, "Published Audio Capabilities"),
             new(0x1851, "Basic Audio Announcement"),
             new(0x1852, "Broadcast Audio Announcement"),
