@@ -211,7 +211,7 @@ namespace Plugin.BLE.Android
             }
             else
             {
-                Trace.Message("[Warning]: Can't disconnect {0}. Gatt is null.", Name);
+                throw new InvalidOperationException($"Cannot disconnect device '{Name}': device is not properly connected (no GATT instance). Current state: {State}.");
             }
         }
 
