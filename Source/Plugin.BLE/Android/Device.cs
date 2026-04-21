@@ -14,6 +14,7 @@ using System.Threading;
 using Java.Util;
 using Plugin.BLE.Extensions;
 using Plugin.BLE.Abstractions.Extensions;
+using Plugin.BLE.Abstractions.Exceptions;
 
 namespace Plugin.BLE.Android
 {
@@ -212,7 +213,8 @@ namespace Plugin.BLE.Android
             else
             {
                 Trace.Message("[Warning]: Can't disconnect {0}. Gatt is null.", Name);
-            }
+				throw new DeviceConnectionException(Id, Name, $"Cannot disconnect device '{Name}': device is not properly connected (no GATT instance). Current state: {State}.");
+			}
         }
 
         /// <summary>
