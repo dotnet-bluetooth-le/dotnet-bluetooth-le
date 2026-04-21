@@ -107,11 +107,11 @@ namespace Plugin.BLE.Android
 
         private async Task<IReadOnlyList<IService>> DiscoverServicesInternal(CancellationToken cancellationToken)
         {
-	        if (_gatt == null)
-	        {
-		        Trace.Message("[Warning]: Can't discover services {0}. Gatt is null.", Name);
-	        }
-	        
+            if (_gatt == null)
+            {
+                Trace.Message("[Warning]: Can't discover services {0}. Gatt is null.", Name);
+            }
+            
             return await TaskBuilder
                 .FromEvent<IReadOnlyList<IService>, EventHandler<ServicesDiscoveredCallbackEventArgs>, EventHandler>(
                     execute: () =>
@@ -123,14 +123,14 @@ namespace Plugin.BLE.Android
                     },
                     getCompleteHandler: (complete, reject) => ((sender, args) =>
                     {
-	                    if (_gatt.Services == null)
-	                    {
-		                    complete(new List<IService>());
-	                    }
-	                    else
-	                    {
-		                    complete(_gatt.Services.Select(service => new Service(service, _gatt, _gattCallback, this)).ToList());
-	                    }
+                        if (_gatt.Services == null)
+                        {
+                            complete(new List<IService>());
+                        }
+                        else
+                        {
+                            complete(_gatt.Services.Select(service => new Service(service, _gatt, _gattCallback, this)).ToList());
+                        }
                     }),
                     subscribeComplete: handler => _gattCallback.ServicesDiscovered += handler,
                     unsubscribeComplete: handler => _gattCallback.ServicesDiscovered -= handler,
@@ -140,7 +140,7 @@ namespace Plugin.BLE.Android
                     }),
                     subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
                     unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler,
-					token: cancellationToken);
+                    token: cancellationToken);
         }
 
         public void Connect(ConnectParameters connectParameters, CancellationToken cancellationToken)
@@ -212,9 +212,8 @@ namespace Plugin.BLE.Android
             }
             else
             {
-                Trace.Message("[Warning]: Can't disconnect {0}. Gatt is null.", Name);
-				throw new DeviceConnectionException(Id, Name, $"Cannot disconnect device '{Name}': device is not properly connected (no GATT instance). Current state: {State}.");
-			}
+                throw new DeviceConnectionException(Id, Name, $"Cannot disconnect device '{Name}': device is not properly connected (no GATT instance). Current state: {State}.");
+            }
         }
 
         /// <summary>
