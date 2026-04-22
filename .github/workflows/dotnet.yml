@@ -60,7 +60,7 @@ jobs:
     - name: Setup XCode
       uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '26.2'
+        xcode-version: '26.3'
     - name: Install workloads
       run: dotnet workload install maui
     #- name: Install Android tools
