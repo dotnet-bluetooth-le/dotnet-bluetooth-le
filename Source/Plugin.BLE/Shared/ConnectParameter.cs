@@ -16,6 +16,12 @@
         /// </summary>
         public bool ForceBleTransport { get; }
 
+		/// <summary>
+        /// Android only: Сheck and connect only if the BluetoothDeviceType is Le or Dual. 
+		/// If the BluetoothDeviceType is Unknown or Classic, a DeviceConnectionException will be thrown.
+        /// </summary>
+        public bool CheckIsLeDeviceType { get; } = true;
+
         /// <summary>
         /// Windows only, mapped to:
         /// https://learn.microsoft.com/en-us/uwp/api/windows.devices.bluetooth.bluetoothlepreferredconnectionparameters
