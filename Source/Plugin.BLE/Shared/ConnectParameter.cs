@@ -15,7 +15,7 @@
         /// Android only: For Dual Mode device, force transport mode to LE. The default is false.
         /// </summary>
         public bool ForceBleTransport { get; }
-        
+
         /// <summary>
         /// Android only: Сheck and connect only if the BluetoothDeviceType is Le or Dual. 
         /// If the BluetoothDeviceType is Unknown or Classic, a DeviceConnectionException will be thrown.
