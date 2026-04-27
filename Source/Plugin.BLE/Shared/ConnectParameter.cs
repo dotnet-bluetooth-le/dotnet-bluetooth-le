@@ -17,11 +17,13 @@
         public bool ForceBleTransport { get; }
 
         /// <summary>
-        /// Android only: Сheck and connect only if the BluetoothDeviceType is Le or Dual. 
-        /// If the BluetoothDeviceType is Unknown or Classic, a DeviceConnectionException will be thrown.
-        /// If the BluetoothDeviceType is Unknown - try scanning (or wait for the cache to load after rebooting the device) 
+        /// Android only: Strict BluetoothDeviceType checking.
+        /// The connection will only be attempted if the device supports LE, otherwise a DeviceConnectionException will be thrown.
+        /// This check is an early “warning” of what might happen next - error GATT 133 or Bluetooth stack fault.
+        /// The BluetoothDeviceType may be Unknown immediately after the device is rebooted, or if the type is not accepted correctly, try scanning to get or update the type.
+        /// If the device intentionally does not declare the connection type, you can disable this check.
         /// </summary>
-        public bool CheckIsLeDeviceType { get; } = true;
+        public bool CheckIsLeDeviceType { get; set; } = true;
 
         /// <summary>
         /// Windows only, mapped to:

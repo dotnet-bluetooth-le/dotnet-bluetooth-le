@@ -150,7 +150,7 @@ namespace Plugin.BLE.Android
             ConnectParameters = connectParameters;
 
             if (connectParameters.CheckIsLeDeviceType && !NativeDevice.SupportsBLE())
-                throw new Abstractions.Exceptions.DeviceConnectionException(Id, "", $"[Adapter] Device {Id} does not support BLE.");
+                throw new DeviceConnectionException(Id, Name, $"[Device] Device {Id} does not support BLE, type is {NativeDevice.Type}. You can disable this check, see more info in ConnectParameters.CheckIsLeDeviceType description.");
 
             if (connectParameters.ForceBleTransport)
             {
