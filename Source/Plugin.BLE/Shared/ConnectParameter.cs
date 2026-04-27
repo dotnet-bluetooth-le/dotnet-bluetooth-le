@@ -17,6 +17,15 @@
         public bool ForceBleTransport { get; }
 
         /// <summary>
+        /// Android only: Strict BluetoothDeviceType checking.
+        /// The connection will only be attempted if the device supports LE, otherwise a DeviceConnectionException will be thrown.
+        /// This check is an early “warning” of what might happen next - error GATT 133 or Bluetooth stack fault.
+        /// The BluetoothDeviceType may be Unknown immediately after the device is rebooted, or if the type is not accepted correctly, try scanning to get or update the type.
+        /// If the device intentionally does not declare the connection type, you can disable this check.
+        /// </summary>
+        public bool CheckIsLeDeviceType { get; set; } = true;
+
+        /// <summary>
         /// Windows only, mapped to:
         /// https://learn.microsoft.com/en-us/uwp/api/windows.devices.bluetooth.bluetoothlepreferredconnectionparameters
         /// </summary>
