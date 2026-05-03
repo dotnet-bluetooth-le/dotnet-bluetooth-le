@@ -8,6 +8,7 @@ using Android.Content;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.Utils;
+using Plugin.BLE.Android.Extensions;
 using Plugin.BLE.Android.CallbackEventArgs;
 using Trace = Plugin.BLE.Abstractions.Trace;
 using System.Threading;
@@ -147,6 +148,9 @@ namespace Plugin.BLE.Android
         {
             IsOperationRequested = true;
             ConnectParameters = connectParameters;
+
+            if (connectParameters.CheckIsLeDeviceType && !NativeDevice.SupportsBLE())
+                throw new DeviceConnectionException(Id, Name, $"[Device] Device {Id} does not support BLE, type is {NativeDevice.Type}. You can disable this check, see more info in ConnectParameters.CheckIsLeDeviceType description.");
 
             if (connectParameters.ForceBleTransport)
             {
