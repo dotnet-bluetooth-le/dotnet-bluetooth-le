@@ -16,6 +16,7 @@ using System.Threading;
 using Java.Util;
 using Plugin.BLE.Extensions;
 using Plugin.BLE.Abstractions.Extensions;
+using Plugin.BLE.Abstractions.Exceptions;
 
 namespace Plugin.BLE.Android
 {
