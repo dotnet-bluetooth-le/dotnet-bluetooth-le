@@ -1,7 +1,7 @@
 ﻿namespace Plugin.BLE.Abstractions
 {
     /// <summary>
-    /// Connection parameters. Contains platform specific parameters needed to achieved connection
+    /// Connection parameters. Contains platform specific parameters needed to achieve connection
     /// </summary>
     public readonly struct ConnectParameters
     {
