@@ -308,8 +308,6 @@ namespace Plugin.BLE.Android
             var nativeDevice = _bluetoothAdapter.GetRemoteDevice(macBytes);
             if (nativeDevice == null)
                 throw new Abstractions.Exceptions.DeviceConnectionException(deviceGuid,"", $"[Adapter] Device {deviceGuid} not found.");
-            if (!nativeDevice.SupportsBLE())
-                throw new Abstractions.Exceptions.DeviceConnectionException(deviceGuid,"", $"[Adapter] Device {deviceGuid} does not support BLE.");
             var device = new Device(this, nativeDevice, null);
 
             await ConnectToDeviceAsync(device, connectParameters, cancellationToken);
