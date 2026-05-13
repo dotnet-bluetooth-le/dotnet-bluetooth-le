@@ -1,9 +1,9 @@
 #addin nuget:?package=Cake.Git&version=5.0.1
-#addin nuget:?package=Cake.FileHelpers&version=7.0.0
+#addin nuget:?package=Cake.FileHelpers&version=9.0.0
 
 using Path = System.IO.Path;
-using System.Xml.Linq;
-using System.Xml;
+//using System.Xml.Linq;
+//using System.Xml;
 
 var target = Argument("target", "Build");
 
