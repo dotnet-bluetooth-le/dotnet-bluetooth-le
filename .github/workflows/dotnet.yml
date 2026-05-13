@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v6
       with:
         fetch-depth: 0
-    - uses: nuget/setup-nuget@v2
+    - uses: nuget/setup-nuget@v4
     - name: Setup .NET
       uses: actions/setup-dotnet@v5
       with:
@@ -33,34 +33,34 @@ jobs:
         & dotnet workload install maui --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
         & dotnet workload install android ios maccatalyst tvos macos maui wasm-tools maui-maccatalyst --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
     - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v2
+      uses: microsoft/setup-msbuild@v3
     - name: Clean
-      uses: cake-build/cake-action@v2
+      uses: cake-build/cake-action@v3
       with:
         script-path: .build/build.cake
         target: Clean
     - name: Restore
-      uses: cake-build/cake-action@v2
+      uses: cake-build/cake-action@v3
       with:
         script-path: .build/build.cake
         target: Restore
     - name: Build Libs
-      uses: cake-build/cake-action@v2
+      uses: cake-build/cake-action@v3
       with:
         script-path: .build/build.cake
         target: BuildLibs
     - name: Build Clients
-      uses: cake-build/cake-action@v2
+      uses: cake-build/cake-action@v3
       with:
         script-path: .build/build.cake
         target: BuildClients
     - name: Builds Tests
-      uses: cake-build/cake-action@v2
+      uses: cake-build/cake-action@v3
       with:
         script-path: .build/build.cake
         target: BuildTests
     - name: Run Tests
-      uses: cake-build/cake-action@v2
+      uses: cake-build/cake-action@v3
       with:
         script-path: .build/build.cake
         target: RunTests
