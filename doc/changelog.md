@@ -2,6 +2,10 @@
 
 ## 3.2 .NET 9 & Bugfixing
 
+### 3.2.1
+- #995 Backport PR #994: ConnectParameters.CheckIsLeDeviceType (fixes #877)
+- #998 Update to latest .NET 9 SDK version
+
 ### 3.2.0
 - No functional changes wrt beta.2
 
