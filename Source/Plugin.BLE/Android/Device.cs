@@ -146,11 +146,12 @@ namespace Plugin.BLE.Android
 
         public void Connect(ConnectParameters connectParameters, CancellationToken cancellationToken)
         {
-            IsOperationRequested = true;
             ConnectParameters = connectParameters;
 
             if (connectParameters.CheckIsLeDeviceType && !NativeDevice.SupportsBLE())
                 throw new DeviceConnectionException(Id, Name, $"[Device] Device {Id} does not support BLE, type is {NativeDevice.Type}. You can disable this check, see more info in ConnectParameters.CheckIsLeDeviceType description.");
+
+            IsOperationRequested = true;
 
             if (connectParameters.ForceBleTransport)
             {
