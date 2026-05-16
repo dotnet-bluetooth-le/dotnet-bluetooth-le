@@ -2,6 +2,9 @@
 
 ## 3.1 .NET 8 & Gemeric Windows Implementation
 
+### 3.1.1
+- #1000 Backport PR #994: ConnectParameters.CheckIsLeDeviceType (fixes #877)
+
 ### 3.1.0
 - #844 Fix Device.UpdateRssiAsync on Windows (fixes #810)
 - #845 Implement Adapter.SupportsExtendedAdvertising on Windows (fixes #815)
