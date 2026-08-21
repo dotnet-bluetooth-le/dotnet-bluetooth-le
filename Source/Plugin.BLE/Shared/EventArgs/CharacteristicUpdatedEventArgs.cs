@@ -12,12 +12,15 @@ namespace Plugin.BLE.Abstractions.EventArgs
         /// </summary>
         public ICharacteristic Characteristic { get; set; }
 
+        public byte[] Value { get; }
+
         /// <summary>
         /// Constructor.
         /// </summary>
-        public CharacteristicUpdatedEventArgs(ICharacteristic characteristic)
+        public CharacteristicUpdatedEventArgs(ICharacteristic characteristic, byte[] value)
         {
             Characteristic = characteristic;
+            Value = value;
         }
     }
 }
