@@ -301,7 +301,7 @@ namespace Plugin.BLE.iOS
         {
             if (e.Characteristic.UUID == NativeCharacteristic.UUID)
             {
-                ValueUpdated?.Invoke(this, new CharacteristicUpdatedEventArgs(this, e.Characteristic.Value));
+                ValueUpdated?.Invoke(this, new CharacteristicUpdatedEventArgs(this, e.Characteristic.Value?.ToArray()));
             }
         }
     }

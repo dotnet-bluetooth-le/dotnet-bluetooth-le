@@ -189,7 +189,7 @@ namespace Plugin.BLE.Android
         {
             if (e.Characteristic.Uuid == NativeCharacteristic.Uuid)
             {
-                ValueUpdated?.Invoke(this, new CharacteristicUpdatedEventArgs(this));
+                ValueUpdated?.Invoke(this, new CharacteristicUpdatedEventArgs(this, e.Value));
             }
         }
     }
