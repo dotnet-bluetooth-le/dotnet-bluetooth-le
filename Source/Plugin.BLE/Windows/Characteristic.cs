@@ -98,7 +98,7 @@ namespace Plugin.BLE.Windows
         private void OnCharacteristicValueChanged(object sender, GattValueChangedEventArgs e)
         {
             _value = e.CharacteristicValue?.ToArray(); //add value to array
-            ValueUpdated?.Invoke(this, new CharacteristicUpdatedEventArgs(this));
+            ValueUpdated?.Invoke(this, new CharacteristicUpdatedEventArgs(this, _value));
         }
     }
 }
