@@ -157,6 +157,19 @@ namespace Plugin.BLE.Abstractions
                 CleanupScan();
                 Trace.Message("Adapter: Scan was cancelled.");
             }
+            catch (Exception)
+            {
+                try
+                {
+                    CleanupScan();
+                }
+                catch (Exception cleanupException)
+                {
+                    Trace.Message("Adapter: Scan cleanup failed after startup exception: {0}", cleanupException);
+                }
+
+                throw;
+            }
         }
 
         /// <summary>
