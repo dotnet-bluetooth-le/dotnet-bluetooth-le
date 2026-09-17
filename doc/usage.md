@@ -249,7 +249,7 @@ await characteristic.WriteAsync(bytes);
 ```csharp
 characteristic.ValueUpdated += (o, args) =>
 {
-    var bytes = args.Characteristic.Value;
+    var bytes = args.Value;
 };
 
 await characteristic.StartUpdatesAsync();
