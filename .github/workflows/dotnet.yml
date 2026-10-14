@@ -71,6 +71,10 @@ jobs:
       run: dotnet build Source/MvvmCross.Plugins.BLE/MvvmCross.Plugins.BLE.csproj -c Release -t:restore,build,pack -p:Version=$(git describe) -p:ContinuousIntegrationBuild=true -p:DeterministicSourcePaths=false
     - name: Build MAUI sample
       run: dotnet build Source/BLE.Client/BLE.Client.Maui/BLE.Client.Maui.csproj -c Debug -t:restore,build -p:Version=$(git describe) -p:ContinuousIntegrationBuild=true -p:DeterministicSourcePaths=false
+    - name: Build tests
+      run: dotnet build Source/Plugin.BLE.Tests/Plugin.BLE.Tests.csproj -c Debug -t:restore,build
+    - name: Run tests
+      run: dotnet test Source/Plugin.BLE.Tests/Plugin.BLE.Tests.csproj -c Debug
 
   linuxBuild:
     runs-on: ubuntu-latest
@@ -92,3 +96,7 @@ jobs:
       run: dotnet build Source/MvvmCross.Plugins.BLE/MvvmCross.Plugins.BLE.csproj -c Release -t:restore,build,pack -p:Version=$(git describe) -p:ContinuousIntegrationBuild=true -p:DeterministicSourcePaths=false
     - name: Build MAUI sample
       run: dotnet build Source/BLE.Client/BLE.Client.Maui/BLE.Client.Maui.csproj -c Debug -t:restore,build -p:Version=$(git describe) -p:ContinuousIntegrationBuild=true -p:DeterministicSourcePaths=false
+    - name: Build tests
+      run: dotnet build Source/Plugin.BLE.Tests/Plugin.BLE.Tests.csproj -c Debug -t:restore,build
+    - name: Run tests
+      run: dotnet test Source/Plugin.BLE.Tests/Plugin.BLE.Tests.csproj -c Debug
