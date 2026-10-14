@@ -48,7 +48,7 @@ jobs:
 
 
   macBuild:
-    runs-on: macos-26
+    runs-on: xcode-27
     steps:
     - uses: actions/checkout@v6
       with:
@@ -60,7 +60,7 @@ jobs:
     - name: Setup XCode
       uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '26.6'
+        xcode-version: '27.0'
     - name: Install workloads
       run: dotnet workload install maui
     #- name: Install Android tools
