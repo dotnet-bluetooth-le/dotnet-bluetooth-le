@@ -46,6 +46,8 @@ namespace Plugin.BLE.Android
             if (!gatt.Device.Address.Equals(_device.NativeDevice.Address))
             {
                 Trace.Message($"Gatt callback for device {_device.NativeDevice.Address} was called for device with address {gatt.Device.Address}. This shoud not happen. Please log an issue.");
+                GC.KeepAlive(gatt);
+                GC.KeepAlive(this);
                 return;
             }
 
@@ -143,6 +145,9 @@ namespace Plugin.BLE.Android
                     Trace.Message("Disconnecting");
                     break;
             }
+
+            GC.KeepAlive(gatt);
+            GC.KeepAlive(this);
         }
 
         private void CloseGattInstances(BluetoothGatt gatt)
