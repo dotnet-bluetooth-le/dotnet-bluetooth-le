@@ -19,7 +19,7 @@ namespace Plugin.BLE.Abstractions.EventArgs
         public byte[] Value { get; }
 
         /// <summary>
-        /// Initializes a new instance using the characteristic's current value.
+        /// Constructor.
         /// </summary>
         /// <param name="characteristic">The characteristic that raised the update.</param>
         public CharacteristicUpdatedEventArgs(ICharacteristic characteristic)
