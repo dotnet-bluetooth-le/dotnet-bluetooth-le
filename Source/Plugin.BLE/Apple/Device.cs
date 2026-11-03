@@ -36,6 +36,14 @@ namespace Plugin.BLE.iOS
             // TODO figure out if this is in any way required,
             // https://github.com/dotnet-bluetooth-le/dotnet-bluetooth-le/issues/81
             //_nativeDevice.UpdatedName += OnNameUpdated;
+
+            NativeDevice.ModifiedServices += OnModifiedServices;
+        }
+
+        private void OnModifiedServices(object sender, CBPeripheralServicesEventArgs e)
+        {
+            Trace.Message("Device services modified: clearing known services");
+            ClearKnownServices();
         }
 
         private void OnNameUpdated(object sender, EventArgs e)
