@@ -2,6 +2,10 @@
 
 ## 3.3 .NET 10
 
+### 3.3.0-beta.3
+- #1007 Reset scan state when native scan startup fails (fixes #619)
+- #1011 Prevent Windows BLE disconnect callback hangs (fixes #1009)
+
 ### 3.3.0-beta.2
 - #988 Fix iOS solicited service UUIDs missing from advertisement records (fixes #985)
 - #989 Fix iOS 32 bit UUIDs missing from advertisement records
