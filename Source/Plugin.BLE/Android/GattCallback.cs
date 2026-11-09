@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using Android.Bluetooth;
+using Android.Systems;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Extensions;
 using Plugin.BLE.Android.CallbackEventArgs;
@@ -170,20 +172,52 @@ namespace Plugin.BLE.Android
 
         public override void OnCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, GattStatus status)
         {
+            // This legacy overload is obsolete from API 33. The snapshot overload's base implementation
+            // forwards here, so skip processing on API 33+ to avoid duplicate events.
+            if (OperatingSystem.IsAndroidVersionAtLeast(33))
+            {
+                return;
+            }
+
             base.OnCharacteristicRead(gatt, characteristic, status);
 
             Trace.Message("OnCharacteristicRead: value {0}; status {1}", characteristic.GetValue().ToHexString(), status);
 
-            CharacteristicValueRead?.Invoke(this, new CharacteristicReadCallbackEventArgs(characteristic, status));
+            CharacteristicValueRead?.Invoke(this, new CharacteristicReadCallbackEventArgs(characteristic, status, characteristic.GetValue()));
+        }
+
+        public override void OnCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, byte[] value, GattStatus status)
+        {
+            base.OnCharacteristicRead(gatt, characteristic, value, status);
+
+            Trace.Message("OnCharacteristicRead with value: value {0}; status {1}", value.ToHexString(), status);
+
+            CharacteristicValueRead?.Invoke(this, new CharacteristicReadCallbackEventArgs(characteristic, status, value));
         }
 
         public override void OnCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic)
         {
+            // This two-parameter overload is obsolete from API 33. The snapshot overload's base implementation
+            // forwards here, so skip processing on API 33+ to avoid duplicate events.
+            if (OperatingSystem.IsAndroidVersionAtLeast(33))
+            {
+                return;
+            }
+
             base.OnCharacteristicChanged(gatt, characteristic);
 
             Trace.Message("OnCharacteristicChanged: value {0}", characteristic.GetValue().ToHexString());
 
-            CharacteristicValueUpdated?.Invoke(this, new CharacteristicReadCallbackEventArgs(characteristic, GattStatus.Success));
+            CharacteristicValueUpdated?.Invoke(this, new CharacteristicReadCallbackEventArgs(characteristic, GattStatus.Success, characteristic.GetValue()));
+        }
+
+        public override void OnCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, byte[] value)
+        {
+            base.OnCharacteristicChanged(gatt, characteristic, value);
+
+            Trace.Message("OnCharacteristicChanged with value: value {0}", value.ToHexString());
+
+            CharacteristicValueUpdated?.Invoke(this, new CharacteristicReadCallbackEventArgs(characteristic, GattStatus.Success, value));
         }
 
         public override void OnCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, GattStatus status)

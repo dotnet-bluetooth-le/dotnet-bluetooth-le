@@ -52,7 +52,7 @@ namespace Plugin.BLE.Android
                     if (args.Characteristic.Uuid == NativeCharacteristic.Uuid)
                     {
                         int resultCode = (int)args.Status;
-                        complete((args.Characteristic.GetValue(), resultCode));
+                        complete((args.Value, resultCode));
                     }
                 }),
                 subscribeComplete: handler => _gattCallback.CharacteristicValueRead += handler,
@@ -189,7 +189,7 @@ namespace Plugin.BLE.Android
         {
             if (e.Characteristic.Uuid == NativeCharacteristic.Uuid)
             {
-                ValueUpdated?.Invoke(this, new CharacteristicUpdatedEventArgs(this));
+                ValueUpdated?.Invoke(this, new CharacteristicUpdatedEventArgs(this, e.Value));
             }
         }
     }
