@@ -70,6 +70,11 @@ namespace Plugin.BLE.Android
 
         internal bool IsOperationRequested { get; set; }
 
+        internal void ClearKnownServicesInternal()
+        {
+            ClearKnownServices();
+        }
+
         protected override async Task<IReadOnlyList<IService>> GetServicesNativeAsync(CancellationToken cancellationToken)
         {
             if (_gattCallback == null || _gatt == null)

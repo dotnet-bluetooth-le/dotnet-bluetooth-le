@@ -238,6 +238,15 @@ namespace Plugin.BLE.Android
             DescriptorValueRead?.Invoke(this, new DescriptorCallbackEventArgs(descriptor, GetExceptionFromGattStatus(status)));
         }
 
+        public override void OnServiceChanged(BluetoothGatt gatt)
+        {
+            base.OnServiceChanged(gatt);
+
+            Trace.Message("OnServiceChanged: clearing known services");
+
+            _device.ClearKnownServicesInternal();
+        }
+
         private Exception GetExceptionFromGattStatus(GattStatus status)
         {
             Exception exception = null;

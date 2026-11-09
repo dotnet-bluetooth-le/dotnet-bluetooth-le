@@ -202,7 +202,15 @@ namespace Plugin.BLE.Abstractions
         public void ClearServices()
         {
             this.CancelEverythingAndReInitialize();
+            ClearKnownServices();
+        }
 
+        /// <summary>
+        /// Clear all (known) services without cancelling pending operations.
+        /// Used when the remote GATT database has changed (Service Changed indication).
+        /// </summary>
+        protected void ClearKnownServices()
+        {
             lock (KnownServices)
             {
                 foreach (var service in KnownServices)

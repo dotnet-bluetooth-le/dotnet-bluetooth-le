@@ -55,6 +55,7 @@ namespace Plugin.BLE.Windows
         {
             if (NativeDevice is not null)
             {
+                NativeDevice.GattServicesChanged -= NativeDevice_GattServicesChanged;
                 NativeDevice.Dispose();
                 NativeDevice = null;
             }
@@ -183,6 +184,8 @@ namespace Plugin.BLE.Windows
                 gattSession.MaintainConnection = true;
                 gattSession.SessionStatusChanged += GattSession_SessionStatusChanged;
                 gattSession.MaxPduSizeChanged += GattSession_MaxPduSizeChanged;
+                NativeDevice.GattServicesChanged -= NativeDevice_GattServicesChanged;
+                NativeDevice.GattServicesChanged += NativeDevice_GattServicesChanged;
             }
             catch (Exception ex)
             {
@@ -214,6 +217,12 @@ namespace Plugin.BLE.Windows
         private void GattSession_MaxPduSizeChanged(GattSession sender, object args)
         {
             Trace.Message("GattSession_MaxPduSizeChanged: {0}", sender.MaxPduSize);
+        }
+
+        private void NativeDevice_GattServicesChanged(BluetoothLEDevice sender, object args)
+        {
+            Trace.Message("NativeDevice_GattServicesChanged: clearing known services");
+            ClearKnownServices();
         }
 
         public void DisconnectInternal()
