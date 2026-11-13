@@ -43,9 +43,12 @@ namespace Plugin.BLE.Android
         {
             base.OnConnectionStateChange(gatt, status, newState);
 
-            if (!gatt.Device.Address.Equals(_device.NativeDevice.Address))
+            var deviceAddress = gatt.Device.Address;
+            if (!deviceAddress.Equals(_device.NativeDevice.Address))
             {
-                Trace.Message($"Gatt callback for device {_device.NativeDevice.Address} was called for device with address {gatt.Device.Address}. This shoud not happen. Please log an issue.");
+                Trace.Message($"Gatt callback for device {_device.NativeDevice.Address} was called for device with address {deviceAddress}. This shoud not happen. Please log an issue.");
+                GC.KeepAlive(gatt);
+                GC.KeepAlive(this);
                 return;
             }
 
@@ -72,7 +75,7 @@ namespace Plugin.BLE.Android
 
                         //Found so we can remove it
                         _device.IsOperationRequested = false;
-                        _adapter.ConnectedDeviceRegistry.TryRemove(gatt.Device.Address, out _);
+                        _adapter.ConnectedDeviceRegistry.TryRemove(deviceAddress, out _);
 
                         if (status != GattStatus.Success && (int)status != 19)
                         {
@@ -92,7 +95,7 @@ namespace Plugin.BLE.Android
                         //connection must have been lost, because the callback was not triggered by calling disconnect
                         Trace.Message($"Disconnected '{_device.Name}' by lost connection");
 
-                        _adapter.ConnectedDeviceRegistry.TryRemove(gatt.Device.Address, out _);
+                        _adapter.ConnectedDeviceRegistry.TryRemove(deviceAddress, out _);
                         _adapter.HandleDisconnectedDevice(false, _device);
 
                     }
@@ -133,7 +136,7 @@ namespace Plugin.BLE.Android
                     }
                     else
                     {
-                        _adapter.ConnectedDeviceRegistry[gatt.Device.Address] = _device;
+                        _adapter.ConnectedDeviceRegistry[deviceAddress] = _device;
                         _adapter.HandleConnectedDevice(_device);
                     }
 
@@ -143,6 +146,9 @@ namespace Plugin.BLE.Android
                     Trace.Message("Disconnecting");
                     break;
             }
+
+            GC.KeepAlive(gatt);
+            GC.KeepAlive(this);
         }
 
         private void CloseGattInstances(BluetoothGatt gatt)
