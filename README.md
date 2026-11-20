@@ -7,18 +7,39 @@ Build status: [![Build status](https://github.com/dotnet-bluetooth-le/dotnet-blu
 **Important Note:** With the term *"vanilla"* we mean the non-MvvmCross version, i.e. the pure Xamarin or MAUI plugin. You **can** use it without MvvmCross, if you download the vanilla package.
 
 
-## Support & Limitations
+## Support & API versions
 
 [Release Notes](doc/changelog.md)
 
-| Platform        | Version           | Limitations |
-| --------------- | ----------------- | ----------- |
-| Xamarin.Android | 4.3               |             |
-| Xamarin.iOS     | 7.0               |             |
-| Xamarin.Mac     | 10.9 (Mavericks)  | >= 2.1.0    |
-| Xamarin.UWP     | 1709 - 10.0.16299 | >= 2.2.0    |
-| MAUI (Android, iOS, Mac, WinUI) |   | >= 3.0.0    |
+The following tables list the targeted (and minimum) API versions per platform and .NET version for each release.
 
+### v3.3
+
+|         | Android   | iOS         | macOS       | Windows       |
+| ------- | --------- | ----------- | ----------- | ------------- |
+| .NET 10 | 36.1 (21) | 27.1 (12.2) | 27.0 (15.0) | 19041 (17763) |
+| .NET 9  | 35 (21)   | 18.0 (12.2) | 18.0 (15.0) | 19041 (17763) |
+
+### v3.2
+
+|        | Android | iOS         | macOS       | Windows       |
+| ------ | ------- | ----------- | ----------- | ------------- |
+| .NET 9 | 35 (21) | 18.0 (12.2) | 18.0 (15.0) | 19041 (17763) |
+| .NET 8 | 34 (21) | 18.0 (12.2) | 18.0 (15.0) | 19041 (17763) |
+
+### v3.1
+
+|        | Android | iOS         | macOS       | Windows       |
+| ------ | ------- | ----------- | ----------- | ------------- |
+| .NET 8 | 34 (21) | 18.0 (10.0) | 18.0 (13.1) | 19041 (17763) |
+| .NET 7 | 33 (21) | 16.1 (10.0) | 16.1 (13.1) | 19041 (17763) |
+
+### v3.0
+
+|        | Android | iOS         | macOS       | Windows       |
+| ------ | ------- | ----------- | ----------- | ------------- |
+| .NET 7 | 33 (21) | 16.1 (10.0) | 16.1 (13.1) | 19041 (17763) |
+| .NET 6 | 33 (21) | 16.1 (10.0) | 16.1 (13.1) | 19041 (17763) |
 
 ## Nuget Packages
 

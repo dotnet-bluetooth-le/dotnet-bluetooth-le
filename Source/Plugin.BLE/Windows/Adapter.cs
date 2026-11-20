@@ -173,9 +173,19 @@ namespace Plugin.BLE.Windows
                 bool disconnectRequested = disconnectingRegistry.Remove(id);
                 if (!disconnectRequested)
                 {
-                    // Device was powered off or went out of range. Call DisconnectInternal to cleanup
-                    // resources otherwise windows will not disconnect on a subsequent connect-disconnect.
-                    ((Device)disconnectedDevice).DisconnectInternal();
+                    // Device was powered off or went out of range. Clean up resources off the
+                    // callback thread to avoid blocking the Bluetooth stack during disconnection.
+                    _ = Task.Run(() =>
+                    {
+                        try
+                        {
+                            ((Device)disconnectedDevice).DisconnectInternal();
+                        }
+                        catch (Exception ex)
+                        {
+                            Trace.Message("Exception while cleaning up disconnected device: {0}", ex.Message);
+                        }
+                    });
                 }
                 ConnectedDeviceRegistry.Remove(id, out _);
                 nativeDevice.ConnectionStatusChanged -= Device_ConnectionStatusChanged;
