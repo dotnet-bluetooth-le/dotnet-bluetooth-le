@@ -55,6 +55,11 @@ namespace Plugin.BLE.iOS
 
                 if (_centralManager.State == CBManagerState.PoweredOff)
                 {
+                    foreach (var connectedDevice in ConnectedDeviceRegistry.Values)
+                    {
+                        ((Device)connectedDevice).DetachServicesChangedHandler();
+                    }
+
                     ClearDeviceRegistries();
                 }
             };
@@ -78,6 +83,7 @@ namespace Plugin.BLE.iOS
                     device = new Device(this, e.Peripheral, _bleCentralManagerDelegate);
                 }
 
+                ((Device)device).AttachServicesChangedHandler();
                 ConnectedDeviceRegistry[guid] = device;
                 HandleConnectedDevice(device);
             };
@@ -113,6 +119,8 @@ namespace Plugin.BLE.iOS
                 }
 
                 foundDevice = foundDevice ?? new Device(this, e.Peripheral, _bleCentralManagerDelegate);
+
+                ((Device)foundDevice).DetachServicesChangedHandler();
 
                 //make sure all cached services are cleared this will also clear characteristics and descriptors implicitly
                 ((Device)foundDevice).ClearServices();
