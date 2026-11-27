@@ -36,8 +36,21 @@ namespace Plugin.BLE.iOS
             // TODO figure out if this is in any way required,
             // https://github.com/dotnet-bluetooth-le/dotnet-bluetooth-le/issues/81
             //_nativeDevice.UpdatedName += OnNameUpdated;
+        }
 
+        /// <summary>
+        /// Subscribes to service changes of the peripheral. Only done while connected, so that
+        /// short-lived wrappers (e.g. from scanning) are not kept alive by the native peripheral.
+        /// </summary>
+        internal void AttachServicesChangedHandler()
+        {
+            NativeDevice.ModifiedServices -= OnModifiedServices;
             NativeDevice.ModifiedServices += OnModifiedServices;
+        }
+
+        internal void DetachServicesChangedHandler()
+        {
+            NativeDevice.ModifiedServices -= OnModifiedServices;
         }
 
         private void OnModifiedServices(object sender, CBPeripheralServicesEventArgs e)
