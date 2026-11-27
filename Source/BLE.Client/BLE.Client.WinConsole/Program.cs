@@ -3,7 +3,6 @@ using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Windows.Media.Capture;
 
@@ -15,7 +14,6 @@ using (var ct = new ConsoleTracer())
     Plugin.BLE.Abstractions.Trace.TraceImplementation = ct.GetPrefixedTrace("Plugin.BLE");
     var ppemos = new PluginDemos(ct.GetPrefixedTrace("      DEMO"));
     var wdemos = new WindowsDemos(ct.GetPrefixedTrace("      DEMO"));
-    var edemos = new EgooDemos(ct.GetPrefixedTrace("      DEMO"));
     var demoDict = new Dictionary<ConsoleKey, Demo>
     {
 
@@ -35,32 +33,7 @@ using (var ct = new ConsoleTracer())
         {ConsoleKey.E, new Demo("Device.BondState", ppemos.ShowBondState) },
         {ConsoleKey.A, new Demo("Pure Windows: Connect -> Disconnect", wdemos.Connect_Disconnect) },
         {ConsoleKey.S, new Demo("Pure Windows: Unpair all BLE devices", wdemos.UnPairAllBleDevices) },
-        {ConsoleKey.I, new Demo("Egoo: instrument, drawer and capsule info", edemos.Egoo_DEMO_Information) },
-        {ConsoleKey.O, new Demo("Egoo: subscribe to all notify characteristics (timed)", edemos.Egoo_ALL_Services) },
-        {ConsoleKey.P, new Demo("Egoo: FAST subscribe to all (encrypt first, concurrent CCCD writes)", edemos.Egoo_ALL_Services_Fast) },
-        {ConsoleKey.U, new Demo("Egoo: SMART subscribe (early encrypt, skip CCCDs already set)", edemos.Egoo_ALL_Services_Smart) },
     };
-
-    var keyArg = args.FirstOrDefault(a => a.StartsWith("/key:", StringComparison.OrdinalIgnoreCase));
-    if (keyArg is not null)
-    {
-        var keyText = keyArg.Substring("/key:".Length);
-        if (keyText.Length == 1 && char.IsDigit(keyText[0]))
-            keyText = "D" + keyText;
-        if (Enum.TryParse(keyText, true, out ConsoleKey argKey) && demoDict.TryGetValue(argKey, out Demo? argDemo))
-        {
-            Console.WriteLine($"Running: {argDemo.Description}");
-            Console.WriteLine("-------------------------------------------------------");
-            await argDemo.Method();
-            await Task.Delay(200);
-            Console.WriteLine("-------------------------------------------------------");
-        }
-        else
-        {
-            Console.WriteLine($"{keyArg} -> No such test.");
-        }
-        return;
-    }
 
     while (true)
     {
