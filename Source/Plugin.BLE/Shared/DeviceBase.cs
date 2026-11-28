@@ -61,7 +61,7 @@ namespace Plugin.BLE.Abstractions
         /// </summary>
         protected readonly IAdapter Adapter;
         private readonly List<IService> KnownServices = new List<IService>();
-        private bool _servicesChanged;
+        private long _servicesGeneration;
 
         /// <summary>
         /// Id of the device.
@@ -106,6 +106,7 @@ namespace Plugin.BLE.Abstractions
         /// </summary>
         public async Task<IReadOnlyList<IService>> GetServicesAsync(CancellationToken cancellationToken = default)
         {
+            long servicesGeneration;
             lock (KnownServices)
             {
                 if (KnownServices.Any())
@@ -113,7 +114,7 @@ namespace Plugin.BLE.Abstractions
                     return KnownServices.ToArray();
                 }
 
-                _servicesChanged = false;
+                servicesGeneration = _servicesGeneration;
             }
 
             using (var source = this.GetCombinedSource(cancellationToken))
@@ -122,7 +123,7 @@ namespace Plugin.BLE.Abstractions
 
                 lock (KnownServices)
                 {
-                    if (!_servicesChanged)
+                    if (servicesGeneration == _servicesGeneration)
                     {
                         if (services != null)
                             KnownServices.AddRange(services);
@@ -237,7 +238,7 @@ namespace Plugin.BLE.Abstractions
         {
             lock (KnownServices)
             {
-                _servicesChanged = true;
+                _servicesGeneration++;
 
                 foreach (var service in KnownServices)
                 {

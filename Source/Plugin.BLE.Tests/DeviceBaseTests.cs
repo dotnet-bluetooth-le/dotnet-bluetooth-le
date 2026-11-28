@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Tests.Mocks;
@@ -59,6 +60,30 @@ namespace Plugin.BLE.Tests
 
             Assert.Equal(new IService[] { freshService }, services);
             Assert.Equal(new IService[] { freshService }, await device.GetServicesAsync());
+            Assert.Equal(2, device.GetServicesNativeCallCount);
+        }
+
+        [Fact(DisplayName = "A later discovery should not reset an earlier discovery invalidation")]
+        public async Task ServicesChanged_does_not_get_reset_by_concurrent_discovery()
+        {
+            var device = new DeviceMock();
+            var staleService = new ServiceMock(device, Guid.NewGuid());
+            var freshService = new ServiceMock(device, Guid.NewGuid());
+            var staleDiscovery = new TaskCompletionSource<IReadOnlyList<IService>>(TaskCreationOptions.RunContinuationsAsynchronously);
+            var freshDiscovery = new TaskCompletionSource<IReadOnlyList<IService>>(TaskCreationOptions.RunContinuationsAsynchronously);
+            device.EnqueueDiscovery(() => staleDiscovery.Task);
+            device.EnqueueDiscovery(() => freshDiscovery.Task);
+
+            var staleTask = device.GetServicesAsync();
+            device.SimulateServicesChanged();
+            var freshTask = device.GetServicesAsync();
+
+            freshDiscovery.SetResult(new[] { freshService });
+            Assert.Equal(new IService[] { freshService }, await freshTask);
+
+            staleDiscovery.SetResult(new[] { staleService });
+            Assert.Equal(new IService[] { freshService }, await staleTask);
+            Assert.True(staleService.IsDisposed);
             Assert.Equal(2, device.GetServicesNativeCallCount);
         }
     }
