@@ -172,6 +172,17 @@ namespace Plugin.BLE.iOS
             ConnectedDeviceRegistry[guid] = device;
         }
 
+        private IDevice GetOrCreateConnectedDevice(CBPeripheral peripheral)
+        {
+            var guid = ParseDeviceGuid(peripheral).ToString();
+            if (ConnectedDeviceRegistry.TryGetValue(guid, out var device))
+            {
+                return device;
+            }
+
+            return new Device(this, peripheral, _bleCentralManagerDelegate);
+        }
+
         protected override async Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
         {
             // Wait for the PoweredOn state
@@ -266,7 +277,7 @@ namespace Plugin.BLE.iOS
             }
 
 
-            var device = new Device(this, peripherial, _bleCentralManagerDelegate, peripherial.Name, peripherial.RSSI?.Int32Value ?? 0, new List<AdvertisementRecord>());
+            var device = GetOrCreateConnectedDevice(peripherial);
 
             await ConnectToDeviceAsync(device, connectParameters, cancellationToken);
             TrackConnectedDevice(device);
@@ -287,7 +298,7 @@ namespace Plugin.BLE.iOS
 
             var nativeDevices = _centralManager.RetrieveConnectedPeripherals(serviceUuids);
 
-            var devices = nativeDevices.Select(d => (IDevice)new Device(this, d, _bleCentralManagerDelegate)).ToList();
+            var devices = nativeDevices.Select(GetOrCreateConnectedDevice).ToList();
             foreach (var device in devices)
             {
                 TrackConnectedDevice(device);
