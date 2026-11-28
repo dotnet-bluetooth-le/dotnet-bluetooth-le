@@ -187,7 +187,7 @@ namespace Plugin.BLE.Android
 
         private void OnCharacteristicValueChanged(object sender, CharacteristicReadCallbackEventArgs e)
         {
-            if (e.Characteristic.Uuid == NativeCharacteristic.Uuid)
+            if (e.Characteristic.Equals(NativeCharacteristic))
             {
                 ValueUpdated?.Invoke(this, new CharacteristicUpdatedEventArgs(this, e.Value));
             }
