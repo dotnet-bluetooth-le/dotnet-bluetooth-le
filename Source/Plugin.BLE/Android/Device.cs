@@ -32,6 +32,7 @@ namespace Plugin.BLE.Android
         /// we'll get notified when services are enumerated
         /// </summary>
         private readonly GattCallback _gattCallback;
+        private readonly SemaphoreSlim _serviceDiscoverySemaphore = new SemaphoreSlim(1, 1);
 
         /// <summary>
         /// the registration must be disposed to avoid disconnecting after a connection
@@ -143,55 +144,63 @@ namespace Plugin.BLE.Android
                 Trace.Message("[Warning]: Can't discover services {0}. Gatt is null.", Name);
             }
 
-            long servicesChangedGeneration;
-            lock (_servicesChangedLock)
+            await _serviceDiscoverySemaphore.WaitAsync(cancellationToken);
+            try
             {
-                servicesChangedGeneration = _servicesChangedGeneration;
-            }
-
-            return await TaskBuilder
-                .FromEvent<IReadOnlyList<IService>, EventHandler<ServicesDiscoveredCallbackEventArgs>, EventHandler>(
-                    execute: () =>
-                    {
-                        if (!_gatt.DiscoverServices())
+                long servicesChangedGeneration = 0;
+                return await TaskBuilder
+                    .FromEvent<IReadOnlyList<IService>, EventHandler<ServicesDiscoveredCallbackEventArgs>, EventHandler>(
+                        execute: () =>
                         {
-                            throw new Exception("Could not start service discovery");
-                        }
-                    },
-                    getCompleteHandler: (complete, reject) => ((sender, args) =>
-                    {
-                        if (args.Status != GattStatus.Success)
-                        {
-                            reject(new Exception($"Service discovery failed with GattStatus: {(int)args.Status} - {args.Status}"));
-                            return;
-                        }
-
-                        lock (_servicesChangedLock)
-                        {
-                            if (_servicesChangedGeneration == servicesChangedGeneration)
+                            lock (_servicesChangedLock)
                             {
-                                _servicesChanged = false;
+                                servicesChangedGeneration = _servicesChangedGeneration;
                             }
-                        }
 
-                        if (_gatt.Services == null)
+                            if (!_gatt.DiscoverServices())
+                            {
+                                throw new Exception("Could not start service discovery");
+                            }
+                        },
+                        getCompleteHandler: (complete, reject) => ((sender, args) =>
                         {
-                            complete(new List<IService>());
-                        }
-                        else
+                            if (args.Status != GattStatus.Success)
+                            {
+                                reject(new Exception($"Service discovery failed with GattStatus: {(int)args.Status} - {args.Status}"));
+                                return;
+                            }
+
+                            lock (_servicesChangedLock)
+                            {
+                                if (_servicesChangedGeneration == servicesChangedGeneration)
+                                {
+                                    _servicesChanged = false;
+                                }
+                            }
+
+                            if (_gatt.Services == null)
+                            {
+                                complete(new List<IService>());
+                            }
+                            else
+                            {
+                                complete(_gatt.Services.Select(service => new Service(service, _gatt, _gattCallback, this)).ToList());
+                            }
+                        }),
+                        subscribeComplete: handler => _gattCallback.ServicesDiscovered += handler,
+                        unsubscribeComplete: handler => _gattCallback.ServicesDiscovered -= handler,
+                        getRejectHandler: reject => ((sender, args) =>
                         {
-                            complete(_gatt.Services.Select(service => new Service(service, _gatt, _gattCallback, this)).ToList());
-                        }
-                    }),
-                    subscribeComplete: handler => _gattCallback.ServicesDiscovered += handler,
-                    unsubscribeComplete: handler => _gattCallback.ServicesDiscovered -= handler,
-                    getRejectHandler: reject => ((sender, args) =>
-                    {
-                        reject(new Exception($"Device {Name} disconnected while fetching services."));
-                    }),
-                    subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
-                    unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler,
-                    token: cancellationToken);
+                            reject(new Exception($"Device {Name} disconnected while fetching services."));
+                        }),
+                        subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
+                        unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler,
+                        token: cancellationToken);
+            }
+            finally
+            {
+                _serviceDiscoverySemaphore.Release();
+            }
         }
 
         public void Connect(ConnectParameters connectParameters, CancellationToken cancellationToken)
