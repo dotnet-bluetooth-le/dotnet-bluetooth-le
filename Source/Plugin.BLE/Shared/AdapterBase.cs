@@ -212,7 +212,7 @@ namespace Plugin.BLE.Abstractions
             if (device == null)
                 throw new ArgumentNullException(nameof(device));
 
-            if (device.State == DeviceState.Connected)
+            if (IsDeviceConnected(device))
                 return;
 
             using (var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken))
@@ -249,6 +249,11 @@ namespace Plugin.BLE.Abstractions
                     token: cts.Token, mainthread: false);
             }
         }
+
+        /// <summary>
+        /// Whether the device is already connected to this adapter.
+        /// </summary>
+        protected virtual bool IsDeviceConnected(IDevice device) => device.State == DeviceState.Connected;
 
         /// <summary>
         /// Disconnects from the <paramref name="device"/>.
