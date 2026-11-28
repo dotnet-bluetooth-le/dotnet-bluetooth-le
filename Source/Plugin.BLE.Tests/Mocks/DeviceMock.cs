@@ -16,6 +16,7 @@ namespace Plugin.BLE.Tests.Mocks
         }
 
         public int GetServicesNativeCallCount { get; private set; }
+        public CancellationToken LastDiscoveryToken { get; private set; }
 
         public void EnqueueDiscovery(Func<Task<IReadOnlyList<IService>>> discovery)
         {
@@ -33,6 +34,7 @@ namespace Plugin.BLE.Tests.Mocks
         protected override Task<IReadOnlyList<IService>> GetServicesNativeAsync(CancellationToken cancellationToken)
         {
             GetServicesNativeCallCount++;
+            LastDiscoveryToken = cancellationToken;
             return _discoveries.Dequeue()();
         }
 

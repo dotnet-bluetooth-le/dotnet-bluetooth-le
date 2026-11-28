@@ -106,50 +106,56 @@ namespace Plugin.BLE.Abstractions
         /// </summary>
         public async Task<IReadOnlyList<IService>> GetServicesAsync(CancellationToken cancellationToken = default)
         {
-            long servicesGeneration;
+            CancellationTokenSource source;
             lock (KnownServices)
             {
-                if (KnownServices.Any())
-                {
-                    return KnownServices.ToArray();
-                }
-
-                servicesGeneration = _servicesGeneration;
+                source = this.GetCombinedSource(cancellationToken);
             }
 
-            using (var source = this.GetCombinedSource(cancellationToken))
+            using (source)
             {
-                var services = await GetServicesNativeAsync(cancellationToken);
-
-                lock (KnownServices)
+                while (true)
                 {
-                    if (servicesGeneration == _servicesGeneration)
+                    long servicesGeneration;
+                    lock (KnownServices)
                     {
-                        if (services != null)
-                            KnownServices.AddRange(services);
-
-                        return KnownServices.ToArray();
+                        source.Token.ThrowIfCancellationRequested();
+                        if (KnownServices.Any())
+                            return KnownServices.ToArray();
+                        servicesGeneration = _servicesGeneration;
                     }
-                }
 
-                if (services != null)
-                {
-                    foreach (var service in services)
+                    var services = await GetServicesNativeAsync(source.Token);
+
+                    lock (KnownServices)
                     {
-                        try
+                        if (!source.IsCancellationRequested && servicesGeneration == _servicesGeneration)
                         {
-                            service.Dispose();
-                        }
-                        catch (Exception ex)
-                        {
-                            Trace.Message("Exception while cleanup of service: {0}", ex.Message);
+                            if (services != null)
+                                KnownServices.AddRange(services);
+
+                            return KnownServices.ToArray();
                         }
                     }
+
+                    if (services != null)
+                    {
+                        foreach (var service in services)
+                        {
+                            try
+                            {
+                                service.Dispose();
+                            }
+                            catch (Exception ex)
+                            {
+                                Trace.Message("Exception while cleanup of service: {0}", ex.Message);
+                            }
+                        }
+                    }
+
+                    source.Token.ThrowIfCancellationRequested();
                 }
             }
-
-            // Services changed during discovery, so the result may be stale: discover again
-            return await GetServicesAsync(cancellationToken);
         }
 
         /// <summary>
@@ -226,8 +232,11 @@ namespace Plugin.BLE.Abstractions
         /// </summary>
         public void ClearServices()
         {
-            this.CancelEverythingAndReInitialize();
-            ClearKnownServices();
+            lock (KnownServices)
+            {
+                this.CancelEverythingAndReInitialize();
+                ClearKnownServices();
+            }
         }
 
         /// <summary>
