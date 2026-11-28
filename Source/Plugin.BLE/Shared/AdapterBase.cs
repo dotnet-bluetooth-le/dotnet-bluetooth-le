@@ -109,7 +109,7 @@ namespace Plugin.BLE.Abstractions
         /// Clear all cached device registries
         /// (discovered or connected devices).
         /// </summary>
-        public void ClearDeviceRegistries()
+        public virtual void ClearDeviceRegistries()
         {
             foreach (var device in ConnectedDeviceRegistry.Values.ToList())
             {

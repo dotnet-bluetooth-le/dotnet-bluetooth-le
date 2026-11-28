@@ -55,11 +55,6 @@ namespace Plugin.BLE.iOS
 
                 if (_centralManager.State == CBManagerState.PoweredOff)
                 {
-                    foreach (var connectedDevice in ConnectedDeviceRegistry.Values)
-                    {
-                        ((Device)connectedDevice).DetachServicesChangedHandler();
-                    }
-
                     ClearDeviceRegistries();
                 }
             };
@@ -120,7 +115,7 @@ namespace Plugin.BLE.iOS
 
                 foundDevice = foundDevice ?? new Device(this, e.Peripheral, _bleCentralManagerDelegate);
 
-                ((Device)foundDevice).DetachServicesChangedHandler();
+                CleanupConnectedDevice(foundDevice);
 
                 //make sure all cached services are cleared this will also clear characteristics and descriptors implicitly
                 ((Device)foundDevice).ClearServices();
@@ -149,6 +144,21 @@ namespace Plugin.BLE.iOS
         public override Task BondAsync(IDevice device)
         {
             throw new NotSupportedException();
+        }
+
+        public override void ClearDeviceRegistries()
+        {
+            foreach (var device in ConnectedDeviceRegistry.Values)
+            {
+                CleanupConnectedDevice(device);
+            }
+
+            base.ClearDeviceRegistries();
+        }
+
+        private static void CleanupConnectedDevice(IDevice device)
+        {
+            ((Device)device).DetachServicesChangedHandler();
         }
 
         protected override async Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
