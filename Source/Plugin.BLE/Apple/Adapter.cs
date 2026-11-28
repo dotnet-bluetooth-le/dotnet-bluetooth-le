@@ -212,8 +212,11 @@ namespace Plugin.BLE.iOS
                 if (!_systemDevices.TryGetValue(guid, out var device))
                 {
                     device = new Device(this, peripheral, _bleCentralManagerDelegate);
-                    ((Device)device).AttachServicesChangedHandler();
-                    _systemDevices.Add(guid, device);
+                    if (device.State == DeviceState.Connected)
+                    {
+                        ((Device)device).AttachServicesChangedHandler();
+                        _systemDevices.Add(guid, device);
+                    }
                 }
                 return device;
             }
