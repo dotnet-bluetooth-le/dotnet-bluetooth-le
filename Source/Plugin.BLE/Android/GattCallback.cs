@@ -165,7 +165,7 @@ namespace Plugin.BLE.Android
 
             Trace.Message("OnServicesDiscovered: {0}", status.ToString());
 
-            ServicesDiscovered?.Invoke(this, new ServicesDiscoveredCallbackEventArgs());
+            ServicesDiscovered?.Invoke(this, new ServicesDiscoveredCallbackEventArgs(status));
         }
 
         public override void OnCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, GattStatus status)

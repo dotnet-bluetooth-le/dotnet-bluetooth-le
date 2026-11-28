@@ -73,11 +73,18 @@ namespace Plugin.BLE.Android
         /// <summary>
         /// Set when the remote GATT database has changed; _gatt.Services is then stale until a new discovery.
         /// </summary>
+        private readonly object _servicesChangedLock = new object();
         private bool _servicesChanged;
+        private long _servicesChangedGeneration;
 
         internal void ClearKnownServicesInternal()
         {
-            _servicesChanged = true;
+            lock (_servicesChangedLock)
+            {
+                _servicesChanged = true;
+                _servicesChangedGeneration++;
+            }
+
             ClearKnownServices();
         }
 
@@ -89,7 +96,13 @@ namespace Plugin.BLE.Android
             }
 
             // _gatt.Services is already populated if device service discovery was already done
-            if (!_servicesChanged && _gatt.Services.Any())
+            bool servicesChanged;
+            lock (_servicesChangedLock)
+            {
+                servicesChanged = _servicesChanged;
+            }
+
+            if (!servicesChanged && _gatt.Services.Any())
             {
                 return _gatt.Services.Select(service => new Service(service, _gatt, _gattCallback, this)).ToList();
             }
@@ -107,7 +120,13 @@ namespace Plugin.BLE.Android
             var uuid = UUID.FromString(id.ToString("d"));
 
             // _gatt.GetService will directly return if device service discovery was already done
-            var nativeService = _servicesChanged ? null : _gatt.GetService(uuid);
+            bool servicesChanged;
+            lock (_servicesChangedLock)
+            {
+                servicesChanged = _servicesChanged;
+            }
+
+            var nativeService = servicesChanged ? null : _gatt.GetService(uuid);
             if (nativeService != null)
             {
                 return new Service(nativeService, _gatt, _gattCallback, this);
@@ -124,7 +143,11 @@ namespace Plugin.BLE.Android
                 Trace.Message("[Warning]: Can't discover services {0}. Gatt is null.", Name);
             }
 
-            _servicesChanged = false;
+            long servicesChangedGeneration;
+            lock (_servicesChangedLock)
+            {
+                servicesChangedGeneration = _servicesChangedGeneration;
+            }
 
             return await TaskBuilder
                 .FromEvent<IReadOnlyList<IService>, EventHandler<ServicesDiscoveredCallbackEventArgs>, EventHandler>(
@@ -137,6 +160,20 @@ namespace Plugin.BLE.Android
                     },
                     getCompleteHandler: (complete, reject) => ((sender, args) =>
                     {
+                        if (args.Status != GattStatus.Success)
+                        {
+                            reject(new Exception($"Service discovery failed with GattStatus: {(int)args.Status} - {args.Status}"));
+                            return;
+                        }
+
+                        lock (_servicesChangedLock)
+                        {
+                            if (_servicesChangedGeneration == servicesChangedGeneration)
+                            {
+                                _servicesChanged = false;
+                            }
+                        }
+
                         if (_gatt.Services == null)
                         {
                             complete(new List<IService>());
