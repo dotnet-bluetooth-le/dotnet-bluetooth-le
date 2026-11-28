@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Bluetooth;
@@ -33,6 +34,9 @@ namespace Plugin.BLE.Android
         /// </summary>
         private readonly GattCallback _gattCallback;
         private readonly SemaphoreSlim _serviceDiscoverySemaphore = new SemaphoreSlim(1, 1);
+        private CancellationTokenSource _gattLifetime = new CancellationTokenSource();
+        private readonly ConditionalWeakTable<BluetoothGatt, object> _retiredDiscoveries = new ConditionalWeakTable<BluetoothGatt, object>();
+        private BluetoothGatt _pendingDiscoveryGatt;
 
         /// <summary>
         /// the registration must be disposed to avoid disconnecting after a connection
@@ -62,7 +66,20 @@ namespace Plugin.BLE.Android
             _connectCancellationTokenRegistration = new CancellationTokenRegistration();
 
             NativeDevice = nativeDevice;
-            _gatt = gatt;
+            CancellationTokenSource oldLifetime;
+            lock (_servicesChangedLock)
+            {
+                oldLifetime = _gattLifetime;
+                if (_pendingDiscoveryGatt != null)
+                {
+                    _retiredDiscoveries.GetValue(_pendingDiscoveryGatt, _ => new object());
+                    _pendingDiscoveryGatt = null;
+                }
+                _gattLifetime = new CancellationTokenSource();
+                _gatt = gatt;
+            }
+            oldLifetime.Cancel();
+            oldLifetime.Dispose();
 
 
             Id = ParseDeviceId();
@@ -78,15 +95,51 @@ namespace Plugin.BLE.Android
         private bool _servicesChanged;
         private long _servicesChangedGeneration;
 
-        internal void ClearKnownServicesInternal()
+        internal void ClearKnownServicesInternal(BluetoothGatt gatt)
         {
             lock (_servicesChangedLock)
             {
+                if (!ReferenceEquals(gatt, _gatt))
+                    return;
                 _servicesChanged = true;
                 _servicesChangedGeneration++;
             }
 
             ClearKnownServices();
+        }
+
+        internal void RetireServiceDiscovery(BluetoothGatt gatt)
+        {
+            lock (_servicesChangedLock)
+            {
+                if (ReferenceEquals(gatt, _gatt))
+                {
+                    if (ReferenceEquals(_pendingDiscoveryGatt, gatt))
+                    {
+                        _retiredDiscoveries.GetValue(gatt, _ => new object());
+                        _pendingDiscoveryGatt = null;
+                    }
+                    _gattLifetime.Cancel();
+                }
+            }
+        }
+
+        internal void DispatchServicesDiscovered(BluetoothGatt gatt, Action dispatch)
+        {
+            lock (_servicesChangedLock)
+            {
+                _retiredDiscoveries.TryGetValue(gatt, out var retiredDiscovery);
+                try
+                {
+                    dispatch();
+                }
+                finally
+                {
+                    if (retiredDiscovery != null && _retiredDiscoveries.TryGetValue(gatt, out var current) &&
+                        ReferenceEquals(retiredDiscovery, current))
+                        _retiredDiscoveries.Remove(gatt);
+                }
+            }
         }
 
         protected override async Task<IReadOnlyList<IService>> GetServicesNativeAsync(CancellationToken cancellationToken)
@@ -100,7 +153,7 @@ namespace Plugin.BLE.Android
             bool servicesChanged;
             lock (_servicesChangedLock)
             {
-                servicesChanged = _servicesChanged;
+                servicesChanged = _servicesChanged || (_gatt != null && _retiredDiscoveries.TryGetValue(_gatt, out _));
             }
 
             if (!servicesChanged && _gatt.Services.Any())
@@ -124,7 +177,7 @@ namespace Plugin.BLE.Android
             bool servicesChanged;
             lock (_servicesChangedLock)
             {
-                servicesChanged = _servicesChanged;
+                servicesChanged = _servicesChanged || (_gatt != null && _retiredDiscoveries.TryGetValue(_gatt, out _));
             }
 
             var nativeService = servicesChanged ? null : _gatt.GetService(uuid);
@@ -139,63 +192,116 @@ namespace Plugin.BLE.Android
 
         private async Task<IReadOnlyList<IService>> DiscoverServicesInternal(CancellationToken cancellationToken)
         {
-            if (_gatt == null)
+            var discovery = DiscoverServicesOwnedAsync(cancellationToken);
+            try
             {
-                Trace.Message("[Warning]: Can't discover services {0}. Gatt is null.", Name);
+                return await discovery.WaitAsync(cancellationToken);
             }
+            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+            {
+                _ = DisposeAbandonedDiscoveryAsync(discovery);
+                throw;
+            }
+        }
 
+        private static async Task DisposeAbandonedDiscoveryAsync(Task<IReadOnlyList<IService>> discovery)
+        {
+            try
+            {
+                var services = await discovery;
+                foreach (var service in services)
+                {
+                    try
+                    {
+                        service.Dispose();
+                    }
+                    catch (Exception ex)
+                    {
+                        Trace.Message("Exception while cleanup of service: {0}", ex.Message);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // The caller has already stopped waiting for this discovery.
+            }
+        }
+
+        private async Task<IReadOnlyList<IService>> DiscoverServicesOwnedAsync(CancellationToken cancellationToken)
+        {
             await _serviceDiscoverySemaphore.WaitAsync(cancellationToken);
             try
             {
+                BluetoothGatt gatt;
+                CancellationToken lifetime;
+                lock (_servicesChangedLock)
+                {
+                    gatt = _gatt;
+                    lifetime = _gattLifetime.Token;
+                }
+                if (gatt == null)
+                    throw new Exception($"Can't discover services for {Name}: Gatt is null.");
+
                 long servicesChangedGeneration = 0;
+                bool started = false;
                 return await TaskBuilder
                     .FromEvent<IReadOnlyList<IService>, EventHandler<ServicesDiscoveredCallbackEventArgs>, EventHandler>(
                         execute: () =>
                         {
                             lock (_servicesChangedLock)
                             {
+                                cancellationToken.ThrowIfCancellationRequested();
+                                lifetime.ThrowIfCancellationRequested();
+                                if (!ReferenceEquals(gatt, _gatt) || lifetime != _gattLifetime.Token)
+                                    throw new OperationCanceledException();
+                                if (_retiredDiscoveries.TryGetValue(gatt, out _))
+                                    throw new InvalidOperationException("A previous service discovery is still pending on this GATT.");
                                 servicesChangedGeneration = _servicesChangedGeneration;
-                            }
-
-                            if (!_gatt.DiscoverServices())
-                            {
-                                throw new Exception("Could not start service discovery");
+                                started = true;
+                                _pendingDiscoveryGatt = gatt;
+                                try
+                                {
+                                    if (!gatt.DiscoverServices())
+                                        throw new Exception("Could not start service discovery");
+                                }
+                                catch
+                                {
+                                    _pendingDiscoveryGatt = null;
+                                    started = false;
+                                    throw;
+                                }
                             }
                         },
                         getCompleteHandler: (complete, reject) => ((sender, args) =>
                         {
-                            if (args.Status != GattStatus.Success)
-                            {
-                                reject(new Exception($"Service discovery failed with GattStatus: {(int)args.Status} - {args.Status}"));
-                                return;
-                            }
-
                             lock (_servicesChangedLock)
                             {
+                                if (!started || !ReferenceEquals(args.Gatt, gatt) || !ReferenceEquals(_gatt, gatt) ||
+                                    lifetime != _gattLifetime.Token || lifetime.IsCancellationRequested)
+                                    return;
+                                _pendingDiscoveryGatt = null;
+                                if (args.Status != GattStatus.Success)
+                                {
+                                    reject(new Exception($"Service discovery failed with GattStatus: {(int)args.Status} - {args.Status}"));
+                                    return;
+                                }
                                 if (_servicesChangedGeneration == servicesChangedGeneration)
                                 {
                                     _servicesChanged = false;
                                 }
-                            }
 
-                            if (_gatt.Services == null)
-                            {
-                                complete(new List<IService>());
-                            }
-                            else
-                            {
-                                complete(_gatt.Services.Select(service => new Service(service, _gatt, _gattCallback, this)).ToList());
+                                if (gatt.Services == null)
+                                    complete(new List<IService>());
+                                else
+                                    complete(gatt.Services.Select(service => new Service(service, gatt, _gattCallback, this)).ToList());
                             }
                         }),
                         subscribeComplete: handler => _gattCallback.ServicesDiscovered += handler,
                         unsubscribeComplete: handler => _gattCallback.ServicesDiscovered -= handler,
-                        getRejectHandler: reject => ((sender, args) =>
-                        {
-                            reject(new Exception($"Device {Name} disconnected while fetching services."));
-                        }),
-                        subscribeReject: handler => _gattCallback.ConnectionInterrupted += handler,
-                        unsubscribeReject: handler => _gattCallback.ConnectionInterrupted -= handler,
-                        token: cancellationToken);
+                        getRejectHandler: reject => ((sender, args) => { }),
+                        subscribeReject: handler => { },
+                        unsubscribeReject: handler => { },
+                        token: lifetime);
             }
             finally
             {
@@ -285,8 +391,19 @@ namespace Plugin.BLE.Android
         /// </summary>
         public void CloseGatt()
         {
-            _gatt?.Close();
-            _gatt = null;
+            BluetoothGatt gatt;
+            lock (_servicesChangedLock)
+            {
+                gatt = _gatt;
+                if (ReferenceEquals(_pendingDiscoveryGatt, gatt) && gatt != null)
+                {
+                    _retiredDiscoveries.GetValue(gatt, _ => new object());
+                    _pendingDiscoveryGatt = null;
+                }
+                _gatt = null;
+                _gattLifetime.Cancel();
+            }
+            gatt?.Close();
 
             // ClossGatt might will get called on signal loss without Disconnect being called we have to make sure we clear the services
             // Clear services & characteristics otherwise we will get gatt operation return FALSE when connecting to the same IDevice instace at a later time

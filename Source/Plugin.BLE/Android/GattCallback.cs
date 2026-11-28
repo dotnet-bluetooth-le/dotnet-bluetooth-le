@@ -59,6 +59,8 @@ namespace Plugin.BLE.Android
                 // disconnected
                 case ProfileState.Disconnected:
 
+                    _device.RetireServiceDiscovery(gatt);
+
                     // Close GATT if autoConnect is disabled, else we can accumulate zombie gatts.
                     if (!_device.ConnectParameters.AutoConnect)
                     {
@@ -165,7 +167,8 @@ namespace Plugin.BLE.Android
 
             Trace.Message("OnServicesDiscovered: {0}", status.ToString());
 
-            ServicesDiscovered?.Invoke(this, new ServicesDiscoveredCallbackEventArgs(status));
+            _device.DispatchServicesDiscovered(gatt,
+                () => ServicesDiscovered?.Invoke(this, new ServicesDiscoveredCallbackEventArgs(gatt, status)));
         }
 
         public override void OnCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, GattStatus status)
@@ -244,7 +247,7 @@ namespace Plugin.BLE.Android
 
             Trace.Message("OnServiceChanged: clearing known services");
 
-            _device.ClearKnownServicesInternal();
+            _device.ClearKnownServicesInternal(gatt);
         }
 
         private Exception GetExceptionFromGattStatus(GattStatus status)
