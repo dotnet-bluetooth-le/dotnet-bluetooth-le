@@ -72,6 +72,7 @@ namespace Plugin.BLE.Android
                 oldLifetime = _gattLifetime;
                 RetirePendingServiceDiscovery(_pendingDiscoveryGatt);
                 _gattLifetime = new CancellationTokenSource();
+                _retiredDiscoveries.Remove(gatt);
                 _gatt = gatt;
             }
             oldLifetime.Cancel();
