@@ -130,6 +130,21 @@ namespace Plugin.BLE.Abstractions
                         return KnownServices.ToArray();
                     }
                 }
+
+                if (services != null)
+                {
+                    foreach (var service in services)
+                    {
+                        try
+                        {
+                            service.Dispose();
+                        }
+                        catch (Exception ex)
+                        {
+                            Trace.Message("Exception while cleanup of service: {0}", ex.Message);
+                        }
+                    }
+                }
             }
 
             // Services changed during discovery, so the result may be stale: discover again
