@@ -35,7 +35,7 @@ namespace Plugin.BLE.Abstractions.EventArgs
         public CharacteristicUpdatedEventArgs(ICharacteristic characteristic, byte[] value)
         {
             Characteristic = characteristic;
-            Value = value;
+            Value = value ?? System.Array.Empty<byte>();
         }
     }
 }
