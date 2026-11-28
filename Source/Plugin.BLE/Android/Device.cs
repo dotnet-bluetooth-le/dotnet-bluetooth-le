@@ -70,11 +70,7 @@ namespace Plugin.BLE.Android
             lock (_servicesChangedLock)
             {
                 oldLifetime = _gattLifetime;
-                if (_pendingDiscoveryGatt != null)
-                {
-                    _retiredDiscoveries.GetValue(_pendingDiscoveryGatt, _ => new object());
-                    _pendingDiscoveryGatt = null;
-                }
+                RetirePendingServiceDiscovery(_pendingDiscoveryGatt);
                 _gattLifetime = new CancellationTokenSource();
                 _gatt = gatt;
             }
@@ -114,13 +110,18 @@ namespace Plugin.BLE.Android
             {
                 if (ReferenceEquals(gatt, _gatt))
                 {
-                    if (ReferenceEquals(_pendingDiscoveryGatt, gatt))
-                    {
-                        _retiredDiscoveries.GetValue(gatt, _ => new object());
-                        _pendingDiscoveryGatt = null;
-                    }
+                    RetirePendingServiceDiscovery(gatt);
                     _gattLifetime.Cancel();
                 }
+            }
+        }
+
+        private void RetirePendingServiceDiscovery(BluetoothGatt gatt)
+        {
+            if (gatt != null && ReferenceEquals(_pendingDiscoveryGatt, gatt))
+            {
+                _retiredDiscoveries.GetValue(gatt, _ => new object());
+                _pendingDiscoveryGatt = null;
             }
         }
 
@@ -244,6 +245,14 @@ namespace Plugin.BLE.Android
 
                 long servicesChangedGeneration = 0;
                 bool started = false;
+                using var discoveryCancellation = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, lifetime);
+                using var retireCancellation = discoveryCancellation.Token.Register(() =>
+                {
+                    lock (_servicesChangedLock)
+                    {
+                        RetirePendingServiceDiscovery(gatt);
+                    }
+                });
                 return await TaskBuilder
                     .FromEvent<IReadOnlyList<IService>, EventHandler<ServicesDiscoveredCallbackEventArgs>, EventHandler>(
                         execute: () =>
@@ -276,7 +285,8 @@ namespace Plugin.BLE.Android
                         {
                             lock (_servicesChangedLock)
                             {
-                                if (!started || !ReferenceEquals(args.Gatt, gatt) || !ReferenceEquals(_gatt, gatt) ||
+                                if (!started || _retiredDiscoveries.TryGetValue(gatt, out _) ||
+                                    !ReferenceEquals(args.Gatt, gatt) || !ReferenceEquals(_gatt, gatt) ||
                                     lifetime != _gattLifetime.Token || lifetime.IsCancellationRequested)
                                     return;
                                 _pendingDiscoveryGatt = null;
@@ -301,7 +311,7 @@ namespace Plugin.BLE.Android
                         getRejectHandler: reject => ((sender, args) => { }),
                         subscribeReject: handler => { },
                         unsubscribeReject: handler => { },
-                        token: lifetime);
+                        token: discoveryCancellation.Token);
             }
             finally
             {
@@ -397,8 +407,7 @@ namespace Plugin.BLE.Android
                 gatt = _gatt;
                 if (ReferenceEquals(_pendingDiscoveryGatt, gatt) && gatt != null)
                 {
-                    _retiredDiscoveries.GetValue(gatt, _ => new object());
-                    _pendingDiscoveryGatt = null;
+                    RetirePendingServiceDiscovery(gatt);
                 }
                 _gatt = null;
                 _gattLifetime.Cancel();
