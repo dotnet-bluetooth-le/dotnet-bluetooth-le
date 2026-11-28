@@ -70,6 +70,17 @@ namespace Plugin.BLE.Android
 
         internal bool IsOperationRequested { get; set; }
 
+        /// <summary>
+        /// Set when the remote GATT database has changed; _gatt.Services is then stale until a new discovery.
+        /// </summary>
+        private bool _servicesChanged;
+
+        internal void ClearKnownServicesInternal()
+        {
+            _servicesChanged = true;
+            ClearKnownServices();
+        }
+
         protected override async Task<IReadOnlyList<IService>> GetServicesNativeAsync(CancellationToken cancellationToken)
         {
             if (_gattCallback == null || _gatt == null)
@@ -78,7 +89,7 @@ namespace Plugin.BLE.Android
             }
 
             // _gatt.Services is already populated if device service discovery was already done
-            if (_gatt.Services.Any())
+            if (!_servicesChanged && _gatt.Services.Any())
             {
                 return _gatt.Services.Select(service => new Service(service, _gatt, _gattCallback, this)).ToList();
             }
@@ -96,7 +107,7 @@ namespace Plugin.BLE.Android
             var uuid = UUID.FromString(id.ToString("d"));
 
             // _gatt.GetService will directly return if device service discovery was already done
-            var nativeService = _gatt.GetService(uuid);
+            var nativeService = _servicesChanged ? null : _gatt.GetService(uuid);
             if (nativeService != null)
             {
                 return new Service(nativeService, _gatt, _gattCallback, this);
@@ -112,7 +123,9 @@ namespace Plugin.BLE.Android
             {
                 Trace.Message("[Warning]: Can't discover services {0}. Gatt is null.", Name);
             }
-            
+
+            _servicesChanged = false;
+
             return await TaskBuilder
                 .FromEvent<IReadOnlyList<IService>, EventHandler<ServicesDiscoveredCallbackEventArgs>, EventHandler>(
                     execute: () =>

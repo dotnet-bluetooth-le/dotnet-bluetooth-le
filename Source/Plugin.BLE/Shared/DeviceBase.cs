@@ -61,6 +61,7 @@ namespace Plugin.BLE.Abstractions
         /// </summary>
         protected readonly IAdapter Adapter;
         private readonly List<IService> KnownServices = new List<IService>();
+        private bool _servicesChanged;
 
         /// <summary>
         /// Id of the device.
@@ -111,6 +112,8 @@ namespace Plugin.BLE.Abstractions
                 {
                     return KnownServices.ToArray();
                 }
+
+                _servicesChanged = false;
             }
 
             using (var source = this.GetCombinedSource(cancellationToken))
@@ -119,12 +122,33 @@ namespace Plugin.BLE.Abstractions
 
                 lock (KnownServices)
                 {
-                    if (services != null)
-                        KnownServices.AddRange(services);
+                    if (!_servicesChanged)
+                    {
+                        if (services != null)
+                            KnownServices.AddRange(services);
 
-                    return KnownServices.ToArray();
+                        return KnownServices.ToArray();
+                    }
+                }
+
+                if (services != null)
+                {
+                    foreach (var service in services)
+                    {
+                        try
+                        {
+                            service.Dispose();
+                        }
+                        catch (Exception ex)
+                        {
+                            Trace.Message("Exception while cleanup of service: {0}", ex.Message);
+                        }
+                    }
                 }
             }
+
+            // Services changed during discovery, so the result may be stale: discover again
+            return await GetServicesAsync(cancellationToken);
         }
 
         /// <summary>
@@ -202,9 +226,19 @@ namespace Plugin.BLE.Abstractions
         public void ClearServices()
         {
             this.CancelEverythingAndReInitialize();
+            ClearKnownServices();
+        }
 
+        /// <summary>
+        /// Clear all (known) services without cancelling pending operations.
+        /// Used when the remote GATT database has changed (Service Changed indication).
+        /// </summary>
+        protected void ClearKnownServices()
+        {
             lock (KnownServices)
             {
+                _servicesChanged = true;
+
                 foreach (var service in KnownServices)
                 {
                     try
