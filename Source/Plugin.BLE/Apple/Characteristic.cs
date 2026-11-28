@@ -299,9 +299,9 @@ namespace Plugin.BLE.iOS
 
         private void UpdatedNotify(object sender, CBCharacteristicEventArgs e)
         {
-            if (e.Characteristic.UUID == NativeCharacteristic.UUID)
+            if (e.Characteristic.Equals(NativeCharacteristic))
             {
-                ValueUpdated?.Invoke(this, new CharacteristicUpdatedEventArgs(this));
+                ValueUpdated?.Invoke(this, new CharacteristicUpdatedEventArgs(this, e.Characteristic.Value?.ToArray()));
             }
         }
     }
