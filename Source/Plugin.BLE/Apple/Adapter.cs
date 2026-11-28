@@ -97,6 +97,7 @@ namespace Plugin.BLE.iOS
 
                 // normal disconnect (requested by user)
                 var isNormalDisconnect = _deviceOperationRegistry.TryGetValue(stringId, out var foundDevice);
+                var wasRequested = isNormalDisconnect;
                 if (isNormalDisconnect)
                 {
                     _deviceOperationRegistry.Remove(stringId);
@@ -109,7 +110,8 @@ namespace Plugin.BLE.iOS
                 }
 
                 // remove from connected devices
-                if (!ConnectedDeviceRegistry.TryRemove(stringId, out foundDevice))
+                var wasConnected = ConnectedDeviceRegistry.TryRemove(stringId, out foundDevice);
+                if (!wasConnected)
                 {
                     Trace.Message($"Device with id '{stringId}' was not found in the connected device registry. Nothing to remove.");
                 }
@@ -132,7 +134,8 @@ namespace Plugin.BLE.iOS
                 //make sure all cached services are cleared this will also clear characteristics and descriptors implicitly
                 ((Device)foundDevice).ClearServices();
 
-                HandleDisconnectedDevice(isNormalDisconnect, foundDevice);
+                if (wasConnected || wasRequested || systemDevice == null)
+                    HandleDisconnectedDevice(isNormalDisconnect, foundDevice);
             };
 
             _bleCentralManagerDelegate.FailedToConnectPeripheral +=
@@ -316,7 +319,6 @@ namespace Plugin.BLE.iOS
             var device = GetOrCreateConnectedDevice(peripherial);
 
             await ConnectToDeviceAsync(device, connectParameters, cancellationToken);
-            TrackConnectedDevice(device);
             return device;
         }
 
