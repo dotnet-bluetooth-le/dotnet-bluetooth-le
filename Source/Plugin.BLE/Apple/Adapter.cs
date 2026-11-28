@@ -78,8 +78,7 @@ namespace Plugin.BLE.iOS
                     device = new Device(this, e.Peripheral, _bleCentralManagerDelegate);
                 }
 
-                ((Device)device).AttachServicesChangedHandler();
-                ConnectedDeviceRegistry[guid] = device;
+                TrackConnectedDevice(device);
                 HandleConnectedDevice(device);
             };
 
@@ -159,6 +158,18 @@ namespace Plugin.BLE.iOS
         private static void CleanupConnectedDevice(IDevice device)
         {
             ((Device)device).DetachServicesChangedHandler();
+        }
+
+        private void TrackConnectedDevice(IDevice device)
+        {
+            var guid = device.Id.ToString();
+            if (ConnectedDeviceRegistry.TryGetValue(guid, out var existingDevice) && !ReferenceEquals(existingDevice, device))
+            {
+                CleanupConnectedDevice(existingDevice);
+            }
+
+            ((Device)device).AttachServicesChangedHandler();
+            ConnectedDeviceRegistry[guid] = device;
         }
 
         protected override async Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
@@ -258,6 +269,7 @@ namespace Plugin.BLE.iOS
             var device = new Device(this, peripherial, _bleCentralManagerDelegate, peripherial.Name, peripherial.RSSI?.Int32Value ?? 0, new List<AdvertisementRecord>());
 
             await ConnectToDeviceAsync(device, connectParameters, cancellationToken);
+            TrackConnectedDevice(device);
             return device;
         }
 
@@ -275,7 +287,13 @@ namespace Plugin.BLE.iOS
 
             var nativeDevices = _centralManager.RetrieveConnectedPeripherals(serviceUuids);
 
-            return nativeDevices.Select(d => new Device(this, d, _bleCentralManagerDelegate)).Cast<IDevice>().ToList();
+            var devices = nativeDevices.Select(d => (IDevice)new Device(this, d, _bleCentralManagerDelegate)).ToList();
+            foreach (var device in devices)
+            {
+                TrackConnectedDevice(device);
+            }
+
+            return devices;
         }
 
         public override IReadOnlyList<IDevice> GetKnownDevicesByIds(Guid[] ids)
