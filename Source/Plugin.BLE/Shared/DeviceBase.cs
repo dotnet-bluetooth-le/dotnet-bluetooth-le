@@ -61,6 +61,7 @@ namespace Plugin.BLE.Abstractions
         /// </summary>
         protected readonly IAdapter Adapter;
         private readonly List<IService> KnownServices = new List<IService>();
+        private long _servicesGeneration;
 
         /// <summary>
         /// Id of the device.
@@ -105,24 +106,54 @@ namespace Plugin.BLE.Abstractions
         /// </summary>
         public async Task<IReadOnlyList<IService>> GetServicesAsync(CancellationToken cancellationToken = default)
         {
+            CancellationTokenSource source;
             lock (KnownServices)
             {
-                if (KnownServices.Any())
-                {
-                    return KnownServices.ToArray();
-                }
+                source = this.GetCombinedSource(cancellationToken);
             }
 
-            using (var source = this.GetCombinedSource(cancellationToken))
+            using (source)
             {
-                var services = await GetServicesNativeAsync(cancellationToken);
-
-                lock (KnownServices)
+                while (true)
                 {
-                    if (services != null)
-                        KnownServices.AddRange(services);
+                    long servicesGeneration;
+                    lock (KnownServices)
+                    {
+                        source.Token.ThrowIfCancellationRequested();
+                        if (KnownServices.Any())
+                            return KnownServices.ToArray();
+                        servicesGeneration = _servicesGeneration;
+                    }
 
-                    return KnownServices.ToArray();
+                    var services = await GetServicesNativeAsync(source.Token);
+
+                    lock (KnownServices)
+                    {
+                        if (!source.IsCancellationRequested && servicesGeneration == _servicesGeneration)
+                        {
+                            if (services != null)
+                                KnownServices.AddRange(services);
+
+                            return KnownServices.ToArray();
+                        }
+                    }
+
+                    if (services != null)
+                    {
+                        foreach (var service in services)
+                        {
+                            try
+                            {
+                                service.Dispose();
+                            }
+                            catch (Exception ex)
+                            {
+                                Trace.Message("Exception while cleanup of service: {0}", ex.Message);
+                            }
+                        }
+                    }
+
+                    source.Token.ThrowIfCancellationRequested();
                 }
             }
         }
@@ -201,10 +232,23 @@ namespace Plugin.BLE.Abstractions
         /// </summary>
         public void ClearServices()
         {
-            this.CancelEverythingAndReInitialize();
-
             lock (KnownServices)
             {
+                this.CancelEverythingAndReInitialize();
+                ClearKnownServices();
+            }
+        }
+
+        /// <summary>
+        /// Clear all (known) services without cancelling pending operations.
+        /// Used when the remote GATT database has changed (Service Changed indication).
+        /// </summary>
+        protected void ClearKnownServices()
+        {
+            lock (KnownServices)
+            {
+                _servicesGeneration++;
+
                 foreach (var service in KnownServices)
                 {
                     try

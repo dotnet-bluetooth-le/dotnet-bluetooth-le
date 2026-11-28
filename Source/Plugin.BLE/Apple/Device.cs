@@ -38,6 +38,27 @@ namespace Plugin.BLE.iOS
             //_nativeDevice.UpdatedName += OnNameUpdated;
         }
 
+        /// <summary>
+        /// Subscribes to service changes of the peripheral. Only done while connected, so that
+        /// short-lived wrappers (e.g. from scanning) are not kept alive by the native peripheral.
+        /// </summary>
+        internal void AttachServicesChangedHandler()
+        {
+            NativeDevice.ModifiedServices -= OnModifiedServices;
+            NativeDevice.ModifiedServices += OnModifiedServices;
+        }
+
+        internal void DetachServicesChangedHandler()
+        {
+            NativeDevice.ModifiedServices -= OnModifiedServices;
+        }
+
+        private void OnModifiedServices(object sender, CBPeripheralServicesEventArgs e)
+        {
+            Trace.Message("Device services modified: clearing known services");
+            ClearKnownServices();
+        }
+
         private void OnNameUpdated(object sender, EventArgs e)
         {
             Name = ((CBPeripheral)sender).Name;

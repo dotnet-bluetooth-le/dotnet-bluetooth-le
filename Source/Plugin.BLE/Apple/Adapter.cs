@@ -22,6 +22,8 @@ namespace Plugin.BLE.iOS
         /// Helps to detect connection lost events.
         /// </summary>
         private readonly IDictionary<string, IDevice> _deviceOperationRegistry = new ConcurrentDictionary<string, IDevice>();
+        private readonly Dictionary<string, IDevice> _systemDevices = new Dictionary<string, IDevice>();
+        private readonly object _deviceTrackingLock = new object();
 
         public Adapter(CBCentralManager centralManager, IBleCentralManagerDelegate bleCentralManagerDelegate)
         {
@@ -75,10 +77,10 @@ namespace Plugin.BLE.iOS
                 else
                 {
                     Trace.Message("Device not found in operation registry. Creating a new one.");
-                    device = new Device(this, e.Peripheral, _bleCentralManagerDelegate);
+                    device = GetOrCreateConnectedDevice(e.Peripheral);
                 }
 
-                ConnectedDeviceRegistry[guid] = device;
+                TrackConnectedDevice(device);
                 HandleConnectedDevice(device);
             };
 
@@ -95,6 +97,7 @@ namespace Plugin.BLE.iOS
 
                 // normal disconnect (requested by user)
                 var isNormalDisconnect = _deviceOperationRegistry.TryGetValue(stringId, out var foundDevice);
+                var wasRequested = isNormalDisconnect;
                 if (isNormalDisconnect)
                 {
                     _deviceOperationRegistry.Remove(stringId);
@@ -107,17 +110,32 @@ namespace Plugin.BLE.iOS
                 }
 
                 // remove from connected devices
-                if (!ConnectedDeviceRegistry.TryRemove(stringId, out foundDevice))
+                var wasConnected = ConnectedDeviceRegistry.TryRemove(stringId, out foundDevice);
+                if (!wasConnected)
                 {
                     Trace.Message($"Device with id '{stringId}' was not found in the connected device registry. Nothing to remove.");
                 }
 
                 foundDevice = foundDevice ?? new Device(this, e.Peripheral, _bleCentralManagerDelegate);
 
+                CleanupConnectedDevice(foundDevice);
+                IDevice systemDevice;
+                lock (_deviceTrackingLock)
+                {
+                    _systemDevices.TryGetValue(stringId, out systemDevice);
+                    _systemDevices.Remove(stringId);
+                }
+                if (systemDevice != null && !ReferenceEquals(systemDevice, foundDevice))
+                {
+                    CleanupConnectedDevice(systemDevice);
+                    systemDevice.ClearServices();
+                }
+
                 //make sure all cached services are cleared this will also clear characteristics and descriptors implicitly
                 ((Device)foundDevice).ClearServices();
 
-                HandleDisconnectedDevice(isNormalDisconnect, foundDevice);
+                if (wasConnected || wasRequested || systemDevice == null)
+                    HandleDisconnectedDevice(isNormalDisconnect, foundDevice);
             };
 
             _bleCentralManagerDelegate.FailedToConnectPeripheral +=
@@ -142,6 +160,70 @@ namespace Plugin.BLE.iOS
         {
             throw new NotSupportedException();
         }
+
+        public override void ClearDeviceRegistries()
+        {
+            lock (_deviceTrackingLock)
+            {
+                foreach (var device in ConnectedDeviceRegistry.Values)
+                {
+                    CleanupConnectedDevice(device);
+                }
+                foreach (var device in _systemDevices.Values)
+                {
+                    CleanupConnectedDevice(device);
+                    if (!ConnectedDeviceRegistry.TryGetValue(device.Id.ToString(), out var connected) || !ReferenceEquals(device, connected))
+                        device.ClearServices();
+                }
+                _systemDevices.Clear();
+            }
+
+            base.ClearDeviceRegistries();
+        }
+
+        private static void CleanupConnectedDevice(IDevice device)
+        {
+            ((Device)device).DetachServicesChangedHandler();
+        }
+
+        private void TrackConnectedDevice(IDevice device)
+        {
+            var guid = device.Id.ToString();
+            lock (_deviceTrackingLock)
+            {
+                if (ConnectedDeviceRegistry.TryGetValue(guid, out var existingDevice) && !ReferenceEquals(existingDevice, device) &&
+                    (!_systemDevices.TryGetValue(guid, out var systemDevice) || !ReferenceEquals(existingDevice, systemDevice)))
+                {
+                    CleanupConnectedDevice(existingDevice);
+                }
+
+                ((Device)device).AttachServicesChangedHandler();
+                ConnectedDeviceRegistry[guid] = device;
+            }
+        }
+
+        private IDevice GetOrCreateConnectedDevice(CBPeripheral peripheral)
+        {
+            var guid = ParseDeviceGuid(peripheral).ToString();
+            lock (_deviceTrackingLock)
+            {
+                if (ConnectedDeviceRegistry.TryGetValue(guid, out var connected))
+                    return connected;
+                if (!_systemDevices.TryGetValue(guid, out var device))
+                {
+                    device = new Device(this, peripheral, _bleCentralManagerDelegate);
+                    if (device.State == DeviceState.Connected)
+                    {
+                        ((Device)device).AttachServicesChangedHandler();
+                        _systemDevices.Add(guid, device);
+                    }
+                }
+                return device;
+            }
+        }
+
+        protected override bool IsDeviceConnected(IDevice device) =>
+            device.State == DeviceState.Connected && ConnectedDeviceRegistry.ContainsKey(device.Id.ToString());
 
         protected override async Task StartScanningForDevicesNativeAsync(ScanFilterOptions scanFilterOptions, bool allowDuplicatesKey, CancellationToken scanCancellationToken)
         {
@@ -237,7 +319,7 @@ namespace Plugin.BLE.iOS
             }
 
 
-            var device = new Device(this, peripherial, _bleCentralManagerDelegate, peripherial.Name, peripherial.RSSI?.Int32Value ?? 0, new List<AdvertisementRecord>());
+            var device = GetOrCreateConnectedDevice(peripherial);
 
             await ConnectToDeviceAsync(device, connectParameters, cancellationToken);
             return device;
@@ -257,7 +339,7 @@ namespace Plugin.BLE.iOS
 
             var nativeDevices = _centralManager.RetrieveConnectedPeripherals(serviceUuids);
 
-            return nativeDevices.Select(d => new Device(this, d, _bleCentralManagerDelegate)).Cast<IDevice>().ToList();
+            return nativeDevices.Select(GetOrCreateConnectedDevice).ToList();
         }
 
         public override IReadOnlyList<IDevice> GetKnownDevicesByIds(Guid[] ids)
